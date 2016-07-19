@@ -1,0 +1,67 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 批量更新轨迹信息</h3>
+    </div>
+    <div class="widget-content">
+        <div class="wizard-wrapper">
+            <div id="order-package-wizard" class="wizard">
+                <ul class="steps">
+                    <li data-target="#step1" class="active"><span class="badge badge-info">1</span>上传文件<span class="chevron"></span></li>
+                    <li data-target="#step2"><span class="badge">2</span>文件预检测<span class="chevron"></span></li>
+                    <li data-target="#step3"><span class="badge">3</span>轨迹更新<span class="chevron"></span></li>
+                </ul>
+            </div>
+            <div class="step-content">
+                <div class="step-pane active" id="step1">
+                    <p><a class="btn btn-sm btn-primary" href="./resource/batchupdateorderstep.xlsx"><i class="fa fa-download fa-3x pull-left"></i> 批量更新轨迹物流<br /><small>Excel文件下载</small></a></p>
+                    <form id="form1" class="dropzone" enctype="multipart/form-data"></form>
+                </div>
+                <div class="step-pane" id="step2">
+                    <form id="form2">
+                        <p>
+                            正在对上传的文件进行预检查，请耐心等待...
+                            <br />
+                            <em><small class="red">预检查过程中请不要进行其它操作</small></em>
+                        </p>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="progress progress-striped active">
+                                    <div id="precheckProgressBar" class="progress-bar progress-bar-info" data-transitiongoal="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="contextual-summary-info contextual-background green-bg" ng-show="stepValidation[1] === true">
+                                    <i class="fa fa-check-circle"></i>
+                                    <p class="pull-right"><span style="font-size:32px;">文件预检查成功！</span></p>
+                                </div>
+                                <div class="contextual-summary-info contextual-background red-bg clearfix" ng-show="stepValidation[1] === false">
+                                    <i class="fa fa-close" style="width:5%"></i>
+                                    <p class="pull-right" style="width:95%"><span style="font-size:32px;">{{excelErrorMessage}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="step-pane" id="step3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="contextual-summary-info contextual-background green-bg" ng-show="stepValidation[2] === true">
+                                <i class="fa fa-check-circle"></i>
+                                <p class="pull-right"><span style="font-size:32px;">轨迹更新成功！</span></p>
+                            </div>
+                            <div class="contextual-summary-info contextual-background red-bg clearfix" ng-show="stepValidation[2] === false">
+                                <i class="fa fa-check-circle" style="width:5%"></i>
+                                <p class="pull-right" style="width:95%"><span style="font-size:32px;">{{excelErrorMessage}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="actions" ng-hide="stepIndex == 3">
+                <button type="button" class="btn btn-default btn-prev" ng-hide="stepIndex == 1"><i class="fa fa-arrow-left"></i> 上一步</button>
+                <button type="button" class="btn btn-primary btn-next" ng-show="stepIndex < 2" ng-disabled="!btnNextEnable">下一步 <i class="fa fa-arrow-right"></i></button>
+                <button type="button" class="btn btn-primary btn-update" ng-show="stepIndex == 2">轨迹更新 <i class="fa"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

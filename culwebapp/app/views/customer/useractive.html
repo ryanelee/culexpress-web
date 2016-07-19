@@ -1,0 +1,14 @@
+﻿<div class="container content" style="min-height:500px;max-width:600px; text-align:center;font-size:20px;" ng-controller="activeCtrl">
+    <div ng-if="model.actived!==undefined&&!!model.actived" class="text-success">
+        <div>
+            <i class="fa fa-2x fa-check-circle-o"></i>
+        </div>
+        恭喜，激活成功！您可以<a ui-sref="login" style="color:blue;">点此</a>登录。
+    </div>
+    <div ng-if="model.actived!==undefined&&!model.actived" class="text-danger">
+        <div>
+            <i class="fa fa-2x fa-times-circle-o"></i>
+        </div>
+        遗憾，激活失败！如有疑问请联系客服！您也可以<a ui-sref="register" style="color:blue;">点此</a>重新注册。
+    </div>
+</div>

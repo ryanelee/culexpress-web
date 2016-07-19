@@ -1,0 +1,74 @@
+﻿<div class="widget widget-table">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i> 财务列表</h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-sm-12 search-bar">
+                <div class="search-col">
+                    <label class="search-label">所属仓库：</label>
+                    <select class="form-control search-control"
+                            ng-model="searchBar.warehouseNumber"
+                            ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                </div>
+                <div class="clearfix"></div>
+                <div class="search-col">
+                    <label class="search-label">搜索条目：</label>
+                    <select class="form-control search-control" ng-model="searchBar.keywordType">
+                        <option value="customerNumber">客户编号</option>
+                    </select>
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>客户编号</th>
+                    <th>注册账号</th>
+                    <th>客户类型</th>
+                    <th>账户余额</th>
+                    <th>未收取费用（海淘订单）</th>
+                    <th>未收取费用（线下订单）</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in dataList">
+                    <td>{{item.rownumber}}</td>
+                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customerNumber}}</a></td>
+                    <td>{{item.userName}}</td>
+                    <td>{{tpl_status.customerType[item.userTypeName]}}</td>
+                    <td>￥{{item.accountBalance}}</td>
+                    <td>￥{{item.shippingFeeAdjust}}</td>
+                    <td>${{item.unPaid}}</td>
+                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'financedetail')">财务明细</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-6 text-right pull-right">
+                <uib-pagination class="pagination pagination-rewrite pull-right"
+                                boundary-links="true"
+                                max-size="5"
+                                total-items="pagination.totalCount"
+                                items-per-page="pagination.pageSize"
+                                ng-model="pagination.pageIndex"
+                                ng-change="getData()"
+                                previous-text="上一页"
+                                next-text="下一页"
+                                first-text="首页"
+                                last-text="尾页">
+                </uib-pagination>
+                <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

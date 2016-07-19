@@ -1,0 +1,356 @@
+<!--=== Profile ===-->
+<div class="row" ng-controller="MyAccountController">
+    <div class="profile-body margin-bottom-20">
+        <div class="tab-v1">
+            <ul class="nav nav-justified nav-tabs">
+                <li ng-class="{active: $stateParams.anchorid.includes('profile')}"><a data-toggle="tab" ui-sref="customer.myaccount({anchorid:'profile'})">我的信息</a></li>
+                <li ng-class="{active: $stateParams.anchorid.includes('passwordTab')}"><a data-toggle="tab" ui-sref="customer.myaccount({anchorid:'passwordTab'})">修改密码</a></li>
+                <li ng-class="{active: $stateParams.anchorid.includes('addressbook')}"><a data-toggle="tab" ui-sref="customer.myaccount({anchorid:'addressbook'})">收货地址</a></li>
+                <!--commit by clark-->
+                <!--<li ng-class="{active: $stateParams.anchorid.includes('earnpoint')}"><a data-toggle="tab" href="#earnpoint">我的积分</a></li>-->
+            </ul>
+            <div class="tab-content">
+                <div id="profile" class="profile-edit tab-pane fade {{ activateProfileTab }}" ng-init="initProfile()">
+                    <form ng-submit="saveProfile()" id="sky-form-myaccount" class="sky-form" novalidate="novalidate">
+                        <fieldset>
+                            <dl class="dl-horizontal">
+                                <dt><strong>注册名 </strong></dt>
+                                <dd ng-bind="currentUser.userName">
+                                </dd>
+                                <hr />
+                                <dt><strong>登录邮箱 </strong></dt>
+                                <dd ng-bind="currentUser.emailAddress">
+                                </dd>
+                                <hr />
+                                <dt><strong>名(First Name) </strong></dt>
+                                <dd>
+                                    <div>
+                                        <label class="input">
+                                            <input type="text" name="firstname" ng-model="model.firstName">
+                                        </label>
+                                        <div class="note">请填写汉语拼音姓名,最好和信用卡上的姓名一致.便于以后网上购物的地址填写</div>
+                                    </div>
+                                </dd>
+                                <hr />
+                                <dt><strong>姓(Last Name) </strong></dt>
+                                <dd>
+                                    <div>
+                                        <label class="input">
+                                            <input type="text" name="lastname" ng-model="model.lastName">
+                                        </label>
+                                        <div class="note">请填写汉语拼音姓名,最好和信用卡上的姓名一致.便于以后网上购物的地址填写</div>
+                                    </div>
+                                </dd>
+                                <hr />
+                                <dt><strong>生日 </strong></dt>
+                                <dd>
+                                    <label class="input">  <input class="control-date" type="text" ng-model="model.birthday" placeholder="请输入您的出生年月日" /></label>
+                                </dd>
+                                <hr />
+                                <empty ng-if="isApply || !!currentUser.isVip">
+                                    <dt><strong>公司名 </strong></dt>
+                                    <dd>
+                                        <label class="input"><input type="text" ng-model="model.companyName" ng-disabled="currentUser.vipStatus === 'Applied'" /></label>
+                                        <div class="note">请填写您的公司名称</div>
+                                    </dd>
+                                    <hr />
+                                    <dt><strong>公司地址 </strong></dt>
+                                    <dd>
+                                        <label class="input"><input type="text" ng-model="model.companyAddress" ng-disabled="currentUser.vipStatus === 'Applied'" /></label>
+                                        <div class="note">请填写正确的公司地址</div>
+                                    </dd>
+                                    <hr />
+                                    <dt><strong>公司网址 </strong></dt>
+                                    <dd>
+                                        <label class="input"><input type="text" ng-model="model.companySite" ng-disabled="currentUser.vipStatus === 'Applied'"></label>
+                                        <div class="note">请填写正确的公司网址,如：http://www.culexpress.com/ 或 https://www.culexpress.com/ </div>
+                                    </dd>
+                                    <hr />
+                                </empty>
+
+                                <dt><strong>性别 </strong></dt>
+                                <dd>
+                                    <div>
+                                        <label class="radio-inline"><input type="radio" ng-model="model.gender" value="F">女</label>
+                                        <label class="radio-inline"><input type="radio" ng-model="model.gender" value="M">男</label>
+                                    </div>
+                                </dd>
+                                <hr />
+                                <dt><strong>联系地址 </strong></dt>
+                                <dd>
+                                    <div class="row">
+                                        <span class="col col-4">
+                                            <label class="select">
+                                                <select ng-options="item as item.name for item in countryList" ng-model="selectedCountry"></select>
+                                                <i></i>
+                                            </label>
+                                        </span>
+                                        <span class="col col-4" ng-if="selectedCountry.code==='CHN'">
+                                            <label class="select">
+                                                <select ng-disabled="selectedCountry.code!=='CHN'"
+                                                        ng-options="item as item.name for item in provinceList" ng-model="selectedProvince" ng-change="reloadCityData(selectedProvince)"></select>
+                                                <i></i>
+                                            </label>
+                                        </span>
+                                        <span class="col col-4" ng-if="selectedCountry.code==='CHN'">
+                                            <label class="select">
+                                                <select ng-options="item as item.name for item in currentCities track by item.id" ng-model="selectedCity" ng-change="selectedCityHandler(selectedCity)"></select>
+                                                <i></i>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </dd>
+                                <hr />
+                                <dt><strong>详细地址 </strong></dt>
+                                <dd>
+                                    <div>
+                                        <label class="input">
+                                            <input type="text" name="address1" ng-model="model.address1">
+                                        </label>
+                                        <div class="note">填写你的联系或者发货地址,中国地址请用中文书写</div>
+                                    </div>
+                                </dd>
+                                <hr />
+                                <dt><strong>邮政编码 </strong></dt>
+                                <dd>
+                                    <div>
+                                        <label class="input">
+                                            <i class="icon-append fa fa-asterisk"></i>
+                                            <input type="text" name="zipcode" ng-model="model.zipcode">
+                                        </label>
+                                        <div class="note">邮政编码必须为数字.<a href="http://www.ip138.com/post/" target="_blank">点击查询邮政编码</a></div>
+                                    </div>
+                                </dd>
+                                <hr />
+                                <dt><strong>手机号码 </strong></dt>
+                                <dd>
+                                    <div>
+                                        <label class="input">
+                                            <i class="icon-append fa fa-asterisk"></i>
+                                            <input type="text" name="cellphoneNumber" ng-model="model.cellphoneNumber">
+                                        </label>
+                                    </div>
+                                </dd>
+                                <hr>
+                                <dt><strong>座机号码 </strong></dt>
+                                <dd>
+                                    <div>
+                                        <label class="input">
+                                            <i class="icon-append fa fa-phone"></i>
+                                            <input type="tel" name="telephoneNumber" ng-model="model.telephoneNumber">
+                                        </label>
+                                    </div>
+                                </dd>
+                                <hr />
+                                <dt><strong>QQ号码 </strong></dt>
+                                <dd>
+                                    <div>
+                                        <label class="input">
+                                            <i class="icon-append fa fa-asterisk"></i>
+                                            <input type="text" name="QQ" ng-model="model.QQ">
+                                        </label>
+                                    </div>
+                                </dd>
+                                <hr>
+                                <dt><strong>MSN </strong></dt>
+                                <dd>
+                                    <div>
+                                        <label class="input">
+                                            <input type="text" ng-model="model.MSN">
+                                        </label>
+                                    </div>
+                                </dd>
+                                <hr>
+                                <dt><strong>淘宝旺旺 </strong></dt>
+                                <dd>
+                                    <div>
+                                        <label class="input">
+                                            <input type="text" ng-model="model.taobaoWangwang">
+                                        </label>
+                                    </div>
+                                </dd>
+                                <hr>
+                                <dt><strong>备注信息 </strong></dt>
+                                <dd>
+                                    <div>
+                                        <label class="textarea">
+                                            <i class="icon-prepend fa fa-comment"></i>
+                                            <textarea rows="3" ng-model="model.note"></textarea>
+                                        </label>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </fieldset>
+                        <footer>
+                            <button type="submit" class="btn-u">保存修改</button>
+                            <button type="button" class="btn-u btn-u-default">取消</button>
+                            <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+                            <i class="color-red icon-line icon-close" data-ng-show="showProfileError"></i>
+                            <span class="color-red" data-ng-show="showProfileError" data-ng-bind="profileError"></span>
+                            <i class="color-red icon-line icon-check" data-ng-show="showProfileInfo"></i>
+                            <span class="color-red" data-ng-show="showProfileInfo" data-ng-bind="profileInfo"></span>
+                        </footer>
+                    </form>
+                </div>
+
+                <div id="passwordTab" class="profile-edit tab-pane fade {{ activatePasswordTab }}">
+                    <form class="sky-form" id="sky-form4">
+                        <dl class="dl-horizontal">
+                            <dt>当前密码</dt>
+                            <dd>
+                                <section>
+                                    <label class="input">
+                                        <i class="icon-append fa fa-lock"></i>
+                                        <input type="password" id="password" ng-model="model.password">
+                                        <b class="tooltip tooltip-bottom-right">请输入当前密码</b>
+                                    </label>
+                                </section>
+                            </dd>
+                            <dt>新密码</dt>
+                            <dd>
+                                <section>
+                                    <label class="input">
+                                        <i class="icon-append fa fa-lock"></i>
+                                        <input type="password" id="password" ng-model="model.newPassword">
+                                        <b class="tooltip tooltip-bottom-right">密码可为英文、符号、数字，长度6-20位</b>
+                                    </label>
+                                </section>
+                            </dd>
+                            <dt>确认新密码</dt>
+                            <dd>
+                                <section>
+                                    <label class="input">
+                                        <i class="icon-append fa fa-lock"></i>
+                                        <input type="password" ng-model="model.passwordConfirm">
+                                        <b class="tooltip tooltip-bottom-right">请再次确认您的密码</b>
+                                    </label>
+                                </section>
+                            </dd>
+                        </dl>
+                        <br>
+                        <button class="btn-u" ng-click="changePassword();">保存修改</button>
+                        <button type="button" class="btn-u btn-u-default">取消</button>
+                        <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+                    </form>
+                </div>
+
+                <div id="addressbook" class="profile-edit tab-pane fade {{ activateAddressTab }}">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width:20px;">#</th>
+                                    <th style="width:100px;">收货人</th>
+                                    <th style="width:150px;">手机号码</th>
+                                    <th>收货地址</th>
+                                    <th style="width:80px;">是否验证</th>
+                                    <th style="width:80px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="addressItem in addressListData">
+                                    <td style="width:20px;">{{addressItem.rownumber}}</td>
+                                    <td>
+                                        {{addressItem.receivePersonName}}
+                                    </td>
+                                    <td>
+                                        <i class="color-red fa fa-phone"></i>
+                                        {{addressItem.cellphoneNumber}}
+                                    </td>
+                                    <td>
+                                        <p><i class="color-red fa fa-map-marker"></i> {{addressItem.stateOrProvince}}</p>
+                                        <p>{{addressItem.address1}} <small>{{addressItem.zipcode}}</small></p>
+                                    </td>
+                                    <td>
+                                        <span class="label label-success" ng-if="addressItem.verifyMark==1">验证通过</span>
+                                        <span class="label label-warning" ng-if="addressItem.verifyMark==0">未验证</span>
+                                        <span class="label label-danger" ng-if="addressItem.verifyMark==-1">验证失败</span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn-u btn-u-sm btn-u-dark" ng-click="deleteAddress(addressItem);"><i class="fa fa-trash-o"></i></button>
+                                        <button type="button" class="btn-u btn-u-sm btn-u-dark" ng-click="redirectToEdit(addressItem);"><i class="fa fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <a class="btn-u" href="javascript:void(0)" ng-click="redirectToAdd();">
+                                <i class="fa fa-plus-square"> 添加地址</i>
+                            </a>
+                            <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+                        </div>
+                        <div class="col-sm-9 text-right">
+                            <pagination options="pagedOptions" on-page="onPaged"></pagination>
+                        </div>
+                    </div>
+                </div>
+
+                <!--commit by clark-->
+                <!--<div id="earnpoint" class="profile-edit tab-pane fade {{ activateEarnPointTab }}">
+                    <div class="counters">
+                        <span class="counter-icon"><i class="fa fa-gift rounded"></i></span>
+                        <span class="counter">78</span>
+                        <div class="alert alert-warning fade in" style="text-align:left">
+                            <strong>积分说明:</strong> 1积分=1元，可以抵扣运费，积分不可提现，仅用于运费抵扣消费.
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>操作时间</th>
+                                    <th>操作说明</th>
+                                    <th>积分数</th>
+                                    <th>状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        2015-08-13 16:04:00
+                                    </td>
+                                    <td>
+                                        获得积分
+                                    </td>
+                                    <td>
+                                        100
+                                    </td>
+                                    <td>
+                                        <span class="label label-success">正常</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        2015-08-23 16:04:00
+                                    </td>
+                                    <td>
+                                        使用积分
+                                    </td>
+                                    <td>
+                                        50
+                                    </td>
+                                    <td>
+                                        <span class="label label-success">正常</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <style>
+        .datepicker-dropdown:before,
+        .datepicker-dropdown:after {
+            display: none !important;
+        }
+    </style>
+
+</div>

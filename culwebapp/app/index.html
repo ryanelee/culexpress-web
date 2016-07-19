@@ -1,0 +1,411 @@
+﻿<!doctype html>
+<html>
+<head>
+    <!--<base href="/"/>-->
+    <meta charset="utf-8">
+    <title>中美速递 - 海淘服务专家</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <!--[if lt IE 9]><link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/css/sky-forms-ie8.css"><![endif]-->
+    <!--<link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>-->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/assets.css -->
+    <link rel="stylesheet" href="assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css" />
+    <link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css" />
+    <link rel="stylesheet" href="assets/css/pages/page_log_reg_v1.css">
+    <link rel="stylesheet" href="assets/css/pages/profile.css">
+
+    <!--used by dashboard-->
+    <link rel="stylesheet" href="assets/css/pages/page_pricing.css">
+
+    <link href="assets/plugins/bootstrap-datepicker/datepicker3.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/headers/header-default.css" />
+    <link rel="stylesheet" href="assets/css/footers/footer-v1.css" />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+
+    <link rel="stylesheet" href="assets/plugins/line-icons/line-icons.css" />
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css" />
+
+    <link rel="stylesheet" href="assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.css" />
+    <link rel="stylesheet" href="assets/plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css" />
+    <link rel="stylesheet" href="assets/plugins/parallax-slider/css/parallax-slider.css" />
+    <link rel="stylesheet" href="assets/plugins/owl-carousel/owl-carousel/owl.carousel.css" />
+    <link rel="stylesheet" href="assets/plugins/horizontal-parallax/css/horizontal-parallax.css" />
+    <link rel="stylesheet" href="assets/css/plugins/sweetalert.css" />
+    <link rel="stylesheet" href="assets/css/theme-colors/red.css" id="style_color" />
+    <link rel="stylesheet" href="assets/css/theme-skins/dark.css" />
+    <link href="assets/plugins/shortcode/shortcode_timeline2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/custom.css" />
+
+
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="assets/css/theme-colors/red.css" id="style_color">
+    <link rel="stylesheet" href="assets/css/pages/page_contact.css">
+    <!-- endbuild -->
+</head>
+<body ng-app="culwebApp" ng-controller="IndexController">
+    <loading></loading>
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=189525378&site=qq&menu=yes"
+       class="tooltips" data-toggle="tooltip" title="联系客服" data-original-title="联系客服" target="_blank">
+        <i class="style-switcher-btn fa fa-qq hidden-xs hidden-sm hidden-md"></i>
+    </a>
+
+    <div class="wrapper">
+        <div class="header">
+            <div class="container">
+                <a class="logo" ui-sref="/">
+                    <img src="assets/img/logo.png" alt="Logo" />
+                </a>
+                <div class="topbar">
+                    <ul class="loginbar pull-right">
+                        <li><a ui-sref="howtouse">帮助</a></li>
+                        <li class="topbar-devider"></li>
+                        <li data-ng-hide="isLogined"><a ui-sref="login">登录</a></li>
+                        <li data-ng-hide="isLogined"><a ui-sref="register">注册</a></li>
+                        <li data-ng-show="isLogined"><a ui-sref="login" data-ng-click="logout()">注销</a></li>
+                        <li class="topbar-devider" data-ng-show="isLogined"></li>
+                        <li class="hoverSelector" data-ng-show="isLogined">
+                            <i class="fa fa-user"></i>
+                            <a ui-sref="customer.myaccount({anchorid:'profile'})">您好,<span data-ng-bind="currentUser.userName"></span> <span class="color-orange" ng-show="isLackProfile">[您还未填写个人资料]</span></a>
+                            <ul class="dropdown-menu" ng-show="!isLackProfile">
+                                <li ng-class="{active: $state.includes('customer.myhome')}">
+                                    <a ui-sref="customer.myhome"><i class="fa fa-bar-chart-o"></i> 用户中心</a>
+                                </li>
+                                <li ng-class="{active: $state.includes('customer.shippingnotice')}">
+                                    <a ui-sref="customer.shippingnotice"><i class="fa fa-truck"></i> 货物预报</a>
+                                </li>
+                                <li ng-class="{active: $state.includes('customer.myorders')}">
+                                    <a ui-sref="customer.myorders"><i class="fa fa-shopping-cart"></i> 我的订单</a>
+                                </li>
+                                <li ng-class="{active: $state.includes('customer.products')}" ng-if="currentUser.isVip">
+                                    <a ui-sref="customer.products"><i class="fa fa-cubes"></i> 商品列表</a>
+                                </li>
+                                <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
+                                    <a ui-sref="/"><i class="fa fa-arrow-circle-right"></i> 寄送库存</a>
+                                </li>
+                                <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
+                                    <a ui-sref="customer.products"><i class="fa fa-list"></i> 库存寄件列表</a>
+                                </li>
+                                <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
+                                    <a ui-sref="/"><i class="fa fa-plus-square"></i> 创建订单</a>
+                                </li>
+                                <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
+                                    <a ui-sref="/"><i class="fa fa-list-ol"></i> 订单查询</a>
+                                </li>
+                                <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
+                                    <a ui-sref="/"><i class="fa fa-print"></i> 订单打印</a>
+                                </li>
+                                <li ng-class="{active: $state.includes('customer.myquestions')}">
+                                    <a ui-sref="customer.myquestions"><i class="fa fa-question-circle"></i> 我的问题</a>
+                                </li>
+                                <li ng-class="{active: $state.includes('customer.myaccount')}">
+                                    <a ui-sref="customer.myaccount({anchorid:'profile'})"><i class="fa fa-user"></i> 个人设置</a>
+                                </li>
+                                <li ng-class="{active: $state.includes('customer.myfinance')}">
+                                    <a ui-sref="customer.myfinance"><i class="fa fa-university"></i> 财务信息</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse-search">
+                    <span class="sr-only">运单查询</span>
+                    <span class="fa fa-truck"></span>                  
+                </button>-->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="sr-only">功能导航</span>
+                    <span class="fa fa-bars"></span>
+                </button>
+            </div>
+            <div class="hidden-md hidden-lg hidden-xl navbar-collapse mega-menu navbar-responsive-collapse-search">
+                <div class="container">
+                    <div class="search-open">
+                        <div class="input-group animated fadeInDown">
+                            <input type="text" id="txtTrackingNumber" class="form-control" placeholder="运单查询" ng-model="trackingNumber" >
+                            <span class="input-group-btn">
+                                <a class="btn-u btn-u-sm btn-u-red" href="#/ordertracking/{{trackingNumber}}">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
+                <div class="container">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{active: $state.includes('/')}">
+                            <a ui-sref="/">
+                                首页
+                            </a>
+                        </li>
+                        <li ng-class="{active: $state.includes('howtouse')}">
+                            <a ui-sref="howtouse">
+                                使用流程
+                            </a>
+                        </li>
+                        <li ng-class="{active: $state.includes('faq')}">
+                            <a ui-sref="faq">
+                                常见问题
+                            </a>
+                        </li>
+                        <li ng-class="{active: $state.includes('about')}">
+                            <a ui-sref="about">
+                                关于我们
+                            </a>
+                        </li>
+                        <li ng-class="{active: $state.includes('contact')}">
+                            <a ui-sref="contact">
+                                联系我们
+                            </a>
+                        </li>
+                        <li style="padding-top:5px;" class="hidden-xs hidden-sm">
+                            <input id="txtTrackingNumber" type="text" placeholder="运单查询" ng-model="trackingNumber">
+                            <span ng-show="!trackingNumber">
+                                <a class="btn-u btn-u-sm btn-u-red">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </span>
+                            <span ng-show="!!trackingNumber">
+                                <a class="btn-u btn-u-sm btn-u-red" href="#/ordertracking/{{trackingNumber}}">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div ui-view></div>
+
+        <div class="footer-v1">
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <!-- About -->
+                        <div class="col-md-3 md-margin-bottom-40">
+                            <a ui-sref="/"><img id="logo-footer" class="footer-logo" src="assets/img/logo-black.png" alt=""></a>
+                            <p>中美速递,海淘服务专家.公司总部设在美国免税州俄勒冈州.</p>
+                            <p>我们拥有多年处理中美空海运进出口的经验,成熟的配套设施和专业的管理团队让我们在业内外赢得广泛的认同.</p>
+                        </div><!--/col-md-3-->
+                        <!-- End About -->
+                        <!-- Latest -->
+                        <div class="col-md-3 md-margin-bottom-40">
+                            <div class="posts">
+                                <div class="headline"><h2>在线客服</h2></div>
+                                <ul class="list-unstyled latest-list">
+                                    <li>
+                                        <span class="color-red">查件咨询客服:</span>
+                                        <a href="http://wpa.qq.com/msgrd?v=3&uin=189525378&site=qq&menu=yes"
+                                           class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="QQ在线客服" target="_blank"><i class="fa fa-qq"></i>&nbsp;008</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">工作时间:北京时间9:00 - 17:30</a>
+                                    </li>
+                                    <li>
+                                        <input id="txtTrackingNumber" type="text" placeholder="运单查询" ng-model="trackingNumber">
+                                        <span ng-show="!trackingNumber">
+                                            <a class="btn-u btn-u-sm btn-u-red">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </span>
+                                        <span ng-show="!!trackingNumber">
+                                            <a class="btn-u btn-u-sm btn-u-red" href="#/ordertracking/{{trackingNumber}}">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div><!--/col-md-3-->
+                        <!-- End Latest -->
+                        <!-- Link List -->
+                        <div class="col-md-3 md-margin-bottom-40">
+                            <div class="headline"><h2>网友推荐</h2></div>
+                            <ul class="list-unstyled link-list">
+                                <li data-ng-repeat="Reference in References"><a href="{{ Reference.url }}">{{ Reference.subject }}</a><i class="fa fa-angle-right"></i></li>
+                            </ul>
+                        </div><!--/col-md-3-->
+                        <!-- End Link List -->
+                        <!-- Address -->
+                        <div class="col-md-3 map-img md-margin-bottom-40">
+                            <div class="headline"><h2>联系我们</h2></div>
+                            <address class="md-margin-bottom-40">
+                                16710 SW 72nd Ave.,Portland <br />
+                                Oregon, US 97224<br />
+                                Phone: 626-542-3266 <br />
+                                Email: <a href="mailto:cs@culexpress.com" class="">CS@culexpress.com</a>
+                            </address>
+                        </div><!--/col-md-3-->
+                        <!-- End Address -->
+                    </div>
+                </div>
+            </div><!--/footer-->
+
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                <script type="text/javascript">document.write((new Date()).getFullYear());</script> &copy; culexpress.com. All Rights Reserved.
+                                <a href="#/faq">Privacy Policy</a> | <a href="#/terms">Terms of Service</a> | <a ui-sref="jobs">Jobs</a>
+                            </p>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="col-md-6">
+                            <ul class="footer-socials list-inline">
+                                <li>
+                                    <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Weibo">
+                                        <i class="fa fa-weibo"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="QQ">
+                                        <i class="fa fa-qq"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Weixin">
+                                        <i class="fa fa-weixin"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- End Social Links -->
+                    </div>
+                </div>
+            </div><!--/copyright-->
+        </div>
+    </div>
+
+    <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="assets/plugins/gmap/gmap.js"></script>-->
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/jquery-migrate/jquery-migrate.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/assets.js -->
+
+    <script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="assets/plugins/smoothScroll.js"></script>
+    <script type="text/javascript" src="assets/plugins/parallax-slider/js/modernizr.js"></script>
+    <script type="text/javascript" src="assets/plugins/parallax-slider/js/jquery.cslider.js"></script>
+    <script type="text/javascript" src="assets/plugins/owl-carousel/owl-carousel/owl.carousel.js"></script>
+    <script type="text/javascript" src="assets/plugins/horizontal-parallax/js/sequence.jquery-min.js"></script>
+    <script type="text/javascript" src="assets/plugins/crypto-js/aes.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/sweetalert.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
+    <script type="text/javascript" src="assets/js/custom.js"></script>
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/owl-carousel.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/parallax-slider.js"></script>
+    <script type="text/javascript" src="assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/cube-portfolio/cube-portfolio-4.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery.parallax.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/owl-recent-works.js"></script>
+    <script src="assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script src="assets/plugins/bootstrap-datepicker/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script type="text/javascript" src="assets/js/forms/reg.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/masking.js"></script>
+    <script type="text/javascript" src="assets/js/forms/checkout.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/validation.js"></script>
+    <script type="text/javascript" src="assets/plugins/counter/waypoints.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/counter/jquery.counterup.min.js"></script>
+    <script type="text/javascript" src="assets/js/forms/contact.js"></script>
+    <script type="text/javascript" src="assets/js/pages/page_contacts.js"></script>
+   
+
+
+    <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script type="text/javascript" src="scripts/config.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <script type="text/javascript" src="scripts/services/authService.js"></script>
+    <script type="text/javascript" src="scripts/services/orderService.js"></script>
+    <script type="text/javascript" src="scripts/services/customerService.js"></script>
+    <script src="scripts/services/settlementSvr.js"></script>
+    <script type="text/javascript" src="scripts/controllers/customer/loginController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/customer/registerController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/aboutController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/contactController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/indexController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/mainController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/customer/customerController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/customer/myAccountController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/customer/myDashboardController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/customer/myFinanceController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/customer/myHomeController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/customer/myOrdersController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/customer/myQuestionsController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/customer/shippingNoticeController.js"></script>
+    <script src="scripts/controllers/customer/activeCtrl.js"></script>
+    <script src="scripts/controllers/customer/forgetController.js"></script>
+    <script src="scripts/controllers/customer/myaddresscontroller.js"></script>
+    <script src="scripts/controllers/products/productsController.js"></script>
+    <script src="scripts/controllers/products/productEditController.js"></script>
+    <script src="scripts/controllers/billing/report.js"></script>
+
+    <script src="scripts/directives/loading.js"></script>
+    <script src="scripts/services/addresssvr.js"></script>
+    <script src="scripts/controllers/customer/orderdetail.js"></script>
+    <script src="scripts/controllers/customer/ordertrack.js"></script>
+    <script src="scripts/controllers/customer/ordertracking.js"></script>
+    <script src="scripts/controllers/customer/questiondetail.js"></script>
+    <script src="scripts/directives/stepwizard.js"></script>
+    <script src="scripts/directives/daterangesearch.js"></script>
+    <script src="scripts/directives/menu.js"></script>
+    <script src="assets/js/www-umiex-com-Google-analytics.js"></script>
+    <!-- endbuild -->
+
+
+    <!--[if lt IE 9]>
+          <script src="assets/plugins/respond.js"></script>
+          <script src="assets/plugins/html5shiv.js"></script>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+          <script src="assets/plugins/sky-forms-pro/skyforms/js/sky-forms-ie8.js"></script>
+      <![endif]-->
+    <!--[if lt IE 10]>
+        <script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.placeholder.min.js"></script>
+    <![endif]-->
+
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+﻿<div class="widget-content">
+    <!-- NUMBER-CHART STAT -->
+    <div class="row">
+        <div class="col-md-3 col-sm-6" ng-repeat="item in data">
+            <div class="number-chart">
+                <div class="number pull-left"><span>{{item.symbol}}{{item.total | number}}</span> <span>{{item.title}}</span></div>
+                <div class="mini-stat">
+                    <div class="inlinesparkline">Loading...</div>
+                    <p class="text-muted"><i class="fa {{item.icon}} green-font"></i>{{item.icon == 'fa-caret-up' ? '高' : '低'}}于上周 {{item.percent}}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END NUMBER-CHART STAT -->
+</div>

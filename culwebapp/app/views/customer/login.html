@@ -1,0 +1,67 @@
+<!-- CSS Page Style -->
+<!--=== Content Part ===-->
+<div class="container content" ng-controller="LoginController">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+            <form ng-submit="login()" id="sky-form1" class="sky-form" novalidate="novalidate">
+                <header>登录您的账户</header>
+
+                <fieldset>                  
+                    <section>
+                        <div class="row">
+                            <label class="label col col-3">注册邮箱</label>
+                            <div class="col col-9">
+                                <label class="input">
+                                    <i class="icon-append fa fa-user"></i>
+                                    <input type="email" name="email" data-ng-model="emailAddress">
+                                    <b class="tooltip tooltip-bottom-right">请输入您注册时填写的邮箱地址</b>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="row">
+                            <label class="label col col-3">密码</label>
+                            <div class="col col-9">
+                                <label class="input">
+                                    <i class="icon-append fa fa-lock"></i>
+                                    <input type="password" name="password" data-ng-model="password">
+                                    <b class="tooltip tooltip-bottom-right">密码长度为6-20位，可为英文、符号、数字</b>
+                                </label>
+                                <div class="note"><a ui-sref="forgetpassword" class="modal-opener">忘记密码?</a></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--<section>
+                        <div class="row">
+                            <div class="col col-3"></div>
+                            <div class="col col-9">
+                                <label class="checkbox"><input type="checkbox" name="remember" ng-checked="rememberMe" ng-model="remeberMe"><i></i>下次自动登录</label>
+                            </div>
+                        </div>
+                    </section>-->
+                </fieldset>
+                <footer>
+                    <button type="submit" name="submit" class="btn-u">登录</button>
+                    <a ui-sref="register" class="btn-u btn-u-default">注册</a>
+                    <i class="color-red icon-line icon-shield" data-ng-show="showLoginError"></i>
+                    <span class="color-red" data-ng-show="showLoginError" data-ng-bind="loginError"></span>
+                </footer>
+            </form>
+        </div>
+    </div><!--/row-->
+</div><!--/container-->
+<!--=== End Content Part ===-->
+<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
+<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>
+<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+<script type="text/javascript" src="assets/js/forms/login.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        App.init();
+        LoginForm.initLoginForm();
+        
+    });
+</script>

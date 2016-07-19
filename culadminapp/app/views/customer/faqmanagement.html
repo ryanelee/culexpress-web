@@ -1,0 +1,14 @@
+﻿<div class="widget-content">
+    <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+        <li class="active"><a href="javascript:void(0)" data-target="#faq-manage" role="tab" data-toggle="tab">问题处理</a></li>
+        <li><a href="javascript:void(0)" role="tab" data-target="#msg-manage" data-toggle="tab" >留言管理</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="faq-manage">
+            <div ng-include="'views/customer/faqlist.html'"></div>
+        </div>
+        <div class="tab-pane fade" id="msg-manage">
+            <div ng-include="'views/customer/msglist.html'"></div>
+        </div>
+    </div>
+</div>

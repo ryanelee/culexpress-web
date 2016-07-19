@@ -1,0 +1,260 @@
+<!-- Profile Content -->
+<div class="profile-body profile-blog blog-border" ng-controller="MyDashboardController">
+    <!--Service Block v3-->
+    <div class="row margin-bottom-10">
+        <div class="col-sm-6 sm-margin-bottom-20">
+            <div class="service-block-v3 service-block-u">
+                <i class="icon-basket-loaded"></i>
+                <span class="service-heading">我的包裹</span>
+                <span class="counter" id="totalPackageCount">{{currentUser.totalPackageCount|number}}</span>
+
+                <div class="clearfix margin-bottom-10"></div>
+
+                <div class="row margin-bottom-20">
+                    <div class="col-xs-6 service-in">
+                        <a ui-sref="customer.shippingnoticelist({status:'Intransit'})"><small>未入库</small></a>
+                        <h4 class="counter" id="unreceivedPackageCount">{{currentUser.unreceivedPackageCount|number}}</h4>
+                    </div>
+                    <div class="col-xs-6 text-right service-in">
+                        <a ui-sref="customer.shippingnoticelist({status:'Inbound'})"><small>已入库</small></a>
+                        <h4 class="counter" id="receivedPackageCount">{{currentUser.receivedPackageCount|number}}</h4>
+                    </div>
+                </div>
+                <div class="statistics">
+                    <div class="progress progress-u progress-xxs">
+                        <div style="width: 100%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" role="progressbar" class="progress-bar progress-bar-light">
+                        </div>
+                    </div>
+                    <ul class="list-inline">
+                        <li>
+                            <a ui-sref="customer.myorders({status:'Shipped'})" class="tooltips" data-toggle="tooltip" data-original-title="运单已从美国仓库出货">
+                                <small><span class="badge rounded-2x badge-orange" id="shippedOrderCount">{{currentUser.shippedOrderCount|number}}</span> 运单已出库</small>
+                            </a>
+                        </li>
+                        <li>
+                            <a ui-sref="customer.myorders({status:'Unpaid'})" class="tooltips" data-toggle="tooltip" data-original-title="请尽快支付以免影响运单处理">
+                                <small>
+                                    <span class="badge rounded-2x badge-orange" id="unpaidOrderCount">{{currentUser.unpaidOrderCount|number}}</span> 运单待支付
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a ui-sref="customer.myorders({status:'Arrears'})" class="tooltips" data-toggle="tooltip" data-original-title="请尽快充值以免影响运单处理">
+                                <small>
+                                    <span class="badge rounded-2x badge-orange" id="overdraftOrderCount">{{currentUser.overdraftOrderCount|number}}</span> 运单运费不足
+                                </small>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="service-block-v3 service-block-blue">
+                <i class="icon-wallet"></i>
+                <span class="service-heading">账户余额<small>￥</small></span>
+                <span class="counter" id="myAccountBalance">{{currentUser.accountBalance|number}}</span>
+
+                <div class="clearfix margin-bottom-10"></div>
+
+                <div class="row margin-bottom-20">
+                    <div class="col-xs-6 service-in">
+                        <!--commit by clark-->
+                        <!--<a ui-sref="customer.myaccount({anchorid:'earnpoint'})"><small>我的积分</small></a>-->
+                        <small>我的积分</small>
+                        <h4>{{(currentUser.myPoint||0)|number}}</h4>
+                    </div>
+                    <div class="col-xs-6 text-right service-in">
+                        <!--commit by clark-->
+                        <!--<a ui-sref="customer.myquestions"><small>我的问题</small></a>-->
+                        <small>我的问题</small>
+                        <h4>{{(currentUser.openQuestionCount||0)|number}}</h4>
+                    </div>
+                </div>
+                <div class="statistics">
+                    <div class="progress progress-u progress-xxs">
+                        <div style="width: 100%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" role="progressbar" class="progress-bar progress-bar-light">
+                        </div>
+                    </div>
+                    <ul class="list-inline">
+                        <li>
+                            <a ui-sref="customer.myfinance" class="tooltips" data-toggle="tooltip" data-original-title="点击在线充值"><small>在线充值</small></a>
+                        </li>
+                        <li>
+                            <a ui-sref="customer.myfinancedetail({tabId:'recharge'})" class="tooltips" data-toggle="tooltip" data-original-title="点击查看充值记录充值"><small>充值记录</small></a>
+                        </li>
+                        <li>
+                            <a ui-sref="customer.myfinancedetail({tabId:'debit'})" class="tooltips" data-toggle="tooltip" data-original-title="点击查看扣款明细"><small>扣款明细</small></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><!--/end row-->
+    <!--End Service Block v3-->
+
+    <hr>
+    <div class="row margin-bottom-40">
+        <!--Profile Post-->
+        <div class="col-sm-6">
+            <div class="panel panel-profile no-bg">
+                <div class="panel-heading overflow-h">
+                    <h2 class="panel-title heading-sm pull-left"><i class="fa fa-bullhorn"></i>公告</h2>
+                    <!--<a href="#"><i class="fa fa-cog pull-right"></i></a>-->
+                </div>
+                <div id="scrollbar" class="panel-body no-padding mCustomScrollbar" data-mcs-theme="minimal-dark">
+                    <div class="profile-post color-one">
+                        <span class="profile-post-numb">01</span>
+                        <div class="profile-post-in">
+                            <h3 class="heading-xs"><a href="#">重要通知</a></h3>
+                            <p>加州收货地址改为: 712 Nogales St,City of Industry,CA 91748. 请大家发货到新地址.</p>
+                        </div>
+                    </div>
+                    <div class="profile-post color-two">
+                        <span class="profile-post-numb">02</span>
+                        <div class="profile-post-in">
+                            <h3 class="heading-xs"><a href="#">OR-CA线小包裹全线提速</a></h3>
+                            <p>自5月开始,OR-CA线10lb以下的小包裹全线提速.中转费只要6.5RMB!中转时间是3-5个工作日,经济又实惠!</p>
+                        </div>
+                    </div>
+                    <div class="profile-post color-three">
+                        <span class="profile-post-numb">03</span>
+                        <div class="profile-post-in">
+                            <h3 class="heading-xs"><a href="#">网购返利利器</a></h3>
+                            <p>网购返利访问<a href="http://www.rebateus.com">RebateUS.com</a>,更多折扣信息更多返利收益!</p>
+                        </div>
+                    </div>
+                    <div class="profile-post color-three">
+                        <span class="profile-post-numb">04</span>
+                        <div class="profile-post-in">
+                            <h3 class="heading-xs"><a href="#">美货商城有新品上架</a></h3>
+                            <p>美国原装 Schiff Move Free 三倍强效维骨力160粒 售价：149元.大家可以进入美货商城下订单,仅限CA仓库.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Profile Post-->
+        <!--Profile Event-->
+        <div class="col-sm-6 md-margin-bottom-40">
+            <div class="panel panel-profile no-bg">
+                <div class="panel-heading overflow-h">
+                    <h2 class="panel-title heading-sm pull-left"><i class="fa fa-calendar-o"></i>促销活动</h2>
+                    <!--<a href="#"><i class="fa fa-cog pull-right"></i></a>-->
+                </div>
+                <div id="scrollbar2" class="panel-body no-padding mCustomScrollbar" data-mcs-theme="minimal-dark">
+                    <div class="profile-event">
+                        <div class="date-formats">
+                            <span>26</span>
+                            <small>11, 2015</small>
+                        </div>
+                        <div class="overflow-h">
+                            <h3 class="heading-xs"><a href="#">感恩节</a></h3>
+                            <p>年度最大促销从感恩节前一个月左右开始，这个时候各个商家都争先恐后地推出最大折扣，商品的价格低得吓人！是全年最佳的入货时间.</p>
+                        </div>
+                    </div>
+                    <div class="profile-event">
+                        <div class="date-formats">
+                            <span>27</span>
+                            <small>11, 2015</small>
+                        </div>
+                        <div class="overflow-h">
+                            <h3 class="heading-xs"><a href="#">黑色星期五</a></h3>
+                            <p>感恩节后的第一天,很多消费者把这一天看作准备圣诞礼物或买到便宜货的黄金时刻，由于降价商品数量有限，很多热门商店（如沃尔玛）门前在前一天晚上就会排起长队.</p>
+                        </div>
+                    </div>
+                    <div class="profile-event">
+                        <div class="date-formats">
+                            <span>01</span>
+                            <small>12, 2015</small>
+                        </div>
+                        <div class="overflow-h">
+                            <h3 class="heading-xs"><a href="#">网络星期一</a></h3>
+                            <p>黑色星期五之后的周一被称为Cyber Monday，也是感恩节促销的高峰日。因为之后不久就是圣诞节，所以这个打折季会持续两个月，是最疯狂的折扣季节.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Profile Event-->
+    </div><!--/end row-->
+
+    <div class="headline"><h2>收货地址</h2></div>
+    <div class="alert alert-warning fade in">
+        请大家在购物网站下单时一定记得写上姓后面的4个字母收件标示和单元号,单元号可以写在第一行地址后面也可以写在地址第二行.
+    </div>
+    <div class="row margin-bottom-20 pricing-bg-colored">
+        <!--commit by clark-->
+        <!--<div class="col-md-4 col-sm-6">
+            <div class="pricing hover-effect">
+                <div class="pricing-head">
+                    <h3>加州(CA) <span>洛杉矶收货地址</span></h3>
+                </div>
+                <ul class="pricing-content list-unstyled">
+                    <li><i class="fa fa-map-marker"></i> 712 Nogales Street,City of Industry,CA 91748</li>
+                    <li><i class="fa fa-user"></i> 收件人:<span ng-bind="currentUser.Customer.firstName"></span> <span ng-bind="currentUser.Customer.lastName"></span></li>
+                    <li><i class="fa fa-phone"></i> 电话:(626)542-3266</li>
+                    <li><i class="fa fa-check-circle"></i> 各种食品,奶粉无美国购物消费税</li>
+                    <li><i class="fa fa-exclamation-circle"></i>请大家在购物网站下单时一定记得写上姓后面的4个字母收件标示和单元号,单元号可以写在第一行地址后面也可以写在地址第二行</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="pricing hover-effect">
+                <div class="pricing-head">
+                    <div class="sticker-right" style="background:green">免税</div>
+                    <h3>特拉华(DE) <span>免税州收货地址</span></h3>
+                </div>
+                <ul class="pricing-content list-unstyled">
+                    <li><i class="fa fa-map-marker"></i> 150 Quigley Blvd,New Castle,DE 19720</li>
+                    <li><i class="fa fa-user"></i> 收件人:<span ng-bind="currentUser.Customer.firstName"></span> <span ng-bind="currentUser.Customer.lastName"></span></li>
+                    <li><i class="fa fa-phone"></i> 电话:(626)542-3266</li>
+                    <li><i class="fa fa-check-circle"></i> 各种商品均无美国消费税</li>
+                    <li><i class="fa  fa-exclamation-circle"></i>美东纽约机场直飞中国.包裹时效比加州仓库略多1-2个工作日</li>
+                </ul>
+            </div>
+        </div>-->
+        <div class="col-md-4 col-sm-6" ng-repeat="addressItem in model.addressList">
+            <div class="pricing hover-effect">
+                <div class="sticker-right" style="background:green" ng-if="addressItem.isTaxFree=='1'">免税</div>
+                <div class="pricing-head">
+                    <h3>{{addressItem.warehouseName}} <span><span ng-if="addressItem.isTaxFree=='1'">免税州收货地址</span><span ng-if="addressItem.isTaxFree!='1'">&nbsp;</span></span></h3>
+                </div>
+                <ul class="pricing-content list-unstyled">
+                    <li>
+                        <i class="fa fa-map-marker"></i><span ng-if="!!addressItem.address1">{{addressItem.address1}},</span> <span ng-if="!!addressItem.address2">{{addressItem.address2}},</span>
+                        <span ng-if="!!addressItem.city">{{addressItem.city}},</span><span ng-if="!!addressItem.warehouseShortName">{{addressItem.warehouseShortName}}</span> <span ng-if="!!addressItem.zipcode">{{addressItem.zipcode}}</span>
+                    </li>
+                    <li><i class="fa fa-user"></i> 收件人:<span ng-bind="currentUser.firstName"></span> <span ng-bind="currentUser.lastName"></span></li>
+                    <li><i class="fa fa-phone"></i> 电话:{{addressItem.contactPhoneNumber}}</li>
+                    <li ng-if="addressItem.isTaxFree=='1'"><i class="fa fa-check-circle"></i> 各种商品均无美国消费税</li>
+                    <li><i class="fa  fa-exclamation-circle"></i>{{addressItem.note}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- End Profile Content -->
+<script type="text/javascript" src="assets/plugins/counter/waypoints.min.js"></script>
+<script type="text/javascript" src="assets/plugins/counter/jquery.counterup.js"></script>
+<script type="text/javascript" src="assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        App.init();
+
+        var scope = angular.element($('[ng-controller=MyDashboardController]')).scope();
+        $('#totalPackageCount').text(scope.currentUser.totalPackageCount);
+        $('#receivedPackageCount').text(scope.currentUser.receivedPackageCount);
+        $('#unreceivedPackageCount').text(scope.currentUser.unreceivedPackageCount);
+        $('#shippedOrderCount').text(scope.currentUser.shippedOrderCount);
+        $('#unpaidOrderCount').text(scope.currentUser.unpaidOrderCount);
+        $('#overdraftOrderCount').text(scope.currentUser.overdraftOrderCount);
+        $('#myAccountBalance').text(scope.currentUser.accountBalance);
+        $('#myPoint').text(scope.currentUser.myPoint);
+        $('#myquestions').text(scope.currentUser.openQuestionCount);
+        App.initCounter();
+        App.initScrollBar();
+    });
+</script>

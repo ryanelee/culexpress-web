@@ -1,0 +1,104 @@
+﻿<div class="widget widget-table" ng-controller="FinanceDetailPaymentLogsCtrl">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i> 支付记录</h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-sm-12 search-bar">
+                <div class="search-col">
+                    <label class="search-label">支付方式：</label>
+                    <select class="form-control search-control" ng-model="searchBar.rechargeType"
+                            ng-options="item.value as item.title for item in tpl_status.rechargeType"></select>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">交易时间：</label>
+                    <select class="form-control search-control" ng-model="searchBar.dateRange" ng-change="changeDate()">
+                        <option value="">所有</option>
+                        <option value="3">最近3天</option>
+                        <option value="7">最近7天</option>
+                        <option value="range">时间范围</option>
+                    </select>
+                </div>
+                <div class="search-col" ng-show="searchBar.dateRange == 'range'">
+                    <label class="search-label">开始日期：</label>
+                    <p class="input-group pull-left">
+                        <input type="text" class="form-control search-control" style="width:110px;"
+                               uib-datepicker-popup
+                               ng-model="searchBar.startDate"
+                               is-open="searchBar.opened.startDate"
+                               show-button-bar="false"
+                               ng-click="searchBar.opened.startDate = true" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <div class="search-col" ng-show="searchBar.dateRange == 'range'">
+                    <label class="search-label">结束日期：</label>
+                    <p class="input-group pull-left">
+                        <input type="text" class="form-control search-control" style="width:110px;"
+                               uib-datepicker-popup
+                               ng-model="searchBar.endDate"
+                               is-open="searchBar.opened.endDate"
+                               show-button-bar="false"
+                               ng-click="searchBar.opened.endDate = true" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <div class="search-col">
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">查询</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>支付日期</th>
+                <th>支付方式</th>
+                <th>支付宝交易号</th>
+                <th>支付金额</th>
+                <th>支付状态</th>
+                <th>支付用户</th>
+                <th style="max-width:300px;">备注</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in dataList">
+                <td>{{item.rownumber}}</td>
+                <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                <td>{{item.operationType}}</td>
+                <td>{{item.rechargeNumber || ''}}</td>
+                <td>{{item.payment}}</td>
+                <td>{{item.status == 1 ? "支付成功" : "支付失败"}}</td>
+                <td>{{item.customerNumber}}<span ng-show="!!item.inuserName">({{item.inuserName}})</span></td>
+                <td style="max-width:300px;">{{item.memo}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <uib-pagination class="pagination pagination-rewrite pull-right"
+                            boundary-links="true"
+                            max-size="5"
+                            total-items="pagination.totalCount"
+                            items-per-page="pagination.pageSize"
+                            ng-model="pagination.pageIndex"
+                            ng-change="getData()"
+                            previous-text="上一页"
+                            next-text="下一页"
+                            first-text="首页"
+                            last-text="尾页">
+            </uib-pagination>
+            <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+    </div>
+</div>

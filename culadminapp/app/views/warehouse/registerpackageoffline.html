@@ -1,0 +1,108 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 打包登记——线下订单</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">UMI包裹编号：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="tempOutboundPackageNumber" ng-change="checkOutboundPackageNumber()" />
+                    </div>
+                    <div class="col-sm-1 col-padding-clear">
+                        <button id="tip_umipackage" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-show="!!data">
+                <legend>基本信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">客户编号：</label>
+                    <div class="col-sm-4">
+                        <!--<label class="control-label"><a target="_blank" ng-href="/#/customer/customerdetail?customerNumber={{data.customer.customerNumber}}">{{data.customer.customerNumber}}</a></label>-->
+                        <label class="control-label">{{data.customer.customerNumber}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">客户姓名：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.customer.lastName}} {{data.customer.firstName}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">订单编号：</label>
+                    <div class="col-sm-4">
+                        <!--<label class="control-label"><a target="_blank" ng-href="/#/order/orderdetail?orderNumber={{data.orderNumber}}">{{data.orderNumber}}</a></label>-->
+                        <label class="control-label">{{data.orderNumber}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">客户关联号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.referenceOrderNumber}}</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-show="!!data">
+                <legend>订单明细</legend>
+                <div class="row col-sm-8 col-sm-offset-1" ng-repeat="item in data.outboundPackages">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;" class="text-center">已扫描</th>
+                                <th style="width: 15%;">UMI包裹编号</th>
+                                <th style="width: 15%;">实际重量（磅）</th>
+                                <th style="width: 50%;">商品信息</th>
+                                <th style="width: 10%;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center"><i class="fa fa-check btn-icon green" ng-show="item.checked"></i></td>
+                                <td>{{item.trackingNumber}}</td>
+                                <td>
+                                    <span ng-show="!item.checked">{{item.actualWeight}}</span>
+                                    <input type="text" class="form-control" ng-model="item.actualWeight" ng-change="weightChanged()" ng-show="item.checked" />
+                                </td>
+                                <td>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 30%;">品牌</th>
+                                                <th style="width: 60%;">商品描述</th>
+                                                <th style="width: 10%;">数量</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="_item in item.items">
+                                                <td>{{_item.itemBrand}}</td>
+                                                <td>{{_item.description}}</td>
+                                                <td>{{_item.quantity}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" ng-click="btnPrint('flyingexpress',data)" style="white-space:nowrap;">打印翔通面单</a>
+                                    <a href="javascript:void(0);" ng-click="btnPrint('trackingNumber',item)" style="white-space:nowrap;">打印包裹号</a>
+                                    <a href="javascript:void(0);" ng-click="btnSplitPackage(item)" style="white-space:nowrap;" ng-show="!!item.checked">分箱</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+            </fieldset>
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-show="!!data">
+                    <i class="fa fa-save"></i>确认
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="btnOutBound()" ng-show="!!data" ng-disabled="!outboundEnable">
+                    <i class="fa fa-truck"></i>订单出库
+                </button>
+                <button id="tip_outbound" type="button" class="btn btn-link btn-help" style="padding-left: 0px;" ng-show="!!data" ><i class="fa fa-question-circle"></i></button>
+                <button type="button" class="btn btn-default" ng-click="btnPrev()">
+                    <i class="fa fa-reply"></i>返回
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<print-flying-express></print-flying-express>

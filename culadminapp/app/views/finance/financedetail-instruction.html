@@ -1,0 +1,39 @@
+﻿<div class="widget" ng-controller="FinanceDetailInstructionCtrl">
+    <div class="widget-header">
+        <h3>结算说明——运费折扣：{{data.discount}}%</h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel-group" id="accordion_instruction">
+                    <div class="panel panel-default" ng-repeat="item in data.instructions">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion_instruction" data-target="#collapse_instruction_{{$index+1}}" href="javascript:void(0);" ng-class="{'collapsed': $index != 0}">
+                                    {{item.name}}
+                                    <i class="fa fa-angle-down pull-right"></i>
+                                    <i class="fa fa-angle-up pull-right"></i>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse_instruction_{{$index+1}}" class="panel-collapse collapse" ng-class="{'in': $index == 0}">
+                            <div class="panel-body">
+                                <div class="col-sm-4" ng-repeat="row in item.children">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="width:30%; text-align:right; padding-right:12px;"><b>{{row.name}}</b></td>
+                                            <td style="width:70%;">
+                                                <span style="margin-right:12px;">首磅({{customer.isVip ? "$" : "￥"}}):{{row.firstWeight}}</span>
+                                                <span>续磅({{customer.isVip ? "$" : "￥"}}):{{row.continuedWeight}}</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

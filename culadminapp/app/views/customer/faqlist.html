@@ -1,0 +1,132 @@
+﻿<div class="widget widget-table" ng-controller="FAQListCtrl">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i> 问题处理 </h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-sm-12 search-bar">
+                <div class="search-col">
+                    <label class="search-label">订单状态：</label>
+                    <select class="form-control search-control" ng-model="searchBar.orderStatus">
+                        <option value="0">处理中</option>
+                        <option value="1">已处理</option>
+                    </select>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">收货仓库：</label>
+                    <select class="form-control search-control" ng-model="searchBar.warehouse">
+                        <option value="0">CA</option>
+                        <option value="1">DE</option>
+                        <option value="2">OR</option>
+                    </select>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">问题分类：</label>
+                    <select class="form-control search-control"
+                            ng-model="searchBar.messageType"
+                            ng-options="type.typeID as type.typeName for type in searchBar.messageTypeData">
+                    </select>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">开始日期：</label>
+                    <p class="input-group">
+                        <input type="text" class="form-control search-control" style="width:110px;"
+                               uib-datepicker-popup
+                               ng-model="searchBar.startDate"
+                               is-open="searchBar.opened.startDate"
+                               show-button-bar="false"
+                               ng-click="searchBar.opened.startDate = true" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">结束日期：</label>
+                    <p class="input-group">
+                        <input type="text" class="form-control search-control" style="width:110px;"
+                               uib-datepicker-popup
+                               ng-model="searchBar.endDate"
+                               is-open="searchBar.opened.endDate"
+                               show-button-bar="false"
+                               ng-click="searchBar.opened.endDate = true" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <div class="clearfix"></div>
+                <div class="search-col">
+                    <label class="search-label">搜索条目：</label>
+                    <select class="form-control search-control" ng-model="searchBar.keywordType">
+                        <option value="transactionnumber">问题编号</option>
+                        <option value="customernumber">客户编号</option>
+                        <option value="message">问题内容</option>
+                    </select>
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" ng-change="btnSelectedItem()" ng-model="searchBar.selectedAll" /></th>
+                    <th>序号</th>
+                    <th>问题编号</th>
+                    <th>日期</th>
+                    <th>问题类别</th>
+                    <th>收货仓库</th>
+                    <th>新留言</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-if="dataList.length == 0">
+                    <td colspan="13">没有数据，请选择条件进行搜索。</td>
+                </tr>
+                <tr ng-if="dataList.length > 0" ng-repeat="item in dataList">
+                    <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
+                    <td>{{item.rownumber}}</td>
+                    <td><a href="javascript:void(0)" ng-click="btnOpenDetail(item)">{{item.transactionNumber}}</a></td>
+                    <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                    <td>{{item._messageType}}</td>
+                    <td>{{item._receivedWarehouseNumber}}</td>
+                    <td>{{item.message}}</td>
+                    <td>{{item._status}}</td>
+                    <td>
+                        <a href="javascript:void(0);" ng-click="btnRemove(item)">移除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-6 search-bar" style="margin-bottom: 0px;">
+                <div class="search-col" style="margin-bottom: 0px;">
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;">批量删除</button>
+                </div>
+            </div>
+            <div class="col-sm-6 text-right">
+                <uib-pagination class="pagination pagination-rewrite pull-right"
+                                boundary-links="true"
+                                max-size="5"
+                                total-items="pagination.totalCount"
+                                items-per-page="pagination.pageSize"
+                                ng-model="pagination.pageIndex"
+                                ng-change="getData()"
+                                previous-text="上一页"
+                                next-text="下一页"
+                                first-text="首页"
+                                last-text="尾页">
+                </uib-pagination>
+                <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

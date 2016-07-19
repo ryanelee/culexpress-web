@@ -1,0 +1,12 @@
+﻿<div>
+    <ul class="list-inline quick-access">
+        <li ng-repeat="chart in chartList">
+            <a href="javascript:void(0)" ng-click="btnTransferPage(chart.route)">
+                <div class="quick-access-item {{chart.css}}">
+                    <i class="fa {{chart.icon}}"></i>
+                    <h5>{{chart.title}}</h5><em>{{chart.desc}}</em>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>

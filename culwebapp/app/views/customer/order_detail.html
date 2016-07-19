@@ -1,0 +1,194 @@
+﻿<div class="profile-body margin-bottom-20" ng-controller="OrderdetailCtrl">
+    <div class="row">
+        <div class="col-sm-5 pull-right text-right" ng-if="!!data.orderNumber">
+            <p>{{data.orderNumber}} <span ng-if="!!data.orderDate">/ {{data.orderDate|date:'yyyy年MM月dd日'}}</span></p>
+            <p><span ng-if="data.shipServiceId===1">标准包裹服务</span></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div style="border:2px solid #eee;padding:20px;border-radius:2px;">
+                <h4>客户信息：</h4>
+                <div>
+                    <label>名(First Name):</label> <span>{{data.customer.firstName}}</span>
+                </div>
+                <div>
+                    <label>姓(Last Name):</label> <span>{{data.customer.lastName}}</span>
+                </div>
+                <div>
+                    <label>客户编号:</label> <span>{{data.customer.customerNumber}}</span>
+                </div>
+                <div>
+                    <label>收货标识:</label> <span>{{data.customer.receiveIdentity}}</span>
+                </div>
+                <div>
+                    <label>注册邮箱:</label> <span>{{data.customer.emailAddress}}</span>
+                </div>
+                <div>
+                    <label>用户注册名:</label> <span>{{data.customer.userName}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div style="border: 2px solid #eee; padding:20px; border-radius: 2px; ">
+                <h4>支付信息：</h4>
+                <div>
+                    <label>支付日期:</label> <span>{{data.payDate|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                </div>
+                <div>
+                    <label>实际支付:</label> <span>{{data.paied|currency:'¥'}}</span>
+                </div>
+                <h4>费用明细：</h4>
+                <div>
+                    <strong><label>包裹重量：</label> <span>{{data.packageWeight|number}}</span></strong>
+                </div>
+                <div>
+                    <label>运费：</label> <span>{{data.shippingFee|currency:'¥'}}</span>
+                </div>
+                <div>
+                    <label>购买保险：</label> <span>{{data.insuranceFee|currency:'¥'}}</span>
+                </div>
+                <div>
+                    <label>小费：</label> <span>{{data.tip|currency:'¥'}}</span>
+                </div>
+                <div>
+                    <label>增值服务：</label> <span>¥0.00</span>
+                </div>
+                <div style="color:red;">
+                    <label>积分抵扣：</label> <span>¥{{(data.usePoint||0) * -1}}</span>
+                </div>
+                <div>
+                    <label><strong>运费总计：</strong></label> <span>{{data.totalCount|currency:'¥'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">包裹明细</div>
+                <div class="panel-body">
+                    <div>{{data.priceAdjustMemo}}</div>
+                    <div class="table-responsive">
+                        <table class="table order-detail">
+                            <thead>
+                                <tr>
+                                    <th>包裹编号</th>
+                                    <th>商品品牌</th>
+                                    <th>商品描述</th>
+                                    <th>数量</th>
+                                    <th>申报价值</th>
+                                    <th>合计</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="packageItem in data.outboundPackages">
+                                    <th style="vertical-align: middle; text-align: left;">
+                                        <a ui-sref="ordertracking({trackingNumber:'{{packageItem.trackingNumber}}'})" style="font-size:12px;">{{packageItem.trackingNumber}}</a>
+                                    </th>
+                                    <td colspan="5">
+                                        <table class="table">
+                                            <tr ng-repeat="orderItem in packageItem.items">
+                                                <td>{{orderItem.itemBrand}}</td>
+                                                <td>{{orderItem.description}}</td>
+                                                <td>{{orderItem.quantity}}</td>
+                                                <td>{{orderItem.unitprice|currency}}</td>
+                                                <td>{{(orderItem.quantity*orderItem.unitprice)|currency}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" style="background-color: #ccc; height: 50px; color: #000; border: 0;">
+                                                    <span><span ng-if="!!packageItem.address.receiveCompanyName&&packageItem.address.receiveCompanyName!='null'">{{packageItem.address.receiveCompanyName}}/</span>{{orderItem.address.receivePersonName}}</span>
+                                                    <span>{{packageItem.address.cellphoneNumber}}</span>
+                                                    <span>{{packageItem.address.address1}}</span>
+                                                    <span>{{packageItem.address.zipcode}}</span>
+
+                                                    <span style="float:right" ng-if="data.orderStatus==='Unpaid'">
+                                                        <a href="javascript:void(0)" ng-click="redirectToAddressInfo(packageItem.address)" style="color:#2c41bf;">修改地址</a>
+                                                    </span>
+                                                </td>
+                                                <td style="border:0;">
+                                                    <a class="btn-u" ui-sref="ordertracking({trackingNumber:'{{packageItem.trackingNumber}}'})" style="color:#fff;font-size:15px;"><i class="fa fa-truck"></i> 查看包裹轨迹</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <style>
+                            table.order-detail > thead th {
+                                width: 16%;
+                                border-bottom: 1px solid #eee;
+                            }
+
+                            table.order-detail > tbody th {
+                                text-align: left;
+                                border-top: none;
+                                width: 15%;
+                                min-width: 20px;
+                            }
+
+                            table.order-detail > tbody td {
+                                width: 25%;
+                                text-align: center;
+                                border-top: none;
+                            }
+                        </style>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+        </div>
+        <div class="col-sm-6">
+            <div class="text-right" style="padding:10px 25px;">
+                <span style="font-weight:bold;">申报商品总价:</span> <span>{{(data.declareGoodsValue||0)|currency}}</span>
+            </div>
+            <div class="text-right" style="padding:10px 25px;">
+                <!--<span style="font-weight:bold;">折扣:</span> <span>{{(data.totalCount||0)|currency:'¥'}}</span>-->
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">订单留言</div>
+                <div class="panel-body">
+                    <div ng-repeat="orderMessageItem in orderMessages">
+                        <span>
+                            <i class="fa fa-user"></i> {{orderMessageItem.operationUserName}}
+                        </span>
+                        <span style="font-weight:bold;">
+                            {{orderMessageItem.message}}
+                        </span>
+                        <span class="pull-right"><small>{{orderMessageItem.operationDate|sysdate}}</small></span>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div>
+                        <strong>发表回复：</strong>
+                    </div>
+                    <div>
+                        <textarea class="form-control" rows="3" ng-model="data.orderMessage"></textarea>
+                    </div>
+                    <div class="text-right" style="margin-top:10px;">
+                        <button class="btn btn-primary" ng-click="submitMessage();">发表</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row padding-top-5" style="margin-top:10px;">
+        <div class="col-sm-12">
+            <div class="text-right">
+                <button style="margin-top: 10px; width: 100px;" class="btn-u" ng-disabled="data.payLocked" ng-click="payOrder(data);" ng-if="data.orderStatus==='Unpaid'||data.orderStatus==='Arrears'"><i class="fa fa-save"></i> 支付订单</button>
+                <button style="margin-top: 10px; width: 100px;" class="btn-u" ng-click="redirectToTrack();"><i class="fa fa-truck"></i> 查看轨迹</button>
+                <button style="margin-top: 10px; width: 100px;" class="btn-u" ng-click="deleteOrder(data.orderNumber);" ng-if="data.orderStatus!=='Paid'"><i class="fa fa-reply"></i> 取消订单</button>
+                <button style="margin-top: 10px; width: 100px;" type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,249 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>中美速递</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger-theme-future.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger-theme-flat.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger-theme-block.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger-theme-air.css" />
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger-theme-ice.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <link href="assets/css/main.css" rel="stylesheet" />
+    <!-- build:css(.tmp) styles/main.css -->
+    <link href="styles/style-switcher.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/loading.css">
+    <!-- endbuild -->
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/culadmin-favicon114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/culadmin-favicon114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/kingadmin-favicon72x72.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/ico/culadmin-favicon57x57.png">
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+</head>
+<body class="dashboard" ng-app="culAdminApp" ng-controller="IndexCtrl">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="wrapper full-page-wrapper page-auth page-login text-center" ng-if="!$root.userInfo" ng-include="'views/login.html'"></div>
+    <!-- WRAPPER -->
+    <div class="wrapper" ng-if="!!$root.userInfo">
+        <!-- TOP BAR -->
+        <master-top-toolbar></master-top-toolbar>
+        <!-- /top -->
+        <!-- BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+        <div class="bottom">
+            <div class="container">
+                <div class="row">
+                    <!-- left sidebar -->
+                    <master-left-sidebar></master-left-sidebar>
+                    <!-- end left sidebar -->
+                    <!-- top general alert -->
+                    <!--<master-alert></master-alert>-->
+                    <!-- end top general alert -->
+                    <!-- content-wrapper -->
+                    <div class="col-md-10 content-wrapper">
+                        <div ng-include="'views/templates/master/right-content-navs_tpl.html'"></div>
+                        <!-- main -->
+                        <div class="content">
+                            <div ng-view=""></div>
+                            <!-- /main-content -->
+                        </div>
+                        <!-- /main -->
+                    </div>
+                    <!-- /content-wrapper -->
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- END BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+    </div>
+    <!-- /wrapper -->
+    <!-- STYLE SWITCHER -->
+    <style-swicher></style-swicher>
+    <!-- END STYLE SWITCHER -->
+
+    <div id="global-loading" class="uil-default-css-background" style="display:none;">
+        <div class='uil-default-css' style='-webkit-transform:scale(0.6)'>
+            <div class="item" style='-webkit-transform:rotate(0deg) translate(0,-60px);transform:rotate(0deg) translate(0,-60px);'> </div>
+            <div class="item" style='-webkit-transform:rotate(30deg) translate(0,-60px);transform:rotate(30deg) translate(0,-60px);'> </div>
+            <div class="item" style='-webkit-transform:rotate(60deg) translate(0,-60px);transform:rotate(60deg) translate(0,-60px);'> </div>
+            <div class="item" style='-webkit-transform:rotate(90deg) translate(0,-60px);transform:rotate(90deg) translate(0,-60px);'> </div>
+            <div class="item" style='-webkit-transform:rotate(120deg) translate(0,-60px);transform:rotate(120deg) translate(0,-60px);'> </div>
+            <div class="item" style='-webkit-transform:rotate(150deg) translate(0,-60px);transform:rotate(150deg) translate(0,-60px);'> </div>
+            <div class="item" style='-webkit-transform:rotate(180deg) translate(0,-60px);transform:rotate(180deg) translate(0,-60px);'> </div>
+            <div class="item" style='-webkit-transform:rotate(210deg) translate(0,-60px);transform:rotate(210deg) translate(0,-60px);'> </div>
+            <div class="item" style='-webkit-transform:rotate(240deg) translate(0,-60px);transform:rotate(240deg) translate(0,-60px);'> </div>
+            <div class="item" style='-webkit-transform:rotate(270deg) translate(0,-60px);transform:rotate(270deg) translate(0,-60px);'> </div>
+            <div class="item" style='-webkit-transform:rotate(300deg) translate(0,-60px);transform:rotate(300deg) translate(0,-60px);'> </div>
+            <div class="item" style='-webkit-transform:rotate(330deg) translate(0,-60px);transform:rotate(330deg) translate(0,-60px);'> </div>
+        </div>
+    </div>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/messenger/build/js/messenger.js"></script>
+    <script src="bower_components/messenger/build/js/messenger-theme-future.js"></script>
+    <script src="bower_components/messenger/build/js/messenger-theme-flat.js"></script>
+    <script src="bower_components/jquery-color/jquery.color.js"></script>
+    <script src="bower_components/flot/jquery.flot.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <!-- endbower -->
+    <script src="bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+    <script src="bower_components/blueimp-file-upload/js/jquery.fileupload.js"></script>
+    <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="assets/js/plugins/modernizr/modernizr.js"></script>
+    <script src="assets/js/plugins/bootstrap-tour/bootstrap-tour.custom.js"></script>
+    <script src="assets/js/plugins/bootstrap-switch/bootstrap-switch.js"></script>
+    <script src="assets/js/plugins/stat/jquery.easypiechart.min.js"></script>
+    <script src="assets/js/plugins/raphael/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/plugins/stat/flot/jquery.flot.resize.min.js"></script>
+    <script src="assets/js/plugins/stat/flot/jquery.flot.time.min.js"></script>
+    <script src="assets/js/plugins/stat/flot/jquery.flot.pie.min.js"></script>
+    <script src="assets/js/plugins/stat/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="assets/js/plugins/datatable/jquery.dataTables.min.js"></script>
+    <script src="assets/js/plugins/datatable/dataTables.bootstrap.js"></script>
+    <script src="assets/js/plugins/jquery-mapael/jquery.mapael.js"></script>
+    <script src="assets/js/plugins/raphael/maps/usa_states.js"></script>
+    <script src="assets/js/king-elements.js"></script>
+    <script src="assets/js/king-table.js"></script>
+    <script src="assets/js/king-components.js"></script>
+    <script src="assets/js/plugins/dropzone/dropzone.js"></script>
+    <script src="assets/js/plugins/bootstrap-progressbar/bootstrap-progressbar.js"></script>
+
+    <script src="scripts/jquery-barcode.min.js"></script>
+    <script src="scripts/jquery-migrate-1.1.0.js"></script>
+    <script src="scripts/jquery.jqprint-0.3.js"></script>
+    <script src="scripts/king-common.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/http.js"></script>
+    <script src="scripts/directives/print-order.js"></script>
+    <script src="scripts/directives/print-package.js"></script>
+    <script src="scripts/directives/print-inboundpackage.js"></script>
+    <script src="scripts/directives/print-flyingexpress.js"></script>
+    <script src="scripts/directives/print-flyingexpress2.js"></script>
+    <script src="scripts/directives/print-flyingexpress-empty.js"></script>
+    <script src="scripts/directives/styleswicher.js"></script>
+    <script src="scripts/directives/master-left-sidebar.js"></script>
+    <script src="scripts/directives/master-top-toolbar.js"></script>
+    <script src="scripts/directives/master-alert.js"></script>
+    <script src="scripts/directives/master-bread-crumbs.js"></script>
+    <script src="scripts/directives/chart-number-stat.js"></script>
+    <script src="scripts/directives/chart-mini-stat.js"></script>
+    <script src="scripts/directives/chart-quick-access.js"></script>
+    <script src="scripts/directives/chart-flot.js"></script>
+    <script src="scripts/directives/chart-secondary-stat.js"></script>
+    <script src="scripts/directives/ticket-table.js"></script>
+    <script src="scripts/controllers/index.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/profile.js"></script>
+    <script src="scripts/controllers/invoice.js"></script>
+    <script src="scripts/controllers/knowledgebase.js"></script>
+    <script src="scripts/controllers/inbox.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/customer/customerlist.js"></script>
+    <script src="scripts/controllers/customer/customerdetail.js"></script>
+    <script src="scripts/controllers/customer/addresslist.js"></script>
+    <script src="scripts/controllers/customer/addressdetail.js"></script>
+    <script src="scripts/controllers/customer/faqmanagement.js"></script>
+    <script src="scripts/controllers/customer/faqlist.js"></script>
+    <script src="scripts/controllers/customer/faqdetail.js"></script>
+    <script src="scripts/controllers/customer/msglist.js"></script>
+    <script src="scripts/controllers/customer/messagelist.js"></script>
+    <script src="scripts/controllers/order/orderlist.js"></script>
+    <script src="scripts/controllers/order/orderexport.js"></script>
+    <script src="scripts/controllers/order/orderprint.js"></script>
+    <script src="scripts/controllers/order/orderdetail.js"></script>
+    <script src="scripts/controllers/order/orderofflineimport.js"></script>
+    <script src="scripts/controllers/order/orderpackagebatchupdate.js"></script>
+    <script src="scripts/controllers/order/ordertrackbatchupdate.js"></script>
+    <script src="scripts/controllers/warehouse/receipt.js"></script>
+    <script src="scripts/controllers/warehouse/editreceipt.js"></script>
+    <script src="scripts/controllers/warehouse/shelf.js"></script>
+    <script src="scripts/controllers/warehouse/editshelf.js"></script>
+    <script src="scripts/controllers/warehouse/inventory.js"></script>
+    <script src="scripts/controllers/warehouse/picking.js"></script>
+    <script src="scripts/controllers/warehouse/editpicking.js"></script>
+    <script src="scripts/controllers/warehouse/package.js"></script>
+    <script src="scripts/controllers/warehouse/editpackage.js"></script>
+    <script src="scripts/controllers/warehouse/shipping.js"></script>
+    <script src="scripts/controllers/warehouse/editshipping.js"></script>
+    <script src="scripts/controllers/warehouse/registerpackageonline.js"></script>
+    <script src="scripts/controllers/warehouse/registerpackageoffline.js"></script>
+    <script src="scripts/controllers/finance/financelist.js"></script>
+    <script src="scripts/controllers/finance/financedetail.js"></script>
+    <script src="scripts/controllers/finance/financedetail-active-online.js"></script>
+    <script src="scripts/controllers/finance/financedetail-active-offline.js"></script>
+    <script src="scripts/controllers/finance/financedetail-pay.js"></script>
+    <script src="scripts/controllers/finance/financedetail-payment-logs.js"></script>
+    <script src="scripts/controllers/finance/financedetail-recharge-logs.js"></script>
+    <script src="scripts/controllers/finance/financedetail-report-list.js"></script>
+    <script src="scripts/controllers/finance/financedetail-instruction.js"></script>
+
+    <script src="scripts/controllers/system/operationloglist.js"></script>
+    <script src="scripts/controllers/system/loginloglist.js"></script>
+
+    <script src="scripts/services/common/plug-messenger.js"></script>
+
+    <script src="scripts/services/menu-info.js"></script>
+    <script src="scripts/services/user-service.js"></script>
+    <script src="scripts/services/customer-service.js"></script>
+    <script src="scripts/services/customer-message-service.js"></script>
+    <script src="scripts/services/address-service.js"></script>
+    <script src="scripts/services/faq-service.js"></script>
+    <script src="scripts/services/order-service.js"></script>
+    <script src="scripts/services/settlement-service.js"></script>
+    <script src="scripts/services/utils-service.js"></script>
+    <script src="scripts/services/warehouse-service.js"></script>
+    <script src="scripts/services/warehouse/receiptsvr.js"></script>
+    <script src="scripts/services/warehouse/inventorysvr.js"></script>
+    <script src="scripts/services/warehouse/shippingsvr.js"></script>
+    <script src="scripts/services/log-service.js"></script>
+    <!-- endbuild -->
+    <script src="scripts/config.js"></script>
+</body>
+<!-- FOOTER -->
+<footer class="footer">
+    &copy; 2011-2015 CUL Express Dev Team
+</footer>
+<!-- END FOOTER -->
+</html>
+<!-- Google Analytics admin.umiex.com -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65730039-3', 'auto');
+  ga("send", "pageview", { page: "/" });
+</script>
+<!-- End Google Analytics admin.umiex.com-->

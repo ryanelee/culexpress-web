@@ -1,0 +1,106 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 打包登记——线上订单</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">入库快递单号：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="tempInboundPackageNumber" ng-change="checkInboundPackageNumber()" />
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-show="!!data">
+                <legend>基本信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">客户编号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.customer.customerNumber}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">订单编号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.orderNumber}}</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-show="!!data">
+                <legend>收货明细</legend>
+                <div class="row col-sm-8 col-sm-offset-1" ng-repeat="item in data.inboundPackages">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">入库快递单号</th>
+                                <th style="width: 30%;">重量（磅）</th>
+                                <th style="width: 30%;" class="text-center">已扫描</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{item.trackingNumber}}</td>
+                                <td>{{item.packageWeight}}</td>
+                                <td class="text-center"><i class="fa fa-check btn-icon green" ng-show="item.checked"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">申报价值：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.declareGoodsValue}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">申报品名：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.declareGoodsName}}</label>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label text-right">增值服务：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{'取出发票'}}</label>
+                    </div>
+                </div>-->
+            </fieldset>
+            <fieldset ng-show="!!data">
+                <legend>打包明细</legend>
+                <div class="row col-sm-8 col-sm-offset-1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">转运包裹编号</th>
+                                <th style="width: 30%;">实际重量（磅）</th>
+                                <th style="width: 40%;" class="text-center">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in data.outboundPackages">
+                                <td>{{item.trackingNumber}}</td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="item.actualWeight" />
+                                </td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0);" ng-click="btnPrint(item)"><i class="fa fa-print btn-icon red"></i></a>
+                                    <a href="javascript:void(0);" ng-click="btnSplitPackage(item)"><i class="fa fa-cubes btn-icon red"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-show="!!data">
+                    <i class="fa fa-save"></i>确认
+                </button>
+                <button type="button" class="btn btn-default" ng-click="btnPrev()">
+                    <i class="fa fa-reply"></i>返回
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

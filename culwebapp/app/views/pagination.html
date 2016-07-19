@@ -1,0 +1,25 @@
+﻿<nav>
+    <ul class="pagination" style="margin:0;">
+        <li ng-class="{disabled:!canPrev}">
+            <a href="javascript:void(0)" aria-label="{{options.first||'首页'}}" ng-click="paged(1)">
+                <span aria-hidden="true">{{options.first||'首页'}}</span>
+            </a>
+        </li>
+        <li ng-class="{disabled:!canPrev}">
+            <a href="javascript:void(0)" aria-label="{{options.prev||'上一页'}}" ng-click="paged('prev')">
+                <span aria-hidden="true">{{options.next||'上一页'}}</span>
+            </a>
+        </li>
+        <li ng-repeat="stepItem in steps track by $index" ng-class="{active:stepItem==index}"><a href="javascript:void(0)" ng-click="paged(stepItem)">{{stepItem}}</a></li>
+        <li ng-class="{disabled:!canNext}">
+            <a href="javascript:void(0)" aria-label="{{options.next||'下一页'}}" ng-click="paged('next')">
+                <span aria-hidden="true">{{options.next||'下一页'}}</span>
+            </a>
+        </li>
+        <li ng-class="{disabled:!canNext}">
+            <a href="javascript:void(0)" aria-label="{{options.last||'尾页'}}" ng-click="paged(allPageCount)">
+                <span aria-hidden="true">{{options.last||'尾页'}}</span>
+            </a>
+        </li>
+    </ul>
+</nav>

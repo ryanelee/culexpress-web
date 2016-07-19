@@ -1,0 +1,69 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 财务明细 </h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <div ng-include="'views/finance/financedetail-fieldset-customer.html'"></div>
+
+            <fieldset>
+                <legend>摘要</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">未支付费用（截止{{tpl_status.date | date:'MM/dd/yyyy'}}）：</label>
+                    <div class="col-sm-10">
+                        <div class="clearfix">
+                            <div class="col-sm-4">
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            <label class="control-label">海淘订单：￥{{data.unpaid.onLineCount}}</label>
+                                            <button id="tip_online_order" type="button" class="btn btn-link btn-help pull-right"><i class="fa fa-warning"></i></button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" ng-click="btnPay('online')"><i class="fa fa-arrow-left"></i>余额支付</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label class="control-label">线下订单：${{data.unpaid.offLineCount}}</label>
+                                            <button id="tip_offline_order" type="button" class="btn btn-link btn-help pull-right"><i class="fa fa-warning"></i></button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" ng-click="btnPay('offline')"><i class="fa fa-arrow-left"></i>手动支付</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-4" style="line-height: 90px;">
+                                <button type="button" class="btn btn-primary" ng-click="btnPay('refund')"><i class="fa fa-money"></i>退还运费</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="widget-content">
+                    <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                        <li class="active"><a href="javascript:void(0)" data-target="#recent-activity" role="tab" data-toggle="tab">最近活动</a></li>
+                        <li><a href="javascript:void(0)" role="tab" data-target="#settlement-download" data-toggle="tab">结算账单下载</a></li>
+                        <li><a href="javascript:void(0)" role="tab" data-target="#recharge-logs" data-toggle="tab">充值记录</a></li>
+                        <li><a href="javascript:void(0)" role="tab" data-target="#payment-history" data-toggle="tab">支付历史</a></li>
+                        <li><a href="javascript:void(0)" role="tab" data-target="#settlement-help" data-toggle="tab">结算说明</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="recent-activity"><div ng-include="'views/finance/financedetail-active-summary.html'"></div></div>
+                        <div class="tab-pane fade" id="settlement-download"><div ng-include="'views/finance/financedetail-report-list.html'"></div></div>
+                        <div class="tab-pane fade" id="recharge-logs"><div ng-include="'views/finance/financedetail-recharge-logs.html'"></div></div>
+                        <div class="tab-pane fade" id="payment-history"><div ng-include="'views/finance/financedetail-payment-logs.html'"></div></div>
+                        <div class="tab-pane fade" id="settlement-help"><div ng-include="'views/finance/financedetail-instruction.html'"></div></div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+            </div>
+        </form>
+    </div>
+</div>

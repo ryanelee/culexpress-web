@@ -1,0 +1,89 @@
+<!-- Begin Content -->
+<div class="row">
+    <form action="#" id="sky-form3" class="sky-form">
+        <header>在线咨询</header>
+
+        <fieldset>
+            <section>
+                <label class="label">反馈问题类别</label>
+                <label class="select">
+                    <select ng-model="model.messageType" ng-options="questionCategoryItem.typeID as questionCategoryItem.typeName for questionCategoryItem in questionCatgories">
+                        <option>请选择问题类别</option>
+                    </select>
+                    <i></i>
+                </label>
+                <div class="note">请选择您的问题类别</div>
+            </section>
+
+            <section>
+                <label class="label">收货仓库</label>
+                <label class="select">
+                    <select ng-model="model.receivedWarehouseNumber" ng-options="warehouseItem.warehouseNumber as warehouseItem.warehouseName for warehouseItem in questionWarehouses">
+                        <option>请选择收货仓库</option>
+                    </select>
+                    <i></i>
+                </label>
+                <div class="note">请选择您收货的仓库</div>
+            </section>
+            <section>
+                <label class="label">运单号码</label>
+                <label class="input">
+                    <i class="icon-prepend fa fa-question-circle"></i>
+                    <input type="text" class="form-control" ng-model="model.receiveTrackingNumber">
+                    <b class="tooltip tooltip-bottom-left">请输入您发货到我方仓库的快递运单号码,格式例如:1Z4036XY0302243976(UPS)</b>
+                </label>
+                <div class="note">您发货到我方仓库的快递运单号码,格式例如:1Z4036XY0302243976(UPS)</div>
+            </section>
+
+            <section>
+                <label class="label">订单编号</label>
+                <label class="input">
+                    <i class="icon-prepend fa fa-question-circle"></i>
+                    <input type="text" class="form-control" ng-model="model.orderNumber">
+                    <b class="tooltip tooltip-bottom-left">请输入您需要反馈的订单编号,格式例如:AA001AAAA2013008</b>
+                </label>
+                <div class="note">您需要反馈的订单编号,格式例如:AA001AAAA2013008</div>
+            </section>
+
+            <section>
+                <label class="label">发货单号</label>
+                <label class="input">
+                    <i class="icon-prepend fa fa-question-circle"></i>
+                    <input type="text" class="form-control" ng-model="model.deliveryTrackingNumber">
+                    <b class="tooltip tooltip-bottom-left">请输入您需要反馈的发货单号,格式例如:UMI000000001</b>
+                </label>
+                <div class="note">您需要反馈的发货单号,格式例如:UMI000000001</div>
+            </section>
+
+            <section>
+                <label class="label">图片上传</label>
+                <label for="file" class="input input-file">
+                    <div class="button"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">浏览</div><input type="text" readonly="">
+                </label>
+                <div class="note">仅支持jpg,jpeg,bmp,png,gif图片格式</div>
+            </section>
+
+            <section>
+                <section>
+                    <label class="label">问题详细描述</label>
+                    <label class="textarea textarea-resizable">
+                        <i class="icon-append fa fa-comment"></i>
+                        <textarea rows="4" placeholder="请详细描述您需要咨询的问题" name="message" id="message" ng-model="model.message"></textarea>
+                    </label>
+                </section>
+        </fieldset>
+        <footer>
+            <div class="row">
+                <div class="col-xs-6">
+                    <button type="button" class="btn-u btn-u-red" ng-click="submitQuestion();">提交问题</button>
+                    <button type="button" class="btn-u btn-u-default" ng-click="resetForm();">重新填写</button>
+                    <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <a ui-sref="customer.myquestions" class="btn-u btn-u-default"><i class="fa fa-question-circle"> 我的问题</i></a>
+                </div>
+            </div>
+        </footer>
+    </form>
+</div>
+<!-- End Content -->

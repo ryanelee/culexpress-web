@@ -1,0 +1,193 @@
+<!--=== Profile ===-->
+<div class="container content profile" ng-controller="MyHomeController">
+    <div class="row">
+        <!--<div class="alert alert-danger fade in">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4 class="heading-sm">
+                <i class="icon-custom rounded-x icon-sm icon-bg-red fa fa-bullhorn"></i>
+                <span>Umi海淘, 海淘服务专家</span>
+            </h4>
+            <p>
+                我们的客户系统还在完善中,给您带来的不便敬请谅解.祝您购物愉快!
+            </p>
+        </div>-->
+        <!--Left Sidebar-->
+        <div class="col-md-3 md-margin-bottom-40">
+            <div class="profile-blog blog-border">
+                <a data-toggle="modal" data-target="#userPhotoModal"><img class="rounded-x" ng-src="{{ currentUser.photoUrl }}" alt="no photo"></a>
+                <div class="modal fade" tabindex="-1" id="userPhotoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                <h4 class="modal-title">修改个人头像</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="profile-blog">
+                                    <img class="rounded-x" ng-src="{{ currentUser.photoUrl }}" alt="no photo">
+                                    <div class="name-location">
+                                        <strong>{{ currentUser.userName }}</strong>
+                                        <span>
+                                            <i class="fa fa-map-marker"></i><span ng-show="isLackProfile">没有填写联系地址</span>
+                                            <a href="javascript:void();" ng-hide="isLackProfile">{{ currentUser.countryName }} {{ currentUser.stateOrProvince }} {{ currentUser.city }}</a>
+                                        </span>
+                                    </div>
+                                    <div class="clearfix margin-bottom-20"></div>
+                                    <!--<div class="inline-group">
+                                        <i class="icon-custom icon-sm rounded-x icon-bg-u icon-line icon-symbol-male"></i>
+                                        <i class="icon-custom icon-sm rounded-x icon-bg-blue icon-line icon-symbol-female"></i>
+                                        <label class="radio"><input type="radio" checked="{{ currentUser.gender === 'M' }}" name="radio-inline"><i class="rounded-x"></i>男 <i class="fa fa-male"></i></label>
+                                        <label class="radio"><input type="radio" checked="{{ currentUser.gender === 'M' }}" name="radio-inline"><i class="rounded-x"></i>女 <i class="fa fa-female"></i></label>
+                                    </div>-->
+
+                                    <div class="button">
+                                        <form id="uploadAvatarForm" enctype="multipart/form-data">
+                                            <input type="file" id="file" name="avatar"/>选择头像图片
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn-u btn-u-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn-u btn-u-primary" ng-click="updateAvatar()">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="name-location">
+                    <strong data-ng-bind="currentUser.name"></strong>
+                    <span>
+                        <i class="fa fa-map-marker"></i><span ng-show="isLackProfile">没有填写联系地址</span>
+                        <a href="javascript:void();" ng-hide="isLackProfile">{{ currentUser.countryName }} {{ currentUser.stateOrProvince }} {{ currentUser.city }}</a>
+                    </span>
+                    <div ng-if="!!$root.currentUser.isVip" style="color:#fff;background-color:#ff6a00;width:30px;height:30px;text-align:center;padding-top:5px;">VIP</div>
+                    <div ng-if="!$root.currentUser.isVip" style="width:30px;height:30px;padding-top:5px;"></div>
+                </div>
+                <div style="margin-top:10px;">
+                    个人资料完善度：{{model.userProfilePercent}}%
+                    <div class="progress" style="height: 8px;border-radius:5px;">
+                        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
+                              aria-valuenow="{{model.userProfilePercent}}" aria-valuemin="0" aria-valuemax="100" 
+                             style="width:{{ model .userProfilePercent; }}%;">
+                            <!--<a style="color:#fff;text-decoration:none;"></a>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix margin-bottom-20"></div>
+                <p>注册邮箱:<span data-ng-bind="currentUser.emailAddress"></span></p>
+                <p>
+                    客户编号:<span data-ng-bind="currentUser.customerNumber"></span>
+                    <a href="javascript:void(0)" ng-click="applyVip()" ng-if="!$root.currentUser.isVip&&currentUser.vipStatus !== 'Applied'"> [成为VIP客户]</a>
+                    <span ng-if="currentUser.vipStatus === 'Applied' && !$root.currentUser.isVip" style="color: #e74c3c;"> [VIP审核中...]</span>
+                </p>
+                <p>收件标示:<span data-ng-bind="currentUser.receiveIdentity"></span></p>
+                <!--<hr>
+                <ul class="list-inline share-list">
+                    <button class="btn-u btn-u-red" data-toggle="modal" data-target="#reminderModal"><i class="fa fa-bell-o"></i>友情提醒</button>
+                    <a rel="curl-top-left" class="btn-u btn-u-blue curl-top-left" data-toggle="modal" data-target="#reminderModal"><i class="fa fa-bell-o"></i>购买须知</a>
+                    <div class="modal fade" tabindex="-1" id="reminderModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                    <h4 id="myLargeModalLabel2" class="modal-title">友情提醒</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>各位中美速递的客户:</p>
+
+                                    <p>请大家在购物网站下单时一定记得写上姓后面的4个字母收件标示和单元号,单元号可以写在第一行地址后面也可以写在地址第二行.</p>
+
+                                    <p>请大家记得做货物预告,可以大大减少包裹入库的错误,提高入库的效率.为你为我,请您收到商家收的tracking number 以后,登录cul账户,做一下,货物预告. 谢谢大家的支持.</p>
+
+                                    <p>美国邮政国际特快， 最稳妥快捷的运输方式， 强烈推荐。 适合各种物品， 尤其是贵重物品和电子产品。不限制锂电池一般体积重,童车,游戏垫,玩具等单个包裹重量在66磅以下的包裹都可以发送. 但是大型物品比如滑雪板,大型玩具车,体育器材不能寄送,每个包裹不能超过66磅。</p>
+
+                                    <p>价格：首磅200元，续磅35元。4磅起运,4磅以下(包含4磅)的包裹运费都是305.请大家注意提交.</p>
+
+                                    <p>关于此USPS渠道需要注意的地方:</p>
+                                    <p>1.此渠道无需提交身份证, USPS即是美国邮政邮局，美国邮局要求每个箱子66磅以下,地址,品名申报需要填写英文, 请在CUL地址簿里添加英文地址.路名写汉语拼音即可. </p>
+
+                                    <p>2.每个地址 发送包裹数最多两个 ,禁止发送海关,航空违禁品.详细填写申报品名。申报品名不能填写如礼物，保健品，婴儿用品，护肤品,日用品,用品这类,需要具体的物品名和件数.</p>
+
+                                    <p>3.严禁误报虚报品名,商品价值,由此造成的包裹延误,罚没,丢失,本公司将不承担任何责任.</p>
+
+
+                                    <p>4. 体积较大,较重的包裹可以选择USPS 特快渠道.</p>
+                                    <p>一如既往的高效快捷一直都在CUL~!</p>
+
+
+
+                                    <p>感谢大家的支持和配合.</p>
+                                    <p>-中美速递.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>-->
+            </div>
+
+            <umi-menu key="sidebar-nav" cls="list-group sidebar-nav-v1 margin-bottom-40" source="source.menus"></umi-menu>
+            <!--<ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav">
+                <li class="list-group-item" ng-class="{active: $state.includes('customer.myhome')}" data-ng-show="!isLackProfile">
+                    <a ui-sref="customer.myhome"><i class="fa fa-bar-chart-o"></i> 用户中心</a>
+                </li>
+                <li class="list-group-item list-toggle" ng-class="{active: $state.includes('customer.shippingnotice') || $state.includes('customer.shippingnoticelist') || $state.includes('customer.orderhistory')}" data-ng-show="!isLackProfile">
+                    <a data-toggle="collapse" data-parent="#sidebar-nav" data-target="#collapse-myorders"
+                       class="collapsed" aria-expanded="false">运单管理</a>
+                    <ul id="collapse-myorders" class="collapse">
+                        <li ng-class="{active: $state.includes('customer.shippingnotice')}">
+                            <a ui-sref="customer.shippingnotice"><i class="fa fa-truck"></i> 货物预报</a>
+                        </li>
+                        <li ng-class="{active: $state.includes('customer.shippingnoticelist')}">
+                            <a ui-sref="customer.shippingnoticelist"><i class="fa fa-history"></i> 预报信息</a>
+                        </li>
+                        <li ng-class="{active: $state.includes('customer.myorders')}">
+                            <a ui-sref="customer.myorders"><i class="fa fa-shopping-cart"></i> 我的订单</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="list-group-item" ng-class="{active: $state.includes('customer.myaccount')}">
+                    <a ui-sref="customer.myaccount({anchorid:'profile'})"><i class="fa fa-cogs"></i> 个人设置</a>
+                </li>
+                <li class="list-group-item" ng-class="{active: $state.includes('customer.myfinance')}" data-ng-show="!isLackProfile">
+                    <a ui-sref="customer.myfinance"><i class="fa fa-university"></i> 财务信息</a>
+                </li>
+                <li class="list-group-item list-toggle" ng-class="{active: $state.includes('customer.myquestions')}">
+                    <a data-toggle="collapse" data-parent="#sidebar-nav" data-target="#collapse-helpcenter"
+                       class="collapsed" aria-expanded="false">帮助中心</a>
+                    <ul id="collapse-helpcenter" class="collapse">
+                        <li data-ng-show="!isLackProfile">
+                            <a ui-sref="customer.myquestions"><i class="fa fa-question-circle"></i> 我的问题</a>
+                        </li>
+                        <li>
+                            <a ui-sref="pricing" target="_blank"><i class="fa fa-jpy"></i> 资费标准</a>
+                        </li>
+                        <li>
+                            <a ui-sref="howtouse" target="_blank"><i class="fa fa-graduation-cap"></i> 使用流程</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>-->
+
+            <ul class="list-unstyled social-contacts-v2">
+                <!--commit by clark-->
+                <li><i class="rounded-x gm fa fa-book"></i> <a ui-sref="customer.myaccount({anchorid:'addressbook'})">收货地址</a></li>
+                <li><i class="rounded-x gm fa fa-key"></i> <a ui-sref="customer.myaccount({anchorid:'passwordTab'})">修改密码</a></li>
+                <li><i class="rounded-x gm fa fa-envelope"></i> <a ui-sref="customer.askquestion">在线咨询</a></li>
+                <li>
+                    <i class="rounded-x gm fa fa-gift"></i> <a ui-sref="register({reference:currentUser.customerNumber})" target="_blank">好友推荐</a>
+                    <a class="tooltips" data-toggle="tooltip" data-original-title="请复制新页面地址发送给好友注册,每邀请一位好友成功注册,双方均可获得运费奖励.">
+                        <i class="rounded-x gm fa fa-question"></i>
+                    </a>
+                </li>
+                
+            </ul>
+
+        </div>
+        <!--End Left Sidebar-->
+        <div class="col-md-9">
+            <div ui-view="overallview"></div>
+            <div ui-view></div>
+        </div>
+    </div>
+</div><!--/container-->
+<!--=== End Profile ===-->

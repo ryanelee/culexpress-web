@@ -1,0 +1,95 @@
+<!-- CSS Page Style -->
+<!--=== Content Part ===-->
+<div class="container content" ng-controller="RegisterController">
+    <div class="row" ng-show="model.registed===false">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+
+            <form ng-submit="register()" id="sky-form-register" class="sky-form reg-page" novalidate="novalidate">
+                <header>
+                    <div class="reg-header">
+                        <h2>注册新账号</h2>
+                        <p>已经注册? 点击 <a ui-sref="login" class="color-green">登录</a></p>
+                    </div>
+                </header>
+
+                <fieldset>
+                    <section>
+                        <label class="input">
+                            <i class="icon-append fa fa-user"></i>
+                            <input type="text" name="username" placeholder="用户名" data-ng-model="userName">
+                            <b class="tooltip tooltip-bottom-right">登录网站的唯一用户名</b>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="select">
+                            <select name="gender" ng-model="gender">
+                                <option value="">性别</option>
+                                <option value="M">男</option>
+                                <option value="F">女</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="input">
+                            <i class="icon-append fa fa-envelope"></i>
+                            <input type="email" name="email" placeholder="邮箱地址" data-ng-model="emailAddress">
+                            <b class="tooltip tooltip-bottom-right">用来验证你的账户，重置密码以及接收重要的系统通知</b>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="input">
+                            <i class="icon-append fa fa-lock"></i>
+                            <input type="password" name="password" placeholder="密码" id="password" data-ng-model="password">
+                            <b class="tooltip tooltip-bottom-right">密码长度为6-20位，可为英文、符号、数字</b>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="input">
+                            <i class="icon-append fa fa-lock"></i>
+                            <input type="password" name="passwordConfirm" placeholder="确认密码">
+                            <b class="tooltip tooltip-bottom-right">请确认您的密码</b>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="input">
+                            <i class="icon-append fa fa-female"></i>
+                            <input type="text" name="customerNumber" ng-disabled="{{ $stateParams.reference !== undefined }}" placeholder="推荐人" ng-model="customerNumber" maxlength="5">
+                            <b class="tooltip tooltip-bottom-right">推荐人的注册账号,例如：KX000</b>
+                        </label>
+                    </section>
+
+                </fieldset>
+
+                <fieldset>
+                    <section>
+                        <label class="checkbox"><input type="checkbox" name="terms" id="terms" /><i></i><p>我同意<a ui-sref="terms" class="color-green">用户注册协议</a></p></label>
+                    </section>
+                </fieldset>
+                <footer>
+                    <button type="submit" class="btn-u">注册</button>
+                    <i class="color-red icon-line icon-shield" data-ng-show="showRegisterError"></i>
+                    <span class="color-red" data-ng-show="showRegisterError" data-ng-bind="registerError"></span>
+                </footer>
+            </form>
+
+        </div>
+    </div>
+
+    <div ng-show="model.registed===true" style="min-height:500px;max-width:750px; text-align:center;font-size:20px;margin:0 auto;font-weight:bold;color:#000;">
+        <div class="text-left">注册成功，我们已经将您账号的激活邮件发送至您的邮箱：{{model.email}}，</div>
+        <div class="text-left">请登录邮箱并点击激活邮件中的链接成功激活账号后即可登录系统！</div>
+    </div>
+</div><!--/container-->
+<!--=== End Content Part ===-->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        App.init();
+        RegForm.initRegForm();
+    });
+</script>

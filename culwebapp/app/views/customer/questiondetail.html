@@ -1,0 +1,111 @@
+<div class="row">
+    <div class="profile-body">
+        <div class="panel panel-profile">
+            <div class="panel-heading overflow-h">
+                <h2 class="panel-title heading-sm pull-left"><i class="fa fa-question-circle"></i>问题描述</h2>
+                <a ui-sref="customer.myquestions"><i class="fa fa-chevron-circle-left pull-right"></i></a>
+            </div>
+            <div class="panel-body margin-bottom-20">
+                <div class="row media-body">
+                    <div class="col-md-6">
+                        <dl class="dl-horizontal">
+                            <dt>问题编号</dt>
+                            <dd>{{data.messageNumber}}</dd>
+                            <dt>当前状态</dt>
+                            <dd>
+                                <span class="label label-info" ng-if="data.status==0">处理中</span>
+                                <span class="label label-info" ng-if="data.status==1">已处理</span>
+                            </dd>
+                            <dt>问题类别</dt>
+                            <dd>
+                                <span ng-repeat="questionCategoryItem in questionCatgories" ng-if="questionCategoryItem.typeID==data.messageType">
+                                    {{questionCategoryItem.typeName}}
+                                </span>
+                            </dd>
+                            <dt>运单号码</dt>
+                            <dd>
+                                {{data.receiveTrackingNumber}}
+                            </dd>
+                            <dt>发货单号</dt>
+                            <dd>
+                                {{data.deliveryTrackingNumber}}
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-6">
+                        <dl class="dl-horizontal">
+                            <dt></dt>
+                            <dd></dd>
+                            <dt>生成日期</dt>
+                            <dd>{{data.indate|date:'MM/dd/yyyy HH:mm:ss'}}</dd>
+                            <dt>收货仓库</dt>
+                            <dd>
+                                <span ng-repeat="warehouseItem in questionWarehouses" ng-if="warehouseItem.warehouseNumber==data.receivedWarehouseNumber">
+                                    {{warehouseItem.warehouseName}}
+                                </span>
+                            </dd>
+                            <dt>订单编号</dt>
+                            <dd>{{data.SONumber}}</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="media media-v2 margin-bottom-20">
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <strong>详细描述</strong>
+                        </h4>
+                        <p>{{data.message}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-profile">
+            <div class="panel-heading overflow-h">
+                <h2 class="panel-title heading-sm pull-left"><i class="fa fa-comments"></i>问题留言</h2>
+            </div>
+            <div class="panel-body">
+                <div class="media media-v2 margin-bottom-20" ng-repeat="replyMessageItem in data.messageLogs">
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <strong>
+                                <span ng-if="replyMessageItem.operationUserName && replyMessageItem.operationUserName!=currentUser.userName" class="text-success">客服[{{replyMessageItem.operationUserName}}]</span>
+                                <span ng-if="replyMessageItem.operationUserName==currentUser.userName || !replyMessageItem.operationUserName" class="text-warning">*您*</span>
+                            </strong>
+                            <small>{{replyMessageItem.operationDate|date:'MM/dd/yyyy HH:mm:ss'}}</small>
+                        </h4>
+                        <p><!--当前状态： 邮件运输中--></p>
+                        <p>
+                            {{replyMessageItem.message}}
+                        </p>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!--/end media media v2-->
+
+                <form action="#" id="sky-form3" class="sky-form">
+                    <fieldset>
+                        <section>
+                            <label class="label">发表回复</label>
+                            <label class="textarea textarea-resizable">
+                                <i class="icon-append fa fa-comment"></i>
+                                <textarea rows="4" placeholder="请详细描述您需要咨询的问题" name="message" id="message" ng-model="data.questionMessage"></textarea>
+                            </label>
+                        </section>
+                    </fieldset>
+                    <footer>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button type="button" class="btn-u btn-u-red" ng-click="submitMessage();">发表</button>
+                                <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <a ui-sref="customer.myquestions" class="btn-u btn-u-default"><i class="fa fa-question-circle"> 我的问题</i></a>
+                            </div>
+                        </div>
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

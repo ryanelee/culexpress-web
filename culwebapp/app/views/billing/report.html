@@ -1,0 +1,180 @@
+﻿<div class="row">
+    <div class="headline"><h2>结算报表</h2></div>
+
+    <div class="summary">
+        <h3 style="padding:0;margin:0;" ng-show="!!model.arrears&&model.arrears>0">概要</h3>
+        <hr style="padding:0;margin:0;" ng-show="!!model.arrears&&model.arrears>0" />
+        <div style="line-height:100px;" ng-show="!!model.arrears&&model.arrears>0">
+            <div class="col-sm-6">
+                未支付费用（截止 {{ currentDate }}）
+            </div>
+            <div class="col-sm-6">
+                <span style="color:red;font-weight:bolder;">{{model.arrears|currency}}</span>
+                <img src="assets/img/culwebapp/alipay.png" alt="支付宝" />
+                <a href="javascript:void(0);" class="btn-u" style="display:inline;font-weight:bolder;" ng-if="!!model.arrears" ng-click="paid();">&lt; 支付</a>
+            </div>
+        </div>
+        <div class="tab-v1">
+            <ul class="nav nav-tabs" style="margin-bottom:10px;">
+                <li class="active"><a href="javascript:void(0)" data-toggle="tab" ng-click="selectTab('recent')">最近活动</a></li>
+                <li><a href="javascript:void(0)" data-toggle="tab" ng-click="selectTab('download')">结算账单下载</a></li>
+                <li><a href="javascript:void(0)" data-toggle="tab" ng-click="selectTab('history')">支付历史</a></li>
+                <li><a href="javascript:void(0)" data-toggle="tab" ng-click="selectTab('caption')">结算说明</a></li>
+            </ul>
+            <div ng-if="tab.current=='recent'" style="text-align:left;">
+                <div class="recent-search" style="line-height:50px;">
+                    <span>搜索条目：</span>
+                    <select ng-model="current.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in source.searchKeyItems" style="height:30px; width:100px;"></select>
+                    <input class="form-control" type="text" placeholder="请输入关键字" ng-model="query[current.searchKeyName]" style="width:40%;display:inline;" />
+                    <a class="btn-u" style="display:inline;padding:8px 13px;" href="javascript:void(0)" ng-click="search()">搜索</a>
+                    <a href="javascript:void(0)" ng-click="toggle()">高级搜索 <i class="fa fa-angle-down" ng-if="!!current.advanced"></i><i class="fa fa-angle-up" ng-if="!current.advanced"></i></a>
+                </div>
+                <div class="recent-search" style="line-height:40px;" ng-show="!!current.advanced">
+                    <span>交易类型：</span>
+                    <select ng-model="query.type" ng-options="transactionTypeItem.key as transactionTypeItem.text for transactionTypeItem in source.transactionTypes" style="height:30px; width:100px;">
+                        <option value="">全部</option>
+                    </select>
+                    <span>时间范围：</span>
+                    <select ng-model="current.dateRangeCategory" ng-change="toggleDateRangeCategory()" ng-options="dateRangeCategoryItem as dateRangeCategoryItem.text for dateRangeCategoryItem in source.dateRangeCategories" style="height:30px; width:120px;"></select>
+                    <select ng-if="!!current.dateRangeCategory.childs" ng-model="current.dateRange" ng-change="setDateRange()" ng-options="dateRangeItem as dateRangeItem.text for dateRangeItem in current.dateRangeCategory.childs" style="height:30px; width:100px;"></select>
+                    <empty ng-show="current.dateRangeCategory.key==='customRange'">
+                        <span> 开始时间：</span>
+                        <input class="form-control control-date begin" type="text" style="width:120px;display:inline;" placeholder="开始时间" />
+                        <span> 结束时间：</span>
+                        <input class="form-control control-date end" type="text" style="width: 120px; display: inline;" placeholder="结束时间" />
+                    </empty>
+                </div>
+                <div style="padding-top:10px;">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="padding:10px 0; min-width:20px;width:20px;max-width:20px;">#</th>
+                                <th style="padding:10px 0;">结算编号</th>
+                                <th style="padding:10px 0;">日期</th>
+                                <th style="padding: 10px 0; min-width: 60px; width: 60px; max-width:60px;">交易类型</th>
+                                <th style="padding: 10px 0; min-width: 60px; width: 60px; max-width:60px;">支付状态</th>
+                                <th style="padding:10px 0;">订单编号</th>
+                                <!--
+                                <th>订单类型</th>
+                                <th>商品编号</th>
+                                <th style="padding:0;">商品描述</th>-->
+                                
+                                <th style="padding:10px 0;">包裹跟踪号</th>
+                                <th style="padding: 10px 0; min-width: 160px; width: 160px; max-width: 160px; ">受理仓库</th>
+                                <th style="padding: 10px 0; min-width: 80px; width: 80px; max-width: 80px;">重量（磅）</th>
+                                <th style="padding: 10px 0; min-width: 80px; width: 80px; max-width: 80px;">金额（$）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="dataItem in  source.recentList">
+                                <td>{{dataItem.rownumber}}</td>
+                                <td>{{dataItem.settlementNumber}}</td>
+                                <td>{{dataItem.settlementDate|date:'yyyy-MM-dd'}}</td>
+                                <td>
+                                    <span ng-if="dataItem.type===1">运费</span>
+                                    <span ng-if="dataItem.type===2">入库费用</span>
+                                    <span ng-if="dataItem.type===3">出库费用</span>
+                                    <span ng-if="dataItem.type===4">仓储费用</span>
+                                </td>
+                                <td class="hidden-sm">
+                                    <span ng-if="!!dataItem.isPaid" style="color:green;">是</span>
+                                    <span ng-if="!dataItem.isPaid" style="color:red;">否</span>
+                                </td>
+                                <td>{{dataItem.orderNumber}}</td>
+                                <!--<td>{{dataItem.orderType}}</td>-->
+                                <!--<td>@mdo</td>
+                                <td>@mdo</td>-->
+                                
+                                <td>{{dataItem.packageNumber}}</td>
+                                <td>{{dataItem.warehouseName}}</td>
+                                <td>{{dataItem.packageWeight|number}}</td>
+                                <td>{{dataItem.fee|currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-right">
+                        <pagination options="pagedOptions.recent" on-page="onRecentPaged"></pagination>
+                    </div>
+                </div>
+
+            </div>
+            <div ng-if="tab.current=='download'">
+                <div class="panel-group acc-v1" id="accordion-1">
+                    <div class="panel panel-default" ng-repeat="reportItem in source.excelReportData">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" data-target="#collapse-{{$index}}" aria-expanded="{{$index===0?'true':'false'}}">
+                                    {{reportItem.year}}账单下载
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse-{{$index}}" class="panel-collapse collapse" ng-class="{'in':$index===0}" aria-expanded="{{$index===0?'true':'false'}}">
+                            <div class="panel-body">
+                                <ul style="list-style:none;">
+                                    <li ng-repeat="reportMonth in reportItem.months">
+                                        <a href="{{reportMonth.filePathUrl}}" target="_blank"><i class="fa fa-download"></i> {{reportMonth.reportDate}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="tab.current=='history'">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>日期</th>
+                            <th>支付方式</th>
+                            <th>支付宝交易号</th>
+                            <th>支付金额（$）</th>
+                            <th>支付原因</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="dataItem in  source.historyList">
+                            <td>{{dataItem.rownumber}}</td>
+                            <td>{{dataItem.indate|date:'yyyy-MM-dd'}}</td>
+                            <td>{{dataItem.rechargeChannel}}</td>
+                            <td>{{dataItem.trade_no}}</td>
+                            <td>{{dataItem.payment}}</td>
+                            <td class="hidden-sm">{{dataItem.operationType}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-right">
+                    <pagination options="pagedOptions.history" on-page="onHistoryPaged"></pagination>
+                </div>
+            </div>
+            <div ng-if="tab.current=='caption'">
+                <p style="color:red;">运费折扣：{{source.discount*100}}% </p>
+                <h5 style="padding:0;margin:0;">运费结算规则</h5>
+                <hr style="padding:0;margin:0;" />
+                <div class="panel-group acc-v1" id="accordion-1">
+                    <div class="panel panel-default" ng-repeat="instructionItem in source.instructionData">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-1" data-target="#collapse-{{$index}}" aria-expanded="{{$index===0?'true':'false'}}">
+                                    {{instructionItem.name}}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse-{{$index}}" class="panel-collapse collapse" ng-class="{'in':$index===0}" aria-expanded="{{$index===0?'true':'false'}}">
+                            <div class="panel-body">
+                                <span style="display:inline-block;margin-left:30px;min-width:250px;text-align:right" ng-repeat="childItem in instructionItem.children"><span style="font-weight:bold;">{{childItem.name}}:</span> 首磅($)：{{childItem.firstWeight|number:2}} 续磅($)：{{childItem.continuedWeight|number:2}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .datepicker-dropdown:before,
+            .datepicker-dropdown:after {
+                display: none !important;
+            }
+        </style>
+
+    </div>
+</div>

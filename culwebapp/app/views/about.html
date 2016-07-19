@@ -1,0 +1,73 @@
+<div ng-controller="AboutController">
+<!--=== Content Part ===-->
+<div class="container content">
+    <div class="headline"><h2>关于我们</h2></div>
+    <div class="row">
+        <div class="col-md-6 md-margin-bottom-40">
+            <p>中美速递(culexpress.com)是海淘服务专家和中美运输权威,我们的服务人员皆拥有多年处理中美之间空海运进出口的经验,为集国际快递国际货运,仓储配送,包装,对外贸易以及保险代理于一身的全方位配套的综合性国际物流企业,有着完善的国内外服务网络和良好的企业信誉.</p>
+            <p>公司总部设在美国免税州俄勒冈州.公司秉持“顾客至上”的原则,热诚服务大众,与业内多家知名企业合作,致力于用更短的时间和更低的费用的同时,为客户提供全方位的货运服务,主要业务有国际快件,国内运输,中美转运,美货直发,满足客户各种不同的需求.</p>
+            <ul class="list-unstyled">
+                <li><i class="fa fa-check color-green"></i> 专属美国收货地址</li>
+                <li><i class="fa fa-check color-green"></i> 个人专属的美国仓库</li>
+                <li><i class="fa fa-check color-green"></i> 大小包裹双渠道发货</li>
+                <li><i class="fa fa-check color-green"></i> 便捷的在线支付</li>
+            </ul><br />
+
+            <!-- Blockquotes -->
+            <blockquote class="hero-unify">
+                <p>让海外购物更快速,更省心,更放心,让海淘变得更轻松!</p>
+                <small>中美速递的宗旨</small>
+            </blockquote>
+        </div>
+
+        <div class="col-md-6 md-margin-bottom-40">
+            <div class="responsive-video">
+                <img src="../images/about-us.jpg" style="width:555px;height:313px">
+            </div>
+        </div>
+    </div><!--/row-->
+
+    <!-- Owl Clients v1 -->
+    <div class="headline"><h2>合作伙伴</h2></div>
+    <div class="owl-clients-v1">
+        <div class="item">
+            <a href="{{ Clients[0].url }}"><img ng-src="{{ Clients[0].image }}" alt=""></a>
+        </div>
+        <div class="item">
+            <a href="{{ Clients[1].url }}"><img ng-src="{{ Clients[1].image }}" alt=""></a>
+        </div>
+        <div class="item">
+            <a href="{{ Clients[2].url }}"><img ng-src="{{ Clients[2].image }}" alt=""></a>
+        </div>
+        <div class="item">    
+            <a href="{{ Clients[3].url }}"><img ng-src="{{ Clients[3].image }}" alt=""></a>
+        </div>
+        <div class="item">    
+            <a href="{{ Clients[4].url }}"><img ng-src="{{ Clients[4].image }}" alt=""></a>
+        </div>
+        <div class="item">    
+            <a href="{{ Clients[5].url }}"><img ng-src="{{ Clients[5].image }}" alt=""></a>
+        </div>
+        <div class="item">    
+            <a href="{{ Clients[6].url }}"><img ng-src="{{ Clients[6].image }}" alt=""></a>
+        </div>
+        <div class="item">    
+            <a href="{{ Clients[7].url }}"><img ng-src="{{ Clients[7].image }}" alt=""></a>
+        </div>
+        <div class="item">    
+            <a href="{{ Clients[8].url }}"><img ng-src="{{ Clients[8].image }}" alt=""></a>
+        </div>
+    </div>
+    <!-- End Owl Clients v1 -->
+</div><!--/container-->
+<!--=== End Content Part ===-->
+</div>
+
+
+<script type="text/javascript">   
+    jQuery(document).ready(function() {
+      	App.init();
+        OwlCarousel.initOwlCarousel();
+        ParallaxSlider.initParallaxSlider();
+    });
+</script>

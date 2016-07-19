@@ -1,0 +1,123 @@
+﻿<!-- Begin Content -->
+<div class="row" ng-controller="ShippingNoticeController">
+    <div class="profile-body margin-bottom-20">
+        <div class="headline">
+            <h2>预报记录</h2>
+        </div>
+        <!--<div class="alert alert-warning fade in alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4 class="heading-sm">
+                <i class="icon-custom rounded-x icon-sm icon-bg-red fa fa-info"></i>
+                <span class="color-red">提交订单之前请注意:</span>
+            </h4>
+            <p>1.合箱订单的包裹数量最好不要超过4个.合箱数超过4个包裹的订单.处理时间会延长2-5个工作日,敬请大家的理解和支持.</p>
+            <p>2.包裹入库的时候不会显示体积重,出库的时候会复称重量,如果不是提交USPS美国邮政渠道,如果体积重量大于实际重量,将会提示补运费,会被收取体积运费.</p>
+            <p>
+                3.目前只有USPS渠道不收体积运费,如果您的东西有枕头,大玩具,座椅,儿童游戏毯,塑料马桶,箱包,多个泡芙,溶豆,鞋盒等诸如此类体积比较大的无法减小体积重的东西
+                建议选择发USPS渠道,其他渠道都将严格收取体积运费,包裹处理完成后,将不接受更改渠道的要求.谢谢合作.
+            </p>
+        </div>-->
+        <!--Table Bordered-->
+        <div class="table-search-v1">
+            <form action="#" id="sky-form" class="sky-form form-inline" novalidate="novalidate">
+                <div class="row">
+                    <daterange-search label="预报时间" btn-text="查看历史预报" on-search="rangSearch" allow-empty="true" year-limit="0"></daterange-search>
+                    <div class="form-group">
+                        <label>搜索条目：</label>
+                        <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
+                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" />
+                        <a javascript:void(0) ng-click="searchList()" class="btn-u">查找订单</a>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="form-group">
+                        <label class="pull-left" style="margin-top:5px;">预报状态：</label>
+                        <div class="inline-group pull-left">
+                            <label class="radio" style="margin-right: 10px; padding-left: 10px; ">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus()" style="font-size:12px">
+                                    <input type="radio" ng-model="queryPara.status" value="" /><i class="rounded-x"></i>所有状态
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Intransit')" style="font-size:12px">
+                                    <input type="radio" ng-model="queryPara.status" value="Intransit" /><i class="rounded-x"></i>未入库
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Inbound')" style="font-size:12px">
+                                    <input type="radio" ng-model="queryPara.status" value="Inbound" /><i class="rounded-x"></i>已入库
+                                </a>
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered" style="margin-bottom:0px">
+                    <thead>
+                        <tr>
+                            <th style="min-width:10px"><input type="checkbox" ng-click="selectAll()" ng-model="selectedAll"></th>
+                            <th style="min-width:100px">预报快递单号</th>
+                            <th style="min-width:100px" class="hidden-sm">运单内容</th>
+                            <th style="min-width:100px; max-width:100px; width:100px;">运单备注</th>
+                            <th style="min-width:150px">仓库</th>
+                            <th style="min-width:130px">预报时间</th>
+                            <th style="min-width: 140px; max-width: 140px;width:140px;">货物状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="shippingNoticeItem in shippingNoticeList track by shippingNoticeItem.transactionNumber">
+                            <td>
+                                <input type="checkbox" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)">
+                                <button class="btn-u btn-u-xs btn-u-default" ng-show="shippingNoticeItem.status === 'Intransit'" ng-click="deleteShippingNotice(shippingNoticeItem)">
+                                    删除
+                                </button>
+                            </td>
+                            <td>{{ shippingNoticeItem.trackingNumber }}</td>
+                            <td class="hidden-sm">{{ shippingNoticeItem.packageDescription }}</td>
+                            <td title="{{ shippingNoticeItem.packageNote }}" style="word-break:break-all;">{{ shippingNoticeItem.packageNote }}</td>
+                            <td>{{ shippingNoticeItem.warehouseName}}</td>
+                            <td>{{ shippingNoticeItem.createDate|sysdate}}</td>
+                            <td>
+                                <span ng-if="shippingNoticeItem.status === 'Inbound'" class="label label-success">已入库</span>
+                                <span ng-if="shippingNoticeItem.status === 'Intransit'" class="label label-info">在途中</span>
+                                <span ng-if="shippingNoticeItem.status === 'Onshelf'" class="label label-info">已上架</span>
+                                <span ng-if="shippingNoticeItem.status === 'Offshelf'" class="label label-success">已下架</span>
+                                <p ng-if="shippingNoticeItem.status === 'Inbound'">
+                                    <small class="hex"><i class="fa fa-clock-o"></i> {{ shippingNoticeItem.inboundDate|sysdate}}</small><br>
+                                    <small class="hex">是否转仓: <span ng-if="shippingNoticeItem.isTransfer">是</span><span ng-if="!shippingNoticeItem.isTransfer">否</span></small><br>
+                                    <small class="hex">运单重量:{{ shippingNoticeItem.packageWeight }}磅</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row" style="margin-top:20px;">
+                <div class="col-sm-6" style="margin:0;padding:0 10px;">
+                    <a class="btn-u" ui-sref="customer.shippingnotice">
+                        <i class="fa fa-truck"> 货物预报</i>
+                    </a>
+                    <a class="btn-u" href="javascript:void(0);" ng-click="redirectToSubmitOrder();">
+                        <i class="fa fa-shopping-cart"> 提交订单</i>
+                    </a>
+                    <a class="btn-u" href="javascript:void(0);" ng-click="redirectToFastOrder();">
+                        <i class="fa fa-shopping-cart"> 提交极速原单</i>
+                    </a>
+                    <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+                </div>
+                <div class="col-sm-6 text-right" style="margin:0;padding:0 10px;">
+                    <pagination options="pagedOptions" on-page="onPaged"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .profile table.table > tbody > tr > td {
+        padding: 6px;
+    }
+</style>
+<!-- End Content -->

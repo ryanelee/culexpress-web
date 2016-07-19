@@ -1,0 +1,58 @@
+﻿<div ng-controller="OrdertrackingCtrl" style="min-height: 800px;overflow-x:hidden;">
+    <div class="row" ng-if="!isOrderPackage&&showTrack">
+        <div class="col-sm-12">
+            <div class="headline" style="padding-left:20%;"><h2>包裹轨迹</h2></div>
+            <ul class="timeline-v2">
+                <li class="title equal-height-columns">
+                    <p ng-if="!!orderEventInfo.usedTimeString">已运送：{{orderEventInfo.usedTimeString }}</p>
+                    <p ng-if="!orderEventInfo.usedTimeString">已运送：{{orderEventInfo.usedDay}}天{{orderEventInfo.usedHour}}小时</p>
+                    <p ng-if="!!orderEventInfo.shipDate && showOutboundDate">出库时间：{{orderEventInfo.shipDate|date:'yyyy年MM月dd日 HH:mm'}}</p>
+                </li>
+                <li class="equal-height-columns" ng-repeat="eventItem in orderEventInfo.eventList" ng-if="!!eventItem.note">
+                    <div class="cbp_tmtime equal-height-column">
+                        <span>{{eventItem.operationDate|date:'yyyy年MM月dd日 HH:mm:ss'}}</span>
+                        <span><i class="fa {{eventItem.icon}} fa-3x"></i></span>
+                    </div>
+                    <i class="cbp_tmicon rounded-x hidden-xs"></i>
+                    <div class="cbp_tmlabel equal-height-column">
+                        <div>
+                            <h2>{{eventItem.note}}</h2>
+                            <div class="row">
+                                <div class="col-sm-12" bind-html-unsafe="eventItem.description">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p ng-if="eventItem.code!=102">
+                                        <span ng-if="!!eventItem.operationUser">{{eventItem.operationUser}}</span><span ng-if="!!eventItem.warehouseName">[{{eventItem.warehouseName}}]</span>
+                                    </p>
+                                    <p ng-if="eventItem.code==102">
+                                        {{eventItem.operationUser}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row" ng-if="isOrderPackage" style="width:70%;margin:0 auto;">
+        <div class="headline"><h2>订单包裹信息</h2></div>
+        <ul class="list-unstyled">
+            <li class="list-row" ng-repeat="packageNumber in packagesList">
+                <a href="javascript:void(0)" ng-click="showTrackInfo(packageNumber);"><u>{{packageNumber}}</u></a>
+            </li>
+        </ul>
+    </div>
+    <div class="row" ng-if="isErrorNumber" style="width:70%;margin:0 auto;">
+        <div class="text-danger">无效的运单号</div>
+    </div>
+    <div class="row margin-top-20">
+        <div class="col-sm-12 text-center">
+            <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+        </div>
+    </div>
+</div>
+

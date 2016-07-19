@@ -1,0 +1,186 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 客户详情</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <legend>注册资料</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">注册编号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.customerNumber}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">客户标示：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.receiveIdentity}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">注册账号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.userName}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">注册密码：</label>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-default" ng-click="btnResetPassword()">重置密码</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">注册日期：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.registerDate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">推荐人：</label>
+                    <div class="col-sm-2">
+                        <label class="control-label">{{data.reference || '无'}}</label>
+                        <button type="button" class="btn btn-default" ng-if="!!data.reference" ng-click="btnClearReference()">取消推荐</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">用户类型：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.isVip ? 'VIP客户' : '普通客户'}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">VIP状态：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data._vipStatus}}</label>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label text-right">推荐人：</label>
+                    <div class="col-sm-9">
+                        <label class="control-label">{{data.referenceUserEmailAddress}}</label>
+                        <button type="button" class="btn btn-default">取消推荐</button>
+                        <button type="button" class="btn btn-default">加入重复表</button>
+                    </div>
+                </div>-->
+            </fieldset>
+            <fieldset>
+                <legend>个人信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">姓  名：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.lastName}} {{data.firstName}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">性　别：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.gender == "F" ? "女" : "男"}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">地  址：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.address1}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">邮政编码：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.zipcode}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">公司名：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.companyName}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">公司地址：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.companyAddress}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">公司网址：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.companySite}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">身份证号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.idCard}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">邮箱地址：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.emailAddress}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">固定电话：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.telephoneNumber" ng-disabled="true">
+                    </div>
+                    <label class="col-sm-2 control-label text-right">移动电话：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.cellphoneNumber" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">QQ号：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.QQ" ng-disabled="true">
+                    </div>
+                    <label class="col-sm-2 control-label text-right">MSN：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.MSN" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">淘宝旺旺：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.taobaoWangwang" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">备注信息：</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ng-model="data.note" ng-disabled="true"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>帐户信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">账户余额：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">￥{{data.accountBalance || 0}}</label>
+                    </div>
+                    <label class="col-sm-6 control-label">消费总额：￥{{data.totalCost || 0}}</label>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">可用积分：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.myPoint" ng-disabled="!tpl_status.editPoint">
+                    </div>
+                    <label class="col-sm-6 control-label">总获得积分：{{data.totalPoint || 0}}，已使用积分：{{(data.totalPoint - data.myPoint) || 0}}</label>
+                </div>
+                <div class="form-group" ng-show="!!tpl_status.editPoint">
+                    <label class="col-sm-2 control-label text-right">调整理由：</label>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" ng-model="data.pointNote"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"></label>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-default" ng-click="tpl_status.editPoint = true" ng-show="!tpl_status.editPoint">积分调整</button>
+                        <button type="button" class="btn btn-primary" ng-click="btnEditPoint()" ng-show="!!tpl_status.editPoint">保存积分调整</button>
+                        <button type="button" class="btn btn-default" ng-click="tpl_status.editPoint = false" ng-show="!!tpl_status.editPoint">取消积分调整</button>
+
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-primary" ng-click="btnSave()">保存</button>
+                <button type="button" class="btn btn-default" ng-click="btnPrev()">返回</button>
+            </div>
+        </form>
+    </div>
+</div>

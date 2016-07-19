@@ -1,0 +1,89 @@
+﻿<div class="row" ng-controller="MyFinanceController">
+    <div class="profile-body margin-bottom-20">
+        <div class="tab-v1">
+            <ul class="nav nav-justified nav-tabs">
+                <li ng-class="{active: $stateParams.tabId.includes('recharge')}"><a data-toggle="tab" ui-sref="customer.myfinancedetail({tabId:'recharge'})">充值记录</a></li>
+                <li ng-class="{active: $stateParams.tabId.includes('debit')}"><a data-toggle="tab" ui-sref="customer.myfinancedetail({tabId:'debit'})">扣款明细</a></li>
+            </ul>
+
+            <!--<div class="headline"><h2>我的充值记录</h2></div>-->
+            <div class="tab-content">
+                <div class="profile-edit tab-pane fade" ng-class="{active: currentTabId==='recharge',in:currentTabId==='recharge'}">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 20px;">#</th>
+                                    <th style="width:150px;">充值平台</th>
+                                    <th style="width:150px;">充值日期</th>
+                                    <th style="width:100px;">金额</th>
+                                    <th style="width:80px;">状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="myfinanceItem in myfinanceListData">
+                                    <td style="width:20px;">{{myfinanceItem.rownumber}}</td>
+                                    <td>
+                                        <span ng-if="myfinanceItem.rechargeChannel==1">支付宝(人民币)</span> 
+                                        <span ng-if="myfinanceItem.rechargeChannel==2">支付宝(美金)</span> 
+                                        <span ng-if="myfinanceItem.rechargeChannel==3">财付通充值</span> 
+                                    </td>
+                                    <td>
+                                        {{myfinanceItem.indate|date:'yyyy年MM月dd日 HH:mm:ss'}}
+                                    </td>
+                                    <td>
+                                        {{myfinanceItem.payment|currency:'¥'}}
+                                    </td>
+                                    <td>
+                                        <span class="label label-success" ng-if="myfinanceItem.status==1">充值成功</span>
+                                        <span class="label label-danger" ng-if="myfinanceItem.status==0">充值失败</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+                            <pagination options="pagedOptions" on-page="onPaged"></pagination>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="profile-edit tab-pane fade" ng-class="{active: currentTabId==='debit',in:currentTabId==='debit'}">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 20px;">#</th>
+                                    <th style="width: 300px;">扣款项</th>
+                                    <th style="width:150px;">扣款日期</th>
+                                    <th style="width:100px;">金额</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="debitItem in myDebitListData">
+                                    <td style="width:20px;">{{debitItem.rownumber}}</td>
+                                    <td>
+                                        {{debitItem.memo}}
+                                    </td>
+                                    <td>
+                                        {{debitItem.indate|date:'yyyy年MM月dd日 HH:mm:ss'}}
+                                    </td>
+                                    <td>
+                                        {{debitItem.payment|currency:'¥'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+                            <pagination options="pagedDebitOptions" on-page="onDebitPaged"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-sm-12">
+                <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+</head>
+<body>
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js(.) scripts/scripts.js -->
+    <script src="scripts/config.js"></script>
+    <!-- endbuild -->
+    <script>
+        var rechargeAmount,
+            customerNumber,
+            vipPay,
+            urlParas = location.search.split('&'),
+            requestUrl = '/customer/alipay/recharge';
+
+        for (var i = 0, ii = urlParas.length; i < ii; i++) {
+            if ((urlParas[i] || '').indexOf('ra') >= 0) { rechargeAmount = (urlParas[i] || '').split('=')[1]; }
+            if ((urlParas[i] || '').indexOf('cn') >= 0) { customerNumber = (urlParas[i] || '').split('=')[1]; }
+            if ((urlParas[i] || '').indexOf('vippay') >= 0) { vipPay = (urlParas[i] || '').split('=')[1]; }
+        }
+        if (rechargeAmount > 0 && !!customerNumber) {
+            if (!!vipPay) {
+                requestUrl = '/customer/alipay/payment';
+            }
+
+            $.post(cul.apiPath + requestUrl, {
+                WIDtotal_fee: decodeURIComponent(rechargeAmount),
+                customerNumber: decodeURIComponent(customerNumber)
+            }).success(function (result) {
+                $(document.body).html(result);
+            }).error(function (error, a, b) {
+                if (error) {
+                    $(document.body).html('<div style="color:#e74c3c;text-align:center;font-weight:bold;">支付失败！原因：<div><div style="padding-top:8px;"><ul style="list-style:none;padding:0;margin:0;"><li>'
+                        + JSON.parse(error.responseText).message
+                        + '。</li></ul></div>'
+                        + '<div style="padding-top:15px;"><a style="text-decoration: none" href="javascript:this.close()" onclick="">点击关闭页面</a></div>');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

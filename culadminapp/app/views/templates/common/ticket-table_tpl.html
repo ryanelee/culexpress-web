@@ -1,0 +1,43 @@
+﻿<div class="widget widget-table">
+    <div class="widget-header">
+        <h3><i class="fa fa-tasks"></i> {{title}}</h3> <em>- {{desc}}</em>
+        <div class="btn-group widget-header-toolbar">
+            <a href="javascript:void(0);" id="tour-focus" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+            <a href="javascript:void(0);" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+        </div>
+        <div class="widget-header-toolbar" ng-if="criticalTotal > 0">
+            <div class="label label-danger"><i class="fa fa-warning"></i> {{criticalTotal}} 紧急问题</div>
+        </div>
+    </div>
+    <div class="widget-content">
+        <table id="ticket-table" class="table table-sorting">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>时间</th>
+                    <th>分类</th>
+                    <th>名字</th>
+                    <th>标题</th>
+                    <th>优先级</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in data.dataList">
+                    <td><a href="javascript:void(0)">{{item.number}}</a></td>
+                    <td>{{item.date | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.name}}</td>
+                    <td><a href="javascript:void(0)">{{item.title}}</a></td>
+                    <td>
+                        <span class="label label-critical" ng-if="item.priority == 1">#1 - Critical</span>
+                        <span class="label label-emergency" ng-if="item.priority == 2">#2 - Emergency</span>
+                        <span class="label label-urgent" ng-if="item.priority == 3">#3 - Urgent</span>
+                        <span class="label label-high" ng-if="item.priority == 4">#4 - High</span>
+                        <span class="label label-medium" ng-if="item.priority == 5">#5 - Medium</span>
+                        <span class="label label-low" ng-if="item.priority == 6">#6 - Low</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

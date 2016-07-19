@@ -1,0 +1,22 @@
+﻿<div class="main-header">
+</div>
+<div class="main-content">
+    <chart-number-stat ng-data="model.numberStat" ng-if="!!model.numberStat"></chart-number-stat>
+
+    <chart-flot title="客户管理统计" 
+                desc="新注册用户，客户留言和客户订单" 
+                ng-if="!!model.customerFlot"
+                ng-data="model.customerFlot" 
+                ng-filter-trigger="flot.customer.refresh"></chart-flot>
+
+    <ticket-table title="问题处理" desc="最近提交问题列表" ng-data="model.customerTicket" ng-if="!!model.customerTicket"></ticket-table>
+
+    <chart-flot title="仓库管理统计" 
+                desc="入库包裹，出库订单信息" 
+                ng-if="!!model.warehouseFlot"
+                ng-data="model.warehouseFlot" 
+                ng-filter="model.warehouseFilter"
+                ng-filter-trigger="flot.warehouse.refresh"></chart-flot>
+
+    <ticket-table title="最近货物预报" desc="最近客户货物预报列表" ng-data="model.warehouseTicket" ng-if="!!model.warehouseTicket"></ticket-table>
+</div>

@@ -1,0 +1,328 @@
+﻿<!-- CSS Steps Plugins -->
+<!-- Begin Content -->
+<div class="row" ng-controller="MyOrdersController">
+    <div class="headline">
+        <h2>提交订单</h2>
+    </div>
+    <div>
+        <form action="#" class="sky-form shopping-cart">
+            <div>
+                <step-wizard on-submit="wizardSubmit" on-valid="wizardValid" options="wizardOptions">
+                    <ul class="wizard">
+                        <li>
+                            <div class="title">
+                                <h2>转运服务</h2>
+                                <p class="subtitle">选择转运服务类别</p>
+                            </div>
+                            <i class="rounded-x gm fa fa-truck"></i>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <h2>收货信息</h2>
+                                <p class="subtitle">填写商品申报和收货信息</p>
+                            </div>
+                            <i class="rounded-x gm fa fa-home"></i>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <h2>提交订单</h2>
+                                <p class="subtitle">确认订单明细和提交订单</p>
+                            </div>
+                            <i class="rounded-x gm fa fa fa-shopping-cart"></i>
+                        </li>
+                    </ul>
+                    <ul class="viewport">
+                        <li>
+                            <div class="form-group">
+                                <div ng-if="showWeight">
+                                    <label class="label">包裹重量</label>
+                                    <input type="text" class="form-control" ng-model="data.packageWeight" />
+                                </div>
+                                <div style="margin-top:12px;">
+                                    <label class="label">选择发货渠道</label>
+                                    <select class="form-control" ng-model="data.shipServiceItem" ng-change="selectedChannel()" ng-options="shipChannelItem as shipChannelItem.shipServiceName for shipChannelItem in allShipChannels">
+                                    <option value="">请选择渠道</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group" ng-show="!!data.shipServiceItem">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-bordered" style="margin-top:20px;margin-bottom:0px">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:120px;">服务名称</th>
+                                                <th style="width:120px;">递送时间</th>
+                                                <th style="width:150px;">运费</th>
+                                                <th class="hidden-sm">服务描述</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{data.shipServiceItem.shipServiceName}}</td>
+                                                <td>{{data.shipServiceItem.estimatedTime}}</td>
+                                                <td style="text-align:left;">
+                                                    <ul class="list-unstyled">
+                                                        <li ng-repeat="goodsCategoryItem in data.shipServiceItem.shipServiceFeeList">
+                                                            <div><label class="label">{{goodsCategoryItem.goodsCategory}}类</label></div>
+                                                            <div>首磅价格：{{goodsCategoryItem.firstWeight|currency:'¥'}}</div>
+                                                            <div>次磅价格：{{goodsCategoryItem.continuedWeight|currency:'¥'}}</div>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td class="hidden-sm" style="text-align:left;">
+                                                    {{data.shipServiceItem.serviceDetail}}
+                                                    <span class="label label-light">
+                                                        <i class="fa fa-hand-o-right"></i>{{data.shipServiceItem.attention}}{{data.shipServiceItem.rules}}{{data.shipServiceItem.serviceSummary}}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group">
+                                <!--商品申报-->
+                                <div class="table-responsive">
+                                    <h5 class="title-type">商品申报:</h5>
+                                    <div class="alert alert-warning fade in alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <strong>温馨提示:</strong>请如实填写购买商品名称及数量，错误申报会造成海关扣件或退件！一个地址建议每天发送一个包裹!
+                                    </div>
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:220px">入库包裹信息</th>
+                                                <th>转运包裹信息</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:200px;vertical-align:top;">
+                                                    <div ng-repeat="shippingItem in shippingItems" style="margin-bottom:15px;border:2px solid #aaa;">
+                                                        <span class="label label-light ng-binding">
+                                                            <i class="fa fa-barcode"></i> {{shippingItem.trackingNumber}}
+                                                        </span>
+                                                        <span class="label label-light ng-binding">
+                                                            <i class="fa fa-archive"></i> {{shippingItem.packageDescription}}
+                                                        </span>
+                                                        <span class="label label-light ng-binding">
+                                                            <i class="fa fa-cubes"></i> {{shippingItem.packageWeight}}磅
+                                                        </span>
+                                                        <span class="label label-light ng-binding" ng-if="!!shippingItem.inboundDate">
+                                                            <i class="fa fa-clock-o"></i> {{shippingItem.inboundDate|sysdate}}
+                                                        </span>
+                                                        <span class="label label-light ng-binding" ng-if="!shippingItem.inboundDate">
+                                                            <i class="fa fa-clock-o"></i> {{shippingItem.createDate|sysdate}}
+                                                        </span>
+                                                        <span class="label label-light ng-binding">
+                                                            <i class="fa fa-map-marker"></i> {{shippingItem.warehouseName}}
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align:top;">
+                                                    <div ng-repeat="outboundPackageItem in outboundPackages" style="margin-bottom: 15px; border: 1px solid #eee;padding:5px;">
+                                                        <select class="form-control" ng-model="outboundPackageItem.addressNumber" ng-options="addressItem.transactionNumber as (addressItem.stateOrProvince+' '+addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName) for addressItem in addressListData">
+                                                            <option value="">请选择收货地址</option>
+                                                        </select>
+                                                        <select class="form-control" ng-model="outboundPackageItem.currentCategory" style="margin-top:5px; width:40%;float:left;"
+                                                            ng-change="selectedCategory(outboundPackageItem,'currentCategory',outboundPackageItem.currentCategory)"
+                                                            ng-options="categoryItem.cateid as categoryItem.name for categoryItem in categories">
+                                                            <option value="">请选择商品主类别</option>
+                                                        </select>
+                                                        <select class="form-control" ng-model="outboundPackageItem.goodsCategory" style="margin-top: 5px; width: 40%; float: left; margin-left:20px;"
+                                                            ng-change="selectedCategory(outboundPackageItem,'goodsCategory',outboundPackageItem.goodsCategory)"
+                                                            ng-options="categoryItem2.cateid as categoryItem2.name for categoryItem2 in outboundPackageItem.subCategories">
+                                                            <option value="">请选择商品子类别</option>
+                                                        </select>
+                                                        <div style="margin-bottom:10px;clear:both;"></div>
+                                                        <table class="table" style="margin-top:10px;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>商品品牌</th>
+                                                                    <th style="width:200px;">商品描述</th>
+                                                                    <th style="width:15px;">数量</th>
+                                                                    <th style="width:30px;">单价(美元)</th>
+                                                                    <th style="width:15px;"></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="orderItem in outboundPackageItem.orderItems">
+                                                                    <td><input type="text" class="form-control" ng-model="orderItem.itemBrand"
+                                                                        /></td>
+                                                                    <td style="width:200px;"><input type="text" class="form-control" ng-model="orderItem.description"
+                                                                        /></td>
+                                                                    <td style="width:15px;"><input min="0" type="number" class="form-control" ng-model="orderItem.quantity"
+                                                                        /></td>
+                                                                    <td style="width:30px;"><input min="0" type="number" class="form-control" ng-model="orderItem.unitprice"
+                                                                        /></td>
+                                                                    <td style="width:15px;">
+                                                                        <a class="btn-u btn-u" ng-click="removeOrderItem($event,$index,outboundPackageItem);"><i class="fa fa-trash"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div>
+                                                            <a class="btn-u" ng-click="addOrderItem($event,outboundPackageItem);" href="javascript:void(0);">
+                                                                <i class="fa fa-plus-square"> 添加商品</i>
+                                                            </a>
+                                                            <a class="btn-u" href="javascript:void(0);" ng-click="orderBinning(outboundPackageItem);" ng-show="!data.isFastOrder">
+                                                                <i class="fa  fa-indent"> 分箱</i>
+                                                            </a>
+                                                            <a class="btn-u" href="javascript:void(0);" ng-click="removePackage(outboundPackageItem);" ng-show="outboundPackages.length>1">
+                                                                <i class="fa fa-outdent"> 删除包裹</i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--商品申报-->
+                                <!--收货地址-->
+                                <!--<div class="table-responsive">
+                                    <h5 class="title-type">选择收货地址:</h5>
+                                    <div class="alert alert-warning fade in alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <strong>温馨提示:</strong>一个地址建议每天发送一个包裹！
+                                    </div>
+
+                                    <div>
+                                        <p ng-repeat="addressItem in addressListData track by $index">
+                                            <span class="label label-light ng-binding">
+                                                <input type="checkbox" name="checkbox" ng-model="addressItem.checked"><i></i>
+                                                {{addressItem.stateOrProvince}} {{addressItem.address1}} {{addressItem.zipcode}} {{addressItem.receivePersonName}}
+                                                <span style="float:right">
+                                                    <a href="javascript:void(0)" ng-click="redirectToAddressInfo(addressItem)">修改地址</a>
+                                                </span>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>-->
+                                <div style="margin-bottom:20px;">
+                                    <a class="btn-u" ui-sref="customer.myaddress">
+                                        <i class="fa fa-plus-square"> 添加地址</i>
+                                    </a>
+                                </div>
+                                <!--收货地址-->
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <h5 class="title-type">备注说明:</h5>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" rows="3" ng-model="data.priceAdjustMemo"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group row" style="margin:5px 15px">
+                                <div class="col-sm-2"><label class="label">申报价值：</label></div>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-jpy"></i></span>
+                                        <input type="number" class="form-control" aria-label="申报价值 (to the nearest dollar)" ng-model="data.declareGoodsValue" ng-change="calculateFee('insuranceMark');">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="checkbox-inline" style="margin-top:5px">
+                                        <input type="checkbox" ng-model="data.insuranceMark" id="buyInsurance" ng-click="calculateFee('insuranceMark','checkbox')" /> 购买5%保险
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="margin:0 15px">
+                                <div class="col-sm-2"><label class="label">打赏小费：</label></div>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-jpy"></i></span>
+                                        <input type="number" class="form-control" ng-model="data.tip" ng-change="calculateFee('tip');">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="margin:5px 15px">
+                                <div class="col-sm-2"><label class="label">使用积分：</label></div>
+                                <div class="col-sm-4"><input type="text" ng-model="data.usePoint" class="form-control" ng-change="usePointChanged()"
+                                    /></div>
+                                <div class="col-sm-2" style="padding-top:6px;">
+                                    <span>(剩余积分：0)</span>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="margin:5px 15px">
+                                <div class="col-sm-2"><label class="label">增值服务：</label></div>
+                                <div class="col-sm-8">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_takeoutInvoice" /> 取出发票
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_urgentProcess" /> 加急处理
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_steadyInner" /> 内件加固
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_replaceCarton" /> 更换外箱
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_removeInner" /> 去除内件
+                                    </label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4 col-sm-offset-4">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:right">包裹重量(磅)</th>
+                                                <th style="text-align:left">{{countFee.packageWeight|number}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="text-align:right">运费:</td>
+                                                <td style="text-align:left">{{countFee.shippingFee|currency:'¥'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:right">购买保险:</td>
+                                                <td style="text-align:left">{{countFee.insuranceFee|currency:'¥'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:right">小费:</td>
+                                                <td style="text-align:left">{{countFee.tip|currency:'¥'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:right">增值服务:</td>
+                                                <td style="text-align:left">¥0</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:right; color:red;">积分抵扣:</td>
+                                                <td style="text-align: left; color: red;">¥{{(data.usePoint||0) * -1}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:right"><strong>总计费用:</strong></td>
+                                                <td style="text-align:left"><strong>{{countFee.totalCount|currency:'¥'}}</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </step-wizard>
+            </div>
+        </form>
+    </div>
+    <style>
+        .profile .table a {
+            color: #fff;
+        }
+    </style>
+</div>
+<!-- End Content -->

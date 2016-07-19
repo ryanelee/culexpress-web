@@ -1,0 +1,48 @@
+<div ng-controller="MyFinanceController">
+    <div class="profile-body margin-bottom-20">
+        <div class="counters">
+            <span class="counter-icon"><i class="fa fa-jpy rounded"></i></span>
+            <span>{{currentUser.accountBalance}}</span>
+            <div class="alert alert-warning fade in" style="text-align:left">
+                <strong>使用说明:</strong>
+                请填入您要充值的金额,点击确认付款.充值成功的话，该款项将直接划入您在本系统帐户上.
+                如果您正在进行交易,请确保您充值的金额不少于您的交易金额.
+            </div>
+        </div>
+        <div>
+            <form action="#" id="sky-form1" class="sky-form" novalidate="novalidate">
+                <fieldset>
+                    <div class="row">
+                        <section class="col col-3">
+                            <img src="assets/img/culwebapp/alipay.png">
+                        </section>
+                        <section class="col col-5">
+                            <label class="label">请输入您要充值的金额:</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-jpy"></i>
+                                <input type="text" name="number" class="form-control" ng-model="model.payAmount" />
+                            </label>
+                        </section>
+                        <section class="col col-4">
+                            <label class="label">(手续费:0.00)</label>
+                            <span>
+                                <button type="button" class="btn-u" ng-click="userPay();">充值</button>
+                                <a class="btn-u btn-u-default" ui-sref="customer.myfinancedetail({tabId:'recharge'})">查看充值记录</a>
+                            </span>
+                        </section>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="row margin-top-20">
+            <div class="col-sm-12">
+                <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>

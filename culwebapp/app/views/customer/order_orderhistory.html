@@ -1,0 +1,118 @@
+<!-- Begin Content -->
+<div class="row" ng-controller="MyOrdersController">
+    <div class="profile-body margin-bottom-20">
+        <div class="headline"><h2>历史订单</h2></div>
+
+        <!--Table Bordered-->
+        <div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="min-width:10px">#</th>
+                        <th style="min-width:10px">订单编号</th>
+                        <th style="min-width:10px">创建日期</th>
+                        <th class="td-width">货物说明</th>
+                        <th style="min-width:10px">渠道</th>
+                        <th style="min-width:10px">订单状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>GC921JAWO4052701</td>
+                        <td>5/27/2014 9:21:04 PM</td>
+                        <td class="td-width" style="padding-left:0">
+                            <ol>
+                                <li>
+                                    <span class="text-highlights text-highlights-green">Laneige</span>
+                                    <span class="text-highlights text-highlights-green">facial mask</span>
+                                    <span class="text-highlights text-highlights-green">1</span>
+                                    <span class="text-highlights text-highlights-green">20</span>
+                                </li>
+                                <li>
+                                    <span class="text-highlights text-highlights-green">Laneige</span>
+                                    <span class="text-highlights text-highlights-green">facial mask</span>
+                                    <span class="text-highlights text-highlights-green">1</span>
+                                    <span class="text-highlights text-highlights-green">20</span>
+                                </li>
+                            </ol>
+                        </td>
+                        <td>小包裹身份证渠道</td>
+                        <td>
+                            <span class="label label-success">已发货</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>GC921JAWO4052701</td>
+                        <td>5/27/2014 9:21:04 PM</td>
+                        <td class="td-width" style="padding-left:0">
+                            <ol>
+                                <li>
+                                    <span class="text-highlights text-highlights-green">Laneige</span>
+                                    <span class="text-highlights text-highlights-green">facial mask</span>
+                                    <span class="text-highlights text-highlights-green">1</span>
+                                    <span class="text-highlights text-highlights-green">20</span>
+                                </li>
+                                <li>
+                                    <span class="text-highlights text-highlights-green">GIAVIN</span>
+                                    <span class="text-highlights text-highlights-green">咖啡粉</span>
+                                    <span class="text-highlights text-highlights-green">3</span>
+                                    <span class="text-highlights text-highlights-green">6.99</span>
+                                </li>
+                            </ol>
+                        </td>
+                        <td>小包裹身份证渠道</td>
+                        <td>
+                            <span class="label label-warning">待支付</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>HZ146LUDM5082201</td>
+                        <td>5/27/2014 9:21:04 PM</td>
+                        <td class="td-width" style="padding-left:0">
+                            <ol>
+                                <li>
+                                    <span class="text-highlights text-highlights-green">Gerber</span>
+                                    <span class="text-highlights text-highlights-green">香蕉味婴儿饼干</span>
+                                    <span class="text-highlights text-highlights-green">1</span>
+                                    <span class="text-highlights text-highlights-green">2.59</span>
+                                </li>
+                            </ol>
+                        </td>
+                        <td>小包裹身份证渠道</td>
+                        <td>
+                            <span class="label label-info">处理中</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-xs-6">
+                    <a ui-sref="customer.shippingnotice">
+                        <button class="btn-u">
+                            <i class="fa fa-truck"> 货物预报</i>
+                        </button>
+                    </a>
+                    <a ui-sref="customer.submitorder">
+                        <button class="btn-u">
+                            <i class="fa fa-shopping-cart"> 提交订单</i>
+                        </button>
+                    </a>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <ul class="pagination" style="margin-top:5px">
+                        <li><a href="#">«</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Content -->

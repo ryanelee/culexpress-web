@@ -1,0 +1,45 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-bar-chart-o"></i> {{title}}</h3> <em>- {{desc}}</em>
+        <button type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+        <div class="btn-group widget-header-toolbar">
+            <a href="javascript:void(0);" id="tour-focus" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+            <a href="javascript:void(0);" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+        </div>
+    </div>
+    <div class="widget-content">
+        <!-- chart tab nav -->
+        <div class="chart-nav">
+            <strong>选择周期: </strong>
+            <ul id="sales-stat-tab">
+                <li ng-class="{'active': currentTab.period == 'week'}"><a href="javascript:void(0);" ng-click="btnTransferTab('week','period')">本周</a></li>
+                <li ng-class="{'active': currentTab.period == 'month'}"><a href="javascript:void(0);" ng-click="btnTransferTab('month','period')">本月</a></li>
+                <li ng-class="{'active': currentTab.period == 'year'}"><a href="javascript:void(0);" ng-click="btnTransferTab('year','period')">本年</a></li>
+            </ul>
+        </div>
+        <div class="chart-nav" ng-repeat="item in filter">
+            <strong>{{item.title}}: </strong>
+            <ul id="sales-stat-tab">
+                <li ng-repeat="option in item.options" ng-class="{'active': currentTab[item.key] == option.key}">
+                    <a href="javascript:void(0);" ng-click="btnTransferTab(option.key, item.key)">{{option.title}}</a>
+                </li>
+            </ul>
+        </div>
+        <!-- end chart tab nav -->
+        <!-- chart placeholder-->
+        <div class="chart-content">
+            <div id="chart-control" class="demo-flot-chart sales-chart"></div>
+        </div>
+        <!-- end chart placeholder-->
+        <hr class="separator">
+        <!-- secondary stat -->
+        <div class="secondary-stat">
+            <div class="row">
+                <div class="col-lg-4" ng-repeat="item in data.secondaryList">
+                    <chart-secondary-stat data="{{item}}"></chart-secondary-stat>
+                </div>
+            </div>
+        </div>
+        <!-- end secondary stat -->
+    </div>
+</div>

@@ -1,0 +1,106 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 线下订单打包登记</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <legend>基本信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">客户编号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{editOrderInfo.customer.customerNumber}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">客户关联编号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{editOrderInfo.id}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">订单编号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{editOrderInfo.orderNumber}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">发货仓库：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{editOrderInfo.warehouseName}}</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>订单明细</legend>
+                <div class="row col-sm-8 col-sm-offset-1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">包裹编号</th>
+                                <th style="width: 20%;">物品编号</th>
+                                <th style="width: 20%;">物品描述</th>
+                                <th style="width: 20%;" class="text-center">单价($)</th>
+                                <th style="width: 20%;">物品数量</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in editOrderInfo.orderItems">
+                                <td>{{item.trackingNumber}}</td>
+                                <td>{{item.itemBrand}}</td>
+                                <td>{{item.description}}</td>
+                                <td>{{item.unitprice | number:2}}</td>
+                                <td>{{item.quantity}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label text-right">申报价值：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{'1'}}</label>
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">添加新备注：</label>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" ng-model="editOrderInfo.message"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>打包明细</legend>
+                <div class="row col-sm-8 col-sm-offset-1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">转运包裹编号</th>
+                                <th style="width: 30%;">实际重量（磅）</th>
+                                <th style="width: 40%;" class="text-center">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="package in editOrderInfo.outboundPackages">
+                                <td>{{package.trackingNumber}}</td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="package.actualWeight"/>
+                                </td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0);" target="_blank" ng-click="btnPrint(package)"><i class="fa fa-print btn-icon red" title="打印"></i></a>
+                                    <i class="fa fa-cubes btn-icon red" ng-click="btnSplitPackage(package)" title="分箱"></i>
+                                    <i class="fa fa-remove btn-icon red" ng-click="btnRemovePackage(package)" title="删除"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--<div class="form-group col-sm-11 col-sm-offset-1">
+                        <button type="button" class="btn btn-primary" ng-click="btnEditAddPackage()">
+                            <i class="fa fa-plus"></i>新增
+                        </button>
+                    </div>-->
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

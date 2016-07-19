@@ -1,0 +1,103 @@
+﻿<div class="widget widget-table">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i> 登录记录列表</h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-sm-12 search-bar">
+                <div class="search-col">
+                    <label class="search-label">登录状态：</label>
+                    <select class="form-control search-control" ng-model="searchBar.result">
+                        <option value="">全部</option>
+                        <option value="success">登录成功</option>
+                        <option value="failed">登录失败</option>
+                    </select>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">开始日期：</label>
+                    <p class="input-group pull-left">
+                        <input type="text" class="form-control search-control" style="width:110px;"
+                               uib-datepicker-popup
+                               ng-model="searchBar.startDate"
+                               is-open="searchBar.opened.startDate"
+                               show-button-bar="false"
+                               ng-click="searchBar.opened.startDate = true" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">结束日期：</label>
+                    <p class="input-group pull-left">
+                        <input type="text" class="form-control search-control" style="width:110px;"
+                               uib-datepicker-popup
+                               ng-model="searchBar.endDate"
+                               is-open="searchBar.opened.endDate"
+                               show-button-bar="false"
+                               ng-click="searchBar.opened.endDate = true" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <div class="clearfix"></div>
+                <div class="search-col">
+                    <label class="search-label">搜索条目：</label>
+                    <select class="form-control search-control" ng-model="searchBar.keywordType">
+                        <option value="emailAddress">用户名</option>
+                        <option value="ip">IP地址</option>
+                    </select>
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>用户名</th>
+                    <th>IP地址</th>
+                    <th>类型</th>
+                    <th>验证状态</th>
+                    <th style="width:300px;">记录</th>
+                    <th>记录时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in dataList">
+                    <td>{{item.rownumber}}</td>
+                    <td>{{item.emailAddress}}</td>
+                    <td>{{item.ip}}</td>
+                    <td>{{item.system == 0 ? "前台客户" : "后台管理员" }}</td>
+                    <td>{{item.result}}</td>
+                    <td>{{item.memo}}</td>
+                    <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-6 text-right pull-right">
+                <uib-pagination class="pagination pagination-rewrite pull-right"
+                                boundary-links="true"
+                                max-size="5"
+                                total-items="pagination.totalCount"
+                                items-per-page="pagination.pageSize"
+                                ng-model="pagination.pageIndex"
+                                ng-change="getData()"
+                                previous-text="上一页"
+                                next-text="下一页"
+                                first-text="首页"
+                                last-text="尾页">
+                </uib-pagination>
+                <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

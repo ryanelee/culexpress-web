@@ -1,0 +1,60 @@
+﻿html, body {
+    font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
+}
+
+.pagination-rewrite {
+    margin-top: 0px;
+}
+
+.col-padding-clear {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+/**search-bar**/
+.search-bar {
+    margin-bottom: 10px;
+}
+
+    .search-bar .search-col {
+        float: left;
+        margin-right: 20px;
+        margin-bottom: 10px;
+    }
+
+        .search-bar .search-col .search-label {
+            float: left;
+            margin-top: 8px;
+            margin-right: 5px;
+        }
+
+        .search-bar .search-col .search-control {
+            width: auto;
+            float: left;
+        }
+
+        .search-bar .search-col select.search-control {
+            padding-right: 20px;
+        }
+
+        .search-bar .search-col .input-group-btn {
+            width: auto;
+        }
+
+/**table-td-row**/
+.td-row + .td-row {
+    border-top: 1px solid #ddd;
+}
+
+/*bootstrap override*/
+a {
+    color: #337AEB;
+}
+
+    a:hover {
+        color: #33799F;
+    }

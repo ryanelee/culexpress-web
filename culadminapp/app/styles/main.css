@@ -1,0 +1,29 @@
+﻿/* system colors */
+.red {
+    color: #CC3333;
+}
+
+.green{
+    color: #66CC33;
+}
+
+.blue{
+    color: #0066CC;
+}
+
+.gray{
+    color: #666666;
+}
+
+.btn-icon{
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.dropzone{
+    height: 300px;
+}
+
+.dropzone .dz-message{
+    font-size:36px;
+}

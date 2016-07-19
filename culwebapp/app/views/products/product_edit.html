@@ -1,0 +1,99 @@
+﻿<div class="row">
+    <div class="headline"><h2>提交订单</h2></div>
+    <div>
+        <form action="#" class="sky-form shopping-cart">
+            <div>
+                <step-wizard on-submit="wizardSubmit" on-valid="wizardValid" options="wizardOptions">
+                    <ul class="wizard">
+                        <li>
+                            <div class="title">
+                                <h2>商品类别</h2>
+                                <p class="subtitle">选择商品类别</p>
+                            </div>
+                            <i class="rounded-x gm fa fa-truck"></i>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <h2>基本信息</h2>
+                                <p class="subtitle">设置商品基本信息</p>
+                            </div>
+                            <i class="rounded-x gm fa fa-home"></i>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <h2>商品详情</h2>
+                                <p class="subtitle">设置商品详细信息</p>
+                            </div>
+                            <i class="rounded-x gm fa fa fa-shopping-cart"></i>
+                        </li>
+                    </ul>
+                    <ul class="viewport">
+                        <li>
+                            <div class="row">
+                                <div class="col-sm-5" style="border: 2px solid #000; min-height: 300px; margin-left: 10px;"></div>
+                                <div class="col-sm-5" style="border: 2px solid #000;min-height:300px; margin-left:10px;"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group">
+                                <label>商品品牌</label>
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>UPC代码</label>
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>商品关键字</label>
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>商品描述</label>
+                                <textarea class="form-control" rows="10"></textarea>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group">
+                                <label>商品尺寸（英寸）</label>
+                                <div>
+                                    长：<input type="text" class="form-control" style="width: 20%; display: inline-block;" />
+                                    宽：<input type="text" class="form-control" style="width: 20%; display: inline-block;" />
+                                    高：<input type="text" class="form-control" style="width: 20%; display: inline-block;" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>商品重量（磅）</label>
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>商品属性</label>
+                                <div>
+                                    <input type="text" class="form-control" style="width: 80%; display: inline-block;" />
+                                    <button style="margin-left:20px;" type="button" class="btn-u">添加</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <ul class="list-group" style="min-height:200px;border:1px solid #bbb;">
+                                    <li class="list-group-item" style="display:block;"><strong>属性：</strong> 颜色：黑色   <div class="pull-right"><a href="javascript:void(0)"><i class="fa fa-trash fa-2x"></i></a></div></li>
+                                </ul>
+                            </div>
+                            <div class="form-group">
+                                <label>商品图片链接</label>
+                                <div>
+                                    <input type="text" class="form-control" style="width: 80%; display: inline-block;" />
+                                    <button style="margin-left:20px;" type="button" class="btn-u">添加</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div style="min-height:200px;">
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </step-wizard>
+            </div>
+        </form>
+    </div>
+</div>

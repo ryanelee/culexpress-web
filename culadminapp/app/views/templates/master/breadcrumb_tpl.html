@@ -1,0 +1,9 @@
+﻿<ul class="breadcrumb">
+    <li style="padding-right:5px;"
+        ng-repeat="route in routePath"
+        ng-class="{'active': routePath.length-1 == $index}">
+        <i class="fa {{route.icon}}" ng-if="$index == 0"></i>
+        <a href="javascript:void(0);" ng-click="btnTransfer(route)" ng-if="!!route.url">{{route.title}}</a>
+        <span ng-if="!route.url">{{route.title}}</span>
+    </li>
+</ul>

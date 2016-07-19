@@ -1,0 +1,127 @@
+
+
+<div ng-controller="ContactController">
+    <!-- Google Map -->
+    <div id="map" class="map" style="background-image: url(images/contactus-map.png);background-position:center center;background-repeat:no-repeat;">
+
+    </div><!---/map-->
+    <!-- End Google Map -->
+    <!--=== Content Part ===-->
+    <div class="container content">
+        <div class="row margin-bottom-30">
+            <div class="col-md-9 mb-margin-bottom-30">
+                <div class="headline"><h2>给我们留言</h2></div>
+                <p>中美速递(culexpress.com)是海淘服务专家和中美运输权威.公司总部设在美国免税州俄勒冈州.公司秉持“顾客至上”的原则,热诚服务大众,与业内多家知名企业合作,致力于用更短的时间和更低的费用的同时,为客户提供全方位的货运服务,主要业务有国际快件,国内运输,中美转运,美货直发,满足客户各种不同的需求.</p><br />
+
+                <form ng-submit="submitMessage()" method="post" id="sky-form3" class="sky-form contact-style" novalidate="novalidate">
+                    <fieldset class="no-padding">
+                        <label>姓名 <span class="color-red">*</span></label>
+                        <div class="row sky-space-20">
+                            <div class="col-md-7 col-md-offset-0">
+                                <div>
+                                    <input type="text" name="name" id="name" class="form-control" ng-model="model.name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>邮箱 <span class="color-red">*</span></label>
+                        <div class="row sky-space-20">
+                            <div class="col-md-7 col-md-offset-0">
+                                <div>
+                                    <input type="email" name="email" id="email" class="form-control" ng-model="model.email">
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>留言 <span class="color-red">*</span></label>
+                        <div class="row sky-space-20">
+                            <div class="col-md-11 col-md-offset-0">
+                                <div>
+                                    <textarea rows="8" name="message" id="message" class="form-control" ng-model="model.message"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p><button type="submit" class="btn-u">发送留言</button></p>
+                    </fieldset>
+
+                    <div class="message">
+                        <i class="rounded-x fa fa-check"></i>
+                        <p>感谢留言,我们会尽快和您联系!</p>
+                    </div>
+                </form>
+            </div><!--/col-md-9-->
+
+            <div class="col-md-3">
+                <!-- Contacts -->
+                <div class="headline"><h2>联系我们</h2></div>
+                <ul class="list-unstyled who margin-bottom-30">
+                    <li>
+                        <a href="https://www.google.com/maps/place/16710+SW+72nd+Ave,+Portland,+OR+97224/@45.3993305,-122.7511467,17z/data=!3m1!4b1!4m2!3m1!1s0x549572e8201e295b:0x47acb52af2b3a4">
+                            <i class="fa fa-home"></i>16710 SW 72nd Ave.,Portland,Oregon, US 97224
+                        </a>
+                    </li>
+                    <li><a href="mailto:CS@culexpress.com"><i class="fa fa-envelope"></i>CS@culexpress.com</a></li>
+                    <li><a href="tel:+6265423266"><i class="fa fa-phone"></i>(626)542-3266</a></li>
+                </ul>
+
+                <!-- Business Hours -->
+                <div class="headline"><h2>工作时间</h2></div>
+                <ul class="list-unstyled margin-bottom-30">
+                    <li><strong>周1 - 周五:</strong> 9 am - 6 pm</li>
+                </ul>
+
+                <!-- Why we are? -->
+                <div class="headline"><h2>中美速递,海淘服务专家</h2></div>
+                <p>公司总部设在美国免税州俄勒冈州.我们拥有多年处理中美空海运进出口的经验,成熟的配套设施和专业的管理团队让我们在业内外赢得广泛的认同.</p>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-check color-green"></i> 专属美国收货地址</li>
+                    <li><i class="fa fa-check color-green"></i> 个人专属的美国仓库</li>
+                    <li><i class="fa fa-check color-green"></i> 大小包裹双渠道发货</li>
+                    <li><i class="fa fa-check color-green"></i> 便捷的在线支付</li>
+                </ul>
+            </div><!--/col-md-3-->
+        </div><!--/row-->
+        <!-- Owl Clients v1 -->
+        <div class="headline"><h2>合作伙伴</h2></div>
+        <div class="owl-clients-v1">
+            <div class="item">
+                <a href="{{ Clients[0].url }}"><img ng-src="{{ Clients[0].image }}" alt=""></a>
+            </div>
+            <div class="item">
+                <a href="{{ Clients[1].url }}"><img ng-src="{{ Clients[1].image }}" alt=""></a>
+            </div>
+            <div class="item">
+                <a href="{{ Clients[2].url }}"><img ng-src="{{ Clients[2].image }}" alt=""></a>
+            </div>
+            <div class="item">
+                <a href="{{ Clients[3].url }}"><img ng-src="{{ Clients[3].image }}" alt=""></a>
+            </div>
+            <div class="item">
+                <a href="{{ Clients[4].url }}"><img ng-src="{{ Clients[4].image }}" alt=""></a>
+            </div>
+            <div class="item">
+                <a href="{{ Clients[5].url }}"><img ng-src="{{ Clients[5].image }}" alt=""></a>
+            </div>
+            <div class="item">
+                <a href="{{ Clients[6].url }}"><img ng-src="{{ Clients[6].image }}" alt=""></a>
+            </div>
+            <div class="item">
+                <a href="{{ Clients[7].url }}"><img ng-src="{{ Clients[7].image }}" alt=""></a>
+            </div>
+            <div class="item">
+                <a href="{{ Clients[8].url }}"><img ng-src="{{ Clients[8].image }}" alt=""></a>
+            </div>
+        </div>
+        <!-- End Owl Clients v1 -->
+    </div><!--/container-->
+    <!--=== End Content Part ===-->
+</div>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        //ContactPage.initMap();
+      
+    });
+</script>

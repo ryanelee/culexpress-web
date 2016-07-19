@@ -1,0 +1,133 @@
+﻿<div class="col-md-2 left-sidebar">
+    <!-- main-nav -->
+    <nav class="main-nav">
+        <ul class="main-menu">
+            <li ng-repeat="menu in menus" ng-class="{'active':currentMenu.title == menu.title}" ng-if="!menu.hidden">
+                <a href="javascript:void(0);" ng-class="{'js-sub-menu-toggle': !menu.url}">
+                    <i class="fa {{menu.icon}} fa-fw"></i><span class="text">
+                        {{menu.title}}
+                        <span class="badge element-bg-color-blue" ng-if="!!menu.tip">{{menu.tip}}</span>
+                    </span>
+                    <i class="toggle-icon fa fa-angle-left"></i>
+                </a>
+                <ul class="sub-menu" ng-if="menu.childs.length > 0">
+                    <li ng-repeat="child in menu.childs"
+                        ng-class="{'active': currentMenu.title == child.title}" ng-if="!child.hidden">
+                        <a href="javascript:void(0);" ng-click="btnChangeRouter(child)">
+                            <span class="text">{{child.title}}</span>
+                            <span class="badge element-bg-color-blue">{{child.tip}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <!--<li class="active">
+                <a href="javascript:void(0);" class="js-sub-menu-toggle">
+                    <i class="fa fa-dashboard fa-fw"></i><span class="text">仪表盘</span>
+                    <i class="toggle-icon fa fa-angle-down"></i>
+                </a>
+                <ul class="sub-menu open">
+                    <li class="active"><a href="#/"><span class="text">任务中心</span></a></li>
+                    <li><a href="#/"><span class="text">统计中心<span class="badge element-bg-color-blue">New</span></span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);" class="js-sub-menu-toggle">
+                    <i class="fa fa-users fa-fw"></i><span class="text">客户系统</span>
+                    <i class="toggle-icon fa fa-angle-left"></i>
+                </a>
+                <ul class="sub-menu ">
+                    <li><a href="#/profile"><span class="text">Profile</span></a></li>
+                    <li><a href="#/invoice"><span class="text">Invoice</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);" class="js-sub-menu-toggle">
+                    <i class="fa fa-shopping-cart fw"></i><span class="text">订单管理</span>
+                    <i class="toggle-icon fa fa-angle-left"></i>
+                </a>
+                <ul class="sub-menu ">
+                    <li><a href="charts-statistics.html"><span class="text">Charts</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);" class="js-sub-menu-toggle">
+                    <i class="fa fa-building fw"></i><span class="text">仓储管理</span>
+                    <i class="toggle-icon fa fa-angle-left"></i>
+                </a>
+                <ul class="sub-menu ">
+                    <li><a href="form-inplace-editing.html"><span class="text">In-place Editing</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);" class="js-sub-menu-toggle">
+                    <i class="fa fa-truck fw"></i><span class="text">物流管理</span>
+                    <i class="toggle-icon fa fa-angle-left"></i>
+                </a>
+                <ul class="sub-menu ">
+                    <li><a href="ui-elements-general.html"><span class="text">General Elements</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="widgets.html">
+                    <i class="fa fa-bar-chart fa-fw"></i><span class="text">报表管理 <span class="badge element-bg-color-blue">Updated</span></span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" class="js-sub-menu-toggle">
+                    <i class="fa fa-gears fw"></i><span class="text">系统设置</span>
+                    <i class="toggle-icon fa fa-angle-left"></i>
+                </a>
+                <ul class="sub-menu ">
+                    <li><a href="components-wizard.html"><span class="text">Wizard (with validation)</span></a></li>
+                </ul>
+            </li>-->
+        </ul>
+    </nav>
+    <!-- /main-nav -->
+    <div class="sidebar-minified js-toggle-minified">
+        <i class="fa fa-angle-left"></i>
+    </div>
+    <!-- sidebar content -->
+    <div class="sidebar-content" style="display:none;">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5><i class="fa fa-lightbulb-o"></i> 系统维护通知</h5>
+            </div>
+            <div class="panel-body">
+                <p>08/01/2015凌晨3点到7点系统将进行日常维护，在此时间段系统将无法登陆和使用。敬请谅解!</p>
+            </div>
+        </div>
+        <h5 class="label label-default"><i class="fa fa-info-circle"></i> 个人任务栏</h5>
+        <ul class="list-unstyled list-info-sidebar bottom-30px">
+            <li class="data-row">
+                <div class="data-name">货物预报处理进度</div>
+                <div class="data-value">
+                    34 / 89
+                    <div class="progress progress-xs">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+                            <span class="sr-only">10%</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="data-row">
+                <div class="data-name">订单处理进度</div>
+                <div class="data-value">
+                    230 / 780
+                    <div class="progress progress-xs">
+                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100" style="width: 46%">
+                            <span class="sr-only">46%</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="data-row">
+                <span class="data-name">已入库货物</span>
+                <span class="data-value">578件</span>
+            </li>
+        </ul>
+    </div>
+    <!-- end sidebar content -->
+</div>
