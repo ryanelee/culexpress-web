@@ -424,13 +424,13 @@ angular
                         SweetAlert.swal('提示', '您需要支付' + $scope.countFee.totalCount + '元，而您的账户余额为' + $scope.$root.currentUser.accountBalance + '元,请充值后再进行支付!', 'warning');
                         return false;
                     }
-                    text = '您好，感谢您提交了UMIEX极速转运服务订单， 按确定即可完成本次订单的提交，您的包裹预估重量为' +
+                    text = '您好，感谢您提交了CUL EXPRESS极速转运服务订单， 按确定即可完成本次订单的提交，您的包裹预估重量为' +
                         parseFloat($scope.shippingItems[0].packageWeight + 0.5) +
                         '磅，我们会锁定您' +
                         $scope.countFee.packageWeight +
                         '磅=' +
                         $scope.countFee.totalCount +
-                        '元的预收运费，该金额不能做其他订单的交易，等到该极速转运订单出库后会计算出最终运费,如有多余运费会退回到您的UMIEX账户余额中，详情可到财务明细中查询。';
+                        '元的预收运费，该金额不能做其他订单的交易，等到该极速转运订单出库后会计算出最终运费,如有多余运费会退回到您的CUL EXPRESS账户余额中，详情可到财务明细中查询。';
                 }
 
                 SweetAlert.swal({

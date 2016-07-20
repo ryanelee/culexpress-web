@@ -1,1 +1,0 @@
-将此3个图片文件复制到此目录下进行覆盖\culexpressweb\culwebapp\app\assets\img\patterns
