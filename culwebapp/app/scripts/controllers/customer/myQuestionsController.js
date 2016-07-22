@@ -25,11 +25,11 @@ angular
             customer.getQuestionCategories()
                 .then(function (result) {
                     $scope.questionCatgories = result.data;
-                    model.messageType = result.data[0].typeID;
+                    $scope.model.messageType = result.data[0].typeID;
                 });
             orderSvr.getWarehouses().then(function (result) {
                 $scope.questionWarehouses = [result.data[2]];//TODO这里暂时只获取了OR仓库
-                model.receivedWarehouseNumber = result.data[2].warehouseNumber;
+                $scope.model.receivedWarehouseNumber = result.data[2].warehouseNumber;
             });
         }
 

@@ -37,7 +37,6 @@ module.exports = function(config) {
       'bower_components/messenger/build/js/messenger.js',
       'bower_components/messenger/build/js/messenger-theme-future.js',
       'bower_components/messenger/build/js/messenger-theme-flat.js',
-      'bower_components/jquery-color/jquery.color.js',
       'bower_components/flot/jquery.flot.js',
       'bower_components/blueimp-file-upload/js/jquery.fileupload.js',
       'bower_components/underscore/underscore.js',

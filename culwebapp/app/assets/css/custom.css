@@ -1,1 +1,384 @@
 /* Add here all your css styles (customizations) */
+/************* override steps css **********************/
+.wizard > .steps > ul > li {
+    margin: 5px 0 0 5px !important;
+}
+
+.wizard > .content {
+    margin-top: 20px !important;
+    padding-top: 0 !important;
+    min-height: 310px !important;
+}
+
+.shopping-cart .billing-info .form-group {
+    padding: 30px 0 !important;
+}
+
+.shopping-cart .goods-info .form-group {
+    padding: 10px 0 !important;
+}
+
+.shopping-cart .goods-info p {
+    margin: 0 0 5px;
+}
+
+.shopping-cart .goods-info .table th {
+    font-size: 13px;
+}
+
+/************* end override steps css **********************/
+
+
+/******************ʱ��������ʽ
+   Html��
+   <ul class="timeline">
+        <li>
+            <div class="timeline-icon"></div>
+            <div class="timeline-tip arrow arrow-left">
+                <div class="content">123131233333333333333131212312313333333333333333333333333333333333333333333333</div>
+                <footer>2015/11/4 20:55:18</footer>
+            </div>
+        </li>
+   </ul>     
+*****************/
+/*δ�� TODO:*/
+ul.timeline {
+    list-style: none;
+    width: 1024px;
+    margin: 0 auto;
+}
+
+    ul.timeline .highlight {
+        color: #FF8040;
+        font-weight: bold;
+    }
+
+    ul.timeline > li {
+        position: relative;
+    }
+
+        ul.timeline > li.title {
+            background-color: #09b1fb;
+            min-height: 20px;
+            width: 350px;
+            margin: 25px auto;
+            transform: translateX(-200px);
+            line-height: 25px;
+            font-weight: bold;
+            font-size: 15px;
+            padding: 20px 0 10px 20px;
+            border-radius: 5px;
+        }
+
+            ul.timeline > li.title > p {
+                color: #fff;
+            }
+
+    ul.timeline > li {
+        height: auto;
+        min-height: 60px;
+        padding-bottom: 200px;
+    }
+
+        ul.timeline > li:first-child {
+            margin-top: 50px;
+        }
+
+    ul.timeline .timeline-icon {
+        color: #0096DB;
+        position: relative;
+        float: left;
+        left: -70px;
+    }
+
+    ul.timeline .tip-wrap {
+        width: 400px;
+        margin-left: 40%;
+    }
+
+        ul.timeline .tip-wrap.left .timeline-tip {
+            left: -70px;
+        }
+
+
+.timeline-tip {
+    width: 350px;
+    border: 1px solid #aaa;
+    padding: 15px;
+    border-radius: 10px;
+    position: absolute;
+    float: left;
+}
+    /*tip����С��ͷ*/
+    .timeline-tip.arrow:before,
+    .timeline-tip.arrow:after {
+        content: "";
+        position: absolute;
+        top: 10px;
+        width: 0px;
+        height: 0px;
+        border: 10px solid transparent;
+    }
+
+    /*�������ߵļ�ͷ*/
+    .timeline-tip.arrow.arrow-left:before,
+    .timeline-tip.arrow.arrow-left:after {
+        left: -33px;
+        border-right-width: 25px;
+        border-right-color: #fff;
+    }
+
+    .timeline-tip.arrow.arrow-left:before {
+        border: 10px solid transparent;
+        border-right-color: #aaa;
+        border-right-width: 25px;
+        left: -35px;
+    }
+
+    /*�����ұߵļ�ͷ*/
+    .timeline-tip.arrow.arrow-right:before,
+    .timeline-tip.arrow.arrow-right:after {
+        left: 347px;
+        border-left-width: 25px;
+        border-left-color: #fff;
+    }
+
+    .timeline-tip.arrow.arrow-right:before {
+        border: 10px solid transparent;
+        border-left-color: #aaa;
+        border-left-width: 25px;
+        left: 349px;
+    }
+
+
+    .timeline-tip .content {
+        font-size: 15px;
+        word-break: break-all;
+        padding: 0;
+    }
+
+    .timeline-tip footer {
+        color: #bbb;
+        font-size: 13px;
+        margin-top: 8px;
+    }
+
+/* required css*/
+.required:after {
+    content: '*';
+    color: red;
+    display: inline;
+    margin-left: 5px;
+}
+
+/*end required*/
+
+
+/*step wizard begin*/
+.rounded-x {
+    border-radius: 50% !important;
+}
+
+.wizard-wrap {
+    width: 100%;
+    overflow: hidden;
+}
+
+    .wizard-wrap ul.wizard,
+    .wizard-wrap ul.viewport {
+        list-style: none;
+        padding: 20px 10px;
+    }
+
+    .wizard-wrap ul.viewport {
+        border-top: 1px solid #eee;
+    }
+
+    .wizard-wrap ul.wizard:after {
+        display: block;
+        content: '';
+        clear: both;
+    }
+
+    .wizard-wrap ul.wizard > li {
+        padding: 20px 10px;
+        float: left;
+        border: 1px solid #eee;
+        min-width: 270px;
+        border-radius: 10px !important;
+        margin-left: 10px;
+        text-align: center;
+        position: relative;
+    }
+
+
+        .wizard-wrap ul.wizard > li > .number,
+        .wizard-wrap ul.wizard > li > .title,
+        .wizard-wrap ul.wizard > li > i {
+            float: left;
+        }
+
+        .wizard-wrap ul.wizard > li > .number {
+            font-size: 36px;
+            margin-right: 15px;
+            color: #C0392B;
+        }
+
+
+        .wizard-wrap ul.wizard > li > i {
+            color: #c4c4c4;
+            width: 40px;
+            height: 40px;
+            padding: 8px;
+            font-size: 20px;
+            text-align: center;
+            display: inline-block;
+            border: 2px dashed #e0e0e0;
+            position: absolute;
+            right: 20px;
+        }
+
+        .wizard-wrap ul.wizard > li > .title {
+            text-align: left;
+        }
+
+            .wizard-wrap ul.wizard > li > .title > h2 {
+                font-size: 22px;
+                margin: 0 0 5px;
+            }
+
+            .wizard-wrap ul.wizard > li > .title .subtitle {
+                font-size: 16px;
+                opacity: 0.6;
+                margin-top: 20px;
+            }
+
+
+        .wizard-wrap ul.wizard > li.active {
+            background-color: #C0392B;
+            color: #fff !important;
+        }
+
+            .wizard-wrap ul.wizard > li.active > i,
+            .wizard-wrap ul.wizard > li.complete > i {
+                color: #fff !important;
+                border-color: #fff !important;
+            }
+
+            .wizard-wrap ul.wizard > li.active > .title > p,
+            .wizard-wrap ul.wizard > li.complete > .title > p,
+            .wizard-wrap ul.wizard > li.active > .title > h2,
+            .wizard-wrap ul.wizard > li.complete > .title > h2,
+            .wizard-wrap ul.wizard > li.active > .number,
+            .wizard-wrap ul.wizard > li.complete > .number {
+                color: #fff !important;
+            }
+
+
+        .wizard-wrap ul.wizard > li.complete {
+            background-color: #C0392B;
+            color: #fff;
+            opacity: 0.5;
+        }
+
+    .wizard-wrap > footer button {
+        line-height: 30px;
+        width: 125px;
+        color: #fff;
+        background-color: #E74C3C;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+        .wizard-wrap > footer button:focus {
+            background: #E74C3C;
+        }
+
+        .wizard-wrap > footer button:hover,
+        .wizard-wrap > footer .btn-u:hover {
+            background: #E74C3C;
+            opacity: .5;
+        }
+
+
+        .wizard-wrap > footer button[disabled] {
+            background: #E74C3C;
+            opacity: .5;
+        }
+
+/*step wizard end*/
+
+
+/*override timeline v2*/
+ul.timeline-v2 {
+    width: 70%;
+    margin: 0 auto;
+}
+
+    ul.timeline-v2 > li.title {
+        background-color: #E84C3C;
+        min-height: 20px;
+        width: 300px;
+        margin: 25px auto;
+        line-height: 25px;
+        font-weight: bold;
+        font-size: 15px;
+        padding: 20px 0 10px 20px;
+        border-radius: 5px;
+    }
+
+        ul.timeline-v2 > li.title > p {
+            color: #fff;
+        }
+
+    ul.timeline-v2 .highlight {
+        color: #FF8040;
+        font-weight: bold;
+    }
+
+    ul.timeline-v2 .cbp_tmlabel p {
+        color: #E84C3C;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+
+.timeline-v2 > li .cbp_tmtime span:last-child {
+    top: 20px;
+    right: 10px;
+    color: #E84C3C;
+}
+
+.timeline-v2 > li .cbp_tmicon {
+    background: #E84C3C;
+}
+
+.timeline-v2 > li .cbp_tmtime {
+    padding-right: 100px;
+}
+
+@media screen and (max-width: 47.2em) {
+
+    ul.timeline-v2 {
+        width: 100%;
+        margin: 0;
+    }
+
+    .timeline-v2 > li .cbp_tmtime span {
+        text-align: left;
+        left: 10px;
+    }
+
+    .timeline-v2 > li .cbp_tmlabel {
+        padding: 1em;
+        font-weight: 400;
+        margin: 12px 0 30px 10px;
+    }
+}
+
+/*override form-control*/
+.form-control{
+    height: 30px;
+    padding: 1px 1px;
+    font-size: 12px;
+}

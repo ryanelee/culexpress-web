@@ -28,7 +28,8 @@
 
     <link href="assets/plugins/bootstrap-datepicker/datepicker3.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/headers/header-default.css" />
+    <!--<link rel="stylesheet" href="assets/css/headers/header-default.css" />-->
+    <link rel="stylesheet" href="assets/css/headers/header-v8.css">
     <link rel="stylesheet" href="assets/css/footers/footer-v2.css" />
     <link rel="stylesheet" href="assets/css/animate.css" />
 
@@ -63,72 +64,136 @@
     </a>-->
 
     <div class="wrapper">
-        <div class="header">
-            <div class="container">
-                <a class="logo" ui-sref="/">
-                    <img src="assets/img/logo.png" alt="Logo" />
-                </a>
-                <div class="topbar">
-                    <ul class="loginbar pull-right">
-                        <li><a ui-sref="howtouse">帮助</a></li>
-                        <li class="topbar-devider"></li>
-                        <li data-ng-hide="isLogined"><a ui-sref="login">登录</a></li>
-                        <li data-ng-hide="isLogined"><a ui-sref="register">注册</a></li>
-                        <li data-ng-show="isLogined"><a ui-sref="login" data-ng-click="logout()">注销</a></li>
-                        <li class="topbar-devider" data-ng-show="isLogined"></li>
-                        <li class="hoverSelector" data-ng-show="isLogined">
-                            <i class="fa fa-user"></i>
-                            <a ui-sref="customer.myaccount({anchorid:'profile'})">您好,<span data-ng-bind="currentUser.userName"></span> <span class="color-orange" ng-show="isLackProfile">[您还未填写个人资料]</span></a>
-                            <ul class="dropdown-menu" ng-show="!isLackProfile">
-                                <li ng-class="{active: $state.includes('customer.myhome')}">
-                                    <a ui-sref="customer.myhome"><i class="fa fa-bar-chart-o"></i> 用户中心</a>
+        <div class="header-v8 header-sticky">
+            <!-- Topbar blog -->
+			<div class="blog-topbar">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-5 col-xs-5">
+							<div class="topbar-time">老客户请登录<a href="http://www.culexpress.com" target="_blank">旧系统</a></div>
+						</div>
+						<div class="col-sm-7 col-xs-7 clearfix">
+                            <span ng-show="!trackingNumber" class="pull-right hidden-xs hidden-sm" style="padding-left:10px">
+                                <input id="txtTrackingNumber" type="text" placeholder="运单查询" ng-model="trackingNumber">
+                                <a href="#/ordertracking/{{trackingNumber}}">
+                                    <i class="fa fa-search search-btn"></i>
+                                </a>
+                            </span>
+                            <span ng-show="!!trackingNumber" class="pull-right" style="padding-left:10px">
+                                <input id="txtTrackingNumber" type="text" placeholder="运单查询" ng-model="trackingNumber">
+                                <a href="#/ordertracking/{{trackingNumber}}">
+                                    <i class="fa fa-search search-btn"></i>
+                                </a>
+                            </span>
+							<ul class="topbar-list topbar-log_reg pull-right">
+								<li class="cd-log_reg home"><a ui-sref="howtouse">帮助</a></li>
+                                <li data-ng-hide="isLogined"><a ui-sref="login">登录</a></li>
+                                <li data-ng-hide="isLogined"><a ui-sref="register">注册</a></li>
+                                <li data-ng-show="isLogined"><a ui-sref="login" data-ng-click="logout()">注销</a></li>
+                                <!--<li class="topbar-devider" data-ng-show="isLogined"></li>-->
+                                <li class="hoverSelector" data-ng-show="isLogined">
+                                    <i class="fa fa-user"></i>
+                                    <a ui-sref="customer.myaccount({anchorid:'profile'})">您好,<span data-ng-bind="currentUser.userName"></span> <span class="color-orange" ng-show="isLackProfile">[您还未填写个人资料]</span></a>
+                                    <ul class="topbar-dropdown  hidden-xs hidden-sm" ng-show="!isLackProfile">
+                                        <li ng-class="{active: $state.includes('customer.myhome')}">
+                                            <a ui-sref="customer.myhome"><i class="fa fa-bar-chart-o"></i> 用户中心</a>
+                                        </li>
+                                        <li ng-class="{active: $state.includes('customer.shippingnotice')}">
+                                            <a ui-sref="customer.shippingnotice"><i class="fa fa-truck"></i> 货物预报</a>
+                                        </li>
+                                        <li ng-class="{active: $state.includes('customer.myorders')}">
+                                            <a ui-sref="customer.myorders"><i class="fa fa-shopping-cart"></i> 我的订单</a>
+                                        </li>
+                                        <li ng-class="{active: $state.includes('customer.products')}" ng-if="currentUser.isVip">
+                                            <a ui-sref="customer.products"><i class="fa fa-cubes"></i> 商品列表</a>
+                                        </li>
+                                        <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
+                                            <a ui-sref="/"><i class="fa fa-arrow-circle-right"></i> 寄送库存</a>
+                                        </li>
+                                        <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
+                                            <a ui-sref="customer.products"><i class="fa fa-list"></i> 库存寄件列表</a>
+                                        </li>
+                                        <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
+                                            <a ui-sref="/"><i class="fa fa-plus-square"></i> 创建订单</a>
+                                        </li>
+                                        <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
+                                            <a ui-sref="/"><i class="fa fa-list-ol"></i> 订单查询</a>
+                                        </li>
+                                        <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
+                                            <a ui-sref="/"><i class="fa fa-print"></i> 订单打印</a>
+                                        </li>
+                                        <li ng-class="{active: $state.includes('customer.myquestions')}">
+                                            <a ui-sref="customer.myquestions"><i class="fa fa-question-circle"></i> 我的问题</a>
+                                        </li>
+                                        <li ng-class="{active: $state.includes('customer.myaccount')}">
+                                            <a ui-sref="customer.myaccount({anchorid:'profile'})"><i class="fa fa-user"></i> 个人设置</a>
+                                        </li>
+                                        <li ng-class="{active: $state.includes('customer.myfinance')}">
+                                            <a ui-sref="customer.myfinance"><i class="fa fa-university"></i> 财务信息</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li ng-class="{active: $state.includes('customer.shippingnotice')}">
-                                    <a ui-sref="customer.shippingnotice"><i class="fa fa-truck"></i> 货物预报</a>
+							</ul>
+						</div>
+					</div><!--/end row-->
+				</div><!--/end container-->
+			</div>
+			<!-- End Topbar blog -->
+
+            <!-- Navbar -->
+			<div class="navbar mega-menu" role="navigation">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="res-container">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+
+						<div class="navbar-brand">
+							<a ui-sref="/">
+                                <img src="assets/img/logo.png" alt="Logo" />
+                            </a>
+						</div>
+					</div><!--/end responsive container-->
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse navbar-responsive-collapse" style="padding-right:200px">
+						<div class="res-container">
+							<ul class="nav navbar-nav">
+                                <li ng-class="{active: $state.includes('/')}">
+                                    <a ui-sref="/">
+                                        首页
+                                    </a>
                                 </li>
-                                <li ng-class="{active: $state.includes('customer.myorders')}">
-                                    <a ui-sref="customer.myorders"><i class="fa fa-shopping-cart"></i> 我的订单</a>
+                                <li ng-class="{active: $state.includes('howtouse')}">
+                                    <a ui-sref="howtouse">
+                                        使用流程
+                                    </a>
                                 </li>
-                                <li ng-class="{active: $state.includes('customer.products')}" ng-if="currentUser.isVip">
-                                    <a ui-sref="customer.products"><i class="fa fa-cubes"></i> 商品列表</a>
+                                <li ng-class="{active: $state.includes('faq')}">
+                                    <a ui-sref="faq">
+                                        常见问题
+                                    </a>
                                 </li>
-                                <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
-                                    <a ui-sref="/"><i class="fa fa-arrow-circle-right"></i> 寄送库存</a>
+                                <li ng-class="{active: $state.includes('about')}">
+                                    <a ui-sref="about">
+                                        关于我们
+                                    </a>
                                 </li>
-                                <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
-                                    <a ui-sref="customer.products"><i class="fa fa-list"></i> 库存寄件列表</a>
+                                <li ng-class="{active: $state.includes('contact')}">
+                                    <a ui-sref="contact">
+                                        联系我们
+                                    </a>
                                 </li>
-                                <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
-                                    <a ui-sref="/"><i class="fa fa-plus-square"></i> 创建订单</a>
-                                </li>
-                                <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
-                                    <a ui-sref="/"><i class="fa fa-list-ol"></i> 订单查询</a>
-                                </li>
-                                <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
-                                    <a ui-sref="/"><i class="fa fa-print"></i> 订单打印</a>
-                                </li>
-                                <li ng-class="{active: $state.includes('customer.myquestions')}">
-                                    <a ui-sref="customer.myquestions"><i class="fa fa-question-circle"></i> 我的问题</a>
-                                </li>
-                                <li ng-class="{active: $state.includes('customer.myaccount')}">
-                                    <a ui-sref="customer.myaccount({anchorid:'profile'})"><i class="fa fa-user"></i> 个人设置</a>
-                                </li>
-                                <li ng-class="{active: $state.includes('customer.myfinance')}">
-                                    <a ui-sref="customer.myfinance"><i class="fa fa-university"></i> 财务信息</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse-search">
-                    <span class="sr-only">运单查询</span>
-                    <span class="fa fa-truck"></span>                  
-                </button>-->
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                    <span class="sr-only">功能导航</span>
-                    <span class="fa fa-bars"></span>
-                </button>
-            </div>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+            <!--End Navbar -->
             <div class="hidden-md hidden-lg hidden-xl navbar-collapse mega-menu navbar-responsive-collapse-search">
                 <div class="container">
                     <div class="search-open">
@@ -143,52 +208,7 @@
                     </div>
                 </div>
             </div>
-            <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
-                <div class="container">
-                    <ul class="nav navbar-nav">
-                        <li ng-class="{active: $state.includes('/')}">
-                            <a ui-sref="/">
-                                首页
-                            </a>
-                        </li>
-                        <li ng-class="{active: $state.includes('howtouse')}">
-                            <a ui-sref="howtouse">
-                                使用流程
-                            </a>
-                        </li>
-                        <li ng-class="{active: $state.includes('faq')}">
-                            <a ui-sref="faq">
-                                常见问题
-                            </a>
-                        </li>
-                        <li ng-class="{active: $state.includes('about')}">
-                            <a ui-sref="about">
-                                关于我们
-                            </a>
-                        </li>
-                        <li ng-class="{active: $state.includes('contact')}">
-                            <a ui-sref="contact">
-                                联系我们
-                            </a>
-                        </li>
-                        <li style="padding-top:5px;" class="hidden-xs hidden-sm">
-                            <input id="txtTrackingNumber" type="text" placeholder="运单查询" ng-model="trackingNumber">
-                            <span ng-show="!trackingNumber">
-                                <a class="btn-u btn-u-sm btn-u-red">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                            </span>
-                            <span ng-show="!!trackingNumber">
-                                <a class="btn-u btn-u-sm btn-u-red" href="#/ordertracking/{{trackingNumber}}">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
+            
         <div ui-view></div>
 
         <div class="footer-v2">
