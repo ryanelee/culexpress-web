@@ -16,7 +16,6 @@
 
 
 jQuery(document).ready(function($) {
-
 	// switcher toggle 	
 	if( $('body').hasClass('home')){
 
