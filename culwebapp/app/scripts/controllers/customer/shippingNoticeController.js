@@ -14,7 +14,7 @@ angular
                         window.sessionStorage.setItem('cache_warehouse', JSON.stringify(result.data));
                     }
                     //暂时只支持OR仓库
-                    $scope.warehouses = $filter('filter')(result.data, function (item) { return item.stateOrProvince === 'OR'; });
+                    $scope.warehouses = $filter('filter')(result.data, function (item) { return item.stateOrProvince !== 'OR'; });
 
                     //$scope.warehouses = result.data;
                     if ($scope.warehouses) {
