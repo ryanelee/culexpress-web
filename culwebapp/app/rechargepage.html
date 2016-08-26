@@ -30,17 +30,23 @@
                 requestUrl = '/customer/alipay/payment';
             }
 
-            $.post(cul.apiPath + requestUrl, {
-                WIDtotal_fee: decodeURIComponent(rechargeAmount),
-                customerNumber: decodeURIComponent(customerNumber)
-            }).success(function (result) {
-                $(document.body).html(result);
-            }).error(function (error, a, b) {
-                if (error) {
-                    $(document.body).html('<div style="color:#e74c3c;text-align:center;font-weight:bold;">支付失败！原因：<div><div style="padding-top:8px;"><ul style="list-style:none;padding:0;margin:0;"><li>'
-                        + JSON.parse(error.responseText).message
-                        + '。</li></ul></div>'
-                        + '<div style="padding-top:15px;"><a style="text-decoration: none" href="javascript:this.close()" onclick="">点击关闭页面</a></div>');
+            $.ajax({
+                method: "post",
+                url: cul.apiPath + requestUrl,
+                data: {
+                    WIDtotal_fee: decodeURIComponent(rechargeAmount),
+                    customerNumber: decodeURIComponent(customerNumber)
+                },
+                success: function (result) {
+                    $(document.body).html(result);
+                },
+                error: function (error, a, b) {
+                    if (error) {
+                        $(document.body).html('<div style="color:#e74c3c;text-align:center;font-weight:bold;">支付失败！原因：<div><div style="padding-top:8px;"><ul style="list-style:none;padding:0;margin:0;"><li>'
+                            + JSON.parse(error.responseText).message
+                            + '。</li></ul></div>'
+                            + '<div style="padding-top:15px;"><a style="text-decoration: none" href="javascript:this.close()" onclick="">点击关闭页面</a></div>');
+                    }
                 }
             });
         }
