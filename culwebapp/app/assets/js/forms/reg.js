@@ -66,7 +66,7 @@ var RegForm = function () {
 	                passwordConfirm:
 	                {
 	                    required: '请再次输入您的密码',
-	                    equalTo: '你输入的密码和上面的不一致',
+	                    equalTo: '您输入的密码和上面的不一致',
 	                    minlength: '密码长度不能小于{0}',
 	                    maxlength: '密码长度不能大于{0}'
 	                },
