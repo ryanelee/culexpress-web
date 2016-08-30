@@ -27,7 +27,7 @@ angular.module('culAdminApp')
       }
 
       self.updateInboundPackageDetail = function (model, callback) {
-          $http.put(cul.apiPath + "/inboundPackage", model).success(function (result) {
+          $http.put(cul.apiPath + "/inboundPackage/inbound", model).success(function (result) {
               callback(result);
           });
       }
