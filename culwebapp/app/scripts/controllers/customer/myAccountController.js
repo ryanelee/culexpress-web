@@ -217,7 +217,7 @@ angular
                         Customer.applyVIP($scope.$root.currentUser.customerNumber)
                             .then(function (result) {
                                 if (result.data) {
-                                    SweetAlert.swal('提示', '您的申请已经发送成功, 我们需要1-2个工作日审核你的资格. 有任何疑问请联系客服.', 'success');
+                                    SweetAlert.swal('提示', '您的申请已经发送成功, 我们需要1-2个工作日审核您的资格. 有任何疑问请联系客服.', 'success');
                                 }
                             }, function (result) {
                                 SweetAlert.swal('错误', result.data.message, 'error');

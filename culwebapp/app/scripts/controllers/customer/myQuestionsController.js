@@ -28,8 +28,8 @@ angular
                     $scope.model.messageType = result.data[0].typeID;
                 });
             orderSvr.getWarehouses().then(function (result) {
-                $scope.questionWarehouses = [result.data[2]];//TODO这里暂时只获取了OR仓库
-                $scope.model.receivedWarehouseNumber = result.data[2].warehouseNumber;
+                $scope.questionWarehouses = result.data;//TODO这里暂时只获取了OR仓库
+                $scope.model.receivedWarehouseNumber = result.data.data;
             });
         }
 

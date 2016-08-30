@@ -125,7 +125,7 @@ angular.module('culAdminApp')
                   dictCancelUpload: "取消上传",
                   dictCancelUploadConfirmation: "您确定要取消这次上传吗？",
                   dictRemoveFile: "删除文件",
-                  dictMaxFilesExceeded: "你不能上传更多文件。",
+                  dictMaxFilesExceeded: "您不能上传更多文件。",
                   success: function (_result) {
                       $timeout(function () {
                           var result = JSON.parse(_result.xhr.response)
@@ -385,7 +385,7 @@ angular.module('culAdminApp')
                       $scope.stepValidation[2] = true;
                       $scope.btnNextEnable = true;
                   } else {
-                      plugMessenger.info("你输入的的订单批号不存在");
+                      plugMessenger.info("您输入的的订单批号不存在");
                   }
               }
           });
