@@ -1,0 +1,139 @@
+﻿<div class="row">
+    <div class="profile-body margin-bottom-20">
+        <div class="headline">
+            <h2>商品库存寄件列表</h2>
+        </div>
+        <div>
+            <form action="#" id="sky-form" class="sky-form" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-sm-2 text-right" style="padding:0;">
+                        <label>寄件单据编号：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in source.searchKeyItems"></select>
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" />
+                    </div>
+                    <div class="col-sm-2">
+                        <a javascript:void(0) ng-click="searchData()" class="btn-u">搜索</a>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-sm-2 text-right" style="padding:0;">
+                        <label>寄件类型：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <select class="form-control" ng-model="queryPara.type">
+                          <option value="">所有</option>
+                          <option value="1">寄送库存</option>
+                          <option value="2">退送库存</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-2 text-right" style="padding:0;">
+                        <label>寄件状态：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <select class="form-control" ng-model="queryPara.status">
+                            <option value="">所有</option>
+                            <option value="1">等待处理</option>
+                            <option value="2">已作废</option>
+                            <option value="3">部分已收货</option>
+                            <option value="4">已收货</option>
+                            <option value="5">仓库已关闭</option>
+                            <option value="6">已配送</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-sm-2 text-right" style="padding:0;">
+                        <label>创建时间：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <select class="form-control" ng-model="queryPara.dateRange">
+                            <option value="">所有</option>
+                            <option value="1">今天</option>
+                            <option value="3">最近3天</option>
+                            <option value="7">最近7天</option>
+                            <option value="30">最近30天</option>
+                            <option value="range">自定义</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-2 text-right" style="padding:0;" ng-show="queryPara.dateRange==='range'">
+                        <label>开始时间：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;" ng-show="queryPara.dateRange==='range'">
+                        <input type="text" class="form-control date-control" ng-model="queryPara.dateFromString" />
+                    </div>
+                    <div class="col-sm-1 text-right" style="padding:0;" ng-show="queryPara.dateRange==='range'">
+                        <label>结束时间：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;" ng-show="queryPara.dateRange==='range'">
+                        <input type="text" class="form-control date-control" ng-model="queryPara.dateToString" />
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-search-v1" style="margin-top:15px;">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered" style="margin-bottom:0px">
+                        <thead>
+                            <tr>
+                                <th style="width:120px;min-width:120px;">寄件单据编号</th>
+                                <th style="width:100px;min-width:100px;">寄件类型</th>
+                                <th style="width:100px;min-width:100px;">收件仓库</th>
+                                <th style="width:120px;min-width:120px;">商品种类数量</th>
+                                <th style="width:100px;min-width:100px;">商品总数量</th>
+                                <th style="width:60px;min-width:60px;">状态</th>
+                                <th style="width: 130px;min-width:130px;max-width:130px;">创建日期</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="rowItem in source.dataList">
+                                <td><a href="javascript:void(0)" ng-click="redirectToDetail(rowItem.receiptNumber);">{{rowItem.receiptNumber}}</a></td>
+                                <td>
+                                    <span ng-if="rowItem.type===1">寄送库存</span>
+                                    <span ng-if="rowItem.type===2">退送库存</span>
+                                </td>
+                                <td>
+                                    <span ng-if="rowItem.warehouseNumber==1">美国加州(CA)仓库</span>
+                                    <span ng-if="rowItem.warehouseNumber==2">美国特拉华(DE)仓库</span>
+                                    <span ng-if="rowItem.warehouseNumber==4">美国俄勒冈(OR)仓库</span>
+                                </td>
+                                <td>{{rowItem.itemTypeCount}}</td>
+                                <td>{{rowItem.itemCount}}</td>
+                                <td>
+                                    <span ng-if="rowItem.status==0">等待处理</span>
+                                    <span ng-if="rowItem.status==1">已作废</span>
+                                    <span ng-if="rowItem.status==2">部分已收货</span>
+                                    <span ng-if="rowItem.status==3">已收货</span>
+                                    <span ng-if="rowItem.status==4">仓库已关闭</span>
+                                    <span ng-if="rowItem.status==5">已配送</span>
+                                </td>
+                                <td>{{rowItem.indate|sysdate}}</td>
+                                <td style="font-size:20px;">
+                                   <a href ng-click="deleteInventory(rowItem);"><i class="fa fa-trash-o" style="color:#c0392b;"></i></a> 
+                                   <a href ng-click="redirectToDetail(rowItem.receiptNumber);"><i class="fa fa-eye" style="color:#c0392b;"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top:10px;">
+                    <div class="col-sm-12 text-right">
+                        <pagination options="pagedOptions" on-page="onPaged"></pagination>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div>
+                    <button type="button" class="btn-u" ng-click="redirectTo()">寄送商品</button>
+                    <button type="button" class="btn-u" ng-click="redirectToBatch()">批量寄送商品</button>
+                    <button type="button" class="btn-u btn-u-default pull-right" ng-click="goback()">返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

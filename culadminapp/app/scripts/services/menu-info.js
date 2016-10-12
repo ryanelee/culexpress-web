@@ -71,9 +71,51 @@ angular.module('culAdminApp')
           childs: [
               { title: "收货管理", icon: null, url: '/warehouse/receipt' },
               { title: "收货登记", icon: null, url: '/warehouse/editreceipt', hidden: true },
-              { hidden: true, title: "上架管理", icon: null, url: '/warehouse/shelf' },
-              { hidden: true, title: "上架登记", icon: null, url: '/warehouse/editshelf', hidden: true },
-              { hidden: true, title: "库存管理", icon: null, url: '/warehouse/inventory', },
+              {
+                  title: "收货管理", icon: null, tip: "new", url: '/warehouse/receipt2',
+                  childs: [
+                      { hidden: true, title: "入库登记查看", icon: null, url: '/warehouse/receiptdetail2', },
+                      { hidden: true, title: "入库登记", icon: null, url: '/warehouse/receiptedit2', },
+                      { hidden: true, title: "入库清点", icon: null, url: '/warehouse/receiptcheck2', },
+                      { hidden: true, title: "异常管理", icon: null, url: '/warehouse/receiptexception', },
+                      { hidden: true, title: "异常登记", icon: null, url: '/warehouse/receiptexceptionedit', },
+                      { hidden: true, title: "异常查看", icon: null, url: '/warehouse/receiptexceptiondetail', },
+                  ]
+              },
+              {
+                  title: "上架管理", icon: null, url: '/warehouse/onshelf',
+                  childs: [
+                      { hidden: true, title: "上架登记", icon: null, url: '/warehouse/onshelfdetail', },
+                      {
+                          title: "架位管理", icon: null, url: '/warehouse/shelf',
+                          childs: [
+                              { hidden: true, title: "架位详情", icon: null, url: '/warehouse/shelfdetail', },
+                          ]
+                      },
+                  ]
+              },
+              {
+                  title: "架位管理", icon: null, url: '/warehouse/shelfmanagement',
+                  childs: [
+                      { hidden: true, title: "创建架位", icon: null, url: '/warehouse/shelfmanagementcreate', },
+                      { hidden: true, title: "架位详情", icon: null, url: '/warehouse/shelfmanagementdetail', },
+                  ]
+              },
+              {
+                  title: "库存管理", icon: null, url: '/warehouse/inventory',
+                  childs: [
+                      { hidden: true, title: "库存明细", icon: null, url: '/warehouse/inventorydetail', },
+                      { hidden: true, title: "库存日志", icon: null, url: '/warehouse/inventoryloglist', },
+                      { hidden: true, title: "冻结/解冻库存", icon: null, url: '/warehouse/inventoryfrozen', },
+                      { hidden: true, title: "纠正库存", icon: null, url: '/warehouse/inventoryadjust', }
+                  ]
+              },
+              {
+                  title: "出库管理", icon: null, url: '/warehouse/bucket',
+                  childs: [
+                      { hidden: true, title: "出库总单明细", icon: null, url: '/warehouse/bucketedit', }
+                  ]
+              },
               { hidden: true, title: "拣货管理", icon: null, url: '/warehouse/picking', },
               { hidden: true, title: "拣货管理", icon: null, url: '/warehouse/editpicking', hidden: true },
               { title: "打包管理", icon: null, url: '/warehouse/package' },

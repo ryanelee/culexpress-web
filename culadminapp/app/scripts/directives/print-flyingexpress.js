@@ -93,8 +93,7 @@ angular.module('culAdminApp')
                       $.each($element.find("div[trackingNumber]"), function (index, el) {
                           $(el).barcode($(el).attr("trackingNumber"), "code128", barCodeSettings);
                       });
-
-                      printSet();
+                      //printSet();
                       $element.children().jqprint();
                   }, 500);
               }

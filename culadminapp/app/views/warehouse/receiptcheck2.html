@@ -1,0 +1,110 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 入库清点</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货单据编号：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="tempReceiptNumber" ng-change="checkReceiptNumber()" />
+                    </div>
+                    <div class="col-sm-1 col-padding-clear">
+                        <button id="tip_receiptNumber" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group green" ng-if="!!data">
+                <label class="col-sm-2 control-label text-right">已扫描单据：</label>
+                <div class="col-sm-4 text-left">
+                    <label class="control-label">{{data.receiptNumber}}</label>
+                </div>
+            </div>
+            <div class="form-group" ng-hide="!data">
+                <label class="col-sm-2 control-label text-right">扫描UPC/商品条码：</label>
+                <div class="col-sm-4 text-left">
+                    <input type="text" class="form-control" ng-model="tempItemNumber" ng-change="checkItemNumber()" />
+                </div>
+                <div class="clearfix"></div>
+                <label id="check_success_alert" class="col-sm-offset-2 col-sm-4 control-label green" style="margin-right:12px; display:none;"></label>
+                <label id="check_fail_alert" class="col-sm-offset-2 col-sm-4 control-label red" style="margin-right:12px; display:none;"></label>
+            </div>
+            <fieldset ng-if="!!data">
+                <legend>清点明细</legend>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>商品编号</th>
+                            <th>UPC</th>
+                            <th>品牌</th>
+                            <th>商品描述</th>
+                            <th>属性1</th>
+                            <th>属性2</th>
+                            <th>寄送数量</th>
+                            <th>已扫描数量</th>
+                            <th>单件重量（磅）</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in data.items | filter: {_isShow:true}">
+                            <td style="vertical-align: middle;">{{item.itemNumber}}</td>
+                            <td style="vertical-align: middle;">{{item.upccode}}</td>
+                            <td style="vertical-align: middle;">{{item.brand}}</td>
+                            <td style="vertical-align: middle;">{{item.description}}</td>
+                            <td style="vertical-align: middle;"><span ng-show="item.properties[0]">{{item.properties[0].propertyName + ': ' + item.properties[0].propertyValue}}</span></td>
+                            <td style="vertical-align: middle;"><span ng-show="item.properties[1]">{{item.properties[1].propertyName + ': ' + item.properties[1].propertyValue}}</span></td>
+                            <td style="vertical-align: middle;">{{item.sendCount}}</td>
+                            <td style="vertical-align: middle; width:140px;">
+                                <input type="text" class="form-control" ng-model="item.scanCount" />
+                            </td>
+                            <td style="vertical-align: middle; width:140px;">
+                                <input type="text" class="form-control" ng-model="item.weight" />
+                            </td>
+                            <td style="vertical-align: middle;">
+                                <a href="javascript:void(0)" ng-click="btnPrint('inbound', item)">打印入库标签</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label class="control-label text-left green" style="margin-right:12px;">清点商品数量 x {{(data.items | filter: {_isShow:true}).length}}</label>
+                        <label class="control-label text-left red">
+                            错误商品数量 x {{checkedItemsForFailed.length}}
+                            <i class="fa fa-eye" style="margin-left: 6px; font-size:16px; cursor:pointer;" ng-click="btnFailedItemsDetail()"></i>
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group" ng-if="!!data">
+                <label class="col-sm-2 control-label text-right">收货备注：</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" ng-model="data.memo"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-if="!!data"><i class="fa fa-save"></i>完成清点</button>
+                    <button type="button" class="btn btn-primary" ng-click="btnException()" ng-if="!!data"><i class="fa fa-warning"></i>异常登记</button>
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script id="failedItemsDetail" type="text/html">
+        <div>
+            <div style="margin-bottom:12px;"><h5>查看错误商品</h5></div>
+            <div style="padding-left:12px;">
+                <div ng-repeat="item in checkedItemsForFailed"><span>{{item}}</span></div>
+            </div>
+            <div style="margin-top:12px;">
+                <button type="button" class="btn btn-primary pull-left" ng-click="btnPrint('exception')"><i class="fa fa-print"></i>打印记录</button>
+                <button type="button" class="btn btn-default pull-right" ng-click="btnFailedItemsClose($event)"><i class="fa fa-reply"></i>返回</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </script>
+    <print-helper></print-helper>
+</div>

@@ -1,0 +1,122 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 商品明细</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">商品编号：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="tempItemNumber" ng-change="checkItemNumber()" />
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-if="!!data">
+                <legend>基本信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">客户编号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label"><a href="javascript:void(0);" ng-click="btnOpenDetail(data,'customerdetail')">{{data.customerNumber}}</a></label>
+                        
+                    </div>
+                    <label class="col-sm-2 control-label text-right">收件标示：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.receiveIdentity}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">UPC：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.upccode}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">品牌：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.brand}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">品牌描述：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.description}}</label>
+                        <div class="row">
+                            <div class="col-sm-12" ng-repeat="item in data.properties">
+                                <label class="control-label">{{item.propertyName}}：{{item.propertyValue}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-if="!!data">
+                <legend>仓库明细</legend>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>收货仓库</th>
+                                    <th>入库日期</th>
+                                    <th>入库信息</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in data.inventoryList">
+                                    <td>{{item.warehouseName}}</td>
+                                    <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>入库单据编号</th>
+                                                    <th>入库类型</th>
+                                                    <th>架位信息</th>
+                                                    <th>库存数量</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="shelf in item.shelfList">
+                                                    <td>{{shelf.receiptNumber}}</td>
+                                                    <td>{{shelf.sendType == 1 ? "线下订单" : "海淘订单"}}</td>
+                                                    <td>{{shelf.shelfNumber}}</td>
+                                                    <td>{{shelf.itemCount}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-if="data.frozenList.length > 0">
+                <legend>冻结库存</legend>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>冻结数量</th>
+                                    <th>冻结仓库</th>
+                                    <th>冻结信息</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in data.frozenList">
+                                    <td>{{item.inventory_frozen}}</td>
+                                    <td>{{item.warehouseName}}</td>
+                                    <td>{{item.frozenReason}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

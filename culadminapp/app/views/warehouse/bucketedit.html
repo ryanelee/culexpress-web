@@ -1,0 +1,111 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3 ng-show="tpl_status.actionType == 'bucket'"><i class="fa fa-edit"></i> 出库总单明细(<span id="bucket-title">正在创建...</span>)</h3>
+        <h3 ng-show="tpl_status.actionType == 'package'"><i class="fa fa-edit"></i> 包裹明细(<span id="package-title"></span>)</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form" ng-show="tpl_status.actionType == 'bucket'">
+            <fieldset>
+                <legend>基本信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">所属仓库：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control search-control"
+                                ng-model="data.warehouseNumber"
+                                ng-options="item.warehouseNumber as item.warehouseName for item in warehouseList"></select>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Pallet</legend>
+                <div class="pull-left" style="margin:0 12px 12px 0;" ng-repeat="item in data.detail">
+                    <bucket-item type="pallet" ng-data="item"
+                                 ng-fn-check="callback.check(item, data.detail,'pallet')"
+                                 ng-fn-remove="callback.remove(item, 'pallet')"
+                                 ng-disabled="!!tpl_status.readonly"></bucket-item>
+                </div>
+                <div class="pull-left" ng-if="!tpl_status.readonly">
+                    <button class="btn btn-danger" ng-click="btnAdd('pallet')"><i class="fa fa-plus"></i>新增Pallet</button>
+                </div>
+            </fieldset>
+            <fieldset ng-show="(data.detail | filter: {_selected:true}).length > 0">
+                <legend>Box(可选)</legend>
+                <div class="pull-left" style="margin:0 12px 12px 0;" ng-repeat="item in (data.detail | filter: {_selected:true})[0].boxes as selected_boxes">
+                    <bucket-item type="box" ng-data="item"
+                                 ng-fn-check="callback.check(item, selected_boxes,'box')"
+                                 ng-fn-remove="callback.remove(item, 'box')"
+                                 ng-disabled="!!tpl_status.readonly"></bucket-item>
+                </div>
+                <div class="pull-left" ng-if="!tpl_status.readonly">
+                    <button class="btn btn-danger" ng-click="btnAdd('box')"><i class="fa fa-plus"></i>新增Box</button>
+                </div>
+            </fieldset>
+            <fieldset ng-show="(data.detail | filter: {_selected:true}).length > 0 || (selected_boxes | filter: {_selected:true}).length > 0">
+                <legend>Bag</legend>
+                <div class="pull-left" style="margin:0 12px 12px 0;" ng-repeat="item in ((data.detail | filter: {_selected:true})[0].bags || (selected_boxes | filter: {_selected:true})[0].bags) as selected_bags">
+                    <bucket-item type="bag" ng-data="item"
+                                 ng-fn-add="callback.add(item, selected_bags)"
+                                 ng-fn-remove="callback.remove(item, 'bag')"
+                                 ng-disabled="!!tpl_status.readonly"></bucket-item>
+                </div>
+                <div class="pull-left" ng-if="!tpl_status.readonly">
+                    <button class="btn btn-danger" ng-click="btnAdd('bag')"><i class="fa fa-plus"></i>新增Bag</button>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-md-6 text-left" ng-if="!!tpl_status.bucketNumber && !tpl_status.readonly">
+                    <button type="button" class="btn btn-primary" ng-click="btnClose()"><i class="fa fa-save"></i>关闭出库总单</button>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-if="!tpl_status.readonly"><i class="fa fa-save"></i>保存</button>
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+        <form class="form-horizontal" role="form" ng-show="tpl_status.actionType == 'package'">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">包裹编号：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" ng-model="_selectedPackage.trackingNumber" ng-change="checkTrackingNumber()" ng-disabled="!!tpl_status.readonly">
+                    </div>
+                    <div class="pull-left red" style="line-height:34px; font-size:14px;" ng-show="!!_selectedPackage.trackingNumber && (selected_packages | filter: _selectedPackage.trackingNumber:true).length > 0">
+                        <i class="fa fa-info-circle" style="margin-right:4px;"></i><span>正在修改包裹</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">包裹重量（磅）：</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" ng-model="_selectedPackage.weight" ng-disabled="!!tpl_status.readonly">
+                    </div>
+                    <div class="col-sm-2" ng-if="!tpl_status.readonly">
+                        <button type="button" class="btn btn-primary" ng-click="btnSaveByPackage()"><i class="fa fa-check-square-o"></i>确定</button>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <i class="fa fa-warning"></i><span>包裹编号[]无法装袋，出库重量和打包重量不匹配！</span>
+                </div>-->
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="contextual-summary-info contextual-background green-bg">
+                            <p><i class="pull-left fa fa-check-circle" style="font-size:24px;"></i><span class="pull-left" style="font-size:24px;">已装袋的包裹总数： {{selected_packages.length || 0}}</span></p>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="pull-left" style="margin:0 12px 12px 0;" ng-repeat="item in (selected_bags | filter: {_selected:true})[0].packages as selected_packages">
+                    <bucket-item type="package" ng-data="item"
+                                 ng-fn-check="callback.check(item, selected_packages)"
+                                 ng-fn-remove="callback.remove(item, 'package')"
+                                 ng-disabled="!!tpl_status.readonly"></bucket-item>
+                </div>
+            </fieldset>
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-default" ng-click="btnPrevByPackage('package')"><i class="fa fa-reply"></i>返回</button>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>

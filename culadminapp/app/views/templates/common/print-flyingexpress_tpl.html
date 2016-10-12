@@ -1,4 +1,4 @@
-﻿<div style="height:0px; overflow:hidden;">
+﻿<div style="display:none;">
     <style>
         #print_FLYINGExpress_Template th {
             text-align: center;
@@ -18,8 +18,8 @@
         }
     </style>
     <div id="print_FLYINGExpress_Template" ng-repeat="data in dataList">
-        <div id="logo"><img src="assets/img/kingadmin-logo.png" /></div>
-        <table cellpadding="2" cellspacing="0" border="1" width="100%">
+        <div style="height: 5%"><img src="assets/img/kingadmin-logo.png" /></div>
+        <table cellpadding="2" cellspacing="0" border="1" width="100%" height="{{data.orderItems.length > 2 ? '95%':'45%'}}">
             <tr>
                 <th colspan="6">客户信息</th>
             </tr>
@@ -52,7 +52,7 @@
                             <td>{{$index + 1}}</td>
                             <td>{{item.itemBrand}}</td>
                             <td style="max-width: 300px;">
-                                <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:2cm;">
+                                <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:44px;">
                                     {{item.description}}
                                     {{ !!item.property1 ? " " + item.property1 : "" }}
                                     {{ !!item.property2 ? " " + item.property2 : "" }}
@@ -91,8 +91,8 @@
                 <td>{{data.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
             </tr>
         </table>
-        <hr style="margin:15px auto; width:100%; color: #666;" />
-        <table cellpadding="2" cellspacing="0" border="1" width="100%" height="400px" style="margin-top:5px;">
+        <hr style="margin:2.5% auto; width:100%; color: #666;" ng-if="data.orderItems.length <= 2" />
+        <table cellpadding="2" cellspacing="0" border="1" width="100%" height="45%" style="margin-top:2%;">
             <tr>
                 <th style="height: 25%; border-right: 0px none;">
                     <div style="text-align:center; float:left;">
@@ -141,6 +141,6 @@
                 </td>
             </tr>
         </table>
+        <div style="height:55%" ng-if="data.orderItems.length > 2"></div>
     </div>
-    <div id="page-height"></div>
 </div>

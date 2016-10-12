@@ -1,5 +1,7 @@
 ﻿<div class="row">
-    <div class="headline"><h2>提交订单</h2></div>
+    <div class="headline">
+        <h2>商品信息</h2>
+    </div>
     <div>
         <form action="#" class="sky-form shopping-cart">
             <div>
@@ -29,65 +31,116 @@
                     </ul>
                     <ul class="viewport">
                         <li>
+                            <label>请选择商品类别：</label>
                             <div class="row">
-                                <div class="col-sm-5" style="border: 2px solid #000; min-height: 300px; margin-left: 10px;"></div>
-                                <div class="col-sm-5" style="border: 2px solid #000;min-height:300px; margin-left:10px;"></div>
+                                <div class="col-sm-5" style="border: 2px solid #ddd; height: 300px; margin-left: 10px;overflow:hidden;overflow-y:auto;">
+                                    <ul class="list-unstyled cate">
+                                        <li ng-class="{active:categoryItem==current.category}" ng-repeat="categoryItem in source.categories" ng-click="selectedCategory(categoryItem.cateid,categoryItem);">
+                                            {{categoryItem.name}}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-5" style="border: 2px solid #ddd;height:300px; margin-left:10px;overflow:hidden;overflow-y:auto;">
+                                    <ul class="list-unstyled cate">
+                                        <li ng-class="{active:subCategoryItem==current.subCategory}" ng-repeat="subCategoryItem in source.subCategories" ng-click="selectedSubCategory(subCategoryItem);">
+                                            {{subCategoryItem.name}}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </li>
                         <li>
-                            <div class="form-group">
-                                <label>商品品牌</label>
-                                <input type="text" class="form-control" />
+                            <div class="form-group" ng-if="!!current.isEdit">
+                                <div class="pull-left">
+                                    <strong>已指定商品类别：</strong>
+                                    <span class="text-danger">{{current.category.name}}</span>
+                                    <span class="text-danger"> -> {{current.subCategory.name}}</span>
+                                </div>
+                                <div class="pull-right"><strong>您正在修改商品：</strong>
+                                    <span class="text-danger">{{current.itemNumber}}</span>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
                             <div class="form-group">
-                                <label>UPC代码</label>
-                                <input type="text" class="form-control" />
+                                <label class="required">商品品牌</label>
+                                <input type="text" class="form-control" ng-model="model.brand" />
                             </div>
                             <div class="form-group">
-                                <label>商品关键字</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>商品描述</label>
-                                <textarea class="form-control" rows="10"></textarea>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-group">
-                                <label>商品尺寸（英寸）</label>
-                                <div>
-                                    长：<input type="text" class="form-control" style="width: 20%; display: inline-block;" />
-                                    宽：<input type="text" class="form-control" style="width: 20%; display: inline-block;" />
-                                    高：<input type="text" class="form-control" style="width: 20%; display: inline-block;" />
+                                <label class="required">UPC代码</label>
+                                <input type="text" class="form-control" ng-model="model.upccode" />
+                                <div class="note">
+                                    注意:UPC 代码是一个 12 至 40 位长度的产品代码，用于唯一标识一个产品。我们强烈建议您为每一个商品都输入正常的 UPC 代码。
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>商品重量（磅）</label>
-                                <input type="text" class="form-control" />
+                                <label>商品关键字</label>
+                                <input type="text" class="form-control" ng-model="model.keywords" />
+                                <div class="note">
+                                    注意:商品关键字用于快速搜索定位您的商品, 请尽量用简洁准确的词来描述您的商品.比如: ralph lauren男装。 最多允许输入20个字符。
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="required">商品描述</label>
+                                <textarea class="form-control" rows="10" ng-model="model.description"></textarea>
+                                <div class="note">
+                                    注意:最多允许输入200个字符。商品的颜色尺寸等重要信息我们建议您放到商品的属性中。
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group">
+                                <label class="required">商品尺寸（英寸）</label>
+                                <div>
+                                    长：<input ng-model="model.length" type="number" class="form-control" style="width: 20%; display: inline-block;"
+                                    /> 宽：
+                                    <input ng-model="model.width" type="number" class="form-control" style="width: 20%; display: inline-block;" />                                    高：
+                                    <input ng-model="model.height" type="number" class="form-control" style="width: 20%; display: inline-block;" />
+                                </div>
+                                <div class="note">
+                                    注意:请填写商品原始包装的尺寸。
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="required">商品重量（磅）</label>
+                                <input type="number" class="form-control" ng-model="model.weight" />
+                                 <div class="note">
+                                    注意:请填写商品原始包装的重量。
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>商品属性</label>
                                 <div>
-                                    <input type="text" class="form-control" style="width: 80%; display: inline-block;" />
-                                    <button style="margin-left:20px;" type="button" class="btn-u">添加</button>
+                                    <input ng-model="temp.property" type="text" class="form-control" style="width: 80%; display: inline-block;" />
+                                    <button ng-disabled="!temp.property" style="margin-left:20px;" type="button" class="btn-u" ng-click="addProperty();">添加</button>
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div class="note">
+                                    注意:商品属性用于描述商品的其他重要信息,比如商品的颜色尺寸。为了便于进行属性分组, 强烈建议每个商品属性都是用 {属性名} : {属性描述} 这种标准格式。比如:颜色:黑色。您最多可以为每个商品添加5个属性。
+                                </div>
                                 <ul class="list-group" style="min-height:200px;border:1px solid #bbb;">
-                                    <li class="list-group-item" style="display:block;"><strong>属性：</strong> 颜色：黑色   <div class="pull-right"><a href="javascript:void(0)"><i class="fa fa-trash fa-2x"></i></a></div></li>
+                                    <li class="list-group-item" style="display:block;" ng-repeat="propertyItem in temp.properties">
+                                        <strong>属性{{$index+1}}：</strong> {{propertyItem.propertyName}}:{{propertyItem.propertyValue}}
+                                        <div class="pull-right"><a href="javascript:void(0)"><i class="fa fa-trash fa-2x" ng-click="removeProperty(propertyItem);"></i></a></div>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="form-group">
                                 <label>商品图片链接</label>
                                 <div>
-                                    <input type="text" class="form-control" style="width: 80%; display: inline-block;" />
-                                    <button style="margin-left:20px;" type="button" class="btn-u">添加</button>
+                                    <input ng-model="temp.image" type="text" class="form-control" style="width: 80%; display: inline-block;" />
+                                    <button ng-disabled="!temp.image" style="margin-left:20px;" type="button" class="btn-u" ng-click="addImage();">添加</button>
                                 </div>
                             </div>
 
                             <div class="form-group">
+                                <div class="note">注意:每个商品最多可以指定5个图片链接. 请确保图片链接合法并有效. 我们将不承担任何法律责任。</div>
                                 <div style="min-height:200px;">
+                                    <div class="owl-carousel-v4 margin-bottom-40">
+                                        <div class="owl-slider-v4">
 
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </li>

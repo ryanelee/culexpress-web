@@ -50,6 +50,34 @@ angular
               templateUrl: 'views/warehouse/receipt.html',
               controller: 'ReceiptCtrl'
           })
+          .when('/warehouse/receipt2', {
+              templateUrl: 'views/warehouse/receipt2.html',
+              controller: 'Receipt2Ctrl'
+          })
+          .when('/warehouse/receiptedit2', {
+              templateUrl: 'views/warehouse/receiptedit2.html',
+              controller: 'ReceiptEdit2Ctrl'
+          })
+          .when('/warehouse/receiptdetail2', {
+              templateUrl: 'views/warehouse/receiptdetail2.html',
+              controller: 'ReceiptDetail2Ctrl'
+          })
+          .when('/warehouse/receiptcheck2', {
+              templateUrl: 'views/warehouse/receiptcheck2.html',
+              controller: 'ReceiptCheck2Ctrl'
+          })
+          .when('/warehouse/receiptexception', {
+              templateUrl: 'views/warehouse/receiptexception.html',
+              controller: 'ReceiptExceptionCtrl'
+          })
+          .when('/warehouse/receiptexceptionedit', {
+              templateUrl: 'views/warehouse/receiptexceptionedit.html',
+              controller: 'ReceiptExceptionEditCtrl'
+          })
+          .when('/warehouse/receiptexceptiondetail', {
+              templateUrl: 'views/warehouse/receiptexceptiondetail.html',
+              controller: 'ReceiptExceptionDetailCtrl'
+          })
           .when('/warehouse/editreceipt', {
               templateUrl: 'views/warehouse/editreceipt.html',
               controller: 'EditReceiptCtrl'
@@ -58,13 +86,61 @@ angular
               templateUrl: 'views/warehouse/shelf.html',
               controller: 'WarehouseShelfCtrl'
           })
-          .when('/warehouse/editshelf', {
-              templateUrl: 'views/warehouse/editshelf.html',
-              controller: 'WarehouseEditshelfCtrl'
+          .when('/warehouse/shelfdetail', {
+              templateUrl: 'views/warehouse/shelfdetail.html',
+              controller: 'WarehouseShelfDetailCtrl'
           })
+          .when('/warehouse/onshelf', {
+              templateUrl: 'views/warehouse/onshelf.html',
+              controller: 'WarehouseOnShelfCtrl'
+          })
+          .when('/warehouse/onshelfdetail', {
+              templateUrl: 'views/warehouse/onshelfdetail.html',
+              controller: 'WarehouseOnShelfDetailCtrl'
+          })
+          .when('/warehouse/shelfmanagement', {
+              templateUrl: 'views/warehouse/shelfmanagement.html',
+              controller: 'WarehouseShelfManagementCtrl'
+          })
+          .when('/warehouse/shelfmanagementcreate', {
+              templateUrl: 'views/warehouse/shelfmanagementcreate.html',
+              controller: 'WarehouseShelfManagementCreateCtrl'
+          })
+          .when('/warehouse/shelfmanagementdetail', {
+              templateUrl: 'views/warehouse/shelfmanagementdetail.html',
+              controller: 'WarehouseShelfManagementDetailCtrl'
+          })
+          .when('/warehouse/bucket', {
+              templateUrl: 'views/warehouse/bucket.html',
+              controller: 'WarehouseBucketCtrl'
+          })
+          .when('/warehouse/bucketedit', {
+              templateUrl: 'views/warehouse/bucketedit.html',
+              controller: 'WarehouseBucketEditCtrl'
+          })
+          //.when('/warehouse/editshelf', {
+          //    templateUrl: 'views/warehouse/editshelf.html',
+          //    controller: 'WarehouseEditshelfCtrl'
+          //})
           .when('/warehouse/inventory', {
               templateUrl: 'views/warehouse/inventory.html',
               controller: 'WarehouseInventoryCtrl'
+          })
+          .when('/warehouse/inventoryloglist', {
+              templateUrl: 'views/warehouse/inventoryloglist.html',
+              controller: 'WarehouseInventoryLogListCtrl'
+          })
+          .when('/warehouse/inventoryfrozen', {
+              templateUrl: 'views/warehouse/inventoryfrozen.html',
+              controller: 'WarehouseInventoryFrozenCtrl'
+          })
+          .when('/warehouse/inventoryadjust', {
+              templateUrl: 'views/warehouse/inventoryadjust.html',
+              controller: 'WarehouseInventoryAdjustCtrl'
+          })
+          .when('/warehouse/inventorydetail', {
+              templateUrl: 'views/warehouse/inventorydetail.html',
+              controller: 'WarehouseInventoryDetailCtrl'
           })
           .when('/warehouse/picking', {
               templateUrl: 'views/warehouse/picking.html',

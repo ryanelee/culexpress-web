@@ -51,9 +51,11 @@ angular
                 if (!!$scope.data.shipServiceItem) {
                     //var categoryItem = $filter('filter')($scope.warehouses, function (item) { return item.warehouseNumber === getWorkhouseNumber(); });
                     $scope.goodsCategories = $scope.data.shipServiceItem.itemTypeList;
+                    $scope.categories = $scope.data.shipServiceItem.itemCateList;
                 }
                 else {
                     $scope.goodsCategories = [];
+                    $scope.categories = [];
                 }
             }
 
@@ -172,12 +174,12 @@ angular
                 key: 'orderNumber',
                 text: '订单编号'
             }, {
-                    key: 'receiveTrackingNumber',
-                    text: '预报快递单号'
-                }, {
-                    key: 'outBoundTrackingNumber',
-                    text: '出库包裹编号'
-                }];
+                key: 'receiveTrackingNumber',
+                text: '预报快递单号'
+            }, {
+                key: 'outBoundTrackingNumber',
+                text: '出库包裹编号'
+            }];
 
             var queryPara = $scope.queryPara = {
                 searchKeyName: 'orderNumber',
@@ -386,13 +388,16 @@ angular
             }
             $scope.selectedCategory = function (packageItem, propName, val) {
                 packageItem[propName] = val;
-
-                var currentItem = $filter('filter')($scope.categories, function (categoryItem) { return categoryItem.cateid === val })[0];
-                if (!!currentItem) {
-                    packageItem.subCategories = currentItem.sub;
-                }
-                if (propName !== 'goodsCategory') {
-                    packageItem.goodsCategory = packageItem.subCategories[0].cateid;
+                if (propName == "currentCategory") {
+                    packageItem.subCategories = [];
+                    packageItem.goodsCategory = "";
+                    if (!!val) {
+                        var subcategoryItems = $filter('filter')($scope.categories, function (categoryItem) { return categoryItem.parentid === val });
+                        if (!!subcategoryItems) {
+                            packageItem.subCategories = subcategoryItems;
+                            packageItem.goodsCategory = packageItem.subCategories[0].cateid;
+                        }
+                    }
                 }
             }
 
@@ -575,7 +580,6 @@ angular
                 submitText: '提交'
             }
             $scope.wizardValid = function (index, step) {
-
                 if (!!$scope.showWeight) {
                     if (!$scope.data.packageWeight) {
                         SweetAlert.swal('提示', '请输入包裹重量!', 'warning');
@@ -677,7 +681,7 @@ angular
                             calculData.insuranceFee = 0;
                         }
                     },
-                    calculate = function (rules) {
+                    calculate = function (result) {
                         var shipService = data.shipServiceItem,
                             packages = getOutboundPackage('UMI'),
                             packageItem = packages[0],
@@ -686,12 +690,13 @@ angular
                                 shippingFee: 0,
                                 tip: ($scope.data.tip * 1) || 0,
                             },
-                            calRule = $filter('filter')(rules, function (ruleItem) { return ruleItem.goodsCategory === packageItem.goodsCategory; })[0];
-                        if (!calRule) calRule = $filter('filter')(rules, function (ruleItem) { return ruleItem.goodsCategory === 0; })[0];
+                            calRule = $filter('filter')(result.fee, function (ruleItem) { return ruleItem.category === packageItem.goodsCategory; })[0];
+                        if (!calRule) calRule = $filter('filter')(result.fee, function (ruleItem) { return ruleItem.category === 0; })[0];
+                        var ruleDetail = $.grep(calRule.detail, function (n) { return n.currency == "RMB" })[0];
 
-                        calculData.packageWeight = getPackageWeight(shipService, calRule.roundup);
+                        calculData.packageWeight = getPackageWeight(shipService, result.roundup);
 
-                        calculData.shippingFee += getShippingFee(calculData.packageWeight, calRule.firstWeight, calRule.continuedWeight, shipService);
+                        calculData.shippingFee += getShippingFee(calculData.packageWeight, ruleDetail.firstWeight, ruleDetail.continuedWeight, shipService);
 
                         setInsuranceFee(calculData, shipService);
 
@@ -719,24 +724,27 @@ angular
                     return;
                 }
 
-
                 settlementSvr
-                    .getRule($scope.$root.currentUser.customerNumber)
+                    .getRule({
+                        customerNumber: $scope.$root.currentUser.customerNumber,
+                        warehouseNumber: getWorkhouseNumber(),
+                        shipServiceId: $scope.data.shipServiceItem.shipServiceId
+                    })
                     .then(function (result) {
                         if (result) {
-                            calculate(result.data.ruleDetails);
+                            calculate(result.data);
                         }
                     });
             }
 
-            $scope.categories = [];
-            $scope.loadGoodsCategory = function () {
-                orderSvr.getGoodsCategories()
-                    .then(function (result) {
-                        $scope.categories = result.data;
-                    })
-            }
-            $scope.loadGoodsCategory();
+            //$scope.categories = [];
+            //$scope.loadGoodsCategory = function () {
+            //    orderSvr.getGoodsCategories()
+            //        .then(function (result) {
+            //            $scope.categories = result.data;
+            //        })
+            //}
+            //$scope.loadGoodsCategory();
 
 
 

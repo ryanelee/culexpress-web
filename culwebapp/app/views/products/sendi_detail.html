@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="headline">
+        <h2>寄送库存明细</h2>
+    </div>
+    <div>
+        <form action="#" class="sky-form shopping-cart">
+            <div class="form-group">
+                <label>寄件单据编号：{{model.receiptNumber}}</label>
+                <label style="margin-left:100px;">寄送仓库: 
+                    <select style="height:30px" ng-disabled="true"  ng-model="model.warehouseNumber"  ng-options="warehouseItem.warehouseNumber as warehouseItem.warehouseName for warehouseItem in source.warehouses"></select>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>寄件单据状态：<span class="text-danger">{{model._inboundStatus}}</span></label>
+                <!--<label style="margin-left:210px;">712 nosxxxx street<br>City of XXX,OR 12311</label>-->
+            </div>
+            <div class="form-group">
+                <label>创建日期：<span>{{model.indate|sysdate}}</span></label>
+            </div>
+            <div class="form-group">
+                <label>已选择寄送的商品：</label>
+                <div class="table-responsive" style="margin-top:15px;">
+                    <table class="table table-hover table-bordered" style="margin-bottom:0px">
+                        <thead>
+                            <tr>
+                                <th>商品编号</th>
+                                <th style="width:150px">UPC</th>
+                                <th style="width: 100px;min-width:100px;max-width:100px;">品牌</th>
+                                <th style="width: 200px;min-width:200px;max-width:200px;">商品描述</th>
+                                <th style="width: 150px;min-width:150px;max-width:150px;">属性1</th>
+                                <th style="width: 150px;min-width:150px;max-width:150px;">属性2</th>
+                                <th style="width: 100px;min-width:100px;max-width:100px;">寄送数量</th>
+                                <th style="width: 100px;min-width:100px;max-width:100px;">已收货数量</th>
+                                <th style="width: 100px;min-width:100px;max-width:100px;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="rowItem in model.items">
+                                <td>{{rowItem.itemNumber}}</td>
+                                <td>{{rowItem.upccode}}</td>
+                                <td>{{rowItem.brand}}</td>
+                                <td>{{rowItem.description}}</td>
+                                <td>
+                                    <div>长宽高：{{rowItem.length}} × {{rowItem.width}} × {{rowItem.height}}</div>
+                                    <div>重量：{{rowItem.weight}}</div>
+                                </td>
+                                <td>
+                                    <div ng-repeat="property in rowItem.properties">
+                                        <span>{{property.propertyName}}</span>: <span>{{property.propertyValue}}</span>
+                                    </div>
+                                </td>
+                                <td>{{rowItem.sendCount}}</td>
+                                <td>{{rowItem.receiveCount}}</td>
+                                <td><a href="javascript:void(0)" ng-click="redirectToDetail(rowItem.receiptNumber);">打印标签</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>仓库备注：</label>
+                <div>
+                    <textarea class="form-control" ng-model="model.memo" rows="5" style="overflow:hidden;overflow-y:auto;"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div>
+        <button type="button" class="btn-u">打印寄送清单</button>       
+        <button type="button" class="btn-u pull-right" ng-click="redirectToList()">返回寄件单据列表</button>
+    </div>
+</div>

@@ -7,10 +7,12 @@ angular.module('culwebApp')
             var url = cul.apiPath + '/settlement/list';
             return $http.post(url, paras || {});
         },
-        getRule = function (customerNumber) {
+        getRule = function (options) {
             var url = cul.apiPath + '/settlement/rule';
             return $http.post(url, {
-                customerNumber: customerNumber
+                customerNumber: options.customerNumber,
+                warehouseNumber: options.warehouseNumber,
+                shipServiceId: options.shipServiceId
             });
         },
         getExcelList = function (customerNumber) {

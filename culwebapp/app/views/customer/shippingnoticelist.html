@@ -58,7 +58,8 @@
                 <table class="table table-hover table-bordered" style="margin-bottom:0px">
                     <thead>
                         <tr>
-                            <th style="min-width:10px"><input type="checkbox" ng-click="selectAll()" ng-model="selectedAll"></th>
+                            <th style="min-width:5px"><input type="checkbox" ng-click="selectAll()" ng-model="selectedAll"></th>
+                            <th style="min-width:5px">操作</th>
                             <th style="min-width:100px">预报快递单号</th>
                             <th style="min-width:100px" class="hidden-sm">运单内容</th>
                             <th style="min-width:100px; max-width:100px; width:100px;">运单备注</th>
@@ -70,10 +71,12 @@
                     <tbody>
                         <tr ng-repeat="shippingNoticeItem in shippingNoticeList track by shippingNoticeItem.transactionNumber">
                             <td>
-                                <input type="checkbox" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)">
-                                <button class="btn-u btn-u-xs btn-u-default" ng-show="shippingNoticeItem.status === 'Intransit'" ng-click="deleteShippingNotice(shippingNoticeItem)">
-                                    删除
-                                </button>
+                                <input type="checkbox" style="margin-left:5px" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)">
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);">
+                                    <i class="fa fa-trash-o" style="margin-left:5px;color:red" ng-show="shippingNoticeItem.status === 'Intransit'" ng-click="deleteShippingNotice(shippingNoticeItem)"></i>
+                                </a>
                             </td>
                             <td>{{ shippingNoticeItem.trackingNumber }}</td>
                             <td class="hidden-sm">{{ shippingNoticeItem.packageDescription }}</td>
@@ -104,7 +107,7 @@
                         <i class="fa fa-shopping-cart"> 提交订单</i>
                     </a>
                     <a class="btn-u" href="javascript:void(0);" ng-click="redirectToFastOrder();">
-                        <i class="fa fa-shopping-cart"> 提交极速原单</i>
+                        <i class="fa fa-bolt"> 提交极速原单</i>
                     </a>
                     <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
                 </div>

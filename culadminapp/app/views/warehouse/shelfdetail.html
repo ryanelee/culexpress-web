@@ -1,0 +1,52 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 修改商品架位</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">当前架位：</label>
+                    <div class="col-sm-4 text-left">
+                        <input type="text" class="form-control" placeholder="当前架位" ng-model="data.originShelfNumber">
+                    </div>
+                    <div class="col-sm-1 col-padding-clear">
+                        <button id="tip_originShelfNumber" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">商品编号：</label>
+                    <div class="col-sm-4 text-left">
+                        <input type="text" class="form-control" placeholder="商品编号" ng-model="data.itemNumber">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">目标仓库：</label>
+                    <div class="col-sm-4 text-left">
+                        <select class="form-control search-control"
+                                ng-model="data.warehouseNumber"
+                                ng-options="item.warehouseNumber as item.warehouseName for item in warehouseList"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">目标架位：</label>
+                    <div class="col-sm-4 text-left">
+                        <input type="text" class="form-control" placeholder="目标架位" ng-model="data.targetShelfNumber">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">移动数量：</label>
+                    <div class="col-sm-4 text-left">
+                        <input type="text" class="form-control" placeholder="移动数量" ng-model="data.moveItemCount">
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-if="!!data"><i class="fa fa-save"></i>完成修改</button>
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

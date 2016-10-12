@@ -6,7 +6,7 @@ angular.module('culwebApp')
           restrict: 'EAC',
           template: '<div class="form-group"><label>{{label}}：</label>'
           + '<select class="form-control"  ng-model="rangItem" ng-options="rangeItem as rangeItem.text for rangeItem in dateRangeList"></select> '
-          + '<a javascript:void(0) ng-click="btnSearch()" class="btn-u">{{btnText}}</a></div> ',
+          + '<a href="javascript:void(0)" ng-click="btnSearch()" class="btn-u">{{btnText}}</a></div> ',
           scope: {
               onSearch: '&',
               label: '@',

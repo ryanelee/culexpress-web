@@ -127,4 +127,10 @@ angular.module('culAdminApp')
           }
           return title;
       }
+
+      self.getCategory = function (callback) {
+          $http.get(cul.apiPath + "/item/category/list").success(function (result) {
+              callback(result);
+          })
+      }
   }]);
