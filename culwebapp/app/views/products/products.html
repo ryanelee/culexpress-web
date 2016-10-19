@@ -1,21 +1,23 @@
 ﻿<div class="row">
     <div class="profile-body margin-bottom-20">
-        <div class="headline"><h2>商品列表</h2></div>
-
+        <div class="headline">
+            <h2>商品列表</h2>
+        </div>
         <div>
             <form action="#" id="sky-form" class="sky-form" novalidate="novalidate">
                 <div class="row">
                     <div class="col-sm-2 text-right" style="padding:0;">
                         <label>搜索条目：</label>
-                    </div>
+                    </div> 
                     <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
+                        <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in source.searchKeyItems">                            
+                        </select>
                     </div>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" />
                     </div>
                     <div class="col-sm-2">
-                        <a javascript:void(0) ng-click="searchOrder()" class="btn-u">查找商品</a>
+                        <a href="javascript:void(0)" ng-click="searchProducts()" class="btn-u">查找商品</a>
                     </div>
                 </div>
                 <div class="row" style="margin-top:15px;">
@@ -23,23 +25,31 @@
                         <label>商品主类别：</label>
                     </div>
                     <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
+                        <select class="form-control" ng-change="selectedCategory();" ng-model="current.category" ng-options="categoryItem as categoryItem.name for categoryItem in source.categories">
+                           <option value="">请选择</option>
+                        </select>
                     </div>
 
                     <div class="col-sm-2 text-right" style="padding:0;">
                         <label>商品子类别：</label>
                     </div>
                     <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
+                        <select class="form-control" ng-change="selectedSubCategory()" ng-model="current.subCategory" ng-options="subCategoryItem as subCategoryItem.name for subCategoryItem in source.subCategories">
+                             <option value="">请选择</option>
+                        </select>
                     </div>
                     <div class="col-sm-1 text-right" style="padding:0;">
                         <label>库存：</label>
                     </div>
                     <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control" style="width:40%;float:left;">
-                            <option>大于</option>
+                        <select class="form-control" style="width:40%;float:left;" ng-model="queryPara.inventoryOperator">
+                            <option value="">所有</option>
+                            <option value="greater">大于</option>
+                            <option value="equal">等于</option>
+                             <option value="less">小于</option>
                         </select>
-                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" style="width: 60%; float: left;" />
+                        <input ng-disabled="!queryPara.inventoryOperator" type="text" class="form-control" ng-model="queryPara.inventory" style="width: 60%; float: left;"
+                        />
                     </div>
 
                 </div>
@@ -48,20 +58,27 @@
                         <label>创建时间：</label>
                     </div>
                     <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
+                        <select class="form-control" ng-model="queryPara.dateRange" ng-change="changeDate()">
+                            <option value="">所有</option>
+                            <option value="1">今天</option>
+                            <option value="3">最近3天</option>
+                            <option value="7">最近7天</option>
+                            <option value="30">最近30天</option>
+                            <option value="range">自定义</option>
+                        </select>
                     </div>
 
-                    <div class="col-sm-2 text-right" style="padding:0;">
+                    <div class="col-sm-2 text-right" style="padding:0;" ng-show="queryPara.dateRange==='range'">
                         <label>开始时间：</label>
                     </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" />
+                    <div class="col-sm-2" style="padding:0;" ng-show="queryPara.dateRange==='range'">
+                        <input type="text" class="form-control date-control" ng-model="queryPara.dateFromString" />
                     </div>
-                    <div class="col-sm-1 text-right" style="padding:0;">
+                    <div class="col-sm-1 text-right" style="padding:0;" ng-show="queryPara.dateRange==='range'">
                         <label>结束时间：</label>
                     </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" />
+                    <div class="col-sm-2" style="padding:0;" ng-show="queryPara.dateRange==='range'">
+                        <input type="text" class="form-control date-control" ng-model="queryPara.dateToString" />
                     </div>
                 </div>
 
@@ -78,43 +95,54 @@
                                 </th>
                                 <th>商品编号</th>
                                 <th style="width:150px">UPC</th>
-                                <th style="max-width:200px;">品牌</th>
-                                <th style="width: 200px">商品描述</th>
-                                <th style="width: 200px">属性1</th>
-                                <th style="width: 200px">属性2</th>
+                                <th style="width: 100px;min-width:100px;max-width:100px;">品牌</th>
+                                <th style="width: 200px;min-width:200px;max-width:200px;">商品描述</th>
+                                <th style="width: 150px;min-width:150px;max-width:150px;">属性1</th>
+                                <th style="width: 150px;min-width:150px;max-width:150px;">属性2</th>
                                 <th style="min-width:100px">库存</th>
-                                <th style="min-width:100px">创建日期</th>
+                                <th style="width: 130px;min-width:130px;max-width:130px;">创建日期</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="rowItem in orderListData">
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                            <tr ng-repeat="rowItem in source.dataList">
+                                <td><input type="checkbox" ng-model="rowItem.checked" /></td>
+                                <td><a href="javascript:void(0);" ng-click="redirectTo(rowItem.itemNumber);">{{rowItem.itemNumber}}</a></td>
+                                <td>{{rowItem.upccode}}</td>
+                                <td>{{rowItem.brand}}</td>
+                                <td>{{rowItem.description}}</td>
+                                <td>
+                                    <div>长宽高：{{rowItem.length}} × {{rowItem.width}} × {{rowItem.height}}</div>
+                                    <div>重量：{{rowItem.weight}}</div>
+                                </td>
+                                <td>
+                                    <div ng-repeat="property in rowItem.properties">
+                                        <span>{{property.propertyName}}</span>: <span>{{property.propertyValue}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" ng-click="redirectToInvetory(rowItem.itemNumber);">{{rowItem.inventory}}</a>
+                                </td>
+                                <td>{{rowItem.createDate|sysdate}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="">
+                <div style="margin-top:10px;">
                     <div class="col-sm-2" style="padding-top:15px;">
-                        <a ui-sref="customer.shippingnoticelist" class="btn-u">
-                            <i class="fa fa-shopping-cart"> 删除选中商品</i>
-                        </a>
+
                     </div>
                     <div class="col-sm-10 text-right">
                         <pagination options="pagedOptions" on-page="onPaged"></pagination>
                     </div>
                 </div>
-                <div>
+                <div class="clearfix"></div>
+                <div style="padding:20px 0;">
+                    <a class="btn-u" ng-click="deleteProducts()">
+                        <i class="fa fa-shopping-cart"> 删除选中商品</i>
+                    </a>
                     <button type="button" class="btn-u" ng-click="redirectTo()">添加商品</button>
-                    <button type="button" class="btn-u" ng-click="goback()">批量添加商品</button>
-                    <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+                    <button type="button" class="btn-u" ng-click="redirectToBatch()">批量添加商品</button>
+                    <button type="button" class="btn-u btn-u-default pull-right" ng-click="goback()">返回</button>
                 </div>
             </div>
         </div>

@@ -13,9 +13,15 @@ angular
             $state.go('login');
             return;
         };
+        var _refreshUser = function () {
+            $scope.currentUser = $rootScope.currentUser;
+            $scope.$root.isLackProfile = !$scope.currentUser.firstName || !$scope.currentUser.lastName;
+        }
+        $scope.$on("MyHomeCtrl.RefreshUser", function (e) {
+            _refreshUser();
+        })
+        _refreshUser();
 
-        $scope.currentUser = $rootScope.currentUser;
-        $scope.$root.isLackProfile = !$scope.currentUser.firstName || !$scope.currentUser.lastName;
         $rootScope.isLogined = true;
 
 

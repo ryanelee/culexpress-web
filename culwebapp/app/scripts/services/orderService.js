@@ -3,11 +3,69 @@
 angular.module('culwebApp')
     .factory('OrderSvr', ['$http', function ($http) {
 
-        var shippingCarriers = [{ id: 1, name: 'DHL' }, { id: 2, name: 'EMS' }, { id: 3, name: 'FEDEX' }, { id: 4, name: 'UPS' }, { id: 5, name: '其他快递' }];
-        var goodsCategories = [{ key: '食品', text: '食品' }, { key: '衣服', text: '衣服' }, { key: '鞋子', text: '鞋子' }, { key: '餐具', text: '餐具' },
-            { key: '包', text: '包' }, { akey: '电器', text: '电器' }, { key: '首饰', text: '首饰' }, { key: '化妆品', text: '化妆品' }, { key: '表', text: '表' },
-            { key: '音像文化', text: '音像文化' }, { key: '玩具', text: '玩具' }];
-        var packageCountItems = [{ key: 1, text: '1' }, { key: 2, text: '2' }, { key: 3, text: '3' }, { key: 4, text: '4' }];
+        var shippingCarriers = [{
+            id: 1,
+            name: 'DHL'
+        }, {
+                id: 2,
+                name: 'EMS'
+            }, {
+                id: 3,
+                name: 'FEDEX'
+            }, {
+                id: 4,
+                name: 'UPS'
+            }, {
+                id: 5,
+                name: '其他快递'
+            }];
+        var goodsCategories = [{
+            key: '食品',
+            text: '食品'
+        }, {
+                key: '衣服',
+                text: '衣服'
+            }, {
+                key: '鞋子',
+                text: '鞋子'
+            }, {
+                key: '餐具',
+                text: '餐具'
+            }, {
+                key: '包',
+                text: '包'
+            }, {
+                akey: '电器',
+                text: '电器'
+            }, {
+                key: '首饰',
+                text: '首饰'
+            }, {
+                key: '化妆品',
+                text: '化妆品'
+            }, {
+                key: '表',
+                text: '表'
+            }, {
+                key: '音像文化',
+                text: '音像文化'
+            }, {
+                key: '玩具',
+                text: '玩具'
+            }];
+        var packageCountItems = [{
+            key: 1,
+            text: '1'
+        }, {
+                key: 2,
+                text: '2'
+            }, {
+                key: 3,
+                text: '3'
+            }, {
+                key: 4,
+                text: '4'
+            }];
 
         return {
             addShippingNotice: function (shippingNotice) {
@@ -163,6 +221,72 @@ angular.module('culwebApp')
                 return $http.get(cul.apiPath + '/item/category/list');
             },
 
+            submitProduct: function (model) {
+                if (!!model.transactionNumber) {
+                    return $http.put(cul.apiPath + '/item', model);
+                }
+                return $http.post(cul.apiPath + '/item', model);
+            },
+
+            getProducts: function (queryPara) {
+                return $http.post(cul.apiPath + '/item/list', queryPara);
+            },
+            getProduct: function (itemNumber) {
+                return $http.get(cul.apiPath + '/item?itemNumber=' + itemNumber);
+            },
+            deleteProducts: function (itemNumbers) {
+                return $http.put(cul.apiPath + '/item/batch/delete', { itemNumbers: itemNumbers });
+            },
+            getItemInventory: function (queryPara) {
+                return $http.post(cul.apiPath + '/item/inventory/log/list', queryPara);
+            },
+            batchProductsUpload: function (form) {
+                return $http.post(cul.apiPath + '/files/upload', form, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                });
+            },
+            batchProductsVerify: function (fileId) {
+                return $http.post(cul.apiPath + '/item/batch/check', {
+                    "fileId": fileId
+                });
+            },
+            batchProductsCreate: function (fileId) {
+                return $http.post(cul.apiPath + '/item/batch/create', {
+                    "fileId": fileId
+                });
+            },
+            transportItem: function (model) {
+                if (!!model.transactionNumber) {
+                    return $http.put(cul.apiPath + '/item/transport', model);
+                }
+                return $http.post(cul.apiPath + '/item/transport', model);
+            },
+            getTransportItems: function (queryPara) {
+                return $http.post(cul.apiPath + '/item/transport/list', queryPara);
+            },
+            getTransportItem: function (transportNumber) {
+                return $http.get(cul.apiPath + '/item/transport?receiptNumber=' + transportNumber);
+            },
+            deleteTransportItem: function (transportNumber) {
+                return $http.post(cul.apiPath + '/item/transport/void', { receiptNumber: transportNumber });
+            },
+            batchTransportUpload: function (form) {
+                return $http.post(cul.apiPath + '/files/upload', form, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                });
+            },
+            batchTransportVerify: function (fileId) {
+                return $http.post(cul.apiPath + '/item/transport/batch/check', {
+                    "fileId": fileId
+                });
+            },
+            batchTransportCreate: function (fileId) {
+                return $http.post(cul.apiPath + '/item/transport/batch/create', {
+                    "fileId": fileId
+                });
+            },
             shippingCarriers: shippingCarriers,
             goodsCategories: goodsCategories,
             packageCountItems: packageCountItems

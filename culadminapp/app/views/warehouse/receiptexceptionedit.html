@@ -1,0 +1,64 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 异常登记</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货单据编号：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="tempReceiptNumber" ng-change="checkReceiptNumber()" />
+                    </div>
+                    <div class="col-sm-1 col-padding-clear">
+                        <button id="tip_receiptNumber" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-if="!!data">
+                <div class="form-group green">
+                    <label class="col-sm-2 control-label text-right">已扫描单据：</label>
+                    <div class="col-sm-4 text-left">
+                        <label class="control-label">{{data.receiptNumber}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货仓库：</label>
+                    <div class="col-sm-4 text-left">
+                        <select class="form-control search-control"
+                                ng-model="data.warehouseNumber"
+                                ng-options="item.warehouseNumber as item.warehouseName for item in warehouseList"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">异常类型：</label>
+                    <div class="col-sm-4 text-left">
+                        <select class="form-control search-control"
+                                ng-model="data.type">
+                            <option value="1" ng-if="data.sendType == 2">无预报记录</option> <!--海淘包裹-->
+                            <option value="2" ng-if="data.sendType == 2">物品损坏</option> <!--海淘包裹-->
+                            <option value="3" ng-if="data.sendType == 1">错送</option> <!--寄送库存-->
+                            <option value="4" ng-if="data.sendType == 1">少送</option> <!--寄送库存-->
+                            <option value="5" ng-if="data.sendType == 1">多送</option> <!--寄送库存-->
+                            <option value="6">其他</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">备注：</label>
+                    <div class="col-sm-4 text-left">
+                        <textarea class=" form-control" placeholder="最多允许输入500个字符" ng-model="data.memo"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-if="!!data"><i class="fa fa-save"></i>完成登记</button>
+                    <!--<button type="button" class="btn btn-primary" ng-click="btnPrint()"><i class="fa fa-print"></i>打印异常标签</button>-->
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <print-helper></print-helper>
+</div>

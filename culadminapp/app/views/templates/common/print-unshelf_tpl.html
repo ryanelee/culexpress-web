@@ -1,0 +1,69 @@
+﻿<div style="display:none;">
+    <style>
+        #print_unshelf_Template th {
+            text-align: center;
+        }
+
+        #print_unshelf_Template th, td {
+            padding: 2px;
+        }
+
+        #print_unshelf_Template td.title {
+            width: 100px;
+            text-align: center;
+        }
+
+        #print_unshelf_Template .barcode {
+            margin: 0 auto;
+        }
+    </style>
+    <div id="print_unshelf_Template">
+        <div style="height: 5%"><img src="assets/img/kingadmin-logo.png" /></div>
+        <hr style="margin:1% auto; width:100%; color: #666;" />
+        <div style="clear:both;">
+            <label style="width:50%; float:left;">打印时间: {{ currentDate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
+            <label style="width:50%; float:left;">打印人: {{$root.userInfo.userName}}</label>
+        </div>
+        <hr style="margin:1% auto; width:100%; color: #666;" />
+        <!-- 海淘包裹 -->
+        <div ng-if="!!dataList['1']">
+            <div><label>商品类型: 海淘包裹</label></div>
+            <div style="clear:both;">
+                <table cellpadding="2" cellspacing="0" border="1" width="100%">
+                    <tr>
+                        <th>商品编号</th>
+                        <th>收货单据编号</th>
+                        <th>数量</th>
+                        <th>架位编号</th>
+                    </tr>
+                    <tr ng-repeat="data in dataList['1']">
+                        <td><div class="barcode" trackingNumber="{{data.itemNumber}}"></div></td>
+                        <td><div class="barcode" trackingNumber="{{data.receiptNumber}}"></div></td>
+                        <td>{{data.unShelfCount}}</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 寄送库存 -->
+        <div ng-if="!!dataList['2']">
+            <div><label>商品类型: 海淘包裹</label></div>
+            <div style="clear:both;">
+                <table cellpadding="2" cellspacing="0" border="1" width="100%">
+                    <tr>
+                        <th>商品编号</th>
+                        <th>收货单据编号</th>
+                        <th>数量</th>
+                        <th>架位编号</th>
+                    </tr>
+                    <tr ng-repeat="data in dataList['2']">
+                        <td><div class="barcode" trackingNumber="{{data.itemNumber}}"></div></td>
+                        <td><div class="barcode" trackingNumber="{{data.receiptNumber}}"></div></td>
+                        <td>{{data.unShelfCount}}</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

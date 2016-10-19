@@ -27,7 +27,7 @@ angular.module('culAdminApp').config(["$httpProvider", function ($httpProvider) 
                 if (response.status == 401) {   //授权失败，退出到登录页面
                     cul.service.user.logout()
                 }
-                plugMessenger.error(response.data.message);
+                if (!!response.data) plugMessenger.error(response.data.message);
                 return response;
             }
         };

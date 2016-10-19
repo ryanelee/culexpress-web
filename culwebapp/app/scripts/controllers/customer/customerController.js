@@ -97,11 +97,40 @@ angular
                 url: '/productedit/:id',
                 templateUrl: 'views/products/product_edit.html',
                 controller: 'ProductEditCtrl'
+            })
+            .state('customer.productinventory', {
+                url: '/productinventory/:id',
+                templateUrl: 'views/products/product_inventory.html',
+                controller: 'ProductInventoryCtrl'
+            })
+            .state('customer.productbatch', {
+                url: '/productbatch',
+                templateUrl: 'views/products/product_batch.html',
+                controller: 'ProductEditCtrl'
+            })
+            .state('customer.sendinventory', {
+                url: '/sendinventory',
+                templateUrl: 'views/products/sendinventory.html',
+                controller: 'SendInventoryCtrl'
+            })
+            .state('customer.sendiedit', {
+                url: '/sendiedit/:id',
+                templateUrl: 'views/products/sendi_edit.html',
+                controller: 'SendiEditCtrl'
             }).
             state('customer.billingreport', {
                 url: '/billingreport',
                 templateUrl: 'views/billing/report.html',
                 controller: 'BillingReportCtrl'
+            })
+            .state('customer.sendibatch', {
+                url: '/sendibatch',
+                templateUrl: 'views/products/sendi_batch.html',
+                controller: 'SendiEditCtrl'
+            }).state('customer.sendidetail', {
+                url: '/sendidetail/:id',
+                templateUrl: 'views/products/sendi_detail.html',
+                controller: 'SendiDetailCtrl'
             });
 
 

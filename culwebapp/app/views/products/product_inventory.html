@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="headline">
+        <h2>库存修改日志</h2>
+    </div>
+    <div>
+        <form action="#" class="sky-form shopping-cart">
+            <div class="form-group">
+                <div class="table-responsive" style="margin-top:15px;">
+                    <table class="table table-hover table-bordered" style="margin-bottom:0px">
+                        <thead>
+                            <tr>
+                                <th style="width: 130px;min-width:130px;max-width:130px;">操作日期</th>
+                                <th style="width: 150px;min-width:150px;max-width:150px;">商品编号</th>
+                                <th style="width: 120px;min-width:150px;max-width:120px;">UPC</th>
+                                <th style="width: 100px;min-width:100px;max-width:100px;">操作类型</th>
+                                <th style="width: 200px;min-width:200px;max-width:200px;">引用信息</th>
+                                <th style="width: 150px;min-width:150px;max-width:150px;">库存变化</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="rowItem in model.items">
+                                <td>{{rowItem.indate|sysdate}}</td>
+                                <td>{{rowItem.itemNumber}}</td>
+                                <td>{{rowItem.upccode}}</td>
+                                <td>
+                                    <span ng-if="rowItem.type==1">订单出库</span>
+                                    <span ng-if="rowItem.type==2">寄送库存</span>
+                                    <span ng-if="rowItem.type==3">订单下单</span>
+                                    <span ng-if="rowItem.type==4">库存冻结</span>
+                                    <span ng-if="rowItem.type==5">库存解冻</span>
+                                    <span ng-if="rowItem.type==6">纠正库存</span>
+                                </td>
+                                <td>{{rowItem.memo}}</td>
+                                <td>{{rowItem.changeNumber}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top:10px;">
+                        <div class="col-sm-12 text-right">
+                            <pagination options="pagedOptions" on-page="onPaged"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div>
+        <button type="button" class="btn-u pull-right" ng-click="redirectToList()">返回商品列表</button>
+    </div>
+</div>

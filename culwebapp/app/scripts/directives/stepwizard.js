@@ -54,11 +54,9 @@ angular.module('culwebApp')
                             activeItems.removeClass('complete');
                             stepId = activeItems.data('step');
                             currentIndex = stepId;
-                        }
-                        else if (activeItems.length === 0) {
+                        } else if (activeItems.length === 0) {
                             $(wizardSteps.get(currentIndex - 1)).addClass('active');
-                        }
-                        else {
+                        } else {
 
                         }
 
@@ -90,7 +88,7 @@ angular.module('culwebApp')
                             currentIndex++;
                             wizards.find('.active').addClass('complete');
                             wizards.find('.active').removeClass('active');
-                            $(wizardSteps.get(currentIndex - 1)).addClass('active');
+                            wizardSteps.eq(currentIndex - 1).addClass('active');
                             activeStep();
                             initFooterButtomStatus();
                         }
@@ -103,25 +101,53 @@ angular.module('culwebApp')
                             currentIndex--;
                             wizards.find('.active').addClass('complete');
                             wizards.find('.active').removeClass('active');
-                            $(wizardSteps.get(currentIndex - 1)).addClass('active');
+                            wizardSteps.eq(currentIndex - 1).addClass('active');
                             activeStep();
                             initFooterButtomStatus();
                         }
                     }
 
+                    var jumpTo = function (index, callback, preJump) {
+                        if (index !== currentIndex) {
+                            var preResult = preJump && preJump();
+                            if (preResult === false) return false;
+                            viewport.find('.step-' + currentIndex.toString()).hide();
+                            wizards.find('.active').addClass('complete');
+                            wizards.find('.active').removeClass('active');
+                            wizardSteps.eq(index - 1).addClass('active');
+                            activeStep();
+                            initFooterButtomStatus();
+
+                            callback && callback(wizardSteps);
+                        }
+                    }
+
+                    $scope.options.jumpTo = jumpTo;
+                    $scope.options.next = next;
+                    $scope.options.prev = prev;
+
 
                     var initFooterButtomStatus = function () {
                         var statusMode = options.mode || 'hidden';
                         if (statusMode === 'hidden') {
-                            btnPrev.css({ display: canPrev() ? '' : 'none' });
-                        }
-                        else if (statusMode === 'disable') {
-                            btnPrev.attr({ disabled: !canPrev() });
-                            btnNext.attr({ disabled: !canNext() });
+                            btnPrev.css({
+                                display: canPrev() ? '' : 'none'
+                            });
+                        } else if (statusMode === 'disable') {
+                            btnPrev.attr({
+                                disabled: !canPrev()
+                            });
+                            btnNext.attr({
+                                disabled: !canNext()
+                            });
                         }
                         //这里有个始终显示两个按钮的逻辑，所向下按钮在最后一个步骤的时候需要隐藏掉
-                        btnNext.css({ display: canNext() ? '' : 'none' });
-                        btnSubmit.css({ display: canSubmit() ? '' : 'none' });
+                        btnNext.css({
+                            display: canNext() ? '' : 'none'
+                        });
+                        btnSubmit.css({
+                            display: canSubmit() ? '' : 'none'
+                        });
                     }
 
                     var eventInvoke = function (eventMethod, callback) {
@@ -132,11 +158,12 @@ angular.module('culwebApp')
                         if (verified !== false) {
                             eventMethod && eventMethod();
                             callback && callback();
-                        }
-                        else {
+                        } else {
                             console.info('step' + currentIndex + '自定义验证没有通过。');
                         };
                     }
+
+
 
                     var initEvent = function () {
                         btnNext.on('click', function (event) {
@@ -171,7 +198,12 @@ angular.module('culwebApp')
                             if (!$(this).data('step')) {
                                 $(this).data('step', (i + 1));
                             }
-                            $(this).prepend('<div class="number">' + (i + 1) + '.</div>')
+
+                            if ($scope.options.sequenced !== false) {
+                                if (!$(this).hasClass('hide')) {
+                                    $(this).prepend('<div class="number">' + (i + 1) + '.</div>');
+                                }
+                            }
                         });
 
                         steps.hide();
@@ -182,9 +214,15 @@ angular.module('culwebApp')
                     }
 
                     var initOptions = function () {
-                        if (options.nextText) { btnNext.text(options.nextText); }
-                        if (options.prevText) { btnPrev.text(options.prevText); }
-                        if (options.submitText) { btnSubmit.text(options.submitText); }
+                        if (options.nextText) {
+                            btnNext.text(options.nextText);
+                        }
+                        if (options.prevText) {
+                            btnPrev.text(options.prevText);
+                        }
+                        if (options.submitText) {
+                            btnSubmit.text(options.submitText);
+                        }
                     }
 
                     var init = function () {
@@ -196,4 +234,5 @@ angular.module('culwebApp')
                     init();
                 }
             };
-        }]);
+        }
+    ]);

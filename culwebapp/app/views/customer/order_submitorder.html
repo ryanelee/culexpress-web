@@ -41,7 +41,7 @@
                                 <div style="margin-top:12px;">
                                     <label class="label">选择发货渠道</label>
                                     <select class="form-control" ng-model="data.shipServiceItem" ng-change="selectedChannel()" ng-options="shipChannelItem as shipChannelItem.shipServiceName for shipChannelItem in allShipChannels">
-                                    <option value="">请选择渠道</option>
+                                        <option value="">请选择渠道</option>
                                     </select>
                                 </div>
                             </div>
@@ -64,9 +64,12 @@
                                                 <td style="text-align:left;">
                                                     <ul class="list-unstyled">
                                                         <li ng-repeat="goodsCategoryItem in data.shipServiceItem.shipServiceFeeList">
-                                                            <div><label class="label">{{goodsCategoryItem.goodsCategory}}类</label></div>
-                                                            <div>首磅价格：{{goodsCategoryItem.firstWeight|currency:'¥'}}</div>
-                                                            <div>次磅价格：{{goodsCategoryItem.continuedWeight|currency:'¥'}}</div>
+                                                            <div><label class="label">{{goodsCategoryItem.currency}}</label></div>
+                                                            <div>
+                                                                首磅价格：{{goodsCategoryItem.firstWeight|number:2}}
+                                                            </div>
+                                                            <div>次磅价格：{{goodsCategoryItem.continuedWeight|number:2}}
+                                                            </div>
                                                         </li>
                                                     </ul>
                                                 </td>
@@ -129,13 +132,13 @@
                                                             <option value="">请选择收货地址</option>
                                                         </select>
                                                         <select class="form-control" ng-model="outboundPackageItem.currentCategory" style="margin-top:5px; width:40%;float:left;"
-                                                            ng-change="selectedCategory(outboundPackageItem,'currentCategory',outboundPackageItem.currentCategory)"
-                                                            ng-options="categoryItem.cateid as categoryItem.name for categoryItem in categories">
+                                                                ng-change="selectedCategory(outboundPackageItem,'currentCategory',outboundPackageItem.currentCategory)"
+                                                                ng-options="categoryItem.cateid as categoryItem.name for categoryItem in categories | filter:{parentid:null}">
                                                             <option value="">请选择商品主类别</option>
                                                         </select>
                                                         <select class="form-control" ng-model="outboundPackageItem.goodsCategory" style="margin-top: 5px; width: 40%; float: left; margin-left:20px;"
-                                                            ng-change="selectedCategory(outboundPackageItem,'goodsCategory',outboundPackageItem.goodsCategory)"
-                                                            ng-options="categoryItem2.cateid as categoryItem2.name for categoryItem2 in outboundPackageItem.subCategories">
+                                                                ng-change="selectedCategory(outboundPackageItem,'goodsCategory',outboundPackageItem.goodsCategory)"
+                                                                ng-options="categoryItem2.cateid as categoryItem2.name for categoryItem2 in outboundPackageItem.subCategories">
                                                             <option value="">请选择商品子类别</option>
                                                         </select>
                                                         <div style="margin-bottom:10px;clear:both;"></div>
@@ -151,14 +154,18 @@
                                                             </thead>
                                                             <tbody>
                                                                 <tr ng-repeat="orderItem in outboundPackageItem.orderItems">
-                                                                    <td><input type="text" class="form-control" ng-model="orderItem.itemBrand"
-                                                                        /></td>
-                                                                    <td style="width:200px;"><input type="text" class="form-control" ng-model="orderItem.description"
-                                                                        /></td>
-                                                                    <td style="width:15px;"><input min="0" type="number" class="form-control" ng-model="orderItem.quantity"
-                                                                        /></td>
-                                                                    <td style="width:30px;"><input min="0" type="number" class="form-control" ng-model="orderItem.unitprice"
-                                                                        /></td>
+                                                                    <td>
+                                                                        <input type="text" class="form-control" ng-model="orderItem.itemBrand" />
+                                                                    </td>
+                                                                    <td style="width:200px;">
+                                                                        <input type="text" class="form-control" ng-model="orderItem.description" />
+                                                                    </td>
+                                                                    <td style="width:15px;">
+                                                                        <input min="0" type="number" class="form-control" ng-model="orderItem.quantity" />
+                                                                    </td>
+                                                                    <td style="width:30px;">
+                                                                        <input min="0" type="number" class="form-control" ng-model="orderItem.unitprice" />
+                                                                    </td>
                                                                     <td style="width:15px;">
                                                                         <a class="btn-u btn-u" ng-click="removeOrderItem($event,$index,outboundPackageItem);"><i class="fa fa-trash"></i></a>
                                                                     </td>
@@ -246,8 +253,9 @@
                             </div>
                             <div class="form-group row" style="margin:5px 15px">
                                 <div class="col-sm-2"><label class="label">使用积分：</label></div>
-                                <div class="col-sm-4"><input type="text" ng-model="data.usePoint" class="form-control" ng-change="usePointChanged()"
-                                    /></div>
+                                <div class="col-sm-4">
+                                    <input type="text" ng-model="data.usePoint" class="form-control" ng-change="usePointChanged()" />
+                                </div>
                                 <div class="col-sm-2" style="padding-top:6px;">
                                     <span>(剩余积分：0)</span>
                                 </div>

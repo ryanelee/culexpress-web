@@ -56,7 +56,8 @@ angular
                         warehouseNumber: $scope.retrieveWarehouseNumber,
                         packageDescription: $scope.shippingNotice.packageDescription,
                         packageNote: $scope.shippingNotice.packageNote,
-                        packageWeight:$scope.shippingNotice.packageWeight
+                        packageWeight: $scope.shippingNotice.packageWeight,
+                        isFastOrder: $scope.shippingNotice.isFastOrder
                     })
                     .then(function (result) {
                         if (!!result.data.transactionNumber) {

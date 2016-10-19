@@ -1,0 +1,167 @@
+﻿<div class="row">
+    <div class="headline">
+        <h2>寄件单据</h2>
+    </div>
+    <div>
+        <form action="#" class="sky-form shopping-cart">
+            <div>
+                <step-wizard on-submit="wizardSubmit" on-valid="wizardValid" options="wizardOptions">
+                    <ul class="wizard">
+                        <li>
+                            <div class="title">
+                                <h2>选择商品</h2>
+                                <p class="subtitle">选择寄送商品</p>
+                            </div>
+                            <i class="rounded-x gm fa fa-truck"></i>
+                        </li>
+                        <li>
+                            <div class="title">
+                                <h2>寄送数量</h2>
+                                <p class="subtitle">设置寄送库存数量</p>
+                            </div>
+                            <i class="rounded-x gm fa fa-home"></i>
+                        </li>                       
+                    </ul>
+                    <ul class="viewport">
+                        <li>
+                            <div class="table-search-v1" style="margin-top:15px;">
+                                <div class="row">
+                                    <div class="col-sm-2 text-right" style="padding:0;">
+                                        <label>搜索条目：</label>
+                                    </div>
+                                    <div class="col-sm-2" style="padding:0;">
+                                        <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in source.searchKeyItems"></select>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <a href="javascript:void(0)" ng-click="searchProducts()" class="btn-u">查找商品</a>
+                                    </div>
+                                </div>
+                                <div class="table-responsive" style="margin-top:15px;">
+                                    <table class="table table-hover table-bordered" style="margin-bottom:0px">
+                                        <thead>
+                                            <tr>
+                                                <th style="min-width: 20px">
+                                                    <input type="checkbox" ng-model="checkedAll" ng-change="checkedAllEvent()" />
+                                                </th>
+                                                <th>商品编号</th>
+                                                <th style="width:150px">UPC</th>
+                                                <th style="width: 100px;min-width:100px;max-width:100px;">品牌</th>
+                                                <th style="width: 200px;min-width:200px;max-width:200px;">商品描述</th>
+                                                <th style="width: 150px;min-width:150px;max-width:150px;">属性1</th>
+                                                <th style="width: 150px;min-width:150px;max-width:150px;">属性2</th>
+                                                <th style="min-width:100px">库存</th>
+                                                <th style="width: 130px;min-width:130px;max-width:130px;">创建日期</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="rowItem in source.products">
+                                                <td><input type="checkbox" ng-model="rowItem.checked" ng-change="singleChecked(rowItem);"/></td>
+                                                <td><a href="javascript:void(0);" ng-click="redirectTo(rowItem.itemNumber);">{{rowItem.itemNumber}}</a></td>
+                                                <td>{{rowItem.upccode}}</td>
+                                                <td>{{rowItem.brand}}</td>
+                                                <td>{{rowItem.description}}</td>
+                                                <td>
+                                                    <div>长宽高：{{rowItem.length}} × {{rowItem.width}} × {{rowItem.height}}</div>
+                                                    <div>重量：{{rowItem.weight}}</div>
+                                                </td>
+                                                <td>
+                                                    <div ng-repeat="property in rowItem.properties">
+                                                        <span>{{property.propertyName}}</span>: <span>{{property.propertyValue}}</span>
+                                                    </div>
+                                                </td>
+                                                <td>{{rowItem.inventory}}</td>
+                                                <td>{{rowItem.createDate|sysdate}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="" style="margin-top:10px;">
+                                    <div class="col-sm-12 text-right">
+                                        <pagination options="pagedOptions" on-page="onPaged"></pagination>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div style="padding:20px 0;">
+                                    <button type="button" class="btn-u" ng-click="wizardTo(2);">寄送选中商品</button>
+                                    <button type="button" class="btn-u" ng-click="redirectToBatch();">批量寄送商品</button>
+                                    <button type="button" class="btn-u btn-u-default pull-right" ng-click="goback();">返回</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group">
+                                <label>寄送仓库</label>
+                                <select class="form-control" ng-model="model.warehouseNumber" ng-options="warehouseItem.warehouseNumber as warehouseItem.warehouseName for warehouseItem in source.warehouses">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div ng-repeat="warehouse in source.warehouses | filter:{warehouseNumber:model.warehouseNumber}">
+                                    <span>{{warehouse.address1}}</span>
+                                    <br />
+                                    <span>{{warehouse.city}}</span>
+                                    <span>, {{warehouse.stateOrProvince}}</span>
+                                    <span>{{warehouse.zipcode}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>已选择寄送的商品：</label>
+                                <div class="table-responsive" style="margin-top:15px;">
+                                    <table class="table table-hover table-bordered" style="margin-bottom:0px">
+                                        <thead>
+                                            <tr>
+                                                <th style="min-width: 20px">
+                                                    <input type="checkbox" ng-model="selectAll" ng-change="selectAllEvent()"/>
+                                                </th>
+                                                <th>商品编号</th>
+                                                <th style="width:120px">UPC</th>
+                                                <th style="width: 100px;min-width:100px;max-width:100px;">品牌</th>
+                                                <th style="width: 120px;min-width:120px;max-width:120px;">商品描述</th>
+                                                <th style="width: 120px;min-width:120px;max-width:120px;">属性1</th>
+                                                <th style="width: 120px;min-width:120px;max-width:120px;">属性2</th>
+                                                <th style="width: 100px;min-width:100px;max-width:100px;">寄送数量</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="rowItem in source.selectedProducts">
+                                                <td><input type="checkbox" ng-model="rowItem.selected" ng-change="singleSelected(rowItem);"/></td>
+                                                <td><a href="javascript:void(0);" ng-click="redirectTo(rowItem.itemNumber);">{{rowItem.itemNumber}}</a></td>
+                                                <td>{{rowItem.upccode}}</td>
+                                                <td>{{rowItem.brand}}</td>
+                                                <td>{{rowItem.description}}</td>
+                                                <td>
+                                                    <div>长宽高：{{rowItem.length}} × {{rowItem.width}} × {{rowItem.height}}</div>
+                                                    <div>重量：{{rowItem.weight}}</div>
+                                                </td>
+                                                <td>
+                                                    <div ng-repeat="property in rowItem.properties">
+                                                        <span>{{property.propertyName}}</span>: <span>{{property.propertyValue}}</span>
+                                                    </div>
+                                                </td>
+                                                <td><input type="number" min="1" class="form-control" ng-model="rowItem.sendCount"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="note">
+                                <strong>提示：多个商品混合打包在多个包裹中将花费更多的收货处理时间，建议将相同的商品打包在同一个包裹中。</strong>
+                            </div>
+                            <div class="note">
+                                <strong>提示：点击“创建寄件单据”按钮，系统需要花费几分钟时间来完成单据创建，单据创建后将出现在寄件单据列表中。</strong>
+                            </div>
+                            <div style="padding:20px 0; text-align:right;">
+                                <button type="button" class="btn-u pull-left" ng-click="removeProducts()">移除商品</button>
+                                <button type="button" class="btn-u" ng-click="wizardPrev()">上一步</button>
+                                <button type="button" class="btn-u" ng-click="submit()">创建寄件单据</button>
+                            </div>
+                        </li>                        
+                    </ul>
+                </step-wizard>
+            </div>
+        </form>
+    </div>
+</div>

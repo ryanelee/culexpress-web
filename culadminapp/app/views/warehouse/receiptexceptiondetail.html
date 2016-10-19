@@ -1,0 +1,92 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 异常查看</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group green">
+                    <label class="col-sm-2 control-label text-right">已扫描单据：</label>
+                    <div class="col-sm-4 text-left">
+                        <label class="control-label">{{data.receiptNumber}}</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>基本信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">客户编号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">
+                            <a href="javascript:void(0);" ng-click="btnOpenDetail('customerDetail',data)">{{data.customerNumber}}</a>
+                        </label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">客户标示：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.receiveIdentity}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">入库类型：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data._sendtype}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">收货单据：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.receiptNumber}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货仓库：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.warehouseName}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">异常日期：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.indate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">异常状态：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data._status}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">登记人：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.inuser}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">关闭时间：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.editdate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">关闭人：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.edituser}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">异常类型：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data._type}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">备注：</label>
+                    <div class="col-sm-4 text-left">
+                        <label class="control-label">{{data.memo}}</label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary" ng-click="btnAction('close')" ng-if="data.status == 1"><i class="fa fa-check"></i>关闭异常</button>
+                    <button type="button" class="btn btn-primary" ng-click="btnPrint()"><i class="fa fa-print"></i>打印异常标签</button>
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <print-helper></print-helper>
+</div>

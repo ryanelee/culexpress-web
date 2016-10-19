@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="headline">
+        <h2>批量寄送商品</h2>
+    </div>
+    <div>
+        <form action="#" class="sky-form shopping-cart">
+            <div class="form-group">
+                <label>上传批量寄送文件: (<a href="filetemplates/batchCreateTransport.xlsx">下载文件模板</a></label>)
+                <div>
+                    <input type="file" class="form-control" id="batchCrateFile">
+                </div>
+            </div>
+            <div class="form-group" ng-show="batchCreate.status==='precheck'">
+                <label>正在对上传文件执行预检查，请勿执行其它操作...</label>
+                <div class="progress" style="width:100%;">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="95" aria-valuemin="0"
+                        aria-valuemax="100" style="width: 95%">
+                        95% Complete
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-show="batchCreate.status==='precheckError'">
+                <label class="text-danger">预检查失败，请修复文件中以下问题后重新上传：</label>
+                <div class="text-danger" style="width:100%;border-top:2px solid red;padding-top:20px;">
+                    {{batchCreate.errorText}}
+                </div>
+            </div>
+            <div class="form-group" ng-show="batchCreate.status==='precheckSuccess'">
+                <label class="text-success">已通过预检查，请点击提交按钮。</label>
+            </div>
+            <div class="form-group" ng-show="batchCreate.status==='presubmit'">
+                <label>正在提交寄送库存数据，请勿执行其它操作...</label>
+                <div class="progress" style="width:100%;">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="95" aria-valuemin="0"
+                        aria-valuemax="100" style="width: 95%">
+                        95% Complete
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-show="batchCreate.status==='presubmitError'">
+                <label class="text-danger">提交批量操作失败，请修复文件中以下问题后重新上传：</label>
+                <div class="text-danger" style="width:100%;border-top:2px solid red;padding-top:20px;">
+                    {{batchCreate.errorText}}
+                </div>
+            </div>
+            <div class="form-group" ng-show="batchCreate.status==='submitSuccess'">
+                <label class="text-success">已完成批量提交操作。</label>
+            </div>
+
+            <div class="form-group">
+                <div style="padding:20px 0; text-align:right;">
+                    <button type="button" class="btn-u" ng-click="goback()">返回</button>
+                    <button type="button" class="btn-u" ng-click="batchCreate.upload()">上传</button>
+                    <button ng-show="batchCreate.status!=='submitSuccess'" ng-disabled="!batchCreate.fileVerified" type="button" class="btn-u"
+                        ng-click="batchCreate.submit()">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

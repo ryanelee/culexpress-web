@@ -203,6 +203,7 @@ angular
                         userData = JSON.parse(localUserString);
 
                     $scope.$root.currentUser = angular.extend(userData, $scope.model);
+                    $scope.$root.$broadcast("MyHomeCtrl.RefreshUser");
 
                     AuthService.clearStorage();
                     AuthService.addStorage(angular.extend($scope.$root.currentUser, { password: userData.password }), true);

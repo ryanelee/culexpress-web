@@ -2,7 +2,12 @@
     <div class="row">
         <div class="col-sm-5 pull-right text-right" ng-if="!!data.orderNumber">
             <p>{{data.orderNumber}} <span ng-if="!!data.orderDate">/ {{data.orderDate|date:'yyyy年MM月dd日'}}</span></p>
-            <p><span ng-if="data.shipServiceId===1">标准包裹服务</span></p>
+            <p>
+                <small ng-if="!!data.isFastOrder" title="极速原单" class="ng-scope">
+                    <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                </small>
+                <span ng-if="data.shipServiceId===1">标准包裹服务</span>
+            </p>
         </div>
     </div>
     <div class="row">

@@ -1,0 +1,95 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 入库登记</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货单据编号：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="tempReceiptNumber" ng-change="checkReceiptNumber()" />
+                    </div>
+                    <div class="col-sm-1 col-padding-clear">
+                        <button id="tip_receiptNumber" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group green" ng-if="!!data">
+                <label class="col-sm-2 control-label text-right">已扫描单据：</label>
+                <div class="col-sm-4 text-left">
+                    <label class="control-label">{{data.receiptNumber}}</label>
+                </div>
+            </div>
+            <fieldset ng-if="!!data">
+                <legend>基本信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">客户编号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">
+                            <a href="javascript:void(0);" ng-click="btnOpenDetail(data.customerNumber,'customerdetail')">{{data.customerNumber}}</a>
+                        </label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">客户标示：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.receiveIdentity}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货仓库：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.warehouseName}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">创建日期：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.editdate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-if="!!data">
+                <legend>收货明细</legend>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>商品编号</th>
+                            <th>UPC</th>
+                            <th>品牌</th>
+                            <th>商品描述</th>
+                            <th>属性1</th>
+                            <th>属性2</th>
+                            <th>数量</th>
+                            <th ng-show="data.sendType == 2">单件重量（磅）</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in data.items">
+                            <td style="vertical-align: middle;">{{item.itemNumber}}</td>
+                            <td style="vertical-align: middle;">{{item.upccode}}</td>
+                            <td style="vertical-align: middle;">{{item.brand}}</td>
+                            <td style="vertical-align: middle;">{{item.description}}</td>
+                            <td style="vertical-align: middle;"><span ng-show="item.properties[0]">{{item.properties[0].propertyName + ': ' + item.properties[0].propertyValue}}</span></td>
+                            <td style="vertical-align: middle;"><span ng-show="item.properties[1]">{{item.properties[1].propertyName + ': ' + item.properties[1].propertyValue}}</span></td>
+                            <td style="vertical-align: middle;">{{item.sendCount}}</td>
+                            <td style="vertical-align: middle; width:140px;" ng-show="data.sendType == 2">
+                                <input type="text" class="form-control" ng-model="item.weight" />
+                            </td>
+                            <td style="vertical-align: middle;">
+                                <a href="javascript:void(0)" ng-click="btnPrint(item)" ng-show="data.sendType == 1">打印清单标签</a><!-- 寄送库存 -->
+                                <a href="javascript:void(0)" ng-click="btnPrint(item)" ng-show="data.sendType == 2">打印入库标签</a><!-- 海淘包裹 -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-if="!!data"><i class="fa fa-save"></i>完成登记</button>
+                    <button type="button" class="btn btn-primary" ng-click="btnException()" ng-if="!!data"><i class="fa fa-warning"></i>异常登记</button>
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <print-helper></print-helper>
+</div>

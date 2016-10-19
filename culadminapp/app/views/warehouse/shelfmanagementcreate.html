@@ -1,0 +1,59 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 创建架位</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">所在仓库：</label>
+                    <div class="col-sm-4 text-left">
+                        <select class="form-control search-control"
+                                ng-model="data.warehouseNumber"
+                                ng-options="item.warehouseNumber as item.warehouseName for item in warehouseList"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">货物区域：</label>
+                    <div class="col-sm-4 text-left">
+                        <select class="form-control search-control"
+                                ng-model="data.area"
+                                ng-options="item.value as item.title for item in shelfOptions.area"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">货架排：</label>
+                    <div class="col-sm-4 text-left">
+                        <select class="form-control search-control"
+                                ng-model="data.row"
+                                ng-options="item.value as item.title for item in shelfOptions.row"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">货架层：</label>
+                    <div class="col-sm-4 text-left">
+                        <select class="form-control search-control"
+                                ng-model="data.layer"
+                                ng-options="item.value as item.title for item in shelfOptions.layer"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">货位：</label>
+                    <div class="col-sm-4 text-left">
+                        <select class="form-control search-control"
+                                ng-model="data.position"
+                                ng-options="item.value as item.title for item in shelfOptions.position"></select>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-click="btnSave()"><i class="fa fa-save"></i>确认</button>
+                    <button type="button" class="btn btn-primary" ng-click="btnPrint()"><i class="fa fa-print"></i>打印架位标签</button>
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <print-helper></print-helper>
+</div>
