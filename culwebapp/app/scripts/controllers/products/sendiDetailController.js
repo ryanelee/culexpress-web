@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('SendiDetailCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter', 'SweetAlert', 'OrderSvr',
-        function ($scope, $compile, $timeout, $state, $stateParams, $filter, SweetAlert, orderSvr) {
+    .controller('SendiDetailCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter', 'OrderSvr',
+        function ($scope, $compile, $timeout, $state, $stateParams, $filter, orderSvr) {
             var source = $scope.source = {
                 warehouses: []
             };

@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('MyQuestionsController', ['$scope', '$state', 'Customer', 'OrderSvr', 'SweetAlert',
-        function ($scope, $state, customer, orderSvr, SweetAlert) {
+    .controller('MyQuestionsController', ['$scope', '$state', 'Customer', 'OrderSvr', 
+        function ($scope, $state, customer, orderSvr) {
 
             var currentUser = $scope.currentUser = $scope.$root.currentUser;
 
@@ -44,29 +44,21 @@ angular
 
             $scope.deleteQuestion = function (number) {
                 if (!number) return false;
-                SweetAlert.swal({
-                    title: "确定要删除问题[" + number + "]?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
+                alertify.confirm('确认','确定要删除问题[' + number + ']?', 
+                    function () {
                         customer.delQuestion(number)
                             .then(function (result) {
                                 if (result.data.success) {
-                                    SweetAlert.swal('提示', '删除成功.', 'success');
+                                    alertify.success('删除成功.');
                                     loadQuestionList();
                                 }
                             }, function (result) {
                                 if (result.data.message) {
-                                    SweetAlert.swal('错误', result.data.message, 'error');
+                                    alertify.alert('错误', result.data.message, 'error');
                                 }
                             });
-
-                    }
+                },function(){
+                    alertify.error('已取消删除!');
                 });
             }
 
@@ -87,18 +79,18 @@ angular
 
             $scope.submitQuestion = function () {
                 if (!$scope.model.message) {
-                    SweetAlert.swal('提示', '请您先填写问题详细描述。', 'warning');
+                    alertify.alert('提示', '请您先填写问题详细描述。', 'warning');
                     return false;
                 }
 
                 customer.addQuestion($scope.model).then(function (result) {
                     if (!!result.data.messageNumber) {
-                        SweetAlert.swal('提示', '问题已经提交成功，我们将尽快为您处理.', 'success');
+                        alertify.alert('提示', '问题已经提交成功，我们将尽快为您处理.', 'success');
                         $state.go('customer.myquestions');
                     }
                 }, function (result) {
                     if (result.data && result.data.message) {
-                        SweetAlert.swal('错误', result.data.message, 'error');
+                        alertify.alert('错误', result.data.message, 'error');
                     }
                 });
             }

@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('ProductsCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter', 'SweetAlert', 'OrderSvr',
-        function ($scope, $compile, $timeout, $state, $stateParams, $filter, SweetAlert, orderSvr) {
+    .controller('ProductsCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter',  'OrderSvr',
+        function ($scope, $compile, $timeout, $state, $stateParams, $filter, orderSvr) {
             $scope.$root.wizardOptions = {};
             var source = $scope.source = {
                 searchKeyItems: [
@@ -160,24 +160,16 @@ angular
                     }
                 }
 
-                SweetAlert.swal({
-                    title: '确认删除？',
-                    text: '您选择了' + itemNumbers.length + '个商品，确定删除？',
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
+                alertify.confirm('确认','您选择了' + itemNumbers.length + '个商品，确定删除？',
+                    function () {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
                         orderSvr.deleteProducts(itemNumbers).then(function (result) {
-                            SweetAlert.swal('提示', '删除成功.', 'success');
+                            alertify.success('删除成功!');
                             $scope.loadListData(1);
                         });
-                    }
-                });
+                    },function(){
+                        alertify.error('已取消删除!');
+                    });
             }
 
 

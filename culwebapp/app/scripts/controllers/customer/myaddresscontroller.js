@@ -8,8 +8,8 @@
  * Controller of the culwebApp
  */
 angular.module('culwebApp')
-  .controller('MyAddressController', ['$rootScope', '$scope', '$state', '$timeout', '$q', '$http', '$filter', 'addressSvr', '$stateParams', '$element', 'Customer', 'SweetAlert',
-      function ($rootScope, $scope, $state, $timeout, $q, $http, $filter, addressSvr, $stateParams, $element, Customer, SweetAlert) {
+  .controller('MyAddressController', ['$rootScope', '$scope', '$state', '$timeout', '$q', '$http', '$filter', 'addressSvr', '$stateParams', '$element', 'Customer',
+      function ($rootScope, $scope, $state, $timeout, $q, $http, $filter, addressSvr, $stateParams, $element, Customer) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -103,7 +103,7 @@ angular.module('culwebApp')
                       }
                   }, function (result) {
                       if (result.data.message) {
-                          SweetAlert.swal('错误', result.data.message, 'error');
+                          alertify.alert('错误', result.data.message, 'error');
                       }
                   });
           }, updateAddress = function () {
@@ -118,7 +118,7 @@ angular.module('culwebApp')
                       }
                   }, function (result) {
                       if (result.data.message) {
-                          SweetAlert.swal('错误', result.data.message, 'error');
+                          alertify.alert('错误', result.data.message, 'error');
                       }
                   });
           }, precheck = function () {
@@ -127,7 +127,7 @@ angular.module('culwebApp')
                   var labelName = $(this).text(),
                       inputDom = $(this).parent().find('input');
                   if (!inputDom.val() && canSubmit) {
-                      SweetAlert.swal('提醒', '请输入' + labelName + '.', 'warning');
+                      alertify.alert('提醒', '请输入' + labelName + '.', 'warning');
                       canSubmit = false;
                   }
               });
@@ -136,7 +136,7 @@ angular.module('culwebApp')
                   var inputDom = $(this);
                   var regEmail = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
                   if (inputDom.val() && !regEmail.test(inputDom.val())) {
-                      SweetAlert.swal('提醒', '邮箱格式输入错误，请重新输入.', 'warning');
+                      alertify.alert('提醒', '邮箱格式输入错误，请重新输入.', 'warning');
                       canSubmit = false;
                   }
               });

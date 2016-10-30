@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('MyOrdersController', ['$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter', 'SweetAlert',
-        function ($scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter, SweetAlert) {
+    .controller('MyOrdersController', ['$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter',
+        function ($scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter) {
             if (!$scope.$root.orderOptions) $scope.$root.orderOptions = {};
 
             $scope.orderItems = [];
@@ -31,7 +31,7 @@ angular
                     $event.stopPropagation && $event.stopPropagation();
                     shippingItem.orderItems.splice(itemIndex, 1);
                 } else {
-                    SweetAlert.swal('提示', '请至少保留一件商品!', 'warning');
+                    alertify.alert('提示', '请至少保留一件商品!');
                     return false;
                 }
             }
@@ -409,7 +409,7 @@ angular
                     $scope.outboundPackages.splice(index, 1);
                 }
                 else {
-                    SweetAlert.swal('提示', '请至少保留一个转运包裹!', 'warning');
+                    alertify.alert('提示', '请至少保留一个转运包裹!');
                     return false
                 }
             }
@@ -426,7 +426,7 @@ angular
                 }
                 else {
                     if ($scope.$root.currentUser.accountBalance < $scope.countFee.totalCount) {
-                        SweetAlert.swal('提示', '您需要支付' + $scope.countFee.totalCount + '元，而您的账户余额为' + $scope.$root.currentUser.accountBalance + '元,请充值后再进行支付!', 'warning');
+                        alertify.alert('提示', '您需要支付' + $scope.countFee.totalCount + '元，而您的账户余额为' + $scope.$root.currentUser.accountBalance + '元,请充值后再进行支付!');
                         return false;
                     }
                     text = '您好，感谢您提交了CUL EXPRESS极速转运服务订单， 按确定即可完成本次订单的提交，您的包裹预估重量为' +
@@ -438,32 +438,50 @@ angular
                         '元的预收运费，该金额不能做其他订单的交易，等到该极速转运订单出库后会计算出最终运费,如有多余运费会退回到您的CUL EXPRESS账户余额中，详情可到财务明细中查询。';
                 }
 
-                SweetAlert.swal({
-                    title: '确认',
-                    text: text,
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
+                alertify.confirm('确认',text,
+                    function(){
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
                         orderSvr
                             .submitOrder(data)
                             .then(function (result) {
                                 if (result.data.orderNumber) {
-                                    SweetAlert.swal('提示', '提交成功.', 'success');
+                                    alertify.success('订单提交成功!');
                                     $state.go('customer.myorders');
                                 }
                             }, function (result) {
                                 if (result.data.message) {
-                                    SweetAlert.swal('错误', result.data.message, 'error');
+                                    alertify.alert('错误', result.data.message);
                                 }
                             });
-                    }
-                });
+                    },function(){
+                        alertify.error('已取消提交订单!');
+                    })
+                // SweetAlert.swal({
+                //     title: '确认',
+                //     text: text,
+                //     type: "warning",
+                //     showCancelButton: true,
+                //     confirmButtonColor: "#DD6B55",
+                //     confirmButtonText: "确定",
+                //     cancelButtonText: "取消",
+                //     closeOnConfirm: false
+                // }, function (isConfirm) {
+                //     if (isConfirm) {
+                //         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
+                //         orderSvr
+                //             .submitOrder(data)
+                //             .then(function (result) {
+                //                 if (result.data.orderNumber) {
+                //                     SweetAlert.swal('提示', '提交成功.', 'success');
+                //                     $state.go('customer.myorders');
+                //                 }
+                //             }, function (result) {
+                //                 if (result.data.message) {
+                //                     SweetAlert.swal('错误', result.data.message, 'error');
+                //                 }
+                //             });
+                //     }
+                // });
             }
             $scope.submitOrder = function () {
 
@@ -471,7 +489,7 @@ angular
                 $scope.data.isFastOrder = $scope.shippingItems[0].isFastOrder;
                 if (!!$scope.data.isFastOrder) {
                     if ($scope.$root.currentUser.accountBalance < $scope.countFee.totalCount) {
-                        SweetAlert.swal('提示', '您的帐户余额不足，无法提交极速原单!', 'warning');
+                        alertify.alert('提示', '您的帐户余额不足，无法提交极速原单!');
                         orderSvr.selectedShippingItems = [];
                         $state.go('customer.shippingnoticelist');
                         return false;
@@ -496,29 +514,19 @@ angular
 
             $scope.deleteOrder = function (number) {
                 if (!number) return false;
-                SweetAlert.swal({
-                    title: "确定要删除订单[" + number + "]?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
+                alertify.confirm('确认','确定要删除订单[" + number + "]?',
+                    function () {
                         orderSvr.deleteOrder(number)
                             .then(function (result) {
                                 if (result.data.success) {
-                                    SweetAlert.swal('提示', '删除成功.', 'success');
+                                    alertify.success('订单删除成功.');
                                     $scope.queryOrder();
                                 }
                             }, function (result) {
                                 if (result.data.message) {
-                                    SweetAlert.swal('错误', result.data.message, 'error');
+                                    alertify.alert('错误', result.data.message);
                                 }
                             });
-
-                    }
                 });
             }
 
@@ -527,7 +535,7 @@ angular
                     .then(function (result) {
                         if (result.data.success) {
                             callback && callback();
-                            SweetAlert.swal('提示', '支付成功.', 'success');
+                            alertify.success('支付成功.');
 
                             //支付之后刷新一下全局余额
                             $scope.$root.autologin(function (result) {
@@ -538,7 +546,7 @@ angular
 
                     }, function (result) {
                         if (result.data.message) {
-                            SweetAlert.swal('错误', result.data.message, 'error');
+                            alertify.alert('错误', result.data.message);
                         }
                     });
             }
@@ -546,29 +554,22 @@ angular
             $scope.payOrder = function (orderItem) {
                 if (!orderItem) return false;
                 if (!orderItem.totalCount) {
-                    SweetAlert.swal('提示', '订单还未计价,不能支付!', 'warning');
+                    alertify.alert('提示', '订单还未计价,不能支付!');
                     return false;
                 }
 
                 if ($scope.$root.currentUser.accountBalance < orderItem.totalCount) {
-                    SweetAlert.swal('提示', '您需要支付' + orderItem.totalCount + '元，而您的账户余额为' + $scope.$root.currentUser.accountBalance + '元,请充值后再进行支付!', 'warning');
+                    alertify.alert('提示', '您需要支付' + orderItem.totalCount + '元，而您的账户余额为' + $scope.$root.currentUser.accountBalance + '元,请充值后再进行支付!');
                     return false;
                 }
 
-                SweetAlert.swal({
-                    title: "您将被扣款" + orderItem.totalCount + "元，确定支付订单?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
+                alertify.confirm('确认','您将被扣款' + orderItem.totalCount + '元，确定支付订单?',
+                    function () {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
                         payOrderServie(orderItem);
-                    }
-                });
+                    },function(){
+                        alertify.error('已取消支付!');
+                    });
             }
 
 
@@ -582,7 +583,7 @@ angular
             $scope.wizardValid = function (index, step) {
                 if (!!$scope.showWeight) {
                     if (!$scope.data.packageWeight) {
-                        SweetAlert.swal('提示', '请输入包裹重量!', 'warning');
+                        alertify.alert('提示', '请输入包裹重量!');
                         return false;
                     }
                     else {
@@ -596,7 +597,7 @@ angular
                 }
 
                 if (!data.shipServiceItem) {
-                    SweetAlert.swal('提示', '请先选择发货渠道!', 'warning');
+                    alertify.alert('提示', '请先选择发货渠道!');
                     return false;
                 }
 
@@ -605,7 +606,7 @@ angular
                     for (var i = 0, ii = orderItems.length; i < ii; i++) {
                         var orderItem = orderItems[i];
                         if (!orderItem.itemBrand || !orderItem.description || !orderItem.quantity || !orderItem.unitprice) {
-                            SweetAlert.swal('提示', '必须填写转运包裹申报商品信息，包括商品品牌、商品描述、数量和单价!', 'warning');
+                            alertify.alert('提示', '必须填写转运包裹申报商品信息，包括商品品牌、商品描述、数量和单价!');
                             return false;
                         }
 
@@ -615,12 +616,12 @@ angular
                     for (var j = 0, jj = packageItems.length; j < jj; j++) {
                         var packageItem = packageItems[j];
                         if (!packageItem.addressNumber) {
-                            SweetAlert.swal('提示', '请确保每个转运包裹都选择了收货地址!', 'warning');
+                            alertify.alert('提示', '请确保每个转运包裹都选择了收货地址!');
                             return false;
                         }
 
                         if (!packageItem.goodsCategory) {
-                            SweetAlert.swal('提示', '请确保每个转运包裹都选择了商品类别!', 'warning');
+                            alertify.alert('提示', '请确保每个转运包裹都选择了商品类别!');
                             return false;
                         }
                     }

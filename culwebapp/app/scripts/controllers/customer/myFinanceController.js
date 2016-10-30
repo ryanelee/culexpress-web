@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('MyFinanceController', ['$scope', '$stateParams', '$window', '$location', 'Customer', 'SweetAlert',
-    function ($scope, $stateParams, $window, $location, customer, SweetAlert) {
+    .controller('MyFinanceController', ['$scope', '$stateParams', '$window', '$location', 'Customer',
+    function ($scope, $stateParams, $window, $location, customer) {
         if (App) {
             App.init();
             App.initCounter();
@@ -37,13 +37,13 @@ angular
         $scope.userPay = function () {
             var customerNumber = $scope.$root.currentUser.customerNumber;
             if (!customerNumber) {
-                SweetAlert.swal('提醒', '请先登录.', 'warning'); return false;
+                alertify.alert('提醒', '请先登录.', 'warning'); return false;
             }
             if (!model.payAmount) {
-                SweetAlert.swal('提醒', '请输入充值金额.', 'warning'); return false;
+                alertify.alert('提醒', '请输入充值金额.', 'warning'); return false;
             }
             if (model.payAmount < 0.1) {
-                SweetAlert.swal('提醒', '充值金额不能小于0.1', 'warning'); return false;
+                alertify.alert('提醒', '充值金额不能小于0.1', 'warning'); return false;
             }
             window.open('rechargepage.html?ra=' + encodeURIComponent(model.payAmount) + '&cn=' + encodeURIComponent(customerNumber));
         }

@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('BillingReportCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', 'settlementSvr', '$filter', 'SweetAlert',
-        function ($scope, $compile, $timeout, $state, $stateParams, settlementSvr, $filter, SweetAlert) {
+    .controller('BillingReportCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', 'settlementSvr', '$filter',
+        function ($scope, $compile, $timeout, $state, $stateParams, settlementSvr, $filter) {
 
             $scope.currentDate = (new Date()).toLocaleDateString();
             var source = $scope.source = {
@@ -92,29 +92,40 @@ angular
 
 
             $scope.paid = function () {
-                SweetAlert.swal({
-                    title: "您确定支付" + model.arrears + "美元?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
+                alertify.alert('确认','请确定是否支付' + model.arrears + '美元?',
+                    function(){
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
+
                         var customerNumber = $scope.$root.currentUser.customerNumber;
                         window.open('rechargepage.html?vippay=1&ra=' + encodeURIComponent(model.arrears) + '&cn=' + encodeURIComponent(customerNumber));
-                        //settlementSvr.pay($scope.$root.currentUser.customerNumber, model.arrears)
-                        //.then(function (result) {
-                        //    if (result) {
-                        //        SweetAlert.swal('提示', '支付成功.', 'success');
-                        //    }
-                        //}, function (result) {
-                        //    SweetAlert.swal('提示', '支付失败.' + result.data.message, 'error');
-                        //});
-                    }
-                });
+                    },
+                    function(){
+                        alertify.error('已取消支付!');
+                    });
+
+                // SweetAlert.swal({
+                //     title: "您确定支付" + model.arrears + "美元?",
+                //     type: "warning",
+                //     showCancelButton: true,
+                //     confirmButtonColor: "#DD6B55",
+                //     confirmButtonText: "确定",
+                //     cancelButtonText: "取消",
+                //     closeOnConfirm: false
+                // }, function (isConfirm) {
+                //     if (isConfirm) {
+                //         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
+                //         var customerNumber = $scope.$root.currentUser.customerNumber;
+                //         window.open('rechargepage.html?vippay=1&ra=' + encodeURIComponent(model.arrears) + '&cn=' + encodeURIComponent(customerNumber));
+                //         //settlementSvr.pay($scope.$root.currentUser.customerNumber, model.arrears)
+                //         //.then(function (result) {
+                //         //    if (result) {
+                //         //        SweetAlert.swal('提示', '支付成功.', 'success');
+                //         //    }
+                //         //}, function (result) {
+                //         //    SweetAlert.swal('提示', '支付失败.' + result.data.message, 'error');
+                //         //});
+                //     }
+                // });
             }
 
 

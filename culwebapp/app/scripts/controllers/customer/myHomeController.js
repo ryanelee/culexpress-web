@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('MyHomeController', ['$scope', '$state', '$http', '$anchorScroll', '$window', '$rootScope', 'AuthService', 'Customer', 'SweetAlert',
-    function ($scope, $state, $http, $anchorScroll, $window, $rootScope, AuthService, Customer, SweetAlert) {
+    .controller('MyHomeController', ['$scope', '$state', '$http', '$anchorScroll', '$window', '$rootScope', 'AuthService', 'Customer',
+    function ($scope, $state, $http, $anchorScroll, $window, $rootScope, AuthService, Customer) {
         if (!$rootScope.currentUser) {
             $rootScope.currentUser = JSON.parse(AuthService.getStorage(AuthService.userInfoKey));
         };
@@ -65,7 +65,7 @@ angular
         $scope.updateAvatar = function () {
             var fileInfo = $('#file').get(0).files[0];
             if (!fileInfo) {
-                SweetAlert.swal('提示', '请先选择头像', 'warning');
+                alertify.alert('提示', '请先选择头像');
                 return false;
             }
 

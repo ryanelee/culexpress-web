@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('SendiEditCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter', 'SweetAlert', 'OrderSvr',
-        function ($scope, $compile, $timeout, $state, $stateParams, $filter, SweetAlert, orderSvr) {
+    .controller('SendiEditCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter','OrderSvr',
+        function ($scope, $compile, $timeout, $state, $stateParams, $filter, orderSvr) {
             $scope.$root.wizardOptions = {};
 
             $scope.wizardOptions = {
@@ -153,7 +153,7 @@ angular
                 });
             }, preSubmit = function () {
                 if (!source.selectedProducts || !source.selectedProducts.length) {
-                    SweetAlert.swal('提示', '请选择您要寄送的商品!', 'warning');
+                    alertify.alert('提示', '请选择您要寄送的商品!', 'warning');
                     return false;
                 }
             }, removeSelectedPreSubmitProducts = function () {
@@ -168,12 +168,12 @@ angular
                     return dataItem.selected === true;
                 });
                 if (!selectedItems || !selectedItems.length) {
-                    SweetAlert.swal('提示', '请选择您要移除的商品!', 'warning');
+                    alertify.alert('提示', '请选择您要移除的商品!', 'warning');
                     return false;
                 }
 
                 if (selectedItems.length === source.selectedProducts.length) {
-                    SweetAlert.swal('提示', '请至少保留一个商品!', 'warning');
+                    alertify.alert('提示', '请至少保留一个商品!', 'warning');
                     return false;
                 }
 
@@ -199,11 +199,11 @@ angular
                 for (var i = 0, ii = source.selectedProducts.length; i < ii; i++) {
                     var productItem = source.selectedProducts[i];
                     if (productItem.sendCount === undefined) {
-                        SweetAlert.swal('提示', '请输入寄送数量，并且必须大于0 !', 'warning');
+                        alertify.alert('提示', '请输入寄送数量，并且必须大于0 !', 'warning');
                         return false;
                     }
                     if (productItem.sendCount < 1) {
-                        SweetAlert.swal('提示', '寄送数量不能小于1 !', 'warning');
+                        alertify.alert('提示', '寄送数量不能小于1 !', 'warning');
                         return false;
                     }
                 }
@@ -235,7 +235,7 @@ angular
                     var self = this,
                         fileInfo = $('#batchCrateFile').get(0).files[0];
                     if (!fileInfo) {
-                        SweetAlert.swal('提示', '请选择需要批量寄送库存的Excel文件', 'warning');
+                        alertify.alert('提示', '请选择需要批量寄送库存的Excel文件', 'warning');
                         return false;
                     }
                     var form = new FormData();

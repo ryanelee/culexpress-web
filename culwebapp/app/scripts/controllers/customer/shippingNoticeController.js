@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('ShippingNoticeController', ['$scope', '$rootScope', '$filter', '$stateParams', 'OrderSvr', '$state', 'SweetAlert',
-        function ($scope, $rootScope, $filter, $stateParams, orderSvr, $state, SweetAlert) {
+    .controller('ShippingNoticeController', ['$scope', '$rootScope', '$filter', '$stateParams', 'OrderSvr', '$state',
+        function ($scope, $rootScope, $filter, $stateParams, orderSvr, $state) {
             $scope.$root.orderOptions = {};
             $scope.$root.wizardOptions = {};
             $scope.warehouses = [];
@@ -42,10 +42,10 @@ angular
 
             $scope.addShippingNotice = function () {
 
-                if (!$scope.shippingNotice.trackingNumber) { SweetAlert.swal('提醒', '请输入运单号.', 'warning'); return false; }
-                if (!$scope.shippingNotice.packageDescription) { SweetAlert.swal('提醒', '请输入运单内容.', 'warning'); return false; }
+                if (!$scope.shippingNotice.trackingNumber) { alertify.alert('提醒','请输入运单号!'); return false; }
+                if (!$scope.shippingNotice.packageDescription) { alertify.alert('提醒', '请输入运单内容!'); return false; }
                 if (!!$scope.shippingNotice.isFastOrder) {
-                    if (!$scope.shippingNotice.packageWeight) { SweetAlert.swal('提醒', '极速原箱订单必须输入包裹重量.', 'warning'); return false; }
+                    if (!$scope.shippingNotice.packageWeight) { alertify.alert('提醒', '极速原箱订单必须输入包裹重量!'); return false; }
                 }
 
                 orderSvr
@@ -70,10 +70,12 @@ angular
                     },
                     function (result) {
                         if (result.data && result.data.message) {
-                            SweetAlert.swal('错误', result.data.message, 'error');
+                            //SweetAlert.swal('错误', result.data.message, 'error');
+                            alertify.alert('错误',result.data.message);
                         }
                         else {
-                            SweetAlert.swal('错误', '添加失败.', 'error');
+                            //SweetAlert.swal('错误', '添加失败.', 'error');
+                            alertify.alert('错误','添加失败!');
                         }
                     });
             };
@@ -184,11 +186,13 @@ angular
             var checkSelected = function () {
                 var result = isSafeSelected();
                 if (result === 0) {
-                    SweetAlert.swal('提醒', '请至少选择一条数据。', 'warning');
+                    //SweetAlert.swal('提醒', '请至少选择一条数据。', 'warning');
+                    alertify.alert('提醒','请至少选择一条数据!');
                     return false;
                 }
                 else if (result === false) {
-                    SweetAlert.swal('提醒', '您选择的包裹不在同一个仓库，无法提交订单。不同仓库的包裹请分别提交订单。', 'warning');
+                    //SweetAlert.swal('提醒', '您选择的包裹不在同一个仓库，无法提交订单。不同仓库的包裹请分别提交订单。', 'warning');
+                    alertify.alert('提醒','您选择的包裹不在同一个仓库，无法提交订单。不同仓库的包裹请分别提交订单!');
                     return false;
                 }
                 return true;
@@ -206,16 +210,8 @@ angular
 
 
             $scope.deleteShippingNotice = function (item) {
-                SweetAlert.swal({
-                    title: "请确认是否要删除该记录?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
+                alertify.confirm('确认','请确认是否要删除该记录?',
+                    function(){
                         orderSvr
                             .deleteShippingNotice(item.trackingNumber)
                             .then(function (result) {
@@ -224,15 +220,47 @@ angular
                                     $scope.shippingNoticeList.splice(index, 1);
                                 }
 
-                                SweetAlert.swal('提示', '删除成功.', 'success');
+                                alertify.success('删除成功!');
                             },
                             function (result) {
                                 if (result.data.message) {
-                                    SweetAlert.swal('错误', result.data.message, 'error');
+                                    alertify.alert('错误',result.data.message);
                                 }
                             });
-                    }
-                });
+                    },
+                        function(){
+                            alertify.error('已取消删除!');
+                    })
+
+                // SweetAlert.swal({
+                //     title: "请确认是否要删除该记录?",
+                //     type: "warning",
+                //     showCancelButton: true,
+                //     confirmButtonColor: "#DD6B55",
+                //     confirmButtonText: "确定",
+                //     cancelButtonText: "取消",
+                //     closeOnConfirm: false
+                // }, function (isConfirm) {
+                //     if (isConfirm) {
+                //         orderSvr
+                //             .deleteShippingNotice(item.trackingNumber)
+                //             .then(function (result) {
+                //                 if (!!result.data.success) {
+                //                     var index = $scope.shippingNoticeList.indexOf(item);
+                //                     $scope.shippingNoticeList.splice(index, 1);
+                //                 }
+
+                //                 //SweetAlert.swal('提示', '删除成功.', 'success');
+                //                 alertify.alert('提示','删除成功!');
+                //             },
+                //             function (result) {
+                //                 if (result.data.message) {
+                //                     //SweetAlert.swal('错误', result.data.message, 'error');
+                //                     alertify.alert('错误',result.data.message);
+                //                 }
+                //             });
+                //     }
+                // });
 
             };
 
@@ -246,7 +274,8 @@ angular
                     if (shippItemData.checked) {
                         if (!isFastOrder) {
                             if (shippItemData.status !== 'Inbound') {
-                                SweetAlert.swal('提醒', '普通订单只能提交已入库的货物信息.', 'warning');
+                                //SweetAlert.swal('提醒', '普通订单只能提交已入库的货物信息.', 'warning');
+                                alertify.alert('提醒','普通订单只能提交已入库的货物信息!');
                                 return false;
                             }
                         }
@@ -255,7 +284,8 @@ angular
                 }
 
                 if (!selectedItems.length) {
-                    SweetAlert.swal('提醒', '请选择需要提交的货物信息.', 'warning');
+                    //SweetAlert.swal('提醒', '请选择需要提交的货物信息.', 'warning');
+                    alertify.alert('提醒','请选择需要提交的货物信息!');
                     return false;
                 }
                 return selectedItems;
@@ -285,7 +315,7 @@ angular
                 if (!checkSelected()) return false;
                 var selected = checkAndGetSelect(true);
                 if (selected.length > 1) {
-                    SweetAlert.swal('提醒', '极速原单只能选择一个货物信息.', 'warning');
+                    alertify.alert('提醒', '极速原单只能选择一个货物信息!');
                     return false;
                 }
                 if (selected && selected.length) {

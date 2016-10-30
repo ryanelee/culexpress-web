@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('ProductEditCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter', 'SweetAlert', 'OrderSvr',
-        function ($scope, $compile, $timeout, $state, $stateParams, $filter, SweetAlert, orderSvr) {
+    .controller('ProductEditCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter', 'OrderSvr',
+        function ($scope, $compile, $timeout, $state, $stateParams, $filter, orderSvr) {
             $scope.$root.wizardOptions = {};
             $scope.current = {
                 category: null,
@@ -26,25 +26,25 @@ angular
                         return true;
                     }
                     if (!$scope.model.category) {
-                        SweetAlert.swal('提示', '请选择商品类别。', 'warning');
+                        alertify.alert('提示', '请选择商品类别。', 'warning');
                         return false;
                     }
                     if (!$scope.model.subcategory) {
-                        SweetAlert.swal('提示', '请选择商品子类别。', 'warning');
+                        alertify.alert('提示', '请选择商品子类别。', 'warning');
                         return false;
                     }
                 }
                 if (index == 2) {
                     if (!$scope.model.brand) {
-                        SweetAlert.swal('提示', '商品品牌不能为空。', 'warning');
+                        alertify.alert('提示', '商品品牌不能为空。', 'warning');
                         return false;
                     }
                     if (!$scope.model.upccode) {
-                        SweetAlert.swal('提示', 'UPC代码不能为空。', 'warning');
+                        alertify.alert('提示', 'UPC代码不能为空。', 'warning');
                         return false;
                     }
                     if (!$scope.model.description) {
-                        SweetAlert.swal('提示', '商品描述不能为空。', 'warning');
+                        alertify.alert('提示', '商品描述不能为空。', 'warning');
                         return false;
                     }
                     $timeout(function () {
@@ -160,20 +160,20 @@ angular
 
             $scope.submit = function () {
                 if (!$scope.model.length || !$scope.model.width || !$scope.model.height) {
-                    SweetAlert.swal('提示', '请填写商品包装的原始尺寸。', 'warning');
+                    alertify.alert('提示', '请填写商品包装的原始尺寸。', 'warning');
                     return false;
                 }
                 if ($scope.model.length < 0 || $scope.model.width < 0 || $scope.model.height < 0) {
-                    SweetAlert.swal('提示', '商品包装尺寸不能小于0。', 'warning');
+                    alertify.alert('提示', '商品包装尺寸不能小于0。', 'warning');
                     return false;
                 }
 
                 if (!$scope.model.weight) {
-                    SweetAlert.swal('提示', '请填写商品包装的原始重量。', 'warning');
+                    alertify.alert('提示', '请填写商品包装的原始重量。', 'warning');
                     return false;
                 }
                 if (!$scope.model.weight) {
-                    SweetAlert.swal('提示', '商品重量不能小于0', 'warning');
+                    alertify.alert('提示', '商品重量不能小于0', 'warning');
                     return false;
                 }
 
@@ -192,7 +192,7 @@ angular
                             $state.go('customer.products');
                         }
                     }, function (result) {
-                        SweetAlert.swal('错误', result.data.message, 'warning');
+                        alertify.alert('错误', result.data.message, 'warning');
                     });
             }
 
@@ -209,12 +209,12 @@ angular
             $scope.addProperty = function () {
                 if (!!temp.property) {
                     if (temp.property.indexOf(':') < 0) {
-                        SweetAlert.swal('提示', '属性格式错误!', 'warning');
+                        alertify.alert('提示', '属性格式错误!', 'warning');
                         return false;
                     }
 
                     if (temp.properties.length >= 5) {
-                        SweetAlert.swal('提示', '您最多可以为每个商品添加5个属性。', 'warning');
+                        alertify.alert('提示', '您最多可以为每个商品添加5个属性。', 'warning');
                         return false;
                     }
 
@@ -277,12 +277,12 @@ angular
                 if (!!imageUrl) temp.image = imageUrl;
                 if (!!temp.image) {
                     if (temp.image.indexOf('http') < 0) {
-                        SweetAlert.swal('提示', '图片格式错误!', 'warning');
+                        alertify.alert('提示', '图片格式错误!', 'warning');
                         return false;
                     }
 
                     if (temp.images.length >= 5) {
-                        SweetAlert.swal('提示', '每个商品最多可以指定5个图片链接。', 'warning');
+                        alertify.alert('提示', '每个商品最多可以指定5个图片链接。', 'warning');
                         return false;
                     }
 
@@ -375,8 +375,8 @@ angular
 
         }
     ]).
-    controller('ProductInventoryCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter', 'SweetAlert', 'OrderSvr',
-        function ($scope, $compile, $timeout, $state, $stateParams, $filter, SweetAlert, orderSvr) {
+    controller('ProductInventoryCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter', 'OrderSvr',
+        function ($scope, $compile, $timeout, $state, $stateParams, $filter, orderSvr) {
 
             var model = $scope.model = {};
 

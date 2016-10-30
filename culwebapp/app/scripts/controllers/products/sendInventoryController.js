@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('SendInventoryCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter', 'SweetAlert', 'OrderSvr',
-        function ($scope, $compile, $timeout, $state, $stateParams, $filter, SweetAlert, orderSvr) {
+    .controller('SendInventoryCtrl', ['$scope', '$compile', '$timeout', '$state', '$stateParams', '$filter', 'OrderSvr',
+        function ($scope, $compile, $timeout, $state, $stateParams, $filter, orderSvr) {
             $scope.$root.wizardOptions = {};
             var source = $scope.source = {
                 searchKeyItems: [
@@ -89,28 +89,20 @@ angular
             }
 
             $scope.deleteInventory = function (dataItem) {
-                SweetAlert.swal({
-                    title: '确认',
-                    text: '确定删除',
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
+                alertify.confirm('确认','确定删除',
+                    function (isConfirm) {
                         orderSvr.deleteTransportItem(dataItem.receiptNumber).then(function (result) {
                             if (!result.message) {
-                                SweetAlert.swal('提示', '删除成功。', 'warning');
+                                alertify.success('删除成功!');
                                 $scope.loadListData();
                             } else {
-                                SweetAlert.swal('提示', result.message, 'error');
+                                alertify.alert('提示', result.message, 'error');
                             }
                         }, function (result) {
-                            SweetAlert.swal('提示', result.data.message, 'error');
+                            alertify.alert('提示', result.data.message, 'error');
                         });
-                    }
+                },function(){
+                    alertify.error('已取消删除!');
                 });
             }
 

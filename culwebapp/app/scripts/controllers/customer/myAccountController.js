@@ -171,7 +171,7 @@ angular
 
             var url = $scope.model.companySite;
             if (url && !new RegExp('(http[s]{0,1})://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?').test(url)) {
-                SweetAlert.swal('错误', '请填写正确的公司网址,如：http://www.culexpress.com/ 或 https://www.culexpress.com/', 'error');
+                alertify.alert('错误', '请填写正确的公司网址,如：http://www.culexpress.com/ 或 https://www.culexpress.com/');
                 return false;
             }
 
@@ -218,10 +218,10 @@ angular
                         Customer.applyVIP($scope.$root.currentUser.customerNumber)
                             .then(function (result) {
                                 if (result.data) {
-                                    SweetAlert.swal('提示', '您的申请已经发送成功, 我们需要1-2个工作日审核您的资格. 有任何疑问请联系客服.', 'success');
+                                    alertify.alert('提示', '您的申请已经发送成功, 我们需要1-2个工作日审核您的资格. 有任何疑问请联系客服.');
                                 }
                             }, function (result) {
-                                SweetAlert.swal('错误', result.data.message, 'error');
+                                alertify.alert('错误', result.data.message);
                             });
                         //$scope.$root.currentUser.isVip = true;//TODO 这里只是为了测试
                     }
@@ -275,35 +275,53 @@ angular
         }
 
         $scope.deleteAddress = function (addressItem) {
-            SweetAlert.swal({
-                title: "确定要删除?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                closeOnConfirm: false
-            }, function (isConfirm) {
-                if (isConfirm) {
+            alertify.confirm('确认','请确认是否删除?',
+                function(){
                     addressSvr
                         .delAddressInfo(addressItem.transactionNumber)
                         .then(function (result) {
                             if (result.data.success) {
-                                SweetAlert.swal('提示', '删除成功.', 'success');
+                                alertify.success('删除成功!');
                                 resfreshAddressList();
                             }
                         }, function (result) {
                             if (result.data.message) {
-                                SweetAlert.swal('错误', result.data.message, 'error');
+                                alertify.alert('错误', result.data.message);
                             }
                         });
-                }
-            });
+                },
+                function(){
+                    alertify.error('已取消删除!')
+                })
+            // SweetAlert.swal({
+            //     title: "确定要删除?",
+            //     type: "warning",
+            //     showCancelButton: true,
+            //     confirmButtonColor: "#DD6B55",
+            //     confirmButtonText: "确定",
+            //     cancelButtonText: "取消",
+            //     closeOnConfirm: false
+            // }, function (isConfirm) {
+            //     if (isConfirm) {
+            //         addressSvr
+            //             .delAddressInfo(addressItem.transactionNumber)
+            //             .then(function (result) {
+            //                 if (result.data.success) {
+            //                     SweetAlert.swal('提示', '删除成功.', 'success');
+            //                     resfreshAddressList();
+            //                 }
+            //             }, function (result) {
+            //                 if (result.data.message) {
+            //                     SweetAlert.swal('错误', result.data.message, 'error');
+            //                 }
+            //             });
+            //     }
+            // });
         }
 
         $scope.changePassword = function () {
             if ($scope.model.newPassword !== $scope.model.passwordConfirm) {
-                SweetAlert.swal('错误', '两次输入的密码不一样，请重新输入.', 'error');
+                alertify.alert('错误', '两次输入的密码不一样，请重新输入.');
                 $scope.model.passwordConfirm = '';
                 $scope.model.newPassword = '';
 
@@ -312,15 +330,11 @@ angular
             Customer.changePassword($scope.model.password, $scope.model.passwordConfirm, $rootScope.currentUser.emailAddress)
                 .then(function (result) {
                     if (result.data.success) {
-                        SweetAlert.swal({
-                            title: '提示',
-                            text: '密码修改成功，请重新登录.',
-                            type: "success"
-                        }, function () {
-                            localStorage.removeItem('user_info');
-                            AuthService.logout(function () {
-                                $location.path('/login');
-                            });
+                        alertify.success('密码修改成功，请重新登录!');
+
+                        localStorage.removeItem('user_info');
+                        AuthService.logout(function () {
+                            $location.path('/login');
                         });
                     }
                     $scope.model.password = '';
@@ -328,7 +342,7 @@ angular
                     $scope.model.newPassword = '';
                 }, function (result) {
                     if (result.data.message) {
-                        SweetAlert.swal('错误', result.data.message, 'error');
+                        alertify.alert('错误', result.data.message);
                         $scope.model.password = '';
                         $scope.model.passwordConfirm = '';
                         $scope.model.newPassword = '';

@@ -8,8 +8,8 @@
  * Controller of the culwebApp
  */
 angular.module('culwebApp')
-  .controller('QuestionDetailCtrl', ['$scope', 'Customer', 'OrderSvr', '$stateParams', '$state', '$location', 'SweetAlert',
-      function ($scope, customer, orderSvr, $stateParams, $state, $location, SweetAlert) {
+  .controller('QuestionDetailCtrl', ['$scope', 'Customer', 'OrderSvr', '$stateParams', '$state', '$location',
+      function ($scope, customer, orderSvr, $stateParams, $state, $location) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -49,12 +49,12 @@ angular.module('culwebApp')
                       .saveMessage(questionid, $scope.data.questionMessage)
                       .then(function (result) {
                           if (result.data) {
-                              SweetAlert.swal('提示', '留言成功.');
+                              alertify.alert('提示', '留言成功.');
                               loadQuestionData();
                           }
                       }, function (result) {
                           if (result.data && result.data.message) {
-                              SweetAlert.swal('错误', result.data.message, 'error');
+                              alertify.alert('错误', result.data.message, 'error');
                           }
                       });
 

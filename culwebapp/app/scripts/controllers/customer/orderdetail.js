@@ -8,8 +8,8 @@
  * Controller of the culwebApp
  */
 angular.module('culwebApp')
-  .controller('OrderdetailCtrl', ['$scope', 'OrderSvr', '$stateParams', '$state', '$location', 'SweetAlert',
-      function ($scope, orderSvr, $stateParams, $state, $location, SweetAlert) {
+  .controller('OrderdetailCtrl', ['$scope', 'OrderSvr', '$stateParams', '$state', '$location',
+      function ($scope, orderSvr, $stateParams, $state, $location) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -40,12 +40,12 @@ angular.module('culwebApp')
                       .saveMessage($scope.data.orderMessageNumber, $scope.data.orderMessage)
                       .then(function (result) {
                           if (result.data) {
-                              SweetAlert.swal('提示', '留言成功.');
+                              alertify.alert('提示', '留言成功.');
                               loadOrderMessage();
                           }
                       }, function (result) {
                           if (result.data && result.data.message) {
-                              SweetAlert.swal('错误', result.data.message, 'error');
+                              alertify.alert('错误', result.data.message, 'error');
                           }
                       });
 
@@ -66,54 +66,39 @@ angular.module('culwebApp')
           $scope.deleteOrder = function (number) {
               if (!number) return false;
 
-              SweetAlert.swal({
-                  title: "确定要取消订单[" + number + "]?",
-                  type: "warning",
-                  showCancelButton: true,
-                  confirmButtonColor: "#DD6B55",
-                  confirmButtonText: "确定",
-                  cancelButtonText: "放弃",
-                  closeOnConfirm: false
-              }, function (isConfirm) {
-                  if (isConfirm) {
+              alertify.confirm('确认','确定要取消订单[' + number + ']?',
+                  function () {
                       orderSvr.deleteOrder(number)
                           .then(function (result) {
                               if (result.data.success) {
-                                  SweetAlert.swal('提示', '取消成功.', 'success');
+                                  alertify.success('取消订单成功.');
                                   returnToOrderList();
                               }
                           }, function (result) {
                               if (result.data.message) {
-                                  SweetAlert.swal('错误', result.data.message, 'error');
+                                  alertify.alert('错误', result.data.message, 'error');
                                   returnToOrderList();
                               }
                           });
-                  }
+              },function(){
+                  alertify.error('已放弃取消订单!');
               });
           }
 
           $scope.payOrder = function (orderItem) {
               if (!orderItem) return false;
               if (!orderItem.totalCount) {
-                  SweetAlert.swal('提示', '订单还未计价,不能支付!', 'warning');
+                  alertify.alert('提示', '订单还未计价,不能支付!', 'warning');
                   return false;
               }
 
               if ($scope.$root.currentUser.accountBalance < orderItem.totalCount) {
-                  SweetAlert.swal('提示', '您需要支付' + orderItem.totalCount + '元，但您的余额已不足，为' + $scope.$root.currentUser.accountBalance + ',请先充值!', 'warning');
+                  alertify.alert('提示', '您需要支付' + orderItem.totalCount + '元，但您的余额已不足，为' + $scope.$root.currentUser.accountBalance + ',请先充值!', 'warning');
                   return false;
               }
 
-              SweetAlert.swal({
-                  title: "您将被扣款" + orderItem.totalCount + "元，确定支付订单?",
-                  type: "warning",
-                  showCancelButton: true,
-                  confirmButtonColor: "#DD6B55",
-                  confirmButtonText: "确定",
-                  cancelButtonText: "取消",
-                  closeOnConfirm: false
-              }, function (isConfirm) {
-                  if (isConfirm) {
+              alertify.confirm('确认','您将被扣款' + orderItem.totalCount + '元，确定支付订单?',
+                  function () {
                       $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
 
                       var currentUser = $scope.$root.currentUser;
@@ -121,7 +106,7 @@ angular.module('culwebApp')
                       orderSvr.paymentOrder(orderItem.orderNumber)
                           .then(function (result) {
                               if (result.data.success) {
-                                  SweetAlert.swal('提示', '支付成功.', 'success');
+                                  alertify.success('支付成功.');
 
                                   //支付之后刷新一下全局余额
                                   $scope.$root.autologin(function (result) {
@@ -137,11 +122,11 @@ angular.module('culwebApp')
 
                           }, function (result) {
                               if (result.data.message) {
-                                  SweetAlert.swal('错误', result.data.message, 'error');
+                                  alertify.alert('错误', result.data.message, 'error');
                               }
                           });
-
-                  }
+              },function(){
+                  alertify.error('已取消支付订单!');
               });
           }
 
