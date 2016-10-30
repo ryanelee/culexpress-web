@@ -274,7 +274,7 @@ angular
 
             var getShippingAddressNumber = function () {
                 var addressArr = [];
-                var packageItems = getOutboundPackage('UMI');
+                var packageItems = getOutboundPackage('CUL');
                 for (var j = 0, jj = packageItems.length; j < jj; j++) {
                     var packageItem = packageItems[j],
                         requied = $filter('filter')(addressArr, function (addressItem) {
@@ -481,7 +481,7 @@ angular
 
 
 
-                $scope.data.outboundPackages = getOutboundPackage('UMI')
+                $scope.data.outboundPackages = getOutboundPackage('CUL')
                 $scope.data.orderItems = orderItems;
                 $scope.data.shipToAddresses = getShippingAddressNumber().length <= 0 ? [{ addressNumber: '' }] : getShippingAddressNumber();
                 $scope.data.inboundPackages = getInboundPackages();
@@ -611,7 +611,7 @@ angular
 
                     }
 
-                    var packageItems = getOutboundPackage('UMI');
+                    var packageItems = getOutboundPackage('CUL');
                     for (var j = 0, jj = packageItems.length; j < jj; j++) {
                         var packageItem = packageItems[j];
                         if (!packageItem.addressNumber) {
@@ -683,7 +683,7 @@ angular
                     },
                     calculate = function (result) {
                         var shipService = data.shipServiceItem,
-                            packages = getOutboundPackage('UMI'),
+                            packages = getOutboundPackage('CUL'),
                             packageItem = packages[0],
                             calculData = {
                                 packageWeight: 0,

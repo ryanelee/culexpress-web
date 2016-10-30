@@ -133,4 +133,11 @@ angular.module('culAdminApp')
               callback(result);
           })
       }
+
+      //Shipping channel lsit
+      self.getShippingChannelList = function(callback){
+          $http.post(cul.apiPath + "/shipservice/list",{"pageInfo":{"pageSize":20,"pageIndex":1}}).success(function (result) {
+              callback(result.data);
+          })
+      }
   }]);

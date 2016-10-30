@@ -32,6 +32,18 @@
                             ng-model="searchBar.warehouseNumber"
                             ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
                 </div>
+                <div class="search-col">
+                    <label class="search-label">发货渠道：</label>
+                    <select class="form-control search-control"
+                            ng-model="searchBar.shipServiceId"
+                            ng-options="item.shipServiceId as item.shipServiceName for item in searchBar.shippingChannelList"></select>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">
+                        <input type="checkbox" ng-model="searchBar.isFastOrder" />
+                        <span>极速原箱 <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i></span>
+                    </label>
+                </div>
                 <div class="clearfix"></div>
                 <div class="search-col">
                     <label class="search-label">开始日期：</label>
@@ -165,6 +177,7 @@
                     <th>客户关联号</th>
                     <th>包裹跟踪号</th>
                     <th>发货仓库</th>
+                    <th>发货渠道</th>
                     <th>收货地址</th>
                     <th>价格</th>
                     <th>订单状态</th>
@@ -178,14 +191,27 @@
                     <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
                     <td>{{item.rownumber}}</td>
                     <td style="max-width: 150px;">{{item.batchNumber || '-'}}</td>
-                    <td style="max-width: 200px;"><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a></td>
+                    <td style="max-width: 200px;">
+                        <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
+                        <span ng-if="item.isFastOrder == 1" title="极速原箱">
+                            <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                        </span>
+                    </td>
                     <td style="max-width: 160px;">{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                     <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
                     <td style="max-width: 200px;">{{item.referenceOrderNumber || '-'}}</td>
                     <td style="max-width: 150px;"><div ng-repeat="pkg in item._outboundTrackingNumbers">{{pkg}}</div></td>
                     <td style="max-width:150px;">{{item.warehouseName}}</td>
+                    <td style="max-width:150px;">{{item.shipServiceName}}</td>
                     <td style="max-width: 300px;"><div class="td-row" ng-repeat="ads in item._shipToAddresses">{{ads}}</div></td>
-                    <td>{{item.totalCount}}</td>
+                    <td>
+                        <span ng-if="item.currencyCode == 'USD'" title="USD">
+                            <i class="fa fa-dollar" aria-hidden="true"></i>
+                        </span>
+                        <span ng-if="item.currencyCode != 'USD'" title="RMB">
+                            <i class="fa fa-rmb" aria-hidden="true"></i>
+                        </span>
+                        {{item.totalCount}}</td>
                     <td>{{item._orderStatus}}</td>
                     <!--<td>{{item.processStatus}}</td>-->
                     <td>{{item._printStatus}}</td>
@@ -194,7 +220,7 @@
             </tbody>
         </table>
         <div class="row">
-            <div class="col-sm-6 text-left pull-left">
+            <div class="col-sm-1 text-left pull-left">
                 <!--<a class="btn btn-primary" target="_blank" ng-href="{{exportUrl}}">将结果导出Excel文件</a>-->
                 <form id="form_export" method="post" action="/" target="_blank">
                     <input id="dateFrom" name="dateFrom"  type="hidden" value="{{exportOptions.dateFrom}}"/>
@@ -202,7 +228,7 @@
                     <input id="orderStatus" name="orderStatus" type="hidden"  value="{{exportOptions.orderStatus}}"/>
                     <input id="printStatus" name="printStatus" type="hidden" value="{{exportOptions.printStatus}}" />
                     <input id="warehouseNumber" name="warehouseNumber"  type="hidden" value="{{exportOptions.warehouseNumber}}"/>
-
+                    <input id="shipServiceId" name="shipServiceId" type="hidden" value="{{exportOptions.shipServiceId}}"/>
                     <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
                     <input id="userName" name="userName"  type="hidden" value="{{exportOptions.userName}}"/>
                     <input id="orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
@@ -214,7 +240,26 @@
                     <button type="submit" class="btn btn-primary">将结果导出Excel文件</button>
                 </form>
             </div>
-            <div class="col-sm-6 text-right pull-right">
+            <div class="col-sm-2 text-right pull-left">
+                    <form id="form_exportUSPS" method="post" action="/" target="_blank">
+                    <input id="USPS_dateFrom" name="dateFrom"  type="hidden" value="{{exportOptions.dateFrom}}"/>
+                    <input id="USPS_dateTo" name="dateTo"  type="hidden" value="{{exportOptions.dateTo}}"/>
+                    <input id="USPS_orderStatus" name="orderStatus" type="hidden"  value="{{exportOptions.orderStatus}}"/>
+                    <input id="USPS_printStatus" name="printStatus" type="hidden" value="{{exportOptions.printStatus}}" />
+                    <input id="USPS_warehouseNumber" name="warehouseNumber"  type="hidden" value="{{exportOptions.warehouseNumber}}"/>
+                    <input id="USPS_shipServiceId" name="shipServiceId" type="hidden" value="{{exportOptions.shipServiceId}}"/>
+                    <input id="USPS_customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
+                    <input id="USPS_userName" name="userName"  type="hidden" value="{{exportOptions.userName}}"/>
+                    <input id="USPS_orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
+                    <input id="USPS_outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}" />
+                    <input id="USPS_receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
+                    <input id="USPS_referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}" />
+                    <input id="USPS_cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
+                    <input id="USPS_token" name="token" type="hidden" value="{{exportOptions.token}}" />
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-file-excel-o" aria-hidden="true"></i> 将结果导出USPS文件</button>
+                </form>
+            </div>
+            <div class="col-sm-9 text-right pull-right">
                 <uib-pagination class="pagination pagination-rewrite pull-right"
                                 boundary-links="true"
                                 max-size="5"

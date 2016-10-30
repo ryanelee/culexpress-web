@@ -20,6 +20,7 @@ angular.module('culAdminApp')
       var _token = sessionStorage.getItem("token");
       _token = !!_token ? encodeURIComponent(_token) : null
       $("#form_export").attr("action", cul.apiPath + "/order/list/export?Token=" + _token);
+      $("#form_exportUSPS").attr("action", cul.apiPath + "/order/list/export/usps?Token=" + _token);
       $scope.exportUrl = "";
       $scope.pagination = {
           pageSize: "20",
@@ -33,6 +34,8 @@ angular.module('culAdminApp')
           orderStatus: "",
           printStatus: "UnPrinted",
           warehouseNumber: "",
+          shipServiceId: 0,
+          isFastOrder: undefined,
           startDate: "",
           startTime_HH: "0",
           startTime_mm: "",
@@ -53,6 +56,15 @@ angular.module('culAdminApp')
               $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
           } else {
               $scope.searchBar.warehouseList = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
+          }
+      });
+
+      warehouseService.getShippingChannelList(function (result){
+          if (result.length == 1){
+              $scope.searchBar.shippingChannelList = result;
+              $scope.searchBar.shipServiceId = $scope.searchBar.shippingChannelList[0].shipServiceId;
+          } else {
+              $scope.searchBar.shippingChannelList = [{ shipServiceId: 0, shipServiceName: "全部"}].concat(result);
           }
       });
 
@@ -82,6 +94,12 @@ angular.module('culAdminApp')
           }
           if (!!$scope.searchBar.warehouseNumber) {
               _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
+          }
+          if (!!$scope.searchBar.shipServiceId){
+              _options["shipServiceId"] = $scope.searchBar.shipServiceId;
+          }
+          if ($scope.searchBar.isFastOrder == true){
+              _options["isFastOrder"] = 1;
           }
           if (!!$scope.searchBar.keywords) {
               _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
