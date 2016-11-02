@@ -155,7 +155,10 @@ angular.module('culAdminApp')
           tip: null,
           childs: [
               { title: "操作记录", icon: null, url: "/system/operationloglist" },
-              { title: "登录记录", icon: null, url: "/system/loginloglist" }
+              { title: "登录记录", icon: null, url: "/system/loginloglist" },
+              { title: "角色管理", icon: null, url: "/system/rolelist" },
+              { title: "用户组管理", icon: null, url: "/system/usergrouplist" },
+              { title: "用户管理", icon: null, url: "/system/userlist" },
           ]
       } /*{
           title: "报表管理",

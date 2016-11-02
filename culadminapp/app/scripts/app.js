@@ -254,6 +254,14 @@ angular
               templateUrl: 'views/system/loginloglist.html',
               controller: 'SystemLoginLogListCtrl'
           })
+          .when('/system/rolelist', {
+              templateUrl: 'views/system/rolelist.html',
+              controller: 'SysRoleListCtrl'
+          })
+          .when('/system/editrole', {
+              templateUrl: 'views/system/editrole.html',
+              controller: 'SysRoleEditCtrl'
+          })
         .otherwise({
             redirectTo: '/'
         });

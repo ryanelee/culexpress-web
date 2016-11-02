@@ -1,0 +1,126 @@
+<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i>角色操作</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">角色名称：</label>
+                <div class="col-sm-10 text-left">
+                    <input id="txtRoleName" type="text" class="form-control" placeholder="角色名称" ng-model="form.roleName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">角色描述：</label>
+                <div class="col-sm-10 text-left">
+                  <input id="txtRoleDescribe" type="text" class="form-control" placeholder="快递单号" ng-model="form.roleDescribe">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2  text-right">状态：</label>
+                <div class="col-sm-10 text-left">
+                  <label>
+                    <input type="radio" name="optionsRadios" id="status1" value="1" ng-model="form.status">
+                    启用
+                  </label> &nbsp;
+                  <label>
+                    <input type="radio" name="optionsRadios" id="status2" value="2" ng-model="form.status">
+                    禁用
+                  </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2  text-right">可访问仓库：</label>
+                <div class="col-sm-10 text-left">
+                    <label class="checkbox-inline" ng-repeat="item in warehouseList" >
+                      <input type="checkbox" name="selectedWareHouse[]"
+                        value="{{item.warehouseNumber}}"
+                        ng-checked="selection.indexOf(item.warehouseNumber) > -1"
+                        ng-click="toggleSelection(item.warehouseNumber)">
+                      {{item.warehouseName}}
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">可管理客户：</label>
+                <div class="col-sm-10 text-left">
+                  <label>
+                    <input type="radio" name="customers" id="customerAll" value="0" ng-model="customers">
+                    所有客户
+                  </label> <br />
+                  <label>
+                    <input type="radio" name="customers" id="customer2" value="2" ng-model="customers">
+                    指定客户编号
+                  </label>
+                  <input type="text" ng-model="customerNumber">
+                  <button type="button" class="btn btn-info btn-sm" ng-click="addCustomer()">添加</button>
+                  <br/>
+                  <a ng-repeat="num in selCNumbers">{{num}}  &nbsp; </a>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">分配功能：</label>
+                <div class="col-sm-10 text-left functions">
+                    <ul class="firstul">
+                      <li ng-repeat="row in functions">
+                        <p>
+                          <span ng-click="row.close = !row.close">
+                            <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !row.close, 'glyphicon-chevron-down': row.close}"></i>
+                            {{row.functionName}} &nbsp;
+                          </span> &nbsp;
+                          <label>
+                            <input type="radio" name="func{{row.functionID}}" value="1" ng-model="row.status">
+                            启用
+                          </label> &nbsp;
+                          <label>
+                            <input type="radio" name="func{{row.functionID}}" value="2" ng-model="row.status">
+                            禁用
+                          </label>
+                        </p>
+                          <ul ng-show="!row.close">
+                            <li ng-repeat="child in row.childs">
+                              <p>
+                                <span ng-click="child.close = !child.close">
+                                  <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !child.close, 'glyphicon-chevron-down': child.close}"></i>
+                                  {{child.functionName}} &nbsp;
+                                </span> &nbsp;
+                                <label>
+                                  <input type="radio" name="func{{child.functionID}}" value="1" ng-model="child.status">
+                                  启用
+                                </label> &nbsp;
+                                <label>
+                                  <input type="radio" name="func{{child.functionID}}" value="2" ng-model="child.status">
+                                  禁用
+                                </label>
+                              </p>
+                              <ul ng-show="!child.close">
+                                <li ng-repeat="item in child.childs">
+                                  <p>
+                                    {{item.functionName}} &nbsp; &nbsp;
+                                    <label>
+                                      <input type="radio" name="func{{item.functionID}}" value="1" ng-model="item.status">
+                                      启用
+                                    </label> &nbsp;
+                                    <label>
+                                      <input type="radio" name="func{{item.functionID}}" value="2" ng-model="item.status">
+                                      禁用
+                                    </label>
+                                  </p>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-click="saveRole()">保存</button>
+                    <a class="btn btn-link" href="javascript:void(0);" ng-click="back()">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<print-inbound-package></print-inbound-package>

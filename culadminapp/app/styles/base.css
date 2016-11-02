@@ -58,3 +58,12 @@ a {
     a:hover {
         color: #33799F;
     }
+
+.firstul {
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.functions li {
+  list-style: none;
+}
