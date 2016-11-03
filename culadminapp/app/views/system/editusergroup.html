@@ -1,0 +1,49 @@
+<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i>用户组操作</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">用户组名称：</label>
+                <div class="col-sm-10 text-left">
+                    <input id="txtRoleName" type="text" class="form-control" placeholder="角色名称" ng-model="form.name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">用户组描述：</label>
+                <div class="col-sm-10 text-left">
+                  <input id="txtRoleDescribe" type="text" class="form-control" placeholder="快递单号" ng-model="form.describe">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2  text-right">角色：</label>
+                <div class="col-sm-10 text-left">
+                    <select ng-model="form.role_id" >
+                        <option ng-repeat="item in roles" value="{{item.role_id}}">{{item.role_name}}</options>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2  text-right">状态：</label>
+                <div class="col-sm-10 text-left">
+                  <label>
+                    <input type="radio" name="optionsRadios" id="status1" value="1" ng-model="form.status">
+                    启用
+                  </label> &nbsp;
+                  <label>
+                    <input type="radio" name="optionsRadios" id="status2" value="2" ng-model="form.status">
+                    禁用
+                  </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-click="saveRole()">保存</button>
+                    <a class="btn btn-link" href="javascript:void(0);" ng-click="back()">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<print-inbound-package></print-inbound-package>

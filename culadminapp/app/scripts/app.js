@@ -262,6 +262,14 @@ angular
               templateUrl: 'views/system/editrole.html',
               controller: 'SysRoleEditCtrl'
           })
+          .when('/system/usergrouplist', {
+              templateUrl: 'views/system/usergrouplist.html',
+              controller: 'SysUserGroupListCtrl'
+          })
+          .when('/system/editusergroup', {
+              templateUrl: 'views/system/editusergroup.html',
+              controller: 'SysUserGroupEditCtrl'
+          })
         .otherwise({
             redirectTo: '/'
         });

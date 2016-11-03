@@ -8,7 +8,14 @@
  * Service in the culAdminApp.
  */
 angular.module('culAdminApp')
-  .service('menuInfoService', ["$rootScope", function ($rootScope) {
+  .service('menuInfoService', ["$rootScope", "sysroleService", "$window",
+    function ($rootScope, sysroleService, $window) {
+      var _menus = [];
+      if ($window.sessionStorage.getItem('menus')) {
+          _menus = $window.sessionStorage.getItem('menus');
+      } else {
+
+      }
       var self = this;
       var _menus = [{
           key: "customer_management",
@@ -160,12 +167,7 @@ angular.module('culAdminApp')
               { title: "用户组管理", icon: null, url: "/system/usergrouplist" },
               { title: "用户管理", icon: null, url: "/system/userlist" },
           ]
-      } /*{
-          title: "报表管理",
-          icon: "fa-bar-chart",
-          url: null,
-          tip: null
-      }*/]
+      }]
 
       self.getMenus = function () {
           var userInfo = $rootScope.userInfo,
