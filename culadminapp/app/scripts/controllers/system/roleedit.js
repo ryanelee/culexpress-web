@@ -16,6 +16,14 @@ angular.module('culAdminApp')
             'Karma'
           ];
 
+          // 如果是编辑
+          $scope.roleId = $location.search().roleId;
+          if ($scope.roleId) {
+              sysroleService.getDetail($scope.roleId, function (result) {
+                  console.log(result);
+              });
+          }
+
           // 提交表单的数据
           $scope.form = {
               roleName: '',
@@ -38,20 +46,6 @@ angular.module('culAdminApp')
               detail: [],
               packageList: []
           };
-
-          $scope.tpl_status = {
-              actionType: "bucket", //bucket; package;
-              bucketNumber: $location.search().bucketNumber || "",
-              readonly: $location.search().readonly || ""
-          }
-
-          if (!!$scope.tpl_status.bucketNumber) {
-              bucketService.getDetail($scope.tpl_status.bucketNumber, function (result) {
-                  $scope.data = result;
-              });
-              $("#bucket-title").text("编辑" + $scope.tpl_status.bucketNumber);
-          }
-
           // 获取功能菜单列表
           sysroleService.getFunctionList({}, function(result) {
               var functions = [];
@@ -127,7 +121,11 @@ angular.module('culAdminApp')
               }
           }
 
-          $scope.saveRole = function (type) {
+          /**
+           * 保存角色数据
+           * @return {[type]}      [description]
+           */
+          $scope.saveRole = function () {
               if (!$scope.form.roleName) {
                   plugMessenger.info("请输入角色名称!");
                   return;
@@ -152,6 +150,7 @@ angular.module('culAdminApp')
               })
           }
 
+          // 返回列表
           $scope.back = function () {
               $location.path('/system/rolelist');
           }

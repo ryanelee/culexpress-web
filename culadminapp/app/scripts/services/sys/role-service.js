@@ -27,7 +27,7 @@ angular.module('culAdminApp')
 
       //查询总单列表
       self.getList = function (options, callback) {
-          $http.get(cul.apiPath + "/role", options).success(function (result) {
+          $http.post(cul.apiPath + "/role/list", options).success(function (result) {
               callback(result);
           })
       }

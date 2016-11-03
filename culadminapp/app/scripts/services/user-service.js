@@ -65,6 +65,13 @@ angular.module('culAdminApp')
           if (!!callback) callback();
       }
 
+      // 添加用户
+      self.addUser = function (userInfo, callback) {
+        $http.post(cul.apiPath + "/user/login", userInfo).success(function (result) {
+            callback(result);
+        });
+      }
+
       self.getUserInfo = function () {
           var _userInfo = sessionStorage.getItem(userInfoKey) || localStorage.getItem(userInfoKey)
           if (!!_userInfo) _userInfo = JSON.parse(_userInfo);
