@@ -25,14 +25,14 @@ angular.module('culAdminApp')
           /*search bar*/
           $scope.searchBar = {
               status: "",
-              userGroupName: ""
+              name: ""
           }
 
           $scope.getData = function () {
               var _options = {
                   "pageInfo": $scope.pagination,
                   'status': $scope.searchBar.status,
-                  'userGroupName': $scope.searchBar.userGroupName
+                  'name': $scope.searchBar.name
               }
               ugService.getList(_options, function (result) {
                   $scope.dataList = result.data;

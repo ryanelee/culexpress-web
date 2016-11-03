@@ -21,9 +21,17 @@ angular.module('culAdminApp')
               name: '',
               describe: '',
               status: '1',
-              role_id: ''
+              role_id: 0
           }
           $scope.roles = []
+
+          // 获取权限列表
+          sysroleService.getList({}, function(result) {
+              $scope.roles = result.data;
+              if (result.data.length > 0 && !$scope.groupId) {
+                  $scope.form.role_id = result.data[0].role_id;
+              }
+          })
 
           // 如果是编辑
           $scope.groupId = $location.search().groupId;
@@ -37,11 +45,6 @@ angular.module('culAdminApp')
                   }
               });
           }
-
-          // 获取权限列表
-          sysroleService.getRoleList({}, function(result) {
-              $scope.roles = result;
-          })
 
           /**
            * 保存角色数据
@@ -60,19 +63,23 @@ angular.module('culAdminApp')
                   plugMessenger.info("请选择角色!");
                   return;
               }
-              if (groupId) {
+              if ($scope.groupId) {
                   $scope.form.group_id = groupId;
                   ugService.update($scope.form, function(res) {
-                      if (!result.message) {
+                      if (!res.message) {
                           plugMessenger.success("保存成功");
                           $window.history.back();
+                      } else {
+                        plugMessenger.success(result.message);
                       }
                   })
               } else {
                   ugService.create($scope.form, function(res) {
-                      if (!result.message) {
+                      if (!res.message) {
                           plugMessenger.success("保存成功");
                           $window.history.back();
+                      } else {
+                        plugMessenger.success(result.message);
                       }
                   })
               }
