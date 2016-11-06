@@ -38,9 +38,9 @@ angular.module('culAdminApp')
           if ($scope.groupId) {
               ugService.getDetail($scope.groupId, function (result) {
                   if (!result.message) {
-                      $scope.form.name = result.name;
-                      $scope.form.describe = result.describe;
-                      $scope.form.status = result.status;
+                      $scope.form.name = result.gname;
+                      $scope.form.describe = result.gdescribe;
+                      $scope.form.status = result.gstatus;
                       $scope.form.role_id = result.role_id;
                   }
               });
@@ -64,9 +64,9 @@ angular.module('culAdminApp')
                   return;
               }
               if ($scope.groupId) {
-                  $scope.form.group_id = groupId;
+                  $scope.form.group_id = $scope.groupId;
                   ugService.update($scope.form, function(res) {
-                      if (!res.message) {
+                      if (res.changedRows) {
                           plugMessenger.success("保存成功");
                           $window.history.back();
                       } else {
@@ -87,7 +87,7 @@ angular.module('culAdminApp')
 
           // 返回列表
           $scope.back = function () {
-              $location.path('/system/rolelist');
+              $location.path('/system/usergrouplist');
           }
 
       }]);

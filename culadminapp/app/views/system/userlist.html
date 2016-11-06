@@ -1,0 +1,81 @@
+<div class="widget widget-table">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i>用户管理</h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-sm-12" style="padding:0 20px 15px 12px;">
+                <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="addReceipt();">添加用户</button>
+            </div>
+            <div class="col-sm-12 search-bar">
+                <div class="clearfix"></div>
+                <div class="search-col">
+                    <label class="search-label">状态:</label>
+                    <select class="form-control search-control" ng-model="searchBar.active">
+                        <option value="">所有</option>
+                        <option value="1">已激活</option>
+                        <option value="0">未激活</option>
+                        <option value="-1">已禁用</option>
+                    </select> &nbsp;
+                    <label class="search-label">用户名称:</label>
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:400px;" placeholder="请输入查询关键字" ng-model="searchBar.userName" />
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="min-width:100px;">用户名</th>
+                            <th style="min-width:100px;">邮箱</th>
+                            <th style="min-width:100px;">客户编号</th>
+                            <th style="min-width:50px;">状态</th>
+                            <th style="min-width:100px;">用户组</th>
+                            <th style="min-width:100px;">角色名</th>
+                            <th style="min-width:100px;">国家码</th>
+                            <th style="min-width:100px;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in dataList">
+                            <td>{{item.userName}}</td>
+                            <td>{{item.emailAddress}}</td>
+                            <td>{{item.customerNumber}}</td>
+                            <td>{{item.active | activeStr}}</td>
+                            <td>{{item.gname}}</td>
+                            <td>{{item.role_name}}</td>
+                            <td>{{item.countryCode}}</td>
+                            <td>
+                                <a href="javascript:void(0);" ng-click="edit(item.userID)">修改</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-12 text-right">
+                        <uib-pagination class="pagination pagination-rewrite pull-right"
+                                        boundary-links="true"
+                                        max-size="5"
+                                        total-items="pagination.totalCount"
+                                        items-per-page="pagination.pageSize"
+                                        ng-model="pagination.pageIndex"
+                                        ng-change="getData()"
+                                        previous-text="上一页"
+                                        next-text="下一页"
+                                        first-text="首页"
+                                        last-text="尾页">
+                        </uib-pagination>
+                        <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

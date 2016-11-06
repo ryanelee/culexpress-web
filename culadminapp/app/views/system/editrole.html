@@ -32,10 +32,10 @@
             <div class="form-group">
                 <label class="col-sm-2  text-right">可访问仓库：</label>
                 <div class="col-sm-10 text-left">
-                    <label class="checkbox-inline" ng-repeat="item in warehouseList" >
+                    <label class="checkbox-inline" ng-repeat="item in warehouseList">
                       <input type="checkbox" name="selectedWareHouse[]"
                         value="{{item.warehouseNumber}}"
-                        ng-checked="selection.indexOf(item.warehouseNumber) > -1"
+                        ng-checked="warehouseIds.indexOf(item.warehouseNumber) > -1"
                         ng-click="toggleSelection(item.warehouseNumber)">
                       {{item.warehouseName}}
                     </label>
@@ -49,7 +49,7 @@
                     所有客户
                   </label> <br />
                   <label>
-                    <input type="radio" name="customers" id="customer2" value="2" ng-model="customers">
+                    <input type="radio" name="customers" id="customer2" value="1" ng-model="customers">
                     指定客户编号
                   </label>
                   <input type="text" ng-model="customerNumber">

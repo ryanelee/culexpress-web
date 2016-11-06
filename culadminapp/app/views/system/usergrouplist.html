@@ -40,12 +40,12 @@
                     <tbody>
                         <tr ng-repeat="item in dataList">
                             <td>{{item.group_id}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.describe}}</td>
-                            <td>{{item.status == 0 ? '禁用' : '启用'}}</td>
+                            <td>{{item.gname}}</td>
+                            <td>{{item.gdescribe}}</td>
+                            <td>{{item.gstatus == 0 ? '禁用' : '启用'}}</td>
                             <td>{{item.role_name}}</td>
                             <td>{{item.updater}}</td>
-                            <td>{{item.update_times | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                            <td>{{item.update_time | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                             <td>
                                 <a href="javascript:void(0);" ng-click="edit(item.group_id)">修改</a> &nbsp;
                                 <a href="javascript:void(0);" ng-click="edit(item.group_id)">查看用户列表</a>

@@ -20,7 +20,7 @@ angular.module('culAdminApp')
 
       //修改角色
       self.update = function (options, callback) {
-          $http.PUT(cul.apiPath + "/role", options).success(function (result) {
+          $http.put(cul.apiPath + "/role", options).success(function (result) {
               callback(result);
           })
       }

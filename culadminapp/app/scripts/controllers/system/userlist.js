@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc function
- * @name culAdminApp.controller:SysRoleListCtrl
+ * @name culAdminApp.controller:UserListCtrl
  * @description
- * # SysRoleListCtrl
+ * # UserListCtrl
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('SysRoleListCtrl', ["$scope", "$location", "sysroleService", "plugMessenger",
-      function ($scope, $location, sysroleService, plugMessenger) {
+  .controller('UserListCtrl', ["$scope", "$location", "userService", "plugMessenger",
+      function ($scope, $location, userService, plugMessenger) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -24,17 +24,18 @@ angular.module('culAdminApp')
           }
           /*search bar*/
           $scope.searchBar = {
-              status: "",
-              roleName: ""
+              active: "",
+              userName: ""
           }
 
           $scope.getData = function () {
               var _options = {
                   "pageInfo": $scope.pagination,
-                  'status': $scope.searchBar.status,
-                  'roleName': $scope.searchBar.roleName
+                  'active': $scope.searchBar.active,
+                  'userName': $scope.searchBar.userName
               }
-              sysroleService.getList(_options, function (result) {
+              userService.getList(_options, function (result) {
+                console.log(result);
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
               });
@@ -48,13 +49,23 @@ angular.module('culAdminApp')
           }
 
           $scope.addReceipt = function () {
-              $location.path('/system/editrole');
+              $location.path('/system/edituser');
           }
 
           $scope.edit = function (id) {
-              $location.search({ roleId: id });
-              $location.path('/system/editrole');
+              $location.search({ userId: id });
+              $location.path('/system/edituser');
           }
 
           $scope.getData();
-      }]);
+      }]).filter('activeStr',function(){
+        return function(active){
+            var str = '已激活';
+            if (active == 0) {
+              str = '未激活';
+            } else if (active == '-1') {
+              str = '已禁用'
+            }
+            return str;
+        }
+    });

@@ -20,7 +20,7 @@ angular.module('culAdminApp')
 
       //修改用户组
       self.update = function (options, callback) {
-          $http.PUT(cul.apiPath + "/user_group", options).success(function (result) {
+          $http.put(cul.apiPath + "/user_group", options).success(function (result) {
               callback(result);
           })
       }

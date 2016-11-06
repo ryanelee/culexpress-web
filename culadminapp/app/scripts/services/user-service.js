@@ -71,10 +71,18 @@ angular.module('culAdminApp')
 
       // 添加用户
       self.addUser = function (userInfo, callback) {
-        $http.post(cul.apiPath + "/user/login", userInfo).success(function (result) {
+        $http.post(cul.apiPath + "/user", userInfo).success(function (result) {
             callback(result);
         });
       }
+
+      // 更新用户
+      self.update = function (userInfo, callback) {
+        $http.put(cul.apiPath + "/user", userInfo).success(function (result) {
+            callback(result);
+        });
+      }
+
 
       self.getUserInfo = function () {
           var _userInfo = sessionStorage.getItem(userInfoKey) || localStorage.getItem(userInfoKey)
@@ -86,6 +94,20 @@ angular.module('culAdminApp')
           $http.put(cul.apiPath + "/user/password/reset/default").success(function (result) {
               callback(result);
           });
+      }
+
+      //查询用户列表
+      self.getList = function (options, callback) {
+          $http.post(cul.apiPath + "/user/list", options).success(function (result) {
+              callback(result);
+          })
+      }
+
+      //查询角色详情
+      self.getDetail = function (role_id, callback) {
+          $http.get(cul.apiPath + "/user/" + role_id).success(function (result) {
+              callback(result);
+          })
       }
 
       $.extend(true, window.cul, {

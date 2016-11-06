@@ -52,7 +52,8 @@ angular.module('culAdminApp')
           }
 
           $scope.edit = function (id) {
-              $location.path('/system/editusergroup?goupId='+ id);
+              $location.search({ groupId: id });
+              $location.path('/system/editusergroup');
           }
 
           $scope.getData();

@@ -11,11 +11,10 @@ angular.module('culAdminApp')
   .service('menuInfoService', ["$rootScope", "sysroleService", "$window",
     function ($rootScope, sysroleService, $window) {
       var _menus = [];
-      if ($window.sessionStorage.getItem('menus')) {
-          _menus = $window.sessionStorage.getItem('menus');
-      } else {
-
+      if ($window.sessionStorage.getItem('functions')) {
+          _menus = $window.sessionStorage.getItem('functions');
       }
+      
       var self = this;
       var _menus = [{
           key: "customer_management",

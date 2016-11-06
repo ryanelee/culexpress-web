@@ -16,14 +16,6 @@ angular.module('culAdminApp')
             'Karma'
           ];
 
-          // 如果是编辑
-          $scope.roleId = $location.search().roleId;
-          if ($scope.roleId) {
-              sysroleService.getDetail($scope.roleId, function (result) {
-                  console.log(result);
-              });
-          }
-
           // 提交表单的数据
           $scope.form = {
               roleName: '',
@@ -35,24 +27,24 @@ angular.module('culAdminApp')
               updater: 'test'
           }
 
-          // 定义参数
-          $scope.warehouseIds = [];
-          $scope.customers = '0';
-          $scope.customerNumber = '';
+          let funcs = null
+          if (sessionStorage.getItem('functions')) {
+              funcs = JSON.parse(sessionStorage.getItem('functions'))
+          }
 
-          $scope.selCNumbers = [];
-
-          $scope.data = {
-              detail: [],
-              packageList: []
-          };
-          // 获取功能菜单列表
-          sysroleService.getFunctionList({}, function(result) {
+          // 初始化菜单
+          let initFunc = function(userFn) {
               var functions = [];
               var funcObj = {};
-              result.forEach(function(item) {
-                  // 默认启用
-                  item.status = 1;
+              funcs.forEach(function(item) {
+                  // 根据保存的权限来匹配
+                  if (userFn) {
+                      item.status = userFn[item.functionID]
+                  } else {
+                    // 默认启用
+                    item.status = 1;
+                  }
+
                   // 菜单收起
                   if (item.type == 1) {
                       item.close = true;
@@ -69,12 +61,36 @@ angular.module('culAdminApp')
                   }
               })
               $scope.functions = functions;
-          })
+          }
+
+          // 如果是编辑
+          $scope.roleId = $location.search().roleId;
+          if ($scope.roleId) {
+              sysroleService.getDetail($scope.roleId, function (result) {
+                  if (!result.message) {
+                      $scope.form.roleName = result.role_name;
+                      $scope.form.roleDescribe = result.role_describe;
+                      $scope.form.status = result.status;
+                      $scope.warehouseIds = result.warehouse_ids.split(',').map(function(item) {return parseInt(item)});
+                      $scope.form.customerIds = result.role_name;
+                      $scope.selCNumbers = result.customer_ids.split(',');
+                      $scope.customers = result.customer_ids != 0 ? 1 : 0;
+                      let userFunctions = JSON.parse(result.functions);
+                      initFunc(userFunctions)
+                  }
+              });
+          } else {
+              // 定义参数
+              $scope.warehouseIds = [];
+              $scope.customers = '0';
+              $scope.customerNumber = '';
+              $scope.selCNumbers = [];
+              initFunc()
+          }
 
           // 获取仓库列表
           warehouseService.getWarehouse(function (result) {
               $scope.warehouseList = result;
-              $scope.data.warehouseNumber = $scope.warehouseList[0].warehouseNumber;
           });
 
           // 选择仓库
@@ -134,20 +150,33 @@ angular.module('culAdminApp')
                   plugMessenger.info("请输入角色描述!");
                   return;
               }
+              //仓库
               $scope.form.warehouseIds = $scope.warehouseIds.join(',');
-              $scope.form.customerIds = $scope.selCNumbers.join(',');
+              // 客户
+              $scope.form.customerIds = $scope.customers === '0' ? 0 : $scope.selCNumbers.join(',');
+              // 菜单角色
               var funcs = {};
               $scope.functions.forEach(function(item) {
                   funcs[item.functionID] = item.status
                   getFuncStatus(item, funcs)
               })
               $scope.form.functions = JSON.stringify(funcs)
-              sysroleService.create($scope.form, function(res) {
-                  if (!result.message) {
-                      plugMessenger.success("保存成功");
-                      $window.history.back();
-                  }
-              })
+              if ($scope.roleId) {
+                  $scope.form.role_id = $scope.roleId;
+                  sysroleService.update($scope.form, function(res) {
+                      if (res.changedRows) {
+                          plugMessenger.success("保存成功");
+                          $window.history.back();
+                      }
+                  })
+              } else {
+                  sysroleService.create($scope.form, function(res) {
+                      if (!res.message) {
+                          plugMessenger.success("保存成功");
+                          $window.history.back();
+                      }
+                  })
+              }
           }
 
           // 返回列表
