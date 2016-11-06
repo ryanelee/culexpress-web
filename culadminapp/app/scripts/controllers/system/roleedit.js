@@ -73,7 +73,9 @@ angular.module('culAdminApp')
                       $scope.form.status = result.status;
                       $scope.warehouseIds = result.warehouse_ids.split(',').map(function(item) {return parseInt(item)});
                       $scope.form.customerIds = result.role_name;
-                      $scope.selCNumbers = result.customer_ids.split(',');
+                      if (result.customer_ids != 0) {
+                          $scope.selCNumbers = result.customer_ids.split(',');
+                      }
                       $scope.customers = result.customer_ids != 0 ? 1 : 0;
                       let userFunctions = JSON.parse(result.functions);
                       initFunc(userFunctions)
@@ -153,7 +155,7 @@ angular.module('culAdminApp')
               //仓库
               $scope.form.warehouseIds = $scope.warehouseIds.join(',');
               // 客户
-              $scope.form.customerIds = $scope.customers === '0' ? 0 : $scope.selCNumbers.join(',');
+              $scope.form.customerIds = $scope.customers == 0 ? 0 : $scope.selCNumbers.join(',');
               // 菜单角色
               var funcs = {};
               $scope.functions.forEach(function(item) {

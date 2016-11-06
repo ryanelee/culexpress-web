@@ -66,7 +66,7 @@
                         <p>
                           <span ng-click="row.close = !row.close">
                             <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !row.close, 'glyphicon-chevron-down': row.close}"></i>
-                            {{row.functionName}} &nbsp;
+                            {{row.title}} &nbsp;
                           </span> &nbsp;
                           <label>
                             <input type="radio" name="func{{row.functionID}}" value="1" ng-model="row.status">
@@ -82,7 +82,7 @@
                               <p>
                                 <span ng-click="child.close = !child.close">
                                   <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !child.close, 'glyphicon-chevron-down': child.close}"></i>
-                                  {{child.functionName}} &nbsp;
+                                  {{child.title}} &nbsp;
                                 </span> &nbsp;
                                 <label>
                                   <input type="radio" name="func{{child.functionID}}" value="1" ng-model="child.status">
@@ -96,7 +96,7 @@
                               <ul ng-show="!child.close">
                                 <li ng-repeat="item in child.childs">
                                   <p>
-                                    {{item.functionName}} &nbsp; &nbsp;
+                                    {{item.title}} &nbsp; &nbsp;
                                     <label>
                                       <input type="radio" name="func{{item.functionID}}" value="1" ng-model="item.status">
                                       启用

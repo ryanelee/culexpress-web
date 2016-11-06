@@ -17,7 +17,6 @@ angular.module('culAdminApp')
               link: function postLink($scope, $element, attrs) {
                   $scope.menus = menuInfoService.getMenus();
                   $scope.currentMenu = menuInfoService.getMenuInfo($location.path()).menu;
-
                   $scope.btnChangeRouter = function (menu) {
                       if (!menu.url) return;
                       $scope.currentMenu = menu;

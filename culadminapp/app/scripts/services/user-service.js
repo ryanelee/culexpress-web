@@ -64,6 +64,9 @@ angular.module('culAdminApp')
           localStorage.removeItem(userInfoKey);
           sessionStorage.removeItem(userInfoKey);
           localStorage.removeItem("token");
+          sessionStorage.removeItem("functions");
+          sessionStorage.removeItem("group");
+          sessionStorage.removeItem("role");
           sessionStorage.removeItem("token");
           $rootScope.userInfo = null;
           if (!!callback) callback();
