@@ -2,7 +2,7 @@
     <!-- main-nav -->
     <nav class="main-nav">
         <ul class="main-menu">
-            <li ng-repeat="menu in menus" ng-class="{'active':currentMenu.title == menu.title}" ng-if="!menu.hidden">
+            <li ng-repeat="menu in menus track by $index" ng-class="{'active':currentMenu.title == menu.title}">
                 <a href="javascript:void(0);" ng-class="{'js-sub-menu-toggle': !menu.url}">
                     <i class="fa {{menu.icon}} fa-fw"></i><span class="text">
                         {{menu.title}}
@@ -11,8 +11,8 @@
                     <i class="toggle-icon fa fa-angle-left"></i>
                 </a>
                 <ul class="sub-menu" ng-if="menu.childs.length > 0">
-                    <li ng-repeat="child in menu.childs"
-                        ng-class="{'active': currentMenu.title == child.title}" ng-if="!child.hidden">
+                    <li ng-repeat="child in menu.childs track by $index"
+                        ng-class="{'active': currentMenu.title == child.title}">
                         <a href="javascript:void(0);" ng-click="btnChangeRouter(child)">
                             <span class="text">{{child.title}}</span>
                             <span class="badge element-bg-color-blue">{{child.tip}}</span>

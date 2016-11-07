@@ -20,5 +20,5 @@ angular
                 $('#txtTrackingNumber').val('');
             }
         });
-       
+
     }]);

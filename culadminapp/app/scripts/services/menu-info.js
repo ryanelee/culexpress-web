@@ -200,16 +200,17 @@ angular.module('culAdminApp')
           _menus.forEach(function(item) {
               // 根据保存的权限来匹配
               if (_funcs[item.functionID] == 1) {
+                funcObj[item.functionID] = item
                 if (!item.parentFunctionID) {
-                    funcObj[item.functionID] = item
-                    functions.push(item)
+                  functions.push(item)
                 } else {
-                    funcObj[item.functionID] = item
                     if (!funcObj[item.parentFunctionID].childs) {
                         funcObj[item.parentFunctionID].childs = []
                     }
                     funcObj[item.parentFunctionID].childs.push(item)
-                }
+              }
+              } else {
+                  funcObj[item.functionID] = {}
               }
           })
           return angular.copy(functions);
