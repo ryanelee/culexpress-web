@@ -11,7 +11,7 @@
                 <div class="clearfix"></div>
                 <div class="search-col">
                     <label class="search-label">状态:</label>
-                    <select class="form-control search-control" ng-model="searchBar.status">
+                    <select class="form-control search-control" ng-model="searchBar.status" ng-change="btnSearch()">
                       <option value="">所有</option>
                         <option value="1">启用</option>
                         <option value="0">禁用</option>
@@ -37,8 +37,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in dataList">
-                            <td>{{item.role_id}}</td>
+                        <tr ng-repeat="item in dataList track by $index">
+                            <td>{{$index + 1}}</td>
                             <td>{{item.role_name}}</td>
                             <td>{{item.role_describe}}</td>
                             <td>{{item.status == 0 ? '禁用' : '启用'}}</td>
@@ -46,6 +46,7 @@
                             <td>{{item.update_times | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                             <td>
                                 <a href="javascript:void(0);" ng-click="edit(item.role_id)">修改</a>
+                                <a href="javascript:void(0);" ng-click="del(item.role_id)">删除</a>
                             </td>
                         </tr>
                     </tbody>

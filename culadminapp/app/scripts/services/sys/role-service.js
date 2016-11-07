@@ -25,6 +25,13 @@ angular.module('culAdminApp')
           })
       }
 
+      //删除角色
+      self.delete = function (role_id, callback) {
+          $http.delete(cul.apiPath + "/role?role_id="+role_id, {}).success(function (result) {
+              callback(result);
+          })
+      }
+
       //查询角色列表
       self.getList = function (options, callback) {
           $http.post(cul.apiPath + "/role/list", options).success(function (result) {

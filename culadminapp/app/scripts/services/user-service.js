@@ -86,6 +86,13 @@ angular.module('culAdminApp')
         });
       }
 
+      // 更新用户
+      self.delete = function (ids, callback) {
+        $http.delete(cul.apiPath + "/user?userIds="+ ids, {}).success(function (result) {
+            callback(result);
+        });
+      }
+
 
       self.getUserInfo = function () {
           var _userInfo = sessionStorage.getItem(userInfoKey) || localStorage.getItem(userInfoKey)

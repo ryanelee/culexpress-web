@@ -69,8 +69,6 @@ angular.module('culAdminApp')
                       if (res.changedRows) {
                           plugMessenger.success("保存成功");
                           $window.history.back();
-                      } else {
-                        plugMessenger.success(result.message);
                       }
                   })
               } else {
@@ -78,8 +76,6 @@ angular.module('culAdminApp')
                       if (!res.message) {
                           plugMessenger.success("保存成功");
                           $window.history.back();
-                      } else {
-                        plugMessenger.success(result.message);
                       }
                   })
               }

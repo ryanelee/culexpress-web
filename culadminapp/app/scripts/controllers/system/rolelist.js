@@ -56,5 +56,14 @@ angular.module('culAdminApp')
               $location.path('/system/editrole');
           }
 
+          // 删除用户
+          $scope.del = function(id) {
+            sysroleService.delete(id, function(res) {
+                if (res.success) {
+                    plugMessenger.success("删除成功");
+                    $scope.getData();
+                }
+            })
+          }
           $scope.getData();
       }]);

@@ -56,5 +56,20 @@ angular.module('culAdminApp')
               $location.path('/system/editusergroup');
           }
 
+          $scope.show = function (id) {
+              $location.search({ groupId: id });
+              $location.path('/system/uglist');
+          }
+
+          // 删除用户
+          $scope.del = function(id) {
+            ugService.delete(id, function(res) {
+                if (res.success) {
+                    plugMessenger.success("删除成功");
+                    $scope.getData();
+                }
+            })
+          }
+
           $scope.getData();
       }]);

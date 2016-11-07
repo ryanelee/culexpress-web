@@ -4,26 +4,6 @@
     </div>
     <div class="widget-content">
         <div class="row">
-            <div class="col-sm-12" style="padding:0 20px 15px 12px;">
-                <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="addReceipt();">添加用户</button>
-            </div>
-            <div class="col-sm-12 search-bar">
-                <div class="clearfix"></div>
-                <div class="search-col">
-                    <label class="search-label">状态:</label>
-                    <select class="form-control search-control" ng-model="searchBar.active" ng-change="btnSearch()">
-                        <option value="">所有</option>
-                        <option value="1">已激活</option>
-                        <option value="0">未激活</option>
-                        <option value="-1">已禁用</option>
-                    </select> &nbsp;
-                    <label class="search-label">用户名称:</label>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:400px;" placeholder="请输入查询关键字" ng-model="searchBar.userName" />
-                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-sm-12">
                 <table class="table table-bordered">
                     <thead>
@@ -36,7 +16,6 @@
                             <th style="min-width:100px;">用户组</th>
                             <th style="min-width:100px;">角色名</th>
                             <th style="min-width:100px;">国家码</th>
-                            <th style="min-width:100px;">操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,10 +28,6 @@
                             <td>{{item.gname}}</td>
                             <td>{{item.role_name}}</td>
                             <td>{{item.countryCode}}</td>
-                            <td>
-                                <a href="javascript:void(0);" ng-click="edit(item.userID)">修改</a>
-                                <a href="javascript:void(0);" ng-click="del(item.userID)">删除</a>
-                            </td>
                         </tr>
                     </tbody>
                 </table>

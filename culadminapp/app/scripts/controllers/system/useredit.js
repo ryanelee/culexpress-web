@@ -83,12 +83,9 @@ angular.module('culAdminApp')
               if ($scope.userId) {
                   $scope.form.userId = $scope.userId;
                   userService.update($scope.form, function(res) {
-                    console.log(res);
                       if (res.changedRows) {
                           plugMessenger.success("保存成功");
                           $window.history.back();
-                      } else {
-                        plugMessenger.success(res.message);
                       }
                   })
               } else {
@@ -96,8 +93,6 @@ angular.module('culAdminApp')
                       if (!res.message) {
                           plugMessenger.success("保存成功");
                           $window.history.back();
-                      } else {
-                        plugMessenger.success(res.message);
                       }
                   })
               }
@@ -105,7 +100,7 @@ angular.module('culAdminApp')
 
           // 返回列表
           $scope.back = function () {
-              $location.path('/system/usergrouplist');
+              $location.path('/system/userlist');
           }
 
       }]);

@@ -266,6 +266,10 @@ angular
               templateUrl: 'views/system/usergrouplist.html',
               controller: 'SysUserGroupListCtrl'
           })
+          .when('/system/uglist', {
+              templateUrl: 'views/system/uglist.html',
+              controller: 'UGListCtrl'
+          })
           .when('/system/editusergroup', {
               templateUrl: 'views/system/editusergroup.html',
               controller: 'SysUserGroupEditCtrl'

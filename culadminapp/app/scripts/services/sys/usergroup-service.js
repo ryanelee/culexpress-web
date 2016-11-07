@@ -25,6 +25,13 @@ angular.module('culAdminApp')
           })
       }
 
+      //删除用户组
+      self.delete = function (group_id, callback) {
+          $http.delete(cul.apiPath + "/user_group?group_id="+group_id, {}).success(function (result) {
+              callback(result);
+          })
+      }
+
       //查询用户组列表
       self.getList = function (options, callback) {
           $http.post(cul.apiPath + "/user_group/list", options).success(function (result) {

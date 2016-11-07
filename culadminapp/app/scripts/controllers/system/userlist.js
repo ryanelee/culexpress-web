@@ -35,7 +35,6 @@ angular.module('culAdminApp')
                   'userName': $scope.searchBar.userName
               }
               userService.getList(_options, function (result) {
-                console.log(result);
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
               });
@@ -55,6 +54,16 @@ angular.module('culAdminApp')
           $scope.edit = function (id) {
               $location.search({ userId: id });
               $location.path('/system/edituser');
+          }
+
+          // 删除用户
+          $scope.del = function(id) {
+            userService.delete(id, function(res) {
+                if (res.success) {
+                    plugMessenger.success("删除成功");
+                    $scope.getData();
+                }
+            })
           }
 
           $scope.getData();
