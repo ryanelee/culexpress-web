@@ -58,12 +58,16 @@ angular.module('culAdminApp')
 
           // 删除用户
           $scope.del = function(id) {
-            sysroleService.delete(id, function(res) {
-                if (res.success) {
-                    plugMessenger.success("删除成功");
-                    $scope.getData();
+            plugMessenger.confirm("确认删除该角色吗?", function (isOk) {
+                if (isOk) {
+                  sysroleService.delete(id, function(res) {
+                      if (res.success) {
+                          plugMessenger.success("删除成功");
+                          $scope.getData();
+                      }
+                  })
                 }
-            })
+            });
           }
           $scope.getData();
       }]);
