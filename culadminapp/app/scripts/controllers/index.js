@@ -17,5 +17,4 @@ angular.module('culAdminApp')
       $('.content-wrapper').css('min-height', $('.wrapper').outerHeight(true) - $('.top-bar').outerHeight(true));
 
       $scope.userInfo = null;
-
   }]);

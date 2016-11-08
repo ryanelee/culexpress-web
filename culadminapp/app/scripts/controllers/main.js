@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('MainCtrl', ["$scope", "$location", function ($scope, $location) {
+  .controller('MainCtrl', ["$scope", '$window', "$location", function ($scope, $window, $location) {
       this.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -99,6 +99,7 @@ angular.module('culAdminApp')
       //mock data -- END
 
       var userInfo = $scope.$root.userInfo;
+
       $scope.model = {
           numberStat: false,
           customerFlot: false,
@@ -130,7 +131,6 @@ angular.module('culAdminApp')
           //    $scope.model.warehouseTicket = mockdata.warehouseTicketData;
           //    break;
       }
-
 
       $scope.$on("flot.customer.refresh", function (e, options, callback) {
           switch (options.period) {

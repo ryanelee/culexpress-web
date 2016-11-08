@@ -7,8 +7,8 @@
  * # masterTopToolbar
  */
 angular.module('culAdminApp')
-  .directive('masterLeftSidebar', ["$http", "$location", "$timeout", "menuInfoService",
-      function ($http, $location, $timeout, menuInfoService) {
+  .directive('masterLeftSidebar', ["$http", '$rootScope', "$location", "$timeout", "menuInfoService",
+      function ($http,$rootScope, $location, $timeout, menuInfoService) {
           return {
               templateUrl: "views/templates/master/left-sidebar_tpl.html",
               restrict: 'E',
@@ -23,6 +23,11 @@ angular.module('culAdminApp')
                       $location.search({});
                       $location.path(menu.url);
                   }
+
+                  $rootScope.$on("refresh.menus",function(event){
+                    $scope.menus = menuInfoService.getMenus();
+                    $scope.currentMenu = menuInfoService.getMenuInfo($location.path()).menu;
+                  });
 
                   $timeout(function () {
                       /************************

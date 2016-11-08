@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('LoginCtrl', ["$scope", "$element", "userService", "plugMessenger",
-      function ($scope, $element, userService, plugMessenger) {
+  .controller('LoginCtrl', ["$scope", "$rootScope", "$element", "userService", "plugMessenger",
+      function ($scope, $rootScope, $element, userService, plugMessenger) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -27,6 +27,7 @@ angular.module('culAdminApp')
               function (errorMessage) {
                   //success message
                   if (!errorMessage) plugMessenger.success("登录成功");
+                  $rootScope.$broadcast("refresh.menus");
               });
           }
       }]);

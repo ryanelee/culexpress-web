@@ -23,6 +23,7 @@ angular
   .config(["$routeProvider", function ($routeProvider) {
       $routeProvider
         .when('/', {
+            cache: false,
             templateUrl: 'views/main.html',
             controller: 'MainCtrl'
         })
