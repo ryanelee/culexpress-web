@@ -10,7 +10,7 @@
 angular.module('culAdminApp')
   .service('menuInfoService', ["$rootScope", "sysroleService", "$window",
     function ($rootScope, sysroleService, $window) {
-      var funcs = [], role = {},_menus = [], _funcs= {};
+      var funcs = [], role = {},_menus = [], _funcs= {}, _methods=[];
       let setMenu = function () {
         if ($window.sessionStorage.getItem('functions')) {
             funcs = JSON.parse($window.sessionStorage.getItem('functions'));
@@ -19,6 +19,7 @@ angular.module('culAdminApp')
             role = JSON.parse($window.sessionStorage.getItem('role'));
         }
         _menus = _.groupBy(funcs, 'type')[1];
+        _methods = _.groupBy(funcs, 'type')[2];
         _funcs = role.functions ? JSON.parse(role.functions) : {};
       }
 
@@ -46,6 +47,19 @@ angular.module('culAdminApp')
               }
           })
           return angular.copy(functions);
+      }
+
+      // 获取子菜单
+      self.getChildMenus = function(id){
+        setMenu();
+        let menus = _.filter(_methods, function(item) {
+            if (item.parentFunctionID == id) {
+                item.status = _funcs[item.functionID];
+                return item;
+            }
+        });
+
+        return menus;
       }
 
       var _eachMenus = function (url, menus, obj) {

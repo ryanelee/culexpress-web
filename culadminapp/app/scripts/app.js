@@ -290,6 +290,7 @@ angular
   .run(["$rootScope", "$location", "userService", function ($rootScope, $location, userService) {
       $rootScope.userInfo = userService.getUserInfo();
       $rootScope.$on('$routeChangeSuccess', function () {
+          $rootScope.$emit('changeMenu');
           ga("send", "pageview", { page: $location.path() });
       })
   }]);

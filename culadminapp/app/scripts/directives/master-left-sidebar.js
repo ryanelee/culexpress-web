@@ -20,8 +20,7 @@ angular.module('culAdminApp')
                   $scope.btnChangeRouter = function (menu) {
                       if (!menu.url) return;
                       $scope.currentMenu = menu;
-                      $location.search({});
-                      $location.path(menu.url);
+                      $location.path(menu.url).search({});
                   }
 
                   $rootScope.$on("refresh.menus",function(event){
