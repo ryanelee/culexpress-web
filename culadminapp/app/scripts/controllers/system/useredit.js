@@ -22,8 +22,7 @@ angular.module('culAdminApp')
               password: '',
               emailAddress: '',
               countryCode: '',
-              groupId: '',
-              customerNumber: ''
+              groupId: ''
           }
           $scope.groups = []
           ugService.getList({status: 1}, function (result) {
@@ -43,7 +42,6 @@ angular.module('culAdminApp')
                       $scope.form.emailAddress = result.emailAddress;
                       $scope.form.countryCode = result.countryCode;
                       $scope.form.groupId = result.groupId;
-                      $scope.form.customerNumber = result.customerNumber;
                       $scope.form.gender = result.gender;
                       $scope.form.active = result.active;
                   }

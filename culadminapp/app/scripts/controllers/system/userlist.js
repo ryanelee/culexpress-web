@@ -69,6 +69,16 @@ angular.module('culAdminApp')
             });
           }
 
+          $scope.btnResetPassword = function(email) {
+            userService.resetPassword({
+                "emailAddress": email
+            }, function (result) {
+                if (result.success == true) {
+                    plugMessenger.success("密码重置成功");
+                }
+            });
+          }
+
           $scope.getData();
       }]).filter('activeStr',function(){
         return function(active){
