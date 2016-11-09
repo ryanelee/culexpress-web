@@ -74,6 +74,7 @@ angular.module('culAdminApp')
 
       // 添加用户
       self.addUser = function (userInfo, callback) {
+        console.log(userInfo);
         $http.post(cul.apiPath + "/user", userInfo).success(function (result) {
             callback(result);
         });
