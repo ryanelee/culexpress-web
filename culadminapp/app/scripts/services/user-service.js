@@ -81,6 +81,7 @@ angular.module('culAdminApp')
 
       // 更新用户
       self.update = function (userInfo, callback) {
+        console.log(userInfo);
         $http.put(cul.apiPath + "/user", userInfo).success(function (result) {
             callback(result);
         });

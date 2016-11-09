@@ -40,6 +40,10 @@ angular.module('culAdminApp')
               });
           }
 
+          $scope.back = function () {
+            $location.path('/system/usergrouplist').search({});
+          }
+
           if ($scope.groupId) {
             $scope.getData();
           }

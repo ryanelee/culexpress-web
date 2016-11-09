@@ -100,7 +100,6 @@ angular.module('culAdminApp')
 
           // 返回列表
           $scope.back = function () {
-              $location.path('/system/userlist');
+              $location.path('/system/userlist').search({});
           }
-
       }]);

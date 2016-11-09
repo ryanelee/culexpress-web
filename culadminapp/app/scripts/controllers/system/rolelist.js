@@ -48,12 +48,11 @@ angular.module('culAdminApp')
           }
 
           $scope.addReceipt = function () {
-              $location.path('/system/editrole');
+              $location.path('/system/editrole').search({});
           }
 
           $scope.edit = function (id) {
-              $location.search({ roleId: id });
-              $location.path('/system/editrole');
+              $location.path('/system/editrole').search({ roleId: id });
           }
 
           // 删除用户

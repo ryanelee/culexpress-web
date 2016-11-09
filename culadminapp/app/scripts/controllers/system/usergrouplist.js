@@ -48,12 +48,11 @@ angular.module('culAdminApp')
           }
 
           $scope.addReceipt = function () {
-              $location.path('/system/editusergroup');
+              $location.path('/system/editusergroup').search({});
           }
 
           $scope.edit = function (id) {
-              $location.search({ groupId: id });
-              $location.path('/system/editusergroup');
+              $location.path('/system/editusergroup').search({ groupId: id });
           }
 
           $scope.show = function (id) {
