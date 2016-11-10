@@ -215,7 +215,7 @@
                     <td>{{item._orderStatus}}</td>
                     <!--<td>{{item.processStatus}}</td>-->
                     <td>{{item._printStatus}}</td>
-                    <td><a href="javascript:void(0);" ng-click="btnDelete(item)">删除</a></td>
+                    <td><a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDelete(item)">删除</a></td>
                 </tr>
             </tbody>
         </table>
@@ -237,7 +237,7 @@
                     <input id="referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}" />
                     <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                     <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                    <button type="submit" class="btn btn-primary">将结果导出Excel文件</button>
+                    <button type="submit" class="btn btn-primary role" data-role="33" >将结果导出Excel文件</button>
                 </form>
             </div>
             <div class="col-sm-2 text-right pull-left">
@@ -256,7 +256,7 @@
                     <input id="USPS_referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}" />
                     <input id="USPS_cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                     <input id="USPS_token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-file-excel-o" aria-hidden="true"></i> 将结果导出USPS文件</button>
+                    <button type="submit" class="btn btn-primary" data-role="34"><i class="fa fa-file-excel-o" aria-hidden="true"></i> 将结果导出USPS文件</button>
                 </form>
             </div>
             <div class="col-sm-9 text-right pull-right">

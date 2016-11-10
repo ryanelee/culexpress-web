@@ -38,7 +38,6 @@ angular.module('culAdminApp')
             })
 
             if (count > 15) {
-              console.log(count);
               clearInterval(setRole);
             }
           }, 100)

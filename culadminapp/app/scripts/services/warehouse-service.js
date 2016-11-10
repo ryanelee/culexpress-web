@@ -8,7 +8,7 @@
  * Service in the culAdminApp.
  */
 angular.module('culAdminApp')
-  .service('warehouseService', ["$http", function ($http) {
+  .service('warehouseService', ["$http","$window", function ($http,$window) {
       var self = this;
 
       self.getInboundPackageList = function (options, callback) {
@@ -95,7 +95,10 @@ angular.module('culAdminApp')
       }
 
       self.getWarehouse = function (callback) {
-          $http.get(cul.apiPath + "/warehouse").success(function (result) {
+          console.log(JSON.parse($window.sessionStorage.getItem('role')));
+          $http.get(cul.apiPath + "/warehouse?warehouse_ids=" + 
+            JSON.parse($window.sessionStorage.getItem('role')).warehouse_ids
+          ).success(function (result) {
               callback(result);
           })
       }

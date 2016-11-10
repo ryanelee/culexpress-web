@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('OrderListCtrl', ["$scope", "$location", "$filter", "orderService", "warehouseService", "plugMessenger", function ($scope, $location, $filter, orderService, warehouseService, plugMessenger) {
+  .controller('OrderListCtrl', ["$scope","$rootScope","$location", "$filter", "orderService", "warehouseService", "plugMessenger", function ($scope,$rootScope,$location, $filter, orderService, warehouseService, plugMessenger) {
       this.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -112,6 +112,8 @@ angular.module('culAdminApp')
           orderService.getList(angular.copy(_options), function (result) {
               $scope.dataList = result.data;
               $scope.pagination.totalCount = result.pageInfo.totalCount;
+              $rootScope.$emit("changeMenu");
+
               $.each($scope.dataList, function (i, item) {
                   item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
               });
