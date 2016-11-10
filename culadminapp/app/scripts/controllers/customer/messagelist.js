@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('MessageListCtrl', ["$scope", "$location", "faqService", "warehouseService", "plugMessenger",
-      function ($scope, $location, faqService, warehouseService, plugMessenger) {
+  .controller('MessageListCtrl', ["$scope", "$rootScope","$location", "faqService", "warehouseService", "plugMessenger",
+      function ($scope, $rootScope,$location, faqService, warehouseService, plugMessenger) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -81,6 +81,7 @@ angular.module('culAdminApp')
               faqService.getList(angular.copy(_options), function (result) {
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
+                  $rootScope.$emit("changeMenu");
 
                   $.each($scope.dataList, function (i, item) {
                       var _messageType = $.grep($scope.searchBar.messageTypeData, function (n) { return n.typeID == item.messageType });
