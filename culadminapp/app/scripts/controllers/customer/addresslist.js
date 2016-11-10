@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('AddressListCtrl', ["$scope", "$location", "addressService", "plugMessenger", function ($scope, $location, addressService, plugMessenger) {
+  .controller('AddressListCtrl', ["$scope", "$location", "addressService", "plugMessenger","$rootScope", function ($scope, $location, addressService, plugMessenger,$rootScope) {
       this.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -44,6 +44,7 @@ angular.module('culAdminApp')
           addressService.getList(_options, function (result) {
               $scope.dataList = result.data;
               $scope.pagination.totalCount = result.pageInfo.totalCount;
+              $rootScope.$emit('changeMenu');
           });
       }
 
