@@ -75,6 +75,8 @@ angular.module('culAdminApp')
                       $scope.form.customerIds = result.role_name;
                       if (result.customer_ids != 0) {
                           $scope.selCNumbers = result.customer_ids.split(',');
+                      } else {
+                          $scope.selCNumbers = [];
                       }
                       $scope.customers = result.customer_ids != 0 ? 1 : 0;
                       let userFunctions = JSON.parse(result.functions);
