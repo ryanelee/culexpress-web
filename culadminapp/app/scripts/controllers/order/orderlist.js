@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('OrderListCtrl', ["$scope","$rootScope","$location", "$filter", "orderService", "warehouseService", "plugMessenger", function ($scope,$rootScope,$location, $filter, orderService, warehouseService, plugMessenger) {
+  .controller('OrderListCtrl', ["$window","$scope","$rootScope","$location", "$filter", "orderService", "warehouseService", "plugMessenger", function ($window,$scope,$rootScope,$location, $filter, orderService, warehouseService, plugMessenger) {
       this.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -16,6 +16,7 @@ angular.module('culAdminApp')
       ];
 
       $scope.dataList = [];
+      $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
       //新导出逻辑
       var _token = sessionStorage.getItem("token");
       _token = !!_token ? encodeURIComponent(_token) : null
@@ -102,6 +103,11 @@ angular.module('culAdminApp')
               _options["isFastOrder"] = 1;
           }
           if (!!$scope.searchBar.keywords) {
+              if($scope.searchBar.keywordType == "customerNumber"
+                && !$scope.customer_ids.split(",").includes($scope.searchBar.keywords)){
+                    $scope.searchBar.keywords = "没有查看该客户的权限,请联系统管理员";
+              }
+
               _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
           }
           return angular.copy(_options);
@@ -110,7 +116,8 @@ angular.module('culAdminApp')
       $scope.getData = function () {
           var _options = _filterOptions();
           orderService.getList(angular.copy(_options), function (result) {
-              $scope.dataList = result.data;
+              $scope.dataList = result.data.filter(x => $scope.customer_ids.split(",").includes(x.customerNumber));
+              
               $scope.pagination.totalCount = result.pageInfo.totalCount;
               $rootScope.$emit("changeMenu");
 
