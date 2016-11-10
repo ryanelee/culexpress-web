@@ -25,7 +25,10 @@ angular.module('culAdminApp')
           }
           var _funcs = role.functions ? JSON.parse(role.functions) : {};
 
-          setTimeout(function(){
+          // 处理页面权限
+          let count = 1;
+          let setRole = setInterval(function(){
+            count += 1;
             $('.role').each(function() {
               var roleId = $(this).data('role')
               // 没有权限则隐藏
@@ -33,6 +36,11 @@ angular.module('culAdminApp')
                 $(this).hide();
               }
             })
-          }, 1000);
+
+            if (count > 15) {
+              console.log(count);
+              clearInterval(setRole);
+            }
+          }, 100)
       })
   }]);

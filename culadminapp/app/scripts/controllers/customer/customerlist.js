@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('CustomerListCtrl', ["$scope", "$location", "$filter", "customerService", "warehouseService", "plugMessenger", "$compile", "$http",
-      function ($scope, $location, $filter, customerService, warehouseService, plugMessenger, $compile, $http) {
+  .controller('CustomerListCtrl', ["$scope", "$rootScope", "$location", "$filter", "customerService", "warehouseService", "plugMessenger", "$compile", "$http",
+      function ($scope, $rootScope, $location, $filter, customerService, warehouseService, plugMessenger, $compile, $http) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -52,6 +52,7 @@ angular.module('culAdminApp')
               customerService.getList(_options, function (result) {
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
+                  $rootScope.$emit('changeMenu');
               });
           }
 
