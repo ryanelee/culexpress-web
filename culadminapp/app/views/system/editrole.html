@@ -55,7 +55,10 @@
                   <input type="text" ng-model="customerNumber">
                   <button type="button" class="btn btn-info btn-sm" ng-click="addCustomer()">添加</button>
                   <br/>
-                  <a ng-repeat="num in selCNumbers">{{num}}  &nbsp; </a>
+                  <span ng-repeat="num in selCNumbers">{{num}} 
+                    <a title="删除" ng-click="removeCNumber($index)" style="color:red; cursor: pointer;">X</a>
+                     &nbsp; &nbsp; 
+                  </span>
                 </div>
             </div>
             <div class="form-group">

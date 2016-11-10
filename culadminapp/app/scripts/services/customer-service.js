@@ -14,7 +14,8 @@ angular.module('culAdminApp')
       self.getDetail = function (customerNumber, callback) {
           $http.get(cul.apiPath + "/customer/" + customerNumber)
           .success(function (result) {
-              switch (result.vipStatus) {
+            console.log(result);
+              switch (result && result.vipStatus) {
                   case "Applied": result._vipStatus = "申请"; break;
                   case "Approved": result._vipStatus = "同意"; break;
                   case "Cancelled": result._vipStatus = "取消"; break;

@@ -109,6 +109,11 @@ angular.module('culAdminApp')
               }
           }
 
+          // 移除客户编号
+          $scope.removeCNumber = function(idx) {
+              $scope.selCNumbers.splice(idx, 1)
+          }
+
           // 添加客户编号
           $scope.addCustomer = function () {
               if (!$scope.customerNumber) {
