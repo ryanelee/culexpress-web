@@ -104,6 +104,7 @@ angular.module('culAdminApp')
           }
           if (!!$scope.searchBar.keywords) {
               if($scope.searchBar.keywordType == "customerNumber"
+                && parseInt($scope.customer_ids) !== 0
                 && !$scope.customer_ids.split(",").includes($scope.searchBar.keywords)){
                     $scope.searchBar.keywords = "没有查看该客户的权限,请联系统管理员";
               }
@@ -116,8 +117,13 @@ angular.module('culAdminApp')
       $scope.getData = function () {
           var _options = _filterOptions();
           orderService.getList(angular.copy(_options), function (result) {
-              $scope.dataList = result.data.filter(x => $scope.customer_ids.split(",").includes(x.customerNumber));
-              
+              var _data = result.data;
+              if(parseInt($scope.customer_ids) !== 0){
+                  _data = _data.filter(x => $scope.customer_ids.split(",").includes(x.customerNumber));
+              }
+  
+              $scope.dataList = _data;
+
               $scope.pagination.totalCount = result.pageInfo.totalCount;
               $rootScope.$emit("changeMenu");
 

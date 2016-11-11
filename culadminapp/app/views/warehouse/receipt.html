@@ -5,7 +5,7 @@
     <div class="widget-content">
         <div class="row">
             <div class="col-sm-12" style="padding:0 20px 15px 12px;">
-                <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="addReceipt();">入库登记</button>
+                <button type="button" class="btn btn-primary role" data-role="51" style="margin-left:5px;" ng-click="addReceipt();">入库登记</button>
             </div>
             <div class="col-sm-12 search-bar">
                 <div class="search-col">
@@ -89,10 +89,10 @@
                             <td><span ng-show="item.packageWeight != 0">{{item.packageWeight}}</span></td>
                             <td><span ng-show="item.inboundDate != '0000-00-00 00:00:00'">{{item.inboundDate | date:'MM/dd/yyyy HH:mm:ss'}}</span></td>
                             <td>
-                                <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'trackingDetail');" ng-show="item.status == 'Intransit'">入库登记</a>
-                                <a href="javascript:void(0);" ng-click="btnPrint(item);" ng-show="item.status == 'Inbound'">打印入库单</a>
+                                <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'trackingDetail');" ng-show="item.status == 'Intransit'">查看</a>
+                                <a href="javascript:void(0);" class="role" data-role="52" ng-click="btnPrint(item);" ng-show="item.status == 'Inbound'">打印入库单</a>
                                 <!--<a href="javascript:void(0);" ng-click="btnActions(item,'void')">废弃</a>-->
-                                <a href="javascript:void(0);" ng-click="btnActions(item,'delete')">删除</a>
+                                <a href="javascript:void(0);" class="role" data-role="53" ng-click="btnActions(item,'delete')">删除</a>
                             </td>
                         </tr>
                     </tbody>

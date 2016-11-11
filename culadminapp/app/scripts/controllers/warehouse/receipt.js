@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('ReceiptCtrl', ['$scope', '$location', "$filter", '$window', 'warehouseService', "plugMessenger",
-      function ($scope, $location, $filter, $window, warehouseService, plugMessenger) {
+  .controller('ReceiptCtrl', ['$rootScope','$scope', '$location', "$filter", '$window', 'warehouseService', "plugMessenger",
+      function ($rootScope,$scope, $location, $filter, $window, warehouseService, plugMessenger) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -17,6 +17,8 @@ angular.module('culAdminApp')
           ];
 
           $scope.dataList = [];
+          $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
+
           $scope.pagination = {
               pageSize: "20",
               pageIndex: 1,
@@ -40,11 +42,26 @@ angular.module('culAdminApp')
                   "dateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : ""
               }
               if (!!$scope.searchBar.keywords) {
+                  if ($scope.searchBar.keywordType == "customerNumber"
+                      && parseInt($scope.customer_ids) !== 0
+                      && !$scope.customer_ids.split(",").includes($scope.searchBar.keywords)) {
+                      $scope.searchBar.keywords = "没有查看该客户的权限,请联系统管理员";
+                  }
+
                   _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
+                  
               }
               warehouseService.getInboundPackageList(_options, function (result) {
-                  $scope.dataList = result.data;
+                  var _data = result.data;
+                  if (parseInt($scope.customer_ids) !== 0) {
+                      _data = _data.filter(x => $scope.customer_ids.split(",").includes(x.customerNumber));
+                  }
+
+                  $scope.dataList = _data;
+
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
+                  $rootScope.$emit("changeMenu");
+
               });
           }
 
