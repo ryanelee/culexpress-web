@@ -95,7 +95,6 @@ angular.module('culAdminApp')
       }
 
       self.getWarehouse = function (callback) {
-          console.log(JSON.parse($window.sessionStorage.getItem('role')));
           $http.get(cul.apiPath + "/warehouse?warehouse_ids=" + 
             JSON.parse($window.sessionStorage.getItem('role')).warehouse_ids
           ).success(function (result) {
