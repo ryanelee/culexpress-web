@@ -7,7 +7,7 @@
             <div class="col-sm-12 search-bar">
                 <div class="col-sm-12 search-bar">
                     <div class="search-col" style="margin-bottom: 0px;">
-                        <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnAction('create')">创建架位</button>
+                        <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="btnAction('create')">创建架位</button>
                     </div>
                 </div>
                 <div class="search-col">
@@ -62,7 +62,7 @@
                             <td>{{item.itemCount}}</td>
                             <td>
                                 <a href="javascript:void(0)" ng-click="btnAction('detail', item)">查看</a>
-                                <a href="javascript:void(0)" ng-click="btnPrint(item)">打印架位标签</a>
+                                <a href="javascript:void(0)" class="role" data-role="62" ng-click="btnPrint(item)">打印架位标签</a>
                             </td>
                         </tr>
                     </tbody>

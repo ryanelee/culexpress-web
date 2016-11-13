@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('WarehouseInventoryCtrl', ['$scope', '$location', '$window', 'warehouseService', 'inventoryService',
-      function ($scope, $location, $window, warehouseService, inventoryService) {
+  .controller('WarehouseInventoryCtrl', ['$rootScope','$scope', '$location', '$window', 'warehouseService', 'inventoryService',
+      function ($rootScope,$scope, $location, $window, warehouseService, inventoryService) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -17,6 +17,7 @@ angular.module('culAdminApp')
           ];
 
           $scope.dataList = [];
+          $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
 
           /*search bar*/
           $scope.searchBar = {
@@ -96,6 +97,12 @@ angular.module('culAdminApp')
                   _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
               }
               if (!!$scope.searchBar.keywords) {
+                  if ($scope.searchBar.keywordType == "customerNumber"
+                      && parseInt($scope.customer_ids) !== 0
+                      && !$scope.customer_ids.split(",").includes($scope.searchBar.keywords)) {
+                      $scope.searchBar.keywords = "没有查看该客户的权限,请联系统管理员";
+                  }
+
                   _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
               }
               return angular.copy(_options);
@@ -103,8 +110,14 @@ angular.module('culAdminApp')
 
           $scope.getData = function () {
               inventoryService.getList(_filterOptions(), function (result) {
-                  $scope.dataList = result.data;
+                  var _data = result.data;
+                  if (parseInt($scope.customer_ids) !== 0) {
+                      _data = _data.filter(x => $scope.customer_ids.split(",").includes(x.customerNumber));
+                  }
+
+                  $scope.dataList = _data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
+                  $rootScope.$emit("changeMenu");
               });
           }
           $scope.getData();

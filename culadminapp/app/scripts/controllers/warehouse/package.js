@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('WarehousePackageCtrl', ['$scope', '$location', 'warehouseService', 'orderService','plugMessenger',
-      function ($scope, $location, warehouseService, orderService, plugMessenger) {
+  .controller('WarehousePackageCtrl', ['$window','$rootScope','$scope', '$location', 'warehouseService', 'orderService','plugMessenger',
+      function ($window,$rootScope,$scope, $location, warehouseService, orderService, plugMessenger) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -18,6 +18,8 @@ angular.module('culAdminApp')
           $location.search({ trackingNumber: null });
 
           $scope.dataList = [];
+          $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
+
           //新导出逻辑
           var _token = sessionStorage.getItem("token");
           _token = !!_token ? encodeURIComponent(_token) : null
@@ -63,6 +65,12 @@ angular.module('culAdminApp')
                   _options["exportStatus"] = $scope.searchBar.exportStatus;
               }
               if (!!$scope.searchBar.keywords) {
+                  if ($scope.searchBar.keywordType == "customerNumber"
+                      && parseInt($scope.customer_ids) !== 0
+                      && !$scope.customer_ids.split(",").includes($scope.searchBar.keywords)) {
+                      $scope.searchBar.keywords = "没有查看该客户的权限,请联系统管理员";
+                  }
+
                   _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
               }
               return angular.copy(_options);
@@ -71,8 +79,16 @@ angular.module('culAdminApp')
           $scope.getData = function () {
               var _options = _filterOptions();
               warehouseService.getOutboundPackageList($.extend(angular.copy(_options), { hasWeight: true }), function (result) {
-                  $scope.dataList = result.data;
+                  var _data = result.data;
+                  if (parseInt($scope.customer_ids) !== 0) {
+                      _data = _data.filter(x => $scope.customer_ids.split(",").includes(x.customerNumber));
+                  }
+
+                  $scope.dataList = _data;
+
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
+                  $rootScope.$emit("changeMenu");
+
                   $.each($scope.dataList, function (i, item) {
                       item._selected = $.grep($scope.selectedListCache, function (n) { return n.trackingNumber == item.trackingNumber }).length > 0;
                   });

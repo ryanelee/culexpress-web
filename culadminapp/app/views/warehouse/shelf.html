@@ -7,7 +7,7 @@
             <div class="col-sm-12 search-bar">
                 <div class="col-sm-12 search-bar">
                     <div class="search-col" style="margin-bottom: 0px;">
-                        <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnAction('edit')">修改商品架位</button>
+                        <button type="button" class="btn btn-primary role" data-role="91" style="margin-left:5px;" ng-click="btnAction('edit')">修改商品架位</button>
                     </div>
                 </div>
                 <div class="search-col">
@@ -57,7 +57,7 @@
                             <td>{{item.customerNumber}}</td>
                             <td>{{item.itemCount}}</td>
                             <td>
-                                <a href="javascript:void(0)" ng-click="btnAction('edit', item)">修改架位</a>
+                                <a href="javascript:void(0)" class="role" data-role="91" ng-click="btnAction('edit', item)">修改架位</a>
                             </td>
                         </tr>
                     </tbody>
@@ -89,6 +89,11 @@
                 </select>
             </div>
         </div>
+        <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
     </div>
 </div>
 <print-unshelf></print-unshelf>

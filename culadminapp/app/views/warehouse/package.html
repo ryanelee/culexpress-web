@@ -5,8 +5,8 @@
     <div class="widget-content">
         <div class="row">
             <div class="col-sm-12" style="padding:0 20px 15px 12px;">
-                <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="addPackage('online');">打包登记(线上订单)</button>
-                <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="addPackage('offline');">打包登记(线下订单)</button>
+                <button type="button" class="btn btn-primary role" data-role="71" style="margin-left:5px;" ng-click="addPackage('online');">打包登记(线上订单)</button>
+                <button type="button" class="btn btn-primary role" data-role="72" style="margin-left:5px;" ng-click="addPackage('offline');">打包登记(线下订单)</button>
             </div>
             <div class="col-sm-12 search-bar">
                 <div class="search-col">
@@ -93,7 +93,7 @@
                             <td>{{item.lastEditUserName}}</td>
                             <td>{{item._exportStatus}}</td>
                             <td>
-                                <a href="javascript:void(0)" ng-click="btnPrint(item,'flyingexpress')">打印翔通面单</a>
+                                <a href="javascript:void(0)" class="role" data-role="73" ng-click="btnPrint(item,'flyingexpress')">打印翔通面单</a>
                             </td>
                         </tr>
                     </tbody>
@@ -112,7 +112,7 @@
                             <input id="referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}" />
                             <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                             <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                            <button type="submit" class="btn btn-primary">导出订单列表</button>
+                            <button type="submit" class="btn btn-primary role" data-role="74">导出订单列表</button>
                         </form>
 
                         <form style="float:left; margin:0 4px;" id="form_export_send" method="post" action="/" target="_blank">
@@ -128,7 +128,7 @@
                             <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                             <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
                             <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                            <button type="submit" class="btn btn-primary">导出发货清单</button>
+                            <button type="submit" class="btn btn-primary role" data-role="75">导出发货清单</button>
                         </form>
                         <button style="float:left" type="button" class="btn btn-primary" ng-click="btnBatchOutBound()">批量出库</button>
                         <button style="float:left" id="tip_batchOutbound" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
