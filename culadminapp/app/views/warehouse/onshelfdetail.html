@@ -31,6 +31,12 @@
                         <button id="tip_ASNNumber" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
                     </div>
                 </div>
+                <div class="form-group" ng-show="_itemType == 'S1'">
+                    <label class="col-sm-2 control-label text-right">入库包裹编号：</label>
+                    <div class="col-sm-4 text-left">
+                        <label class="control-label">{{ receiptNumber }}</label>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">仓库架位：</label>
                     <div class="col-sm-4 text-left">

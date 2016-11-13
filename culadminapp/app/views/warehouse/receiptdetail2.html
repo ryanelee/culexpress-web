@@ -47,7 +47,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">架位信息：</label>
                     <div class="col-sm-4">
-                        <label class="control-label"></label>
+                        <div class="row">
+                            <div class="col-sm-4" ng-repeat="item in data.shelfDetails">
+                                <label class="control-label">
+                                <a href="javascript:void(0)" ng-click="linkToShelfDetail(item)" >{{item.shelfNumber}} x {{data.itemCount}}</a>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </fieldset>
@@ -81,7 +87,7 @@
                             <td ng-show="data.sendType == 1">{{item.sendCount}}</td>
                             <td ng-show="data.sendType == 1">{{item.receiptCount}}</td>
                             <td ng-show="data.sendType == 2">{{item.weight}}</td>
-                            <td>
+                            <td style="vertical-align: middle;">
                                 <a href="javascript:void(0)" ng-click="btnPrint(item)" ng-show="data.sendType == 1">打印清单标签</a><!-- 寄送库存 -->
                                 <a href="javascript:void(0)" ng-click="btnPrint(item)" ng-show="data.sendType == 2">打印入库标签</a><!-- 海淘包裹 -->
                             </td>

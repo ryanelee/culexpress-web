@@ -16,14 +16,41 @@ angular.module('culAdminApp')
             'Karma'
           ];
           $scope.data = null;
-
-          $scope.tempItemNumber = $location.search().itemNumber || "";
+          $scope.receiptNumber = null;
+          $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
 
           var _timeout = null;
           $scope.checkItemNumber = function () {
               if (!!_timeout) clearTimeout(_timeout);
               _timeout = setTimeout(function () {
                   $scope.$apply(function () {
+                      if ($scope.tempItemNumber == $location.search().receiptNumber){
+                          inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
+                              $scope.data = null;
+
+                              if (!result.message) {
+                                  $scope.data = result;
+                                  $scope.receiptNumber = $location.search().receiptNumber;
+                                  $scope._itemType = $scope.data.itemNumber.substr(0, 2);
+                                  $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
+
+                                  $timeout(function () {
+                                      $('#tip_ASNNumber').popover({
+                                          container: 'body',
+                                          placement: 'top',
+                                          html: true,
+                                          trigger: 'hover',
+                                          title: '',
+                                          content: "请扫描ASN开头寄送库存单据编号。"
+                                      });
+                                  });
+                              }
+                              $scope.tempItemNumber = "";
+                          });
+
+                          return;
+                      }
+
                       if (!!$scope.tempItemNumber) {
                           inventoryService.getInfo($scope.tempItemNumber, function (result) {
                               $scope.data = null;
@@ -62,6 +89,7 @@ angular.module('culAdminApp')
               var data = {
                   itemNumber: $scope.data.itemNumber,
                   shelfNumber: $scope.data.shelfNumber,
+                  receiptNumber: $scope.receiptNumber,
                   itemCount: $scope.data.itemCount
               }
               if ($scope._itemType == "S2") {

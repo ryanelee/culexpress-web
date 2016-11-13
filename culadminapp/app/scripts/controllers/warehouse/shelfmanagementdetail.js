@@ -16,18 +16,18 @@ angular.module('culAdminApp')
             'Karma'
           ];
 
+          $scope.warehouseName = "";
           $scope.warehouseList = [];
           warehouseService.getWarehouse(function (result) {
               $scope.warehouseList = result;
-              $scope.data.warehouseNumber = $scope.warehouseList[0].warehouseNumber;
           });
-          $scope.getWarehouseName = function (warehouseNumber) {
-              var warehouse = _.findWhere($scope.warehouseList, { warehouseNumber: warehouseNumber });
-              return !!warehouse ? warehouse.warehouseName : "";
-          }
 
           shelfService.getDetail($location.search().shelfNumber, function (result) {
               $scope.data = result;
+
+              var warehouse = _.findWhere($scope.warehouseList,
+                  { warehouseNumber: $scope.data.warehouseNumber });
+              $scope.warehouseName = warehouse ? warehouse.warehouseName : "";
           });
 
           $scope.btnAction = function (type, item) {

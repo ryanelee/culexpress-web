@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">所在仓库：</label>
                     <div class="col-sm-4 text-left">
-                        <label class="control-label">{{getWarehouseName(data.warehouseNumber)}}</label>
+                        <label class="control-label">{{ warehouseName }}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="col-sm-4" ng-repeat="item in data.shelfItemList">
                                 <label class="control-label">
-                                <a href="javascript:void(0)" ng-click="btnAction('detail',item)" >{{item.itemNumber}} x {{data.itemCount}}</a>
+                                <a href="javascript:void(0)" ng-click="btnAction('detail',item)" >{{item.itemNumber}} x {{item.itemCount}}</a>
                                 </label>
                             </div>
                         </div>

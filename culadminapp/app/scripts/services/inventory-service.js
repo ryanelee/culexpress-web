@@ -23,6 +23,12 @@ angular.module('culAdminApp')
           })
       }
 
+      self.getInfoByReceiptNumber = function (receiptNumber, callback) {
+          $http.get(cul.apiPath + "/item/info?receiptNumber=" + receiptNumber).success(function (result) {
+              callback(result);
+          })
+      }
+
       self.getList = function (options, callback) {
           $http.post(cul.apiPath + "/item/inventory/list", options).success(function (result) {
               callback(result);

@@ -88,8 +88,15 @@ angular.module('culAdminApp')
 
           $scope.getData = function () {
               shelfService.getTransportList(_filterOptions(), function (result) {
-                  $scope.dataList = result.data;
+                  var _data = result.data;
+                  if (parseInt($scope.customer_ids) !== 0) {
+                      _data = _data.filter(x => $scope.customer_ids.split(",").includes(x.customerNumber));
+                  }
+
+                  $scope.dataList = _data;
+
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
+                  $rootScope.$emit("changeMenu");
               });
           }
           $scope.getData();
@@ -113,7 +120,7 @@ angular.module('culAdminApp')
                       $location.path("/warehouse/shelf");
                       break;
                   case "onshelf":
-                      //if (!!item) $location.search({ receiptNumber: item.receiptNumber });
+                      if (!!item && item.sendType == 2) $location.search({ receiptNumber: item.receiptNumber });
                       $location.path("/warehouse/onshelfdetail");
                       break;
               }

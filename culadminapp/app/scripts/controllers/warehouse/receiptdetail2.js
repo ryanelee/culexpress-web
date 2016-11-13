@@ -38,11 +38,18 @@ angular.module('culAdminApp')
               }
           }
 
+          $scope.linkToShelfDetail = function (item) {
+              $location.search({ shelfNumber: item.shelfNumber });
+              $location.path("/warehouse/shelfmanagementdetail");
+          }
+
           $scope.btnPrint = function (item) {
               switch ($scope.data.sendType) {
                   case 1:   //寄送库存
+                      $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber });
                       break;
                   case 2:   //海淘包裹
+                      $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: item.receiptNumber, number: 1 });
                       break;
               }
           }
