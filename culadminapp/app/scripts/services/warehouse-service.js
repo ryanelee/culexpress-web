@@ -95,10 +95,19 @@ angular.module('culAdminApp')
       }
 
       self.getWarehouse = function (callback) {
-          $http.get(cul.apiPath + "/warehouse?warehouse_ids=" + 
-            JSON.parse($window.sessionStorage.getItem('role')).warehouse_ids
-          ).success(function (result) {
-              callback(result);
+          $http.get(cul.apiPath + "/warehouse").success(function (result) {
+
+              var warehouse_ids = JSON.parse($window.sessionStorage.getItem('role')).warehouse_ids;
+              var _data = result;
+
+              //filter by role
+              if (!!warehouse_ids) {
+                  _data = result.filter(function (x) {
+                      return warehouse_ids.split(",").includes('' + x.warehouseNumber);
+                  });
+              };
+
+              callback(_data);
           })
       }
 
