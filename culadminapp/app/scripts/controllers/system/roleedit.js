@@ -27,13 +27,13 @@ angular.module('culAdminApp')
               updater: 'test'
           }
 
-          let funcs = null
+          var funcs = null
           if (sessionStorage.getItem('functions')) {
               funcs = JSON.parse(sessionStorage.getItem('functions'))
           }
 
           // 初始化菜单
-          let initFunc = function(userFn) {
+          var initFunc = function(userFn) {
               var functions = [];
               var funcObj = {};
               funcs.forEach(function(item) {
@@ -79,7 +79,7 @@ angular.module('culAdminApp')
                           $scope.selCNumbers = [];
                       }
                       $scope.customers = result.customer_ids != 0 ? 1 : 0;
-                      let userFunctions = JSON.parse(result.functions);
+                      var userFunctions = JSON.parse(result.functions);
                       initFunc(userFunctions)
                   }
               });

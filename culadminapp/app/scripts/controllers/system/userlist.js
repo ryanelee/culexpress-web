@@ -37,7 +37,9 @@ angular.module('culAdminApp')
               userService.getList(_options, function (result) {
                   var _data = result.data;
 
-                  $scope.dataList = result.data.filter(x => x.customerNumber == null);
+                  $scope.dataList = result.data.filter(function(x){
+                      return x.customerNumber == null;
+                  });
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
               });
           }

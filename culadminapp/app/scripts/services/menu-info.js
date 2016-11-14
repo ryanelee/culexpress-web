@@ -11,7 +11,7 @@ angular.module('culAdminApp')
   .service('menuInfoService', ["$rootScope", "sysroleService", "$window",
     function ($rootScope, sysroleService, $window) {
       var funcs = [], role = {},_menus = [], _funcs= {}, _methods=[];
-      let setMenu = function () {
+      var setMenu = function () {
         if ($window.sessionStorage.getItem('functions')) {
             funcs = JSON.parse($window.sessionStorage.getItem('functions'));
         }
@@ -52,7 +52,7 @@ angular.module('culAdminApp')
       // 获取子菜单
       self.getChildMenus = function(id){
         setMenu();
-        let menus = _.filter(_methods, function(item) {
+        var menus = _.filter(_methods, function(item) {
             if (item.parentFunctionID == id) {
                 item.status = _funcs[item.functionID];
                 return item;
