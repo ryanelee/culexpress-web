@@ -118,8 +118,10 @@ angular.module('culAdminApp')
           var _options = _filterOptions();
           orderService.getList(angular.copy(_options), function (result) {
               var _data = result.data;
-              if(parseInt($scope.customer_ids) !== 0){
-                  _data = _data.filter(x => $scope.customer_ids.split(",").includes(x.customerNumber));
+              if (parseInt($scope.customer_ids) !== 0) {
+                  _data = _data.filter(function (x) {
+                      return $scope.customer_ids.split(",").includes(x.customerNumber)
+                  });
               }
   
               $scope.dataList = _data;

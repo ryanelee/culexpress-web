@@ -26,8 +26,8 @@ angular.module('culAdminApp')
           var _funcs = role.functions ? JSON.parse(role.functions) : {};
 
           // 处理页面权限
-          let count = 1;
-          let setRole = setInterval(function(){
+          var count = 1;
+          var setRole = setInterval(function(){
             count += 1;
             $('.role').each(function() {
               var roleId = $(this).data('role')

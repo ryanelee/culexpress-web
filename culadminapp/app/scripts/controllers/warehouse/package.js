@@ -81,7 +81,9 @@ angular.module('culAdminApp')
               warehouseService.getOutboundPackageList($.extend(angular.copy(_options), { hasWeight: true }), function (result) {
                   var _data = result.data;
                   if (parseInt($scope.customer_ids) !== 0) {
-                      _data = _data.filter(x => $scope.customer_ids.split(",").includes(x.customerNumber));
+                      _data = _data.filter(function(x){
+                          return $scope.customer_ids.split(",").includes(x.customerNumber);
+                      });
                   }
 
                   $scope.dataList = _data;
