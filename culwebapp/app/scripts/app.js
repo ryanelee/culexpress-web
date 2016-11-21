@@ -328,6 +328,10 @@ angular
                     url: '/howtouse',
                     templateUrl: 'views/howtouse.html'
                 })
+                .state('uploadIDCard', {
+                    url: '/uploadIDCard',
+                    templateUrl: 'views/uploadIDCard.html'
+                })
                 .state('faq', {
                     url: '/faq',
                     templateUrl: 'views/faq.html'
