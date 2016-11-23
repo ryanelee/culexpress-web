@@ -33,6 +33,12 @@ angular.module('culwebApp')
                     success(data);
                 }).error(error);
             },
+            //èº«ä»½è¯ä¸Šä¼ 
+            uploadID: function (data, success, error) {
+                $http.post(cul.apiPath + '/customer/uploadID', data)
+            },
+
+
             retrieveProvinceList: function (success, error) {
                 $http.get(cul.apiPath + '/province').success(function (data) {
                     success(data);
@@ -82,7 +88,7 @@ angular.module('culwebApp')
                     receiveTrackingNumber: questionItem.receiveTrackingNumber,
                     orderNumber: questionItem.SONumber,
                     deliveryTrackingNumber: questionItem.deliveryTrackingNumber,
-                    images: questionItem.images || null,//ÔİÊ±²»×öÍ¼Æ¬ÉÏ´«
+                    images: questionItem.images || null,//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½Ï´ï¿½
                     message: questionItem.message,
                     status: 0
                 });
