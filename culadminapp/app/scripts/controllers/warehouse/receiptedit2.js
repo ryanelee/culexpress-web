@@ -102,4 +102,8 @@ angular.module('culAdminApp')
                       break;
               }
           }
+
+          $scope.btnNoASN = function(){
+              $location.path("/warehouse/receiptNoASN");
+          }
       }]);
