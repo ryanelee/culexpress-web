@@ -6,10 +6,7 @@ angular
         function ($rootScope, $scope, AuthService, $state, Customer, $http) {
             console.log("身份证上传")
             $scope.data = {};
-            console.log(cul.apiPath);
             $scope.data.urls = [];
-
-
 
             loadFileinput()
             function loadFileinput() {//初始化 fileinput
@@ -65,7 +62,7 @@ angular
 
 
             $scope.submit = function () {
-                if (!$scope.data.trackingNumber) {
+                if (!$scope.data.trackingNumber && !$scope.cellphoneNumber) {
                     alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
                     return;
                 } else if (!$scope.data.urls[0]) {
