@@ -30,7 +30,17 @@
                         <input type="text" class="form-control" ng-model="data.idCard">
                     </div>
                 </div>
-                <div class="form-group">
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">身份证正反面：</label>
+                    <div class="col-sm-4">
+                       <img src="{{data.idCardFront}}" width="200px"; height="200px" />
+                    </div>
+                    <div class="col-sm-4">
+                       <img src="{{data.idCardBack}}" width="200px"; height="200px" />
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="idCardBack ==''">
                     <label class="col-sm-2 control-label text-right">身份证照片：</label>
                     <div class="col-sm-2">
                         <div class="row fileupload-buttonbar" style="padding-left:15px;">
