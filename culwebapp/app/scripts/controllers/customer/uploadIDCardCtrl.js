@@ -32,8 +32,6 @@ angular
 
                 });
             }
-            console.log('miximix')
-
 
             // $('#file').on('fileselect', function (event, numFiles, label) {
             //     console.log("fileselect");
@@ -62,7 +60,7 @@ angular
 
 
             $scope.submit = function () {
-                if (!$scope.data.trackingNumber && !$scope.cellphoneNumber) {
+                if (!$scope.data.trackingNumber && !$scope.data.cellphoneNumber &&  !$scope.data.receivePersonName) {
                     alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
                     return;
                 } else if (!$scope.data.urls[0]) {
@@ -71,6 +69,7 @@ angular
                 }
                 else {
                     $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
+                        console.log(data)
                       if(data.status == 200){
                           alertify.alert(data.data.msg)
                       }
