@@ -24,7 +24,6 @@
                 <tr>
                     <th>序号</th>
                     <th>客户编号</th>
-                    <th>包裹跟踪号</th>
                     <th>收货人姓名</th>
                     <th>手机号码</th>
                     <th>收货地址</th>
@@ -39,7 +38,6 @@
                 <tr ng-if="dataList.length > 0" ng-repeat="item in dataList">
                     <td>{{item.rownumber}}</td>
                     <td><a href="javascript:void(0);" ng-click="btnOpenDetail('customer',item)">{{item.customerNumber}}</a></td>
-                    <td>{{item.trackingNumber}}</td>
                     <td><a href="javascript:void(0);" ng-click="btnOpenDetail('address',item)">{{item.receivePersonName}}</a></td>
                     <td>{{item.cellphoneNumber}}</td>
                     <td>
