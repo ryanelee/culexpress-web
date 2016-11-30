@@ -4,27 +4,29 @@
     </div>
     <div class="widget-content">
         <form class="form-horizontal" role="form">
-             <div class="form-group">
-                <label class="col-sm-2  text-right">客户标示：</label>
+            <div class="form-group">
+                <label class="col-sm-2  text-right">客户标示：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <input type="text" class="form-control" placeholder="客户标示" ng-model="data.receiveIdentity" ng-disabled="tpl_status.isExist == true">
+                    <input type="text" class="form-control" ng-blur="checkReceiveIdentity()" placeholder="客户标示" ng-model="data.receiveIdentity"
+                        ng-disabled="tpl_status.isExist == true">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2  text-right">客户编号：</label>
+                <label class="col-sm-2  text-right">客户编号：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
                     <input type="text" class="form-control" ng-model="data.customerNumber" ng-disabled="true">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label text-right">快递单号：</label>
+                <label class="col-sm-2 control-label text-right">快递单号：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <input id="txtTrackingNumber" type="text" class="form-control" placeholder="快递单号" ng-model="data.trackingNumber" ng-blur="getPackageDetail()" ng-keydown="hotKey($event)">
+                    <input id="txtTrackingNumber" ng-blur="checkInboundPackage()" type="text" class="form-control" placeholder="快递单号" ng-model="data.trackingNumber"
+                        ng-blur="getPackageDetail()" ng-keydown="hotKey($event)">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label text-right">快递名称：</label>
+                <label class="col-sm-2 control-label text-right">快递名称：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
                     <select class="form-control" ng-model="data.carrierName" ng-disabled="tpl_status.isExist == true">
                         <option value="DHL">DHL</option>
@@ -36,17 +38,15 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label text-right">收货仓库：</label>
+                <label class="col-sm-2 control-label text-right">收货仓库：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <select class="form-control" ng-model="data.warehouseNumber" 
-                    ng-disabled="tpl_status.isExist == true" 
-                    ng-options="item.warehouseNumber as item.warehouseName for item in tpl_status.warehouseList">
+                    <select class="form-control" ng-model="data.warehouseNumber" ng-disabled="tpl_status.isExist == true" ng-options="item.key as item.value for item in warehouseList">
                     </select>
                 </div>
-                
+
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label text-right">运单内容：</label>
+                <label class="col-sm-2 control-label text-right">运单内容：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
                     <input type="text" class="form-control" placeholder="运单内容" ng-model="data.packageDescription" ng-disabled="tpl_status.isExist == true">
                 </div>
@@ -58,9 +58,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2  text-right">包裹重量：</label>
+                <label class="col-sm-2  text-right">包裹重量：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <input type="text" class="form-control" placeholder="包裹重量" ng-model="data.packageWeight">
+                    <input type="number" class="form-control" placeholder="包裹重量" ng-model="data.packageWeight">
                 </div>
             </div>
             <div class="form-group">
@@ -71,7 +71,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" class="btn btn-primary role" data-role="88" ng-click="btnSaveAndPrint()" ng-disabled="true">登记并打印入库单</button>
+                    <button type="button" class="btn btn-primary role" data-role="88" ng-click="btnSaveAndPrint()" ng-disabled="flag == '0'">登记并打印入库单</button>
                     <button type="button" class="btn btn-primary" ng-click="btnPrev();">返回</button>
                 </div>
             </div>

@@ -7,13 +7,34 @@ angular
             console.log("身份证上传")
             $scope.data = {};
             $scope.data.urls = [];
+            console.log(cul.apiPath);
+            $scope.customNumber = ""
+            $scope.flag = '0'
 
-            loadFileinput()
+            $scope.checkNumber = function () {
+                $scope.customNumber = "";
+                $scope.flag = '0'
+                Customer.checkTrackingNumber($scope.data).then(function (data) {
+                    if (data.data.code == '999') {
+                        alertify.alert(data.data.msg)
+                        return
+                    }
+                    console.log(data);
+                    if (data.data.code == '000') {
+                        $scope.customNumber = data.data.data.customerNumber
+                        console.log($scope.customNumber)
+                        $scope.flag = '1'
+                          loadFileinput()
+                    }
+
+                })
+            }
+          
             function loadFileinput() {//初始化 fileinput
                 $("#file").fileinput({
                     language: 'zh',//设置语言
                     //uploadUrl: "report/photo/add",//上传的地址
-                    uploadUrl: cul.apiPath + "/customermessage/uploadImage",//上传的地址
+                    uploadUrl: cul.apiPath + "/customermessage/uploadImage?customNumber="+$scope.customNumber,//上传的地址
                     allowedFileExtensions: ["jpg", "png", "gif", 'jpeg'],//接收的文件后缀
                     browseOnZoneClick: true,  //是否启用 点击预览区进行【文件浏览/选择】操作。默认为假。
                     minFileCount: 2,//同一时间上传的最小
@@ -60,7 +81,7 @@ angular
 
 
             $scope.submit = function () {
-                if (!$scope.data.trackingNumber && !$scope.data.cellphoneNumber &&  !$scope.data.receivePersonName) {
+                if (!$scope.data.trackingNumber && !$scope.data.cellphoneNumber && !$scope.data.receivePersonName) {
                     alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
                     return;
                 } else if (!$scope.data.urls[0]) {
@@ -70,9 +91,9 @@ angular
                 else {
                     $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
                         console.log(data)
-                      if(data.status == 200){
-                          alertify.alert(data.data.msg)
-                      }
+                        if (data.status == 200) {
+                            alertify.alert(data.data.msg)
+                        }
 
                     })
                 }

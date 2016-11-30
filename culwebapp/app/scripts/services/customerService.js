@@ -114,6 +114,10 @@ angular.module('culwebApp')
                     uuid: uuid
                 });
             },
+
+            checkTrackingNumber: function(obj){
+                return $http.post(cul.apiPath + '/customermessage/checkTrackingNumber',obj);
+            },
             ProvinceList: provinceList
         };
     });
