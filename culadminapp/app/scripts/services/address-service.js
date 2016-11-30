@@ -14,6 +14,7 @@ angular.module('culAdminApp')
       self.getDetail = function (transactionNumber, callback) {
           $http.get(cul.apiPath + "/receiveaddress/" + transactionNumber)
           .success(function (result) {
+              console.log(result);
               callback(result);
           });
       }

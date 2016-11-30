@@ -71,7 +71,7 @@ angular
                     $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
                         console.log(data)
                       if(data.status == 200){
-                          alertify.alert(data.data.msg)
+                          alertify.alert('提示',data.data.msg)
                       }
 
                     })
