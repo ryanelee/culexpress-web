@@ -66,16 +66,16 @@ angular.module('culAdminApp')
             $scope.inboundpackage = function () {
                 warehouseService.inboundpackage($scope.data).then(function (result) {
                     if (result.status == 200) {
-                        $scope.btnSave()
+                        $scope.btnSave($scope.data.trackingNumber);
                     }
                 })
             }
 
 
-            $scope.btnSave = function () {
+            $scope.btnSave = function (trackingNumber) {
                 var _callback = function (result) {
-                    if (!result.message) {
-                        plugMessenger.success("登记成功，请到收货管理页面打印清单");
+                    if (!result.message) {  
+                        $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: trackingNumber, number: 1 });
                         $scope.data = null;
                     } else {
                         plugMessenger.success("货物预报成功，入库失败，请到收货仓库入库");
