@@ -103,7 +103,7 @@ angular.module('culAdminApp')
       }
 
       self.resetPassword = function (options, callback) {
-          $http.put(cul.apiPath + "/user/password/reset/default").success(function (result) {
+          $http.put(cul.apiPath + "/user/password/reset/default",options).success(function (result) {
               callback(result);
           });
       }
