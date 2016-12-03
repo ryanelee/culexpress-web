@@ -16,7 +16,7 @@ angular
                 $scope.flag = '0'
                 Customer.checkTrackingNumber($scope.data).then(function (data) {
                     if (data.data.code == '999') {
-                        alertify.alert(data.data.msg)
+                        alertify.alert("提示",data.data.msg)
                         return
                     }
                     console.log(data);

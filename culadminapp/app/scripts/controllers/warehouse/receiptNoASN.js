@@ -103,15 +103,9 @@ angular.module('culAdminApp')
 
             }
 
-
-
-
             // $scope.btnPrint = function (item) {
             //     $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item });
             // }
-
-
-
 
 
             $scope.btnPrev = function () {
