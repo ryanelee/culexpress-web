@@ -14,6 +14,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-fileinput/css/fileinput.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/assets.css -->
@@ -94,6 +95,7 @@
                             </span>
 							<ul class="topbar-list topbar-log_reg pull-right">
 								<li class="cd-log_reg home"><a ui-sref="howtouse">帮助</a></li>
+                                <li><a ui-sref="uploadIDCard">身份证上传</a></li>
                                 <li data-ng-hide="isLogined"><a ui-sref="login">登录</a></li>
                                 <li data-ng-hide="isLogined"><a ui-sref="register">注册</a></li>
                                 <li data-ng-show="isLogined"><a ui-sref="login" data-ng-click="logout()">注销</a></li>
@@ -241,7 +243,8 @@
                                             
                                     </li>
                                     <li>
-                                        工作时间:北京时间9:00 - 17:30
+                                        工作时间:北京时间9:00 - 17:30<br/>
+                                        （包裹、订单、追踪等问题，请登录系统账户，提交“问题咨询”）
                                     </li>
                                     <li>
                                         <input id="txtTrackingNumber" type="text" placeholder="运单查询" ng-model="trackingNumber">
@@ -333,6 +336,7 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/jquery-migrate/jquery-migrate.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/bootstrap-fileinput/js/fileinput.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/assets.js -->
@@ -371,6 +375,8 @@
     <script type="text/javascript" src="assets/plugins/counter/jquery.counterup.min.js"></script>
     <script type="text/javascript" src="assets/js/forms/contact.js"></script>
     <script type="text/javascript" src="assets/js/pages/page_contacts.js"></script>
+    
+    
     <!--<script type="text/javascript" src="assets/plugins/viewer/viewer.js"></script>-->
 
 
@@ -396,6 +402,7 @@
     <script type="text/javascript" src="scripts/controllers/customer/myOrdersController.js"></script>
     <script type="text/javascript" src="scripts/controllers/customer/myQuestionsController.js"></script>
     <script type="text/javascript" src="scripts/controllers/customer/shippingNoticeController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/customer/uploadIDCardCtrl.js"></script>    
     <script src="scripts/controllers/customer/activeCtrl.js"></script>
     <script src="scripts/controllers/customer/forgetController.js"></script>
     <script src="scripts/controllers/customer/myaddresscontroller.js"></script>

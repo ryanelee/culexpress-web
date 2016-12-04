@@ -108,4 +108,5 @@ angular.module('culAdminApp')
               callback(result);
           });
       }
+
   }]);

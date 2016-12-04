@@ -33,6 +33,12 @@ angular.module('culwebApp')
                     success(data);
                 }).error(error);
             },
+            //Ë∫´‰ªΩËØÅ‰∏ä‰º†
+            uploadID: function (data, success, error) {
+                $http.post(cul.apiPath + '/customer/uploadID', data)
+            },
+
+
             retrieveProvinceList: function (success, error) {
                 $http.get(cul.apiPath + '/province').success(function (data) {
                     success(data);
@@ -40,11 +46,20 @@ angular.module('culwebApp')
                 }).error(error);
             },
             changePassword: function (password, newPassword, emailAddress) {
-                return $http.put(cul.apiPath + '/customer/password', {
+                var data = {
                     password: password,
                     newPassword: newPassword,
                     emailAddress: emailAddress
-                });
+                };
+
+                var key = CryptoJS.lib.WordArray.random(128 / 8);
+
+                var bodyData = {
+                    data: CryptoJS.AES.encrypt(JSON.stringify(data), key.toString()).toString(),
+                    key: key.toString()
+                };
+            
+                return $http.put(cul.apiPath + '/customer/password', bodyData);
             },
             userPay: function (customerNumber, amount) {
                 return $http.post(cul.apiPath + '/alipay/create_direct_pay_by_user', {
@@ -82,7 +97,7 @@ angular.module('culwebApp')
                     receiveTrackingNumber: questionItem.receiveTrackingNumber,
                     orderNumber: questionItem.SONumber,
                     deliveryTrackingNumber: questionItem.deliveryTrackingNumber,
-                    images: questionItem.images || null,//‘› ±≤ª◊ˆÕº∆¨…œ¥´
+                    images: questionItem.images || null,//ÔøΩÔøΩ ±ÔøΩÔøΩÔøΩÔøΩÕº∆¨ÔøΩœ¥ÔøΩ
                     message: questionItem.message,
                     status: 0
                 });
@@ -107,6 +122,10 @@ angular.module('culwebApp')
                     password: password,
                     uuid: uuid
                 });
+            },
+
+            checkTrackingNumber: function(obj){
+                return $http.post(cul.apiPath + '/customermessage/checkTrackingNumber',obj);
             },
             ProvinceList: provinceList
         };

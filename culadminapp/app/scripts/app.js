@@ -55,6 +55,10 @@ angular
               templateUrl: 'views/warehouse/receipt2.html',
               controller: 'Receipt2Ctrl'
           })
+          .when('/warehouse/receiptNoASN', {
+              templateUrl: 'views/warehouse/receiptNoASN.html',
+              controller: 'ReceiptNoASNCtrl'
+          })
           .when('/warehouse/receiptedit2', {
               templateUrl: 'views/warehouse/receiptedit2.html',
               controller: 'ReceiptEdit2Ctrl'

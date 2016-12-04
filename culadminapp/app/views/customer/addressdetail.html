@@ -30,14 +30,28 @@
                         <input type="text" class="form-control" ng-model="data.idCard">
                     </div>
                 </div>
+                 <!--<div class="form-group">
+                    <label class="col-sm-2 control-label text-right">身份证正反面：</label>
+                    <div class="col-sm-4">
+                        <div class="thumbnail">
+                            <a href="{{data.idCardFrontUrl}}" target="_blank"><img src="{{data.idCardFrontUrl}}" alt="身份证正面照片" /></a>
+                        </div>
+                       <div class="thumbnail">
+                          <a href="{{data.idCardBackUrl}}" target="_blank"><img src="{{data.idCardBackUrl}}" alt="身份证反面照片"/></a>
+                       </div>
+                    </div>
+                </div>-->
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">身份证照片：</label>
                     <div class="col-sm-2">
                         <div class="row fileupload-buttonbar" style="padding-left:15px;">
                             <div class="thumbnail col-sm-12">
-                                <img id="idcardfront_show" style="height:100px;margin-top:10px;margin-bottom:8px;"
-                                     ng-src="{{data.idCardFrontUrl}}"
-                                     data-holder-rendered="true">
+                                <a href="{{data.idCardFrontUrl}}" target="_blank">
+                                    <img id="idcardfront_show" style="height:100px;margin-top:10px;margin-bottom:8px;"
+                                        ng-src="{{data.idCardFrontUrl}}"
+                                        data-holder-rendered="true">
+                                </a>
                                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="10" aria-valuemax="100" aria-valuenow="0">
                                     <div id="progress" class="progress-bar progress-bar-success" style="width:0%;"></div>
                                 </div>
@@ -53,9 +67,11 @@
                     <div class="col-sm-2">
                         <div class="row fileupload-buttonbar" style="padding-left:15px;">
                             <div class="thumbnail col-sm-12">
-                                <img id="idcardback_show" style="height:100px;margin-top:10px;margin-bottom:8px;"
-                                     ng-src="{{data.idCardBackUrl}}"
-                                     data-holder-rendered="true">
+                                <a href="{{data.idCardBackUrl}}" target="_blank">
+                                    <img id="idcardback_show" style="height:100px;margin-top:10px;margin-bottom:8px;"
+                                        ng-src="{{data.idCardBackUrl}}"
+                                        data-holder-rendered="true">
+                                </a>
                                 <div class="progress progress-striped active" role="progressbar">
                                     <div id="progress" class="progress-bar progress-bar-success" style="width:0%;"></div>
                                 </div>

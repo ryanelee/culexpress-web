@@ -13,10 +13,20 @@ angular.module('culAdminApp')
           userInfoKey = "user-info";
 
       self.login = function (userInfo, callback) {
-          $http.post(cul.apiPath + "/user/login", {
+
+          var loginData = {
               "password": userInfo.password,
               "emailAddress": userInfo.username
-          }).success(function (result) {
+          };
+
+          var key = CryptoJS.lib.WordArray.random(128 / 8);
+
+          var bodyData = {
+              data: CryptoJS.AES.encrypt(JSON.stringify(loginData), key.toString()).toString(),
+              key: key.toString()
+          };
+
+          $http.post(cul.apiPath + "/user/login", bodyData).success(function (result) {
               localStorage.setItem(userInfoKey, null);
               sessionStorage.setItem(userInfoKey, null);
               $rootScope.userInfo = null;
@@ -103,7 +113,14 @@ angular.module('culAdminApp')
       }
 
       self.resetPassword = function (options, callback) {
-          $http.put(cul.apiPath + "/user/password/reset/default").success(function (result) {
+          var key = CryptoJS.lib.WordArray.random(128 / 8);
+
+          var bodyData = {
+              data: CryptoJS.AES.encrypt(JSON.stringify(options), key.toString()).toString(),
+              key: key.toString()
+          };
+
+          $http.put(cul.apiPath + "/user/password/reset/default",bodyData).success(function (result) {
               callback(result);
           });
       }

@@ -1,0 +1,86 @@
+<div class="container content" ng-controller="uploadIDCardCtrl">
+	<div class="row">
+		<form class="sky-form">
+			<div class="headline">
+				<h2>身份证上传</h2>
+			</div>
+			<div class="form-group ">
+				<label class="label required">包裹跟踪号</label>
+				<input type="text" class="form-control" name="required" ng-blur="checkNumber()" ng-model="data.trackingNumber">
+			</div>
+			<div class="form-group ">
+				<label class="label required">收货人</label>
+				<input type="text" class="form-control" name="required" ng-model="data.receivePersonName">
+			</div>
+
+			<div class="form-group">
+				<label class="label">身份证号码</label>
+				<input type="text" class="form-control" name="required" ng-model="data.idCard">
+				<p>请填写真实的身份证号码，身份证号码是15或18位数字。<span class="text-danger">在需要身份证清关的渠道使用，请确保身份证号码持有人与收货人姓名对应。</span></p>
+
+			</div>
+			<div class="form-group">
+				<label class="label required">身份证件上传</label>
+				<div style="height: 50%" class="container kv-main">
+
+					<form enctype="multipart/form-data" id="addForm">
+						<p>注意:证件必须是清晰彩色原件电子版， 可以是扫描件或者数码拍照照片，正面照位于<span style="color:red;font-size:14px;">第一张</span>，<a href="/images/ecard1.jpg"
+								target="_blank">点击参考正面样例图</a>。反面照位于第二张，<a href="/images/ecard2.jpg" target="_blank">点击参考反面样例图</a>。
+							<p>身份证正反面必须同时上传。仅支持.jpg .jpeg .png .bmp .gif，大小不超过2M。</p>
+							</span>
+
+							<div class="form-group">
+								<label></label>
+								<input ng-show="flag == '1'" id="file" type="file" class="file" name="file" multiple="true" ,accept="image/*">
+							</div>
+					</form>
+				</div>
+				<!--<label class="label">身份证正面照</label>
+                <input id="idCardFront" type="file" class="form-control" ng-model="data.idCardFront">
+                <p>证件必须是清晰彩色原件电子版， 可以是扫描件或者数码拍照照片。仅支持.jpg .jpeg .png .bmp .gif，大小不超过2M。</p>
+                <p class="text-danger">
+                    在需要提供身份证清关的渠道使用，和收件人姓名对应，<a href="/images/ecard1.jpg" target="_blank">点击参考正面样例图</a>。
+                </p>-->
+				<!--<div ng-show="!!data.idCardFrontUrl" style="margin-top:20px;">
+				<label class="label" ng-show="!state.showCardFront">身份证正面照</label>
+				<img id="img-idCardFront" ng-src="{{data.idCardFrontUrl}}" style="width: 480px; height: 260px;" alt="身份证正面照" />
+			</div>
+			<div class="form-group">
+				<label class="label">身份证反面照</label>
+				<input id="idCardBack" type="file" class="form-control" ng-model="data.idCardBack">
+				<p>证件必须是清晰彩色原件电子版， 可以是扫描件或者数码拍照照片。仅支持.jpg .jpeg .png .bmp .gif，大小不超过2M。</p>
+				<p class="text-danger">
+					在需要提供身份证清关的渠道使用，和收件人姓名对应，<a href="/images/ecard2.jpg" target="_blank">点击参考反面样例图</a>。
+				</p>
+			</div>
+			<div ng-show="!!data.idCardBackUrl" style="margin-top:20px;">
+				<label class="label" ng-show="!state.showCardFront">身份证反面照</label>
+				<img id="img-idCardBack" ng-src="{{data.idCardBackUrl}}" style="max-width: 480px; max-height: 260px;" alt="身份证反面照" />
+			</div>-->
+				<div class="form-group">
+					<label class="label required">手机号码</label>
+					<input type="text" class="form-control" ng-model="data.cellphoneNumber">
+				</div>
+				<div class="form-group">
+					<label class="label">备用号码</label>
+					<input type="text" class="form-control" ng-model="data.telephoneNumber">
+				</div>
+				<div class="form-group">
+					<label class="label">电子邮箱</label>
+					<input type="text" class="form-control email" name="required" ng-model="data.emailAddress">
+				</div>
+				<div class="form-group">
+					<label class="label">备注信息</label>
+					<textarea class="form-control" rows="5" ng-model="data.note"></textarea>
+				</div>
+				<div class="form-group">
+					<a class="btn-u" href="javascript:void(0)" ng-click="submit()">
+						<i class="fa fa-save"></i> 提交
+					</a>
+					<a class="btn-u" href="javascript:void(0)" ng-click="goback()">
+						<i class="fa fa-reply"></i> 返回
+					</a>
+				</div>
+		</form>
+		</div>
+	</div>
