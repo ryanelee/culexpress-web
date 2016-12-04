@@ -46,11 +46,20 @@ angular.module('culwebApp')
                 }).error(error);
             },
             changePassword: function (password, newPassword, emailAddress) {
-                return $http.put(cul.apiPath + '/customer/password', {
+                var data = {
                     password: password,
                     newPassword: newPassword,
                     emailAddress: emailAddress
-                });
+                };
+
+                var key = CryptoJS.lib.WordArray.random(128 / 8);
+
+                var bodyData = {
+                    data: CryptoJS.AES.encrypt(JSON.stringify(data), key.toString()).toString(),
+                    key: key.toString()
+                };
+            
+                return $http.put(cul.apiPath + '/customer/password', bodyData);
             },
             userPay: function (customerNumber, amount) {
                 return $http.post(cul.apiPath + '/alipay/create_direct_pay_by_user', {
