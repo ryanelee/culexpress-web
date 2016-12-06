@@ -30,8 +30,6 @@ angular.module('culAdminApp')
                         //success message
                         if (!errorMessage && $scope.resetFlag == '0') {
                             plugMessenger.success("登录成功");
-                            console.log($rootScope.userInfo)
-                            console.log($rootScope.userInfo.emailAddress);
                             $rootScope.$broadcast("refresh.menus");
                             $location.path('/')
                         } else if (!errorMessage && $scope.resetFlag == '1') {
@@ -54,7 +52,6 @@ angular.module('culAdminApp')
             }
 
             $scope.resetPassword = function () {
-                console.log($scope.search)
                 if (!$scope.search.password) {
                     plugMessenger.error("新密码不能为空");
                 } else if ($scope.search.password != $scope.search.repassword) {

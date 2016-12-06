@@ -15,12 +15,6 @@ angular
                 password: $scope.password,
                 rememberMe: $scope.rememberMe
             };
-            var key = CryptoJS.lib.WordArray.random(128 / 8);
-
-            var bodyData = {
-                data: CryptoJS.AES.encrypt(JSON.stringify(loginData), key.toString()).toString(),
-                key: key.toString()
-            };
 
             $scope.$root.isLogined = false;
             AuthService.login(loginData)

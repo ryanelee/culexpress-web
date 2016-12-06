@@ -28,7 +28,7 @@ angular.module('culAdminApp')
 
               keywordType: "customerNumber",
               orderStatus: "",
-              printStatus: "UnPrinted",
+              printStatus: "",
               warehouseNumber: "",
               startDate: "",
               startTime_HH: "0",
@@ -266,7 +266,7 @@ angular.module('culAdminApp')
                           "pageSize": 99999,
                           "pageIndex": 1,
                       },
-                      //"printStatus": "UnPrinted"
+                      //"printStatus": ""
                   })
                   orderService.getList(_options, function (result) {
                       $.each(result.data, function (i, item) {
