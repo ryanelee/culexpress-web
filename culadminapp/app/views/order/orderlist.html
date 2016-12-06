@@ -20,7 +20,8 @@
                 </div>
                 <div class="search-col">
                     <label class="search-label">打印状态：</label>
-                    <select class="form-control search-control" ng-model="searchBar.printStatus">
+                    <select class="form-control search-control" 
+                            ng-model="searchBar.printStatus">
                         <option value="">全部</option>
                         <option value="UnPrinted">待打印</option>
                         <option value="Printed">已打印</option>
@@ -220,7 +221,7 @@
             </tbody>
         </table>
         <div class="row">
-            <div class="col-sm-1 text-left pull-left">
+            <div class="col-sm-1 text-left pull-left ">
                 <!--<a class="btn btn-primary" target="_blank" ng-href="{{exportUrl}}">将结果导出Excel文件</a>-->
                 <form id="form_export" method="post" action="/" target="_blank">
                     <input id="dateFrom" name="dateFrom"  type="hidden" value="{{exportOptions.dateFrom}}"/>
@@ -240,7 +241,7 @@
                     <button type="submit" class="btn btn-primary role" data-role="33" >将结果导出Excel文件</button>
                 </form>
             </div>
-            <div class="col-sm-2 text-right pull-left">
+            <div class="col-sm-2 text-right pull-left" style="margin-left:75px">
                     <form id="form_exportUSPS" method="post" action="/" target="_blank">
                     <input id="USPS_dateFrom" name="dateFrom"  type="hidden" value="{{exportOptions.dateFrom}}"/>
                     <input id="USPS_dateTo" name="dateTo"  type="hidden" value="{{exportOptions.dateTo}}"/>

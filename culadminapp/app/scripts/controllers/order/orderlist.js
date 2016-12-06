@@ -33,7 +33,7 @@ angular.module('culAdminApp')
           selectedAll: false,
           keywordType: "customerNumber",
           orderStatus: "",
-          printStatus: "UnPrinted",
+          printStatus: "",
           warehouseNumber: "",
           shipServiceId: 0,
           isFastOrder: undefined,
