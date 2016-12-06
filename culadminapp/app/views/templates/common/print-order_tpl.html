@@ -52,8 +52,13 @@
             </tr>
             <tr ng-repeat="item in data.shipToAddresses">
                 <td class="title">收货地址</td>
-                <td colspan="3">
-                    {{item.receivePersonName}}<span ng-show="!!item.cellphoneNumber">({{item.cellphoneNumber}})</span>{{item.address1}}{{item.receiveCompanyName}}<span ng-show="!!item.zipcode">({{item.zipcode}})</span>
+                <td ng-if="data.shipServiceId != 9" colspan="3">
+                 <span  ng-if="data.shipServiceId != 10">{{item.receivePersonName}}<span ng-show="!!item.cellphoneNumber">({{item.cellphoneNumber}})</span>{{item.address1}}{{item.receiveCompanyName}}<span ng-show="!!item.zipcode">({{item.zipcode}})</span>
+                 </span>
+                </td>
+                <td ng-if="data.shipServiceId == 9" colspan="3">
+                 <span>{{item.receivePersonName}}<span ng-show="!!item.cellphoneNumber">({{item.cellphoneNumber}})</span>({{item.short}}_{{item.shortCity}}){{item.address1}}{{item.receiveCompanyName}}<span ng-show="!!item.zipcode">({{item.zipcode}})</span>
+                 </span>
                 </td>
             </tr>
             <!--<tr ng-repeat="item in data.outboundPackages">
