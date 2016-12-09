@@ -24,17 +24,20 @@
 				<div style="height: 50%" class="container kv-main">
 
 					<form enctype="multipart/form-data" id="addForm">
-						<p>注意:证件必须是清晰彩色原件电子版， 可以是扫描件或者数码拍照照片，正面照位于<span style="color:red;font-size:14px;">第一张</span>，<a href="/images/ecard1.jpg"
-								target="_blank">点击参考正面样例图</a>。反面照位于第二张，<a href="/images/ecard2.jpg" target="_blank">点击参考反面样例图</a>。
-							<p>身份证正反面必须同时上传。仅支持.jpg .jpeg .png .bmp .gif，大小不超过2M。</p>
-							</span>
+						<p>注意:证件必须是清晰彩色原件电子版， 可以是扫描件或者数码拍照照片，正面照位于<span style="color:red;font-size:14px;">第一张</span>，
+							<a href="/images/ecard1.jpg" target="_blank">点击参考正面样例图</a>。反面照位于第二张，
+							<a href="/images/ecard2.jpg" target="_blank">点击参考反面样例图</a>。
+						</p>
+						<p>身份证正反面必须同时上传。仅支持.jpg .jpeg .png .bmp .gif，大小不超过2M。</p>
 
 							<div class="form-group">
 								<label></label>
 								<input ng-show="flag == '1'" id="file" type="file" class="file" name="file" multiple="true" ,accept="image/*">
 							</div>
 					</form>
+					
 				</div>
+			
 				<!--<label class="label">身份证正面照</label>
                 <input id="idCardFront" type="file" class="form-control" ng-model="data.idCardFront">
                 <p>证件必须是清晰彩色原件电子版， 可以是扫描件或者数码拍照照片。仅支持.jpg .jpeg .png .bmp .gif，大小不超过2M。</p>
@@ -81,6 +84,7 @@
 						<i class="fa fa-reply"></i> 返回
 					</a>
 				</div>
+			</div>
 		</form>
 		</div>
 	</div>

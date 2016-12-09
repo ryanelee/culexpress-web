@@ -38,6 +38,7 @@ angular.module('culAdminApp')
                       orderNumber: orderNumbers
                   }
                   orderService.getList(_options, function (result) {
+                      console.log("result>"+JSON.stringify(result));
                       $scope.dataList = result.data;
 
                       $.each($scope.dataList, function (i, _data) {

@@ -98,7 +98,7 @@ angular.module('culAdminApp')
         });
       }
 
-      // 更新用户
+      // 删除用户
       self.delete = function (ids, callback) {
         $http.delete(cul.apiPath + "/user?userIds="+ ids, {}).success(function (result) {
             callback(result);
