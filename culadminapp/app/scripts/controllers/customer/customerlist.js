@@ -67,14 +67,18 @@ angular.module('culAdminApp')
               $location.search({ customerNumber: customer.customerNumber });
               $location.path("/customer/customerdetail");
           }
-
-          $scope.btnDelete = function (customer) {
-              customerService.delete(customer.customerNumber, function (result) {
+          //删除用户
+           $scope.btnDelete = function(customer) {
+            plugMessenger.confirm("确认删除该用户吗?", function (isOk) {
+                if (isOk) {
+                  customerService.delete(customer.customerNumber, function (result) {
                   if (result.success == true) {
                       plugMessenger.success("删除成功");
                       $scope.getData();
                   }
-              });
+                  })
+                }
+            });
           }
 
 

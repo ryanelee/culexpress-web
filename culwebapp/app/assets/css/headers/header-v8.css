@@ -19,7 +19,7 @@
 	[1. Header - Topbar blog]
 ---------------------------------------------------- */
 .blog-topbar {
-	background: #111;
+	background: #a8a8a8;
 }
 .blog-topbar .container,
 .blog-topbar .container-fluid {
@@ -143,6 +143,25 @@
 	letter-spacing: 1px;
   padding: 7px 12px 7px 0;
   float: left;
+}
+
+.old-version {
+	background-color: #898989;
+	color: #fff;
+	padding: 3px 15px;
+	border-radius: 4px;
+	margin-top: 3px;
+	display: inline-block;
+	cursor: pointer;
+}
+.login-item {
+	color: #fff;
+	margin-left: 40px;
+	cursor: pointer;
+}
+.login-item:hover,.login-item:active,.login-item:visited {
+	color: #fff;
+	text-decoration: none;
 }
 
 .topbar-toggler {
@@ -289,6 +308,23 @@
 	}
 }
 
+.id-card {
+	background-color: #ff515b;
+	border-radius: 4px;
+	color: #fff;
+	float: right;
+	margin-left: 70px;
+	padding: 5px 20px;
+	margin-top: 14px;
+}
+.id-card>span {
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+.id-card>img {
+	vertical-align: middle;
+}
 /*Containers
 ------------------------------------*/
 @media (min-width: 768px) and (max-width: 991px) {
@@ -338,9 +374,8 @@
 
 /*Navbar Brand*/
 .header-v8 .navbar-brand {
-	height: 84px;
-	max-height: 84px;
-	line-height: 60px;
+	height: 64px;
+	padding: 0px 15px;
 }
 
 .header-v8 .navbar-brand img {
@@ -502,7 +537,7 @@
 	}
 
 	.header-v8 .navbar-nav .open .dropdown-menu > li > a {
-		color: #777;
+		color: #000;
 	}
 
 	.header-v8 .navbar-nav .open .dropdown-menu > li > a:hover,
@@ -594,7 +629,6 @@
 
 	.header-v8 .navbar-nav > li > a {
 		padding: 20px;
-		line-height: 54px;
 	}
 
 	.header-v8 .navbar-nav > li:last-child > a {
