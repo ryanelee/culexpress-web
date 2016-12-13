@@ -82,7 +82,7 @@ angular.module('culAdminApp')
               }
           });
       }
-
+/*
       $scope.btnDelete = function (address) {
           addressService.delete(address.transactionNumber, function (result) {
               if (result.success == true) {
@@ -90,6 +90,19 @@ angular.module('culAdminApp')
                   $scope.getData();
               }
           });
-      }
+      } */
+      
+      $scope.btnDelete = function (address) {
+            plugMessenger.confirm("确认删除该地址吗?", function (isOk) {
+                if (isOk) {
+                  addressService.delete(address.transactionNumber, function (result) {
+              if (result.success == true) {
+                  plugMessenger.success("删除成功");
+                  $scope.getData();
+              }
+                  })
+                }
+            });
+          }
 
   }]);

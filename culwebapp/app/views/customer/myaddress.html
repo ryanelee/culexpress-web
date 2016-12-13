@@ -35,7 +35,8 @@
                 <label class="label" ng-show="!state.showCardFront">身份证正面照</label>
                 <img id="img-idCardFront" ng-src="{{data.idCardFrontUrl}}" style="width: 480px; height: 260px;" alt="身份证正面照" />
             </div>
-            <div class="form-group" ng-show="!state.showCardBack&&(data.verifyMark===0||data.verifyMark===-1||!data.transactionNumber)" style="margin-top:20px;">
+            <div class="form-group" ng-show="!state.showCardBack&&(data.verifyMark===0||data.verifyMark===-1||!data.transactionNumber)"
+                style="margin-top:20px;">
                 <a href="javascript:void(0)" ng-click="state.showCardBack=true">修改身份证反面照</a>
             </div>
             <div class="form-group" ng-show="state.showCardBack">
@@ -50,7 +51,7 @@
                 <label class="label" ng-show="!state.showCardFront">身份证反面照</label>
                 <img id="img-idCardBack" ng-src="{{data.idCardBackUrl}}" style="max-width: 480px; max-height: 260px;" alt="身份证反面照" />
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label class="label">收货地址</label>
                 <div class="row">
                     <div class="col-sm-5">
@@ -62,6 +63,28 @@
                         <select class="form-control"
                                 ng-options="item as item.name for item in data.stateOrProvince.cities track by item.id" ng-model="selectedCity">
                             <option>请选择城市</option>
+                        </select>
+                    </div>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="label">收货地址</label>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <select class="form-control" ng-options="province as province.name for province in provinces" ng-model="search.province"
+                            ng-change="getCity();">
+                            <option>请选择省份</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <select class="form-control" ng-options="city as city.name for city in citys" ng-model="search.city"   ng-change="getArea();">
+                            <option>请选择城市</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <select class="form-control" ng-options="area as area.name for area in areas" ng-model="search.area">
+                            <option>请选择区</option>
                         </select>
                     </div>
                 </div>
