@@ -10,7 +10,7 @@ angular
             });
         };
 
-        $http.get(cul.apiPath + '/web/reference').success(function (data) {
+        $http.get(cul.apiPath + '/web/reference').then(function (data) {
             $scope.References = data;
         });
 
