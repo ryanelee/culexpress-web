@@ -1,5 +1,5 @@
 .new-footer {
-  background: url('../../img/bt-bg.png') no-repeat left center
+  background: url('../../img/bt-bg.png') no-repeat left center;
 }
 .first-row {
   background: rgba(0, 0, 0, 0.6)
@@ -9,7 +9,7 @@
   background: rgba(255, 176, 25, 1);
   border-radius: 10px;
   text-align: center;
-  margin-top: 90px;
+  margin: 90px 0;
 }
 .first-row .search-icon {
   margin-top: -50px
@@ -42,7 +42,9 @@
   width: 70%;
   height: 45px;
   background-color: transparent;
-  border: solid 1px #dcdcdc
+  border: solid 1px #dcdcdc;
+  padding: 0 15px;
+  color: #fff;
 }
 .first-row .search-btn {
   box-sizing: border-box;
@@ -67,20 +69,29 @@
 }
 .first-row .footer-title {
   margin: 70px 0 15px;
-  height: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-.first-row .footer-title span{
+.col-title{
+  box-sizing: border-box;
   color: #fff;
   font-size: 12px;
   position: relative;
   text-align: left;
+  padding-right: 15px;
+  margin-top: -45px;
+  margin-bottom: 30px;
+  display: block;
 }
-.first-row .footer-title span:not(:first-child):before{
-  top: 5px;
-  left: -3px;
+
+
+.col-title:after{
+  top: 3px;
+  right: 10%;
   width: 1px;
   height: 9px;
-  content: ' ';
+  content: '';
   background: #eee;
   position: absolute;
 }
@@ -89,8 +100,59 @@
   padding: 10px 0;
 }
 .last-row a {
+  display: block;
   color: #fff;
   height: 30px;
   line-height: 30px;
   vertical-align: middle;
+}
+
+.last-row .col-md-3 {
+  padding-right: 0;
+}
+
+.last-row .footer-remark {
+  text-align: right;
+  margin-top: 80px;
+}
+
+.last-row .footer-logo {
+  margin-top: 110px;
+}
+
+.last-row .rk-company {
+  font-size: 12px;
+  color: #fff;
+}
+
+.last-row .rk-title {
+  font-size: 20px;
+  color: #ffb830;
+  font-weight: bold;
+}
+
+.last-row .footer-hr {
+  width: 100%;
+  border-top: solid 1px #514d47;
+  height: 0;
+  margin: 20px 0;
+}
+
+.last-row .footer-site-remark {
+  margin: 10px 0;
+  font-size: 12px;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .col-title{
+    display: none;
+  }
+  .first-row .search-title {
+    display: none;
+  }
+
+  .first-row .search-right {
+    width: 90%;
+  }
 }
