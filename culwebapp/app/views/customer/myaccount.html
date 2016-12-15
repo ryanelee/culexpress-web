@@ -79,13 +79,27 @@
                                 <dt><strong>联系地址 </strong></dt>
                                 <dd>
                                     <div class="row">
-                                        <span class="col col-4">
+                                        <span class="col col-3">
                                             <label class="select">
                                                 <select ng-options="item as item.name for item in countryList" ng-model="selectedCountry"></select>
                                                 <i></i>
                                             </label>
                                         </span>
-                                        <span class="col col-4" ng-if="selectedCountry.code==='CHN'">
+
+                                        <div class="col-sm-3">
+                                            <select class="form-control" ng-options="province as province.name for province in provinces" ng-model="selectedProvince" ng-change="getCity();">
+                                           </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select class="form-control"  ng-options="city as city.name for city in citys" ng-model="selectedCity" ng-change="getArea();">
+                                           </select>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <select class="form-control"  ng-options="area as area.name for area in areas" ng-model="selectedArea">
+                                       </select>
+                                        </div>
+                                        <!--<span class="col col-4" ng-if="selectedCountry.code==='CHN'">
                                             <label class="select">
                                                 <select ng-disabled="selectedCountry.code!=='CHN'"
                                                         ng-options="item as item.name for item in provinceList" ng-model="selectedProvince" ng-change="reloadCityData(selectedProvince)"></select>
@@ -97,7 +111,7 @@
                                                 <select ng-options="item as item.name for item in currentCities track by item.id" ng-model="selectedCity" ng-change="selectedCityHandler(selectedCity)"></select>
                                                 <i></i>
                                             </label>
-                                        </span>
+                                        </span>-->
                                     </div>
                                 </dd>
                                 <hr />
@@ -254,8 +268,7 @@
                                         {{addressItem.receivePersonName}}
                                     </td>
                                     <td>
-                                        <i class="color-red fa fa-phone"></i>
-                                        {{addressItem.cellphoneNumber}}
+                                        <i class="color-red fa fa-phone"></i> {{addressItem.cellphoneNumber}}
                                     </td>
                                     <td>
                                         <p><i class="color-red fa fa-map-marker"></i> {{addressItem.stateOrProvince}}</p>
