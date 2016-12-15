@@ -84,3 +84,149 @@ a:hover {
 select::-ms-expand {
   display: none;
 }
+
+.ht-title .title-box-text {
+	font-size: 24px;
+	color: #222;
+}
+
+.ht-title {
+	margin-top: 70px;
+}
+
+.ht-title .title-box-text::before {
+	content: '';
+	display: inline-block;
+	background: url('../img/ht-title-after.png') no-repeat center center;
+	width: 90px;
+	height: 5px;
+	vertical-align: middle;
+	margin-right: 30px;
+}
+
+.ht-title .title-box-text::after {
+	content: '';
+	display: inline-block;
+	background: url('../img/ht-title-after.png') no-repeat center center;
+	width: 90px;
+	height: 5px;
+	vertical-align: middle;
+	margin-left: 30px;
+}
+
+.ht-title > p{
+	font-size: 12px;
+	margin-top: 15px;
+}
+
+.ht-zj {
+	display: inline-block;
+	background: url('../img/zj-bg.png') no-repeat center center;
+	background-size: contain;
+	position: relative;
+	width: 100%;
+	height: 600px;
+}
+.ht-qs {
+}
+
+.ht-sx {
+}
+.ht-ks {
+}
+
+.ht-fx {
+}
+
+.img-zj {
+	max-width: 1000px;
+	width: 80%;
+}
+
+.ht-zj .zj-title {
+	font-size: 24px;
+	color: #222;
+	margin-top: 50px;
+}
+
+.ht-zj .zj-content {
+	font-size: 12px;
+	display: inline-block;
+	max-width: 270px;
+}
+
+.content-ht {
+	display: none;
+}
+
+.lc-right {
+	display: inline-block;
+	width: 50%;
+}
+
+.item-lc {
+	display: inline-block;
+	max-width: 390px;
+}
+
+@media (max-width: 768px) {
+	.ht-zj {
+		background: #fff;
+	}
+
+	.content-ht {
+		display: block;
+	}
+
+	.ht-title {
+		display: none;
+	}
+
+	.icon-ht {
+		float: left;
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+		margin-top: 10px;
+	}
+
+	.item-ks:hover .icon-ks {
+		background: url('../img/zj-icon-ks-hover.png') no-repeat center center;
+		background-size: cover;
+	}
+
+	.item-sx:hover .icon-sx {
+		background: url('../img/zj-icon-sx-hover.png') no-repeat center center;
+		background-size: cover;
+	}
+
+	.item-qs:hover .icon-qs {
+		background: url('../img/zj-icon-qs-hover.png') no-repeat center center;
+		background-size: cover;
+	}
+
+	.item-fx:hover .icon-fx {
+		background: url('../img/zj-icon-fx-hover.png') no-repeat center center;
+		background-size: cover;
+	}
+
+	.icon-qs {
+		background: url('../img/zj-icon-qs.png') no-repeat center center;
+		background-size: cover;
+	}
+
+	.icon-sx {
+		background: url('../img/zj-icon-sx.png') no-repeat center center;
+		background-size: cover;
+	}
+
+	.icon-ks {
+		background: url('../img/zj-icon-ks.png') no-repeat center center;
+		background-size: cover;
+	}
+
+	.icon-fx {
+		background: url('../img/zj-icon-fx.png') no-repeat center center;
+		background-size: cover;
+	}
+}

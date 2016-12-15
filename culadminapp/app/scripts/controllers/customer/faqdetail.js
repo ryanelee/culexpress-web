@@ -73,6 +73,21 @@ angular.module('culAdminApp')
                   });
               }
           }
+          //查看客户信息
+           $scope.btnOpenDetail = function (item, type) {
+              switch (type) {
+                  case "faqdetail":
+                      $location.search({ messageNumber: item.messageNumber });
+                      $location.path("/customer/faqdetail");
+                      break;
+                  case "customerdetail":
+                      $location.search({ customerNumber: item.customerNumber });
+                      $location.path("/customer/customerdetail");
+                      break;
+              }
+          }
+
+          
 
           $scope.btnUpdateStatus = function (status) {
               var _update = function(){
