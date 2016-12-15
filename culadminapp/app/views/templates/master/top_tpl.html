@@ -14,33 +14,40 @@
                             <!-- responsive menu bar icon -->
                             <a href="javascript:void(0);" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
                             <!-- end responsive menu bar icon -->
-                            <!--<div class="notifications">
+                            <div class="notifications">
                                 <ul>
                                     <li class="notification-item inbox">
                                         <div class="btn-group">
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-envelope"></i><span class="count">2</span>
+                                                <i class="fa fa-envelope"></i><span class="count">3</span>
                                                 <span class="circle"></span>
                                             </a>
                                             <ul class="dropdown-menu" role="menu">
                                                 <li class="notification-header">
-                                                    <em>You have 2 unread messages</em>
+                                                    <em>您有 3 条未处理客户留言</em>
                                                 </li>
-                                                <li class="inbox-item clearfix">
+                                                <li class="inbox-item clearfix" ng-click="btnViewMessage();">
                                                     <a href="javascript:void(0);">
-                                                        <div class="media">
-                                                            <div class="media-left">
-                                                                <img class="media-object" src="assets/img/user1.png" alt="Antonio">
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <h5 class="media-heading name">Antonius</h5>
-                                                                <p class="text">The problem just happened this morning. I can't see ...</p>
-                                                                <span class="timestamp">4 minutes ago</span>
-                                                            </div>
-                                                        </div>
+                                                        <i class="fa fa-envelope green-font"></i>
+                                                        <span class="text">为什么我的包裹还没有发货?...</span>
+                                                        <span class="timestamp">1 分钟前</span>
                                                     </a>
                                                 </li>
-                                                <li class="inbox-item unread clearfix">
+                                                 <li class="inbox-item clearfix">
+                                                    <a href="javascript:void(0);" ng-click="btnViewMessage();">
+                                                        <i class="fa fa-envelope green-font"></i>
+                                                        <span class="text">为什么我的包裹还没有发货?...</span>
+                                                        <span class="timestamp">2 小时前</span>
+                                                    </a>
+                                                </li>
+                                                 <li class="inbox-item clearfix">
+                                                    <a href="javascript:void(0);" ng-click="btnViewMessage();">
+                                                        <i class="fa fa-envelope green-font"></i>
+                                                        <span class="text">为什么我的包裹还没有发货?...</span>
+                                                        <span class="timestamp">5 天前</span>
+                                                    </a>
+                                                </li>
+                                                <!--<li class="inbox-item unread clearfix">
                                                     <a href="javascript:void(0);">
                                                         <div class="media">
                                                             <div class="media-left">
@@ -95,9 +102,46 @@
                                                             </div>
                                                         </div>
                                                     </a>
+                                                </li>-->
+                                                <li class="notification-footer">
+                                                    <a href="javascript:void(0);" ng-click="btnViewMessageList();">查看所有客户留言</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="notification-item general">
+                                        <div class="btn-group">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="fa fa-user-circle-o" aria-hidden="true"></i><span class="count">1</span>
+                                                <span class="circle"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li class="notification-header">
+                                                    <em>您有 3 条未处理客户留言</em>
+                                                </li>
+                                                <li class="inbox-item clearfix" ng-click="btnViewMessage();">
+                                                    <a href="javascript:void(0);">
+                                                        <i class="fa fa-envelope green-font"></i>
+                                                        <span class="text">为什么我的包裹还没有发货?...</span>
+                                                        <span class="timestamp">1 分钟前</span>
+                                                    </a>
+                                                </li>
+                                                 <li class="inbox-item clearfix">
+                                                    <a href="javascript:void(0);" ng-click="btnViewMessage();">
+                                                        <i class="fa fa-envelope green-font"></i>
+                                                        <span class="text">为什么我的包裹还没有发货?...</span>
+                                                        <span class="timestamp">2 小时前</span>
+                                                    </a>
+                                                </li>
+                                                 <li class="inbox-item clearfix">
+                                                    <a href="javascript:void(0);" ng-click="btnViewMessage();">
+                                                        <i class="fa fa-envelope green-font"></i>
+                                                        <span class="text">为什么我的包裹还没有发货?...</span>
+                                                        <span class="timestamp">5 天前</span>
+                                                    </a>
                                                 </li>
                                                 <li class="notification-footer">
-                                                    <a href="javascript:void(0);">View All Messages</a>
+                                                    <a href="javascript:void(0);" ng-click="btnViewMessageList();">查看所有客户留言</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -175,7 +219,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                            </div>-->
+                            </div>
                             <!-- logged user and the menu -->
                             <div class="logged-user">
                                 <div class="btn-group">
