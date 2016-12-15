@@ -7,7 +7,8 @@
  * # masterTopToolbar
  */
 angular.module('culAdminApp')
-  .directive('masterTopToolbar', ["$http", "userService", function ($http, userService) {
+  .directive('masterTopToolbar', ["$http", "userService", "$location", 
+    function ($http, userService, $location) {
       return {
           templateUrl: "views/templates/master/top_tpl.html",
           restrict: 'E',
@@ -18,6 +19,14 @@ angular.module('culAdminApp')
                   userService.logout(function () {
                       $scope.$root.userInfo = null;
                   });
+              };
+
+              $scope.btnViewMessageList = function () {
+                  $location.path("/customer/messagelist");
+              }
+
+              $scope.btnViewMessage = function () {
+                  $location.path("/customer/faqdetail").search({messageNumber:"JK01220161214210558"});
               }
           }
       };
