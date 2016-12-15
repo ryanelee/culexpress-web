@@ -30,7 +30,7 @@
                         <input type="text" class="form-control" ng-model="data.idCard">
                     </div>
                 </div>
-                 <!--<div class="form-group">
+                <!--<div class="form-group">
                     <label class="col-sm-2 control-label text-right">身份证正反面：</label>
                     <div class="col-sm-4">
                         <div class="thumbnail">
@@ -48,9 +48,7 @@
                         <div class="row fileupload-buttonbar" style="padding-left:15px;">
                             <div class="thumbnail col-sm-12">
                                 <a href="{{data.idCardFrontUrl}}" target="_blank">
-                                    <img id="idcardfront_show" style="height:100px;margin-top:10px;margin-bottom:8px;"
-                                        ng-src="{{data.idCardFrontUrl}}"
-                                        data-holder-rendered="true">
+                                    <img id="idcardfront_show" style="height:100px;margin-top:10px;margin-bottom:8px;" ng-src="{{data.idCardFrontUrl}}" data-holder-rendered="true">
                                 </a>
                                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="10" aria-valuemax="100" aria-valuenow="0">
                                     <div id="progress" class="progress-bar progress-bar-success" style="width:0%;"></div>
@@ -58,7 +56,7 @@
                                 <div class="caption" align="center">
                                     <span id="idcardfront_upload" class="btn btn-primary fileinput-button">
                                         <span id="file_btn_text">上传</span>
-                                        <input type="file" id="fileupload_front" name="idcardfront_image">
+                                    <input type="file" id="fileupload_front" name="idcardfront_image">
                                     </span>
                                 </div>
                             </div>
@@ -68,9 +66,7 @@
                         <div class="row fileupload-buttonbar" style="padding-left:15px;">
                             <div class="thumbnail col-sm-12">
                                 <a href="{{data.idCardBackUrl}}" target="_blank">
-                                    <img id="idcardback_show" style="height:100px;margin-top:10px;margin-bottom:8px;"
-                                        ng-src="{{data.idCardBackUrl}}"
-                                        data-holder-rendered="true">
+                                    <img id="idcardback_show" style="height:100px;margin-top:10px;margin-bottom:8px;" ng-src="{{data.idCardBackUrl}}" data-holder-rendered="true">
                                 </a>
                                 <div class="progress progress-striped active" role="progressbar">
                                     <div id="progress" class="progress-bar progress-bar-success" style="width:0%;"></div>
@@ -78,7 +74,7 @@
                                 <div class="caption" align="center">
                                     <span id="idcardback_upload" class="btn btn-primary fileinput-button">
                                         <span id="file_btn_text">上传</span>
-                                        <input type="file" id="fileupload_back" name="idcardback_image">
+                                    <input type="file" id="fileupload_back" name="idcardback_image">
                                     </span>
                                 </div>
                             </div>
@@ -91,13 +87,29 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">收货地址：</label>
                     <div class="col-sm-2">
+                        <select class="form-control" ng-options="province.name as province.name for province in provinces" ng-model="data.stateOrProvince"
+                            ng-change="changeProvince()"></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-options="city.name as city.name for city in citys" ng-model="data.city"></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-options="area.name as area.name for area in areas" ng-model="data.area"></select>
+                    </div>
+                </div>
+
+
+
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货地址：</label>
+                    <div class="col-sm-2">
                         <select class="form-control" ng-options="item.name as item.name for item in tpl_status.provinceList" ng-model="data.stateOrProvince" ng-change="changeProvince()"></select>
                     </div>
                     <div class="col-sm-2">
                         <select class="form-control"
                                 ng-options="item.name as item.name for item in tpl_status.cities" ng-model="data.city"></select>
                     </div>
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">详细地址：</label>
                     <div class="col-sm-4">
