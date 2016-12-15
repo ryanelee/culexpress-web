@@ -245,52 +245,51 @@
 				</div>
 			</div>
 		</div>
-
-
-
      <!--=== zbbn ===-->
-
     <!--end pricing-->
     <!-- Testimonials Carousel -->
     <!-- Testimonials v3 -->
-    <div class="testimonials-v3">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <ul class="list-unstyled owl-ts-v1">
-                        <li class="item">
-                            <div class="testimonials-v3-title">
-                                <p>俄勒冈免税州仓库开业大酬宾</p>
-                                <span class="bordered-icon"><i class="fa fa-bullhorn"></i></span>
-                            </div>
-                            <p>中美速递俄勒冈免税州仓库盛大开业,全线运费9折优惠!新注册客户完成第一笔消费后,即可获得￥20运费奖励.每邀请一位好友加入,双方均可获得￥20运费奖励,并且以后您推荐的好友每寄一单包裹,您都会得到￥1运费回馈.</p>
-                        </li>
-                        <li class="item">
-                            <div class="testimonials-v3-title">
-                                <h2>中美速递线上客户系统正式上线</h2>
-                                <span class="bordered-icon"><i class="fa fa-th-large"></i></span>
-                            </div>
-                            <p>中美速递的在线客户系统是由中美速递开发团队自主研发的专门面向海淘用户的全新系统, 系统采用业内流行的网页开发技术,操作简单功能覆盖范围全，让海淘变得更轻松.</p>
-                        </li>
-                        <li class="item">
-                            <div class="testimonials-v3-title">
-                                <h2>中美速递线仓储管理系统正式上线</h2>
-                                <span class="bordered-icon"><i class="fa fa-th-large"></i></span>
-                            </div>
-                            <p>为了让客户的包裹更快速安全的经过仓库中转,中美速递开发团队自主研发的后台仓储管理系统让仓库服管理和操作人员能准确轻松的通过监控包裹异常情况并快速的进行日常的操作.</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Testimonials v3 -->
+		<div class="container-fluid info-banner slideBox hidden-md">
+			<div class="info-op">
+				<img class="unslider-arrow prev" src="../assets/img/index/icon-info-left.png" />
+				<img class="unslider-arrow next" src="../assets/img/index/icon-info-right.png" />
+			</div>
+				<ul>
+					<li class="info-banner1">
+						<div class="container">
+							<h1 class="info-title">俄勒冈免税州仓库开业大酬宾</h1>
+							<div class="info-content">
+								<img src="../assets/img/index/info-person1.png" />
+								<p class="info-detail">中美速递俄勒冈免税州仓库盛大开业，全线运费9折优惠！新注册客户完成第一笔消费后,即可获得￥20运费奖励</p>
+								<p class="info-detail">您推荐的好友每寄一单包裹,您都会得到￥1运费回馈!每邀请一位好友加入,双方均可获得￥20运费奖励</p>
+							</div>
+						</div>
+					</li>
+					<li class="info-banner2">
+						<div class="container">
+							<h1 class="info-title">中美速递线仓储管理系统正式上线</h1>
+							<div class="info-content">
+								<img src="../assets/img/index/info-person2.png" />
+								<p class="info-detail-lg">为了让客户的包裹更快速安全的经过仓库中转,中美速递开发团队自主研发的后台仓储管理系统让仓库服管理和操作人员能准确轻松的通过监控包裹异常情况并快速的进行日常的操作</p>
+							</div>
+						</div>
+					</li>
+					<li class="info-banner3">
+						<div class="container">
+							<h1 class="info-title">中美速递线上客户系统正式上线</h1>
+							<div class="info-content">
+								<img src="../assets/img/index/info-person3.png" />
+								<p class="info-detail-lg">中美速递的在线客户系统是由中美速递开发团队自主研发的专门面向海淘用户的全新系统, 系统采用业内流行的网页开发技术,操作简单功能覆盖范围全，让海淘变得更轻松</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+		</div>
     <!--=== Cube-Portfdlio ===-->
     <div class="parallax-counter-v2 parallaxBg1">
         <div class="container">
 					<div class="title-box ht-title">
 						<div class="title-box-text">返利促销</div>
-					</div>
             <div class="cube-portfolio container margin-bottom-60">
                 <div class="content-xs">
                     <div id="filters-container" class="cbp-l-filters-text content-xs">
@@ -438,6 +437,7 @@
                     <!--最高返利-->
                 </div><!--/end Grid Container-->
             </div>
+					</div>
         </div>
     </div>
         <!--=== End Cube-Portfdlio ===-->
@@ -554,6 +554,12 @@
     jQuery(document).ready(function () {
         (function ($, window, document, undefined) {
             'use strict';
+						var unslider = $('.info-banner').unslider();
+
+				    $('.unslider-arrow').click(function() {
+				        var fn = this.className.split(' ')[1];
+				        unslider.data('unslider')[fn]();
+				    });
 
             var gridContainer = $('#grid-container'),
                 filtersContainer = $('#filters-container'),
