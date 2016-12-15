@@ -23,6 +23,20 @@ angular
             $http.get(cul.apiPath + '/web/client').then(function (data) {
                 $scope.Clients = data;
             });
+
+            $scope.hoverHt = function(dom, type) {
+              if (type === 'hover') {
+                $('.'+dom).addClass(dom+'-hover');
+              } else {
+                $('.'+dom).removeClass(dom+'-hover');
+              }
+            }
+
+            // 流程鼠标移入移除控制效果
+            $scope.hoverLC = function(sty, type) {
+              var dom = $('.lc-right');
+              dom.removeClass('lc-rk').removeClass('lc-ck').removeClass('lc-ps').addClass(sty);
+            }
         }
     ])
 .directive('ourclient', function () {
