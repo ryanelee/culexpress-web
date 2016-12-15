@@ -14,10 +14,13 @@ angular.module('culAdminApp')
       self.getDetail = function (transactionNumber, callback) {
           $http.get(cul.apiPath + "/receiveaddress/" + transactionNumber)
           .success(function (result) {
-              console.log(result);
               callback(result);
           });
       }
+
+       self.getDistrict = function (obj) {
+            return $http.post(cul.apiPath + '/address/district', obj);
+        }
 
       self.getList = function (options, callback) {
           $http.post(cul.apiPath + "/receiveaddress/list", options)
