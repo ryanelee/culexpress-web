@@ -21,23 +21,51 @@ angular.module('culwebApp')
             $scope.provinces = [];
             $scope.citys = [];
             $scope.areas = [];
-            $scope.getProvince = function () {
+            $scope.getProvince = function (province, city, area) {
                 addressSvr.getDistrict($scope.search).then(function (data) {
                     $scope.provinces = data.data.data;
+                    if (province) {
+                        $scope.provinces.forEach(function (e) {
+                            if (province.indexOf(e.name) >= 0) {
+                                $scope.search.province = e;
+                            }
+                        })
+                        if (city) {
+                            $scope.getCity(city, area);
+                        }
+                    }
                 })
             }
             $scope.getProvince();
 
-            $scope.getCity = function () {
+            $scope.getCity = function (city, area) {
                 $scope.search.parentid = $scope.search.province.id;
                 addressSvr.getDistrict($scope.search).then(function (data) {
                     $scope.citys = data.data.data;
+                    if (city) {
+                        $scope.citys.forEach(function (e) {
+                            if (city.indexOf(e.name) >= 0) {
+                                $scope.search.city = e;
+                            }
+                        })
+                        if (area) {
+                            $scope.getArea(area);
+                        }
+                    }
+
                 })
             }
-            $scope.getArea = function () {
+            $scope.getArea = function (area) {
                 $scope.search.parentid = $scope.search.city.id;
                 addressSvr.getDistrict($scope.search).then(function (data) {
                     $scope.areas = data.data.data;
+                     if (area) {
+                        $scope.areas.forEach(function (e) {
+                            if (area.indexOf(e.name) >= 0) {
+                                $scope.search.area = e;
+                            }
+                        })
+                    }
                 })
             }
 
@@ -325,6 +353,14 @@ angular.module('culwebApp')
                         if (result.data) {
                             $timeout(function () {
                                 $scope.data = result.data;
+
+                                console.log("--->" + JSON.stringify($scope.data));
+                                var province = result.data.stateOrProvince;
+                                var city = result.data.city;
+                                var area = result.data.area;
+                                $scope.getProvince(province,city,area);
+
+
                                 rebindStateOrProvince($scope.data.stateOrProvince, $scope.data.city);
                                 $scope.$apply(function () {
                                     if (!!$scope.data.idCardFront) $scope.state.showCardFront = false;
