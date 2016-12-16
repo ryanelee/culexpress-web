@@ -177,18 +177,25 @@
                           关于我们
                       </a>
                   </li>
-                  <li ng-class="{active: $state.includes('contact')}">
+                  <!-- <li ng-class="{active: $state.includes('contact')}">
                       <a ui-sref="contact">
                           联系我们
                       </a>
-                  </li>
+                  </li> -->
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-      <div class="hidden-xs search-bar">
-
+      <div class="visible-md-block visible-lg-block container search-container">
+        <div class="search-bar">
+          <input class="search-txt" type="text" placeholder="运单查询" ng-model="trackingNumber1" />
+          <span class="search-bar-btn">
+              <a href="#/ordertracking/{{trackingNumber1}}">
+                  <i class="fa fa-search"></i>
+              </a>
+          </span>
+        </div>
       </div>
       <div class="hidden-md hidden-lg hidden-xl navbar-collapse mega-menu navbar-responsive-collapse-search">
           <div class="container">
