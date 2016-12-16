@@ -22,10 +22,10 @@ angular
                 $element.html('').append(newHTML); // Clear and append it
             };
 
-            var htmlName = $attrs.bindHtmlUnsafe; // Get the name of the variable 
+            var htmlName = $attrs.bindHtmlUnsafe; // Get the name of the variable
             // Where the HTML is stored
 
-            $scope.$watch(htmlName, function (newHTML) { // Watch for changes to 
+            $scope.$watch(htmlName, function (newHTML) { // Watch for changes to
                 // the HTML
                 if (!newHTML) return;
                 compile(newHTML);   // Compile it
@@ -327,6 +327,10 @@ angular
                 .state('howtouse', {
                     url: '/howtouse',
                     templateUrl: 'views/howtouse.html'
+                })
+                .state('embargo', {
+                    url: '/embargo',
+                    templateUrl: 'views/embargo.html'
                 })
                 .state('uploadIDCard', {
                     url: '/uploadIDCard',
