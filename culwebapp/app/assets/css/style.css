@@ -744,6 +744,15 @@ select::-ms-expand {
 	display: none;
 }
 
+.unslider-arrow, .unslider-nav {
+	display: none;
+}
+
+.info-op .unslider-arrow {
+	display: inline-block;
+	position: static;
+}
+
 @media (max-width: 1057px) {
 	.ht-icon {
 		display: none;
