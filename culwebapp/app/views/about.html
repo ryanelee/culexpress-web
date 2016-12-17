@@ -1,70 +1,154 @@
-<div ng-controller="AboutController">
-<!--=== Content Part ===-->
-<div class="container content">
-    <div class="headline"><h2>关于我们</h2></div>
-    <div class="row">
-        <div class="col-md-6 md-margin-bottom-40">
+<div class="about-container" ng-controller="AboutController">
+  <div id="map" class="map" style="background-image: url(images/contactus-map.png);background-position:center center;background-repeat:no-repeat;background-size: cover;">
+  </div>
+  <!--=== Content Part ===-->
+  <div class="container content">
+      <div class="row">
+          <div class="col-md-6 md-margin-bottom-40">
+            <div class="about-title">关于我们 <span>ABOUT US</span></div>
+            <div class="icon-about"><img src="../assets/img/about/icon-about.png" /></div>
+            <strong class="about-main">让海外购物更快速,更省心,更放心,让海淘变得更轻松! 是我们中美速递的宗旨。</strong>
             <p>中美速递(culexpress)是海淘服务专家和中美运输权威,我们的服务人员皆拥有多年处理中美之间空海运进出口的经验,为集国际快递国际货运,仓储配送,包装,对外贸易以及保险代理于一身的全方位配套的综合性国际物流企业,有着完善的国内外服务网络和良好的企业信誉.</p>
             <p>公司总部设在美国洛杉矶.公司秉持“顾客至上”的原则,热诚服务大众,与业内多家知名企业合作,致力于用更短的时间和更低的费用的同时,为客户提供全方位的货运服务,主要业务有国际快件,国内运输,中美转运,美货直发,满足客户各种不同的需求.</p>
-            <ul class="list-unstyled">
-                <li><i class="fa fa-check color-green"></i> 专属美国收货地址</li>
-                <li><i class="fa fa-check color-green"></i> 个人专属的美国仓库</li>
-                <li><i class="fa fa-check color-green"></i> 大小包裹双渠道发货</li>
-                <li><i class="fa fa-check color-green"></i> 便捷的在线支付</li>
-            </ul><br />
-
-            <!-- Blockquotes -->
-            <blockquote class="hero-unify">
-                <p>让海外购物更快速,更省心,更放心,让海淘变得更轻松!</p>
-                <small>中美速递的宗旨</small>
-            </blockquote>
+          </div>
+          <div class="col-md-6 md-margin-bottom-40">
+              <div class="responsive-video">
+                  <img class="img-about" src="../assets/img/about/about.png" />
+              </div>
+          </div>
+      </div><!--/row-->
+  </div><!--/container-->
+  <div class="middle-about">
+    <div class="container content">
+      <div class="row about-container">
+        <div class="col-md-3 col-sm-3 middle-item">
+          <img src="../assets/img/about/icon-zsmg.png" />
+          <div class="middle-font">
+            <span>专属美国</span><br/>
+            <span>收货地址</span>
+          </div>
         </div>
-
-        <div class="col-md-6 md-margin-bottom-40">
-            <div class="responsive-video">
-                <img src="../images/about-us.jpg" style="width:555px;height:313px">
-            </div>
+        <div class="col-md-3 col-sm-3 middle-item">
+          <img src="../assets/img/about/icon-grzs.png" />
+          <div class="middle-font">
+            <span>个人专属</span><br/>
+            <span>美国仓库</span>
+          </div>
         </div>
-    </div><!--/row-->
-
-    <!-- Owl Clients v1 -->
-    <div class="headline"><h2>合作伙伴</h2></div>
-    <div class="owl-clients-v1">
-        <div class="item">
-            <a href="{{ Clients[0].url }}"><img ng-src="{{ Clients[0].image }}" alt=""></a>
+        <div class="col-md-3 col-sm-3 middle-item">
+          <img src="../assets/img/about/icon-dxbg.png" />
+          <div class="middle-font">
+            <span>大小包裹</span><br/>
+            <span>双渠发货</span>
+          </div>
         </div>
-        <div class="item">
-            <a href="{{ Clients[1].url }}"><img ng-src="{{ Clients[1].image }}" alt=""></a>
+        <div class="col-md-3 col-sm-3 middle-item">
+          <img src="../assets/img/about/icon-zxzf.png" />
+          <div class="middle-font">
+            <span>在线支付</span><br/>
+            <span>更加便捷</span>
+          </div>
         </div>
-        <div class="item">
-            <a href="{{ Clients[2].url }}"><img ng-src="{{ Clients[2].image }}" alt=""></a>
-        </div>
-        <div class="item">    
-            <a href="{{ Clients[3].url }}"><img ng-src="{{ Clients[3].image }}" alt=""></a>
-        </div>
-        <div class="item">    
-            <a href="{{ Clients[4].url }}"><img ng-src="{{ Clients[4].image }}" alt=""></a>
-        </div>
-        <div class="item">    
-            <a href="{{ Clients[5].url }}"><img ng-src="{{ Clients[5].image }}" alt=""></a>
-        </div>
-        <div class="item">    
-            <a href="{{ Clients[6].url }}"><img ng-src="{{ Clients[6].image }}" alt=""></a>
-        </div>
-        <div class="item">    
-            <a href="{{ Clients[7].url }}"><img ng-src="{{ Clients[7].image }}" alt=""></a>
-        </div>
-        <div class="item">    
-            <a href="{{ Clients[8].url }}"><img ng-src="{{ Clients[8].image }}" alt=""></a>
-        </div>
+      </div>
     </div>
-    <!-- End Owl Clients v1 -->
-</div><!--/container-->
+  </div>
+  <div class="container content">
+    <div class="row">
+      <div class="col-md-5 md-margin-bottom-40">
+        <div class="contact-title">中美速递 海淘服务专家</div>
+        <p class="contact-icon"><span>--</span> <span>--</span></p>
+        <p class="contact-content">公司总部设在美国洛杉矶.我们拥有多年处理中美空海运进出口的经验,成熟的配套设施和专业的管理团队让我们在业内外赢得广泛的认同.</p>
+        <div class="contact-icon-container">
+          <div class="contact-icon-item">
+            <img src="../assets/img/about/icon-tell.png" />
+            <span class="contact-item-title">(626)542-3266</span><br/>
+            <span class="contact-item-remark">周1-周五:北京时间9:00 - 17:30</span>
+          </div>
+          <div class="contact-icon-item">
+            <img src="../assets/img/about/icon-email.png" />
+            <span class="contact-item-title">cs@culexpress.com</span><br/>
+            <span class="contact-item-remark">24小时接收您的邮件</span>
+          </div>
+        </div>
+        <div class="contact-title">其他联系方式</div>
+        <p class="contact-icon"><span>--</span> <span>--</span></p>
+        <div class="contact-icon-container">
+          <div class="contact-icon-item">
+            <img src="../assets/img/about/icon-location.png" />
+            <span class="contact-item-info">712 Nogales street,Industry,CA 91748</span>
+          </div>
+          <div class="contact-icon-item">
+            <img src="../assets/img/about/icon-cz.png" />
+            <span class="contact-item-info">(626)542-3266</span>
+          </div>
+          <div class="contact-icon-item">
+            <img src="../assets/img/about/icon-site.png" />
+            <span class="contact-item-info">http://site1.culexpress.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-md-offset-1 md-margin-bottom-40">
+        <div class="about-title mt-30">联系我们 <span>CONTACT US</span></div>
+        <div class="icon-about"><img src="../assets/img/about/icon-user.png" /></div>
+        <form ng-submit="submitMessage()" method="post" id="sky-form3" class="sky-form contact-style" novalidate="novalidate">
+            <fieldset class="no-padding">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-0 sky-space-20">
+                      <div>
+                        <input type="text" name="name" id="name" class="form-control input-control" ng-model="model.name" placeholder="姓名">
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-md-offset-0 sky-space-20">
+                      <div>
+                        <input type="text" name="tell" id="tell" class="form-control input-control" ng-model="model.tell" placeholder="电话">
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-md-offset-0 sky-space-20">
+                      <div>
+                        <input type="text" name="email" id="email" class="form-control input-control" ng-model="model.email" placeholder="邮箱">
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-md-offset-0 sky-space-20">
+                      <div>
+                        <input type="text" name="address" id="address" class="form-control input-control" ng-model="model.aaddress" placeholder="地址">
+                      </div>
+                    </div>
+                </div>
+
+                <div class="row sky-space-20">
+                    <div class="col-md-12 col-md-offset-0">
+                        <div>
+                            <textarea rows="8" name="message" id="message" class="form-control" ng-model="model.message" placeholder="您的需求"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <p class="pull-right"><button type="submit" class="btn-u">提交信息</button></p>
+            </fieldset>
+            <div class="message">
+                <i class="rounded-x fa fa-check"></i>
+                <p>感谢留言,我们会尽快和您联系!</p>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid about-hzhb">
+    <div class="container content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="about-title">合作伙伴</div>
+          <div class="icon-about"><img src="../assets/img/about/icon-users.png" /></div>
+          <img class="hz-img" src="../assets/img/about/about-hzhb.png" />
+        </div>
+      </div>
+    </div>
+  </div>
 <!--=== End Content Part ===-->
 </div>
 
 
-<script type="text/javascript">   
+<script type="text/javascript">
     jQuery(document).ready(function() {
       	App.init();
         OwlCarousel.initOwlCarousel();

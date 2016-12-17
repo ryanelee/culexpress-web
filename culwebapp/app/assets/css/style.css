@@ -862,6 +862,161 @@ select::-ms-expand {
 	margin-bottom: 30px;
 }
 
+.about-container .about-title {
+	color: #000;
+	font-size: 30px;
+}
+
+.about-container .about-title span {
+	color: #000;
+	font-size: 24px;
+	margin-left: 5px;
+}
+
+.about-container .icon-about {
+	margin: 30px 0 50px;
+}
+
+.about-container .icon-about::before {
+	content: '';
+	display: inline-block;
+	background: url('../img/about/icon-line.png') no-repeat center center;
+	width: 90px;
+	height: 5px;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.about-container .icon-about::after {
+	content: '';
+	display: inline-block;
+	background: url('../img/about/icon-line.png') no-repeat center center;
+	width: 90px;
+	height: 5px;
+	vertical-align: middle;
+	margin-left: 10px;
+}
+
+.about-container .about-main {
+	display: inline-block;
+	color: #333;
+	font-size: 18px;
+	font-weight: bold;
+	margin-right: 10%;
+	margin-bottom: 45px;
+}
+
+.about-container .img-about {
+	width: 90%;
+	height: auto;
+}
+
+.middle-about {
+	background-color: #b0bfd7;
+}
+
+.middle-about .middle-item {
+	text-align: center;
+	color: #fff;
+	font-size: 16px;
+}
+
+.middle-about .middle-item img {
+	vertical-align: middle;
+}
+
+.middle-about .middle-item .middle-font {
+	display: inline-block;
+	margin-left: 10px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.about-container .contact-title {
+	font-size: 20px;
+	color: #000;
+	margin-top: 30px;
+	font-weight: bold;
+}
+.about-container .contact-icon {
+	margin: 10px 0;
+}
+
+.about-container .contact-content {
+	margin: 20px 0;
+}
+
+.about-container .contact-icon span:first-child {
+	color: #ffa100;
+}
+
+.about-container .contact-icon-container {
+	padding: 10px 0;
+}
+
+.contact-icon-item {
+	margin-top: 20px;
+}
+
+.contact-icon-item:first-child {
+	margin-top: 0;
+}
+
+.contact-icon-item img {
+	vertical-align: middle;
+}
+
+.contact-icon-item .contact-item-title {
+	font-size: 22px;
+	font-weight: bold;
+	color: #ffa100;
+	vertical-align: middle;
+	margin-left: 10px;
+}
+
+.contact-icon-item .contact-item-remark {
+	font-size: 12px;
+	color:#0c0c0c;
+	margin-top: 10px;
+	margin-left: 40px;
+}
+
+.contact-icon-item .contact-item-info {
+	font-size: 14px;
+	color: #030303;
+	vertical-align: middle;
+	margin-left: 10px;
+}
+
+.about-container .form-control {
+	padding: 10px;
+	font-size: 14px;
+}
+.about-container .input-control {
+	height: 35px;
+}
+
+.about-container .mt-30 {
+	margin-top: 30px;
+}
+
+.about-container .about-hzhb {
+	text-align: center;
+	background-color: #f6f6f6;
+}
+
+.about-container .about-hzhb .hz-img {
+	display: inline-block;
+	width: 100%;
+	height: auto;
+}
+
+.about-container .about-hzhb .hz-img:hover {
+	-webkit-filter: grayscale(1);/* Webkit */
+	filter:gray;/* IE6-9 */
+	filter: grayscale(1);/* W3C */
+}
+
 @media (max-width: 1057px) {
 	.ht-icon {
 		display: none;
@@ -872,6 +1027,12 @@ select::-ms-expand {
 		line-height: 1;
 	}
 
+}
+
+@media (max-width: 992px) {
+	.middle-item {
+		margin-top: 30px;
+	}
 }
 
 @media (max-width: 768px) {
@@ -976,6 +1137,10 @@ select::-ms-expand {
 
 	.last-row a {
 		text-align: center;
+	}
+
+	.middle-item {
+		margin-top: 30px;
 	}
 }
 

@@ -8,7 +8,7 @@ angular
         ContactForm.initContactForm();
         OwlCarousel.initOwlCarousel();
 
-        $http.get(cul.apiPath + '/web/client').success(function (data) {
+        $http.get(cul.apiPath + '/web/client').then(function (data) {
             $scope.Clients = data;
         });
 
