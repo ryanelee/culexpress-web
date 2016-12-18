@@ -28,6 +28,14 @@ angular.module('culAdminApp')
               $scope.btnViewMessage = function () {
                   $location.path("/customer/faqdetail").search({messageNumber:"JK01220161214210558"});
               }
+
+              $scope.btnViewCustomer = function () {
+                  $location.path("/customer/customerdetail").search({customerNumber:"JK012"});
+              }
+
+              $scope.btnViewCustomerList = function () {
+                  $location.path("/customer/customerlist");
+              }
           }
       };
   }]);
