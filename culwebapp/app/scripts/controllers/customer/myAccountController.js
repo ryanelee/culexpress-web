@@ -34,7 +34,6 @@ angular
                         detail.name = e.name;
                         $scope.provinces.push(detail);
                         if (province && province.indexOf(e.name)>=0) {
-                            console.log('nime')
                             $scope.selectedProvince = $scope.provinces[$scope.provinces.length - 1];
                             $scope.getCity(city, area);
                         }
@@ -60,8 +59,6 @@ angular
                 })
                 if ($scope.search.parentid) {
                     addressSvr.getDistrict($scope.search).then(function (data) {
-                        console.log(data);
-
                         $scope.tempCitys = data.data.data;
                         $scope.tempCitys.forEach(function (e) {
                             var detail = {};
@@ -69,7 +66,6 @@ angular
                             $scope.citys.push(detail);
 
                             if (city.indexOf(e.name)) {
-                                console.log('nime')
                                 $scope.selectedCity = $scope.citys[$scope.citys.length - 1];
                                 $scope.getArea(area);
                             }
@@ -86,17 +82,14 @@ angular
                 $scope.tempCitys.forEach(function (e) {
                     if ($scope.selectedCity.name.indexOf(e.name) >= 0) {
                         $scope.search.parentid = e.id;
-                        console.log($scope.search.parentid);
                         addressSvr.getDistrict($scope.search).then(function (data) {
 
                             $scope.tempAreas = data.data.data;
-                            console.log($scope.tempAreas);
                             $scope.tempAreas.forEach(function (e) {
                                 var detail = {};
                                 detail.name = e.name
                                 $scope.areas.push(detail);
                                 if (area && e.name == area) {
-                                console.log('nime')
                                 $scope.selectedArea = $scope.areas[$scope.areas.length - 1];
                                 // $scope.getArea(area);
                             }
@@ -291,8 +284,6 @@ angular
                 }
 
                 $scope.model.lastEditUserName = $rootScope.currentUser.userID;
-                console.log($scope.model);
-                console.log($rootScope.isLackProfile);
                 Customer.updateCustomerProfile(
                     $scope.model,
                     function (data) {
