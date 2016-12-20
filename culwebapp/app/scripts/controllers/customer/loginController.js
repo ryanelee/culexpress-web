@@ -19,11 +19,12 @@ angular
             $scope.$root.isLogined = false;
             AuthService.login(loginData)
                 .then(function (result) {
-                    if (result.data && result.data.photo === null) {
+                    if (result.data && result.data.photoUrl === null) {
+                        console.log(result.data);
                         if (result.data.gender === 'M')
-                            result.data.photo = '/assets/img/culwebapp/customer/profile/no-photo-male.jpg';
+                            result.data.photoUrl = '/assets/img/culwebapp/customer/profile/no-photo-male.jpg';
                         else
-                            result.data.photo = '/assets/img/culwebapp/customer/profile/no-photo-female.jpg';
+                            result.data.photoUrl = '/assets/img/culwebapp/customer/profile/no-photo-female.jpg';
                     }
                     AuthService.clearStorage();
                     AuthService.addStorage(angular.extend(result.data, { password: $scope.password }), loginData.rememberMe);
