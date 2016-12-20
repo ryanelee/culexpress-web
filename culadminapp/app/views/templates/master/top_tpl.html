@@ -19,32 +19,18 @@
                                     <li class="notification-item inbox">
                                         <div class="btn-group">
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-envelope"></i><span class="count">3</span>
+                                                <i class="fa fa-envelope"></i><span class="count">{{tipMessageLength}}</span>
                                                 <span class="circle"></span>
                                             </a>
                                             <ul class="dropdown-menu" role="menu">
                                                 <li class="notification-header">
-                                                    <em>您有 3 条未处理客户留言</em>
+                                                    <em>您有 {{tipMessageLength}} 条未处理客户留言</em>
                                                 </li>
-                                                <li class="inbox-item clearfix" ng-click="btnViewMessage();">
+                                                <li ng-repeat="message in tipMessage" class="inbox-item clearfix" ng-click="btnViewMessage(message);">
                                                     <a href="javascript:void(0);">
                                                         <i class="fa fa-envelope green-font"></i>
-                                                        <span class="text">客户KX002留言:为什么我的包裹还没有发货?...</span>
-                                                        <span class="timestamp">1 分钟前</span>
-                                                    </a>
-                                                </li>
-                                                 <li class="inbox-item clearfix">
-                                                    <a href="javascript:void(0);" ng-click="btnViewMessage();">
-                                                        <i class="fa fa-envelope green-font"></i>
-                                                        <span class="text">客户KX002留言:为什么我的包裹还没有发货?...</span>
-                                                        <span class="timestamp">2 小时前</span>
-                                                    </a>
-                                                </li>
-                                                 <li class="inbox-item clearfix">
-                                                    <a href="javascript:void(0);" ng-click="btnViewMessage();">
-                                                        <i class="fa fa-envelope green-font"></i>
-                                                        <span class="text">客户KX002留言:为什么我的包裹还没有发货?...</span>
-                                                        <span class="timestamp">5 天前</span>
+                                                        <span class="text">客户{{message.customerNumber}}留言:{{message.message}}...</span>
+                                                        <span class="timestamp">{{message.indate| date:'MM-dd h:mm:ss'}} 前</span>
                                                     </a>
                                                 </li>
                                                 <!--<li class="inbox-item unread clearfix">
@@ -112,25 +98,18 @@
                                     <li class="notification-item general">
                                         <div class="btn-group">
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-user"></i><span class="count">2</span>
+                                                <i class="fa fa-user"></i><span class="count">{{vipCount}}</span>
                                                 <span class="circle"></span>
                                             </a>
                                             <ul class="dropdown-menu" role="menu">
                                                 <li class="notification-header">
-                                                    <em>您有 2 条未处理客户申请</em>
+                                                    <em>您有 {{vipCount}} 条未处理客户申请</em>
                                                 </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" ng-click="btnViewCustomer();">
+                                                <li ng-repeat="vip in vipData">
+                                                    <a href="javascript:void(0);" ng-click="btnViewCustomer(vip);">
                                                         <i class="fa fa-user green-font"></i>
-                                                        <span class="text">客户KX008提交成为VIP客户申请</span>
-                                                        <span class="timestamp">1 minute ago</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" ng-click="btnViewCustomer();">
-                                                        <i class="fa fa-user green-font"></i>
-                                                        <span class="text">客户KX002提交成为VIP客户申请</span>
-                                                        <span class="timestamp">12 hours ago</span>
+                                                        <span class="text">客户{{vip.customerNumber}}提交成为VIP客户申请</span>
+                                                        <span class="timestamp">{{vip.lastEditUserName | date:'MM-dd h:mm:ss'}}前</span>
                                                     </a>
                                                 </li>
                                                 <li class="notification-footer" ng-click="btnViewCustomerList();">

@@ -8,36 +8,49 @@
  * Service in the culAdminApp.
  */
 angular.module('culAdminApp')
-  .service('faqService', ["$http", function ($http) {
-      var self = this;
+    .service('faqService', ["$http", function($http) {
+        var self = this;
 
-      self.getMessageType = function (type, callback) {
-          $http.get(cul.apiPath + "/customermessagetype?type=" + type).success(function (result) {
-              callback(result);
-          });
-      }
+        self.getMessageType = function(type, callback) {
+            $http.get(cul.apiPath + "/customermessagetype?type=" + type).success(function(result) {
+                callback(result);
+            });
+        }
 
-      self.getList = function (options, callback) {
-          $http.post(cul.apiPath + "/customermessage/list", options).success(function (result) {
-              callback(result);
-          });
-      }
+        self.getList = function(options, callback) {
+            $http.post(cul.apiPath + "/customermessage/list", options).success(function(result) {
+                console.log(result);
+                callback(result);
+            });
+        }
 
-      self.getDetail = function (id, callback) {
-          $http.get(cul.apiPath + "/customermessage/" + id).success(function (result) {
-              callback(result);
-          });
-      }
+        self.getDetail = function(id, callback) {
+            $http.get(cul.apiPath + "/customermessage/" + id).success(function(result) {
+                callback(result);
+            });
+        }
 
-      self.delete = function (ids, callback) {
-          $http.delete(cul.apiPath + "/customermessage?number=" + ids).success(function (result) {
-              callback(result);
-          });
-      }
+        self.delete = function(ids, callback) {
+            $http.delete(cul.apiPath + "/customermessage?number=" + ids).success(function(result) {
+                callback(result);
+            });
+        }
 
-      self.update = function (data, callback) {
-          $http.put(cul.apiPath + "/customermessage", data).success(function (result) {
-              callback(result);
-          });
-      }
-  }]);
+        self.update = function(data, callback) {
+            $http.put(cul.apiPath + "/customermessage", data).success(function(result) {
+                callback(result);
+            });
+        }
+
+        self.setMessagelog = function(data, callback) {
+            console.log('23232')
+            $http.post(cul.apiPath + "/customermessage/setMessagelog", data).success(function(result) {
+                callback(result);
+            });
+        }
+        self.getMessagelog = function(data, callback) {
+            $http.post(cul.apiPath + "/customermessage/getMessagelog", data).success(function(result) {
+                callback(result);
+            });
+        }
+    }]);
