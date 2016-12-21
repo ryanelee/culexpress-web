@@ -1105,6 +1105,7 @@ select::-ms-expand {
 .howuse .row {
 	margin-bottom: 80px;
 	color: #3c3c3c;
+	margin: 0;
 }
 
 .howuse .left-col {
@@ -1290,6 +1291,7 @@ select::-ms-expand {
 .step-six-fluid .img-item li {
 	list-style: none;
 	min-width: 100px;
+	width: 130px;
 	max-width: 150px;
 	text-align: center;
 	float: left;
@@ -1346,6 +1348,7 @@ select::-ms-expand {
 .step-seven .img-item li {
 	list-style: none;
 	min-width: 100px;
+	width: 130px;
 	max-width: 150px;
 	text-align: center;
 	float: left;
@@ -1425,6 +1428,18 @@ select::-ms-expand {
 	.howuse .left-col {
 		text-align: center;
 		width: 100%;
+	}
+
+	.step-seven .img-item li {
+		width: 100px;
+	}
+
+	.step-six-fluid .img-item {
+		left: 0;
+	}
+
+	.step-six-fluid .img-item li {
+		width: 100px;
 	}
 
 	.faq-container .faq-pic {
