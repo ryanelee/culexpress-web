@@ -22,7 +22,7 @@
                     </div>
                     <label class="col-sm-2 control-label text-right">问题状态：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data._status}}</label>
+                        <label class="control-label" ng-if="logs.length>0">已转交</label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -44,9 +44,14 @@
                     </div>
                     <label class="col-sm-2 control-label text-right">订单编号：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.orderNumber}}</label>
+                        <a href="javascript:void(0);" ng-click="btnViewCustomer(data.orderNumber);">
+                            <label class="control-label">{{data.orderNumber}}</label>
+                        </a>
+
                     </div>
                 </div>
+
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">运单号码：</label>
                     <div class="col-sm-4">
@@ -64,6 +69,22 @@
                     </div>
                 </div>
             </fieldset>
+            <legend>转交问题</legend>
+            <div>
+                <table class="table">
+                    <tr>
+                        <th class="col-sm-1">转交时间</th>
+                        <th class="col-sm-1">转交人</th>
+                        <th class="col-sm-1">转交原因</th>
+                    </tr>
+                    <tr ng-repeat="log in logs">
+                        <td class="col-sm-1">{{log.operationDate | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                        <td class="col-sm-1">{{log.operationUserName}}</td>
+                        <td class="col-sm-1">{{log.typeName}}</td>
+
+                    </tr>
+                </table>
+            </div>
             <fieldset>
                 <legend>问题留言</legend>
                 <div class="form-group">
@@ -84,12 +105,23 @@
                     </div>
                     <button type="button" class="btn btn-default" ng-click="btnMessagePush()"><i class="fa fa-comment"></i>回复</button>
                 </div>
-            </fieldset>
-            <div class="form-group text-center">
-                <button type="button" class="btn btn-primary" class="role" data-role="32" ng-click="btnUpdateStatus('ForwardWH')">转交仓库</button>
-                <button type="button" class="btn btn-primary" class="role" data-role="31" ng-click="btnUpdateStatus('Closed')" ng-if="data.status!='Closed'">关闭问题</button>
-                <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
-            </div>
-        </form>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">转交问题：</label>
+                    <div class="col-sm-4">
+                        <select type="text" class="form-control" ng-change="getProduct()" ng-model="search.messageType" ng-options="messageType as messageType.typeName for messageType in messageTypeList">
+                       <option></option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-default" ng-click="setMessageLog()"><i class="fa fa-comment"></i>转交问题</button>
+                </div>
+
     </div>
+    </fieldset>
+    <div class="form-group text-center">
+        <!--<button type="button" class="btn btn-primary" class="role" data-role="32" ng-click="btnUpdateStatus('ForwardWH')">转交仓库</button>-->
+        <button type="button" class="btn btn-primary" class="role" data-role="31" ng-click="btnUpdateStatus('Closed')" ng-if="data.status!='Closed'">关闭问题</button>
+        <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+    </div>
+    </form>
+</div>
 </div>
