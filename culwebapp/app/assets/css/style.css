@@ -21,6 +21,7 @@ body {
  color: #333;
  font-size: 13px;
  line-height: 1.6;
+ font-family: "Noto Sans CJK SC", "Source Han Sans CN", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
 body.header-fixed-space {
@@ -42,6 +43,7 @@ li,
 li a,
 label {
  color: #555;
+ font-family: "Noto Sans CJK SC", "Source Han Sans CN", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
 a {
@@ -490,7 +492,7 @@ select::-ms-expand {
 	background-color: #f1f1f1;
 	border-radius: 10px;
 	text-align: center;
-	width: 200px;
+	width: 170px;
 	box-sizing: content-box;
 	cursor: pointer;
 	margin-top: 100px;
@@ -667,13 +669,13 @@ select::-ms-expand {
 	background-color: #8098be;
 	color: #fff;
 	box-sizing: border-box;
-	padding: 9px 7px;
+	padding: 5px 3px;
 	border-radius: 6px;
 	vertical-align: middle;
 }
 
 .price-card .card-item:nth-child(even) {
-	margin-left: 10px;
+	margin-left: 5px;
 	background-color: #a0b2ce;
 }
 
@@ -855,11 +857,25 @@ select::-ms-expand {
 	font-size: 12px;
 }
 
-.embargo-scend-title {
+.embargo-scend-remark {
+	text-align: center;
+	font-size: 16px;
+	color: #5e5e5e;
+	margin-top: 30px;
+}
+
+.ember-remark {
+	padding: 50px 0;
+	text-align: center;
+	background-color: #eee;
+}
+
+.ember-remark .embargo-scend-title {
 	text-align: center;
 	font-size: 16px;
 	color: #303030;
 	margin-bottom: 30px;
+	padding: 0 10%;
 }
 
 .about-container .about-title {
@@ -1102,6 +1118,471 @@ select::-ms-expand {
 	display: block;
 }
 
+.howuse .row {
+	margin-bottom: 80px;
+	color: #3c3c3c;
+	margin: 0;
+}
+
+.howuse .left-col {
+	display: inline-block;
+	width: 50%;
+	position: relative;
+	font-size: 16px;
+	padding-right: 5%;
+	text-align: right;
+}
+
+.howuse .right-col {
+	display: inline-block;
+	width: 49%;
+	position: relative;
+	padding-left: 5%;
+	box-sizing: border-box;
+	font-size: 16px;
+	text-align: left;
+}
+
+.howuse .step-one {
+	margin-top: -40px;
+}
+
+.howuse .left-col .imac {
+	display: inline-block;
+	width: 80%;
+	height: auto;
+	margin-top: -70%;
+}
+
+.howuse .title {
+	font-size: 36px;
+	color: #677ea7;
+	line-height: 1.2;
+}
+
+.howuse .step-two {
+	text-align: right;
+	box-sizing: border-box;
+}
+
+.howuse .step-two img {
+	vertical-align: bottom;
+}
+
+.howuse .info {
+	margin: 0;
+	padding: 0;
+	line-height: 1.3;
+}
+
+.howuse .first-info {
+	margin-top: 20px;
+}
+
+.howuse .info span {
+		color: #677ea7;
+}
+
+.howuse .title span {
+	color: #ffb019;
+}
+
+.howuse .font-item {
+	margin-top: 20px;
+	padding: 0;
+	text-align: left;
+}
+
+.howuse .font-item li {
+	list-style: none;
+	box-sizing: border-box;
+	line-height: 30px;
+	vertical-align: middle;
+}
+
+.howuse .font-item li::before {
+	content: '';
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+.step-three {
+	background-color: #f7f7f7;
+	padding: 100px 0;
+}
+
+.step-three .row {
+	margin-bottom: 0;
+}
+
+.step-three .right-col {
+	vertical-align: bottom;
+}
+
+.step-three .card {
+	display: inline-block;
+	padding: 3px 10px;
+	font-size: 20px;
+	color: #fff;
+	font-weight: bolder;
+	background-color: #ff9f00;
+	margin-top: 20px;
+	border-radius: 20px;
+}
+
+.step-three .card:last-child {
+	margin-left: 100px;
+}
+
+.step-three .m-info {
+	display: inline-block;
+	width: 170px;
+	text-align: right;
+	margin-top: 20px;
+	vertical-align: top;
+}
+
+.step-three .m-info:last-child {
+	margin-left: 20px;
+}
+
+.howuse .remark {
+	font-size: 12px;
+	color: #303030;
+	margin-top: 20px;
+}
+
+.step-four {
+	padding: 80px 0 0;
+}
+
+.howuse .left-col {
+	vertical-align: bottom;
+}
+
+.step-five {
+	padding: 50px 0 0;
+}
+
+.step-six {
+	text-align: center;
+}
+
+.shen-bg {
+	background-color: #f7f7f7;
+}
+
+.howuse .site-info {
+	color: #5d7dae;
+}
+
+.howuse .huo {
+	color: #ffbf44;
+}
+
+.step-six-fluid {
+	padding: 0;
+	text-align: center;
+	position: relative;
+}
+
+.step-six-fluid .bg-img {
+	width: 100%;
+}
+
+.step-six-fluid .img-item {
+	position: absolute;
+	top: 0;
+	left: calc(50% - 150px);
+	padding: 0;
+}
+
+.step-six-fluid .img-item::after {
+	clear: both;
+}
+
+.step-six-fluid .img-item li {
+	list-style: none;
+	min-width: 100px;
+	width: 130px;
+	max-width: 150px;
+	text-align: center;
+	float: left;
+}
+
+.step-six-fluid .img-item li img {
+	margin-top: -35%;
+	width: 70%;
+}
+
+.step-six-fluid .img-item li span {
+	display: inline-block;
+	color: #fff;
+	width: 70%;
+	text-align: center;
+	line-height: 1.3;
+	margin-top: 10px;
+}
+
+.step-seven {
+	position: relative;
+	text-align: center;
+	padding: 0;
+}
+
+.step-seven .container {
+	margin-top: 70px;
+}
+
+.step-seven .seven-icon-down {
+	width: 11.4%;
+	margin-left: -0.1%;
+}
+
+.step-seven .seven-info {
+	display: inline-block;
+	margin-top: 20px;
+	line-height: 1.3;
+	color: #303030;
+	max-width: 580px;
+	text-align: center;
+}
+
+.step-seven .img-item {
+	display: inline-block;
+	padding: 0;
+	margin-top: 100px;
+}
+
+.step-seven .img-item::after {
+	clear: both;
+}
+
+.step-seven .img-item li {
+	list-style: none;
+	min-width: 100px;
+	width: 130px;
+	max-width: 150px;
+	text-align: center;
+	float: left;
+}
+
+.step-seven .img-item li img {
+	margin-top: -35%;
+	width: 70%;
+}
+
+.howuse .font-item .step-user::before {
+	background: url('../img/howtouse/icon-user.png') no-repeat center center;
+	background-size: cover;
+}
+
+.howuse .font-item .step-pwd::before {
+	background: url('../img/howtouse/icon-pwd.png') no-repeat center center;
+	background-size: cover;
+}
+
+.howuse .font-item .step-email::before {
+	background: url('../img/howtouse/icon-email.png') no-repeat center center;
+	background-size: contain;
+}
+
+.howuse .font-item .step-tuser::before {
+	background: url('../img/howtouse/icon-tuser.png') no-repeat center center;
+	background-size: cover;
+}
+
+.howuse .font-item .step-dui::before {
+	background: url('../img/howtouse/icon-4-gou.png') no-repeat center center;
+	background-size: cover;
+}
+
+.howuse .right-col .btn-register {
+	display: inline-block;
+	background-color: #ff9919;
+	color: #fff;
+	padding: 5px 20px;
+	border-radius: 15px;
+	border: 0;
+	cursor: pointer;
+	margin-top: 20px;
+}
+
+.order-track {
+	padding: 0;
+}
+
+.order-track .order-container {
+	margin-top: -180px;
+}
+
+.order-track .item-baoguo {
+	background: #6dca8c;
+	color: #fff;
+	text-align: center;
+	padding: 50px 0 30px;
+}
+
+.order-track .item-baoguo .title {
+	font-size: 20px;
+	font-weight: 700;
+	margin: 30px 0 10px;
+	color: #fff;
+}
+
+.order-track .item-baoguo p {
+	font-size: 10px;
+	color: #fff;
+}
+
+.order-track .item-left {
+	padding: 30px 0;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.order-track .item-yun {
+	background-color: #7e96bc;
+}
+
+.order-track .item-time {
+	background-color: #fdbe45;
+}
+
+.order-track .item-	margin-top: 20px;
+ img {
+	display: inline-block;
+	width: 25%;
+	height: auto;
+	margin-left: 5%;
+	vertical-align: middle;
+}
+
+.order-track .item-content {
+	display: inline-block;
+	width: 60%;
+	margin-left: 5%;
+	color: #fff;
+	vertical-align: middle;
+	text-align: left;
+}
+
+.order-track .item-content p {
+	color: #fff;
+	font-size: 16px;
+	margin: 0;
+}
+
+.order-track .item-content .time {
+	color: #fff;
+	font-size: 24px;
+}
+
+.order-track .item-content .chuku {
+	color: #fff;
+	font-size: 18px;
+}
+
+.order-track .col-track {
+	display: inline-block;
+	background-color: #f0f1f5;
+	padding: 2%;
+	margin-bottom: 50px;
+	box-sizing: border-box;
+	background:linear-gradient(-90deg,rgb(198,197,194) 180px,rgb(240,241,245) 161px);
+	background:-o-linear-gradient(-90deg,rgb(198,197,194) 180px,rgb(240,241,245) 161px);
+	background:-moz-linear-gradient(-90deg,rgb(198,197,194) 180px,rgb(240,241,245) 161px);
+	background:-webkit-linear-gradient(-90deg,rgb(198,197,194) 180px,rgb(240,241,245) 161px);
+}
+
+.order-track .track-item {
+	display: box;			  /* OLD - Android 4.4- */
+	display: -webkit-box;	  /* OLD - iOS 6-, Safari 3.1-6 */
+	display: -moz-box;		 /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;	  /* TWEENER - IE 10 */
+	display: -webkit-flex;	 /* NEW - Chrome */
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.order-track .track-item-icon {
+	display: inline-block;
+	width: 65px;
+	position: relative;
+	background: url('../img/ordertracking/icon-right-laba.png') no-repeat center top;
+	background-size: 60px 60px;
+}
+
+.order-track .track-item-icon::after {
+	display: inline-block;
+  content: '';
+	height: 85%;
+  border-right: 2px solid #d2d2d2;
+  vertical-align: middle;
+  position: absolute;
+  margin-right: 5px;
+  left: 50%;
+  top: 62px;
+}
+
+.order-track .track-item-content {
+	-webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 1;         /* OLD - Firefox 19- */
+  -webkit-flex: 1;          /* Chrome */
+  -ms-flex: 1;              /* IE 10 */
+  flex: 1;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	background-color: #fff;
+	position: relative;
+	margin-left: 60px;
+}
+
+.order-track .track-item-content div {
+	padding: 15px 30px;
+	font-size: 14px;
+}
+
+.order-track .track-item-content .head {
+	background-color: #f7f8fa;
+	color: #777777;
+}
+
+.order-track .track-item-content .foot {
+	background-color: #f7f8fa;
+	color: #ffb019;
+	font-weight: bold;
+}
+
+.order-track .track-item-content::before {
+	display: inline-block;
+  content: '';
+  height: 0;
+  width: 45px;
+  border-bottom: 2px solid #d2d2d2;
+  vertical-align: middle;
+  position: absolute;
+	margin-right: 5px;
+	left: -60px;
+	top: 30px;
+}
+
+.order-track .track-item-content .head::before {
+	content: '';
+    display: inline-block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 10px;
+    margin-left: 10px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 15px solid #f7f8fa;
+    left: -25px;
+}
+
+
 @media (max-width: 1200px) {
 	.faq-container .faq-pic {
 		top: -17%;
@@ -1123,6 +1604,25 @@ select::-ms-expand {
 @media (max-width: 992px) {
 	.middle-item {
 		margin-top: 30px;
+	}
+
+	.howuse .right-col {
+		text-align: center;
+		width: 100%;
+		padding: 0 5%;
+	}
+
+	.howuse .left-col {
+		text-align: center;
+		width: 100%;
+	}
+
+	.step-seven .img-item li {
+		width: 100px;
+	}
+
+	.step-six-fluid .img-item li {
+		width: 100px;
 	}
 
 	.faq-container .faq-pic {
@@ -1254,5 +1754,17 @@ select::-ms-expand {
 
 	.info-banner .info-op {
 		top: 40px;
+	}
+
+	.row .col-xs-3 {
+		padding: 0 5px;
+	}
+
+	.row .col-xs-9 {
+		padding: 0 5px;
+	}
+
+	.col-xs-3 .old-version {
+		padding: 3px 4px;
 	}
 }

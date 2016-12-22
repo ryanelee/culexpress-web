@@ -1,5 +1,5 @@
 ﻿<div ng-controller="OrdertrackingCtrl" style="min-height: 800px;overflow-x:hidden;">
-    <div class="row" ng-if="!isOrderPackage&&showTrack">
+    <!-- <div class="row" ng-if="!isOrderPackage&&showTrack">
         <div class="col-sm-12">
             <div class="headline" style="padding-left:20%;"><h2>包裹轨迹</h2></div>
             <ul class="timeline-v2">
@@ -37,22 +37,56 @@
                 </li>
             </ul>
         </div>
-    </div>
-    <div class="row" ng-if="isOrderPackage" style="width:70%;margin:0 auto;">
+    </div> -->
+    <!-- <div class="row" ng-if="isOrderPackage" style="width:70%;margin:0 auto;">
         <div class="headline"><h2>订单包裹信息</h2></div>
         <ul class="list-unstyled">
             <li class="list-row" ng-repeat="packageNumber in packagesList">
                 <a href="javascript:void(0)" ng-click="showTrackInfo(packageNumber);"><u>{{packageNumber}}</u></a>
             </li>
         </ul>
-    </div>
-    <div class="row" ng-if="isErrorNumber" style="width:70%;margin:0 auto;">
-        <div class="text-danger">无效的运单号</div>
-    </div>
-    <div class="row margin-top-20">
-        <div class="col-sm-12 text-center">
-            <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+    </div> -->
+    <div class="container-fluid content order-track">
+      <img src="../../assets/img/ordertracking/bg-banner.png" />
+      <div class="container order-container">
+        <div class="row">
+          <div class="col-sm-3 col-xs-12">
+            <div class="item-baoguo">
+              <img src='../../assets/img/ordertracking/icon-left-baoguo.png' />
+              <h3 class="title">包裹轨迹</h3>
+              <p>Parcel trajectory</p>
+            </div>
+            <div class="item-left item-yun">
+              <img src="../../assets/img/ordertracking/icon-left-yunsong.png" />
+              <div class='item-content'>
+                <p>已运送</p>
+                <p class="time">{{orderEventInfo.usedTimeString}}</p>
+              </div>
+            </div>
+            <div class="item-left item-time" v-if="orderEventInfo.eventList && orderEventInfo.eventList.length > 0">
+              <img src="../../assets/img/ordertracking/icon-left-chuku.png" />
+              <div class='item-content'>
+                <p>出库时间</p>
+                <p class="chuku">{{orderEventInfo.eventList[0].operationDate|date:'yyyy.MM.dd HH:mm'}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-9 col-xs-12 col-track">
+            <div class="text-danger" ng-if="isErrorNumber">无效的运单号</div>
+            <div class="track-item" ng-repeat="eventItem in orderEventInfo.eventList">
+              <div class="track-item-icon">
+                <img src="../../assets/img/ordertracking/icon-right-laba.png" />
+              </div>
+              <div class="track-item-content">
+                <div class="head">{{eventItem.operationDate|date:'yyyy年MM月dd日 HH:mm:ss'}}</div>
+                <div>{{eventItem.note}}</div>
+                <div bind-html-unsafe="eventItem.description"></div>
+                <div class="foot">{{eventItem.operationUser}}</div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
+</div>

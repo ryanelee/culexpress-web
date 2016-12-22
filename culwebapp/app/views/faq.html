@@ -127,6 +127,10 @@
 </div>
 <script type="text/javascript">
   $('.faq-title').on('click', function() {
+    let className = $(this).parent()[0].className;
+    if (className.indexOf('faq-first-item') >= 0) {
+      return false;
+    }
     var nextCont = $(this).nextAll('.faq-content');
     $('.faq-content:not(:first)').not(nextCont).hide();
     nextCont.toggle();
