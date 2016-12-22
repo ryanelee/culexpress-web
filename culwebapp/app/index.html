@@ -73,12 +73,12 @@
 			<div class="blog-topbar">
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-5 col-xs-5">
-              <a class="old-version" href="http://www.culexpress.com" target="_blank">回到旧版本</a>
+						<div class="col-sm-5" data-ng-class="{'col-xs-3': isLogined, 'col-xs-9': !isLogined}">
+              <a class="old-version" href="http://www.culexpress.com" target="_blank">回到旧版</a>
               <a class="login-item" data-ng-hide="isLogined" ui-sref="login">请登录</a>
               <a class="login-item" data-ng-hide="isLogined" ui-sref="register">免费注册</a>
 						</div>
-						<div class="col-sm-7 col-xs-7 clearfix">
+						<div class="col-sm-7 clearfix" data-ng-class="{'col-xs-3': !isLogined, 'col-xs-9': isLogined}">
 							<ul class="topbar-list topbar-log_reg pull-right">
 								<li class="cd-log_reg home"><a ui-sref="howtouse">帮助</a></li>
                 <li data-ng-show="isLogined"><a ui-sref="login" data-ng-click="logout()">注销</a></li>
@@ -228,7 +228,8 @@
                   <div class="search-right">
                     <input class="search-txt"  ng-model="trackingNumber" />
                     <a class="search-btn" href="#/ordertracking/{{trackingNumber}}">
-                      立即查询
+                      <span class="hidden-xs hidden-sm">立即查询</span>
+                      <span class="hidden-xs hidden-md hidden-lg">查询</span>
                       <img class="search-sm-icon" src="./assets/img/icon-sm-search.png" />
                     </a>
                   </div>

@@ -21,6 +21,7 @@ body {
  color: #333;
  font-size: 13px;
  line-height: 1.6;
+ font-family: "Noto Sans CJK SC", "Source Han Sans CN", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
 body.header-fixed-space {
@@ -42,6 +43,7 @@ li,
 li a,
 label {
  color: #555;
+ font-family: "Noto Sans CJK SC", "Source Han Sans CN", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
 a {
@@ -490,7 +492,7 @@ select::-ms-expand {
 	background-color: #f1f1f1;
 	border-radius: 10px;
 	text-align: center;
-	width: 200px;
+	width: 170px;
 	box-sizing: content-box;
 	cursor: pointer;
 	margin-top: 100px;
@@ -667,13 +669,13 @@ select::-ms-expand {
 	background-color: #8098be;
 	color: #fff;
 	box-sizing: border-box;
-	padding: 9px 7px;
+	padding: 5px 3px;
 	border-radius: 6px;
 	vertical-align: middle;
 }
 
 .price-card .card-item:nth-child(even) {
-	margin-left: 10px;
+	margin-left: 5px;
 	background-color: #a0b2ce;
 }
 
@@ -1280,7 +1282,7 @@ select::-ms-expand {
 .step-six-fluid .img-item {
 	position: absolute;
 	top: 0;
-	left: calc(50% - 225px);
+	left: calc(50% - 150px);
 	padding: 0;
 }
 
@@ -1434,10 +1436,6 @@ select::-ms-expand {
 		width: 100px;
 	}
 
-	.step-six-fluid .img-item {
-		left: 0;
-	}
-
 	.step-six-fluid .img-item li {
 		width: 100px;
 	}
@@ -1571,5 +1569,17 @@ select::-ms-expand {
 
 	.info-banner .info-op {
 		top: 40px;
+	}
+
+	.row .col-xs-3 {
+		padding: 0 5px;
+	}
+
+	.row .col-xs-9 {
+		padding: 0 5px;
+	}
+
+	.col-xs-3 .old-version {
+		padding: 3px 4px;
 	}
 }

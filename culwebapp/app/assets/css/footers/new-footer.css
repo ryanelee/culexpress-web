@@ -40,7 +40,7 @@
 .first-row .search-txt {
   display: inline-block;
   box-sizing: border-box;
-  width: 70%;
+  width: 68%;
   height: 45px;
   background-color: transparent;
   border: solid 1px #dcdcdc;
@@ -50,7 +50,7 @@
 .first-row .search-btn {
   box-sizing: border-box;
   display: inline-block;
-  width: 25%;
+  width: 26%;
   padding-left: 30px;
   height: 45px;
   margin-left: 10px;
