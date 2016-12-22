@@ -857,11 +857,25 @@ select::-ms-expand {
 	font-size: 12px;
 }
 
-.embargo-scend-title {
+.embargo-scend-remark {
+	text-align: center;
+	font-size: 16px;
+	color: #5e5e5e;
+	margin-top: 30px;
+}
+
+.ember-remark {
+	padding: 50px 0;
+	text-align: center;
+	background-color: #eee;
+}
+
+.ember-remark .embargo-scend-title {
 	text-align: center;
 	font-size: 16px;
 	color: #303030;
 	margin-bottom: 30px;
+	padding: 0 10%;
 }
 
 .about-container .about-title {
@@ -1395,6 +1409,177 @@ select::-ms-expand {
 	border: 0;
 	cursor: pointer;
 	margin-top: 20px;
+}
+
+.order-track {
+	padding: 0;
+}
+
+.order-track .order-container {
+	margin-top: -180px;
+}
+
+.order-track .item-baoguo {
+	background: #6dca8c;
+	color: #fff;
+	text-align: center;
+	padding: 50px 0 30px;
+}
+
+.order-track .item-baoguo .title {
+	font-size: 20px;
+	font-weight: 700;
+	margin: 30px 0 10px;
+	color: #fff;
+}
+
+.order-track .item-baoguo p {
+	font-size: 10px;
+	color: #fff;
+}
+
+.order-track .item-left {
+	padding: 30px 0;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.order-track .item-yun {
+	background-color: #7e96bc;
+}
+
+.order-track .item-time {
+	background-color: #fdbe45;
+}
+
+.order-track .item-	margin-top: 20px;
+ img {
+	display: inline-block;
+	width: 25%;
+	height: auto;
+	margin-left: 5%;
+	vertical-align: middle;
+}
+
+.order-track .item-content {
+	display: inline-block;
+	width: 60%;
+	margin-left: 5%;
+	color: #fff;
+	vertical-align: middle;
+	text-align: left;
+}
+
+.order-track .item-content p {
+	color: #fff;
+	font-size: 16px;
+	margin: 0;
+}
+
+.order-track .item-content .time {
+	color: #fff;
+	font-size: 24px;
+}
+
+.order-track .item-content .chuku {
+	color: #fff;
+	font-size: 18px;
+}
+
+.order-track .col-track {
+	display: inline-block;
+	background-color: #f0f1f5;
+	padding: 2%;
+	margin-bottom: 50px;
+	box-sizing: border-box;
+	background:linear-gradient(-90deg,rgb(198,197,194) 180px,rgb(240,241,245) 161px);
+	background:-o-linear-gradient(-90deg,rgb(198,197,194) 180px,rgb(240,241,245) 161px);
+	background:-moz-linear-gradient(-90deg,rgb(198,197,194) 180px,rgb(240,241,245) 161px);
+	background:-webkit-linear-gradient(-90deg,rgb(198,197,194) 180px,rgb(240,241,245) 161px);
+}
+
+.order-track .track-item {
+	display: box;			  /* OLD - Android 4.4- */
+	display: -webkit-box;	  /* OLD - iOS 6-, Safari 3.1-6 */
+	display: -moz-box;		 /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;	  /* TWEENER - IE 10 */
+	display: -webkit-flex;	 /* NEW - Chrome */
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.order-track .track-item-icon {
+	display: inline-block;
+	width: 65px;
+	position: relative;
+	background: url('../img/ordertracking/icon-right-laba.png') no-repeat center top;
+	background-size: 60px 60px;
+}
+
+.order-track .track-item-icon::after {
+	display: inline-block;
+  content: '';
+	height: 85%;
+  border-right: 2px solid #d2d2d2;
+  vertical-align: middle;
+  position: absolute;
+  margin-right: 5px;
+  left: 50%;
+  top: 62px;
+}
+
+.order-track .track-item-content {
+	-webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 1;         /* OLD - Firefox 19- */
+  -webkit-flex: 1;          /* Chrome */
+  -ms-flex: 1;              /* IE 10 */
+  flex: 1;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	background-color: #fff;
+	position: relative;
+	margin-left: 60px;
+}
+
+.order-track .track-item-content div {
+	padding: 15px 30px;
+	font-size: 14px;
+}
+
+.order-track .track-item-content .head {
+	background-color: #f7f8fa;
+	color: #777777;
+}
+
+.order-track .track-item-content .foot {
+	background-color: #f7f8fa;
+	color: #ffb019;
+	font-weight: bold;
+}
+
+.order-track .track-item-content::before {
+	display: inline-block;
+  content: '';
+  height: 0;
+  width: 45px;
+  border-bottom: 2px solid #d2d2d2;
+  vertical-align: middle;
+  position: absolute;
+	margin-right: 5px;
+	left: -60px;
+	top: 30px;
+}
+
+.order-track .track-item-content .head::before {
+	content: '';
+    display: inline-block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 10px;
+    margin-left: 10px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 15px solid #f7f8fa;
+    left: -25px;
 }
 
 
