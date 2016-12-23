@@ -34,7 +34,8 @@ angular.module('culAdminApp')
                         })
                     }
                     $scope.getmessageList = function() {
-                        faqService.getList({}, function(result) {
+                        // status: 'Processing' 
+                        faqService.getList({ status: 'Processing' }, function(result) {
                             $scope.tipMessage = result.data;
                             $scope.tipMessageLength = result.data.length;
                             console.log("__" + $scope.tipMessageLength);
