@@ -92,14 +92,15 @@ var App = function () {
 
     // TopBar SubMenu (Header v8)
     function handleTopBarSubMenu() {
-        $(".topbar-list > li").on("click", function (e) {
-            if (jQuery(this).children("ul").hasClass("topbar-dropdown")) {
-                if (jQuery(this).children("ul").hasClass("topbar-dropdown-visible")) {
-                    jQuery(this).children(".topbar-dropdown").slideUp();
-                    jQuery(this).children(".topbar-dropdown").removeClass("topbar-dropdown-visible");
+        $(".topbar-down").on("click", function (e) {
+            var down = jQuery(this).next(".topbar-dropdown");
+            if (down.length > 0) {
+                if (down.hasClass("topbar-dropdown-visible")) {
+                    down.slideUp();
+                    down.removeClass("topbar-dropdown-visible");
                 } else {
-                    jQuery(this).children(".topbar-dropdown").slideDown();
-                    jQuery(this).children(".topbar-dropdown").addClass("topbar-dropdown-visible");
+                    down.slideDown();
+                    down.addClass("topbar-dropdown-visible");
                 }
             }
             //e.preventDefault();
@@ -123,7 +124,7 @@ var App = function () {
         */
     }
 
-    //Equal Height Columns    
+    //Equal Height Columns
     function handleEqualHeightColumns() {
         var EqualHeightColumns = function () {
             $(".equal-height-columns").each(function () {
@@ -203,7 +204,7 @@ var App = function () {
             handleSearchV1();
             handleSearchV2();
             handleTopBar();
-            handleTopBarSubMenu();
+            // handleTopBarSubMenu();
             handleToggle();
             handleHeader();
             handleMegaMenu();
@@ -211,7 +212,7 @@ var App = function () {
             handleEqualHeightColumns();
         },
 
-        //Counters 
+        //Counters
         initCounter: function () {
             jQuery('.counter').counterUp({
                 delay: 10,
@@ -227,7 +228,7 @@ var App = function () {
             });
         },
 
-        //Scroll Bar 
+        //Scroll Bar
         initScrollBar: function () {
             jQuery('.mCustomScrollbar').mCustomScrollbar({
                 theme: "minimal",
