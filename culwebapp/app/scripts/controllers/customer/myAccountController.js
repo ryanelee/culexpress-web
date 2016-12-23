@@ -3,7 +3,7 @@
 angular
     .module('culwebApp')
     .controller('MyAccountController', ['$scope', '$stateParams', '$filter', 'Customer', '$rootScope', '$state', 'addressSvr', 'SweetAlert', '$location', 'AuthService',
-        function ($scope, $stateParams, $filter, Customer, $rootScope, $state, addressSvr, SweetAlert, $location, AuthService) {
+        function($scope, $stateParams, $filter, Customer, $rootScope, $state, addressSvr, SweetAlert, $location, AuthService) {
             if (App) {
                 // App.init();
                 if (Masking) Masking.initMasking();
@@ -23,17 +23,17 @@ angular
             $scope.tempCitys = [];
             $scope.tempAreas = [];
             $scope.areas = [];
-            $scope.getProvince = function (province, city, area) {
+            $scope.getProvince = function(province, city, area) {
                 console.log("province" + province)
-                addressSvr.getDistrict($scope.search).then(function (data) {
+                addressSvr.getDistrict($scope.search).then(function(data) {
 
                     $scope.tempProvinces = data.data.data;
-                    $scope.tempProvinces.forEach(function (e) {
+                    $scope.tempProvinces.forEach(function(e) {
 
                         var detail = {};
                         detail.name = e.name;
                         $scope.provinces.push(detail);
-                        if (province && province.indexOf(e.name)>=0) {
+                        if (province && province.indexOf(e.name) >= 0) {
                             $scope.selectedProvince = $scope.provinces[$scope.provinces.length - 1];
                             $scope.getCity(city, area);
                         }
@@ -44,62 +44,64 @@ angular
             }
 
 
-            $scope.getCity = function (city, area) {
-                 $scope.selectedArea = {}
-                var flag = 0;
-                $scope.citys = [];
-                $scope.search.parentid;
-                $scope.tempProvinces.forEach(function (e) {
+            $scope.getCity = function(city, area) {
+                    console.log("city" + city);
+                    $scope.selectedArea = {}
+                    var flag = 0;
+                    $scope.citys = [];
+                    $scope.search.parentid;
+                    $scope.tempProvinces.forEach(function(e) {
 
-                    // console.log($scope.search.selectedProvince);
-                    if ($scope.selectedProvince.name == e.name) {
-                        console.log($scope.selectedProvince);
-                        $scope.search.parentid = e.id;
-                    }
-                })
-                if ($scope.search.parentid) {
-                    addressSvr.getDistrict($scope.search).then(function (data) {
-                        $scope.tempCitys = data.data.data;
-                        $scope.tempCitys.forEach(function (e) {
-                            var detail = {};
-                            detail.name = e.name
-                            $scope.citys.push(detail);
-
-                            if (city.indexOf(e.name)) {
-                                $scope.selectedCity = $scope.citys[$scope.citys.length - 1];
-                                $scope.getArea(area);
-                            }
-                            // $scope.citys.push(e.name);
-                        })
+                        // console.log($scope.search.selectedProvince);
+                        if ($scope.selectedProvince.name == e.name) {
+                            console.log($scope.selectedProvince);
+                            $scope.search.parentid = e.id;
+                        }
                     })
-                }
-
-
-            }
-            // $scope.getCity();
-            $scope.getArea = function (area) {
-                $scope.areas = [];
-                $scope.tempCitys.forEach(function (e) {
-                    if ($scope.selectedCity.name.indexOf(e.name) >= 0) {
-                        $scope.search.parentid = e.id;
-                        addressSvr.getDistrict($scope.search).then(function (data) {
-
-                            $scope.tempAreas = data.data.data;
-                            $scope.tempAreas.forEach(function (e) {
+                    if ($scope.search.parentid) {
+                        console.log("23232" + $scope.search.parentid)
+                        addressSvr.getDistrict($scope.search).then(function(data) {
+                            $scope.tempCitys = data.data.data;
+                            $scope.tempCitys.forEach(function(e) {
                                 var detail = {};
                                 detail.name = e.name
-                                $scope.areas.push(detail);
-                                if (area && e.name == area) {
-                                $scope.selectedArea = $scope.areas[$scope.areas.length - 1];
-                                // $scope.getArea(area);
-                            }
-                                // $scope.areas.push(e.name);
+                                $scope.citys.push(detail);
+
+                                if (city && city.indexOf(e.name) >= 0) {
+                                    $scope.selectedCity = $scope.citys[$scope.citys.length - 1];
+                                    $scope.getArea(area);
+                                }
+                                // $scope.citys.push(e.name);
                             })
                         })
                     }
-                })
-            }
-            // $scope.getArea();
+
+
+                }
+                // $scope.getCity();
+            $scope.getArea = function(area) {
+                    $scope.areas = [];
+                    $scope.tempCitys.forEach(function(e) {
+                        if ($scope.selectedCity.name.indexOf(e.name) >= 0) {
+                            $scope.search.parentid = e.id;
+                            addressSvr.getDistrict($scope.search).then(function(data) {
+
+                                $scope.tempAreas = data.data.data;
+                                $scope.tempAreas.forEach(function(e) {
+                                    var detail = {};
+                                    detail.name = e.name
+                                    $scope.areas.push(detail);
+                                    if (area && e.name == area) {
+                                        $scope.selectedArea = $scope.areas[$scope.areas.length - 1];
+                                        // $scope.getArea(area);
+                                    }
+                                    // $scope.areas.push(e.name);
+                                })
+                            })
+                        }
+                    })
+                }
+                // $scope.getArea();
 
 
 
@@ -107,12 +109,12 @@ angular
 
 
 
-            var loadAddressData = function () {
+            var loadAddressData = function() {
                 var localData = window.localStorage.getItem('cul_data_province');
                 if (!localData) {
-                    Customer.retrieveProvinceList(function (data) {
+                    Customer.retrieveProvinceList(function(data) {
                         window.localStorage.setItem('cul_data_province', JSON.stringify(data));
-                    }, function (error) {
+                    }, function(error) {
                         if (error.data.message) {
                             console.error(error.data.message)
                         }
@@ -136,12 +138,10 @@ angular
                 if ($stateParams.anchorid === 'passwordTab') {
                     $scope.activateProfileTab = '';
                     $scope.activatePasswordTab = 'active in';
-                }
-                else if ($stateParams.anchorid === 'addressbook') {
+                } else if ($stateParams.anchorid === 'addressbook') {
                     $scope.activateProfileTab = '';
                     $scope.activateAddressTab = 'active in';
-                }
-                else if ($stateParams.anchorid === 'earnpoint') {
+                } else if ($stateParams.anchorid === 'earnpoint') {
                     $scope.activateProfileTab = '';
                     $scope.activateEarnPointTab = 'active in';
                 }
@@ -159,14 +159,14 @@ angular
 
             $scope.currentCities = [];
 
-            $scope.initProfile = function () {
+            $scope.initProfile = function() {
                 Customer.getCustomerInfo(model.customerNumber)
-                    .then(function (result) {
+                    .then(function(result) {
                         console.log(result);
                         $scope._city = result.data.city;
                         $scope._province = result.data.stateOrProvince;
                         $scope._area = result.data.area;
-                            $scope.getProvince($scope._province, $scope._city, $scope._area);
+                        $scope.getProvince($scope._province, $scope._city, $scope._area);
 
 
                         if (result.data) {
@@ -180,9 +180,9 @@ angular
                             });
 
 
-                            $('input.control-date').on('blur', function () {
+                            $('input.control-date').on('blur', function() {
                                 var control = this;
-                                setTimeout(function () {
+                                setTimeout(function() {
                                     if (!$(control).val()) {
                                         $(control).val($scope.model.birthday || $scope.model.oldBirthday);
                                         if (!$scope.model.birthday) {
@@ -200,48 +200,47 @@ angular
                                 birthday: $filter('date')(result.data.birthday, 'yyyy/MM/dd')
                             });
 
-                            Customer.retrieveProvinceList(function (data) {
-                                var countryList = [{ code: 'CHN', name: '中国' }, { code: 'OTHER', name: '其他' }];
-                                $scope.countryList = countryList;
-                                // console.log(data);
+                            Customer.retrieveProvinceList(function(data) {
+                                    var countryList = [{ code: 'CHN', name: '中国' }, { code: 'OTHER', name: '其他' }];
+                                    $scope.countryList = countryList;
+                                    // console.log(data);
 
-                                if ($scope.model.countryCode) {
-                                    for (var i = 0, ii = $scope.countryList.length; i < ii; i++) {
-                                        if ($scope.countryList[i].code === $scope.model.countryCode) {
-                                            $scope.selectedCountry = $scope.countryList[i];
+                                    if ($scope.model.countryCode) {
+                                        for (var i = 0, ii = $scope.countryList.length; i < ii; i++) {
+                                            if ($scope.countryList[i].code === $scope.model.countryCode) {
+                                                $scope.selectedCountry = $scope.countryList[i];
+                                            }
                                         }
+                                    } else {
+                                        $scope.selectedCountry = $scope.countryList[0];
                                     }
-                                }
-                                else {
-                                    $scope.selectedCountry = $scope.countryList[0];
-                                }
-                                //     $scope.provinceList = data;
-                                //     if ($scope.model.stateOrProvince) {
-                                //         var province = $scope.model.stateOrProvince;
-                                //         for (var i = 0, ii = $scope.provinceList.length; i < ii; i++) {
-                                //             var provinceItem = $scope.provinceList[i];
-                                //             if (provinceItem.name === $scope.model.stateOrProvince) {
-                                //                 $scope.selectedProvince = provinceItem;
-                                //             }
+                                    //     $scope.provinceList = data;
+                                    //     if ($scope.model.stateOrProvince) {
+                                    //         var province = $scope.model.stateOrProvince;
+                                    //         for (var i = 0, ii = $scope.provinceList.length; i < ii; i++) {
+                                    //             var provinceItem = $scope.provinceList[i];
+                                    //             if (provinceItem.name === $scope.model.stateOrProvince) {
+                                    //                 $scope.selectedProvince = provinceItem;
+                                    //             }
 
-                                //             if ($scope.model.city && provinceItem.cities) {
-                                //                 for (var j = 0, jj = provinceItem.cities.length; j < jj; j++) {
-                                //                     if (provinceItem.cities[j].name === $scope.model.city)
-                                //                         $scope.selectedCity = provinceItem.cities[j];
-                                //                 }
-                                //             }
-                                //             else if (provinceItem.cities) {
-                                //                 $scope.selectedCity = provinceItem.cities[0];
-                                //             }
-                                //         }
-                                //     }
-                                //     else {
-                                //         $scope.selectedProvince = $scope.provinceList[0];
-                                //         $scope.selectedCity = $scope.selectedProvince.cities[0];
-                                //     }
-                                //     $scope.currentCities = $scope.selectedProvince.cities;
-                            },
-                                function (error) {
+                                    //             if ($scope.model.city && provinceItem.cities) {
+                                    //                 for (var j = 0, jj = provinceItem.cities.length; j < jj; j++) {
+                                    //                     if (provinceItem.cities[j].name === $scope.model.city)
+                                    //                         $scope.selectedCity = provinceItem.cities[j];
+                                    //                 }
+                                    //             }
+                                    //             else if (provinceItem.cities) {
+                                    //                 $scope.selectedCity = provinceItem.cities[0];
+                                    //             }
+                                    //         }
+                                    //     }
+                                    //     else {
+                                    //         $scope.selectedProvince = $scope.provinceList[0];
+                                    //         $scope.selectedCity = $scope.selectedProvince.cities[0];
+                                    //     }
+                                    //     $scope.currentCities = $scope.selectedProvince.cities;
+                                },
+                                function(error) {
 
                                 }
                             );
@@ -250,19 +249,19 @@ angular
 
             };
             // $scope.selectedCity = {};
-            $scope.reloadCityData = function (countryItem) {
+            $scope.reloadCityData = function(countryItem) {
                 $scope.currentCities = countryItem.cities;
                 $scope.selectedCity = countryItem.cities[0];
                 $scope.selectedProvince = countryItem;
             }
 
 
-            $scope.selectedCityHandler = function (city) {
+            $scope.selectedCityHandler = function(city) {
                 $scope.selectedCity = city;
             }
 
 
-            $scope.saveProfile = function () {
+            $scope.saveProfile = function() {
 
                 var url = $scope.model.companySite;
                 if (url && !new RegExp('(http[s]{0,1})://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?').test(url)) {
@@ -277,8 +276,7 @@ angular
                     $scope.model.stateOrProvince = $scope.selectedProvince.name;
                     $scope.model.city = $scope.selectedCity.name || '';
                     $scope.model.area = $scope.selectedArea.name || '';
-                }
-                else {
+                } else {
                     $scope.model.stateOrProvince = '';
                     $scope.model.city = '';
                 }
@@ -286,7 +284,7 @@ angular
                 $scope.model.lastEditUserName = $rootScope.currentUser.userID;
                 Customer.updateCustomerProfile(
                     $scope.model,
-                    function (data) {
+                    function(data) {
                         $scope.profileError = undefined;
                         $scope.showProfileError = false;
                         $scope.profileInfo = '保存成功';
@@ -310,18 +308,18 @@ angular
 
                         if ($scope.isApply && $rootScope.currentUser.vipStatus !== 'Applied') {
                             Customer.applyVIP($scope.$root.currentUser.customerNumber)
-                                .then(function (result) {
+                                .then(function(result) {
                                     if (result.data) {
                                         alertify.alert('提示', '您的申请已经发送成功, 我们需要1-2个工作日审核您的资格. 有任何疑问请联系客服.');
                                     }
-                                }, function (result) {
+                                }, function(result) {
                                     alertify.alert('错误', result.data.message);
                                 });
                             //$scope.$root.currentUser.isVip = true;//TODO 这里只是为了测试
                         }
 
                     },
-                    function (error) {
+                    function(error) {
                         $scope.profileInfo = undefined;
                         $scope.showProfileInfo = false;
                         $scope.profileError = error;
@@ -338,13 +336,13 @@ angular
 
             $scope.addressListData = [];
 
-            var resfreshAddressList = function (index) {
+            var resfreshAddressList = function(index) {
                 addressSvr.getAddressList(index, {
-                    userName: $rootScope.currentUser.userName,
-                    emailAddress: $rootScope.currentUser.emailAddress,
-                    customerNumber: $rootScope.currentUser.customerNumber
-                })
-                    .then(function (result) {
+                        userName: $rootScope.currentUser.userName,
+                        emailAddress: $rootScope.currentUser.emailAddress,
+                        customerNumber: $rootScope.currentUser.customerNumber
+                    })
+                    .then(function(result) {
                         if (result.data) {
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
                             $scope.addressListData = result.data.data;
@@ -353,67 +351,67 @@ angular
             }
             resfreshAddressList();
 
-            $scope.onPaged = function (pageIndex) {
+            $scope.onPaged = function(pageIndex) {
                 resfreshAddressList(pageIndex);
             }
 
 
-            $scope.redirectToEdit = function (addressItem) {
+            $scope.redirectToEdit = function(addressItem) {
                 $scope.$root.isAddressList = true;
                 $state.go('customer.myaddress', { addressId: addressItem.transactionNumber });
             }
 
-            $scope.redirectToAdd = function () {
+            $scope.redirectToAdd = function() {
                 $scope.$root.isAddressList = true;
                 $state.go('customer.myaddress');
             }
 
-            $scope.deleteAddress = function (addressItem) {
+            $scope.deleteAddress = function(addressItem) {
                 alertify.confirm('确认', '请确认是否删除?',
-                    function () {
-                        addressSvr
-                            .delAddressInfo(addressItem.transactionNumber)
-                            .then(function (result) {
-                                if (result.data.success) {
-                                    alertify.success('删除成功!');
-                                    resfreshAddressList();
-                                }
-                            }, function (result) {
-                                if (result.data.message) {
-                                    alertify.alert('错误', result.data.message);
-                                }
-                            });
-                    },
-                    function () {
-                        alertify.error('已取消删除!')
-                    })
-                // SweetAlert.swal({
-                //     title: "确定要删除?",
-                //     type: "warning",
-                //     showCancelButton: true,
-                //     confirmButtonColor: "#DD6B55",
-                //     confirmButtonText: "确定",
-                //     cancelButtonText: "取消",
-                //     closeOnConfirm: false
-                // }, function (isConfirm) {
-                //     if (isConfirm) {
-                //         addressSvr
-                //             .delAddressInfo(addressItem.transactionNumber)
-                //             .then(function (result) {
-                //                 if (result.data.success) {
-                //                     SweetAlert.swal('提示', '删除成功.', 'success');
-                //                     resfreshAddressList();
-                //                 }
-                //             }, function (result) {
-                //                 if (result.data.message) {
-                //                     SweetAlert.swal('错误', result.data.message, 'error');
-                //                 }
-                //             });
-                //     }
-                // });
+                        function() {
+                            addressSvr
+                                .delAddressInfo(addressItem.transactionNumber)
+                                .then(function(result) {
+                                    if (result.data.success) {
+                                        alertify.success('删除成功!');
+                                        resfreshAddressList();
+                                    }
+                                }, function(result) {
+                                    if (result.data.message) {
+                                        alertify.alert('错误', result.data.message);
+                                    }
+                                });
+                        },
+                        function() {
+                            alertify.error('已取消删除!')
+                        })
+                    // SweetAlert.swal({
+                    //     title: "确定要删除?",
+                    //     type: "warning",
+                    //     showCancelButton: true,
+                    //     confirmButtonColor: "#DD6B55",
+                    //     confirmButtonText: "确定",
+                    //     cancelButtonText: "取消",
+                    //     closeOnConfirm: false
+                    // }, function (isConfirm) {
+                    //     if (isConfirm) {
+                    //         addressSvr
+                    //             .delAddressInfo(addressItem.transactionNumber)
+                    //             .then(function (result) {
+                    //                 if (result.data.success) {
+                    //                     SweetAlert.swal('提示', '删除成功.', 'success');
+                    //                     resfreshAddressList();
+                    //                 }
+                    //             }, function (result) {
+                    //                 if (result.data.message) {
+                    //                     SweetAlert.swal('错误', result.data.message, 'error');
+                    //                 }
+                    //             });
+                    //     }
+                    // });
             }
 
-            $scope.changePassword = function () {
+            $scope.changePassword = function() {
                 if ($scope.model.newPassword !== $scope.model.passwordConfirm) {
                     alertify.alert('错误', '两次输入的密码不一样，请重新输入.');
                     $scope.model.passwordConfirm = '';
@@ -422,19 +420,19 @@ angular
                     return false;
                 }
                 Customer.changePassword($scope.model.password, $scope.model.passwordConfirm, $rootScope.currentUser.emailAddress)
-                    .then(function (result) {
+                    .then(function(result) {
                         if (result.data.success) {
                             alertify.success('密码修改成功，请重新登录!');
 
                             localStorage.removeItem('user_info');
-                            AuthService.logout(function () {
+                            AuthService.logout(function() {
                                 $location.path('/login');
                             });
                         }
                         $scope.model.password = '';
                         $scope.model.passwordConfirm = '';
                         $scope.model.newPassword = '';
-                    }, function (result) {
+                    }, function(result) {
                         if (result.data.message) {
                             alertify.alert('错误', result.data.message);
                             $scope.model.password = '';
@@ -445,4 +443,5 @@ angular
 
             }
 
-        }]);
+        }
+    ]);
