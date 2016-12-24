@@ -193,10 +193,10 @@
                     </td>
                     <td style="max-width:150px;">{{item.warehouseName}}</td>
                     <td style="max-width:150px;">{{item.shipServiceName}}</td>
-                    <td style="max-width: 300px;">
-                        <div class="td-row" ng-repeat="ads in item._shipToAddresses">
-                            <p>{{ads}}</p>
-                        </div>
+                    <td>
+                        <p ng-repeat="ads in item._shipToAddresses">
+                            {{ads}}
+                        </p>
                     </td>
                     <td>
                         <span ng-if="item.currencyCode == 'USD'" title="USD">
