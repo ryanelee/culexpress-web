@@ -12,17 +12,17 @@ angular
                 ParallaxSlider.initParallaxSlider();
             }
 
-            $http.get(cul.apiPath + '/web/recentnotify').then(function (data) {
-                $scope.RecentNotifies = data;
-            });
+            // $http.get(cul.apiPath + '/web/recentnotify').then(function (data) {
+            //     $scope.RecentNotifies = data;
+            // });
 
-            $http.get(cul.apiPath + '/web/recentrebate').then(function (data) {
-                $scope.RecentRebates = data;
-            });
+            // $http.get(cul.apiPath + '/web/recentrebate').then(function (data) {
+            //     $scope.RecentRebates = data;
+            // });
 
-            $http.get(cul.apiPath + '/web/client').then(function (data) {
-                $scope.Clients = data;
-            });
+            // $http.get(cul.apiPath + '/web/client').then(function (data) {
+            //     $scope.Clients = data;
+            // });
 
             $scope.hoverHt = function(dom, type) {
               if (type === 'hover') {
