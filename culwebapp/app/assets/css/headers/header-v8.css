@@ -317,9 +317,11 @@
 	padding: 5px 20px;
 	margin-top: 14px;
 }
+
 .id-card>span {
 	margin-right: 5px;
 	vertical-align: middle;
+	color:#fff !important;
 }
 
 .id-card>img {
