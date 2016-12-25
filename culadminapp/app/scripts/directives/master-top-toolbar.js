@@ -7,28 +7,27 @@
  * # masterTopToolbar
  */
 angular.module('culAdminApp')
-    .directive('masterTopToolbar', ["$http", "userService", "$location", "customerService", "faqService",
-        function($http, userService, $location, customerService, faqService) {
+    .directive('masterTopToolbar', ["$rootScope", "$http", "userService", "$location", "customerService", "faqService",
+        function($rootScope, $http, userService, $location, customerService, faqService) {
             return {
                 templateUrl: "views/templates/master/top_tpl.html",
                 restrict: 'E',
                 replace: true,
                 $scope: true,
                 link: function postLink($scope, $element, attrs) {
+                    $rootScope.$emit('changeMenu');
                     $scope.btnLogout = function() {
                         userService.logout(function() {
                             $scope.$root.userInfo = null;
                         });
                     };
 
-                    console.log("wonderful");
                     $scope.btnViewMessageList = function() {
                         $location.path("/customer/messagelist");
                     }
 
                     $scope.getVipAndMsg = function() {
                         customerService.getVipAndMsg({}, function(result) {
-                            console.log(result);
                             $scope.vipCount = result.data.count;
                             $scope.vipData = result.data.data;
                         })
@@ -38,7 +37,6 @@ angular.module('culAdminApp')
                         faqService.getList({ status: 'Processing' }, function(result) {
                             $scope.tipMessage = result.data;
                             $scope.tipMessageLength = result.data.length;
-                            console.log("__" + $scope.tipMessageLength);
                         })
                     }
                     $scope.getVipAndMsg();
