@@ -145,6 +145,11 @@
   color: #fff;
 }
 
+.footer-site-remark a {
+  display: inline !important;
+  line-height: 15px;
+}
+
 @media (max-width: 768px) {
   .col-title{
     display: none;

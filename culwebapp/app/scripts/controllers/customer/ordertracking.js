@@ -78,6 +78,7 @@ angular.module('culwebApp')
           if (!$scope.isOrderPackage) {
               orderSvr.getOrderTrackingList($scope.trackingNumber)
               .then(function (result) {
+                  console.log(result);
                   var eventObj = result.data,
                       eventList = [],
                       tempEventList = angular.copy($scope.orderEventInfo.eventList);

@@ -10,9 +10,9 @@ angular
             });
         };
 
-        $http.get(cul.apiPath + '/web/reference').then(function (data) {
-            $scope.References = data;
-        });
+        // $http.get(cul.apiPath + '/web/reference').then(function (data) {
+        //     $scope.References = data;
+        // });
 
         $scope.$on('$routeChangeSuccess', function (scope, next, current) {
             $(document.body).scrollTop(0);
