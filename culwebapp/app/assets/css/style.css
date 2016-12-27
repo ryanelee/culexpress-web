@@ -1268,7 +1268,7 @@ select::-ms-expand {
 
 .step-three .m-info {
 	display: inline-block;
-	width: 170px;
+	width: 180px;
 	text-align: right;
 	margin-top: 20px;
 	vertical-align: top;
@@ -1276,6 +1276,17 @@ select::-ms-expand {
 
 .step-three .m-info:last-child {
 	margin-left: 20px;
+}
+
+.step-three .m-info .info-content {
+	display: inline-block;
+	width: 145px;
+}
+
+.step-three .m-info .info-img {
+	display: inline-block;
+	width: 24px;
+	vertical-align: top;
 }
 
 .howuse .remark {
