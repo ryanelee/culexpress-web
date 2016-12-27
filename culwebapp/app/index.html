@@ -85,7 +85,7 @@
                 <!--<li class="topbar-devider" data-ng-show="isLogined"></li>-->
                 <li class="hoverSelector" data-ng-show="isLogined">
                     <i class="fa fa-user"></i>
-                    <a class="topbar-down" ui-sref="customer.myaccount({anchorid:'profile'})">您好,<span data-ng-bind="currentUser.userName"></span> <span class="color-orange" ng-show="isLackProfile">[您还未填写个人资料]</span></a>
+                    <a class="topbar-down" ui-sref="customer.myaccount({anchorid:'profile'})">您好,<span data-ng-bind="currentUser.userName"></span> <span class="color-red" ng-show="isLackProfile">[您还未填写个人资料]</span></a>
                     <ul class="topbar-dropdown  hidden-xs hidden-sm" ng-show="!isLackProfile">
                         <li ng-class="{active: $state.includes('customer.myhome')}">
                             <a ui-sref="customer.myhome"><i class="fa fa-bar-chart-o"></i> 用户中心</a>
@@ -362,12 +362,16 @@
               </div>
             </div>
             <hr class="footer-hr" />
-            <div class="row">
-              <span class="footer-site-remark pull-left"><script type="text/javascript">
-                                    document.write((new Date()).getFullYear());
-                                </script> © culexpress.com. All Rights Reserved. </span>
-              <span class="footer-site-remark pull-right">Privacy Policy | Terms of Service | Jobs</span>
-            </div>
+                    <div class="row">
+                        <span class="footer-site-remark pull-left">
+                            <script>document.write((new Date()).getFullYear());</script> © culexpress.com. All Rights Reserved.
+                        </span>
+                        <span class="footer-site-remark pull-right">
+                            <a href="#/faq">Privacy Policy</a> | 
+                            <a href="#/terms">Terms of Service</a> | 
+                            <a href="#/jobs">Jobs</a>
+                        </span>
+                </div>
           </div>
         </div>
       </footer>

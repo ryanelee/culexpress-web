@@ -107,7 +107,7 @@
           如果包裹产生关税，我们的客服会与客户取得联系，您可以在国内直接缴费给海关如果海关要求包裹退运，我们的客服会与您取得联系，客户需将退运费用支付给我司以便安排退运手续.
         </div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item faq-last-item">
         <div class="faq-title">
           <span class="faq-title-num">11.</span>
           <span class="faq-title-content">我的邮寄的货物会产生关税吗?</span>
@@ -126,7 +126,6 @@
 </div>
 <script type="text/javascript">
   $('.faq-title').on('click', function() {
-    let className = $(this).parent()[0].className;
     var nextCont = $(this).nextAll('.faq-content');
     $('.faq-content').not(nextCont).hide();
     nextCont.toggle();

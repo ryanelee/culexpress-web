@@ -19,7 +19,6 @@ angular.module('culAdminApp')
 
         self.getList = function(options, callback) {
             $http.post(cul.apiPath + "/customermessage/list", options).success(function(result) {
-                console.log(result);
                 callback(result);
             });
         }
@@ -43,7 +42,6 @@ angular.module('culAdminApp')
         }
 
         self.setMessagelog = function(data, callback) {
-            console.log('23232')
             $http.post(cul.apiPath + "/customermessage/setMessagelog", data).success(function(result) {
                 callback(result);
             });
