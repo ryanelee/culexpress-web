@@ -158,6 +158,10 @@
   color: #fff;
 }
 
+.last-row .footer-site-remark a {
+  display: inline-block;
+}
+
 @media (max-width: 992px) {
   .first-row .search-title {
     width: 25%;
