@@ -58,6 +58,7 @@ a:active,
 button,
 button:hover {
 	outline: 0 !important;
+	text-decoration: none;
 }
 
 a:focus {
@@ -65,7 +66,7 @@ text-decoration: none;
 }
 a:hover {
  color: #72c02c;
- text-decoration: underline;
+ text-decoration: none;
 }
 
 /*Boxed Layout
@@ -143,7 +144,24 @@ select::-ms-expand {
 	width: 100%;
 	height: auto;
 }
+.jy-banner {
+	box-sizing: border-box;
+	position: relative;
+}
 
+.jy-banner .container {
+	padding: 0;
+	position: relative;
+}
+
+.jy-banner .jy-icon{
+	display: inline-block;
+	position: absolute;
+	bottom: -35%;
+	right: 5%;
+	width: 20%;
+	height: auto;
+}
 
 .index-register {
 	width: 100%;
@@ -707,10 +725,14 @@ select::-ms-expand {
 	padding: 0;
 }
 
+.info-banner .container {
+	position: relative;
+}
+
 .info-banner .info-op {
 	position: absolute;
 	top: 350px;
-	left: 38%;
+	left: 22%;
 	z-index: 1;
 }
 
@@ -832,6 +854,12 @@ select::-ms-expand {
   vertical-align: middle;
   position: relative;
 	right: -10px
+}
+
+.embargo-row .embargo-img {
+	display: inline-block;
+	width: 76px;
+	text-align: center;
 }
 
 .embargo-row .embargo-item {
@@ -1040,7 +1068,7 @@ select::-ms-expand {
 .faq-container .faq-pic {
 	position: absolute;
 	right: 0;
-	top: -30%;
+	top: -220px;
 	width: 30%;
 	display: inline-block;
 }
@@ -1163,6 +1191,7 @@ select::-ms-expand {
 .howuse .step-two {
 	text-align: right;
 	box-sizing: border-box;
+	margin-top: 70px;
 }
 
 .howuse .step-two img {
@@ -1256,7 +1285,7 @@ select::-ms-expand {
 }
 
 .step-four {
-	padding: 80px 0 0;
+	padding: 80px 0;
 }
 
 .howuse .left-col {
@@ -1267,8 +1296,9 @@ select::-ms-expand {
 	padding: 50px 0 0;
 }
 
-.step-six {
+.howuse .step-six {
 	text-align: center;
+	margin: 70px 0 50px;
 }
 
 .shen-bg {
@@ -1296,7 +1326,7 @@ select::-ms-expand {
 .step-six-fluid .img-item {
 	position: absolute;
 	top: 0;
-	left: calc(50% - 150px);
+	left: calc(50% - 195px);
 	padding: 0;
 }
 
@@ -1373,6 +1403,10 @@ select::-ms-expand {
 .step-seven .img-item li img {
 	margin-top: -35%;
 	width: 70%;
+}
+
+.step-seven .img-item li p {
+	margin-top: 20px;
 }
 
 .howuse .font-item .step-user::before {
@@ -1452,8 +1486,7 @@ select::-ms-expand {
 	background-color: #fdbe45;
 }
 
-.order-track .item-	margin-top: 20px;
- img {
+.order-track .item-img {
 	display: inline-block;
 	width: 25%;
 	height: auto;
@@ -1583,9 +1616,12 @@ select::-ms-expand {
 }
 
 
-@media (max-width: 1200px) {
+@media (max-width: 1203px) {
 	.faq-container .faq-pic {
 		top: -17%;
+	}
+	.info-banner .info-op {
+		left: 26%;
 	}
 }
 
