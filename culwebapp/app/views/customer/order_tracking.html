@@ -1,4 +1,4 @@
-﻿<div ng-controller="OrdertrackingCtrl" style="min-height: 800px;overflow-x:hidden;">
+﻿<div ng-controller="OrdertrackingCtrl" style="overflow-x:hidden;">
     <!-- <div class="row" ng-if="!isOrderPackage&&showTrack">
         <div class="col-sm-12">
             <div class="headline" style="padding-left:20%;"><h2>包裹轨迹</h2></div>
@@ -46,7 +46,7 @@
             </li>
         </ul>
     </div> -->
-    <div class="container-fluid content order-track">
+    <div class="container-fluid content order-track" ng-if="!isErrorNumber">
       <img src="../../assets/img/ordertracking/bg-banner.png" />
       <div class="container order-container">
         <div class="row">
@@ -72,10 +72,9 @@
             </div>
           </div>
           <div class="col-sm-9 col-xs-12 col-track">
-            <div class="text-danger" ng-if="isErrorNumber">无效的运单号</div>
             <div class="track-item" ng-repeat="eventItem in orderEventInfo.eventList">
               <div class="track-item-icon">
-                <img src="../../assets/img/ordertracking/icon-right-laba.png" />
+                <i class="fa {{eventItem.icon}}"></i>
               </div>
               <div class="track-item-content">
                 <div class="head">{{eventItem.operationDate|date:'yyyy年MM月dd日 HH:mm:ss'}}</div>
@@ -84,9 +83,23 @@
                 <div class="foot">{{eventItem.operationUser}}</div>
               </div>
             </div>
+            <div ng-show="!orderEventInfo.eventList || orderEventInfo.eventList.length === 0" class="no-data">
+              暂无任何记录
+            </div>
           </div>
         </div>
       </div>
     </div>
-
+    <div class="container-fluid content order-no-track" ng-if="isErrorNumber">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12 left-col">
+          <img src="../../assets/img/ordertracking/no-page.png" />
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 right-col">
+          <h2 class="title">无效的运单号码 . . .</h2>
+          <p class="content">您输入的运单号码有误，别着急，核对一下您的运单号码回到主页再输一次试试。</p>
+          <a class="btn-go" ui-sref="/">回到主页</a>
+        </div>
+      </div>
+    </div>
 </div>

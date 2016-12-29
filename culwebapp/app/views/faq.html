@@ -3,9 +3,8 @@
 <!--=== Content Part ===-->
 <div class="container content faq-container">
     <div class="row faq-row-content">
-      <img class="faq-pic" src="../assets/img/faq/kdrw.png" />
-      <div class="faq-item faq-first-item">
-        <div class="faq-title faq-one">
+      <div class="faq-item">
+        <div class="faq-title">
           <span class="faq-title-num">01.</span>
           <span class="faq-title-content">在购物网站成功下单后需要做些什么?</span>
         </div>
@@ -14,11 +13,11 @@
         </div>
       </div>
       <div class="faq-item">
-        <div class="faq-title faq-one">
+        <div class="faq-title">
           <span class="faq-title-num">02.</span>
           <span class="faq-title-content">网站没有给我提供发货的追踪号码怎么办?</span>
         </div>
-        <div class="faq-content contnt-one">
+        <div class="faq-content">
           在网上购物的时候，一定记得写上系统给您分配，由4个字母组成的识别码， 地址后面也要加上单元号。我们仓库收到包裹会根据客户的收件标识和客户编号确认客户信息号，以统一的规则生成单号入库.
         </div>
       </div>
@@ -108,7 +107,7 @@
           如果包裹产生关税，我们的客服会与客户取得联系，您可以在国内直接缴费给海关如果海关要求包裹退运，我们的客服会与您取得联系，客户需将退运费用支付给我司以便安排退运手续.
         </div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item faq-last-item">
         <div class="faq-title">
           <span class="faq-title-num">11.</span>
           <span class="faq-title-content">我的邮寄的货物会产生关税吗?</span>
@@ -127,12 +126,8 @@
 </div>
 <script type="text/javascript">
   $('.faq-title').on('click', function() {
-    let className = $(this).parent()[0].className;
-    if (className.indexOf('faq-first-item') >= 0) {
-      return false;
-    }
     var nextCont = $(this).nextAll('.faq-content');
-    $('.faq-content:not(:first)').not(nextCont).hide();
+    $('.faq-content').not(nextCont).hide();
     nextCont.toggle();
   })
 </script>
