@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('ReceiptNoASNCtrl', ['$scope', '$location', '$window', 'receiptService', 'warehouseService', 'plugMessenger', '$timeout',
-        function ($scope, $location, $window, receiptService, warehouseService, plugMessenger, $timeout) {
+        function($scope, $location, $window, receiptService, warehouseService, plugMessenger, $timeout) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -20,9 +20,11 @@ angular.module('culAdminApp')
             $scope.flag = '0'
 
 
-            $scope.checkReceiveIdentity = function () {
+
+
+            $scope.checkReceiveIdentity = function() {
                 $scope.flag = '0'
-                receiptService.checkReceiveIdentity($scope.data).then(function (result) {
+                receiptService.checkReceiveIdentity($scope.data).then(function(result) {
                     console.log(result);
                     if (result.data.code == '999') {
                         plugMessenger.error(result.data.msg);
@@ -34,8 +36,8 @@ angular.module('culAdminApp')
                 })
             }
 
-            $scope.checkInboundPackage = function () {
-                receiptService.checkInboundPackage($scope.data).then(function (result) {
+            $scope.checkInboundPackage = function() {
+                receiptService.checkInboundPackage($scope.data).then(function(result) {
                     $scope.flag = '0'
                     console.log(result);
                     if (result.data.code == '999') {
@@ -51,7 +53,7 @@ angular.module('culAdminApp')
             }
 
 
-            warehouseService.getWarehouse(function (result) {
+            warehouseService.getWarehouse(function(result) {
                 for (var i = 0; i < result.length; i++) {
                     var detail = {}
                     $scope.data.warehouseNumber = result[0].warehouseNumber
@@ -63,8 +65,8 @@ angular.module('culAdminApp')
             });
 
 
-            $scope.inboundpackage = function () {
-                warehouseService.inboundpackage($scope.data).then(function (result) {
+            $scope.inboundpackage = function() {
+                warehouseService.inboundpackage($scope.data).then(function(result) {
                     if (result.status == 200) {
                         $scope.btnSave($scope.data.trackingNumber);
                     }
@@ -72,9 +74,9 @@ angular.module('culAdminApp')
             }
 
 
-            $scope.btnSave = function (trackingNumber) {
-                var _callback = function (result) {
-                    if (!result.message) {  
+            $scope.btnSave = function(trackingNumber) {
+                var _callback = function(result) {
+                    if (!result.message) {
                         $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: trackingNumber, number: 1 });
                         $scope.data = null;
                     } else {
@@ -85,14 +87,21 @@ angular.module('culAdminApp')
             }
 
 
-            $scope.btnSaveAndPrint = function () {
-                if (!$scope.data.receiveIdentity
-                    || !$scope.data.customerNumber
-                    || !$scope.data.trackingNumber
-                    || !$scope.data.carrierName
-                    || !$scope.data.warehouseNumber
-                    || !$scope.data.packageWeight
-                    || !$scope.data.packageDescription) {
+            $scope.btnSaveAndPrint = function() {
+                $scope.data.isUnusual = 0;
+                $("input[name='pro']:checked").each(function(index, e) {
+                    $scope.isStaffFlag = $(this).attr("value");
+                });
+                if ($scope.isStaffFlag == 'true') {
+                    $scope.data.isUnusual = 1;
+                }
+                if (!$scope.data.receiveIdentity ||
+                    !$scope.data.customerNumber ||
+                    !$scope.data.trackingNumber ||
+                    !$scope.data.carrierName ||
+                    !$scope.data.warehouseNumber ||
+                    !$scope.data.packageWeight ||
+                    !$scope.data.packageDescription) {
                     plugMessenger.error("请填写所有必填项");
                     return;
                 } else {
@@ -108,7 +117,8 @@ angular.module('culAdminApp')
             // }
 
 
-            $scope.btnPrev = function () {
+            $scope.btnPrev = function() {
                 $window.history.back();
             }
-        }]);
+        }
+    ]);
