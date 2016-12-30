@@ -20,6 +20,8 @@ angular.module('culAdminApp')
 
         //寄送库存海淘入库登记
         self.saveForOnline = function(options, callback) {
+            console.log(options)
+            // return;
             $http.post(cul.apiPath + "/item/transport/Inbound/online", options).success(function(result) {
                 callback(result);
             });

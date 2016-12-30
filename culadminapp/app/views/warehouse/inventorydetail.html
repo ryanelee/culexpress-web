@@ -76,7 +76,7 @@
                                             <tbody>
                                                 <tr ng-repeat="shelf in item.shelfList">
                                                     <td>{{shelf.receiptNumber}}</td>
-                                                    <td>{{shelf.sendType == 1 ? "线下订单" : "海淘订单"}}</td>
+                                                    <td>{{shelf._sendType}}</td>
                                                     <td>{{shelf.shelfNumber}}</td>
                                                     <td>{{shelf.itemCount}}</td>
                                                 </tr>
