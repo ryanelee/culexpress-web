@@ -20,6 +20,7 @@ angular.module('culAdminApp')
 
           orderService.getDetail($location.search().orderNumber, function (result) {
               $scope.data = result;
+              console.log(result);
               $.each($scope.data.shipToAddresses, function (i, address) {
                   address._trackingNumbers = [];
                   $.each($scope.data.outboundPackages, function (i, outboundPackage) {
