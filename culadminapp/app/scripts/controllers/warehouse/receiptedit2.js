@@ -94,7 +94,7 @@ angular.module('culAdminApp')
 
             $scope.btnOpenDetail = function (item, type) {
                 switch (type) {
-                    case "customerDetail":
+                    case "customerdetail":
                         $location.search({ customerNumber: item.customerNumber });
                         $location.path("/customer/customerdetail");
                         break;
