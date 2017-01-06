@@ -106,9 +106,9 @@ angular.module('culAdminApp')
             // $scope.getProvince();
 
             $scope.init = function () {
+                console.log("wonderful world");
                 addressService.getDetail($scope.transactionNumber, function (result) {
                     $scope.data = result;
-                    //console.log($scope.data);
                     $scope._province = result.stateOrProvince;
                     $scope._city = result.city;
                     $scope._area = result.area;
@@ -139,6 +139,8 @@ angular.module('culAdminApp')
             };
 
             $scope.btnSave = function () {
+                console.log("保存信息")
+                console.log($scope.data);
                 if ($scope.data.city == "") {
                     plugMessenger.info("收货地址没有填写完整");
                     return;
@@ -157,6 +159,7 @@ angular.module('culAdminApp')
 
             //----------upload file START----------
             var _buildUpload = function ($el, key) {
+                console.log("key"+key);
                 var _$panel = $el.parents(".fileupload-buttonbar:first");
                 $el.fileupload({
                     url: cul.apiPath + '/files/upload',
@@ -170,8 +173,9 @@ angular.module('culAdminApp')
                 }).bind('fileuploaddone', function (e, data) {
                     _$panel.find("#file_btn_text").text("重新上传");
                     $scope.$apply(function () {
-                        $scope.data[key] = data.result.filePath;
-                        $scope.data[key + "Url"] = data.result.url;
+                        console.log("上传结束");
+                        $scope.data[key] = data.result.url;
+                        $scope.data[key+"Url"] = data.result.url;
                     });
                 });
             }

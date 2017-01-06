@@ -116,7 +116,6 @@ angular.module('culAdminApp')
                 $scope.search.typeId = $scope.search.messageType.typeID;
                 $scope.search.typeName = $scope.search.messageType.typeName;
                 faqService.setMessagelog($scope.search, function(data) {
-                    console.log(data);
                 })
             }
 
