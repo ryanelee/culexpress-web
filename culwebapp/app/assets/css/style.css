@@ -1877,7 +1877,6 @@ select:-webkit-autofill {
 	border: solid 2px #edb426;
 	color: #fff;
 	text-align: center;
-	vertical-align: middle;
 	border-radius: 22px;
 	background-color: transparent;
 	font-size: 24px;
@@ -1905,17 +1904,17 @@ select:-webkit-autofill {
 	text-align: center;
 }
 
-input::-webkit-input-placeholder {
-　color: #fff !important;
+.login-main .txt::-webkit-input-placeholder {
+　color: #fff !important;opacity:1;
 }
-.login-main :-moz-placeholder {  /* Mozilla Firefox 4 to 18*/
-　　color:#fff !important;
+.login-main .txt:-moz-placeholder {  /* Mozilla Firefox 4 to 18*/
+　　color:#fff !important;opacity:1;
 　　}
-.login-main input::-moz-placeholder {  /* Mozilla Firefox 19+*/
-　　color:#fff !important;
+.login-main .txt::-moz-placeholder {  /* Mozilla Firefox 19+*/
+　　color:#fff !important;opacity:1;
 　　}
-.login-main input:-ms-input-placeholder { /* Internet Explorer 10+*/
-　　color:#fff !important;
+.login-main .txt:-ms-input-placeholder { /* Internet Explorer 10+*/
+　　color:#fff !important;opacity:1;
 }
 
 @media (max-width: 1203px) {
