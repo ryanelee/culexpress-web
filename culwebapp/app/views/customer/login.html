@@ -1,20 +1,20 @@
 <!-- CSS Page Style -->
 <!--=== Content Part ===-->
-<div class="container content" ng-controller="LoginController">
+<!-- <div class="container content" ng-controller="LoginController">
     <div class="row">
         <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
             <form ng-submit="login()" id="sky-form1" class="sky-form" novalidate="novalidate">
                 <header>登录您的账户</header>
 
-                <fieldset>                  
+                <fieldset>
                     <section>
                         <div class="row">
-                            <label class="label col col-3">注册邮箱</label>
-                            <div class="col col-9">
+                            <label class="label col col-4">邮箱/用户名</label>
+                            <div class="col col-8">
                                 <label class="input">
                                     <i class="icon-append fa fa-user"></i>
-                                    <input type="email" name="email" data-ng-model="emailAddress">
-                                    <b class="tooltip tooltip-bottom-right">请输入您注册时填写的邮箱地址</b>
+                                    <input type="text" name="username" data-ng-model="emailAddress">
+                                    <b class="tooltip tooltip-bottom-right">请输入您注册时填写的邮箱地址/用户名</b>
                                 </label>
                             </div>
                         </div>
@@ -22,8 +22,8 @@
 
                     <section>
                         <div class="row">
-                            <label class="label col col-3">密码</label>
-                            <div class="col col-9">
+                            <label class="label col col-4">登录密码</label>
+                            <div class="col col-8">
                                 <label class="input">
                                     <i class="icon-append fa fa-lock"></i>
                                     <input type="password" name="password" data-ng-model="password">
@@ -34,14 +34,7 @@
                         </div>
                     </section>
 
-                    <!--<section>
-                        <div class="row">
-                            <div class="col col-3"></div>
-                            <div class="col col-9">
-                                <label class="checkbox"><input type="checkbox" name="remember" ng-checked="rememberMe" ng-model="remeberMe"><i></i>下次自动登录</label>
-                            </div>
-                        </div>
-                    </section>-->
+
                 </fieldset>
                 <footer>
                     <button type="submit" name="submit" class="btn-u">登录</button>
@@ -51,8 +44,31 @@
                 </footer>
             </form>
         </div>
-    </div><!--/row-->
-</div><!--/container-->
+    </div>
+</div>-->
+<div class="login-container" ng-controller="LoginController">
+  <div class="login-main login-tab">
+    <img class="login-icon" src="../../assets/img/login/login-icon.png" /><br />
+    <form ng-submit="login()" autocomplete="off">
+      <input class="txt name" name="username" data-ng-model="emailAddress" placeholder="请输入用户名或邮箱"
+        autocomplete="off" readonly onfocus="this.removeAttribute('readonly');"/>
+      <b class="tooltip tooltip-bottom-right">请输入您注册时填写的邮箱地址/用户名</b>
+      <input class="txt pwd" type="password" name="password" data-ng-model="password" placeholder="请输入登录密码"
+        autocomplete="off" readonly onfocus="this.removeAttribute('readonly');"/><br />
+      <b class="tooltip tooltip-bottom-right">密码长度为6-20位，可为英文、符号、数字</b>
+      <a ui-sref="forgetpassword" class="modal-opener forget"><i>?</i> 忘记密码</a><br />
+      <div class="btn-container">
+        <button type="submit" name="submit" class="btns btn-login">登 录</button>
+        <a ui-sref="register" class="btns btn-register">注 册</a>
+        <div class="login-error">
+          <i class="color-red icon-line icon-shield" data-ng-show="showLoginError"></i>
+          <span class="color-red" data-ng-show="showLoginError" data-ng-bind="loginError"></span>
+        </div>
+      </div>
+    </form>
+    <img class="login-bao" src="../../assets/img/login/login-bao.png" />
+  </div>
+</div>
 <!--=== End Content Part ===-->
 <script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
 <script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>
@@ -61,7 +77,6 @@
 <script type="text/javascript">
     jQuery(document).ready(function() {
         App.init();
-        LoginForm.initLoginForm();
-        
+        <!-- LoginForm.initLoginForm(); -->
     });
 </script>

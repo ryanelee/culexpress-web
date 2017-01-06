@@ -9,7 +9,30 @@ angular
         $scope.showLoginError = false;
 
         $scope.login = function () {
-            if ($('.state-error').length > 0) return;
+          $scope.showLoginError = false;
+          $scope.loginError = '';
+          if (!$scope.emailAddress) {
+            $scope.showLoginError = true;
+            $scope.loginError = '请输入注册时填入的邮箱地址';
+            return;
+          } else {
+            if (!/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test($scope.emailAddress)) {
+              $scope.showLoginError = true;
+              $scope.loginError = '请输入有效的邮箱地址(比如:JonDoe@gmail.com)';
+              return;
+            }
+          }
+          if (!$scope.password) {
+            $scope.showLoginError = true;
+            $scope.loginError = '请输入您的密码';
+            return;
+          } else {
+            if ($scope.password.length < 6 || $scope.password.length > 20) {
+              $scope.showLoginError = true;
+              $scope.loginError = '密码长度为6-20位';
+              return;
+            }
+          }
             var loginData = {
                 emailAddress: $scope.emailAddress,
                 password: $scope.password,

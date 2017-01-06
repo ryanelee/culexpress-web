@@ -1676,6 +1676,248 @@ select::-ms-expand {
 	border-radius: 5px;
 }
 
+.register-success {
+	max-width:750px;
+	width: 80%;
+	text-align:center;
+	font-size:20px;
+	margin:200px auto;
+	font-weight:bold;
+	color:#000;
+}
+
+.login-container {
+	background: url(../img/login/login-bg.jpg) no-repeat center center;
+	text-align: center;
+}
+
+.register-container {
+	background: url(../img/login/register-bg.jpg) no-repeat center center;
+	text-align: center;
+}
+
+.login-container .login-main {
+	position: relative;
+	display: inline-block;
+	width: 80%;
+	max-width: 565px;
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	text-align: center;
+	color: #fff;
+}
+
+.login-container .login-tab {
+	height: 520px;
+	margin: 145px auto;
+}
+
+.register-container .login-main {
+	max-width: 970px;
+	min-height: 640px;
+	padding: 35px;
+	box-sizing: border-box;
+	margin: 115px auto;
+}
+
+.register-container .register-form {
+	display: inline-block;
+	max-width: 440px;
+	width: 440px;
+	position: relative;
+}
+
+.login-main .login-icon {
+	margin: 35px auto 45px;
+	display: inline-block;
+	width: 70px;
+	height: auto;
+}
+
+.login-main .register-icon {
+	display: inline-block;
+	width: 80%;
+	margin-left: 10%;
+	margin: 0 auto 45px;
+}
+
+.login-main .txt {
+	display: inline-block;
+	width: 80%;
+	max-width: 430px;
+	height: 38px;
+	line-height: 38px;
+	border: solid 1px #fff;
+	border-radius: 19px;
+	vertical-align: middle;
+	padding: 0 25px 0 60px;
+}
+
+.register-container .login-main .txt {
+	width: 100%;
+}
+
+.login-main
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: transparent;
+    color: #fff;
+		-webkit-box-shadow: 0 0 0 100px transparent inset !important;
+}
+
+.login-main .txt:hover, .login-main .txt:focus {
+		outline:none;
+}
+
+.login-main .name {
+	background: transparent url(../img/login/icon-name.png) no-repeat 25px center;
+}
+
+.login-main .pwd {
+	margin-top: 20px;
+	background: transparent url(../img/login/icon-pwd.png) no-repeat 25px center;
+}
+
+.login-main .sex {
+	margin-top: 20px;
+	background: transparent url(../img/login/icon-sex.png) no-repeat 25px center;
+}
+
+.login-main .email {
+	margin-top: 20px;
+	background: transparent url(../img/login/icon-emil.png) no-repeat 25px center;
+}
+
+.login-main .tj {
+	margin-top: 20px;
+	background: transparent url(../img/login/icon-tj.png) no-repeat 25px center;
+}
+
+.login-main .error {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	text-align: left;
+	color: red;
+	font-size: 12px;
+	margin-left: 20px;
+	margin-top: 2px;
+}
+
+.login-main .error i.icon-line {
+	font-size: 12px;
+}
+
+.login-main select, option {
+  -webkit-appearance : none; /* To gain control over the appearance on WebKit */
+  -moz-appearance : none; /* To gain control over the appearance on Gecko */
+  /* To gain control over the appearance on Presto (Opera) and Trident (IE)
+     Note that it also work on Gecko and has partial effects on WebKit */
+  background : none;
+}
+
+.login-main .forget {
+	display: inline-block;
+	margin-top: 25px;
+	vertical-align: middle;
+	color: #fff;
+}
+
+.login-main .forget i {
+	display: inline-block;
+	color: #a4b7cb;
+	background-color: #fff;
+	border-radius: 50%;
+	width: 18px;
+	height: 18px;
+	vertical-align: top;
+}
+
+.login-main .check-style {
+	margin-top: 20px;
+	margin-left: -275px;
+}
+
+.login-main .check-style .checkbox-input {
+    display: none;
+		outline: none;
+}
+
+.login-main .checkbox-input + label{
+    display: inline-block;
+    padding-left: 24px;
+    font-size: 14px;
+    height: 16px;
+    line-height: 16px;
+    color: #fff;
+		background: url(../img/login/icon-cbx.png) no-repeat left center;
+		background-size: 16px 16px;
+}
+
+.login-main .checkbox-input:checked + label {
+    background: url(../img/login/icon-cbx-ck.png) no-repeat left 1px;
+		background-size: 16px 16px;
+}
+
+.login-main .btn-container {
+	margin-top: 60px;
+	text-align: center;
+}
+
+.login-main .btn-register {
+	margin-top: 30px;
+}
+
+.login-main .btn-container .btns {
+	display: inline-block;
+	width: 135px;
+	height: 41px;
+	line-height: 41px;
+	border: solid 2px #edb426;
+	color: #fff;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 22px;
+	background-color: transparent;
+	font-size: 24px;
+	cursor: pointer;
+	padding: 0;
+}
+
+.login-main .btn-container .btns:hover {
+	background-color: #edb426;
+}
+
+.login-main .btn-container .btn-register {
+	margin-left: 25px;
+}
+
+.login-main .login-bao {
+	position: absolute;
+	right: -80px;
+	bottom: 20px;
+}
+
+.login-main .login-error {
+	margin-top: 20px;
+	padding: 0 20px;
+	text-align: center;
+}
+
+input::-webkit-input-placeholder {
+　color: #fff !important;
+}
+.login-main :-moz-placeholder {  /* Mozilla Firefox 4 to 18*/
+　　color:#fff !important;
+　　}
+.login-main input::-moz-placeholder {  /* Mozilla Firefox 19+*/
+　　color:#fff !important;
+　　}
+.login-main input:-ms-input-placeholder { /* Internet Explorer 10+*/
+　　color:#fff !important;
+}
+
 @media (max-width: 1203px) {
 	.faq-container .faq-pic {
 		top: -17%;
@@ -1744,6 +1986,10 @@ select::-ms-expand {
 	}
 
 	.info-banner .info-content img {
+		display: none;
+	}
+
+	.login-main .login-bao {
 		display: none;
 	}
 
@@ -1858,6 +2104,20 @@ select::-ms-expand {
 		max-width: 80%;
 		margin-left: 10%;
 	}
+
+	.register-container .login-main .txt
+	{
+		width: 80%;
+	}
+
+	.login-main .error {
+		margin-left: 10%;
+	}
+
+	.login-main .check-style {
+		margin-left: 10%;
+		text-align: left;
+	}
 }
 
 @media (max-width: 550px) {
@@ -1879,5 +2139,21 @@ select::-ms-expand {
 
 	.col-xs-3 .old-version {
 		padding: 3px 4px;
+	}
+
+	.login-main .btn-container .btns {
+		display: inline-block;
+		width: 100px;
+		height: 41px;
+		line-height: 41px;
+		border: solid 2px #edb426;
+		color: #fff;
+		text-align: center;
+		vertical-align: middle;
+		border-radius: 22px;
+		background-color: transparent;
+		font-size: 24px;
+		cursor: pointer;
+		padding: 0;
 	}
 }

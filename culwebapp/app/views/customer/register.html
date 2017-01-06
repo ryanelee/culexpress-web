@@ -1,6 +1,6 @@
 <!-- CSS Page Style -->
 <!--=== Content Part ===-->
-<div class="container content" ng-controller="RegisterController">
+<!-- <div class="container content" ng-controller="RegisterController">
     <div class="row" ng-show="model.registed===false">
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 
@@ -85,11 +85,73 @@
         <div class="text-left">注册成功，我们已经将您账号的激活邮件发送至您的邮箱：{{model.email}}，</div>
         <div class="text-left">请登录邮箱并点击激活邮件中的链接成功激活账号后即可登录系统！</div>
     </div>
-</div><!--/container-->
+</div>-->
 <!--=== End Content Part ===-->
+<div ng-controller="RegisterController">
+<div class="login-container register-container" >
+  <div class="login-main" ng-show="model.registed===false">
+    <img class="register-icon" src="../../assets/img/login/register-lc.png" /><br />
+    <form ng-submit="register()" id="sky-form-register" autocomplete="off" novalidate="novalidate" class="register-form">
+      <input class="txt name" name="username" placeholder="用户名" data-ng-model="userName"
+        autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" ng-blur="ck('userName')"/><br />
+      <p class="error" ng-if="userNameErr">
+        <i class="color-red icon-line icon-shield"></i>
+        {{userNameErr}}
+      </p>
+      <select class="txt sex" name="gender" ng-model="gender" ng-change="ck('gender')">
+        <option value="">性别</option>
+        <option value="M">男</option>
+        <option value="F">女</option>
+      </select><br />
+      <p class="error" ng-if="genderErr">
+        <i class="color-red icon-line icon-shield"></i>
+        {{genderErr}}
+      </p>
+      <input class="txt email" name="emailAddress" placeholder="邮箱地址" data-ng-model="emailAddress"
+        autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" ng-blur="ck('emailAddress')"/><br />
+      <p class="error" ng-if="emailAddressErr">
+        <i class="color-red icon-line icon-shield"></i>
+        {{emailAddressErr}}
+      </p>
+      <input class="txt pwd" type="password" name="password" data-ng-model="password" placeholder="登陆密码 密码长度为6-20位，可为英文、符号、数字。"
+        autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" ng-blur="ck('password')"/><br />
+      <p class="error" ng-if="passwordErr">
+        <i class="color-red icon-line icon-shield"></i>
+        {{passwordErr}}
+      </p>
+      <input class="txt pwd" type="password" name="passwordConfirm" placeholder="重复密码" data-ng-model="passwordConfirm"
+        autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" ng-blur="ck('passwordConfirm')"/><br />
+      <p class="error" ng-if="passwordConfirmErr">
+        <i class="color-red icon-line icon-shield"></i>
+        {{passwordConfirmErr}}
+      </p>
+      <input class="txt tj" name="customerNumber" ng-disabled="{{ $stateParams.reference !== undefined }}" placeholder="推荐人" ng-model="customerNumber"
+        autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" maxlength="5" /><br />
+      <div class="check-style">
+        <input id="agree-message1" class="checkbox-input" type="checkbox" ng-model="terms">
+        <label for="agree-message1">
+          我同意<a ui-sref="terms" class="color-green">用户注册协议</a>
+        </label>
+      </div>
+      <div class="btn-container btn-register">
+        <button type="submit" name="submit" class="btns btn-login">注 册</button>
+        <p class="error login-error" ng-if="showRegisterError">
+          <i class="color-red icon-line icon-shield"></i>
+          {{registerError}}
+        </p>
+      </div>
+    </form>
+    <img class="login-bao" src="../../assets/img/login/login-bao.png" />
+  </div>
+</div>
+<div ng-show="model.registed===true" class="register-success">
+    <div class="text-left">注册成功，我们已经将您账号的激活邮件发送至您的邮箱：{{model.email}}，</div>
+    <div class="text-left">请登录邮箱并点击激活邮件中的链接成功激活账号后即可登录系统！</div>
+</div>
+</div>
 <script type="text/javascript">
     jQuery(document).ready(function () {
         App.init();
-        RegForm.initRegForm();
+        <!-- RegForm.initRegForm(); -->
     });
 </script>
