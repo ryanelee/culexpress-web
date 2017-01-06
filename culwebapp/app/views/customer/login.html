@@ -47,13 +47,13 @@
     </div>
 </div>-->
 <div class="login-container" ng-controller="LoginController">
-  <div class="login-main">
+  <div class="login-main login-tab">
     <img class="login-icon" src="../../assets/img/login/login-icon.png" /><br />
-    <form ng-submit="login()" novalidate="novalidate" autocomplete="off">
-      <input class="txt name" name="username" data-ng-model="emailAddress"
+    <form ng-submit="login()" autocomplete="off">
+      <input class="txt name" name="username" data-ng-model="emailAddress" placeholder="请输入用户名或邮箱"
         autocomplete="off" readonly onfocus="this.removeAttribute('readonly');"/>
       <b class="tooltip tooltip-bottom-right">请输入您注册时填写的邮箱地址/用户名</b>
-      <input class="txt pwd" type="password" name="password" data-ng-model="password"
+      <input class="txt pwd" type="password" name="password" data-ng-model="password" placeholder="请输入登录密码"
         autocomplete="off" readonly onfocus="this.removeAttribute('readonly');"/><br />
       <b class="tooltip tooltip-bottom-right">密码长度为6-20位，可为英文、符号、数字</b>
       <a ui-sref="forgetpassword" class="modal-opener forget"><i>?</i> 忘记密码</a><br />
