@@ -513,7 +513,6 @@ angular
             }
 
             $scope.deleteOrder = function (number) {
-                console.log(number);
                 if (!number) return false;
                 alertify.confirm('确定要删除订单[' + number + ']?',
                     function () {

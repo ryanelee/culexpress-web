@@ -32,6 +32,7 @@ angular.module('culAdminApp')
             $scope.tempAreas = [];
             $scope.areas = [];
             $scope.getProvince = function (province, city, area) {
+                console.log("province" + province)
                 addressService.getDistrict($scope.search).then(function (data) {
                     $scope.tempProvinces = data.data.data;
                     $scope.tempProvinces.forEach(function (e) {
@@ -58,11 +59,14 @@ angular.module('culAdminApp')
 
                     // console.log($scope.search.selectedProvince);
                     if ($scope.data.stateOrProvince == e.name) {
+                        console.log($scope.selectedProvince);
                         $scope.search.parentid = e.id;
                     }
                 })
                 if ($scope.search.parentid) {
                     addressService.getDistrict($scope.search).then(function (data) {
+                        console.log(data);
+
                         $scope.tempCitys = data.data.data;
                         $scope.tempCitys.forEach(function (e) {
                             var detail = {};
@@ -70,6 +74,7 @@ angular.module('culAdminApp')
                             $scope.citys.push(detail);
 
                             if (city && city.indexOf(e.name) >= 0) {
+                                console.log('nime')
                                 $scope.data.city = e.name;
                                 $scope.getArea(area);
                             }
@@ -77,15 +82,16 @@ angular.module('culAdminApp')
                         })
                     })
                 }
-            };
 
+
+            }
             // $scope.getCity();
             $scope.getArea = function (area) {
                 $scope.areas = [];
                 $scope.tempCitys.forEach(function (e) {
-                    //console.log($scope.data);
-                    if ($scope.data.city && $scope.data.city.indexOf(e.name) >= 0) {
+                    if ($scope.data.city.indexOf(e.name) >= 0) {
                         $scope.search.parentid = e.id;
+                        console.log($scope.search.parentid);
                         addressService.getDistrict($scope.search).then(function (data) {
 
                             $scope.tempAreas = data.data.data;
@@ -103,12 +109,19 @@ angular.module('culAdminApp')
                 })
             }
 
+
             // $scope.getProvince();
+
+
+
+
 
             $scope.init = function () {
                 console.log("wonderful world");
                 addressService.getDetail($scope.transactionNumber, function (result) {
                     $scope.data = result;
+                    console.log("result");
+                    console.log(result);
                     $scope._province = result.stateOrProvince;
                     $scope._city = result.city;
                     $scope._area = result.area;
@@ -121,22 +134,24 @@ angular.module('culAdminApp')
 
             $scope.init();
 
+
+
+
+
+
+
+  
+
+
             var _changeProvince = function () {
                 var _selectedProvince = $.grep($scope.tpl_status.provinceList, function (n) { return n.name == $scope.data.stateOrProvince });
                 if (_selectedProvince.length > 0) $scope.tpl_status.cities = [{ name: "请选择" }].concat(_selectedProvince[0].cities);
             }
 
             $scope.changeProvince = function () {
-                var _selectedProvince = $.grep($scope.tpl_status.provinceList, function (n) { return n.name == $scope.data.stateOrProvince });
-
-                $scope.getCity();
-                //$scope.data.city = "请选择";
-                //_changeProvince();
+                $scope.data.city = "请选择";
+                _changeProvince()
             }
-
-            $scope.changeCity = function(){
-                $scope.getArea();
-            };
 
             $scope.btnSave = function () {
                 console.log("保存信息")
@@ -176,6 +191,7 @@ angular.module('culAdminApp')
                         console.log("上传结束");
                         $scope.data[key] = data.result.url;
                         $scope.data[key+"Url"] = data.result.url;
+                        
                     });
                 });
             }

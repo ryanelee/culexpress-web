@@ -22,7 +22,6 @@ angular
                     console.log(data);
                     if (data.data.code == '000') {
                         $scope.customNumber = data.data.data.customerNumber
-                        console.log($scope.customNumber)
                         $scope.flag = '1'
                           loadFileinput()
                     }

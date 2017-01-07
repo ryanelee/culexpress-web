@@ -39,7 +39,6 @@ angular.module('culAdminApp')
 
       self.getList = function (options, callback) {
           $http.post(cul.apiPath + "/order/list", options).success(function (result) {
-              console.log(result.data)
               $.each(result.data, function (index, item) {
 
                   item._orderStatus = _getOrderStatus(item.orderStatus);

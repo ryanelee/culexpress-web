@@ -28,7 +28,6 @@ angular.module('culAdminApp')
                             inventoryService.getInfo($scope.tempItemNumber, function (result) {
                                 if (!!result) {
                                     $scope.data = result;
-                                    console.log(result)
                                     console.log($scope.data.inventoryList.shelfList);
 
                                     if ($scope.data.inventoryList[0]) {

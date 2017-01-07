@@ -56,6 +56,9 @@ angular.module('culAdminApp')
                         $scope.data = null;
                     }
                 }
+
+                console.log( $scope.data.customerNumber);
+                // return;
                 switch ($scope.data.sendType) {
                     case 1: //寄送库存
                         receiptService.saveForOffline({
