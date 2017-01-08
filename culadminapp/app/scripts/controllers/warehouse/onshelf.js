@@ -138,12 +138,14 @@ angular.module('culAdminApp')
             $scope.getData();
 
             $scope.btnSearch = function() {
+                console.log($scope.searchBar.sendType)
                 if ($scope.searchBar.sendType == 3) {
                     $scope.searchBar.isUnusual = 1;
                     $scope.searchBar.sendType = 2;
                 }
                 if ($scope.searchBar.sendType == 4) {
-                    $scope.searchBar.isUnusual = 1;
+                    console.log('你妹的')
+                    $scope.searchBar.isUnusual = 2;
                     $scope.searchBar.sendType = 2;
                 }
                 $scope.selectedListCache = [];
