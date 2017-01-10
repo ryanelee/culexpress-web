@@ -12,28 +12,34 @@ angular
             $scope.flag = '0'
 
             $scope.checkNumber = function () {
+                console.log('23')
+                console.log(!$scope.data.trackingNumber)
+                if (!$scope.data.trackingNumber) {
+                    alertify.alert("提示","包裹号不能为空");
+                    return;
+                }
                 $scope.customNumber = "";
                 $scope.flag = '0'
                 Customer.checkTrackingNumber($scope.data).then(function (data) {
                     if (data.data.code == '999') {
-                        alertify.alert("提示",data.data.msg)
+                        alertify.alert("提示", data.data.msg)
                         return
                     }
                     console.log(data);
                     if (data.data.code == '000') {
                         $scope.customNumber = data.data.data.customerNumber
                         $scope.flag = '1'
-                          loadFileinput()
+                        loadFileinput()
                     }
 
                 })
             }
-          
+
             function loadFileinput() {//初始化 fileinput
                 $("#file").fileinput({
                     language: 'zh',//设置语言
                     //uploadUrl: "report/photo/add",//上传的地址
-                    uploadUrl: cul.apiPath + "/customermessage/uploadImage?customNumber="+$scope.customNumber,//上传的地址
+                    uploadUrl: cul.apiPath + "/customermessage/uploadImage?customNumber=" + $scope.customNumber,//上传的地址
                     allowedFileExtensions: ["jpg", "png", "gif", 'jpeg'],//接收的文件后缀
                     browseOnZoneClick: true,  //是否启用 点击预览区进行【文件浏览/选择】操作。默认为假。
                     minFileCount: 2,//同一时间上传的最小
@@ -90,9 +96,9 @@ angular
                 else {
                     $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
                         console.log(data)
-                      if(data.status == 200){
-                          alertify.alert('提示',data.data.msg)
-                      }
+                        if (data.status == 200) {
+                            alertify.alert('提示', data.data.msg)
+                        }
 
                     })
                 }
