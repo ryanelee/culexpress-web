@@ -20,9 +20,7 @@
                 <p>请填写真实的身份证号码，身份证号码是15或18位数字。</p>
                 <p class="text-danger">在需要身份证清关的渠道使用，请确保身份证号码持有人与收件人姓名对应。</p>
             </div>
-            <div class="form-group" ng-show="!state.showCardFront&&(data.verifyMark===0||data.verifyMark===-1||!data.transactionNumber)">
-                <a href="javascript:void(0)" ng-click="state.showCardFront=true">修改身份证正面照</a>
-            </div>
+            
             <div class="form-group" ng-show="state.showCardFront">
                 <label class="label">身份证正面照</label>
                 <input id="idCardFront" type="file" class="form-control" ng-model="data.idCardFront">
@@ -31,14 +29,15 @@
                     在需要提供身份证清关的渠道使用，和收件人姓名对应，<a href="/images/ecard1.jpg" target="_blank">点击参考正面样例图</a>。
                 </p>
             </div>
+           
             <div ng-show="!!data.idCardFrontUrl" style="margin-top:20px;">
                 <label class="label" ng-show="!state.showCardFront">身份证正面照</label>
                 <img id="img-idCardFront" ng-src="{{data.idCardFrontUrl}}" style="width: 480px; height: 260px;" alt="身份证正面照" />
             </div>
-            <div class="form-group" ng-show="!state.showCardBack&&(data.verifyMark===0||data.verifyMark===-1||!data.transactionNumber)"
-                style="margin-top:20px;">
-                <a href="javascript:void(0)" ng-click="state.showCardBack=true">修改身份证反面照</a>
+             <div class="form-group" ng-show="!state.showCardFront&&(data.verifyMark===0||data.verifyMark===-1||!data.transactionNumber)">
+                <a href="javascript:void(0)" ng-click="state.showCardFront=true">修改身份证正面照</a>
             </div>
+           
             <div class="form-group" ng-show="state.showCardBack">
                 <label class="label">身份证反面照</label>
                 <input id="idCardBack" type="file" class="form-control" ng-model="data.idCardBack">
@@ -47,9 +46,14 @@
                     在需要提供身份证清关的渠道使用，和收件人姓名对应，<a href="/images/ecard2.jpg" target="_blank">点击参考反面样例图</a>。
                 </p>
             </div>
+            
             <div ng-show="!!data.idCardBackUrl" style="margin-top:20px;">
                 <label class="label" ng-show="!state.showCardFront">身份证反面照</label>
                 <img id="img-idCardBack" ng-src="{{data.idCardBackUrl}}" style="max-width: 480px; max-height: 260px;" alt="身份证反面照" />
+            </div>
+             <div class="form-group" ng-show="!state.showCardBack&&(data.verifyMark===0||data.verifyMark===-1||!data.transactionNumber)"
+                style="margin-top:20px;">
+                <a href="javascript:void(0)" ng-click="state.showCardBack=true">修改身份证反面照</a>
             </div>
             <!--<div class="form-group">
                 <label class="label">收货地址</label>
