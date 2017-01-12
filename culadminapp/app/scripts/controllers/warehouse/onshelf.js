@@ -139,6 +139,7 @@ angular.module('culAdminApp')
 
             $scope.btnSearch = function() {
                 console.log($scope.searchBar.sendType)
+                $scope.searchBar.isUnusual = 0
                 if ($scope.searchBar.sendType == 3) {
                     $scope.searchBar.isUnusual = 1;
                     $scope.searchBar.sendType = 2;

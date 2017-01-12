@@ -41,7 +41,7 @@
                             ng-model="searchBar.categorySubId"
                             ng-options="item.cateid as item.name for item in searchBar.categorySubList"></select>
                 </div>
-                <div class="search-col">
+                <!--<div class="search-col">
                     <label class="search-label">创建时间：</label>
                     <select class="form-control search-control" ng-model="searchBar.dateRange" ng-change="changeDate()">
                         <option value="">所有</option>
@@ -49,9 +49,10 @@
                         <option value="7">最近7天</option>
                         <option value="range">时间范围</option>
                     </select>
-                </div>
-                <div class="search-col" ng-show="searchBar.dateRange == 'range'">
-                    <label class="search-label">开始日期：</label>
+                </div>-->
+                <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
+                <div class="search-col">
+                    <label class="search-label">创建时间：起</label>
                     <p class="input-group pull-left">
                         <input type="text" class="form-control search-control" style="width:110px;"
                                uib-datepicker-popup
@@ -64,8 +65,9 @@
                         </span>
                     </p>
                 </div>
-                <div class="search-col" ng-show="searchBar.dateRange == 'range'">
-                    <label class="search-label">结束日期：</label>
+                <div class="search-col">
+                <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
+                    <label class="search-label">至</label>
                     <p class="input-group pull-left">
                         <input type="text" class="form-control search-control" style="width:110px;"
                                uib-datepicker-popup

@@ -20,6 +20,7 @@ angular.module('culAdminApp')
 
         //获取架位列表
         self.getList = function(options, callback) {
+            console.log(options)
             $http.post(cul.apiPath + "/warehouse/shelf/list", options).success(function(result) {
                 _.each(result.data, function(item) {
                     switch (item.type) {
