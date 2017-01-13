@@ -10,10 +10,14 @@ angular
             console.log(1)
             // $window.localStorage.removeItem('user')
             $scope.user = angular.fromJson($window.localStorage.getItem('user'))
-            $scope.emailAddress = $scope.user.emailAddress
-            if($scope.user.rememberMe){
+            if( $scope.user){
+$scope.emailAddress = $scope.user.emailAddress
+  if($scope.user.rememberMe){
             $scope.password = $scope.user.password
             }
+            }
+            
+          
             $scope.login = function () {
                 if ($('.state-error').length > 0) return;
                 var loginData = {
