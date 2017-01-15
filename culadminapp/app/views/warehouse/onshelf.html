@@ -12,12 +12,8 @@
                 </div>
                 <div class="search-col">
                     <label class="search-label">入库类型：</label>
-                    <select class="form-control search-control" ng-model="searchBar.sendType">
-                        <option value="">所有</option>
-                        <option value="2">海淘包裹</option>
-                        <option value="1">寄送库存</option>
-                        <option value="3">异常包裹</option>
-                        <option value="4">员工包裹</option>
+                    <select class="form-control search-control" ng-options="sendType.key as sendType.value for sendType in sendTypes" ng-model="searchBar.sendType">
+                       
                     </select>
                 </div>
                 <div class="search-col">

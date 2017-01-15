@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('WarehouseOnShelfDetailCtrl', ['$scope', '$location', '$window', 'shelfService', 'inventoryService', 'plugMessenger', '$timeout',
-        function($scope, $location, $window, shelfService, inventoryService, plugMessenger, $timeout) {
+        function ($scope, $location, $window, shelfService, inventoryService, plugMessenger, $timeout) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -22,13 +22,21 @@ angular.module('culAdminApp')
             console.log("is" + $scope.isUnusual);
 
 
-            $scope.isExpecial = function() {
+            $scope.isExpecial = function () {
                 if ($scope.isUnusual == 1) {
+                    var staffFlag = $scope.data.shelfNumber.substring(0, 1);
+                    console.log(staffFlag);
+                    if (staffFlag != 'D') {
+                        $scope.data.shelfNumber = "";
+                        plugMessenger.error("员工包裹必须以D开头");
+                    }
+                }
+                if ($scope.isUnusual == 2) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
                     console.log(staffFlag);
                     if (staffFlag != 'C') {
                         $scope.data.shelfNumber = "";
-                        plugMessenger.error("员工包裹必须以C开头");
+                        plugMessenger.error("异常包裹必须以C开头");
                     }
                 }
             }
@@ -37,12 +45,12 @@ angular.module('culAdminApp')
 
 
             var _timeout = null;
-            $scope.checkItemNumber = function() {
+            $scope.checkItemNumber = function () {
                 if (!!_timeout) clearTimeout(_timeout);
-                _timeout = setTimeout(function() {
-                    $scope.$apply(function() {
+                _timeout = setTimeout(function () {
+                    $scope.$apply(function () {
                         if ($scope.tempItemNumber == $location.search().receiptNumber) {
-                            inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function(result) {
+                            inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
                                 $scope.data = null;
                                 console.log(result);
 
@@ -52,7 +60,7 @@ angular.module('culAdminApp')
                                     $scope._itemType = $scope.data.itemNumber.substr(0, 2);
                                     $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
 
-                                    $timeout(function() {
+                                    $timeout(function () {
                                         $('#tip_ASNNumber').popover({
                                             container: 'body',
                                             placement: 'top',
@@ -70,14 +78,14 @@ angular.module('culAdminApp')
                         }
 
                         if (!!$scope.tempItemNumber) {
-                            inventoryService.getInfo($scope.tempItemNumber, function(result) {
+                            inventoryService.getInfo($scope.tempItemNumber, function (result) {
                                 $scope.data = null;
                                 if (!result.message) {
                                     $scope.data = result;
                                     $scope._itemType = $scope.data.itemNumber.substr(0, 2);
                                     $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
 
-                                    $timeout(function() {
+                                    $timeout(function () {
                                         $('#tip_ASNNumber').popover({
                                             container: 'body',
                                             placement: 'top',
@@ -99,11 +107,35 @@ angular.module('culAdminApp')
 
             $scope.checkItemNumber();
 
-            $scope.btnSave = function(type) {
+            $scope.btnSave = function (type) {
                 //if (!$scope.data.inventory_frozen) {
                 //    plugMessenger.info("请填写正确的数量");
                 //    return;
                 //}
+
+                // if ($scope.isUnusual == 1) {
+                //     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
+                //     console.log(staffFlag);
+                //     if (staffFlag != 'D') {
+                //         $scope.data.shelfNumber = "";
+                //         plugMessenger.error("员工包裹必须以D开头");
+                //         return;
+                //     }
+                // }
+                // if ($scope.isUnusual == 2) {
+                //     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
+                //     console.log(staffFlag);
+                //     if (staffFlag != 'C') {
+                //         $scope.data.shelfNumber = "";
+                //         plugMessenger.error("异常包裹必须以C开头");
+                //         return
+                //     }
+                // }
+                if (!$scope.data.shelfNumber) {
+                    plugMessenger.error("架位号不能为空");
+                    return;
+                }
+
                 var data = {
                     itemNumber: $scope.data.itemNumber,
                     shelfNumber: $scope.data.shelfNumber,
@@ -113,7 +145,7 @@ angular.module('culAdminApp')
                 if ($scope._itemType == "S2") {
                     data.receiptNumber = $scope.data.receiptNumber;
                 }
-                shelfService.onshelfForInbound(data, function(result) {
+                shelfService.onshelfForInbound(data, function (result) {
                     if (result.success) {
                         plugMessenger.success("操作成功");
                         $scope.data = null;
@@ -121,7 +153,7 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.btnPrev = function() {
+            $scope.btnPrev = function () {
                 $window.history.back();
             }
 

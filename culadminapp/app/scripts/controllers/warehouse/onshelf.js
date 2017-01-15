@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('WarehouseOnShelfCtrl', ['$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService',
-        function($window, $rootScope, $scope, $location, warehouseService, shelfService) {
+        function ($window, $rootScope, $scope, $location, warehouseService, shelfService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -24,7 +24,7 @@ angular.module('culAdminApp')
             console.log("is" + $scope.isUnusual);
 
 
-            $scope.isExpecial = function() {
+            $scope.isExpecial = function () {
                 if ($scope.isUnusual == 1) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
                     console.log(staffFlag);
@@ -43,7 +43,7 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.getWarehouseName = function(warehouseNumber) {
+            $scope.getWarehouseName = function (warehouseNumber) {
                 var warehouse = _.findWhere($scope.warehouseList, { warehouseNumber: warehouseNumber });
                 return !!warehouse ? warehouse.warehouseName : "";
             }
@@ -70,8 +70,14 @@ angular.module('culAdminApp')
                 pageIndex: 1,
                 totalCount: 0
             }
+             $scope.sendTypes = [
+                      { key: "1",value:"寄送库存"},
+                      { key: "2",value:"海淘包裹"},
+                      { key: "3",value:"异常包裹"},
+                      { key: "4",value:"员工包裹"},
+                    ]
 
-            warehouseService.getWarehouse(function(result) {
+            warehouseService.getWarehouse(function (result) {
                 if (result.length == 1) {
                     $scope.searchBar.warehouseList = result;
                     $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
@@ -81,12 +87,13 @@ angular.module('culAdminApp')
                 $scope.warehouseList = result;
             });
 
-            var _filterOptions = function() {
+            var _filterOptions = function () {
                 var _options = {
                     "pageInfo": $scope.pagination,
                     "inboundDateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
                     "inboundDateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : "",
                 }
+                console.log("search" + JSON.stringify($scope.searchBar))
 
                 if (!!$scope.searchBar.sendType) {
                     _options["sendType"] = $scope.searchBar.sendType;
@@ -112,19 +119,42 @@ angular.module('culAdminApp')
                 return angular.copy(_options);
             }
 
-            $scope.getData = function() {
-                shelfService.getTransportList(_filterOptions(), function(result) {
-                    var _data = result.data;
-                    _data.forEach(function(e) {
+            $scope.getData = function () {
+                shelfService.getTransportList(_filterOptions(), function (result) {
+                    var __data = result.data;
+                    var _data = [];
+                    console.log("1");
+                    if (!$scope.searchBar.isUnusual && $scope.searchBar.sendType == 2) {
+                        __data.map(function (e) {
+                            if (e.isUnusual != 1 && e.isUnusual != 2) {
+                                _data.push(e);
+                            }
+                        })
+                    } else {
+                        _data = __data;
+                    }
+                   
+
+
+
+
+                    _data.forEach(function (e) {
                         if (e.sendType == 2 && e.isUnusual == 1) {
-                            e._sendType = "员工包裹"
+                              e._sendType = "员工包裹"
+
                         }
                         if (e.sendType == 2 && e.isUnusual == 2) {
                             e._sendType = "异常包裹"
                         }
                     })
+                    if ($scope.searchBar.isUnusual == 2) {
+                        $scope.searchBar.sendType = 3;
+                    }
+                      if ($scope.searchBar.isUnusual == 1) {
+                        $scope.searchBar.sendType = 4;
+                    }
                     if (parseInt($scope.customer_ids) !== 0) {
-                        _data = _data.filter(function(x) {
+                        _data = _data.filter(function (x) {
                             return $scope.customer_ids.split(",").includes(x.customerNumber);
                         });
                     }
@@ -137,16 +167,16 @@ angular.module('culAdminApp')
             }
             $scope.getData();
 
-            $scope.btnSearch = function() {
+            $scope.btnSearch = function () {
                 console.log($scope.searchBar.sendType)
                 $scope.searchBar.isUnusual = 0
                 if ($scope.searchBar.sendType == 3) {
-                    $scope.searchBar.isUnusual = 1;
+                    $scope.searchBar.isUnusual = 2;
                     $scope.searchBar.sendType = 2;
                 }
                 if ($scope.searchBar.sendType == 4) {
                     console.log('你妹的')
-                    $scope.searchBar.isUnusual = 2;
+                    $scope.searchBar.isUnusual = 1;
                     $scope.searchBar.sendType = 2;
                 }
                 $scope.selectedListCache = [];
@@ -156,24 +186,27 @@ angular.module('culAdminApp')
                 $scope.getData();
             }
 
-            $scope.btnAction = function(type, item) {
+            $scope.btnAction = function (type, item) {
                 switch (type) {
                     case "receipt":
                         if (!!item) $location.search({ receiptNumber: item.receiptNumber });
-                        $location.path("/warehouse/receipt2");
+                        // $location.path("/warehouse/receipt2");
+                        $location.path("/warehouse/receiptedit2");
+
+
                         break;
                     case "shelf":
                         if (!!item) $location.search({ receiptNumber: item.receiptNumber });
                         $location.path("/warehouse/shelf");
                         break;
                     case "onshelf":
-                        if (!!item && item.sendType == 2) $location.search({ receiptNumber: item.receiptNumber });
+                        if (!!item && item.sendType == 2) $location.search({ receiptNumber: item.receiptNumber, isUnusual: item.isUnusual });
                         $location.path("/warehouse/onshelfdetail");
                         break;
                 }
             }
 
-            $scope.btnPrint = function(warehouseNumber) {
+            $scope.btnPrint = function (warehouseNumber) {
                 $scope.$broadcast("print-unshelf.action", warehouseNumber);
             }
         }
