@@ -18,7 +18,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    "ui.bootstrap"
+    "ui.bootstrap",
+    'warehourseFilters'
   ])
   .config(["$routeProvider", function ($routeProvider) {
       $routeProvider

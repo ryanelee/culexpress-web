@@ -9,7 +9,8 @@
 				<div class="col-md-6 col-sm-6 regis-left">
 					新用户赠<strong>20</strong>￥运费
 				</div>
-				<span class="index-register-icon"></span>
+                <a ui-sref="register({reference:currentUser.customerNumber})" target="_blank">
+                    <span class="index-register-icon"></span></a>
 				<div class="col-md-6 col-sm-6 regis-right">
 					邀请好友加入中美速递<br/>各得20￥运费
 				</div>
@@ -48,7 +49,7 @@
 						</div>
 						<div class="col-md-4 col-sm-5 col-md-offset-4 col-sm-offset-2 text-left ht-fx" ng-mouseover="hoverHt('icon-m-fx', 'hover')" ng-mouseleave="hoverHt('icon-m-fx', 'level')">
 							<h2 class="zj-title">更放心</h2>
-							<p class="zj-content">完善的仓储配套设施和自主研发的软件系统 让您随时随刻都能掌握宝贝的信息</p>
+							<p class="zj-content">完善的仓储配套设施和自主研发的软件系统 让您随时随地都能掌握宝贝的信息</p>
 						</div>
 					</div>
 				</div>
@@ -249,10 +250,12 @@
     <!--end pricing-->
     <!-- Testimonials Carousel -->
     <!-- Testimonials v3 -->
-		<div class="container-fluid info-banner slideBox hidden-md">
-			<div class="info-op">
-				<img class="unslider-arrow prev" src="../assets/img/index/icon-info-left.png" />
-				<img class="unslider-arrow next" src="../assets/img/index/icon-info-right.png" />
+		<div class="container-fluid info-banner slideBox hidden-sm">
+			<div class="container">
+				<div class="info-op">
+					<img class="unslider-arrow prev" src="../assets/img/index/icon-info-left.png" />
+					<img class="unslider-arrow next" src="../assets/img/index/icon-info-right.png" />
+				</div>
 			</div>
 				<ul>
 					<li class="info-banner1">
@@ -266,7 +269,7 @@
 					</li>
 					<li class="info-banner2">
 						<div class="container">
-							<h1 class="info-title">中美速递线仓储管理系统正式上线</h1>
+							<h1 class="info-title">中美速递新仓储管理系统正式上线</h1>
 							<div class="info-content">
 								<img src="../assets/img/index/info-person2.png" />
 								<p class="info-detail-lg">为了让客户的包裹更快速安全的经过仓库中转,中美速递开发团队自主研发的后台仓储管理系统让仓库服管理和操作人员能准确轻松的通过监控包裹异常情况并快速的进行日常的操作</p>

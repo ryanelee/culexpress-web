@@ -7,8 +7,7 @@
             <div class="form-group">
                 <label class="col-sm-2  text-right">客户标示：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <input type="text" class="form-control" ng-blur="checkReceiveIdentity()" placeholder="客户标示" id='receiveIdentity' ng-model="data.receiveIdentity"
-                        ng-disabled="tpl_status.isExist == true">
+                    <input type="text" class="form-control" ng-blur="checkReceiveIdentity()" placeholder="客户标示" id='receiveIdentity' ng-model="data.receiveIdentity" ng-disabled="tpl_status.isExist == true">
                 </div>
             </div>
             <div class="form-group">
@@ -18,10 +17,14 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2  text-right">是否是员工包裹<span class="required-indicator" style="color:red">*</span></label>
+                <label><input name="pro"  type="radio"  value=true /> 是</label>
+                <label><input name="pro"  type="radio" checked value=false /> 否</label>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2 control-label text-right">快递单号：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <input id="txtTrackingNumber" ng-blur="checkInboundPackage()" type="text" class="form-control"  placeholder="快递单号" ng-model="data.trackingNumber"
-                        ng-blur="getPackageDetail()">
+                    <input id="txtTrackingNumber" ng-blur="checkInboundPackage()" type="text" class="form-control" placeholder="快递单号" ng-model="data.trackingNumber" ng-blur="getPackageDetail()">
                 </div>
             </div>
 
@@ -40,7 +43,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">收货仓库：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <select class="form-control" id="warehouseNumber" ng-model="data.warehouseNumber"  id='age' ng-disabled="tpl_status.isExist == true" ng-options="item.key as item.value for item in warehouseList">
+                    <select class="form-control" id="warehouseNumber" ng-model="data.warehouseNumber" id='age' ng-disabled="tpl_status.isExist == true" ng-options="item.key as item.value for item in warehouseList">
                     </select>
                 </div>
 
@@ -54,19 +57,19 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">运单备注信息：</label>
                 <div class="col-sm-10 text-left">
-                    <textarea id = "packageNote"  class="form-control" rows="5" cols="30" placeholder="运单备注信息" ng-model="data.packageNote" ng-disabled="tpl_status.isExist == true"></textarea>
+                    <textarea id="packageNote" class="form-control" rows="5" cols="30" placeholder="运单备注信息" ng-model="data.packageNote" ng-disabled="tpl_status.isExist == true"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2  text-right">包裹重量：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <input type="number" id = "packageWeight" class="form-control" placeholder="包裹重量" ng-model="data.packageWeight">
+                    <input type="number" id="packageWeight" class="form-control" placeholder="包裹重量" ng-model="data.packageWeight">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">仓库备注：</label>
                 <div class="col-sm-10 text-left">
-                    <textarea class="form-control" id ="warehouseNote" rows="5" cols="30" placeholder="仓库备注" ng-model="data.warehouseNote"></textarea>
+                    <textarea class="form-control" id="warehouseNote" rows="5" cols="30" placeholder="仓库备注" ng-model="data.warehouseNote"></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -83,63 +86,61 @@
 
 
 <script>
-
-      var receiveIdentity = document.getElementById("receiveIdentity");
-      var trackingNumber =  document.getElementById("txtTrackingNumber");
-      var carrierName =  document.getElementById("carrierName");
-      var warehouseNumber =  document.getElementById("warehouseNumber");
-      var packageDescription =  document.getElementById("packageDescription");
-      var packageNote =  document.getElementById("packageNote");
-      var packageWeight =  document.getElementById("packageWeight");
-      var warehouseNote =  document.getElementById("warehouseNote");
-            receiveIdentity.onkeydown = function (event) {
-                e = event ? event : (window.event ? window.event : null);
-                // 按下回车键且输入框值非空时  
-                if (e.keyCode == 13 && receiveIdentity.value) {
-                    trackingNumber.focus();
-                }
-            }
-             trackingNumber.onkeydown = function (event) {
-                e = event ? event : (window.event ? window.event : null);
-                // 按下回车键且输入框值非空时  
-                if (e.keyCode == 13 && trackingNumber.value) {
-                    carrierName.focus();
-                }
-            }
-             carrierName.onkeydown = function (event) {
-                e = event ? event : (window.event ? window.event : null);
-                // 按下回车键且输入框值非空时  
-                if (e.keyCode == 13 && carrierName.value) {
-                    warehouseNumber.focus();
-                }
-            }
-             warehouseNumber.onkeydown = function (event) {
-                e = event ? event : (window.event ? window.event : null);
-                // 按下回车键且输入框值非空时  
-                if (e.keyCode == 13 && warehouseNumber.value) {
-                    packageDescription.focus();
-                }
-            }
-             packageDescription.onkeydown = function (event) {
-                e = event ? event : (window.event ? window.event : null);
-                // 按下回车键且输入框值非空时  
-                if (e.keyCode == 13 && packageDescription.value) {
-                    packageNote.focus();
-                }
-            }
-             packageNote.onkeydown = function (event) {
-                e = event ? event : (window.event ? window.event : null);
-                // 按下回车键且输入框值非空时  
-                if (e.keyCode == 13 && packageNote.value) {
-                    packageWeight.focus();
-                }
-            }
-             packageWeight.onkeydown = function (event) {
-                e = event ? event : (window.event ? window.event : null);
-                // 按下回车键且输入框值非空时  
-                if (e.keyCode == 13 && packageWeight.value) {
-                    warehouseNote.focus();
-                }
-            }
-            
+    var receiveIdentity = document.getElementById("receiveIdentity");
+    var trackingNumber = document.getElementById("txtTrackingNumber");
+    var carrierName = document.getElementById("carrierName");
+    var warehouseNumber = document.getElementById("warehouseNumber");
+    var packageDescription = document.getElementById("packageDescription");
+    var packageNote = document.getElementById("packageNote");
+    var packageWeight = document.getElementById("packageWeight");
+    var warehouseNote = document.getElementById("warehouseNote");
+    receiveIdentity.onkeydown = function(event) {
+        e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        if (e.keyCode == 13 && receiveIdentity.value) {
+            trackingNumber.focus();
+        }
+    }
+    trackingNumber.onkeydown = function(event) {
+        e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        if (e.keyCode == 13 && trackingNumber.value) {
+            carrierName.focus();
+        }
+    }
+    carrierName.onkeydown = function(event) {
+        e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        if (e.keyCode == 13 && carrierName.value) {
+            warehouseNumber.focus();
+        }
+    }
+    warehouseNumber.onkeydown = function(event) {
+        e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        if (e.keyCode == 13 && warehouseNumber.value) {
+            packageDescription.focus();
+        }
+    }
+    packageDescription.onkeydown = function(event) {
+        e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        if (e.keyCode == 13 && packageDescription.value) {
+            packageNote.focus();
+        }
+    }
+    packageNote.onkeydown = function(event) {
+        e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        if (e.keyCode == 13 && packageNote.value) {
+            packageWeight.focus();
+        }
+    }
+    packageWeight.onkeydown = function(event) {
+        e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        if (e.keyCode == 13 && packageWeight.value) {
+            warehouseNote.focus();
+        }
+    }
 </script>

@@ -91,18 +91,14 @@ angular.module('culAdminApp')
                     }
                 }
                 //查看客户信息
-            $scope.btnOpenDetail = function(item, type) {
-                switch (type) {
-                    case "faqdetail":
-                        $location.search({ messageNumber: item.messageNumber });
-                        $location.path("/customer/faqdetail");
-                        break;
-                    case "customerdetail":
-                        $location.search({ customerNumber: item.customerNumber });
-                        $location.path("/customer/customerdetail");
-                        break;
-                }
-            }
+           $scope.btnOpenDetail = function (type, item) {
+              switch (type) {
+                  case "customerDetail":
+                      $location.search({ customerNumber: item.customerNumber });
+                      $location.path("/customer/customerdetail");
+                      break;
+              }
+          }
 
             $scope.btnViewCustomer = function(orderNumber) {
                 console.log(orderNumber);
@@ -120,7 +116,6 @@ angular.module('culAdminApp')
                 $scope.search.typeId = $scope.search.messageType.typeID;
                 $scope.search.typeName = $scope.search.messageType.typeName;
                 faqService.setMessagelog($scope.search, function(data) {
-                    console.log(data);
                 })
             }
 

@@ -36,15 +36,16 @@ angular.module('culwebApp')
                 key: key.toString()
             };
 
-            $http.post(cul.apiPath + '/customer/register', bodyData
-        ).success(function (result) {
-            self.clearStorage();
-            var str_userInfo = JSON.stringify(result);
-            sessionStorage.setItem(self.userInfoKey, str_userInfo);
-            $rootScope.currentUser = result;
-
-            success(result);
-        }).error(error);
+            $http.post(cul.apiPath + '/customer/register', bodyData).then(function(result){
+              self.clearStorage();
+              var str_userInfo = JSON.stringify(result);
+              sessionStorage.setItem(self.userInfoKey, str_userInfo);
+              $rootScope.currentUser = result;
+              
+              success(result)
+            }, function(err) {
+              error(err)
+            });
         };
 
         self.login = function (user, success, error) {

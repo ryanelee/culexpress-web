@@ -223,13 +223,13 @@
                 <div>
                   <div class="search-title">
                     <span class="big-title">CUL快件查询</span>
-                    <span class="sm-title">Express query</span>
+                    <span class="sm-title">EXPRESS QUERY</span>
                   </div>
                   <div class="search-right">
-                    <input class="search-txt"  ng-model="trackingNumber" />
+                    <input id="searchInput" class="search-txt" placeholder="运单查询" ng-model="trackingNumber" />
                     <a class="search-btn" href="#/ordertracking/{{trackingNumber}}">
                       <span class="hidden-xs hidden-sm">立即查询</span>
-                      <span class="hidden-xs hidden-md hidden-lg">查询</span>
+                      <span class="hidden-md hidden-lg sm-search">查询</span>
                       <img class="search-sm-icon" src="./assets/img/icon-sm-search.png" />
                     </a>
                   </div>
@@ -367,9 +367,9 @@
                             <script>document.write((new Date()).getFullYear());</script> © culexpress.com. All Rights Reserved.
                         </span>
                         <span class="footer-site-remark pull-right">
-                            <a href="#/faq">Privacy Policy</a> | 
-                            <a href="#/terms">Terms of Service</a> | 
-                            <a href="#/jobs">Jobs</a>
+                            <a href="#/faq">Privacy Policy</a> |
+                            <a href="#/terms" target="_blank">Terms of Service</a> |
+                            <a href="#/jobs" target="_blank">Jobs</a>
                         </span>
                 </div>
           </div>

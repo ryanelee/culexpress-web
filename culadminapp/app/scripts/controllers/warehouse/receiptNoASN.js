@@ -20,7 +20,13 @@ angular.module('culAdminApp')
             $scope.flag = '0'
 
 
+
+
             $scope.checkReceiveIdentity = function () {
+                if (!$scope.data.receiveIdentity) {
+                    plugMessenger.error("客户标识不能为空");
+                    return;
+                }
                 $scope.flag = '0'
                 receiptService.checkReceiveIdentity($scope.data).then(function (result) {
                     console.log(result);
@@ -74,7 +80,7 @@ angular.module('culAdminApp')
 
             $scope.btnSave = function (trackingNumber) {
                 var _callback = function (result) {
-                    if (!result.message) {  
+                    if (!result.message) {
                         $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: trackingNumber, number: 1 });
                         $scope.data = null;
                     } else {
@@ -86,13 +92,20 @@ angular.module('culAdminApp')
 
 
             $scope.btnSaveAndPrint = function () {
-                if (!$scope.data.receiveIdentity
-                    || !$scope.data.customerNumber
-                    || !$scope.data.trackingNumber
-                    || !$scope.data.carrierName
-                    || !$scope.data.warehouseNumber
-                    || !$scope.data.packageWeight
-                    || !$scope.data.packageDescription) {
+                $scope.data.isUnusual = 0;
+                $("input[name='pro']:checked").each(function (index, e) {
+                    $scope.isStaffFlag = $(this).attr("value");
+                });
+                if ($scope.isStaffFlag == 'true') {
+                    $scope.data.isUnusual = 1;
+                }
+                if (!$scope.data.receiveIdentity ||
+                    !$scope.data.customerNumber ||
+                    !$scope.data.trackingNumber ||
+                    !$scope.data.carrierName ||
+                    !$scope.data.warehouseNumber ||
+                    !$scope.data.packageWeight ||
+                    !$scope.data.packageDescription) {
                     plugMessenger.error("请填写所有必填项");
                     return;
                 } else {
@@ -111,4 +124,5 @@ angular.module('culAdminApp')
             $scope.btnPrev = function () {
                 $window.history.back();
             }
-        }]);
+        }
+    ]);

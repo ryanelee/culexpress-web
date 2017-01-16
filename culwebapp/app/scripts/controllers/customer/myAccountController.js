@@ -162,7 +162,6 @@ angular
             $scope.initProfile = function() {
                 Customer.getCustomerInfo(model.customerNumber)
                     .then(function(result) {
-                        console.log(result);
                         $scope._city = result.data.city;
                         $scope._province = result.data.stateOrProvince;
                         $scope._area = result.data.area;

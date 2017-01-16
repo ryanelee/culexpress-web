@@ -18,9 +18,84 @@ angular
         if ($stateParams.reference !== undefined){
             $scope.customerNumber = $stateParams.reference;
         }
-        
+
+        $scope.ck = function(key) {
+          switch (key) {
+            case 'userName':
+              if (!$scope.userName) {
+                $scope['userNameErr'] = '请输入您的用户名';
+              } else {
+                $scope['userNameErr'] = '';
+              }
+              break;
+            case 'gender':
+              if (!$scope.gender) {
+                $scope['genderErr'] = '请选择性别';
+              } else {
+                $scope['genderErr'] = '';
+              }
+              break;
+            case 'emailAddress':
+              if (!$scope.emailAddress) {
+                $scope['emailAddressErr'] = '请输入您的邮箱地址';
+              } else {
+                if (!/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test($scope.emailAddress)) {
+                  $scope['emailAddressErr'] = '请输入有效的邮箱地址(比如:JonDoe@gmail.com)';
+                } else {
+                  $scope['emailAddressErr'] = '';
+                }
+              }
+              break;
+            case 'password':
+              if (!$scope.password) {
+                $scope['passwordErr'] = '请输入您的密码';
+              } else {
+                if ($scope.password.length < 6 || $scope.password.length > 20) {
+                  $scope['passwordErr'] = '密码长度为6-20位';
+                } else {
+                  $scope['passwordErr'] = '';
+                }
+
+                if ($scope.passwordConfirm && $scope.password) {
+                  if ($scope.password !== $scope.passwordConfirm) {
+                    $scope['passwordConfirmErr'] = '两次密码输入不一致';
+                  } else {
+                    $scope['passwordConfirmErr'] = '';
+                  }
+                }
+              }
+              break;
+            case 'passwordConfirm':
+              if (!$scope.passwordConfirm || $scope.password !== $scope.passwordConfirm) {
+                $scope['passwordConfirmErr'] = '两次密码输入不一致';
+              } else {
+                $scope['passwordConfirmErr'] = '';
+              }
+              break;
+            default:
+              break;
+          }
+        }
+
         $scope.register = function () {
-            if ($('.state-error').length > 0) return;
+          $scope.ck('userName');
+          $scope.ck('gender');
+          $scope.ck('emailAddress');
+          $scope.ck('password');
+          $scope.ck('passwordConfirm');
+
+          // 注册协议
+          if (!$scope.terms) {
+            $scope.showRegisterError = true;
+            $scope.registerError = '您必须同意用户注册协议';
+          } else {
+            $scope.showRegisterError = false;
+            $scope.registerError = '';
+          }
+
+          if ($scope.userNameErr || $scope.genderErr || $scope.emailAddressErr || $scope.passwordErr || $scope.passwordConfirmErr || $scope.showRegisterError) {
+            return false;
+          }
 
             var registerData = {
                 userName: $scope.userName,
@@ -40,63 +115,16 @@ angular
                 key: key.toString()
             };
 
-            AuthService.register(registerData,
-                function (user) {
-                    if (!!user) {
-                        $scope.model.registed = true;
-                        $scope.model.email = registerData.emailAddress;
-                    }
-
-
-                    //var loginData = {
-                    //    emailAddress: user.emailAddress,
-                    //    password: $scope.password,
-                    //    rememberMe: true
-                    //};
-
-                    //var key = CryptoJS.lib.WordArray.random(128 / 8);
-
-                    //var requestData = {
-                    //    data: CryptoJS.AES.encrypt(JSON.stringify(loginData), key.toString()).toString(),
-                    //    key: key.toString()
-                    //};
-
-                    //AuthService
-                    //    .login(loginData)
-                    //    .then(function (result) {
-                    //        if (result.data && result.data.photo === null) {
-                    //            if (result.data.gender === 'M')
-                    //                result.data.photo = '/assets/img/culwebapp/customer/profile/no-photo-male.jpg';
-                    //            else
-                    //                result.data.photo = '/assets/img/culwebapp/customer/profile/no-photo-female.jpg';
-                    //        }
-                    //        AuthService.clearStorage();
-                    //        AuthService.addStorage(angular.extend(result.data, { password: $scope.password }), loginData.rememberMe);
-
-                    //        if (result.headers('Token')) {
-                    //            if (loginData.rememberMe) {
-                    //                localStorage.setItem('cul-token', result.headers('Token'));
-                    //            }
-                    //            else {
-                    //                sessionStorage.setItem('cul-token', result.headers('Token'));
-                    //            }
-                    //        }
-
-                    //        $scope.$root.currentUser = result.data;
-                    //        $scope.$root.isLackProfile = !result.data.firstName || !result.data.lastName;
-                    //        $rootScope.isLogined = true;
-                    //        $state.go('customer.myaccount', { anchorid: 'profile' });
-                    //    },
-                    //    function (result) {
-                    //        if (result.data && result.data.message)
-                    //            $scope.showRegisterError = true;
-                    //        $scope.registerError = result.data.message;
-                    //    });
-                },
-                function (err) {
-                    $scope.showRegisterError = true;
-                    $scope.registerError = err.message;
-                });
+            AuthService.register(registerData,function(user){
+              if (!!user) {
+                  $scope.model.registed = true;
+                  $scope.model.email = registerData.emailAddress;
+              }
+            },function(err) {
+              console.log(err)
+              $scope.showRegisterError = true;
+              $scope.registerError = err.data.message;
+            })
         };
     }
     ]);

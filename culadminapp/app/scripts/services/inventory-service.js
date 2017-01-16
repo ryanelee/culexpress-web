@@ -30,6 +30,7 @@ angular.module('culAdminApp')
       }
 
       self.getList = function (options, callback) {
+          console.log("getList"+JSON.stringify(options));
           $http.post(cul.apiPath + "/item/inventory/list", options).success(function (result) {
               callback(result);
           })

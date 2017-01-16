@@ -129,13 +129,13 @@
             </fieldset>
             <fieldset>
                 <legend>订单内容</legend>
-                <!--<div class="form-group">
+                <div class="form-group">
                     <label class="col-sm-2 control-label text-right">发货渠道：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{'小包裹CA'}}</label>
+                        <label class="control-label">{{ data.shipServiceName }}</label>
                     </div>
-                </div>-->
-                <!--<div class="form-group">
+                </div>
+                <div class="form-group">
                     <label class="col-sm-2 control-label text-right">收货单号：</label>
                     <div class="row col-sm-8">
                         <table class="table">
@@ -143,6 +143,8 @@
                                 <tr>
                                     <th>单号</th>
                                     <th>重量</th>
+                                    <th>创建时间</th>
+                                    <th>入库时间</th>
                                     <th>仓位</th>
                                 </tr>
                             </thead>
@@ -150,12 +152,14 @@
                                 <tr ng-repeat="item in data.inboundPackages">
                                     <td>{{item.trackingNumber}}</td>
                                     <td>{{item.packageWeight}}</td>
-                                    <td>{{item.warehouseNumber}}</td>
+                                    <td>{{ item.createDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
+                                    <td>{{ item.inboundDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
+                                    <td>{{item.location}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>-->
+                </div>
                 <!--<div cla
                 ss="form-group">
                     <label class="col-sm-2 control-label text-right">额外商品：</label>

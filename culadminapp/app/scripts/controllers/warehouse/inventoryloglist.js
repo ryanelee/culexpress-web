@@ -71,8 +71,8 @@ angular.module('culAdminApp')
           var _filterOptions = function () {
               var _options = {
                   "pageInfo": $scope.pagination,
-                  "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
-                  "dateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : "",
+                  "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate : "",
+                  "dateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate: "",
               }
               if (!!$scope.searchBar.categoryId) {
                   _options["itemCategory"] = $scope.searchBar.categoryId;
