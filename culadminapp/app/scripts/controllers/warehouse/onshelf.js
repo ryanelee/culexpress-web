@@ -71,6 +71,7 @@ angular.module('culAdminApp')
                 totalCount: 0
             }
              $scope.sendTypes = [
+                      { key: "",value:"全部"},
                       { key: "1",value:"寄送库存"},
                       { key: "2",value:"海淘包裹"},
                       { key: "3",value:"异常包裹"},
@@ -148,10 +149,13 @@ angular.module('culAdminApp')
                         }
                     })
                     if ($scope.searchBar.isUnusual == 2) {
-                        $scope.searchBar.sendType = 3;
+                        console.log("12"+2)
+                        $scope.searchBar.sendType = $scope.sendTypes[3].key;
+                        console.log($scope.sendTypes[3]);
                     }
                       if ($scope.searchBar.isUnusual == 1) {
-                        $scope.searchBar.sendType = 4;
+                           console.log("11"+1)
+                        $scope.searchBar.sendType =  $scope.sendTypes[4].key;
                     }
                     if (parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function (x) {
