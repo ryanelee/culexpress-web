@@ -1,9 +1,9 @@
 <!-- Profile Content -->
-<div class="profile-body profile-blog blog-border" ng-controller="MyDashboardController">
+<div class="profile-body profile-blog blog-border my-dashboard" ng-controller="MyDashboardController">
     <!--Service Block v3-->
     <div class="row margin-bottom-10">
         <div class="col-sm-6 sm-margin-bottom-20">
-            <div class="service-block-v3 service-block-u">
+            <div class="service-block-v3 service-block-u left-top">
                 <i class="icon-basket-loaded"></i>
                 <span class="service-heading">我的包裹</span>
                 <span class="counter" id="totalPackageCount">{{currentUser.totalPackageCount|number}}</span>
@@ -28,20 +28,20 @@
                     <ul class="list-inline">
                         <li>
                             <a ui-sref="customer.myorders({status:'Shipped'})" class="tooltips" data-toggle="tooltip" data-original-title="运单已从美国仓库出货">
-                                <small><span class="badge rounded-2x badge-orange" id="shippedOrderCount">{{currentUser.shippedOrderCount|number}}</span> 运单已出库</small>
+                                <small><span class="badge rounded-2x badge-white" id="shippedOrderCount">{{currentUser.shippedOrderCount|number}}</span> 运单已出库</small>
                             </a>
                         </li>
                         <li>
                             <a ui-sref="customer.myorders({status:'Unpaid'})" class="tooltips" data-toggle="tooltip" data-original-title="请尽快支付以免影响运单处理">
                                 <small>
-                                    <span class="badge rounded-2x badge-orange" id="unpaidOrderCount">{{currentUser.unpaidOrderCount|number}}</span> 运单待支付
+                                    <span class="badge rounded-2x badge-white" id="unpaidOrderCount">{{currentUser.unpaidOrderCount|number}}</span> 运单待支付
                                 </small>
                             </a>
                         </li>
                         <li>
                             <a ui-sref="customer.myorders({status:'Arrears'})" class="tooltips" data-toggle="tooltip" data-original-title="请尽快充值以免影响运单处理">
                                 <small>
-                                    <span class="badge rounded-2x badge-orange" id="overdraftOrderCount">{{currentUser.overdraftOrderCount|number}}</span> 运单运费不足
+                                    <span class="badge rounded-2x badge-white" id="overdraftOrderCount">{{currentUser.overdraftOrderCount|number}}</span> 运单运费不足
                                 </small>
                             </a>
                         </li>
@@ -51,7 +51,7 @@
         </div>
 
         <div class="col-sm-6">
-            <div class="service-block-v3 service-block-blue">
+            <div class="service-block-v3 service-block-blue right-top">
                 <i class="icon-wallet"></i>
                 <span class="service-heading">账户余额<small>￥</small></span>
                 <span class="counter" id="myAccountBalance">{{currentUser.accountBalance|number}}</span>
@@ -100,8 +100,8 @@
         <div class="col-sm-6">
             <div class="panel panel-profile no-bg">
                 <div class="panel-heading overflow-h">
-                    <h2 class="panel-title heading-sm pull-left"><i class="fa fa-bullhorn"></i>公告</h2>
-                    <!--<a href="#"><i class="fa fa-cog pull-right"></i></a>-->
+                    <h2 class="panel-title heading-sm pull-left"><i class="fa fa-bullhorn ffb"></i>公告</h2>
+                    <i class="fa fa-chevron-down pull-right" ng-click="toggle('scrollbar')"></i>
                 </div>
                 <div id="scrollbar" class="panel-body no-padding mCustomScrollbar" data-mcs-theme="minimal-dark">
                     <div class="profile-post color-one">
@@ -140,8 +140,8 @@
         <div class="col-sm-6 md-margin-bottom-40">
             <div class="panel panel-profile no-bg">
                 <div class="panel-heading overflow-h">
-                    <h2 class="panel-title heading-sm pull-left"><i class="fa fa-calendar-o"></i>促销活动</h2>
-                    <!--<a href="#"><i class="fa fa-cog pull-right"></i></a>-->
+                    <h2 class="panel-title heading-sm pull-left"><i class="fa fa-shopping-cart"></i>促销活动</h2>
+                    <i class="fa fa-chevron-down pull-right" ng-click="toggle('scrollbar2')"></i>
                 </div>
                 <div id="scrollbar2" class="panel-body no-padding mCustomScrollbar" data-mcs-theme="minimal-dark">
                     <div class="profile-event">
@@ -180,7 +180,12 @@
         <!--End Profile Event-->
     </div><!--/end row-->
 
-    <div class="headline"><h2>收货地址</h2></div>
+    <div class="headline">
+      <h2>
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        收货地址
+      </h2>
+    </div>
     <div class="alert alert-warning fade in">
         请大家在购物网站下单时一定记得写上姓后面的4个字母收件标示和单元号,单元号可以写在第一行地址后面也可以写在地址第二行.
     </div>
@@ -229,7 +234,12 @@
                     <li><i class="fa fa-user"></i> 收件人:<span ng-bind="currentUser.firstName"></span> <span ng-bind="currentUser.lastName"></span></li>
                     <li><i class="fa fa-phone"></i> 电话:{{addressItem.contactPhoneNumber}}</li>
                     <li ng-if="addressItem.isTaxFree=='1'"><i class="fa fa-check-circle"></i> 各种商品均无美国消费税</li>
-                    <li><i class="fa  fa-exclamation-circle"></i>{{addressItem.note}}</li>
+                    <li>
+                      <i class="fa  fa-exclamation-circle"></i>
+                      <span>
+                        {{addressItem.note}}
+                      </span>
+                    </li>
                 </ul>
             </div>
         </div>

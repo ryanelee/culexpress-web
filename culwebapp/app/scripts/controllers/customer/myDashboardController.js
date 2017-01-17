@@ -10,13 +10,17 @@ angular
                 addressList: []
             };
 
+            $scope.toggle = function(id) {
+              $('#'+id).toggle();
+            }
+
             orderSvr.getWarehouses()
                 .then(function (result) {
 
                     if (!window.sessionStorage.getItem('cache_warehouse')) {
                         window.sessionStorage.setItem('cache_warehouse', JSON.stringify(result.data));
                     }
-
+                    console.log(result.data)
                     model.addressList = result.data;
                 })
 

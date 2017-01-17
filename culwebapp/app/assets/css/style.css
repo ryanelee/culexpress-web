@@ -1917,6 +1917,61 @@ select:-webkit-autofill {
 　　color:#fff !important;opacity:1;
 }
 
+.profile .my-dashboard .date-formats {
+    background: #e5e5e5;
+}
+
+.profile .my-dashboard .profile-event:hover .date-formats {
+	background: #ffb528;
+}
+
+.profile .profile-event .heading-xs a {
+	font-weight: bold;
+	color: #666;
+}
+
+.profile .profile-event:hover .heading-xs a {
+	color: #ffb528;
+}
+
+.profile .date-formats span {
+	font-weight: bold;
+}
+
+.my-dashboard .ffb{
+	color: #ffb528;
+	cursor: pointer;
+}
+
+.my-dashboard .headline h2 {
+	border-bottom: 2px solid #ffb528;
+}
+
+.my-dashboard .headline h2 i {
+	color: #ffb528;
+}
+
+.my-dashboard .profile-post:hover {
+	background-color: #fff7e9;
+}
+
+.my-dashboard .profile-post:hover .profile-post-numb {
+	color: #ffb528;
+}
+
+.my-dashboard .left-top {
+	background: #ffb528 url('../img/dashbard/left-top-bg.png') no-repeat center center;
+}
+
+.my-dashboard .right-top {
+	background: #98abcb url('../img/dashbard/right-top-bg.png') no-repeat center center;
+}
+
+.my-dashboard .badge-white {
+	background-color: #fff;
+	color: #ffb528;
+}
+
 @media (max-width: 1203px) {
 	.faq-container .faq-pic {
 		top: -17%;

@@ -65,19 +65,20 @@
 
                 var data = [{
                     key: 'home',
-                    icon: 'fa fa-bar-chart-o',
+                    icon: 'fa fa-user',
                     name: '用户中心',
                     route: 'customer.myhome',
                     actived: true
                 }, {
                     key: 'shipOrder',
+                    icon: 'fa fa-list',
                     name: !!isVip ? '海淘管理' : '运单管理',
                     toggle: true,
                     childs: [{
                         leaf: true, //叶子节点（有父节点）
                         key: 'cargoForecast',
                         name: '货物预报',
-                        icon: 'fa fa-truck',
+                        icon: 'fa fa-clock-c',
                         route: 'customer.shippingnotice'
                     }, {
                         leaf: true,
@@ -144,6 +145,7 @@
 
                 }, {
                     key: 'financeManage',
+                    icon: 'fa fa-credit-card',
                     name: '财务管理',
                     toggle: true,
                     childs: [{
@@ -163,9 +165,29 @@
 
                 }, {
                     key: 'setting',
-                    icon: 'fa fa-cogs',
+                    icon: 'fa fa-gears',
                     name: '个人设置',
-                    route: 'customer.myaccount'
+                    route: 'customer.myaccount',
+                    toggle: true,
+                    childs: [{
+                        leaf: true,
+                        key: 'questions',
+                        name: '我的信息',
+                        icon: 'fa fa-question-circle',
+                        route: 'customer.myaccount'
+                    }, {
+                        leaf: true,
+                        key: 'passwordTab',
+                        name: '修改密码',
+                        icon: 'fa fa-jpy',
+                        route: 'customer.myaccount'
+                    }, {
+                        leaf: true,
+                        key: 'addressbook',
+                        name: '收货地址',
+                        icon: 'fa fa-graduation-cap',
+                        route: 'customer.myaccount'
+                    }]
                 }, {
                     key: 'help',
                     name: '帮助中心',

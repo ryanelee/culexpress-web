@@ -12,24 +12,24 @@ angular.module('culwebApp')
                 return $http.get(cul.apiPath + '/customer/' + customerId);
             },
             updateCustomerProfile: function (customer, success, error) {
-                $http.put(cul.apiPath + '/customer/profile', customer).success(function (data) {
+                $http.put(cul.apiPath + '/customer/profile', customer).then(function (data) {
                     success(data);
                 }).error(function (result) {
                     console.error(result)
                 });
             },
             updateCustomerPoint: function (customer, success, error) {
-                $http.put(cul.apiPath + '/customer/mypoint', customer).success(function (data) {
+                $http.put(cul.apiPath + '/customer/mypoint', customer).then(function (data) {
                     success(data);
                 }).error(error);
             },
             activateCustomerPoint: function (customer, success, error) {
-                $http.put(cul.apiPath + '/customer/mypoint/activate', customer).success(function (data) {
+                $http.put(cul.apiPath + '/customer/mypoint/activate', customer).then(function (data) {
                     success(data);
                 }).error(error);
             },
             updateCustomerAccountBalance: function (customer, success, error) {
-                $http.put(cul.apiPath + '/customer/accountbalance', customer).success(function (data) {
+                $http.put(cul.apiPath + '/customer/accountbalance', customer).then(function (data) {
                     success(data);
                 }).error(error);
             },
@@ -40,10 +40,12 @@ angular.module('culwebApp')
 
 
             retrieveProvinceList: function (success, error) {
-                $http.get(cul.apiPath + '/province').success(function (data) {
+                $http.get(cul.apiPath + '/province').then(function (data) {
                     success(data);
                     provinceList = data;
-                }).error(error);
+                },function(err){
+                  error(err)
+                });
             },
             changePassword: function (password, newPassword, emailAddress) {
                 var data = {
@@ -58,7 +60,7 @@ angular.module('culwebApp')
                     data: CryptoJS.AES.encrypt(JSON.stringify(data), key.toString()).toString(),
                     key: key.toString()
                 };
-            
+
                 return $http.put(cul.apiPath + '/customer/password', bodyData);
             },
             userPay: function (customerNumber, amount) {
