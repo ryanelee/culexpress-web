@@ -38,28 +38,40 @@
                     <label class="search-label">收货仓库：</label>
                     <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
                 </div>
-                <div class="search-col">
-                    <label class="search-label">入库时间：</label>
+                  <!--<div class="search-col">
+                    <label class="search-label">入库时间</label>
                     <select class="form-control search-control" ng-model="searchBar.dateRange" ng-change="changeDate()">
                         <option value="">所有</option>
                         <option value="3">最近3天</option>
                         <option value="7">最近7天</option>
                         <option value="range">时间范围</option>
                     </select>
-                </div>
-                <div class="search-col" ng-show="searchBar.dateRange == 'range'">
-                    <label class="search-label">开始日期：</label>
+                </div>-->
+                <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
+                <div class="search-col">
+                    <label class="search-label">入库时间: 起</label>
                     <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate" is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true" />
+                        <input type="text" class="form-control search-control" style="width:110px;"
+                               uib-datepicker-popup
+                               ng-model="searchBar.startDate"
+                               is-open="searchBar.opened.startDate"
+                               show-button-bar="false"
+                               ng-click="searchBar.opened.startDate = true" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
                         </span>
                     </p>
                 </div>
-                <div class="search-col" ng-show="searchBar.dateRange == 'range'">
-                    <label class="search-label">结束日期：</label>
+                <div class="search-col">
+                <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
+                    <label class="search-label">至</label>
                     <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate" is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true" />
+                        <input type="text" class="form-control search-control" style="width:110px;"
+                               uib-datepicker-popup
+                               ng-model="searchBar.endDate"
+                               is-open="searchBar.opened.endDate"
+                               show-button-bar="false"
+                               ng-click="searchBar.opened.endDate = true" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
                         </span>

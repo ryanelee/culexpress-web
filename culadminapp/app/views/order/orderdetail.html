@@ -325,10 +325,10 @@
                     <div class="col-sm-4">
                         <label class="control-label">{{data.inuserName}}</label>
                     </div>
-                </div>
+                </div>  
             </fieldset>
             <fieldset>
-                <legend>备注信息</legend>
+                <legend>备注信息1</legend>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">留言记录：</label>
                     <div class="row col-sm-4">
@@ -340,6 +340,25 @@
                         </div>
                     </div>
                 </div>
+                {{result.pack_takeoutInvoice}}
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">附加服务：</label>
+                      <div class="col-sm-2" ng-show="result.pack_takeoutInvoice == 1">
+                        <label class="control-label">取出发票</label>
+                    </div> 
+                     <div class="col-sm-2" ng-show="result.pack_urgentProcess == 1">
+                        <label class="control-label">加急处理</label>
+                    </div> 
+                     <div class="col-sm-2" ng-show="result.pack_steadyInner == 1">
+                        <label class="control-label">内件加固</label>
+                    </div> 
+                     <div class="col-sm-2" ng-show="result.pack_replaceCarton == 1">
+                        <label class="control-label">更换外箱</label>
+                    </div> 
+                     <div class="col-sm-2" ng-show="result.pack_removeInner == 1">
+                        <label class="control-label">去除内件</label>
+                    </div> 
+                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">您的留言：</label>
                     <div class="col-sm-4">
