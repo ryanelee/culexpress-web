@@ -78,6 +78,7 @@ angular.module('culAdminApp')
 
           $scope.getData = function () {
               var _options = _filterOptions();
+              console.log(_options);
               faqService.getList(angular.copy(_options), function (result) {
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
