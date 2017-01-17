@@ -50,8 +50,8 @@ angular.module('culAdminApp')
           var _filterOptions = function () {
               var _options = {
                   "pageInfo": $scope.pagination,
-                  "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
-                  "dateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : ""
+                  "dateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
+                  "dateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : ""
               }
               if (!!$scope.searchBar.sendType) {
                   _options["sendType"] = $scope.searchBar.sendType;
@@ -71,6 +71,8 @@ angular.module('culAdminApp')
 
                   _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
               }
+
+              console.log(_options);
               return angular.copy(_options);
           }
 
