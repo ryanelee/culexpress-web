@@ -20,7 +20,6 @@ angular.module('culAdminApp')
 
         //获取架位列表
         self.getList = function(options, callback) {
-            console.log(options)
             $http.post(cul.apiPath + "/warehouse/shelf/list", options).success(function(result) {
                 _.each(result.data, function(item) {
                     switch (item.type) {
@@ -52,8 +51,6 @@ angular.module('culAdminApp')
 
         //库存寄送列表
         self.getTransportList = function(options, callback) {
-            console.log(options);
-            console.log('3')
             $http.post(cul.apiPath + "/item/transport/list", options).success(function(result) {
                 _.each(result.data, function(item) {
                     switch (item.sendType) {

@@ -15,6 +15,7 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
+            console.log($location.search().shelfNumber)
             $scope.data = {
                 itemNumber: $location.search().itemNumber || "",
                 originShelfNumber: $location.search().shelfNumber || "",
