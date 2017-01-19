@@ -221,27 +221,46 @@
             </div>
         </div>-->
         <div class="col-md-4 col-sm-6" ng-repeat="addressItem in model.addressList">
-            <div class="pricing hover-effect">
-                <div class="sticker-right" style="background:green" ng-if="addressItem.isTaxFree=='1'">免税</div>
-                <div class="pricing-head">
-                    <h3>{{addressItem.warehouseName}} <span><span ng-if="addressItem.isTaxFree=='1'">免税州收货地址</span><span ng-if="addressItem.isTaxFree!='1'">&nbsp;</span></span></h3>
-                </div>
-                <ul class="pricing-content list-unstyled">
-                    <li>
-                        <i class="fa fa-map-marker"></i><span ng-if="!!addressItem.address1">{{addressItem.address1}},</span> <span ng-if="!!addressItem.address2">{{addressItem.address2}},</span>
-                        <span ng-if="!!addressItem.city">{{addressItem.city}},</span><span ng-if="!!addressItem.warehouseShortName">{{addressItem.warehouseShortName}}</span> <span ng-if="!!addressItem.zipcode">{{addressItem.zipcode}}</span>
-                    </li>
-                    <li><i class="fa fa-user"></i> 收件人:<span ng-bind="currentUser.firstName"></span> <span ng-bind="currentUser.lastName"></span></li>
-                    <li><i class="fa fa-phone"></i> 电话:{{addressItem.contactPhoneNumber}}</li>
-                    <li ng-if="addressItem.isTaxFree=='1'"><i class="fa fa-check-circle"></i> 各种商品均无美国消费税</li>
-                    <li>
-                      <i class="fa  fa-exclamation-circle"></i>
+            <div class="address-item">
+              <div class="address-head">
+                <span class="short-name">{{addressItem.warehouseShortName}}</span>
+                <h3 class="title">{{addressItem.warehouseName}} <span>
+                <span class="remark" ng-if="addressItem.isTaxFree=='1'">免税州收货地址</span>
+                <span class="remark" ng-if="addressItem.isTaxFree!='1'">&nbsp;</span></span></h3>
+              </div>
+              <ul class="address-content list-unstyled">
+                  <li>
+                      <i class="fa fa-map-marker pull-left"></i>
+                      <div class="list-remark">
+                        <span ng-if="!!addressItem.address1">{{addressItem.address1}},</span> <span ng-if="!!addressItem.address2">{{addressItem.address2}},</span>
+                        <span ng-if="!!addressItem.city">{{addressItem.city}},</span>
+                        <span ng-if="!!addressItem.warehouseShortName">{{addressItem.warehouseShortName}}</span> <span ng-if="!!addressItem.zipcode">{{addressItem.zipcode}}</span>
+                      </div>
+                  </li>
+                  <li>
+                    <i class="fa fa-user pull-left"></i>
+                    <div class="list-remark">收件人:<span ng-bind="currentUser.firstName"></span> <span ng-bind="currentUser.lastName"></span>
+                    </div>
+                  </li>
+                  <li>
+                    <i class="fa fa-phone pull-left"></i>
+                    <div class="list-remark">电话:{{addressItem.contactPhoneNumber}}</div>
+                  </li>
+                  <li ng-if="addressItem.isTaxFree=='1'">
+                    <i class="fa fa-check-circle pull-left"></i>
+                    <div class="list-remark">各种商品均无美国消费税</div>
+                  </li>
+                  <li>
+                    <i class="fa fa-exclamation-circle pull-left"></i>
+                    <div class="list-remark">
                       <span>
                         {{addressItem.note}}
                       </span>
-                    </li>
-                </ul>
+                    </div>
+                  </li>
+              </ul>
             </div>
+
         </div>
     </div>
 

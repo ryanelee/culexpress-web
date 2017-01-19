@@ -78,7 +78,7 @@
                         leaf: true, //叶子节点（有父节点）
                         key: 'cargoForecast',
                         name: '货物预报',
-                        icon: 'fa fa-clock-c',
+                        icon: 'fa fa-clock-o',
                         route: 'customer.shippingnotice'
                     }, {
                         leaf: true,
@@ -167,7 +167,6 @@
                     key: 'setting',
                     icon: 'fa fa-gears',
                     name: '个人设置',
-                    route: 'customer.myaccount',
                     toggle: true,
                     childs: [{
                         leaf: true,
@@ -191,6 +190,7 @@
                 }, {
                     key: 'help',
                     name: '帮助中心',
+                    icon: 'fa fa-question-circle',
                     toggle: true,
                     childs: [{
                         leaf: true,
@@ -208,7 +208,7 @@
                         leaf: true,
                         key: 'manual',
                         name: '使用流程',
-                        icon: 'fa fa-graduation-cap',
+                        icon: 'fa fa-question-circle',
                         route: 'howtouse'
                     }]
                 }];

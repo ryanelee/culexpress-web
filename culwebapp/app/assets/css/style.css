@@ -1951,6 +1951,88 @@ select:-webkit-autofill {
 	color: #ffb528;
 }
 
+.my-dashboard .address-item {
+	border: solid 1px #EEEEEE;
+	text-align: center;
+}
+
+.my-dashboard .address-item:hover {
+	background-color: #a5b6d1;
+	color: #fff;
+}
+
+.my-dashboard .address-item:hover li i {
+	color: #fff;
+}
+
+.my-dashboard .address-item:hover .short-name {
+	border-radius: 50%;
+	border: solid 1px #fff;
+}
+
+.my-dashboard .address-item:hover .title {
+	color: #fff;
+}
+
+.my-dashboard .address-item:hover .remark {
+	color: #fff;
+}
+
+.my-dashboard .address-item:hover .list-remark {
+	color: #fff;
+}
+
+.my-dashboard .address-item .short-name {
+	display: inline-block;
+	width: 50px; height: 50px;
+	margin: 20px 0 8px;
+	background-color: #a5b6d1;
+	color: #fff;
+	border-radius: 50%;
+	font-size: 24px;
+	text-align: center;
+	line-height: 50px;
+	vertical-align: middle;
+}
+
+.my-dashboard .address-item .title {
+	color: #2f3542;
+	padding: 12px 0;
+  font-size: 35px;
+  font-family: Arial;
+	line-height: normal;
+  font-weight: 700;
+}
+
+.my-dashboard .address-item .remark {
+	display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  font-style: italic;
+	color: #b2b7c4;
+}
+
+.my-dashboard .address-content li {
+    color: #2f3542;
+    font-size: 12px;
+    padding: 7px 15px;
+		text-align: left;
+		border-bottom: solid 1px #eaebec
+}
+.my-dashboard .address-content li:last-child {
+	border-bottom: 0;
+}
+
+.my-dashboard .address-content li i {
+	color: #a5b6d1;
+	margin-top: 5px;
+}
+
+.my-dashboard .address-content .list-remark {
+	margin-left: 20px;
+}
+
+
 .my-dashboard .profile-post:hover {
 	background-color: #fff7e9;
 }
@@ -1970,6 +2052,246 @@ select:-webkit-autofill {
 .my-dashboard .badge-white {
 	background-color: #fff;
 	color: #ffb528;
+}
+
+.my-home .sidebar-nav-v1 li {
+	background-color: #f1f5fa;
+}
+
+.my-home .sidebar-nav-v1 li a {
+	color: #98abcb;
+}
+
+.my-home .sidebar-nav-v1 > li.active, .my-home .sidebar-nav-v1 > li.active:hover {
+	background-color: #98abcb;
+}
+
+.my-home .sidebar-nav-v1 > li ul > li.active , .my-home .sidebar-nav-v1 > li ul > li.active:hover {
+	background: rgba(136, 160, 198, 0.6);
+}
+
+.my-home .sidebar-nav-v1 > li.active a, .my-home .sidebar-nav-v1 > li.active:hover a {
+	color: #fff;
+}
+
+.my-home .sidebar-nav-v1 li ul, .my-home .sidebar-nav-v1 li.active ul a {
+	background-color: #ebf1fc;
+}
+
+.my-home .sidebar-nav-v1 > li.active ul a, .my-home .sidebar-nav-v1 > li.active:hover ul a {
+	color: #98abcb;
+}
+
+.myhome-header {
+	background: url('../img/dashbard/header-bg.png') no-repeat center center;
+	padding: 50px 0 0;
+	color: #fff;
+}
+
+.myhome-header .header-img {
+	text-align: center;
+}
+
+.myhome-header .header-img img {
+	display: inline-block;
+	width: 145px;
+	height: 145px;
+	border-radius: 50%;
+	border: solid 5px #fff;
+}
+
+.myhome-header .user-name {
+	font-size: 28px;
+	color: #fff;
+	margin-bottom: 20px;
+}
+
+.myhome-header .home-info {
+	margin: 20px 0 10px;
+}
+
+.myhome-header .home-email {
+	margin-left: 60px;
+}
+
+.myhome-header .fa {
+	color: #ffb528;
+	margin-right: 5px;
+}
+
+.myhome-header .address {
+	color: #fff;
+}
+
+.myhome-header .home-bg {
+	display: inline-block;
+	width: 40%;
+	height: auto;
+	margin-left: 55%;
+}
+
+.myhome-header .header-menu {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background-color: #ffb528;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+}
+
+.myhome-header .header-menu li {
+	padding: 5px 10px;
+	list-style: none;
+	float: left;
+	color: #fff;
+	border-right: solid 1px #d6dfcd;
+	cursor: pointer;
+}
+
+.myhome-header .header-menu li:last-child {
+	border-right: 0;
+}
+
+.myhome-header .header-menu li .fa {
+	color: #fff;
+}
+
+.myhome-header .header-menu li a {
+	color: #fff;
+}
+
+.my-balance {
+	padding: 25px;
+	background-color: #fff;
+}
+
+.common-title .fa {
+	color: #ffb019;
+	margin: 0 5px;
+}
+
+.common-title {
+	border-bottom: solid 1px #eaebec;
+}
+
+.common-title h2 {
+	border-bottom: solid 1px #ffb019;
+	display: inline-block;
+	width: 140px;
+	padding-bottom: 5px;
+	margin-bottom: -1px;
+}
+
+.my-balance .balance-content {
+	margin: 0 25px 65px 60px;
+	border-bottom: solid 1px #eaebec;
+	padding: 25px 0;
+	clear: both;
+	overflow: hidden;
+}
+
+.my-balance .balance-content .content-left {
+	display: inline-block;
+	width: 45%;
+	border-right: solid 1px #eaebec;
+	text-align: left;
+	float: left;
+}
+
+.my-balance .balance-money {
+	color: #ffb019;
+	font-size: 48px;
+}
+
+.my-balance .balance-money span {
+	color: #c9c9c9;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.my-balance .balance-content .content-right {
+	display: inline-block;
+	width: 54%;
+	text-align: center;
+	float: left;
+}
+
+.my-balance .content-right .right-item {
+	overflow: hidden;
+	clear: both;
+}
+
+.my-balance .content-right .right-item:last-child {
+	margin-top: 30px;
+}
+
+.my-balance .content-right .right-item .right1 {
+	width: 70%;
+	float: left;
+	padding-left: 50px;
+	text-align: left;
+}
+.my-balance .content-right .right-item .right2 {
+	width: 29%;
+	float: left;
+}
+
+.my-balance .content-right .form-control {
+    height: 35px;
+    font-size: 14px;
+		padding: 1px 5px;
+		width: 90%;
+}
+
+.my-balance .right2 .btn-common {
+	border-radius: 4px;
+	display: inline-block;
+	width: 100px;
+	padding: 6px;
+}
+
+.my-balance .right2 .btn-chong {
+	background-color: #ffb528;
+}
+
+.my-home .tab-v1 .nav-justified > .active > a, .my-home .tab-v1 .nav-justified > .active > a:hover, .my-home .tab-v1 .nav-justified > .active > a:focus {
+	background: #ffb528;
+	color: #fff;
+}
+
+.color-ffb {
+	color: #ffb528;
+}
+
+.bg-color-ffb {
+	background: #ffb528;
+	color: #fff;
+}
+
+.btn-back {
+	background: #ffb528;
+	color: #fff;
+	padding: 5px 20px;
+	border-radius: 4px;
+	border: 0;
+}
+
+.my-home .pagination > .active > a, .my-home .pagination > .active > span, .my-home .pagination > .active > a:hover, .my-home .pagination > .active > span:hover, .my-home .pagination > .active > a:focus, .my-home .pagination > .active > span:focus {
+	background: #a5b6d1;
+	border-color: #a5b6d1;
+}
+
+.my-home .tab-v1 .nav-justified > li > a{
+	background: #fff0d4;
+	color: #373737;
+}
+
+.my-home .pagination > .disabled > span, .my-home .pagination > .disabled > span:hover, .my-home .pagination > .disabled > span:focus, .my-home .pagination > .disabled > a, .my-home .pagination > .disabled > a:hover, .my-home .pagination > .disabled > a:focus {
+    color: #fff;
+    cursor: not-allowed;
+    background-color: #ddd;
+    border-color: #fff;
 }
 
 @media (max-width: 1203px) {

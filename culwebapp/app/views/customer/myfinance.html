@@ -1,5 +1,5 @@
 <div ng-controller="MyFinanceController">
-    <div class="profile-body margin-bottom-20">
+    <!-- <div class="profile-body margin-bottom-20">
         <div class="counters">
             <span class="counter-icon"><i class="fa fa-jpy rounded"></i></span>
             <span>{{currentUser.accountBalance}}</span>
@@ -40,9 +40,38 @@
                 <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
             </div>
         </div>
+    </div> -->
+
+  <div class="my-balance">
+    <div class="common-title">
+      <h2>
+        <i class="fa fa-cny"></i>
+        我的余额
+      </h2>
     </div>
+    <div class="balance-content">
+      <div class="content-left">
+        <h2>可用余额</h2>
+        <h1 class="balance-money">{{currentUser.accountBalance}} <span>￥</span></h1>
+      </div>
+      <div class="content-right">
+        <div class="right-item">
+          <div class="right1">
+            <img src="assets/img/culwebapp/alipay.png">
+          </div>
+          <div class="right2">
+            <a class="btn-u btn-u-default btn-common" ui-sref="customer.myfinancedetail({tabId:'recharge'})">查看充值记录</a>
+          </div>
+        </div>
+        <div class="right-item">
+          <div class="right1">
+            <input type="text" name="number" class="form-control" ng-model="model.payAmount" placeholder="充值金额" />
+          </div>
+          <div class="right2">
+            <button type="button" class="btn-u btn-chong btn-common" ng-click="userPay();">充值</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<script type="text/javascript">
-
-</script>

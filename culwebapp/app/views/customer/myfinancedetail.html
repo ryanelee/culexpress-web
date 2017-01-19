@@ -1,7 +1,7 @@
 ﻿<div class="row" ng-controller="MyFinanceController">
     <div class="profile-body margin-bottom-20">
         <div class="tab-v1">
-            <ul class="nav nav-justified nav-tabs">
+            <ul class="nav nav-justified">
                 <li ng-class="{active: $stateParams.tabId.includes('recharge')}"><a data-toggle="tab" ui-sref="customer.myfinancedetail({tabId:'recharge'})">充值记录</a></li>
                 <li ng-class="{active: $stateParams.tabId.includes('debit')}"><a data-toggle="tab" ui-sref="customer.myfinancedetail({tabId:'debit'})">扣款明细</a></li>
             </ul>
@@ -24,9 +24,9 @@
                                 <tr ng-repeat="myfinanceItem in myfinanceListData">
                                     <td style="width:20px;">{{myfinanceItem.rownumber}}</td>
                                     <td>
-                                        <span ng-if="myfinanceItem.rechargeChannel==1">支付宝(人民币)</span> 
-                                        <span ng-if="myfinanceItem.rechargeChannel==2">支付宝(美金)</span> 
-                                        <span ng-if="myfinanceItem.rechargeChannel==3">财付通充值</span> 
+                                        <span ng-if="myfinanceItem.rechargeChannel==1">支付宝(人民币)</span>
+                                        <span ng-if="myfinanceItem.rechargeChannel==2">支付宝(美金)</span>
+                                        <span ng-if="myfinanceItem.rechargeChannel==3">财付通充值</span>
                                     </td>
                                     <td>
                                         {{myfinanceItem.indate|date:'yyyy年MM月dd日 HH:mm:ss'}}
@@ -42,6 +42,7 @@
                             </tbody>
                         </table>
                         <div class="text-right">
+                            <button type="button" class="btn-back pull-left" ng-click="goback()">返回</button>
                             <pagination options="pagedOptions" on-page="onPaged"></pagination>
                         </div>
                     </div>
@@ -78,11 +79,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row margin-top-20">
-            <div class="col-sm-12">
-                <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
             </div>
         </div>
     </div>

@@ -1,6 +1,94 @@
 <!--=== Profile ===-->
-<div style="background-color: #f9f9f9;">
-<div class="container content profile" ng-controller="MyHomeController">
+<div style="background-color: #f9f9f9;" ng-controller="MyHomeController">
+  <div class="full-container myhome-header">
+    <div class="container content profile" style="position: relative;">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 header-img">
+          <a data-toggle="modal" data-target="#userPhotoModal"><img class="rounded-x" ng-src="{{ currentUser.photoUrl }}" alt="no photo"></a>
+          <div class="modal fade" tabindex="-1" id="userPhotoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                          <h4 class="modal-title">修改个人头像</h4>
+                      </div>
+                      <div class="modal-body">
+                          <div class="profile-blog">
+                              <img class="rounded-x" ng-src="{{ currentUser.photoUrl }}" alt="no photo">
+                              <div class="name-location">
+                                  <strong>{{ currentUser.userName }}</strong>
+                                  <span>
+                                      <i class="fa fa-map-marker"></i><span ng-show="isLackProfile">没有填写联系地址</span>
+                                      <a href="javascript:void();" ng-hide="isLackProfile">{{ currentUser.countryName }} {{ currentUser.stateOrProvince }} {{ currentUser.city }}</a>
+                                  </span>
+                              </div>
+                              <div class="clearfix margin-bottom-20"></div>
+                              <!--<div class="inline-group">
+                                  <i class="icon-custom icon-sm rounded-x icon-bg-u icon-line icon-symbol-male"></i>
+                                  <i class="icon-custom icon-sm rounded-x icon-bg-blue icon-line icon-symbol-female"></i>
+                                  <label class="radio"><input type="radio" checked="{{ currentUser.gender === 'M' }}" name="radio-inline"><i class="rounded-x"></i>男 <i class="fa fa-male"></i></label>
+                                  <label class="radio"><input type="radio" checked="{{ currentUser.gender === 'M' }}" name="radio-inline"><i class="rounded-x"></i>女 <i class="fa fa-female"></i></label>
+                              </div>-->
+
+                              <div class="button">
+                                  <form id="uploadAvatarForm" enctype="multipart/form-data">
+                                      <input type="file" id="file" name="avatar"/>选择头像图片
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn-u btn-u-default" data-dismiss="modal">取消</button>
+                          <button type="button" class="btn-u btn-u-primary" ng-click="updateAvatar()">保存</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <strong class="user-name" data-ng-bind="currentUser.userName"></strong>
+          <div class="progress" style="height: 8px;border-radius:5px;margin-bottom: 5px;">
+              <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
+                    aria-valuenow="{{model.userProfilePercent}}" aria-valuemin="0" aria-valuemax="100"
+                   style="width:{{ model .userProfilePercent; }}%;">
+                  <!--<a style="color:#fff;text-decoration:none;"></a>-->
+              </div>
+          </div>
+          个人资料完善度：{{model.userProfilePercent}}%
+          <div class="home-info">
+            <span>
+                <i class="fa fa-user"></i>客户编号:<span data-ng-bind="currentUser.customerNumber"></span>
+                <a href="javascript:void(0)" ng-click="applyVip()" ng-if="!$root.currentUser.isVip&&currentUser.vipStatus !== 'Applied'"> [成为VIP客户]</a>
+                <span ng-if="currentUser.vipStatus === 'Applied' && !$root.currentUser.isVip" style="color: #ffb528;"> [VIP审核中...]</span>
+            </span>
+            <span style="margin-left: 20px;"><i class="fa fa-chevron-circle-right"></i>收件标示:<span data-ng-bind="currentUser.receiveIdentity"></span></span>
+          </div>
+          <div>
+            <span>
+                <i class="fa fa-map-marker"></i><span class="address" ng-show="isLackProfile">没有填写联系地址</span>
+                <span class="address" ng-hide="isLackProfile">{{ currentUser.countryName }} {{ currentUser.stateOrProvince }} {{ currentUser.city }}</span>
+            </span>
+            <span style="margin-left: 20px;">注册邮箱:<span data-ng-bind="currentUser.emailAddress"></span></span>
+          </div>
+        </div>
+        <div class="col-md-4 hidden-xs hidden-sm">
+          <img class="home-bg" src="../../assets/img/dashbard/home-bg.png" />
+        </div>
+      </div>
+      <ul class="header-menu hidden-xs hidden-sm">
+        <li><i class="rounded-x gm fa fa-book"></i> <a ui-sref="customer.myaccount({anchorid:'addressbook'})">收货地址</a></li>
+        <li><i class="rounded-x gm fa fa-key"></i> <a ui-sref="customer.myaccount({anchorid:'passwordTab'})">修改密码</a></li>
+        <li><i class="rounded-x gm fa fa-envelope"></i> <a ui-sref="customer.askquestion">在线咨询</a></li>
+        <li>
+            <i class="rounded-x gm fa fa-gift"></i> <a ui-sref="register({reference:currentUser.customerNumber})" target="_blank">好友推荐</a>
+            <a class="tooltips" data-toggle="tooltip" data-original-title="请复制新页面地址发送给好友注册,每邀请一位好友成功注册,双方均可获得运费奖励.">
+                <i class="rounded-x gm fa fa-question"></i>
+            </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+<div class="container content profile my-home">
     <div class="row">
         <!--<div class="alert alert-danger fade in">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -14,7 +102,7 @@
         </div>-->
         <!--Left Sidebar-->
         <div class="col-md-3 md-margin-bottom-40">
-            <div class="profile-blog blog-border">
+          <!--  <div class="profile-blog blog-border">
                 <a data-toggle="modal" data-target="#userPhotoModal"><img class="rounded-x" ng-src="{{ currentUser.photoUrl }}" alt="no photo"></a>
                 <div class="modal fade" tabindex="-1" id="userPhotoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog">
@@ -34,12 +122,12 @@
                                         </span>
                                     </div>
                                     <div class="clearfix margin-bottom-20"></div>
-                                    <!--<div class="inline-group">
+                                    <div class="inline-group">
                                         <i class="icon-custom icon-sm rounded-x icon-bg-u icon-line icon-symbol-male"></i>
                                         <i class="icon-custom icon-sm rounded-x icon-bg-blue icon-line icon-symbol-female"></i>
                                         <label class="radio"><input type="radio" checked="{{ currentUser.gender === 'M' }}" name="radio-inline"><i class="rounded-x"></i>男 <i class="fa fa-male"></i></label>
                                         <label class="radio"><input type="radio" checked="{{ currentUser.gender === 'M' }}" name="radio-inline"><i class="rounded-x"></i>女 <i class="fa fa-female"></i></label>
-                                    </div>-->
+                                    </div>
 
                                     <div class="button">
                                         <form id="uploadAvatarForm" enctype="multipart/form-data">
@@ -70,7 +158,7 @@
                         <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
                               aria-valuenow="{{model.userProfilePercent}}" aria-valuemin="0" aria-valuemax="100"
                              style="width:{{ model .userProfilePercent; }}%;">
-                            <!--<a style="color:#fff;text-decoration:none;"></a>-->
+                            <a style="color:#fff;text-decoration:none;"></a>
                         </div>
                     </div>
                 </div>
@@ -82,7 +170,7 @@
                     <span ng-if="currentUser.vipStatus === 'Applied' && !$root.currentUser.isVip" style="color: #e74c3c;"> [VIP审核中...]</span>
                 </p>
                 <p>收件标示:<span data-ng-bind="currentUser.receiveIdentity"></span></p>
-                <!--<hr>
+                <hr>
                 <ul class="list-inline share-list">
                     <button class="btn-u btn-u-red" data-toggle="modal" data-target="#reminderModal"><i class="fa fa-bell-o"></i>友情提醒</button>
                     <a rel="curl-top-left" class="btn-u btn-u-blue curl-top-left" data-toggle="modal" data-target="#reminderModal"><i class="fa fa-bell-o"></i>购买须知</a>
@@ -123,8 +211,8 @@
                             </div>
                         </div>
                     </div>
-                </ul>-->
-            </div>
+                </ul>
+            </div>-->
 
             <umi-menu key="sidebar-nav" cls="list-group sidebar-nav-v1 margin-bottom-40" source="source.menus"></umi-menu>
             <!--<ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav">
@@ -169,8 +257,8 @@
                 </li>
             </ul>-->
 
-            <ul class="list-unstyled social-contacts-v2">
-                <!--commit by clark-->
+            <!--<ul class="list-unstyled social-contacts-v2">
+                commit by clark
                 <li><i class="rounded-x gm fa fa-book"></i> <a ui-sref="customer.myaccount({anchorid:'addressbook'})">收货地址</a></li>
                 <li><i class="rounded-x gm fa fa-key"></i> <a ui-sref="customer.myaccount({anchorid:'passwordTab'})">修改密码</a></li>
                 <li><i class="rounded-x gm fa fa-envelope"></i> <a ui-sref="customer.askquestion">在线咨询</a></li>
@@ -181,7 +269,7 @@
                     </a>
                 </li>
 
-            </ul>
+            </ul> -->
 
         </div>
         <!--End Left Sidebar-->
