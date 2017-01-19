@@ -51,8 +51,8 @@ angular.module('culAdminApp')
           var _filterOptions = function () {
               var _options = {
                   "pageInfo": $scope.pagination,
-                  "inboundDateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
-                  "inboundDateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : ""
+                  "inboundDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
+                  "inboundDateTo": !!$scope.searchBar.endDate ?  new Date($scope.searchBar.endDate) : ""
               }
               if (!!$scope.searchBar.sendType) {
                   _options["sendType"] = $scope.searchBar.sendType;
