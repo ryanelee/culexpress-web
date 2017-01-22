@@ -2,7 +2,7 @@
 <div class="row" ng-controller="MyAccountController">
     <div class="profile-body margin-bottom-20">
         <div class="tab-v1">
-            <ul class="nav nav-justified nav-tabs">
+            <ul class="nav nav-justified">
                 <li ng-class="{active: $stateParams.anchorid.includes('profile')}"><a data-toggle="tab" ui-sref="customer.myaccount({anchorid:'profile'})">我的信息</a></li>
                 <li ng-class="{active: $stateParams.anchorid.includes('passwordTab')}"><a data-toggle="tab" ui-sref="customer.myaccount({anchorid:'passwordTab'})">修改密码</a></li>
                 <li ng-class="{active: $stateParams.anchorid.includes('addressbook')}"><a data-toggle="tab" ui-sref="customer.myaccount({anchorid:'addressbook'})">收货地址</a></li>
@@ -196,7 +196,7 @@
                             </dl>
                         </fieldset>
                         <footer>
-                            <button type="submit" class="btn-u">保存修改</button>
+                            <button type="submit" class="btn-u bg-color-ffb">保存修改</button>
                             <button type="button" class="btn-u btn-u-default">取消</button>
                             <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
                             <i class="color-red icon-line icon-close" data-ng-show="showProfileError"></i>
@@ -242,7 +242,7 @@
                             </dd>
                         </dl>
                         <br>
-                        <button class="btn-u" ng-click="changePassword();">保存修改</button>
+                        <button class="btn-u bg-color-ffb" ng-click="changePassword();">保存修改</button>
                         <button type="button" class="btn-u btn-u-default">取消</button>
                         <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
                     </form>
@@ -275,13 +275,13 @@
                                         <p>{{addressItem.address1}} <small>{{addressItem.zipcode}}</small></p>
                                     </td>
                                     <td>
-                                        <span class="label label-success" ng-if="addressItem.verifyMark==1">验证通过</span>
-                                        <span class="label label-warning" ng-if="addressItem.verifyMark==0">未验证</span>
-                                        <span class="label label-danger" ng-if="addressItem.verifyMark==-1">验证失败</span>
+                                        <span class="label label-success sp-label" ng-if="addressItem.verifyMark==1">验证通过</span>
+                                        <span class="label label-warning sp-label" ng-if="addressItem.verifyMark==0">未验证</span>
+                                        <span class="label label-danger sp-label" ng-if="addressItem.verifyMark==-1">验证失败</span>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn-u btn-u-sm btn-u-dark" ng-click="deleteAddress(addressItem);"><i class="fa fa-trash-o"></i></button>
-                                        <button type="button" class="btn-u btn-u-sm btn-u-dark" ng-click="redirectToEdit(addressItem);"><i class="fa fa-edit"></i></button>
+                                        <button type="button" class="btn-u btn-u-sm btn-u-dark btn-op" ng-click="deleteAddress(addressItem);"><i class="fa fa-trash-o"></i></button>
+                                        <button type="button" class="btn-u btn-u-sm btn-u-dark btn-op" ng-click="redirectToEdit(addressItem);"><i class="fa fa-edit"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -289,7 +289,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <a class="btn-u" href="javascript:void(0)" ng-click="redirectToAdd();">
+                            <a class="btn-u bg-color-ffb" href="javascript:void(0)" ng-click="redirectToAdd();">
                                 <i class="fa fa-plus-square"> 添加地址</i>
                             </a>
                             <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>

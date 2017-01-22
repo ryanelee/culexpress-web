@@ -2255,9 +2255,102 @@ select:-webkit-autofill {
 	background-color: #ffb528;
 }
 
+.my-home .nav-justified {
+	border-bottom: solid 1px #eaebec;
+	border-radius: 4px;
+}
+
 .my-home .tab-v1 .nav-justified > .active > a, .my-home .tab-v1 .nav-justified > .active > a:hover, .my-home .tab-v1 .nav-justified > .active > a:focus {
 	background: #ffb528;
 	color: #fff;
+}
+
+.my-home .edit-content {
+	padding: 20px 50px 50px;
+	clear: both;
+}
+
+.my-home .edit-content .label {
+	margin: 20px 0 10px;
+	color: #767c88;
+	font-size: 12px
+}
+
+.my-home .edit-content .form-control {
+	width: 95%;
+	padding: 10px;
+}
+
+
+.my-home .edit-content .left-row {
+	width: 50%;
+	display: inline-block;
+	float: left;
+	min-width: 300px;
+}
+
+.my-home .edit-content .right-row {
+	width: 50%;
+	display: inline-block;
+	float: left;
+	min-width: 300px;
+}
+
+.my-home .edit-content .shen {
+	border: solid 1px #e1e1e1;
+	width: 95%;
+	clear: both;
+	overflow: hidden;
+	padding: 10px 5px;
+	font-size: 12px;
+	color: #c6c6c6;
+}
+
+.my-home .edit-content .shen img {
+	display: inline-block;
+	width: 65%;
+	height: auto;
+	margin-right: 3%;
+	float: left;
+}
+
+.my-home .inputfileload {
+	position: relative;
+	display: inline-block;
+	width: 75px;
+	height: 24px;
+	line-height: 24px;
+  position: relative;
+  background-color: #c6c6c6;
+  text-align: center;
+}
+
+.my-home .inputfileload .uploadphoto {
+    text-align: center;
+    cursor: pointer;
+		color: #fff;
+}
+
+.my-home .inputfileload .file-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	overflow: hidden;
+	font-size: 14px;
+	width: 75px;
+	height: 24px;
+	cursor: pointer;
+}
+
+.my-home .edit-content .shen p {
+	display: inline-block;
+	width: 32%;
+	float: left;
+	color: #c6c6c6;
+	font-size: 12px;
 }
 
 .color-ffb {
@@ -2265,8 +2358,12 @@ select:-webkit-autofill {
 }
 
 .bg-color-ffb {
-	background: #ffb528;
+	background: #ffb528 !important;
 	color: #fff;
+}
+
+.btn-u {
+	border-radius: 4px;
 }
 
 .btn-back {
@@ -2292,6 +2389,21 @@ select:-webkit-autofill {
     cursor: not-allowed;
     background-color: #ddd;
     border-color: #fff;
+}
+
+.my-home .sp-label {
+	display: inline-block;
+	width: 70px;
+	border-radius: 10px;
+}
+
+.my-home .btn-op {
+	padding: 0px 10px;
+	background-color: #a5b6d1 !important;
+}
+
+.my-home .btn-op:hover {
+	background-color:#ffb528 !important;
 }
 
 @media (max-width: 1203px) {

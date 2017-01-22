@@ -44,7 +44,11 @@
 
                     scope.itemSelect = function($event) {
                         if (!!scope.ngModel.route) {
+                          if (!!scope.ngModel.stateParams) {
+                            $state.go(scope.ngModel.route, scope.ngModel.stateParams);
+                          } else {
                             $state.go(scope.ngModel.route);
+                          }
                         }
                         menuSerivce.changState(scope.ngModel);
                         if (!scope.ngModel.toggle) {
@@ -173,19 +177,22 @@
                         key: 'questions',
                         name: '我的信息',
                         icon: 'fa fa-question-circle',
-                        route: 'customer.myaccount'
+                        route: 'customer.myaccount',
+                        stateParams: {anchorid:'profile'}
                     }, {
                         leaf: true,
                         key: 'passwordTab',
                         name: '修改密码',
                         icon: 'fa fa-jpy',
-                        route: 'customer.myaccount'
+                        route: 'customer.myaccount',
+                        stateParams: {anchorid:'passwordTab'}
                     }, {
                         leaf: true,
                         key: 'addressbook',
                         name: '收货地址',
                         icon: 'fa fa-graduation-cap',
-                        route: 'customer.myaccount'
+                        route: 'customer.myaccount',
+                        stateParams: {anchorid:'addressbook'}
                     }]
                 }, {
                     key: 'help',
