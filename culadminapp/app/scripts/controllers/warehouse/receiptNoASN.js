@@ -29,7 +29,6 @@ angular.module('culAdminApp')
                 }
                 $scope.flag = '0'
                 receiptService.checkReceiveIdentity($scope.data).then(function (result) {
-                    console.log(result);
                     if (result.data.code == '999') {
                         plugMessenger.error(result.data.msg);
                         return;
@@ -43,7 +42,6 @@ angular.module('culAdminApp')
             $scope.checkInboundPackage = function () {
                 receiptService.checkInboundPackage($scope.data).then(function (result) {
                     $scope.flag = '0'
-                    console.log(result);
                     if (result.data.code == '999') {
                         plugMessenger.error(result.data.msg);
                         return;

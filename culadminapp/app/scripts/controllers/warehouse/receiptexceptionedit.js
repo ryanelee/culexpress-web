@@ -68,8 +68,6 @@ angular.module('culAdminApp')
                     memo: $scope.data.memo
                 }, function(result) {
                     plugMessenger.success("操作成功");
-                    console.log(result);
-                    console.log($scope.data);
                     $scope.data.exceptionNumber = result.data[0].exceptionNumber
                     $scope.btnPrint();
                     // $scope.data = null;
