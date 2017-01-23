@@ -70,13 +70,6 @@ angular.module('culwebApp')
             }
 
 
-
-
-
-
-
-
-
             $scope.provinceList = [];
 
 
@@ -230,17 +223,19 @@ angular.module('culwebApp')
                 $http.post(cul.apiPath + '/files/upload', form, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
-                }).success(function (result) {
-                    if (!!result.filePath) {
+                }).then(function (result) {
+                    if (!!result.data.filePath) {
                         markObj.result = true;
-                        $scope.data[markObj.dataProp || name] = result.filePath;
-                        markObj.url = result.url;
+                        var key = markObj.dataProp || name;
+                        $scope.data[key] = result.data.filePath;
+                        $scope.data[key+'Url'] = result.data.url;
+                        markObj.url = result.data.url;
 
                         markObj.hookHandler && markObj.hookHandler();
                     }
-                }).error(function () {
+                }, function () {
+                  console.log('error')
                     markObj.error = true;
-
                     markObj.hookHandler && markObj.hookHandler(false);
                 });
                 return true;
@@ -290,7 +285,7 @@ angular.module('culwebApp')
 
                     //var timer = setInterval(function () {
                     //    //一共两次反向逻辑
-                    //    //1、第1次反向                 
+                    //    //1、第1次反向
                     //    var resultFront = !mark.front.upload, resultBack = !mark.back.upload;
                     //    //2、第2次反向
                     //    if (!resultFront) resultFront = !!mark.front.result || !!mark.front.error;

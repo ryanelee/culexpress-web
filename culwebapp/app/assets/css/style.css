@@ -2266,7 +2266,7 @@ select:-webkit-autofill {
 }
 
 .my-home .edit-content {
-	padding: 20px 50px 50px;
+	padding: 20px 0 50px;
 	clear: both;
 }
 
@@ -2277,10 +2277,16 @@ select:-webkit-autofill {
 }
 
 .my-home .edit-content .form-control {
-	width: 95%;
 	padding: 10px;
 }
 
+.my-home .edit-content .left-row .form-control {
+	width: 95%;
+}
+
+.my-home .edit-content .right-row .form-control {
+	width: 95%;
+}
 
 .my-home .edit-content .left-row {
 	width: 50%;
@@ -2323,6 +2329,7 @@ select:-webkit-autofill {
   position: relative;
   background-color: #c6c6c6;
   text-align: center;
+	margin-top: 10px;
 }
 
 .my-home .inputfileload .uploadphoto {
@@ -2351,6 +2358,108 @@ select:-webkit-autofill {
 	float: left;
 	color: #c6c6c6;
 	font-size: 12px;
+}
+
+.my-home .edit-content .text-danger {
+	font-size: 12px;
+	color: #767c88;
+}
+
+.my-home .edit-content .text-danger a {
+	color: #98abcb;
+}
+
+.my-home .table td a:hover {
+	color: #ffb528;
+	cursor: pointer;
+}
+
+.my-home .dl-horizontal dt {
+	width: 80px;
+	line-height: 2;
+	display: inline-block;
+}
+
+.my-home .dl-horizontal dd {
+	line-height: 2;
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.my-home .dl-horizontal dt .fa {
+	color: #ffb528;
+	font-size: 14px;
+}
+
+.my-home .header-icon {
+	display: inline-block;
+	width: 70px;
+	text-align: right;
+	float: left;
+}
+
+.my-home .b-txt {
+	margin-left: 20px;
+	display: inline-block;
+	width: calc(100% - 100px);
+	float: left;
+}
+
+.my-home .b-txt h4 {
+	font-weight: bold;
+	color: #607eae;
+	font-size: 14px;
+	margin: 0;
+}
+
+.my-home .messages {
+	display: inline-block;
+	background-color: #f7f9fb;
+	padding: 0 20px 0 40px;
+	margin-left: 30px;
+}
+
+.my-home .messages .msg-item {
+	padding: 15px 0;
+  display: inline-block;
+  width: 100%;
+  border-bottom: solid 1px #fff;
+}
+
+.my-home .messages .msg-item:last-child {
+	border-bottom: 0;
+}
+
+.my-home .messages .msg-submit {
+	display: inline-block;
+	width: 100%;
+	padding: 10px 0 20px;
+	text-align: right;
+}
+
+.my-home .op-row {
+	margin-top: 30px;
+}
+
+.my-home .messages .msg-submit input {
+	display: inline-block;
+	width: 80%;
+	height: 36px;
+	line-height: 36px;
+	vertical-align: center;
+}
+
+.profile .panel-heading {
+	position: relative;
+}
+
+.profile .panel-heading .hr {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 0;
+	width: 110px;
+	border-bottom: solid 2px #ffb528;
 }
 
 .color-ffb {
