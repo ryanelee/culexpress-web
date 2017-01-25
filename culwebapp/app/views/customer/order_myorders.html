@@ -1,69 +1,72 @@
 <!-- Begin Content -->
 <div class="row" ng-controller="MyOrdersController">
-    <div class="profile-body margin-bottom-20">
-        <div class="headline">
-            <h2>我的订单</h2>
+    <div class="profile-body margin-bottom-20 order-list">
+        <div class="common-title">
+          <h2>
+            <i class="fa fa-shopping-cart"></i>
+            我的订单
+          </h2>
         </div>
 
         <!--Table Bordered-->
-        <div>
+        <div class="list">
             <form action="#" id="sky-form" class="sky-form form-inline" novalidate="novalidate">
                 <div class="row">
-                    <daterange-search label="订单范围" btn-text="查看历史订单" on-search="rangSearch"></daterange-search>
-                    <div class="form-group">
+                    <daterange-search label="预报时间" btn-text="查看历史订单" on-search="rangSearch"></daterange-search>
+                    <div class="form-group" style="margin-left: 50px;">
                         <label>搜索条目：</label>
                         <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
                         <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" />
-                        <a href="javascript:void(0)" ng-click="searchOrder()" class="btn-u">查找订单</a>
+                        <a href="javascript:void(0)" ng-click="searchOrder()" class="btn-u bg-color-ffb">查找订单</a>
                     </div>
                 </div>
                 <div class="row" style="margin-top:15px;">
                     <div class="form-group">
                         <label class="pull-left" style="margin-top:5px;">订单状态：</label>
                         <div class="inline-group pull-left">
-                            <label class="radio" style="margin-right: 10px; padding-left: 10px; ">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Shipped')" style="font-size:12px">
+                            <label class="radio" style="margin-right: 10px; padding-left: 10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Shipped')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="Shipped" /><i class="rounded-x"></i>已出库
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus('PartialShipped')" style="font-size:12px">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('PartialShipped')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="PartialShipped" /><i class="rounded-x"></i>部分出库
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Unpaid')" style="font-size:12px">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Unpaid')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="Unpaid" /><i class="rounded-x"></i>待支付
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Processing')" style="font-size:12px">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Processing')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="Processing" /><i class="rounded-x"></i>处理中
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Void')" style="font-size:12px">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Void')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="Void" /><i class="rounded-x"></i>已取消
                                 </a>
                             </label>
 
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Paid')" style="font-size:12px">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Paid')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="Paid" /><i class="rounded-x"></i>已支付
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Arrears')" style="font-size:12px">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Arrears')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="Arrears" /><i class="rounded-x"></i>运费不足
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Arrived')" style="font-size:12px">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Arrived')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="Arrived" /><i class="rounded-x"></i>已送达
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus()" style="font-size:12px">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus()" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="" /><i class="rounded-x"></i>所有状态
                                 </a>
                             </label>
@@ -98,7 +101,7 @@
                                         <span class="label label-success" ng-if="rowItem.orderStatus==='Paid'">已支付</span>
                                         <span class="label label-danger" ng-if="rowItem.orderStatus==='Arrears'">运费不足</span>
                                         <span class="label label-success" ng-if="rowItem.orderStatus==='Arrived'">已送达</span>
-                                        <span class="label label-success" ng-if="rowItem.orderStatus==='PartialShipped'">部分出库</span>                                        
+                                        <span class="label label-success" ng-if="rowItem.orderStatus==='PartialShipped'">部分出库</span>
                                     </small>
                                     <small>
                                         <a href="javascript:void(0)" ng-click="redirectToDetail(rowItem);"><u>{{rowItem.orderNumber}}</u></a>
@@ -109,9 +112,9 @@
                                 </td>
                                 <td><small>{{rowItem.orderDate|date:'MM/dd/yyyy HH:mm:ss'}}</small></td>
                                 <td class="td-width hidden-sm" style="padding:0px">
-                                    <ul class="list-unstyled" style="max-width:200px;overflow:hidden;">
+                                    <ul class="list-unstyled" style="max-width:200px;overflow:hidden; margin-bottom: 0;">
                                         <li ng-repeat="orderDetailItem in rowItem.orderItems" title="{{orderDetailItem.description}} x {{orderDetailItem.quantity}}">
-                                            <span class="label label-light">
+                                            <span class="label label-light" style="background: none;">
                                                 <i class="fa fa-gift"></i>
                                                 <!--{{orderDetailItem.itemBrand}}|
                                                 {{orderDetailItem.description}}|
@@ -149,7 +152,7 @@
 
                 <div class="row" style="margin-top:20px;">
                     <div class="col-sm-3">
-                        <a ui-sref="customer.shippingnoticelist" class="btn-u">
+                        <a ui-sref="customer.shippingnoticelist" class="btn-u bg-color-ffb">
                             <i class="fa fa-shopping-cart"> 提交订单</i>
                         </a>
                         <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
