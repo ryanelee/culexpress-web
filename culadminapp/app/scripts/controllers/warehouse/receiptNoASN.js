@@ -100,7 +100,6 @@ angular.module('culAdminApp')
                 if (!$scope.data.receiveIdentity ||
                     !$scope.data.customerNumber ||
                     !$scope.data.trackingNumber ||
-                    !$scope.data.carrierName ||
                     !$scope.data.warehouseNumber ||
                     !$scope.data.packageWeight ||
                     !$scope.data.packageDescription) {
