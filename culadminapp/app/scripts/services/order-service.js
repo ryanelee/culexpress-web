@@ -96,6 +96,10 @@ angular.module('culAdminApp')
           });
       }
 
+       self.checkOrderNumber = function (order) {
+         return $http.post(cul.apiPath + "/order/checkOrderNumber", order)
+      }
+
       self.delete = function (orderNumber, callback) {
           $http.delete(cul.apiPath + "/order?number=" + orderNumber).success(function (result) {
               callback(result);

@@ -82,11 +82,20 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="search-col">
+
+
                     <label class="search-label">搜索条目：</label>
                     <select class="form-control search-control">
-                        <option value="itemNumber">商品编号</option>
+                        <option value="itemNumber">转运单号</option>
+                        <option value="itemNumber">客户编号</option>
+                        <option value="itemNumber">客户标示</option>
+                        <option value="itemNumber">客户id</option>
+                        <option value="itemNumber">仓位编号</option>
+                        <option value="itemNumber">转仓</option>
+                        <option value="itemNumber">入库人员</option>
+                        <!--<option value="itemNumber">商品编号</option>
                         <option value="upccode">UPC</option>
-                        <option value="customerNumber">客户编号</option>
+                        <option value="customerNumber">客户编号</option>-->
                     </select>
                     <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
