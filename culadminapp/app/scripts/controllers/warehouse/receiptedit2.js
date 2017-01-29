@@ -27,6 +27,7 @@ angular.module('culAdminApp')
                         if (!!$scope.tempReceiptNumber) {
                             receiptService.getDetail($scope.tempReceiptNumber, function (result) {
                                 $scope.data = null;
+                                console.log(result);
                                 if (!result.message) {
                                     $scope.data = result;
                                 }

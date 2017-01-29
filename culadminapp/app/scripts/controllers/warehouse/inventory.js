@@ -113,13 +113,15 @@ angular.module('culAdminApp')
             $scope.getData = function () {
                 inventoryService.getList(_filterOptions(), function (result) {
                     var _data = result.data;
+                    console.log(_data);
                     if (parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function (x) {
-                            return $scope.customer_ids.split(",").includes(x.customerNumber);
+                              return $scope.customer_ids.split(",").includes(x.customerNumber);
                         });
                     }
 
                     $scope.dataList = _data;
+
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
                     $rootScope.$emit("changeMenu");
                 });
