@@ -94,7 +94,7 @@ angular.module('culAdminApp')
                     "inboundDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
                     "inboundDateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : "",
                 }
-                console.log("search" + JSON.stringify($scope.searchBar))
+                //console.log("search" + JSON.stringify($scope.searchBar))
 
                 if (!!$scope.searchBar.sendType) {
                     _options["sendType"] = $scope.searchBar.sendType;
@@ -124,7 +124,7 @@ angular.module('culAdminApp')
                 shelfService.getTransportList(_filterOptions(), function (result) {
                     var __data = result.data;
                     var _data = [];
-                    console.log("1");
+
                     if (!$scope.searchBar.isUnusual && $scope.searchBar.sendType == 2) {
                         __data.map(function (e) {
                             if (e.isUnusual != 1 && e.isUnusual != 2) {

@@ -14,6 +14,25 @@ angular.module('culAdminApp')
         //寄送库存海淘入库登记
         self.getDetail = function(receiptNumber, callback) {
             $http.get(cul.apiPath + "/item/transport?receiptNumber=" + receiptNumber).success(function(result) {
+                if(result)
+                    result._inboundStatus = "";
+                switch (result.inboundStatus) {
+                    case 0:
+                        result._inboundStatus = "等待登记";
+                        break;
+                    case 1:
+                        result._inboundStatus = "等待清点";
+                        break;
+                    case 2:
+                        result._inboundStatus = "部分收货";
+                        break;
+                    case 3:
+                        result._inboundStatus = "已收货";
+                        break;
+                    default:
+                        result._inboundStatus = "所有";
+                        break;
+                }
                 callback(result);
             });
         }

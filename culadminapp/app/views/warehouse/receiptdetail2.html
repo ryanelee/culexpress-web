@@ -31,17 +31,17 @@
                     </div>
                     <label class="col-sm-2 control-label text-right">创建日期：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.editdate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
+                        <label class="control-label">{{data.indate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">入库状态：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.warehouseName}}</label>
+                        <label class="control-label">{{data._inboundStatus}}</label>
                     </div>
                     <label class="col-sm-2 control-label text-right">入库日期：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.indate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
+                        <label class="control-label">{{data.inboundDate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -54,6 +54,10 @@
                                 </label>
                             </div>
                         </div>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">登记人：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.inboundUser}}</label>
                     </div>
                 </div>
             </fieldset>

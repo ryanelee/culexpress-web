@@ -109,7 +109,7 @@
                             <td><a href="javascript:void(0)" ng-click="btnAction('inbound', item)">{{item.receiptNumber}}</a></td>
                             <td><a href="javascript:void(0)" ng-click="btnOpenDetail('customerDetail',item)"> {{item.customerNumber}}</a></td>
                             <td>{{item.inboundDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                            <td>{{item.inboundUserName}}</td>
+                            <td>{{item.inboundUser}}</td>
                             <td>{{item._inboundStatus}}</td>
                             <td>
                                 <a href="javascript:void(0)" class="role" data-role="54" ng-click="btnAction('inbound', item)" ng-if="item.inboundStatus <= 1">登记入库</a>
