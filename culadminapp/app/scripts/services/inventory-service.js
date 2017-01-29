@@ -67,7 +67,7 @@ angular.module('culAdminApp')
           var _typeVal = "";
           switch (type) {
               case 1: _typeVal ="订单出库"; break;
-              case 2: _typeVal ="寄送库存"; break;
+              case 2: _typeVal ="商品入库"; break;
               case 3: _typeVal ="订单下单"; break;
               case 4: _typeVal ="库存冻结"; break;
               case 5: _typeVal ="库存解冻"; break;

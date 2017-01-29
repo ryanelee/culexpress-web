@@ -99,7 +99,7 @@ angular.module('culAdminApp')
           $scope.btnAction = function (type, item) {
               switch (type) {
                   case "detail":
-                      if (!!item) $location.search({ shelfNumber: item.shelfNumber });
+                      if (!!item) $location.search({ warehouseNumber: item.warehouseNumber, shelfNumber: item.shelfNumber });
                       $location.path("/warehouse/shelfmanagementdetail");
                       break;
                   case "create":

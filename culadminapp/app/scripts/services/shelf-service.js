@@ -12,8 +12,8 @@ angular.module('culAdminApp')
         var self = this;
 
         //获取架位
-        self.getDetail = function(shelfNumber, callback) {
-            $http.get(cul.apiPath + "/warehouse/shelf?shelfNumber=" + shelfNumber).success(function(result) {
+        self.getDetail = function(options, callback) {
+            $http.get(cul.apiPath + "/warehouse/shelf?shelfNumber=" + options.shelfNumber + "&warehouseNumber="+ options.warehouseNumber).success(function(result) {
                 callback(result);
             })
         }
