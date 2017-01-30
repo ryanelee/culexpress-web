@@ -2374,19 +2374,19 @@ select:-webkit-autofill {
 	cursor: pointer;
 }
 
-.my-home .dl-horizontal dt {
+.my-home .dl-horizontal .ques dt {
 	width: 80px;
 	line-height: 2;
 	display: inline-block;
 }
 
-.my-home .dl-horizontal dd {
+.my-home .dl-horizontal .ques dd {
 	line-height: 2;
 	display: inline-block;
 	margin-left: 10px;
 }
 
-.my-home .dl-horizontal dt .fa {
+.my-home .dl-horizontal .ques dt .fa {
 	color: #ffb528;
 	font-size: 14px;
 }
@@ -2462,6 +2462,132 @@ select:-webkit-autofill {
 	border-bottom: solid 2px #ffb528;
 }
 
+.my-home .order-list {
+	background-color:#fff;
+}
+
+.my-home .order-list .list {
+	margin-top: 20px;
+}
+
+.my-home .order-list .sky-form .row {
+	margin: 0;
+}
+
+.my-home .order-list .sky-form .radio input + i:after {
+    top: 4px;
+    left: 4px;
+    background-color: #ffb528;
+}
+.my-home .order-list .sky-form .radio input:checked + i, .sky-form .checkbox input:checked + i, .sky-form .toggle input:checked + i {
+    border: solid 2px #ffb528;
+}
+
+.my-home .order-list td small .label {
+	border-radius: 10px;
+}
+
+.my-home .order-list td small u {
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.my-home .order-list .list-inline li {
+	background-color: #607eae;
+  padding: 0px 8px;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.my-home .order-list .list-inline li a {
+	color: #fff;
+}
+
+.my-home .order-list .list-inline li:hover {
+	background-color: #ffb528;
+}
+
+.my-home .order-info .item {
+	padding:20px;
+	border-radius:2px;
+	background: #f7f9fb url('../../assets/img/dashbard/user-bg.png') no-repeat right top;
+}
+
+.my-home .order-info .item-user {
+	height: 255px;
+}
+
+.my-home .order-info .item-fei {
+	height: 255px;
+	background: #f7f9fb url('../../assets/img/dashbard/fei-bg.png') no-repeat right top;
+}
+
+.my-home .order-info .item-zhi {
+	background: #f7f9fb url('../../assets/img/dashbard/zhi-bg.png') no-repeat right top;
+}
+
+.my-home .order-info .item h4 {
+	border-left: solid 2px #ffb528;
+  padding-left: 10px;
+}
+
+.my-home table.order-detail > thead th {
+		width: 16%;
+		border-bottom: 1px solid #eee;
+}
+
+.my-home table.order-detail tr {
+	border-bottom: solid 1px #e3e3e3;
+}
+
+.my-home table.table tbody tr td {
+	padding: 10px 0;
+}
+
+.my-home table.order-detail > tbody th {
+		text-align: left;
+		border-top: none;
+		width: 15%;
+		min-width: 20px;
+}
+
+.my-home table.order-detail > tbody td {
+		width: 25%;
+		text-align: center;
+		border-top: none;
+}
+
+.my-home .table-responsive {
+	border-top: solid 1px #e3e3e3;
+}
+
+.my-home .msg-item {
+	border-bottom: 1px solid #fff;
+	padding: 10px 15px;
+}
+
+.my-home .msg-item .msg-txt {
+	display: inline-block;
+	width: calc(100% - 60px);
+}
+
+.my-home .msg-item .submit {
+	border-radius: 5px;
+	background: #ffb528 !important;
+	color: #fff;
+	padding: 5px 10px;
+}
+
+.my-home .msg-item:last-child {
+	border-bottom: 0;
+}
+
+.profile .table > tbody > tr > th, .profile .table > tfoot > tr > th, .profile .table > thead > tr > td, .profile .table > tbody > tr > td, .profile .table > tfoot > tr > td {
+	padding: 3px;
+	text-align: center;
+}
+
 .color-ffb {
 	color: #ffb528;
 }
@@ -2473,6 +2599,12 @@ select:-webkit-autofill {
 
 .btn-u {
 	border-radius: 4px;
+	padding: 5px 13px;
+}
+
+.rbx-txt {
+	font-size: 12px;
+	color: #2f3542 !important;
 }
 
 .btn-back {
