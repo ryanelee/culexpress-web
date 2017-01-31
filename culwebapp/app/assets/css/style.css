@@ -2400,19 +2400,19 @@ select:-webkit-autofill {
 	cursor: pointer;
 }
 
-.my-home .dl-horizontal .ques dt {
+.my-home .ques dt {
 	width: 80px;
 	line-height: 2;
 	display: inline-block;
 }
 
-.my-home .dl-horizontal .ques dd {
+.my-home .ques dd {
 	line-height: 2;
 	display: inline-block;
 	margin-left: 10px;
 }
 
-.my-home .dl-horizontal .ques dt .fa {
+.my-home .ques dt .fa {
 	color: #ffb528;
 	font-size: 14px;
 }
@@ -2446,7 +2446,7 @@ select:-webkit-autofill {
 }
 
 .my-home .messages .msg-item {
-	padding: 15px 0;
+	padding: 10px 0;
   display: inline-block;
   width: 100%;
   border-bottom: solid 1px #fff;
@@ -2639,6 +2639,10 @@ select:-webkit-autofill {
 .bg-color-ffb {
 	background: #ffb528 !important;
 	color: #fff;
+}
+
+.my-home .table-search-v1 .row {
+	margin: 0;
 }
 
 .btn-u {

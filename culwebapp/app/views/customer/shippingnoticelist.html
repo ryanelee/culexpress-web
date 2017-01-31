@@ -1,8 +1,11 @@
 ﻿<!-- Begin Content -->
-<div class="row" ng-controller="ShippingNoticeController">
-    <div class="profile-body margin-bottom-20">
-        <div class="headline">
-            <h2>预报记录</h2>
+<div class="row" ng-controller="ShippingNoticeController" style="background-color: #fff;">
+    <div class="profile-body margin-bottom-20 order-list">
+        <div class="common-title">
+          <h2>
+            <i class="fa fa-clock-o"></i>
+            预报记录
+          </h2>
         </div>
         <!--<div class="alert alert-warning fade in alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -18,7 +21,7 @@
             </p>
         </div>-->
         <!--Table Bordered-->
-        <div class="table-search-v1">
+        <div class="table-search-v1" style="padding-top: 20px;">
             <form action="#" id="sky-form" class="sky-form form-inline" novalidate="novalidate">
                 <div class="row">
                     <daterange-search label="预报时间" btn-text="查看历史预报" on-search="rangSearch" allow-empty="true" year-limit="0"></daterange-search>
@@ -26,7 +29,7 @@
                         <label>搜索条目：</label>
                         <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
                         <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" />
-                        <a javascript:void(0) ng-click="searchList()" class="btn-u">查找订单</a>
+                        <a javascript:void(0) ng-click="searchList()" class="btn-u bg-color-ffb">查找订单</a>
                     </div>
                 </div>
                 <div class="row" style="margin-top:15px;">
@@ -34,17 +37,17 @@
                         <label class="pull-left" style="margin-top:5px;">预报状态：</label>
                         <div class="inline-group pull-left">
                             <label class="radio" style="margin-right: 10px; padding-left: 10px; ">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus()" style="font-size:12px">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus()" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.status" value="" /><i class="rounded-x"></i>所有状态
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Intransit')" style="font-size:12px">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Intransit')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.status" value="Intransit" /><i class="rounded-x"></i>未入库
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Inbound')" style="font-size:12px">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Inbound')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.status" value="Inbound" /><i class="rounded-x"></i>已入库
                                 </a>
                             </label>
@@ -60,13 +63,13 @@
                         <tr>
                             <th style="min-width:5px"><input type="checkbox" ng-click="selectAll()" ng-model="selectedAll"></th>
                             <th style="min-width:5px">#</th>
-                            <th style="min-width:10px">操作</th>
                             <th style="min-width:100px">预报快递单号</th>
                             <th style="min-width:100px" class="hidden-sm">运单内容</th>
                             <th style="min-width:100px; max-width:100px; width:100px;">运单备注</th>
                             <th style="min-width:150px">仓库</th>
                             <th style="min-width:130px">预报时间</th>
                             <th style="min-width: 140px; max-width: 140px;width:140px;">货物状态</th>
+                            <th style="min-width:10px">操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,11 +79,6 @@
                                     ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'" />
                             </td>
                             <td>{{shippingNoticeItem.rownumber}}</td>
-                            <td>
-                                <a href="javascript:void(0);">
-                                    <i class="fa fa-trash-o" style="margin-left:5px;color:red" ng-show="shippingNoticeItem.status === 'Intransit'" ng-click="deleteShippingNotice(shippingNoticeItem)"></i>
-                                </a>
-                            </td>
                             <td>{{ shippingNoticeItem.trackingNumber }}</td>
                             <td class="hidden-sm">{{ shippingNoticeItem.packageDescription }}</td>
                             <td title="{{ shippingNoticeItem.packageNote }}" style="word-break:break-all;">{{ shippingNoticeItem.packageNote }}</td>
@@ -104,19 +102,28 @@
                                     <small class="hex">入库重量:{{ shippingNoticeItem.packageWeight }}磅</small>
                                 </p>
                             </td>
+                            <td>
+                              <ul class="list-inline" style="font-size: 15px;">
+                                <li>
+                                  <a href="javascript:void(0);">
+                                      <i class="fa fa-trash-o" style="margin-left:5px;color:red" ng-show="shippingNoticeItem.status === 'Intransit'" ng-click="deleteShippingNotice(shippingNoticeItem)"></i>
+                                  </a>
+                                </li>
+                              </ul>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="row" style="margin-top:20px;">
                 <div class="col-sm-6" style="margin:0;padding:0 10px;">
-                    <a class="btn-u" ui-sref="customer.shippingnotice">
+                    <a class="btn-u bg-color-ffb" ui-sref="customer.shippingnotice">
                         <i class="fa fa-truck"> 货物预报</i>
                     </a>
-                    <a class="btn-u" href="javascript:void(0);" ng-click="redirectToSubmitOrder();">
+                    <a class="btn-u bg-color-ffb" href="javascript:void(0);" ng-click="redirectToSubmitOrder();">
                         <i class="fa fa-shopping-cart"> 提交订单</i>
                     </a>
-                    <a class="btn-u" href="javascript:void(0);" ng-click="redirectToFastOrder();">
+                    <a class="btn-u bg-color-ffb" href="javascript:void(0);" ng-click="redirectToFastOrder();">
                         <i class="fa fa-bolt"> 提交极速原单</i>
                     </a>
                     <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
