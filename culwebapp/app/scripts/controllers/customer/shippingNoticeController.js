@@ -161,9 +161,9 @@ angular
             $scope.selectAll = function () {
                 for (var i = 0, ii = $scope.shippingNoticeList.length; i < ii; i++) {
                     var shippingItem = $scope.shippingNoticeList[i];
-                    //if (shippingItem.status === 'Inbound') {
-                    shippingItem.checked = $scope.selectedAll;
-                    //}
+                    if (shippingItem.status !== 'InOrder' && shippingItem.status !== 'Intransit') {
+                        shippingItem.checked = $scope.selectedAll;
+                    }
                 }
             }
             var isSafeSelected = function () {
@@ -173,6 +173,7 @@ angular
 
                 if (!selectedItems[0]) return true;
                 if (selectedItems.length <= 0) return 0;
+                if (selectedItems.length > 10) return 1;
                 checkedWarehouseNumber = selectedItems[0].warehouseNumber;
 
                 for (var i = 0, ii = selectedItems.length; i < ii; i++) {
@@ -188,6 +189,10 @@ angular
                 if (result === 0) {
                     //SweetAlert.swal('提醒', '请至少选择一条数据。', 'warning');
                     alertify.alert('提醒','请至少选择一条数据!');
+                    return false;
+                }
+                else if(result === 1){
+                    alertify.alert('提醒','一个订单最多允许选择10个包裹!');
                     return false;
                 }
                 else if (result === false) {
@@ -323,6 +328,10 @@ angular
                     orderSvr.selectedShippingItems = selected;
                     $state.go('customer.submitorder');
                 }
+            };
+
+            $scope.redirectToOrderDetail = function (orderNumber) {
+                $state.go('customer.orderdetail', { id: orderNumber });
             }
 
         }]);
