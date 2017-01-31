@@ -4,7 +4,7 @@
         <div class="common-title">
           <h2>
             <i class="fa fa-clock-o"></i>
-            预报记录
+            预报信息
           </h2>
         </div>
         <!--<div class="alert alert-warning fade in alert-dismissable">
@@ -61,15 +61,15 @@
                 <table class="table table-hover table-bordered" style="margin-bottom:0px">
                     <thead>
                         <tr>
-                            <th style="min-width:5px"><input type="checkbox" ng-click="selectAll()" ng-model="selectedAll"></th>
-                            <th style="min-width:5px">#</th>
-                            <th style="min-width:100px">预报快递单号</th>
-                            <th style="min-width:100px" class="hidden-sm">运单内容</th>
-                            <th style="min-width:100px; max-width:100px; width:100px;">运单备注</th>
-                            <th style="min-width:150px">仓库</th>
-                            <th style="min-width:130px">预报时间</th>
-                            <th style="min-width: 140px; max-width: 140px;width:140px;">货物状态</th>
-                            <th style="min-width:10px">操作</th>
+                            <th style="width:30px; min-width: 30px;"><input type="checkbox" ng-click="selectAll()" ng-model="selectedAll"></th>
+                            <th style="width:20px; min-width: 20px;">#</th>
+                            <th>预报快递单号</th>
+                            <th class="hidden-sm">运单内容</th>
+                            <th>运单备注</th>
+                            <th>仓库</th>
+                            <th>预报时间</th>
+                            <th>货物状态</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,30 +86,28 @@
                             <td>{{ shippingNoticeItem.createDate|sysdate}}</td>
                             <td>
                                 <span ng-if="shippingNoticeItem.status === 'InOrder'" class="label label-success">已创建订单</span>
-                                <span ng-if="shippingNoticeItem.status === 'Inbound'" class="label label-info">已入库</span>
+                                <span ng-if="shippingNoticeItem.status === 'Inbound'" class="label label-ru">已入库</span>
                                 <span ng-if="shippingNoticeItem.status === 'Intransit'" class="label label-info">在途中</span>
                                 <span ng-if="shippingNoticeItem.status === 'Onshelf'" class="label label-info">已上架</span>
                                 <span ng-if="shippingNoticeItem.status === 'Offshelf'" class="label label-info">已下架</span>
                                 <p ng-if="shippingNoticeItem.status === 'InOrder'">
                                     <small>
-                                        <i class="fa fa-shopping-cart"></i>
+                                        <!-- <i class="fa fa-shopping-cart"></i> -->
                                         <a href="javascript:void(0)" ng-click="redirectToOrderDetail(shippingNoticeItem.orderNumber);"><u>{{shippingNoticeItem.orderNumber}}</u></a>
                                     </small>
                                 </p>
                                 <p ng-if="shippingNoticeItem.status === 'Inbound'">
-                                    <small class="hex"><i class="fa fa-clock-o"></i> {{ shippingNoticeItem.inboundDate|sysdate}}</small><br>
+                                    <small class="hex">
+                                      <!-- <i class="fa fa-clock-o"></i>  -->
+                                      {{ shippingNoticeItem.inboundDate|sysdate}}</small>
                                     <!--<small class="hex">是否转仓: <span ng-if="shippingNoticeItem.isTransfer">是</span><span ng-if="!shippingNoticeItem.isTransfer">否</span></small><br>-->
                                     <small class="hex">入库重量:{{ shippingNoticeItem.packageWeight }}磅</small>
                                 </p>
                             </td>
                             <td>
-                              <ul class="list-inline" style="font-size: 15px;">
-                                <li>
-                                  <a href="javascript:void(0);">
-                                      <i class="fa fa-trash-o" style="margin-left:5px;color:red" ng-show="shippingNoticeItem.status === 'Intransit'" ng-click="deleteShippingNotice(shippingNoticeItem)"></i>
+                                  <a href="javascript:void(0);" ng-show="shippingNoticeItem.status === 'Intransit'" class="op-btn">
+                                      <i class="fa fa-trash-o" ng-click="deleteShippingNotice(shippingNoticeItem)"></i>
                                   </a>
-                                </li>
-                              </ul>
                             </td>
                         </tr>
                     </tbody>
