@@ -16,7 +16,7 @@ angular.module('culAdminApp')
                 'Karma'
             ];
             $scope.data = {};
-            $scope.warehouseList = [];
+            $scope.warehouseList = [];  
             $scope.flag = '0'
 
 
@@ -34,9 +34,23 @@ angular.module('culAdminApp')
                         return;
                     }
                     if (result.data.code == '000') {
-                        $scope.data.customerNumber = result.data.data[0].customerNumber
+                        $scope.data.tempCustomerNumber = result.data.data[0].customerNumber
+                        console.log($scope.data.tempCustomerNumber);
                     }
                 })
+            }
+
+
+            $scope.checkCustomerNumber = function () {
+                if (!$scope.data.customerNumber) {
+                    plugMessenger.error("客户编号不能为空");
+                    return;
+                }
+                if ($scope.data.tempCustomerNumber != $scope.data.customerNumber) {
+                    plugMessenger.error("客户标识和客户编号对应，请重新输入");
+                    $scope.data.customerNumber = "";
+                    return;
+                }
             }
 
             $scope.checkInboundPackage = function () {
@@ -79,7 +93,9 @@ angular.module('culAdminApp')
             $scope.btnSave = function (trackingNumber) {
                 var _callback = function (result) {
                     if (!result.message) {
-                        $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: trackingNumber, number: 1 });
+                        $scope.$broadcast("print-inboundPackage.action",  trackingNumber);
+                        
+                        // $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: trackingNumber, number: 1 });
                         $scope.data = null;
                     } else {
                         plugMessenger.success("货物预报成功，入库失败，请到收货仓库入库");
@@ -87,6 +103,11 @@ angular.module('culAdminApp')
                 }
                 receiptService.saveForOnline($scope.data, _callback);
             }
+
+
+
+
+
 
 
             $scope.btnSaveAndPrint = function () {
@@ -101,8 +122,8 @@ angular.module('culAdminApp')
                     !$scope.data.customerNumber ||
                     !$scope.data.trackingNumber ||
                     !$scope.data.warehouseNumber ||
-                    !$scope.data.packageWeight ||
-                    !$scope.data.packageDescription) {
+                    !$scope.data.packageWeight
+                ) {
                     plugMessenger.error("请填写所有必填项");
                     return;
                 } else {

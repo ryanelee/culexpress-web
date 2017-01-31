@@ -12,8 +12,8 @@ angular.module('culAdminApp')
         var self = this;
 
         //获取架位
-        self.getDetail = function(shelfNumber, callback) {
-            $http.get(cul.apiPath + "/warehouse/shelf?shelfNumber=" + shelfNumber).success(function(result) {
+        self.getDetail = function(options, callback) {
+            $http.get(cul.apiPath + "/warehouse/shelf?shelfNumber=" + options.shelfNumber + "&warehouseNumber="+ options.warehouseNumber).success(function(result) {
                 callback(result);
             })
         }
@@ -51,6 +51,7 @@ angular.module('culAdminApp')
 
         //库存寄送列表
         self.getTransportList = function(options, callback) {
+            console.log(options);
             $http.post(cul.apiPath + "/item/transport/list", options).success(function(result) {
                 _.each(result.data, function(item) {
                     switch (item.sendType) {

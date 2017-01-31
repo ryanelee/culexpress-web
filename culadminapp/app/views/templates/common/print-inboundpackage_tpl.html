@@ -1,5 +1,5 @@
 ﻿<div style="display:none;">
-    <style>
+<style>
         #printTemplate th {
             text-align: center;
         }
@@ -8,28 +8,40 @@
             padding: 5px;
         }
     </style>
-    <div id="printTemplate">
-        <div>
-            <img src="assets/img/kingadmin-logo.png" />
-            <span>www.culexpress.com</span>
-        </div>
-        <table cellpadding="2" cellspacing="0" border="1" width="280px" ng-repeat="data in dataList">
-            <tr>
-                <th colspan="2"><label style="font-size:40px;">{{data.transactionNumber}}</label></th>
-            </tr>
-            <tr>
-                <td style="text-align:center;">
-                    <img src="/images/fast-ship.png" style="width:30px; height:30px;" ng-if="data.isFastShip == 1" />
-                </td>
-                <td>
-                    <label style="margin-right: 30px;">{{data.receiveIdentity}}</label>
-                    <label>{{data.customerNumber}}</label>
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 80px;text-align:right;">{{data.packageWeight}}</td>
-                <td>{{data.createDate | date:'MM/dd/yyyy HH:mm'}}</td>
-            </tr>
-        </table>
+<div id="printTemplate">
+    <div>
+
+        <img src="assets/img/kingadmin-logo.png" />
+        <span>www.culexpress.com</span>
     </div>
+    <table cellpadding="2" cellspacing="0" border="1" width="280px" ng-repeat="data in dataList">
+        <tr>
+
+
+            <th colspan="2">
+                <label style="font-size:40px;">{{data.transactionNumber}}</label>
+</th>
+
+</tr>
+<tr>
+    <th colspan="2">
+        <div class="barcode" receiptNumber="{{data.receiptNumber}}"></div>
+    </th>
+</tr>
+
+<tr>
+    <td style="text-align:center;">
+<img src="/images/fast-ship.png" style="width:30px; height:30px;" ng-if="data.isFastShip == 1" />
+</td>
+<td>
+    <label style="margin-right: 30px;">{{data.receiveIdentity}}</label>
+<label>{{data.customerNumber}}</label>
+</td>
+</tr>
+<tr>
+    <td style="width: 80px;text-align:right;">{{data.packageWeight}}</td>
+<td>{{data.createDate | date:'MM/dd/yyyy HH:mm'}}</td>
+</tr>
+</table>
+</div>
 </div>
