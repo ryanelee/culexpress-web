@@ -16,7 +16,6 @@ angular.module('culAdminApp')
             $http.get(cul.apiPath + "/item/transport?receiptNumber=" + receiptNumber).success(function(result) {
                 if(result)
                     result._inboundStatus = "";
-                    
                 switch (result.inboundStatus) {
                     case 0:
                         result._inboundStatus = "等待登记";

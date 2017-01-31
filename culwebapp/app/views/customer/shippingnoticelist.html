@@ -59,7 +59,8 @@
                     <thead>
                         <tr>
                             <th style="min-width:5px"><input type="checkbox" ng-click="selectAll()" ng-model="selectedAll"></th>
-                            <th style="min-width:5px">操作</th>
+                            <th style="min-width:5px">#</th>
+                            <th style="min-width:10px">操作</th>
                             <th style="min-width:100px">预报快递单号</th>
                             <th style="min-width:100px" class="hidden-sm">运单内容</th>
                             <th style="min-width:100px; max-width:100px; width:100px;">运单备注</th>
@@ -71,8 +72,10 @@
                     <tbody>
                         <tr ng-repeat="shippingNoticeItem in shippingNoticeList track by shippingNoticeItem.transactionNumber">
                             <td>
-                                <input type="checkbox" style="margin-left:5px" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)">
+                                <input type="checkbox" style="margin-left:5px" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)"
+                                    ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'" />
                             </td>
+                            <td>{{shippingNoticeItem.rownumber}}</td>
                             <td>
                                 <a href="javascript:void(0);">
                                     <i class="fa fa-trash-o" style="margin-left:5px;color:red" ng-show="shippingNoticeItem.status === 'Intransit'" ng-click="deleteShippingNotice(shippingNoticeItem)"></i>
@@ -84,14 +87,21 @@
                             <td>{{ shippingNoticeItem.warehouseName}}</td>
                             <td>{{ shippingNoticeItem.createDate|sysdate}}</td>
                             <td>
-                                <span ng-if="shippingNoticeItem.status === 'Inbound'" class="label label-success">已入库</span>
+                                <span ng-if="shippingNoticeItem.status === 'InOrder'" class="label label-success">已创建订单</span>
+                                <span ng-if="shippingNoticeItem.status === 'Inbound'" class="label label-info">已入库</span>
                                 <span ng-if="shippingNoticeItem.status === 'Intransit'" class="label label-info">在途中</span>
                                 <span ng-if="shippingNoticeItem.status === 'Onshelf'" class="label label-info">已上架</span>
-                                <span ng-if="shippingNoticeItem.status === 'Offshelf'" class="label label-success">已下架</span>
+                                <span ng-if="shippingNoticeItem.status === 'Offshelf'" class="label label-info">已下架</span>
+                                <p ng-if="shippingNoticeItem.status === 'InOrder'">
+                                    <small>
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <a href="javascript:void(0)" ng-click="redirectToOrderDetail(shippingNoticeItem.orderNumber);"><u>{{shippingNoticeItem.orderNumber}}</u></a>
+                                    </small>
+                                </p>
                                 <p ng-if="shippingNoticeItem.status === 'Inbound'">
                                     <small class="hex"><i class="fa fa-clock-o"></i> {{ shippingNoticeItem.inboundDate|sysdate}}</small><br>
-                                    <small class="hex">是否转仓: <span ng-if="shippingNoticeItem.isTransfer">是</span><span ng-if="!shippingNoticeItem.isTransfer">否</span></small><br>
-                                    <small class="hex">运单重量:{{ shippingNoticeItem.packageWeight }}磅</small>
+                                    <!--<small class="hex">是否转仓: <span ng-if="shippingNoticeItem.isTransfer">是</span><span ng-if="!shippingNoticeItem.isTransfer">否</span></small><br>-->
+                                    <small class="hex">入库重量:{{ shippingNoticeItem.packageWeight }}磅</small>
                                 </p>
                             </td>
                         </tr>
