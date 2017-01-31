@@ -1,78 +1,80 @@
 ﻿<!-- Begin Content -->
-<div class="row" ng-controller="ShippingNoticeController">
-    <div class="profile-body margin-bottom-20">
-        <div class="headline">
-            <h2>货物预报</h2>
+<div class="row" ng-controller="ShippingNoticeController" style="background-color: #fff;">
+    <div class="profile-body margin-bottom-20" style="background-color: #fff;">
+        <div class="common-title">
+          <h2>
+            <i class="fa fa-clock-o"></i>
+            货物预报
+          </h2>
         </div>
-        <form class="sky-form">
-            <fieldset>
-                <section>
-                    <label class="label">收货仓库</label>
-                    <label class="select">
-                        <select ng-options="item.warehouseNumber as item.warehouseName for item in warehouses" ng-model="retrieveWarehouseNumber"></select>
-                        <i></i>
-                    </label>
-                </section>
+        <form class="sky-form edit-content">
+            <div class="left-row">
+                <label class="label">收货仓库</label>
+                <label class="select">
+                  <select class="txt-item" ng-options="item.warehouseNumber as item.warehouseName for item in warehouses" ng-model="retrieveWarehouseNumber"></select>
+                  <i class="sel-icon"></i>
+                </label>
+            </div>
+            <div class="right-row">
+              <label class="label">快递名称</label>
+              <label class="select">
+                  <select class="txt-item" ng-options="item.name for item in shippingCarriers track by item.id" ng-model="selectedshippingCarrier"></select>
+                  <i class="sel-icon"></i>
+              </label>
+            </div>
+            <div class="left-row">
+              <label class="label required">运单号码</label>
+              <label class="input">
+                  <i class="icon-prepend fa fa-question-circle"></i>
+                  <input type="text" name="required" class="form-control" ng-model="shippingNotice.trackingNumber">
+                  <b class="tooltip tooltip-bottom-left">请输入您发货到我方仓库的快递运单号码，比如:LZ123456789</b>
+              </label>
+            </div>
+            <div class="right-row">
+              <label class="label required">运单内容</label>
+              <label class="input">
+                  <i class="icon-prepend fa fa-question-circle"></i>
+                  <input type="text" name="required" class="form-control" ng-model="shippingNotice.packageDescription">
+                  <b class="tooltip tooltip-bottom-left">请填写您这个包裹的物品大致名称，例如：手机 ,衣服,维生素</b>
+              </label>
+            </div>
+            <div class="form-group">
+                <label class="label required">包裹重量</label>
+                <label class="input">
+                   <i class="icon-prepend fa fa-question-circle"></i>
+                   <input type="text" name="required" class="txt-item-l" ng-model="shippingNotice.packageWeight">
+                   <b class="tooltip tooltip-bottom-left">请输入包裹重量，如:10</b>
+                </label>
+            </div>
+            <div class="form-group">
+              <label class="label">运单备注信息</label>
+              <label class="textarea">
+                  <i class="icon-append fa fa-comment"></i>
+                  <textarea rows="3" placeholder="请填写您的运单备注信息" class="txt-item-l" ng-model="shippingNotice.packageNote"></textarea>
+              </label>
+              <div class="note">
+                  <i class="fa fa-exclamation-triangle color-ffb"></i><strong>注意:</strong>在网上购物的时候,一定记得写上系统给您分配,由4个字母组成的收件标示,地址后面也要加上客户编号. 以防止在没有做货物预告或者包裹面单破损的情况下,我们仓库收到包裹会根据客户的收件标示和客户编号确认客户信息号.
+              </div>
+            </div>
+            <div class="form-group">
+                <div class="check-style">
+                  <input id="agree-message" class="checkbox-input" type="checkbox" ng-model="shippingNotice.isFastOrder" />
+                  <label for="agree-message"> 极速原箱 </label>
+                </div>
+                <!-- <label class="label"><input type="checkbox" ng-model="shippingNotice.isFastOrder"/> 极速原箱</label> -->
+                <!--<div class="note" ng-show="currentUser.accountBalance<100">
+                    <strong>注意:</strong>您的帐户余额不足100元,我们暂时无法为您提供极速原箱功能,由此给您带来的不便,敬请谅解.
+                </div>-->
 
-                <section>
-                    <label class="label">快递名称</label>
-                    <label class="select">
-                        <select ng-options="item.name for item in shippingCarriers track by item.id" ng-model="selectedshippingCarrier"></select>
-                        <i></i>
-                    </label>
-                </section>
-                <section>
-                    <label class="label required">运单号码</label>
-                    <label class="input">
-                        <i class="icon-prepend fa fa-question-circle"></i>
-                        <input type="text" name="required" ng-model="shippingNotice.trackingNumber">
-                        <b class="tooltip tooltip-bottom-left">请输入您发货到我方仓库的快递运单号码，比如:LZ123456789</b>
-                    </label>
-                </section>
-
-                <section>
-                    <label class="label required">运单内容</label>
-                    <label class="input">
-                        <i class="icon-prepend fa fa-question-circle"></i>
-                        <input type="text" name="required" ng-model="shippingNotice.packageDescription">
-                        <b class="tooltip tooltip-bottom-left">请填写您这个包裹的物品大致名称，例如：手机 ,衣服,维生素</b>
-                    </label>
-                </section>
-                <section ng-show="!!shippingNotice.isFastOrder">
-                    <label class="label required">包裹重量</label>
-                    <label class="input">
-                       <i class="icon-prepend fa fa-question-circle"></i>
-                       <input type="text" name="required" ng-model="shippingNotice.packageWeight">
-                       <b class="tooltip tooltip-bottom-left">请输入包裹重量，如:10</b>
-                    </label>
-                </section>
-                <section>
-                    <label class="label">运单备注信息</label>
-                    <label class="textarea">
-                        <i class="icon-append fa fa-comment"></i>
-                        <textarea rows="3" placeholder="请填写您的运单备注信息" ng-model="shippingNotice.packageNote"></textarea>
-                    </label>
-                    <div class="note">
-                        <strong>注意:</strong>在网上购物的时候,一定记得写上系统给您分配,由4个字母组成的收件标示,地址后面也要加上客户编号. 以防止在没有做货物预告或者包裹面单破损的情况下,我们仓库收到包裹会根据客户的收件标示和客户编号确认客户信息号.
-                    </div>
-                </section>
-
-                <section>
-                    <label class="label"><input type="checkbox" ng-model="shippingNotice.isFastOrder"/> 极速原箱</label>
-                    <!--<div class="note" ng-show="currentUser.accountBalance<100">
-                        <strong>注意:</strong>您的帐户余额不足100元,我们暂时无法为您提供极速原箱功能,由此给您带来的不便,敬请谅解.
-                    </div>-->
-
-                    <div class="note">
-                        <strong>注意:</strong>勾选极速出库，则代表您的包裹第一时间到达仓库后，就有了不一样的极速标示，我们会根据到库称重的重量直接预扣除您的运费，确保在第一时间处理您的包裹，第一时间让您的包裹完成出库.
-                        推荐衣服鞋帽类，适合不易碎的，不需要加固的产品，请务必如实正确填写快递包裹的重量，如果重量低于实际到货称重重量，会造成包裹延误出库。
-                    </div>
-                </section>
-            </fieldset>
+                <div class="note">
+                    <i class="fa fa-exclamation-triangle color-ffb"></i><strong>注意:</strong>勾选极速出库，则代表您的包裹第一时间到达仓库后，就有了不一样的极速标示，我们会根据到库称重的重量直接预扣除您的运费，确保在第一时间处理您的包裹，第一时间让您的包裹完成出库.
+                    推荐衣服鞋帽类，适合不易碎的，不需要加固的产品，请务必如实正确填写快递包裹的重量，如果重量低于实际到货称重重量，会造成包裹延误出库。
+                </div>
+            </div>
             <footer>
                 <div class="row">
                     <div class="col-xs-6">
-                        <button class="btn-u btn-u-red" ng-click="addShippingNotice();">
+                        <button class="btn-u bg-color-ffb" ng-click="addShippingNotice();">
                         <span ng-show="!shippingNotice.isFastOrder">提交信息</span>
                         <span ng-show="!!shippingNotice.isFastOrder">下一步</span>
                         </button>
@@ -80,7 +82,7 @@
                         <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
                     </div>
                     <div class="col-xs-6 text-right">
-                        <a ui-sref="customer.shippingnoticelist"><button class="btn-u btn-u-default"><i class="fa fa-history"> 预报记录</i></button></a>
+                        <a ui-sref="customer.shippingnoticelist"><button class="btn-u bg-color-ffb"><i class="fa fa-history"> 预报记录</i></button></a>
                     </div>
                 </div>
             </footer>

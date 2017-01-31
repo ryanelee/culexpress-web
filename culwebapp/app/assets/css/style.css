@@ -2271,13 +2271,39 @@ select:-webkit-autofill {
 }
 
 .my-home .edit-content .label {
-	margin: 20px 0 10px;
+	margin: 10px 0 5px;
 	color: #767c88;
 	font-size: 12px
 }
 
 .my-home .edit-content .form-control {
 	padding: 10px;
+}
+
+.my-home .edit-content .txt-item {
+	padding: 0 10px;
+	width: 95%;
+}
+
+.my-home .edit-content .txt-item-l {
+	padding: 0 10px;
+	width: 97.5%;
+}
+
+.my-home .edit-content .icon-append {
+	right: 3%;
+}
+
+.my-home .edit-content .note {
+	width: 97.5%;
+}
+
+.my-home .edit-content .note .fa {
+	margin: 0 5px;
+}
+
+.my-home .edit-content .sel-icon {
+	right: 8%;
 }
 
 .my-home .edit-content .left-row .form-control {
@@ -2525,6 +2551,24 @@ select:-webkit-autofill {
 
 .my-home .order-info .item-zhi {
 	background: #f7f9fb url('../../assets/img/dashbard/zhi-bg.png') no-repeat right top;
+}
+
+.my-home .checkbox-input {
+	display: none;
+}
+
+.my-home .checkbox-input+label {
+    display: inline-block;
+    padding-left: 24px;
+    font-size: 14px;
+    height: 16px;
+    line-height: 16px;
+    color: #999;
+		background: url(../../assets/img/dashbard/icon-cbx.png) no-repeat left 1px;
+}
+
+.my-home .checkbox-input:checked+label {
+    background: url(../../assets/img/dashbard/icon-cbx-selected.png) no-repeat left 1px;
 }
 
 .my-home .order-info .item h4 {
