@@ -33,7 +33,7 @@
       <div class="item item-fei">
         <h4>费用明细：</h4>
         <div>
-            <strong><label>包裹重量：</label> <span>{{data.packageWeight|number}}</span></strong>
+            <strong><label>包裹重量：</label> <span>{{data.actualWeight|number : 2}}磅</span></strong>
         </div>
         <div>
             <label>运 &nbsp; &nbsp; &nbsp; 费：</label> <span>{{data.shippingFee|currency:'¥'}}</span>
@@ -45,13 +45,13 @@
             <label>小 &nbsp; &nbsp; &nbsp; 费：</label> <span>{{data.tip|currency:'¥'}}</span>
         </div>
         <div>
-            <label>增值服务：</label> <span>¥0.00</span>
+            <label>增值服务：</label> <span>{{data.valueAddFee|currency:'¥'}}</span>
         </div>
         <div style="color:red;">
-        <label>积分抵扣：</label> <span>¥{{(data.usePoint||0) * -1}}</span>
+        <label>积分抵扣：</label> <span>{{(data.usedPoint||0) * -1 | currency:'￥'}}</span>
         </div>
         <div>
-            <label><strong>运费总计：</strong></label> <span>{{data.totalCount|currency:'¥'}}</span>
+            <strong><label><strong>运费总计：</strong></label> <span>{{(data.totalCount + data.insuranceFee - data.usedPoint)|currency:'¥'}}</span></strong>
         </div>
       </div>
     </div>
@@ -85,8 +85,42 @@
 <div class="col-sm-12">
     <div class="common-title">
       <h2>
-        <i class="fa fa-shopping-cart"></i>
-        包裹明细
+        <i class="fa fa-history"></i>预报信息
+      </h2>
+    </div>
+    <div class="panel-body" style="padding-bottom: 0;">
+        <div class="table-responsive">
+            <table class="table order-detail">
+                <thead>
+                    <tr>
+                        <th>快递单号</th>
+                        <th>快递名称</th>
+                        <th>运单内容</th>
+                        <th>预报时间</th>
+                        <th>入库时间</th>
+                        <th>入库重量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="inboundPackageItem in data.inboundPackages">
+                      <td>{{inboundPackageItem.trackingNumber}}</td>
+                      <td>{{inboundPackageItem.carrierName}}</td>
+                      <td>{{inboundPackageItem.packageDescription}}</td>
+                      <td>{{inboundPackageItem.createDate|date:'yyyy-MM-dd'}}</td>
+                      <td>{{inboundPackageItem.inboundDate|date:'yyyy-MM-dd'}}</td>
+                      <td>{{inboundPackageItem.packageWeight|number:2}}磅</td>
+                    </tr>
+                  </tbody>
+                </table>
+          </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:20px;">
+<div class="col-sm-12">
+    <div class="common-title">
+      <h2>
+        <i class="fa fa-cubes"></i>包裹明细
       </h2>
     </div>
     <div class="panel-body" style="padding-bottom: 0;">
@@ -150,7 +184,7 @@
 <div class="col-sm-12">
   <div class="common-title">
     <h2>
-      <i class="fa fa-commenting"></i>
+      <i class="fa fa-comments"></i>
       订单留言
     </h2>
   </div>

@@ -39,9 +39,20 @@ angular
 
             $scope.usePointChanged = function () {
                 var pointTotal = $scope.$root.currentUser.myPoint;
-                if (!angular.isNumber($scope.data.usePoint) || $scope.data.usePoint <= 0) $scope.data.usePoint = 0;
+
+                if($scope.data.usePoint > 30){
+                    alertify.alert('提示','一次最多允许使用30个积分!');
+                    $scope.data.usePoint = '';
+                    return;
+                }
                 if ($scope.data.usePoint > pointTotal) {
                     $scope.data.usePoint = pointTotal;
+                }
+
+                if (isNaN($scope.data.usePoint) || !angular.isNumber(+$scope.data.usePoint)) {
+                    alertify.alert('提示','积分必须为数字并且必须大于0!');
+                    $scope.data.usePoint = '';
+                    return;
                 }
             }
 
@@ -336,6 +347,7 @@ angular
             var getOrders = function () {
                 //if ($scope.orderItems.length > 0) return $scope.orderItems;
                 var orders = [];
+                $scope.data.declareGoodsValue = 0;
                 if ($scope.outboundPackages && $scope.outboundPackages.length) {
                     for (var i = 0, ii = $scope.outboundPackages.length; i < ii; i++) {
                         var packageItem = $scope.outboundPackages[i],
@@ -344,6 +356,7 @@ angular
                         for (var j = 0, jj = packageItem.orderItems.length; j < jj; j++) {
                             var orderItem = packageItem.orderItems[j];
                             orderItem.packageNumber = packageNumber;
+                            $scope.data.declareGoodsValue += orderItem.quantity * orderItem.unitprice;
                             if (angular.isObject(orderItem.goodsCategory)) {
                                 orderItem.goodsCategory = orderItem.goodsCategory.goodsCategory;
                             }
@@ -642,8 +655,6 @@ angular
                             }
                         
                         //USPS渠道要求收货人姓名必须为英文/拼音,地址为拼音
-                        console.log($scope.data.shipServiceItem.requireEnglish4Name);
-                        console.log($scope.data.shipServiceItem.requireEnglish4Address);
                         if(addressItem != undefined
                             && $scope.data.shipServiceItem != undefined
                             && $scope.data.shipServiceItem.requireEnglish4Name === 1
@@ -673,7 +684,6 @@ angular
                             return false;
                         }
                     }
-
 
                     //if (getShippingAddressNumber().length <= 0) {
                     //    SweetAlert.swal('提示', '必须选择至少一个收货地址!', 'warning');

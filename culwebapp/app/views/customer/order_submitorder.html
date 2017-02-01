@@ -84,6 +84,9 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="note">
+                                    请选择您需要的转运服务类别，点击下一步继续您的订单，在订单提交前，您可以审核和修改你的订单。
+                                </div>
                             </div>
                         </li>
                         <li>
@@ -94,6 +97,34 @@
                                     <div class="alert alert-warning fade in alert-dismissable">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                         <strong>温馨提示:</strong>请如实填写购买商品名称及数量，错误申报会造成海关扣件或退件！一个地址建议每天发送一个包裹!
+                                        <a data-toggle="modal" data-target="#moreInfoModal">详细信息...</a>
+                                        <!--<button class="btn-u" data-toggle="modal" data-target=".bs-example-modal-lg">查看详细信息</button>-->
+                                        <div class="modal fade" tabindex="-1" id="moreInfoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" style="right:0px">×</button>
+                                                        <h4 class="modal-title">温馨提示</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            请大家下单时如实详细填写每一个商品的商品品牌，商品品名描述以及各个商品数量，商品的单价，
+                                                            申报价值最终会自动计算，大家只要填写每样物品的单价即可。
+                                                            如申报内件物品和实际不符，很容易造成海关的扣货，延误，丢失，本公司将不承担此类责任！
+                                                        </p>
+                                                        <br>
+                                                        <p>
+                                                            注意:不要填写礼物，生活用品，宝宝用品这类含糊字眼，品名一定要详细，比如衣服不能笼统填写衣服，
+                                                            具体是皮衣，毛衣，衬衫等等，鞋子不能只填写鞋子，必须是运动鞋，皮鞋，靴子，拖鞋等。
+                                                            具体品牌也尽可能填写正确，填写英文即可,不要胡乱填写，数量也一定要按照正确实际情况填写.
+                                                        </p>
+                                                        <p>
+                                                            注意:USPS渠道禁止使用拼音填写品名，拼音品名无法通过美国海关申报，会产生退运的情况。USPS渠道的收件地址可以用拼音填写即可。
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <table class="table table-hover table-bordered">
                                         <thead>
@@ -224,6 +255,9 @@
                                         <textarea class="form-control" rows="3" ng-model="data.priceAdjustMemo"></textarea>
                                     </div>
                                 </div>
+                                <div class="note">
+                                    请选择收货地址和如实填写商品描述，点击下一步继续您的订单，在订单最终提交前，您依旧可以审核和修改你的订单。
+                                </div>
                             </div>
                         </li>
                         <li>
@@ -232,7 +266,7 @@
                                 <div class="col-sm-4">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-jpy"></i></span>
-                                        <input type="number" class="form-control" aria-label="申报价值 (to the nearest dollar)" ng-model="data.declareGoodsValue" ng-change="calculateFee('insuranceMark');">
+                                        <input type="number" class="form-control" aria-label="申报价值 (to the nearest dollar)" ng-model="data.declareGoodsValue" disabled ng-change="calculateFee('insuranceMark');">
 
                                     </div>
                                 </div>
@@ -257,7 +291,7 @@
                                     <input type="text" ng-model="data.usePoint" class="form-control" ng-change="usePointChanged()" />
                                 </div>
                                 <div class="col-sm-2" style="padding-top:6px;">
-                                    <span>(剩余积分：0)</span>
+                                    <span>剩余积分：({{(currentUser.myPoint||0)|number}}) </span>
                                 </div>
                             </div>
                             <div class="form-group row" style="margin:5px 15px">
@@ -280,6 +314,16 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="form-group row" style="margin:5px 15px">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <div class="alert alert-danger fade in">
+                                        <strong>说明:</strong> CULEXPRESS 提供拆包，合并服务，但是没有清点和核对包裹的义务，由于美国各类官网经常出现漏发，错发包裹，合并包裹，拆分包裹很难界定责任方，
+                                            如果您选择拆包，合包服务，包裹内件出现缺失，CULEXPRESS不承担任何责任，提交订单即代表您同意和认可这项条例。
+                                        <a href="#" target="_blank">详细条例...</a>
+                                    </div>                
+                                </div>
+                            </div>
                             <hr>
                             <div class="form-group row">
                                 <div class="col-sm-4"></div>
@@ -288,33 +332,33 @@
                                         <thead>
                                             <tr>
                                                 <th style="text-align:right">包裹重量(磅)</th>
-                                                <th style="text-align:left">{{countFee.packageWeight|number}}</th>
+                                                <th style="text-align:center">{{countFee.packageWeight|number:2}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td style="text-align:right">运费:</td>
-                                                <td style="text-align:left">{{countFee.shippingFee|currency:'¥'}}</td>
+                                                <td style="text-align:center">{{countFee.shippingFee|currency:'¥'}}</td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align:right">购买保险:</td>
-                                                <td style="text-align:left">{{countFee.insuranceFee|currency:'¥'}}</td>
+                                                <td style="text-align:center">{{countFee.insuranceFee|currency:'¥'}}</td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align:right">小费:</td>
-                                                <td style="text-align:left">{{countFee.tip|currency:'¥'}}</td>
+                                                <td style="text-align:center">{{countFee.tip|currency:'¥'}}</td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align:right">增值服务:</td>
-                                                <td style="text-align:left">¥0</td>
+                                                <td style="text-align:center">￥0.00</td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align:right; color:red;">积分抵扣:</td>
-                                                <td style="text-align: left; color: red;">¥{{(data.usePoint||0) * -1}}</td>
+                                                <td style="text-align: center; color: red;">{{(data.usePoint||0) * -1|currency:'￥'}}</td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align:right"><strong>总计费用:</strong></td>
-                                                <td style="text-align:left"><strong>{{countFee.totalCount|currency:'¥'}}</strong></td>
+                                                <td style="text-align:center"><strong>{{countFee.totalCount|currency:'¥'}}</strong></td>
                                             </tr>
                                         </tbody>
                                     </table>
