@@ -9,7 +9,7 @@
             <div class="panel-body margin-bottom-20">
                 <div class="row media-body ques">
                     <div class="col-md-4">
-                        <dl class="dl-horizontal">
+                        <dl class="dl-horizontal ques">
                             <dt><i class="fa fa-barcode"></i> 问题编号:</dt>
                             <dd>{{data.messageNumber}}</dd><br/>
                             <dt><i class="fa fa-clock-o"></i> 生成日期:</dt>
@@ -21,7 +21,7 @@
                         </dl>
                     </div>
                     <div class="col-md-4">
-                        <dl class="dl-horizontal">
+                        <dl class="dl-horizontal ques">
                             <dt><i class="fa fa-cube"></i> 当前状态:</dt>
                             <dd>{{data.status}}
                                 <span class="label label-info" ng-if="data.status==0">处理中</span>
@@ -40,7 +40,7 @@
                         </dl>
                     </div>
                     <div class="col-md-4">
-                        <dl class="dl-horizontal">
+                        <dl class="dl-horizontal ques">
                           <dt><i class="fa fa-reorder"></i> 问题类别:</dt>
                           <dd>
                               <span ng-repeat="questionCategoryItem in questionCatgories" ng-if="questionCategoryItem.typeID==data.messageType">

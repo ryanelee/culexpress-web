@@ -55,6 +55,7 @@ angular.module('culwebApp')
                             stepId = activeItems.data('step');
                             currentIndex = stepId;
                         } else if (activeItems.length === 0) {
+                            wizards.removeClass('step1').removeClass('step2').removeClass('step3').addClass('step'+currentIndex);
                             $(wizardSteps.get(currentIndex - 1)).addClass('active');
                         } else {
 
@@ -62,7 +63,7 @@ angular.module('culwebApp')
 
                         if ($rootScope.wizardOptions.wizardComplete) {
                             for (var i = 1, ii = $rootScope.wizardOptions.wizardComplete; i < ii; i++) {
-                                $(wizardSteps.get(i - 1)).removeClass('active').addClass('complete');
+                                $(wizardSteps.get(i - 1)).removeClass('active').addClass('complete').find('.number').find('span').html('<i class="fa fa-check"></i>');
                             }
                         }
 
@@ -86,8 +87,9 @@ angular.module('culwebApp')
                         if (canNext()) {
                             viewport.find('.step-' + currentIndex.toString()).hide();
                             currentIndex++;
-                            wizards.find('.active').addClass('complete');
+                            wizards.find('.active').addClass('complete').find('.number').find('span').html('<i class="fa fa-check"></i>');
                             wizards.find('.active').removeClass('active');
+                            wizards.removeClass('step1').removeClass('step2').removeClass('step3').addClass('step'+currentIndex);
                             wizardSteps.eq(currentIndex - 1).addClass('active');
                             activeStep();
                             initFooterButtomStatus();
@@ -99,8 +101,9 @@ angular.module('culwebApp')
                         if (canPrev()) {
                             viewport.find('.step-' + currentIndex.toString()).hide();
                             currentIndex--;
-                            wizards.find('.active').addClass('complete');
+                            wizards.find('.active').addClass('complete').find('.number').find('span').html('<i class="fa fa-check"></i>');
                             wizards.find('.active').removeClass('active');
+                            wizards.removeClass('step1').removeClass('step2').removeClass('step3').addClass('step'+currentIndex);
                             wizardSteps.eq(currentIndex - 1).addClass('active');
                             activeStep();
                             initFooterButtomStatus();
@@ -112,8 +115,9 @@ angular.module('culwebApp')
                             var preResult = preJump && preJump();
                             if (preResult === false) return false;
                             viewport.find('.step-' + currentIndex.toString()).hide();
-                            wizards.find('.active').addClass('complete');
+                            wizards.find('.active').addClass('complete').find('.number').find('span').html('<i class="fa fa-check"></i>');
                             wizards.find('.active').removeClass('active');
+                            wizards.removeClass('step1').removeClass('step2').removeClass('step3').addClass('step'+currentIndex);
                             wizardSteps.eq(index - 1).addClass('active');
                             activeStep();
                             initFooterButtomStatus();
@@ -201,7 +205,7 @@ angular.module('culwebApp')
 
                             if ($scope.options.sequenced !== false) {
                                 if (!$(this).hasClass('hide')) {
-                                    $(this).prepend('<div class="number">' + (i + 1) + '.</div>');
+                                    $(this).prepend('<div class="number"><span>' + (i + 1) + '</span></div>');
                                 }
                             }
                         });

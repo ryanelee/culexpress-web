@@ -22,7 +22,7 @@ angular.module('culAdminApp')
               $scope.warehouseList = result;
           });
 
-          shelfService.getDetail($location.search().shelfNumber, function (result) {
+          shelfService.getDetail({ warehouseNumber: $location.search().warehouseNumber, shelfNumber: $location.search().shelfNumber }, function (result) {
               $scope.data = result;
 
               var warehouse = _.findWhere($scope.warehouseList,
@@ -33,7 +33,7 @@ angular.module('culAdminApp')
           $scope.btnAction = function (type, item) {
               switch (type) {
                   case "detail":
-                      $location.search({ itemNumber: item.itemNumber });
+                      $location.search({ warehouseNumber: item.warehouseNumber, itemNumber: item.itemNumber });
                       $location.path("/warehouse/inventorydetail");
                       break;
               }

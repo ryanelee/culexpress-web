@@ -2272,13 +2272,39 @@ select:-webkit-autofill {
 }
 
 .my-home .edit-content .label {
-	margin: 20px 0 10px;
+	margin: 10px 0 5px;
 	color: #767c88;
 	font-size: 12px
 }
 
 .my-home .edit-content .form-control {
 	padding: 10px;
+}
+
+.my-home .edit-content .txt-item {
+	padding: 0 10px;
+	width: 95%;
+}
+
+.my-home .edit-content .txt-item-l {
+	padding: 0 10px;
+	width: 97.5%;
+}
+
+.my-home .edit-content .icon-append {
+	right: 3%;
+}
+
+.my-home .edit-content .note {
+	width: 97.5%;
+}
+
+.my-home .edit-content .note .fa {
+	margin: 0 5px;
+}
+
+.my-home .edit-content .sel-icon {
+	right: 8%;
 }
 
 .my-home .edit-content .left-row .form-control {
@@ -2375,19 +2401,19 @@ select:-webkit-autofill {
 	cursor: pointer;
 }
 
-.my-home .dl-horizontal .ques dt {
+.my-home .ques dt {
 	width: 80px;
 	line-height: 2;
 	display: inline-block;
 }
 
-.my-home .dl-horizontal .ques dd {
+.my-home .ques dd {
 	line-height: 2;
 	display: inline-block;
 	margin-left: 10px;
 }
 
-.my-home .dl-horizontal .ques dt .fa {
+.my-home .ques dt .fa {
 	color: #ffb528;
 	font-size: 14px;
 }
@@ -2421,7 +2447,7 @@ select:-webkit-autofill {
 }
 
 .my-home .messages .msg-item {
-	padding: 15px 0;
+	padding: 10px 0;
   display: inline-block;
   width: 100%;
   border-bottom: solid 1px #fff;
@@ -2448,6 +2474,10 @@ select:-webkit-autofill {
 	height: 36px;
 	line-height: 36px;
 	vertical-align: center;
+}
+
+.profile .table th {
+	min-width: 50px;
 }
 
 .profile .panel-heading {
@@ -2484,14 +2514,28 @@ select:-webkit-autofill {
     border: solid 2px #ffb528;
 }
 
-.my-home .order-list td small .label {
+.my-home .order-list td .label {
 	border-radius: 10px;
+	display: inline-block;
+  margin-top: 5px;
+}
+
+.my-home .order-list td .op-btn {
+	background-color: #607eae;
+  padding: 2px 8px;
+  color: #fff;
+  border-radius: 10px;
 }
 
 .my-home .order-list td small u {
 	text-decoration: none;
 	font-size: 14px;
 	font-weight: bold;
+}
+
+.my-home .label-ru {
+	background-color: #a6d13f;
+	color: #fff;
 }
 
 .my-home .order-list .list-inline li {
@@ -2526,6 +2570,24 @@ select:-webkit-autofill {
 
 .my-home .order-info .item-zhi {
 	background: #f7f9fb url('../../assets/img/dashbard/zhi-bg.png') no-repeat right top;
+}
+
+.my-home .checkbox-input {
+	display: none;
+}
+
+.my-home .checkbox-input+label {
+    display: inline-block;
+    padding-left: 24px;
+    font-size: 14px;
+    height: 16px;
+    line-height: 16px;
+    color: #999;
+		background: url(../../assets/img/dashbard/icon-cbx.png) no-repeat left 1px;
+}
+
+.my-home .checkbox-input:checked+label {
+    background: url(../../assets/img/dashbard/icon-cbx-selected.png) no-repeat left 1px;
 }
 
 .my-home .order-info .item h4 {
@@ -2589,6 +2651,134 @@ select:-webkit-autofill {
 	text-align: center;
 }
 
+.my-home .wizard-wrap {
+	margin-top: 20px;
+}
+
+.my-home .wizard-wrap ul.wizard > li.active {
+	background: #ffb528 !important;
+	color: #fff;
+}
+
+.my-home .wizard-wrap ul.step1 {
+	background:linear-gradient(0,rgb(255,181,40) 37%,rgb(225,225,225) 37%);
+	background:-o-linear-gradient(0,rgb(255,181,40) 37%,rgb(225,225,225) 37%);
+	background:-moz-linear-gradient(0,rgb(255,181,40) 37%,rgb(225,225,225) 37%);
+	background:-webkit-linear-gradient(0,rgb(255,181,40) 37%,rgb(225,225,225) 37%);
+}
+
+
+.my-home .wizard-wrap ul.step2 {
+	background:linear-gradient(0,rgb(255,208,117) 37%,rgb(255,181,40) 37%,rgb(225,225,225) 70%);
+	background:-o-linear-gradient(0,rgb(255,208,117) 37%,rgb(255,181,40) 37%,rgb(225,225,225) 70%);
+	background:-moz-linear-gradient(0,rgb(255,208,117) 37%,rgb(255,181,40) 37%,rgb(225,225,225) 70%);
+	background:-webkit-linear-gradient(0,rgb(255,208,117) 37%,rgb(255,181,40) 37%,rgb(225,225,225) 70%);
+}
+
+
+.my-home .wizard-wrap ul.step3 {
+	background:linear-gradient(0,rgb(255,208,117) 70%,rgb(255,181,40) 70%);
+	background:-o-linear-gradient(0,rgb(255,208,117) 70%,rgb(255,181,40) 70%);
+	background:-moz-linear-gradient(0,rgb(255,208,117) 70%,rgb(255,181,40) 70%);
+	background:-webkit-linear-gradient(0,rgb(255,208,117) 70%,rgb(255,181,40) 70%);
+}
+
+.my-home .wizard-wrap ul.wizard > li.complete {
+	background-color: #ffd075;
+}
+
+.my-home .wizard-wrap ul.wizard > li.complete .number {
+	background-color: #fff !important;
+}
+
+.my-home .wizard-wrap ul.wizard > li.complete .fa {
+	color: #8bde39;
+}
+
+.my-home .wizard-wrap ul.wizard {
+	display: inline-block;
+	/*background-color: #e1e1e1;*/
+	box-sizing: border-box;
+	clear: both;
+	margin: 0;
+	padding: 0;
+	height: 70px;
+	border-radius: 35px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.my-home .wizard-wrap ul.wizard > li {
+	display: inline-block;
+	list-style: none;
+	width: 33.3%;
+	min-width: 33%;
+	float: left;
+	color: #fff;
+	background-color: transparent;
+	border-radius: 35px !important;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.my-home .wizard-wrap ul.wizard > li > .title {
+	margin-top: 7px;
+}
+
+.my-home .wizard-wrap ul.wizard > li > .title > h2 {
+	margin: 0;
+	color: #fff;
+}
+
+.my-home .wizard-wrap ul.wizard > li > .title .subtitle {
+	color: #fff;
+	margin-top: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+}
+
+.my-home .wizard-wrap ul.wizard > li .number {
+	display: inline-block;
+	width: 70px;
+	height: 70px;
+	border: solid 5px #fff;
+	border-radius: 50%;
+}
+
+.my-home .wizard-wrap ul.wizard > li.active .number > span {
+	border: solid 5px #ffb528;
+	border-radius: 50%;
+	background-color: #fff;
+	color: #ffb528 !important;
+}
+
+.my-home .wizard-wrap ul.wizard > li .number > span {
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	border: solid 5px #bfbfbf;
+	border-radius: 50%;
+	background-color:#e1e1e1;
+	color: #bfbfbf;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+.my-home .wizard-wrap > footer button {
+	background-color: #ffb528 !important;
+}
+
+.my-home .wizard-wrap > footer button.btn-u.btn-u-default {
+	background: #95a5a6 !important;
+}
+
+.my-home .wizard-wrap > footer button[disabled] {
+	background-color: #ffd075 !important;
+}
+
 .color-ffb {
 	color: #ffb528;
 }
@@ -2596,6 +2786,15 @@ select:-webkit-autofill {
 .bg-color-ffb {
 	background: #ffb528 !important;
 	color: #fff;
+}
+
+.bg-color-ffd {
+	background: #ffd075 !important;
+	color: #fff;
+}
+
+.my-home .table-search-v1 .row {
+	margin: 0;
 }
 
 .btn-u {
