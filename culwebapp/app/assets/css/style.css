@@ -2444,6 +2444,16 @@ select:-webkit-autofill {
 	background-color: #f7f9fb;
 	padding: 0 20px 0 40px;
 	margin-left: 30px;
+	width: 96%;
+	box-sizing: border-box;
+}
+
+.my-home .s-title {
+	font-size: 14px;
+	color: #000;
+	border-left: solid 2px #ffb528;
+	padding-left: 5px;
+	margin-bottom: 12px;
 }
 
 .my-home .messages .msg-item {
@@ -2576,6 +2586,12 @@ select:-webkit-autofill {
 	display: none;
 }
 
+.my-home .td-m {
+	width: 14%;
+	padding: 10px 0;
+	text-align: center;
+}
+
 .my-home .checkbox-input+label {
     display: inline-block;
     padding-left: 24px;
@@ -2621,13 +2637,21 @@ select:-webkit-autofill {
 		border-top: none;
 }
 
-.my-home .table-responsive {
-	border-top: solid 1px #e3e3e3;
-}
-
 .my-home .msg-item {
 	border-bottom: 1px solid #fff;
 	padding: 10px 15px;
+}
+
+.my-home .icon-kdx {
+	position: absolute;
+	display: inline-block;
+	top: 5px;
+	right: 10px;
+	width: 20%;
+}
+
+.my-home .nob-td {
+	border: 0;
 }
 
 .my-home .msg-item .msg-txt {
@@ -2745,6 +2769,7 @@ select:-webkit-autofill {
 	height: 70px;
 	border: solid 5px #fff;
 	border-radius: 50%;
+	background: #fff;
 }
 
 .my-home .wizard-wrap ul.wizard > li.active .number > span {
@@ -2785,6 +2810,11 @@ select:-webkit-autofill {
 
 .bg-color-ffb {
 	background: #ffb528 !important;
+	color: #fff;
+}
+
+.bg-color-607 {
+	background: #607eae !important;
 	color: #fff;
 }
 
