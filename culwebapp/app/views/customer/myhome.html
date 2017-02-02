@@ -18,7 +18,7 @@
                               <div class="name-location">
                                   <strong>{{ currentUser.userName }}</strong>
                                   <span>
-                                      <i class="fa fa-map-marker"></i><span ng-show="isLackProfile">没有填写联系地址</span>
+                                      <i class="fa fa-map-marker"></i><span style="color:black" ng-show="isLackProfile">没有填写联系地址</span>
                                       <a href="javascript:void();" ng-hide="isLackProfile">{{ currentUser.countryName }} {{ currentUser.stateOrProvince }} {{ currentUser.city }}</a>
                                   </span>
                               </div>

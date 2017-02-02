@@ -205,13 +205,15 @@
                         name: '我的问题',
                         icon: 'fa fa-question-circle',
                         route: 'customer.myquestions'
-                    }, {
-                        leaf: true,
-                        key: 'charges',
-                        name: '资费标准',
-                        icon: 'fa fa-jpy',
-                        route: 'pricing'
-                    }, {
+                    }, 
+                    // {
+                    //     leaf: true,
+                    //     key: 'charges',
+                    //     name: '资费标准',
+                    //     icon: 'fa fa-jpy',
+                    //     route: 'pricing'
+                    // }, 
+                    {
                         leaf: true,
                         key: 'manual',
                         name: '使用流程',

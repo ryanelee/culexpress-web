@@ -160,7 +160,9 @@
                                   <span>{{packageItem.address.address1}}</span>
                                   <span>{{packageItem.address.zipcode}}</span>
                                   <span style="float:right" ng-if="data.orderStatus==='Unpaid'">
-                                  <a href="javascript:void(0)" ng-click="redirectToAddressInfo(packageItem.address)" style="color:#2c41bf;">修改地址</a>
+                                      <a class="btn-u bg-color-ffb" style="padding: 1px 5px; color: #fff; margin-left: 20px;" ng-click="redirectToAddressInfo(packageItem.address)">
+                                      <i class="fa fa-pencil"></i> 修改地址</a>
+                                  <!--<a href="javascript:void(0)" ng-click="redirectToAddressInfo(packageItem.address)" style="color:#2c41bf;">修改地址</a>-->
                                   </span>
                                   <a class="btn-u bg-color-ffb" style="padding: 1px 5px; color: #fff; margin-left: 20px;" ui-sref="ordertracking({trackingNumber:'{{packageItem.trackingNumber}}'})">
                                   <i class="fa fa-truck"></i> 查看包裹轨迹</a>

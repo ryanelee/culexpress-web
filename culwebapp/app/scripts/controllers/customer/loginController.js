@@ -52,7 +52,13 @@ angular
 
                         $scope.$root.currentUser = result.data;
 
-                        $rootScope.isLackProfile = !result.data.firstName || !result.data.lastName;
+                        var lackNames = false;
+                        if((result.data.firstName == null || result.data.firstName == undefined)
+                        && (result.data.lastName == null || result.data.lastName == undefined)){
+                            lackNames = true;
+                        }
+
+                        $rootScope.isLackProfile = lackNames;
                         $rootScope.isLogined = true;
 
 
