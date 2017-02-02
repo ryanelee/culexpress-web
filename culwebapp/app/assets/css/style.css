@@ -59,6 +59,7 @@ button,
 button:hover {
 	outline: 0 !important;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 a:focus {
