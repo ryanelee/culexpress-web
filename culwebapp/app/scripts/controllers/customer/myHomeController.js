@@ -76,26 +76,25 @@ angular
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             })
-            .success(function (result) {
-                if (result && result.filePath) {
-                    var avatarUrl = cul.apiHost + (result.filePath || '').replace(new RegExp('\\\\', 'g'), '/'),
+            .then(function (result) {
+                if (result && result.data && result.data.filePath) {
+                    var avatarUrl = cul.apiHost + (result.data.filePath || '').replace(new RegExp('\\\\', 'g'), '/'),
                         userData = $.extend(true, {}, $scope.currentUser);
 
                     if (!!result.url) avatarUrl = result.url;
 
                     $.extend(userData, {
                         photoUrl: avatarUrl,
-                        photo: result.filePath
+                        photo: result.data.filePath
                     });
 
                     Customer.updateCustomerProfile(userData, function (data) {
-                        if (data && data.success) {
+                        if (data && data.data && data.data.success) {
                             $('#userPhotoModal').modal('hide');
                         }
                     })
                 }
-            })
-            .error(function () {
+            },function () {
             });
 
         }
