@@ -129,12 +129,11 @@
                                 <td>
                                     <div class="btn-group" style="margin-top:5px;">
                                         <ul class="list-inline" style="min-width:100px;font-size:15px;">
-                                            <li ng-click="payOrder(rowItem);">
-                                                <a href="javascript:void(0)" ng-if="rowItem.orderStatus==='Unpaid' || rowItem.orderStatus==='Arrears'" title="支付订单" data-original-title="支付订单"><i class="fa fa-credit-card"></i></a>
+                                            <li ng-click="payOrder(rowItem);" ng-if="rowItem.orderStatus==='Unpaid' || rowItem.orderStatus==='Arrears'" >
+                                                <a href="javascript:void(0)" title="支付订单" data-original-title="支付订单"><i class="fa fa-credit-card"></i></a>
                                             </li>
-                                            <li ng-click="deleteOrder(rowItem.orderNumber)">
-                                                <a href="javascript:void(0)" ng-if="!rowItem.isFastOrder&&rowItem.orderStatus!=='Paid'" title="删除订单" data-original-title="删除订单"><i class="fa fa-trash-o"></i></a>
-                                                <a href="javascript:void(0)" ng-if="!!rowItem.isFastOrder&&(rowItem.orderStatus!=='Shipped'||rowItem.orderStatus!=='PartialShipped')" title="删除订单" data-original-title="删除订单"><i class="fa fa-trash-o"></i></a>
+                                            <li ng-click="deleteOrder(rowItem.orderNumber)" ng-if="(!rowItem.isFastOrder&&rowItem.orderStatus!=='Paid') || (!!rowItem.isFastOrder&&(rowItem.orderStatus!=='Shipped'||rowItem.orderStatus!=='PartialShipped'))" >
+                                                <a href="javascript:void(0)" title="删除订单" data-original-title="删除订单"><i class="fa fa-trash-o"></i></a>
                                             </li>
                                             <li>
                                                 <a href="http://wpa.qq.com/msgrd?v=3&uin=189525378&site=qq&menu=yes" class="tooltips" data-toggle="tooltip" title="联系客服"

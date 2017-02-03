@@ -88,7 +88,7 @@
                         leaf: true,
                         key: 'forecastInfo',
                         name: '预报信息',
-                        icon: 'fa fa-history',
+                        icon: 'fa fa-compass',
                         route: 'customer.shippingnoticelist'
                     }, {
                         leaf: true,
@@ -156,7 +156,7 @@
                         leaf: true, //叶子节点（有父节点）
                         key: 'balance',
                         name: '我的余额',
-                        icon: 'fa fa-university',
+                        icon: 'fa fa-yen',
                         route: 'customer.myfinance'
                     }, {
                         leaf: true, //叶子节点（有父节点）
@@ -169,28 +169,28 @@
 
                 }, {
                     key: 'setting',
-                    icon: 'fa fa-gears',
+                    icon: 'fa fa-cogs',
                     name: '个人设置',
                     toggle: true,
                     childs: [{
                         leaf: true,
                         key: 'questions',
                         name: '我的信息',
-                        icon: 'fa fa-question-circle',
+                        icon: 'fa fa-list-alt',
                         route: 'customer.myaccount',
                         stateParams: {anchorid:'profile'}
                     }, {
                         leaf: true,
                         key: 'passwordTab',
                         name: '修改密码',
-                        icon: 'fa fa-jpy',
+                        icon: 'fa fa-lock',
                         route: 'customer.myaccount',
                         stateParams: {anchorid:'passwordTab'}
                     }, {
                         leaf: true,
                         key: 'addressbook',
                         name: '收货地址',
-                        icon: 'fa fa-graduation-cap',
+                        icon: 'fa fa-map-marker',
                         route: 'customer.myaccount',
                         stateParams: {anchorid:'addressbook'}
                     }]
@@ -203,22 +203,28 @@
                         leaf: true,
                         key: 'questions',
                         name: '我的问题',
-                        icon: 'fa fa-question-circle',
+                        icon: 'fa fa-clock-o',
                         route: 'customer.myquestions'
-                    }, 
-                    // {
-                    //     leaf: true,
-                    //     key: 'charges',
-                    //     name: '资费标准',
-                    //     icon: 'fa fa-jpy',
-                    //     route: 'pricing'
-                    // }, 
+                    },
+                    {
+                        leaf: true,
+                        key: 'charges',
+                        name: '资费标准',
+                        icon: 'fa fa-yen',
+                        route: 'pricing'
+                    },
                     {
                         leaf: true,
                         key: 'manual',
                         name: '使用流程',
-                        icon: 'fa fa-question-circle',
+                        icon: 'fa fa-graduation-cap',
                         route: 'howtouse'
+                    },{
+                        leaf: true,
+                        key: 'askquestion',
+                        name: '在线咨询',
+                        icon: 'fa fa-comment',
+                        route: 'customer.askquestion'
                     }]
                 }];
                 //为了方便实现，这里直接设置数组的第一个元素为默认选中元素

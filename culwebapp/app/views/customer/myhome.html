@@ -47,7 +47,7 @@
         </div>
         <div class="col-md-4 col-sm-6">
           <strong class="user-name" data-ng-bind="currentUser.userName"></strong>
-          <div class="progress" style="height: 8px;border-radius:5px;margin-bottom: 5px;">
+          <div class="progress" style="height: 8px;border-radius:5px;margin-bottom: 5px; margin-top: 10px;">
               <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
                     aria-valuenow="{{model.userProfilePercent}}" aria-valuemin="0" aria-valuemax="100"
                    style="width:{{ model .userProfilePercent; }}%;">
@@ -68,7 +68,7 @@
                 <i class="fa fa-map-marker"></i><span class="address" ng-show="isLackProfile">没有填写联系地址</span>
                 <span class="address" ng-hide="isLackProfile">{{ currentUser.countryName }} {{ currentUser.stateOrProvince }} {{ currentUser.city }}</span>
             </span>
-            <span style="margin-left: 20px;">注册邮箱:<span data-ng-bind="currentUser.emailAddress"></span></span>
+            <span style="margin-left: 20px;">注册邮箱:<span style="margin-left: 5px;" data-ng-bind="currentUser.emailAddress"></span></span>
           </div>
         </div>
         <div class="col-md-4 hidden-xs hidden-sm">

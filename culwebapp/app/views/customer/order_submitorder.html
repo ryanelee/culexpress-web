@@ -297,28 +297,28 @@
                                 <div class="col-sm-4">
                                     <input type="text" ng-model="data.usePoint" class="form-control" ng-change="usePointChanged()" />
                                 </div>
-                                <div class="col-sm-2" style="padding-top:6px;">
+                                <div class="col-sm-4" style="padding-top:6px;">
                                     <span>剩余积分：({{(currentUser.myPoint||0)|number}}) </span>
                                 </div>
                             </div>
                             <div class="form-group row" style="margin:5px 15px">
                                 <div class="col-sm-2"><label class="label">增值服务：</label></div>
                                 <div class="col-sm-8">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_takeoutInvoice" /> 取出发票
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_urgentProcess" /> 加急处理
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_steadyInner" /> 内件加固
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_replaceCarton" /> 更换外箱
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_removeInner" /> 去除内件
-                                    </label>
+                                    <a href="javascript:void(0)">
+                                      <input id="agree-message" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_takeoutInvoice" />
+                                      <label for="agree-message"> 取出发票 </label></a>
+                                    <a href="javascript:void(0)" class="pk-item">
+                                      <input id="pack_urgentProcess" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_urgentProcess" />
+                                      <label for="pack_urgentProcess"> 加急处理 </label></a>
+                                    <a href="javascript:void(0)" class="pk-item">
+                                      <input id="pack_steadyInner" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_steadyInner" />
+                                      <label for="pack_steadyInner"> 内件加固 </label></a>
+                                    <a href="javascript:void(0)" class="pk-item">
+                                      <input id="pack_replaceCarton" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_replaceCarton" />
+                                      <label for="pack_replaceCarton"> 更换外箱 </label></a>
+                                    <a href="javascript:void(0)" class="pk-item">
+                                      <input id="pack_removeInner" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_removeInner" />
+                                        <label for="pack_removeInner"> 去除内件 </label></a>
                                 </div>
                             </div>
                             <img src="../../assets/img/dashbard/icon-kdx.png" class="icon-kdx" />
@@ -350,7 +350,7 @@
                                     <td class="td-m">{{countFee.insuranceFee|currency:'¥'}}</td>
                                     <td class="td-m">{{countFee.tip|currency:'¥'}}</td>
                                     <td class="td-m">¥0.00</td>
-                                    <td class="td-m">¥{{(data.usePoint||0) * -1|currency:'￥'}}</td>
+                                    <td class="td-m">{{(data.usePoint||0) * -1|currency:'￥'}}</td>
                                     <td class="td-m"><strong>{{countFee.totalCount|currency:'¥'}}</strong></td>
                                   </tr>
                                 </tbody>

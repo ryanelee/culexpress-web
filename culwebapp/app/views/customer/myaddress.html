@@ -177,19 +177,19 @@
               <label class="label">收货地址</label>
               <div class="row">
                   <div class="col-sm-3">
-                      <select class="form-control" ng-options="province as province.name for province in provinces" ng-model="search.province"
+                      <select style="padding: 0 10px;" class="form-control" ng-options="province as province.name for province in provinces" ng-model="search.province"
                           ng-change="getCity();">
                           <option>请选择省份</option>
                       </select>
                   </div>
                   <div class="col-sm-3">
-                      <select class="form-control" ng-options="city as city.name for city in citys" ng-model="search.city"   ng-change="getArea();">
+                      <select style="padding: 0 10px;" class="form-control" ng-options="city as city.name for city in citys" ng-model="search.city"   ng-change="getArea();">
                           <option>请选择城市</option>
                       </select>
                   </div>
 
                   <div class="col-sm-3">
-                      <select class="form-control" ng-options="area as area.name for area in areas" ng-model="search.area">
+                      <select style="padding: 0 10px;" class="form-control" ng-options="area as area.name for area in areas" ng-model="search.area">
                           <option>请选择区</option>
                       </select>
                   </div>

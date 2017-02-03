@@ -1966,6 +1966,10 @@ select:-webkit-autofill {
 	color: #fff;
 }
 
+.my-dashboard .address-item:hover li .fa-check-circle {
+	color: #a7eb16;
+}
+
 .my-dashboard .address-item:hover .short-name {
 	border-radius: 50%;
 	border: solid 1px #fff;
@@ -2604,6 +2608,31 @@ select:-webkit-autofill {
 
 .my-home .checkbox-input:checked+label {
     background: url(../../assets/img/dashbard/icon-cbx-selected.png) no-repeat left 1px;
+}
+
+.my-home .pk-item {
+	margin-left: 5px;
+}
+
+.my-home .pk-checkbox-input {
+	display: none;
+}
+
+.my-home .pk-checkbox-input+label {
+    display: inline-block;
+    padding-left: 15px;
+    font-size: 12px;
+    height: 12px;
+    line-height: 12px;
+    color: #999;
+    background: url(../../assets/img/dashbard/icon-cbx.png) no-repeat left top;
+    background-size: 12px 12px;
+    font-weight: 400;
+}
+
+.my-home .pk-checkbox-input:checked+label {
+    background: url(../../assets/img/dashbard/icon-cbx-selected.png) no-repeat left top;
+		background-size: 12px 12px;
 }
 
 .my-home .order-info .item h4 {

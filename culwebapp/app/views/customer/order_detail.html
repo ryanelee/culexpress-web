@@ -93,12 +93,12 @@
             <table class="table order-detail">
                 <thead>
                     <tr>
-                        <th>快递单号</th>
-                        <th>快递名称</th>
-                        <th>运单内容</th>
-                        <th>预报时间</th>
-                        <th>入库时间</th>
-                        <th>入库重量</th>
+                        <th class="text-center">快递单号</th>
+                        <th class="text-center">快递名称</th>
+                        <th class="text-center">运单内容</th>
+                        <th class="text-center">预报时间</th>
+                        <th class="text-center">入库时间</th>
+                        <th class="text-center">入库重量</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -129,28 +129,30 @@
             <table class="table order-detail">
                 <thead>
                     <tr>
-                        <th>包裹编号</th>
-                        <th>商品品牌</th>
-                        <th>商品描述</th>
-                        <th>数量</th>
-                        <th>申报价值</th>
-                        <th>合计</th>
+                        <th class="text-center">包裹编号</th>
+                        <th class="text-center">商品品牌</th>
+                        <th class="text-center">商品描述</th>
+                        <th class="text-center">数量</th>
+                        <th class="text-center">申报价值</th>
+                        <th class="text-center">合计</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="packageItem in data.outboundPackages">
-                        <th style="vertical-align: middle; text-align: left;">
+                        <th style="vertical-align: middle; text-align: center;">
                           <a ui-sref="ordertracking({trackingNumber:'{{packageItem.trackingNumber}}'})" style="font-size:12px;">
                           {{packageItem.trackingNumber}}</a>
+                          <a class="btn-u bg-color-ffb" style="padding: 1px 5px; color: #fff; margin-top: 5px;" ui-sref="ordertracking({trackingNumber:'{{packageItem.trackingNumber}}'})">
+                          <i class="fa fa-truck"></i> 查看包裹轨迹</a>
                         </th>
                         <td colspan="5" style="padding: 0;">
                           <table class="table" style="margin-bottom: 0;">
                               <tr ng-repeat="orderItem in packageItem.items">
-                                  <td>{{orderItem.itemBrand}}</td>
-                                  <td>{{orderItem.description}}</td>
-                                  <td>{{orderItem.quantity}}</td>
-                                  <td>{{orderItem.unitprice|currency}}</td>
-                                  <td>{{(orderItem.quantity*orderItem.unitprice)|currency}}</td>
+                                  <td style="width: 20%;">{{orderItem.itemBrand}}</td>
+                                  <td style="width: 20%;">{{orderItem.description}}</td>
+                                  <td style="width: 20%;">{{orderItem.quantity}}</td>
+                                  <td style="width: 20%;">{{orderItem.unitprice|currency}}</td>
+                                  <td style="width: 20%;">{{(orderItem.quantity*orderItem.unitprice)|currency}}</td>
                               </tr>
                               <tr style="border-bottom: 0;">
                                 <td colspan="5" style="text-align: left;">
@@ -164,8 +166,7 @@
                                       <i class="fa fa-pencil"></i> 修改地址</a>
                                   <!--<a href="javascript:void(0)" ng-click="redirectToAddressInfo(packageItem.address)" style="color:#2c41bf;">修改地址</a>-->
                                   </span>
-                                  <a class="btn-u bg-color-ffb" style="padding: 1px 5px; color: #fff; margin-left: 20px;" ui-sref="ordertracking({trackingNumber:'{{packageItem.trackingNumber}}'})">
-                                  <i class="fa fa-truck"></i> 查看包裹轨迹</a>
+
                                 </td>
                               </tr>
                             </table>
