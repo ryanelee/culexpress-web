@@ -206,13 +206,13 @@
                         icon: 'fa fa-clock-o',
                         route: 'customer.myquestions'
                     },
-                    {
-                        leaf: true,
-                        key: 'charges',
-                        name: '资费标准',
-                        icon: 'fa fa-yen',
-                        route: 'pricing'
-                    },
+                    // {
+                    //     leaf: true,
+                    //     key: 'charges',
+                    //     name: '资费标准',
+                    //     icon: 'fa fa-yen',
+                    //     route: 'pricing'
+                    // },
                     {
                         leaf: true,
                         key: 'manual',
