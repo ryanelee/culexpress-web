@@ -14,7 +14,9 @@
                 </div>
                 <div class="search-col">
                     <label class="search-label">发货仓库：</label>
-                    <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                    <select class="form-control search-control"
+                            ng-model="searchBar.warehouseNumber"
+                            ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
                 </div>
                 <div class="search-col">
                     <label class="search-label">库存：</label>
@@ -24,16 +26,20 @@
                         <option value="=">等于</option>
                         <option value="<">小于</option>
                     </select>
-                    <input class="form-control search-control" style="width:100px;" ng-model="searchBar.inventoryConditionValue" ng-show="searchBar.inventoryCondition != ''"
-                    />
+                    <input class="form-control search-control" style="width:100px;" ng-model="searchBar.inventoryConditionValue" ng-show="searchBar.inventoryCondition != ''" />
                 </div>
                 <div class="search-col">
                     <label class="search-label">商品主类别：</label>
-                    <select class="form-control search-control" ng-model="searchBar.categoryId" ng-change="changeCategory()" ng-options="item.cateid as item.name for item in searchBar.categoryList"></select>
+                    <select class="form-control search-control"
+                            ng-model="searchBar.categoryId"
+                            ng-change="changeCategory()"
+                            ng-options="item.cateid as item.name for item in searchBar.categoryList"></select>
                 </div>
                 <div class="search-col">
                     <label class="search-label">商品子类别：</label>
-                    <select class="form-control search-control" ng-model="searchBar.categorySubId" ng-options="item.cateid as item.name for item in searchBar.categorySubList"></select>
+                    <select class="form-control search-control"
+                            ng-model="searchBar.categorySubId"
+                            ng-options="item.cateid as item.name for item in searchBar.categorySubList"></select>
                 </div>
                 <!--<div class="search-col">
                     <label class="search-label">创建时间：</label>
@@ -48,21 +54,27 @@
                 <div class="search-col">
                     <label class="search-label">创建时间：起</label>
                     <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate"
-                            is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true"
-                        />
+                        <input type="text" class="form-control search-control" style="width:110px;"
+                               uib-datepicker-popup
+                               ng-model="searchBar.startDate"
+                               is-open="searchBar.opened.startDate"
+                               show-button-bar="false"
+                               ng-click="searchBar.opened.startDate = true" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
                         </span>
                     </p>
                 </div>
                 <div class="search-col">
-                    <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
+                <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
                     <label class="search-label">至</label>
                     <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate"
-                            is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true"
-                        />
+                        <input type="text" class="form-control search-control" style="width:110px;"
+                               uib-datepicker-popup
+                               ng-model="searchBar.endDate"
+                               is-open="searchBar.opened.endDate"
+                               show-button-bar="false"
+                               ng-click="searchBar.opened.endDate = true" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
                         </span>
@@ -85,8 +97,7 @@
                         <option value="upccode">UPC</option>
                         <option value="customerNumber">客户编号</option>-->
                     </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords"
-                    />
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                 </div>
             </div>
@@ -95,35 +106,8 @@
             <div class="col-sm-12">
                 <table class="table table-bordered">
                     <thead>
-
-
-
-
-
-
-
-
-                        <!--纠正库存:进入改行商品的纠正库存页面-->
-
-
-
-
                         <tr>
                             <th>序号</th>
-                            <th>客户编号</th>
-                            <th>客户ID</th>
-                            <th>客户标识</th>
-                            <th>商品编号</th>
-                            <th>商品描述</th>
-                            <th>架位编号</th>
-                            <th>入库类型</th>
-                            <th>收货单号</th>
-                            <th>库存</th>
-                            <th>冻结库存</th>
-                            <th>创建日期</th>
-                            <th>入库人员</th>
-                            <th>操作</th>
-                            <!--<th>序号</th>
                             <th>商品编号</th>
                             <th>UPC</th>
                             <th>品牌</th>
@@ -132,36 +116,21 @@
                             <th>属性2</th>
                             <th>库存</th>
                             <th>冻结库存</th>
-                            <th>创建日期</th>-->
+                            <th>创建日期</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in dataList">
                             <td>{{item.rownumber}}</td>
-                            <td>{{item.customerNumber}}</td>
-                            <td>{{item.userName}}</td>
-                            <td>{{item.receiveIdentity}}</td>
                             <td><a href="javascript:void(0);" ng-click="btnAction('detail', item)">{{item.itemNumber}}</a></td>
-
-                            <td>{{item.description}}</td>
-                            <td>{{"架位编号"}}</td>
-                            <td>{{"入库类型"}}</td>
-                            <td>{{"收货单号"}}</td>
-                            <td><a href="javascript:void(0);" ng-click="btnAction('logs', item)">{{item.inventory}}</a></td>
-                            <td><a href="javascript:void(0);" ng-click="btnAction('frozen', item)">{{item.inventory_frozen}}</a></td>
-                            <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                             <td>{{"入库人员"}}</td>
-                            <td><a href="javascript:void(0);" ng-click="">纠正库存</a></td>
-                           
-                           
-                            <!--<td>{{item.upccode}}</td>
+                            <td>{{item.upccode}}</td>
                             <td>{{item.brand}}</td>
                             <td>{{item.description}}</td>
                             <td><span ng-show="item.properties[0]">{{item.properties[0].propertyName + ': ' + item.properties[0].propertyValue}}</span></td>
-                            <td><span ng-show="item.properties[1]">{{item.properties[1].propertyName + ': ' + item.properties[1].propertyValue}}</span></td>-->
-                            <!--<td><a href="javascript:void(0);" ng-click="btnAction('logs', item)">{{item.inventory}}</a></td>
-                            <td><a href="javascript:void(0);" ng-click="btnAction('frozen', item)">{{item.inventory_frozen}}</a></td>-->
-                            <!--<td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>-->
+                            <td><span ng-show="item.properties[1]">{{item.properties[1].propertyName + ': ' + item.properties[1].propertyValue}}</span></td>
+                            <td><a href="javascript:void(0);" ng-click="btnAction('logs', item)">{{item.inventory}}</a></td>
+                            <td><a href="javascript:void(0);" ng-click="btnAction('frozen', item)">{{item.inventory_frozen}}</a></td>
+                            <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -169,11 +138,19 @@
         </div>
         <div class="row">
             <div class="col-sm-6 text-right pull-right">
-                <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount"
-                    items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页"
-                    next-text="下一页" first-text="首页" last-text="尾页">
-                    </uib-pagination>
-                    <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                <uib-pagination class="pagination pagination-rewrite pull-right"
+                                boundary-links="true"
+                                max-size="5"
+                                total-items="pagination.totalCount"
+                                items-per-page="pagination.pageSize"
+                                ng-model="pagination.pageIndex"
+                                ng-change="getData()"
+                                previous-text="上一页"
+                                next-text="下一页"
+                                first-text="首页"
+                                last-text="尾页">
+                </uib-pagination>
+                <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
