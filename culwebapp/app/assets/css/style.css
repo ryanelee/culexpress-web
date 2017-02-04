@@ -2028,9 +2028,7 @@ select:-webkit-autofill {
   width: 36px;
   z-index: 7;
 }
-.float-window div.scroll-top {
-  /*display: none;*/
-}
+
 .float-window div {
   position: relative;
   width: 36px;
@@ -2081,7 +2079,6 @@ select:-webkit-autofill {
   transition: all 0.5s;
 }
 
-
 .float-window div:hover p {
   width: 85px;
   left: -85px;
@@ -2089,6 +2086,29 @@ select:-webkit-autofill {
 
 .float-window div:hover a {
   background-color: #98abcc !important;
+}
+
+.upload-id {
+	padding: 40px;
+}
+
+.upload-id .headline h2 {
+    border-bottom: 2px solid #ffb528;
+}
+
+.upload-id .fa-warning {
+	color: #ffb528;
+	margin-right: 5px;
+}
+
+.upload-id .remark {
+	margin-top: 5px;
+}
+
+.upload-id .btn-primary {
+    color: #fff;
+    background-color: #ffb528;
+    border-color: #ffb528;
 }
 
 .my-dashboard .ffb{
