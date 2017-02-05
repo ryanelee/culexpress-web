@@ -77,9 +77,47 @@
         <li><i class="rounded-x gm fa fa-envelope"></i> <a ui-sref="customer.askquestion">在线咨询</a></li>
         <li>
             <i class="rounded-x gm fa fa-gift"></i> <a ui-sref="register({reference:currentUser.customerNumber})" target="_blank">好友推荐</a>
-            <a class="tooltips" data-toggle="tooltip" data-original-title="请复制新页面地址发送给好友注册,每邀请一位好友成功注册,双方均可获得运费奖励.">
-                <i class="rounded-x gm fa fa-question"></i>
+            <a id="copyReference" class="tooltips" data-toggle="tooltip" data-original-title="点击复制链接发送给好友注册即可获得运费奖励."
+                data-clipboard-text="{{referURL}}">
+                <i class="rounded-x gm fa fa-clipboard"></i>
+                <script>
+                    var btn = document.getElementById('copyReference');
+                    var clipboard = new Clipboard(btn);
+                    // clipboard.on('success', function(e) {
+                    //     console.log(e);
+                    // });
+                    // clipboard.on('error', function(e) {
+                    //     console.log(e);
+                    // });
+                </script>
             </a>
+             <!--JiaThis Button BEGIN -->
+            <!--<div class="jiathis_style">
+            <span class="jiathis_txt">分享到：</span>
+            <a class="jiathis_button_qzone"></a>
+            <a class="jiathis_button_tsina"></a>
+            <a class="jiathis_button_tqq"></a>
+            <a class="jiathis_button_renren"></a>
+            </div>
+            <script type="text/javascript" >
+
+            var scope = angular.element($('[ng-controller=MyHomeController]')).scope();
+            console.log(scope.referURL);
+
+            var jiathis_config={
+                siteNum:6,
+                sm:"tsina,weixin,qzone,tqq,cqq,renren",
+                url:"http://www.culexpress.com",
+                summary:"邀请好友加入中美速递注册即可各得￥20运费",
+                title:"中美速递邀请好友各得￥20运费 #中美速递邀请好友各得￥20运费#",
+                shortUrl:false,
+                hideMore:false
+            }
+            </script>
+            <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js" charset="utf-8"></script>-->
+            <!-- JiaThis Button END -->
+
+
         </li>
       </ul>
     </div>

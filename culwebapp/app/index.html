@@ -248,7 +248,7 @@
                     <a ui-sref="about">关于友米</a>
                     <a ui-sref="news">最新信息</a>
                     <a ui-sref="links">友情链接</a>
-                    <a href="#/about#partners">合作伙伴</a>
+                    <a ui-sref="about({'#':'partners'})">合作伙伴</a>
                   </div>
                   <div class="col-md-3 col-xs-6 col-sm-4">
                     <span class="col-title">关于友米</span>
@@ -426,6 +426,7 @@
     <script src="bower_components/jquery-migrate/jquery-migrate.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/bootstrap-fileinput/js/fileinput.min.js"></script>
+    <script src="bower_components/clipboard/dist/clipboard.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/assets.js -->

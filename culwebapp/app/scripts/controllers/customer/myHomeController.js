@@ -23,6 +23,7 @@ angular
         _refreshUser();
 
         $rootScope.isLogined = true;
+        $scope.referURL = $window.location.origin + "/#/register/" + $scope.currentUser.customerNumber;
 
 
         $scope.source = {
