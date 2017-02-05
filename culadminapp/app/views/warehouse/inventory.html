@@ -12,6 +12,13 @@
                         <button type="button" class="btn btn-primary role" data-role="66" style="margin-left:5px;" ng-click="btnAction('logs')">库存修改日志</button>
                     </div>
                 </div>
+                 <div class="search-col">
+                    <label class="search-label">入库类型：</label>
+                    <select class="form-control search-control" ng-options="sendType.key as sendType.value for sendType in sendTypes" ng-model="searchBar.sendType">
+                       
+                    </select>
+                </div>
+
                 <div class="search-col">
                     <label class="search-label">发货仓库：</label>
                     <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
@@ -73,14 +80,21 @@
 
 
                     <label class="search-label">搜索条目：</label>
-                    <select class="form-control search-control">
-                        <option value="itemNumber">转运单号</option>
+                    <select class="form-control search-control" ng-model="searchBar.keywordType">
+
+                        <option value="receiptNumber">收货单号</option>
+                        <option value="userName">客户ID</option>
+                        <option value="customerNumber">客户编号</option>
+                        <!--<option value="receiveIdentity">客户标识</option>-->
+                        <option value="shelfNumber">架位编号</option>
+                        <!--<option value="itemNumber">入库人员</option>-->
+                        <!--<option value="itemNumber">转运单号</option>
                         <option value="itemNumber">客户编号</option>
                         <option value="itemNumber">客户标示</option>
                         <option value="itemNumber">客户id</option>
                         <option value="itemNumber">仓位编号</option>
                         <option value="itemNumber">转仓</option>
-                        <option value="itemNumber">入库人员</option>
+                        <option value="itemNumber">入库人员</option>-->
                         <!--<option value="itemNumber">商品编号</option>
                         <option value="upccode">UPC</option>
                         <option value="customerNumber">客户编号</option>-->
@@ -144,14 +158,14 @@
                             <td><a href="javascript:void(0);" ng-click="btnAction('detail', item)">{{item.itemNumber}}</a></td>
 
                             <td>{{item.description}}</td>
-                            <td>{{"架位编号"}}</td>
-                            <td>{{"入库类型"}}</td>
-                            <td>{{"收货单号"}}</td>
+                            <td>{{item.shelfNumber}}</td>
+                            <td>{{item._sendType}}</td>
+                            <td>{{item.receiptNumber}}</td>
                             <td><a href="javascript:void(0);" ng-click="btnAction('logs', item)">{{item.inventory}}</a></td>
                             <td><a href="javascript:void(0);" ng-click="btnAction('frozen', item)">{{item.inventory_frozen}}</a></td>
                             <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                              <td>{{"入库人员"}}</td>
-                            <td><a href="javascript:void(0);" ng-click="">纠正库存</a></td>
+                            <td><a href="javascript:void(0);" ng-click="btnAction('adjust',item)">纠正库存</a></td>
                            
                            
                             <!--<td>{{item.upccode}}</td>

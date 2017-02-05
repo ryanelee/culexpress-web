@@ -19,6 +19,7 @@ angular.module('culAdminApp')
 
       self.getInfo = function (itemNumber, callback) {
           $http.get(cul.apiPath + "/item/info?itemNumber=" + itemNumber).success(function (result) {
+              console.log(result);
               callback(result);
           })
       }
