@@ -19,7 +19,6 @@ angular
 
 
             $scope.login = function () {
-              console.log('aaaaaa')
                 if ($('.state-error').length > 0) return;
                 var loginData = {
                     emailAddress: $scope.emailAddress,

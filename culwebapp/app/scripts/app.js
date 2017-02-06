@@ -350,6 +350,16 @@ angular
                     templateUrl: 'views/about.html',
                     controller: function () { }
                 })
+                .state('links', {
+                    url: '/links',
+                    templateUrl: 'views/links.html',
+                    controller: function () { }
+                })
+                .state('news', {
+                    url: '/news',
+                    templateUrl: 'views/news.html',
+                    controller: function () { }
+                })
                 .state('terms', {
                     url: '/terms',
                     templateUrl: 'views/terms.html'
