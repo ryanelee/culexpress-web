@@ -38,7 +38,7 @@
                   <b class="tooltip tooltip-bottom-left">请填写您这个包裹的物品大致名称，例如：手机 ,衣服,维生素</b>
               </label>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-show="!!shippingNotice.isFastOrder">
                 <label class="label required">包裹重量</label>
                 <label class="input">
                    <i class="icon-prepend fa fa-question-circle"></i>
