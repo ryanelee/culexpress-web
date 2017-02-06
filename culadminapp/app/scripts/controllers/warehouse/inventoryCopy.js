@@ -16,14 +16,6 @@ angular.module('culAdminApp')
                 'Karma'
             ];
 
-            $scope.sendTypes = [
-                { key: "", value: "全部" },
-                { key: 1, value: "寄送库存" },
-                { key: 2, value: "海淘包裹" },
-                { key: "3", value: "异常包裹" },
-                { key: "4", value: "员工包裹" },
-            ]
-
             $scope.dataList = [];
             $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
 
@@ -79,7 +71,7 @@ angular.module('culAdminApp')
             var _filterOptions = function () {
                 var _options = {
                     "pageInfo": $scope.pagination,
-                    "dateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
+                    "dateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate): "",
                     //   "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
                     "dateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : "",
                     //   "dateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : "",
@@ -87,14 +79,6 @@ angular.module('culAdminApp')
                 if (!!$scope.searchBar.categoryId) {
                     _options["itemCategory"] = $scope.searchBar.categoryId;
                 }
-
-                if (!!$scope.searchBar.sendType) {
-                    _options["sendType"] = $scope.searchBar.sendType;
-                }
-                if (!!$scope.searchBar.isUnusual) {
-                    _options["isUnusual"] = $scope.searchBar.isUnusual;
-                }
-
                 if (!!$scope.searchBar.categorySubId) {
                     _options["itemSubCategory"] = $scope.searchBar.categorySubId;
                 }
@@ -128,59 +112,12 @@ angular.module('culAdminApp')
 
             $scope.getData = function () {
                 inventoryService.getList(_filterOptions(), function (result) {
-
-                     var __data = result.data;
-                    var _data = [];
-
-                    if (!$scope.searchBar.isUnusual && $scope.searchBar.sendType == 2) {
-                        __data.map(function (e) {
-                            if (e.isUnusual != 1 && e.isUnusual != 2) {
-                                _data.push(e);
-                            }
-                        })
-                    } else {
-                        _data = __data;
-                    }
-
-
-
-
-
-                    
+                    var _data = result.data;
+                    console.log(_data);
                     if (parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function (x) {
-                            return $scope.customer_ids.split(",").includes(x.customerNumber);
+                              return $scope.customer_ids.split(",").includes(x.customerNumber);
                         });
-                    }
-                    _data.forEach(function (e) {
-                        if (e.sendType == 2) {
-                            e._sendType = "海淘包裹"
-                        }
-                        if (e.sendType == 1) {
-                            e._sendType = "寄送库存"
-                        }
-                        if (e.sendType == 2 && e.isUnusual == 1) {
-                            e._sendType = "员工包裹"
-                        }
-                        if (e.sendType == 2 && e.isUnusual == 2) {
-                            e._sendType = "异常包裹"
-                        }
-                    })
-
-
-
-
-
-
-
-                     if ($scope.searchBar.isUnusual == 2) {
-                        console.log("12"+2)
-                        $scope.searchBar.sendType = $scope.sendTypes[3].key;
-                        console.log($scope.sendTypes[3]);
-                    }
-                      if ($scope.searchBar.isUnusual == 1) {
-                           console.log("11"+1)
-                        $scope.searchBar.sendType =  $scope.sendTypes[4].key;
                     }
 
                     $scope.dataList = _data;
@@ -192,19 +129,6 @@ angular.module('culAdminApp')
             $scope.getData();
 
             $scope.btnSearch = function () {
-                console.log("开始执行查询语句")
-
-                if ($scope.searchBar.sendType == 3) {
-                    $scope.searchBar.isUnusual = 2;
-                    $scope.searchBar.sendType = 2;
-                }
-                if ($scope.searchBar.sendType == 4) {
-                    $scope.searchBar.isUnusual = 1;
-                    $scope.searchBar.sendType = 2;
-                }
-
-
-
                 $scope.selectedListCache = [];
                 $scope.dataList = [];
                 $scope.pagination.pageIndex = 1;

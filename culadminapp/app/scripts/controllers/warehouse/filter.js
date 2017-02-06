@@ -6,4 +6,12 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     return function (input) {
         return adviceStatus[input] || input;
     };
+}).filter('_sendType', function () {
+    var sendType = {
+        "1": "大客户",
+        "2": "海淘客户"
+    };
+    return function (input) {
+        return sendType[input] || input;
+    };
 })
