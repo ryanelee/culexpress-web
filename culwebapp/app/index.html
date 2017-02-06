@@ -5,9 +5,10 @@
     <meta charset="utf-8">
     <title>中美速递 - 海淘服务专家</title>
     <meta name="Keywords" content="海淘|转运|国外购物|代购|代收|CUL|CULEXPRESS|第三方物流|EMS|UCS">
+    <meta name="site" content="www.culexpress.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="中美速递 CUL(CHINA UNITED LOGISTIC)是中美运输权威,我们的服务人员皆拥有多年处理中美之间空海运进出口的经验,多个国内口岸,特推 国际包裹不限重量,不限数量,不限地址,一次为您安全送到府上,更提供OR免税州地址,为广大商家提供贴心服务,我们的优势就是您信赖 CUL中美速递 的理由.">
-    <meta name="author" content="">
+    <meta name="author" content="culexpress.com">
     <link rel="shortcut icon" href="favicon.ico">
     <!--[if lt IE 9]><link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/css/sky-forms-ie8.css"><![endif]-->
     <!--<link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>-->
@@ -15,6 +16,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/bootstrap-fileinput/css/fileinput.min.css" />
+    <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/assets.css -->
@@ -52,7 +54,6 @@
 
     <link rel="stylesheet" href="assets/css/custom.css" />
 
-
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css" />
@@ -63,6 +64,7 @@
     <!--alertifyjs-->
     <link rel="stylesheet" href="assets/js/plugins/alertifyjs/css/alertify.min.css" />
     <link rel="stylesheet" href="assets/js/plugins/alertifyjs/css/themes/default.min.css" />
+    <link rel="stylesheet" href="assets/plugins/social-share.js/dist/css/share.min.css">
 </head>
 
 <body ng-app="culwebApp" ng-controller="IndexController">
@@ -365,11 +367,20 @@
                     <div class="row">
                         <span class="footer-site-remark pull-left">
                             <script>document.write((new Date()).getFullYear());</script> © culexpress.com. All Rights Reserved.
-                        </span>
-                        <span class="footer-site-remark pull-right">
                             <a href="#/faq">Privacy Policy</a> |
                             <a href="#/terms" target="_blank">Terms of Service</a> |
                             <a href="#/jobs" target="_blank">Jobs</a>
+                        </span>
+                        <span class="footer-site-remark pull-right">
+                           <div class="social-share" 
+                           data-disabled="google,facebook,twitter,diandian,linkedlin,douban"
+                           data-weibo-title="中美速递 CUL(CHINA UNITED LOGISTIC)是中美运输权威,我们的服务人员皆拥有多年处理中美之间空海运进出口的经验,
+                           多个国内口岸,特推 国际包裹不限重量,不限数量,不限地址,一次为您安全送到府上,更提供OR免税州地址,为广大商家提供贴心服务,我们的优势就是您信赖 CUL中美速递 的理由."
+                           data-tencent-title="中美速递 CUL(CHINA UNITED LOGISTIC)是中美运输权威,我们的服务人员皆拥有多年处理中美之间空海运进出口的经验,
+                           多个国内口岸,特推 国际包裹不限重量,不限数量,不限地址,一次为您安全送到府上,更提供OR免税州地址,为广大商家提供贴心服务,我们的优势就是您信赖 CUL中美速递 的理由."
+                           data-description="中美速递 CUL(CHINA UNITED LOGISTIC)是中美运输权威,我们的服务人员皆拥有多年处理中美之间空海运进出口的经验,
+                           多个国内口岸,特推 国际包裹不限重量,不限数量,不限地址,一次为您安全送到府上,更提供OR免税州地址,为广大商家提供贴心服务,我们的优势就是您信赖 CUL中美速递 的理由.">
+                          </div>
                         </span>
                 </div>
           </div>
@@ -378,7 +389,7 @@
       <div class="float-window">
         <div>
           <a href="http://wpa.qq.com/msgrd?v=3&uin=189525376&site=qq&menu=yes" target="_blank" class="show-icon">
-            <i class="fa fa-qq"></i>
+            <i class="fa fa-comments"></i>
           </a>
           <p>
             <a href="http://wpa.qq.com/msgrd?v=3&uin=189525376&site=qq&menu=yes" target="_blank">QQ咨询</a>
@@ -397,7 +408,7 @@
             <i class="fa fa-phone"></i>
           </a>
           <p>
-            <a target="_blank">626-542-3266</a>
+            <a href="tel:6265423266">626-542-3266</a>
           </p>
         </div>
         <div class="scroll-top">
@@ -427,6 +438,8 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/bootstrap-fileinput/js/fileinput.min.js"></script>
     <script src="bower_components/clipboard/dist/clipboard.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/assets.js -->
@@ -447,6 +460,7 @@
     <script type="text/javascript" src="assets/js/plugins/sweetalert.js"></script>
     <script type="text/javascript" src="assets/js/plugins/alertifyjs/alertify.min.js"></script>
     <script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
+    <script type="text/javascript" src="assets/plugins/social-share.js/dist/js/social-share.min.js"></script>
     <script type="text/javascript" src="assets/js/custom.js"></script>
     <script type="text/javascript" src="assets/js/app.js"></script>
     <script type="text/javascript" src="assets/js/plugins/owl-carousel.js"></script>
@@ -511,6 +525,7 @@
     <script src="scripts/controllers/customer/questiondetail.js"></script>
     <script src="scripts/directives/stepwizard.js"></script>
     <script src="scripts/directives/daterangesearch.js"></script>
+    <script src="scripts/directives/datetimepicker.js"></script>
     <script src="scripts/directives/menu.js"></script>
     <script src="assets/js/www-umiex-com-Google-analytics.js"></script>
     <!-- endbuild -->
@@ -527,5 +542,4 @@
     <![endif]-->
 
 </body>
-
 </html>
