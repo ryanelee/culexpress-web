@@ -28,8 +28,16 @@ angular.module('culAdminApp')
                             receiptService.getDetail($scope.tempReceiptNumber, function (result) {
                                 $scope.data = null;
                                 console.log(result);
+
+
                                 if (!result.message) {
                                     $scope.data = result;
+                                }
+                                if ($scope.data.sendType == '2') {
+                                    if ($scope.data.packageWeight) {
+                                    $scope.data.items[0].weight = $scope.data.packageWeight
+                                    }
+
                                 }
                                 $scope.tempReceiptNumber = "";
                             });
@@ -57,7 +65,7 @@ angular.module('culAdminApp')
                     }
                 }
 
-                console.log( $scope.data.customerNumber);
+                console.log($scope.data.customerNumber);
                 // return;
                 switch ($scope.data.sendType) {
                     case 1: //寄送库存
@@ -110,7 +118,12 @@ angular.module('culAdminApp')
                         $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber });
                         break;
                     case 2: //海淘包裹
-                        $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: item.receiptNumber, number: 1 });
+                        console.log("海淘包裹" + item.receiptNumber);
+
+                        // $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: item.receiptNumber, number: 1 });
+                        // $scope.$broadcast("print-inboundPackage.action", trackingNumber);
+                        $scope.$broadcast("print-inboundPackage.action", item.receiptNumber);
+
                         break;
                 }
             }
