@@ -104,7 +104,7 @@
                                         <span class="label label-success" ng-if="rowItem.orderStatus==='PartialShipped'">部分出库</span>
                                     </small>
                                     <small>
-                                        <a href="javascript:void(0)" ng-click="redirectToDetail(rowItem);"><u>{{rowItem.orderNumber}}</u></a>
+                                        <a href="javascript:void(0)" ng-click="redirectToDetail(rowItem);">{{rowItem.orderNumber}}</a>
                                     </small>
                                     <small ng-if="!!rowItem.isFastOrder" title="极速原单">
                                          <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>

@@ -62,10 +62,10 @@
                     <thead>
                         <tr>
                             <th style="width:30px; min-width: 30px;"><input type="checkbox" ng-click="selectAll()" ng-model="selectedAll"></th>
-                            <th style="width:20px; min-width: 20px;">#</th>
+                            <th style="width:35px; min-width: 20px;">#</th>
                             <th>预报快递单号</th>
                             <th class="hidden-sm">运单内容</th>
-                            <th>运单备注</th>
+                            <th class="hidden-sm">运单备注</th>
                             <th>仓库</th>
                             <th>预报时间</th>
                             <th>货物状态</th>
@@ -93,7 +93,7 @@
                                 <p ng-if="shippingNoticeItem.status === 'InOrder'">
                                     <small>
                                         <!-- <i class="fa fa-shopping-cart"></i> -->
-                                        <a href="javascript:void(0)" ng-click="redirectToOrderDetail(shippingNoticeItem.orderNumber);"><u>{{shippingNoticeItem.orderNumber}}</u></a>
+                                        <a href="javascript:void(0)" ng-click="redirectToOrderDetail(shippingNoticeItem.orderNumber);">{{shippingNoticeItem.orderNumber}}</a>
                                     </small>
                                 </p>
                                 <p ng-if="shippingNoticeItem.status === 'Inbound'">
@@ -106,7 +106,7 @@
                             </td>
                             <td>
                                   <a href="javascript:void(0);" ng-show="shippingNoticeItem.status === 'Intransit'" class="op-btn">
-                                      <i class="fa fa-trash-o" ng-click="deleteShippingNotice(shippingNoticeItem)"></i>
+                                      <i class="fa fa-trash-o" ng-click="deleteShippingNotice(shippingNoticeItem)">删除</i>
                                   </a>
                             </td>
                         </tr>
