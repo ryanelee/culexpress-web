@@ -295,7 +295,7 @@
                             <div class="form-group row" style="margin:5px 15px">
                                 <div class="col-sm-2"><label class="label">使用积分：</label></div>
                                 <div class="col-sm-4">
-                                    <input type="text" ng-model="data.usePoint" class="form-control" ng-change="usePointChanged()" />
+                                    <input type="text" ng-model="data.usePoint" class="form-control" ng-change="calculateFee('usePoint');" />
                                 </div>
                                 <div class="col-sm-4" style="padding-top:6px;">
                                     <span>剩余积分：({{(currentUser.myPoint||0)|number}}) </span>
@@ -350,7 +350,7 @@
                                     <td class="td-m">{{countFee.insuranceFee|currency:'¥'}}</td>
                                     <td class="td-m">{{countFee.tip|currency:'¥'}}</td>
                                     <td class="td-m">¥0.00</td>
-                                    <td class="td-m" style="color: red">{{(data.usePoint||0) * -1|currency:'￥'}}</td>
+                                    <td class="td-m" style="color: red">{{(countFee.usePoint||0) * -1|currency:'￥'}}</td>
                                     <td class="td-m"><strong>{{countFee.totalCount|currency:'¥'}}</strong></td>
                                   </tr>
                                 </tbody>

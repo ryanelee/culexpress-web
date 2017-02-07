@@ -434,6 +434,7 @@ angular
 
             var preSubmitToService = function (data) {
                 var text = '';
+                console.log(data);
                 if (!data.isFastOrder) {
                     text = "确定提交订单?";
                 }
@@ -748,6 +749,7 @@ angular
                                 packageWeight: 0,
                                 shippingFee: 0,
                                 tip: ($scope.data.tip * 1) || 0,
+                                usePoint: ($scope.data.usePoint * -1) || 0
                             },
                             calRule = $filter('filter')(result.fee, function (ruleItem) { return ruleItem.category === packageItem.goodsCategory; })[0];
                         if (!calRule) calRule = $filter('filter')(result.fee, function (ruleItem) { return ruleItem.category === 0; })[0];
@@ -759,7 +761,7 @@ angular
 
                         setInsuranceFee(calculData, shipService);
 
-                        calculData.totalCount = (calculData.insuranceFee || 0) + (calculData.shippingFee || 0) + (calculData.tip || 0);
+                        calculData.totalCount = (calculData.insuranceFee || 0) + (calculData.shippingFee || 0) + (calculData.tip || 0) + (calculData.usePoint || 0);
 
                         $timeout(function () {
                             $scope.countFee = calculData;
@@ -774,7 +776,10 @@ angular
                     else if (category === 'tip') {
                         $scope.countFee.tip = ($scope.data.tip * 1) || 0;
                     }
-                    $scope.countFee.totalCount = ($scope.countFee.insuranceFee || 0) + ($scope.countFee.shippingFee || 0) + ($scope.countFee.tip || 0);
+                    else if (category === 'usePoint') {
+                        $scope.countFee.usePoint = ($scope.data.usePoint * -1) || 0;
+                    }
+                    $scope.countFee.totalCount = ($scope.countFee.insuranceFee || 0) + ($scope.countFee.shippingFee || 0) + ($scope.countFee.tip || 0) + ($scope.countFee.usePoint || 0);
                     if (ctrlType !== 'checkbox') {
                         if (!angular.isNumber($scope.data.declareGoodsValue) || $scope.data.declareGoodsValue <= 0) $scope.data.declareGoodsValue = 0;
                         if (!angular.isNumber($scope.data.tip) || $scope.data.tip <= 0) $scope.data.tip = 0;
