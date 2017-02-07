@@ -7,7 +7,6 @@ angular
             $scope.rememberMe = false;
             $scope.loginError = undefined;
             $scope.showLoginError = false;
-            console.log(1)
             // $window.localStorage.removeItem('user')
             $scope.user = angular.fromJson($window.localStorage.getItem('user'))
             if ($scope.user) {
@@ -19,7 +18,6 @@ angular
 
 
             $scope.login = function () {
-              console.log('aaaaaa')
                 if ($('.state-error').length > 0) return;
                 var loginData = {
                     emailAddress: $scope.emailAddress,

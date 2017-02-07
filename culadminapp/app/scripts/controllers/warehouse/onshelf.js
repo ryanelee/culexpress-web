@@ -149,12 +149,10 @@ angular.module('culAdminApp')
                         }
                     })
                     if ($scope.searchBar.isUnusual == 2) {
-                        console.log("12"+2)
                         $scope.searchBar.sendType = $scope.sendTypes[3].key;
                         console.log($scope.sendTypes[3]);
                     }
                       if ($scope.searchBar.isUnusual == 1) {
-                           console.log("11"+1)
                         $scope.searchBar.sendType =  $scope.sendTypes[4].key;
                     }
                     if (parseInt($scope.customer_ids) !== 0) {
@@ -179,7 +177,6 @@ angular.module('culAdminApp')
                     $scope.searchBar.sendType = 2;
                 }
                 if ($scope.searchBar.sendType == 4) {
-                    console.log('你妹的')
                     $scope.searchBar.isUnusual = 1;
                     $scope.searchBar.sendType = 2;
                 }

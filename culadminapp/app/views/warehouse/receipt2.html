@@ -104,19 +104,19 @@
 <td>{{item._sendType}}</td>
 <td>{{item.carrierName}}</td>
 <td><a href="javascript:void(0)" ng-click="btnAction('inbound', item)">{{item.receiptNumber}}</a></td>
-<td>
-    <div class='requirement_css'>
-    <span ng-mouseenter="show=true" ng-mouseleave="show=false" class="m-l">{{item.packageDescription1}}<span ng-show="item.packageDescriptionFlag">...</span></span>
+<td ng-mouseenter="show=true" ng-mouseleave="show=false">
+    <div class='requirement_css' >
+    <span  class="m-l">{{item.packageDescription1}}<span ng-show="item.packageDescriptionFlag">...</span></span>
     </div>
     <div ng-show="show" style="padding:10px 0;font-size: 14px;line-height: 100% ; background-color:#f3f3f3; ">
    <a>{{ item.packageDescription }}</a>
    </div>
 </td>
-<td>
-      <div class='requirement_css'>
-    <span ng-mouseenter="show1=true" ng-mouseleave="show1=false" class="m-l">{{item.packageNote1}}<span ng-show="item.packageNoteFlag">...</span></span>
+<td  ng-mouseenter="show1=true"  ng-mouseleave="show1=false"  >
+      <div  class='requirement_css'>
+    <span class="m-l">{{item.packageNote1}}<span ng-show="item.packageNoteFlag">...</span></span>
     </div>
-    <div ng-show="show1" style="padding:10px 0;font-size: 14px;line-height: 100% ; background-color:#f3f3f3; ">
+    <div ng-show="show1"   style="padding:10px 0;font-size: 14px;line-height: 100% ; background-color:#f3f3f3; ">
    <a>{{ item.packageNote }}</a>
    </div>
     
@@ -159,8 +159,5 @@
 
 
 <style>
-
-
-    .requirement_css {       height: 20px;   }
 
 </style>

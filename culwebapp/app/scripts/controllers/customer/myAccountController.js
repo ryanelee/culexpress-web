@@ -37,29 +37,23 @@ angular
                             $scope.selectedProvince = $scope.provinces[$scope.provinces.length - 1];
                             $scope.getCity(city, area);
                         }
-                        // $scope.provinces.push(e.name);
-                        // console.log("-->" + JSON.stringify($scope.selectedProvince));
                     })
                 })
             }
 
 
             $scope.getCity = function(city, area) {
-                    console.log("city" + city);
                     $scope.selectedArea = {}
                     var flag = 0;
                     $scope.citys = [];
                     $scope.search.parentid;
                     $scope.tempProvinces.forEach(function(e) {
 
-                        // console.log($scope.search.selectedProvince);
                         if ($scope.selectedProvince.name == e.name) {
-                            console.log($scope.selectedProvince);
                             $scope.search.parentid = e.id;
                         }
                     })
                     if ($scope.search.parentid) {
-                        console.log("23232" + $scope.search.parentid)
                         addressSvr.getDistrict($scope.search).then(function(data) {
                             $scope.tempCitys = data.data.data;
                             $scope.tempCitys.forEach(function(e) {
@@ -202,7 +196,6 @@ angular
                             Customer.retrieveProvinceList(function(data) {
                                     var countryList = [{ code: 'CHN', name: '中国' }, { code: 'OTHER', name: '其他' }];
                                     $scope.countryList = countryList;
-                                    // console.log(data);
 
                                     if ($scope.model.countryCode) {
                                         for (var i = 0, ii = $scope.countryList.length; i < ii; i++) {

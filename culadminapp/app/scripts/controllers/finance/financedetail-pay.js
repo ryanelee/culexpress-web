@@ -15,7 +15,6 @@ angular.module('culAdminApp')
             'AngularJS',
             'Karma'
           ];
-          console.log("真的是走这套逻辑吗");
           $scope.data = {
               rechargeChannel: "4",
               fee: "0",
@@ -24,16 +23,13 @@ angular.module('culAdminApp')
           $scope.search = {};
 
           $scope.checkOrderNumber = function () {
-              console.log($scope.data);
               $scope.search.customerNumber = $scope.data.customer.customerNumber;
                 if (!$scope.search.orderNumber) {
                     plugMessenger.error("订单编号必须填写");
                     return;
                 }
                 $scope.flag = '0'
-                console.log($scope.search);
                 orderService.checkOrderNumber($scope.search).then(function (result) {
-                   console.log("-->"+JSON.stringify(result));
                     if (result.data.code == '999') {
                         $scope.search.orderNumber = "";
                         plugMessenger.error(result.data.msg);
@@ -41,7 +37,6 @@ angular.module('culAdminApp')
                     }
                     if (result.data.code == '000') {
                         $scope.data.tempCustomerNumber = result.data.data[0].customerNumber
-                        console.log($scope.data.tempCustomerNumber);
                     }
                 })
             }

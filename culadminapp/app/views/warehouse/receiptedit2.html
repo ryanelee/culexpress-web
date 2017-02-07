@@ -27,6 +27,11 @@
                 <div class="col-sm-4 text-left">
                     <label class="control-label">{{data.receiptNumber}}</label>
                 </div>
+                      
+                   <label ng-if="data.sendType == 2" class="col-sm-2 control-label text-right">快递名称：</label>
+                <div ng-if="data.sendType == 2" class="col-sm-4 text-left">
+                    <label class="control-label">{{data.carrierName}}</label>
+                </div>
             </div>
             <fieldset ng-if="!!data">
                 <legend>基本信息</legend>
