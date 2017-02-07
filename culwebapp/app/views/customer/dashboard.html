@@ -187,7 +187,47 @@
       </h2>
     </div>
     <div class="alert alert-warning fade in">
-        请大家在购物网站下单时一定记得写上姓后面的4个字母收件标示和单元号,单元号可以写在第一行地址后面也可以写在地址第二行.
+        <strong>友情提醒:</strong>请大家在购物网站下单时一定记得写上姓后面的4个字母收件标示和单元号,单元号可以写在第一行地址后面也可以写在地址第二行.
+        <a data-toggle="modal" data-target="#moreInfoModal">查看详细信息...</a>
+        <!--<button class="btn-u" data-toggle="modal" data-target=".bs-example-modal-lg">查看详细信息</button>-->
+        <div class="modal fade" tabindex="-1" id="moreInfoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" style="right:0px">×</button>
+                        <h4 class="modal-title">友情提醒</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            请大家在购物网站下单时一定记得写上姓后面的4个字母收件标示和单元号,单元号可以写在第一行地址后面也可以写在地址第二行.
+                        </p>
+                        </br>
+                        <p>
+                            请大家记得做货物预告,可以大大减少包裹入库的错误,提高入库的效率.为你为我,请您收到商家收的tracking number 以后,登录cul账户,做一下,货物预告. 谢谢大家的支持.
+                        </p>
+                        </br>
+                        <p>
+                            美国邮政国际特快， 最稳妥快捷的运输方式， 强烈推荐。 适合各种物品， 尤其是贵重物品和电子产品。不限制锂电池一般体积重,童车,游戏垫,玩具等单个包裹重量在66磅以下的包裹都可以发送. 
+                            但是大型物品比如滑雪板,大型玩具车,体育器材不能寄送,每个包裹不能超过66磅。</br>
+                            价格：首磅200元，续磅35元。4磅起运,4磅以下(包含4磅)的包裹运费都是305.请大家注意提交.</br>
+                        </p>
+                        <p>
+                            关于此USPS渠道需要注意的地方:</br>
+                            1.此渠道无需提交身份证, USPS即是美国邮政邮局，美国邮局要求每个箱子66磅以下,地址,品名申报需要填写英文, 请在CUL地址簿里添加英文地址.路名写汉语拼音即可. </br>
+                            2.每个地址 发送包裹数最多两个 ,禁止发送海关,航空违禁品.详细填写申报品名。申报品名不能填写如礼物，保健品，婴儿用品，护肤品,日用品,用品这类,需要具体的物品名和件数.</br>
+                            3.严禁误报虚报品名,商品价值,由此造成的包裹延误,罚没,丢失,本公司将不承担任何责任.</br>
+                            4. 体积较大,较重的包裹可以选择USPS 特快渠道.</br>
+                        </p>
+                        </br>
+                        <p>
+                            一如既往的高效快捷一直都在CUL~!</br>
+                            感谢大家的支持和配合.</br>
+                            -CUL中美速递.</br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row margin-bottom-20 pricing-bg-colored">
         <!--commit by clark-->
@@ -229,22 +269,39 @@
                 <span class="remark" ng-if="addressItem.isTaxFree!='1'">&nbsp;</span></span></h3>
               </div>
               <ul class="address-content list-unstyled">
-                  <li>
-                      <i class="fa fa-map-marker pull-left"></i>
-                      <div class="list-remark">
-                        <span ng-if="!!addressItem.address1">{{addressItem.address1}},</span> <span ng-if="!!addressItem.address2">{{addressItem.address2}},</span>
-                        <span ng-if="!!addressItem.city">{{addressItem.city}},</span>
-                        <span ng-if="!!addressItem.warehouseShortName">{{addressItem.warehouseShortName}}</span> <span ng-if="!!addressItem.zipcode">{{addressItem.zipcode}}</span>
-                      </div>
-                  </li>
-                  <li>
+                <li>
                     <i class="fa fa-user pull-left"></i>
-                    <div class="list-remark">收件人:<span ng-bind="currentUser.firstName"></span> <span ng-bind="currentUser.lastName"></span>
+                    <div class="list-remark"><strong>名 (First Name):</strong> <span ng-bind="currentUser.firstName | uppercase"></span>
                     </div>
-                  </li>
+                </li>
+                <li>
+                    <div class="list-remark"><strong>姓 (Last Name):</strong> <span ng-bind="currentUser.lastName | uppercase"></span> <span ng-bind="currentUser.receiveIdentity | uppercase"></span>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa fa-map-marker pull-left"></i>
+                    <div class="list-remark"><strong>地址 (Address):</strong> <span>{{addressItem.address1}}</span>
+                    </div>
+                </li>
+               <li>
+                    <div class="list-remark"><strong>单元号 (Unit):</strong> <span ng-bind="currentUser.customerNumber | uppercase"></span>
+                    </div>
+                </li> 
+                <li>
+                    <div class="list-remark"><strong>城市 (City):</strong> <span ng-bind="addressItem.city | uppercase"></span>
+                    </div>
+                </li> 
+                <li>
+                    <div class="list-remark"><strong>州/省 (State):</strong> <span ng-bind="addressItem.stateOrProvince | uppercase"></span> 
+                    </div>
+                </li> 
+                <li>
+                    <div class="list-remark"><strong>邮编 (Zip Code):</strong> <span>{{addressItem.zipcode}}</span>
+                    </div>
+                </li>       
                   <li>
                     <i class="fa fa-phone pull-left"></i>
-                    <div class="list-remark">电话:{{addressItem.contactPhoneNumber}}</div>
+                    <div class="list-remark"><strong>电话:</strong> {{addressItem.contactPhoneNumber}}</div>
                   </li>
                   <li ng-if="addressItem.isTaxFree=='1'">
                     <i class="fa fa-check-circle pull-left"></i>

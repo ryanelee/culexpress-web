@@ -15,7 +15,21 @@ angular
         };
         var _refreshUser = function () {
             $scope.currentUser = $rootScope.currentUser;
-            $scope.$root.isLackProfile = !$scope.currentUser.firstName || !$scope.currentUser.lastName;
+
+            var lackNames = false;
+            if(($scope.currentUser.firstName == null || $scope.currentUser.firstName == undefined)
+            && ($scope.currentUser.lastName == null || $scope.currentUser.lastName == undefined)){
+                lackNames = true;
+            }
+
+            $scope.$root.isLackProfile = lackNames;
+
+            if ($scope.currentUser && $scope.currentUser.photoUrl === null) {
+                if ($scope.currentUser.gender === 'M')
+                    $scope.currentUser.photoUrl = '/assets/img/culwebapp/customer/profile/no-photo-male.jpg';
+                else
+                    $scope.currentUser.photoUrl = '/assets/img/culwebapp/customer/profile/no-photo-female.jpg';
+            }
         }
         $scope.$on("MyHomeCtrl.RefreshUser", function (e) {
             _refreshUser();
@@ -23,7 +37,7 @@ angular
         _refreshUser();
 
         $rootScope.isLogined = true;
-
+        $scope.referURL = $window.location.origin + "/#/register/" + $scope.currentUser.customerNumber;
 
         $scope.source = {
             menus: null
@@ -76,26 +90,25 @@ angular
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             })
-            .success(function (result) {
-                if (result && result.filePath) {
-                    var avatarUrl = cul.apiHost + (result.filePath || '').replace(new RegExp('\\\\', 'g'), '/'),
+            .then(function (result) {
+                if (result && result.data && result.data.filePath) {
+                    var avatarUrl = cul.apiHost + (result.data.filePath || '').replace(new RegExp('\\\\', 'g'), '/'),
                         userData = $.extend(true, {}, $scope.currentUser);
 
                     if (!!result.url) avatarUrl = result.url;
 
                     $.extend(userData, {
                         photoUrl: avatarUrl,
-                        photo: result.filePath
+                        photo: result.data.filePath
                     });
 
                     Customer.updateCustomerProfile(userData, function (data) {
-                        if (data && data.success) {
+                        if (data && data.data && data.data.success) {
                             $('#userPhotoModal').modal('hide');
                         }
                     })
                 }
-            })
-            .error(function () {
+            },function () {
             });
 
         }

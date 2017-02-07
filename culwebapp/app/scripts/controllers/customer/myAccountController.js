@@ -24,7 +24,7 @@ angular
             $scope.tempAreas = [];
             $scope.areas = [];
             $scope.getProvince = function(province, city, area) {
-                console.log("province" + province)
+
                 addressSvr.getDistrict($scope.search).then(function(data) {
 
                     $scope.tempProvinces = data.data.data;
@@ -43,18 +43,18 @@ angular
 
 
             $scope.getCity = function(city, area) {
-                    $scope.selectedArea = {}
+                 $scope.selectedArea = {}
                     var flag = 0;
                     $scope.citys = [];
                     $scope.search.parentid;
                     $scope.tempProvinces.forEach(function(e) {
 
                         if ($scope.selectedProvince.name == e.name) {
-                            $scope.search.parentid = e.id;
+                          $scope.search.parentid = e.id;
                         }
                     })
                     if ($scope.search.parentid) {
-                        addressSvr.getDistrict($scope.search).then(function(data) {
+                       addressSvr.getDistrict($scope.search).then(function(data) {
                             $scope.tempCitys = data.data.data;
                             $scope.tempCitys.forEach(function(e) {
                                 var detail = {};
@@ -260,7 +260,6 @@ angular
                     alertify.alert('错误', '请填写正确的公司网址,如：http://www.culexpress.com/ 或 https://www.culexpress.com/');
                     return false;
                 }
-
 
                 $scope.model.countryCode = $scope.selectedCountry.code;
                 $scope.model.countryName = $scope.selectedCountry.name;

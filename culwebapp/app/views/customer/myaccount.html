@@ -44,7 +44,11 @@
                                 <hr />
                                 <dt><strong>生日 </strong></dt>
                                 <dd>
-                                    <label class="input">  <input class="control-date" type="text" ng-model="model.birthday" placeholder="请输入您的出生年月日" /></label>
+                                    <div class='input-group date' datetimepicker ng-model="model.birthday">
+                                    <input type='text' class="form-control" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <!--<label class="input">  <input class="control-date" type="text" ng-model="model.birthday" placeholder="请输入您的出生年月日" /></label>-->
                                 </dd>
                                 <hr />
                                 <empty ng-if="isApply || !!currentUser.isVip">

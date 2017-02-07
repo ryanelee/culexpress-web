@@ -36,6 +36,9 @@ module.exports = function(config) {
       'bower_components/jquery-migrate/jquery-migrate.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/bootstrap-fileinput/js/fileinput.min.js',
+      'bower_components/clipboard/dist/clipboard.js',
+      'bower_components/moment/moment.js',
+      'bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

@@ -14,8 +14,8 @@ angular.module('culwebApp')
             updateCustomerProfile: function (customer, success, error) {
                 $http.put(cul.apiPath + '/customer/profile', customer).then(function (data) {
                     success(data);
-                }).error(function (result) {
-                    console.error(result)
+                },function(err){
+                    error(err);
                 });
             },
             updateCustomerPoint: function (customer, success, error) {

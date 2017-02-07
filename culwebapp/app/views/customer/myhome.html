@@ -8,38 +8,34 @@
           <div class="modal fade" tabindex="-1" id="userPhotoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
               <div class="modal-dialog">
                   <div class="modal-content">
-                      <div class="modal-header">
+                      <!-- <div class="modal-header">
                           <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                           <h4 class="modal-title">修改个人头像</h4>
-                      </div>
+                      </div> -->
                       <div class="modal-body">
-                          <div class="profile-blog">
-                              <img class="rounded-x" ng-src="{{ currentUser.photoUrl }}" alt="no photo">
-                              <div class="name-location">
-                                  <strong>{{ currentUser.userName }}</strong>
-                                  <span>
-                                      <i class="fa fa-map-marker"></i><span style="color:black" ng-show="isLackProfile">没有填写联系地址</span>
-                                      <a href="javascript:void();" ng-hide="isLackProfile">{{ currentUser.countryName }} {{ currentUser.stateOrProvince }} {{ currentUser.city }}</a>
-                                  </span>
+                        <div class="common-title" style="text-align: left">
+                          <h2 style="width: 100px;">
+                            修改头像
+                          </h2>
+                        </div>
+                        <div class="jcrop">
+                          <div class="jcrop-l">
+                            <form id="uploadAvatarForm" enctype="multipart/form-data">
+                              <div class="inputfileload">
+                                <div class="uploadphoto">+ 上传图片</div>
+                                <input type="file" class="file-input" id="file" name="avatar" accept="image/gif,image/jpg,image/png" style="width:120px">
                               </div>
-                              <div class="clearfix margin-bottom-20"></div>
-                              <!--<div class="inline-group">
-                                  <i class="icon-custom icon-sm rounded-x icon-bg-u icon-line icon-symbol-male"></i>
-                                  <i class="icon-custom icon-sm rounded-x icon-bg-blue icon-line icon-symbol-female"></i>
-                                  <label class="radio"><input type="radio" checked="{{ currentUser.gender === 'M' }}" name="radio-inline"><i class="rounded-x"></i>男 <i class="fa fa-male"></i></label>
-                                  <label class="radio"><input type="radio" checked="{{ currentUser.gender === 'M' }}" name="radio-inline"><i class="rounded-x"></i>女 <i class="fa fa-female"></i></label>
-                              </div>-->
-
-                              <div class="button">
-                                  <form id="uploadAvatarForm" enctype="multipart/form-data">
-                                      <input type="file" id="file" name="avatar"/>选择头像图片
-                                  </form>
-                              </div>
+                            </form>
+                            仅支持JPG，PNG，GIF，大小不超过2M。
                           </div>
+                          <div class="jcrop-r">
+                            <img class="rounded-x" ng-src="{{ currentUser.photoUrl }}" alt="no photo">
+                          </div>
+                        </div>
                       </div>
-                      <div class="modal-footer">
+                      <div class="modal-footer" style="text-align: center;">
+                          <button type="button" class="btn-u bg-color-ffb" ng-click="updateAvatar()">确定</button>
                           <button type="button" class="btn-u btn-u-default" data-dismiss="modal">取消</button>
-                          <button type="button" class="btn-u btn-u-primary" ng-click="updateAvatar()">保存</button>
                       </div>
                   </div>
               </div>
@@ -81,10 +77,20 @@
         <li><i class="rounded-x gm fa fa-envelope"></i> <a ui-sref="customer.askquestion">在线咨询</a></li>
         <li>
             <i class="rounded-x gm fa fa-gift"></i> <a ui-sref="register({reference:currentUser.customerNumber})" target="_blank">好友推荐</a>
-            <a class="tooltips" data-toggle="tooltip" data-original-title="请复制新页面地址发送给好友注册,每邀请一位好友成功注册,双方均可获得运费奖励.">
-                <i class="rounded-x gm fa fa-question"></i>
+            <a id="copyReference" class="tooltips" data-toggle="tooltip" data-original-title="点击复制链接发送给好友注册即可获得运费奖励."
+                data-clipboard-text="{{referURL}}">
+                <i class="rounded-x gm fa fa-clipboard"></i>
+                <script>
+                    var btn = document.getElementById('copyReference');
+                    var clipboard = new Clipboard(btn);
+                    // clipboard.on('success', function(e) {
+                    //     console.log(e);
+                    // });
+                    // clipboard.on('error', function(e) {
+                    //     console.log(e);
+                    // });
+                </script>
             </a>
-        </li>
       </ul>
     </div>
   </div>
