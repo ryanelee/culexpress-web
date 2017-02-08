@@ -19,7 +19,6 @@ angular.module('culAdminApp')
 
       self.getInfo = function (itemNumber, callback) {
           $http.get(cul.apiPath + "/item/info?itemNumber=" + itemNumber).success(function (result) {
-              console.log(result);
               callback(result);
           })
       }
@@ -31,7 +30,6 @@ angular.module('culAdminApp')
       }
 
       self.getList = function (options, callback) {
-          console.log("getList"+JSON.stringify(options));
           $http.post(cul.apiPath + "/item/inventory/list", options).success(function (result) {
               callback(result);
           })

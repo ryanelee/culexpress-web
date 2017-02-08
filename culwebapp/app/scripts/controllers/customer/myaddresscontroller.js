@@ -349,7 +349,6 @@ angular.module('culwebApp')
                             $timeout(function () {
                                 $scope.data = result.data;
 
-                                console.log("--->" + JSON.stringify($scope.data));
                                 var province = result.data.stateOrProvince;
                                 var city = result.data.city;
                                 var area = result.data.area;
