@@ -30,17 +30,23 @@ angular.module('culAdminApp')
                     if (!angular.isArray(trackingNumbers)) $scope.trackingNumbers = [trackingNumbers];
                     else $scope.trackingNumbers = trackingNumbers;
                     $scope.dataList = [];
-                    console.log($scope.trackingNumbers);
                     $.each($scope.trackingNumbers, function (index, trackingNumber) {
                         warehouseService.getInboundPackageDetail(trackingNumber, function (result) {
                             console.log(result);
+                            if (typeof result == Array) {
+                                result.forEach(function (e) {
+                                   result.receipt = result.trackingNumber.substr(result.trackingNumber.length-6, 6);
+                                })
+                            }
+                            if(result){
+                                result.receipt = result.trackingNumber.substr(result.trackingNumber.length-6, 6);
+                            }
+
                             var _count = 6 - result.transactionNumber.toString().length;
                             for (var i = 0; i < _count; i++) {
                                 result.transactionNumber = "0" + result.transactionNumber.toString();
                             }
                             result.receiptNumber = trackingNumber;
-                            console.log(trackingNumber)
-                            console.log(index);
                             $scope.dataList.push(result);
                             $scope.dataOne = {};
                             var _diffBarCodeOptions = { barHeight: "40", fontSize: "16" };
@@ -63,9 +69,9 @@ angular.module('culAdminApp')
                 var _render = function () {
                     if ($scope.trackingNumbers.length == $scope.dataList.length) {
                         $timeout(function () {
-                      $.each($element.find("div[receiptNumber]"), function (index, el) {
-                              $(el).barcode($(el).attr("receiptNumber"), "code128", barCodeSettings);
-                          });
+                            $.each($element.find("div[itemNumber]"), function (index, el) {
+                                $(el).barcode($(el).attr("itemNumber"), "code128", barCodeSettings);
+                            });
                             $element.children().jqprint();
                         }, 500);
                     }

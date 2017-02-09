@@ -7,7 +7,6 @@ angular
             $scope.rememberMe = false;
             $scope.loginError = undefined;
             $scope.showLoginError = false;
-            console.log(1)
             // $window.localStorage.removeItem('user')
             $scope.user = angular.fromJson($window.localStorage.getItem('user'))
             if ($scope.user) {

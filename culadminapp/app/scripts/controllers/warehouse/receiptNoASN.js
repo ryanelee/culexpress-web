@@ -77,7 +77,6 @@ angular.module('culAdminApp')
                     detail['value'] = result[i].warehouseName;
                     $scope.warehouseList.push(detail);
                 }
-                console.log($scope.warehouseList);
             });
 
 

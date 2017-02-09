@@ -87,6 +87,7 @@
                         <option value="customerNumber">客户编号</option>
                         <!--<option value="receiveIdentity">客户标识</option>-->
                         <option value="shelfNumber">架位编号</option>
+                        <option value="inboundUser">入库人员</option>
                         <!--<option value="itemNumber">入库人员</option>-->
                         <!--<option value="itemNumber">转运单号</option>
                         <option value="itemNumber">客户编号</option>
@@ -164,7 +165,7 @@
                             <td><a href="javascript:void(0);" ng-click="btnAction('logs', item)">{{item.inventory}}</a></td>
                             <td><a href="javascript:void(0);" ng-click="btnAction('frozen', item)">{{item.inventory_frozen}}</a></td>
                             <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                             <td>{{"入库人员"}}</td>
+                             <td>{{item.inboundUser}}</td>
                             <td><a href="javascript:void(0);" ng-click="btnAction('adjust',item)">纠正库存</a></td>
                            
                            

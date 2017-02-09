@@ -51,7 +51,8 @@ angular.module('culAdminApp')
                       $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber });
                       break;
                   case 2:   //海淘包裹
-                      $scope.$root.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: item.receiptNumber, number: 1 });
+                    //   $scope.$root.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: item.receiptNumber, number: 1 });
+                    $scope.$broadcast("print-inboundPackage.action", item.receiptNumber);
                       break;
               }
           }

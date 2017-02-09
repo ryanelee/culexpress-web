@@ -174,12 +174,9 @@ angular.module('culAdminApp')
 
 
                      if ($scope.searchBar.isUnusual == 2) {
-                        console.log("12"+2)
                         $scope.searchBar.sendType = $scope.sendTypes[3].key;
-                        console.log($scope.sendTypes[3]);
                     }
                       if ($scope.searchBar.isUnusual == 1) {
-                           console.log("11"+1)
                         $scope.searchBar.sendType =  $scope.sendTypes[4].key;
                     }
 
