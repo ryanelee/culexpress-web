@@ -2,10 +2,11 @@
 
 angular
     .module('culwebApp')
-    .controller('MyOrdersController', ['$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter',
-        function ($scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter) {
+    .controller('MyOrdersController', ['$rootScope','$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter',
+        function ($rootScope,$scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter) {
             if (!$scope.$root.orderOptions) $scope.$root.orderOptions = {};
-
+            console.log($rootScope.currentUser.userName)
+            console.log($scope.$root.currentUser.myPoint)
             $scope.orderItems = [];
             $scope.addOrderItem = function ($event, shippingItem) {
                 var orderItem = {
@@ -40,8 +41,8 @@ angular
             $scope.usePointChanged = function () {
                 var pointTotal = $scope.$root.currentUser.myPoint;
 
-                if($scope.data.usePoint > 30){
-                    alertify.alert('提示','一次最多允许使用30个积分!');
+                if ($scope.data.usePoint > 30) {
+                    alertify.alert('提示', '一次最多允许使用30个积分!');
                     $scope.data.usePoint = '';
                     return;
                 }
@@ -50,7 +51,7 @@ angular
                 }
 
                 if (isNaN($scope.data.usePoint) || !angular.isNumber(+$scope.data.usePoint)) {
-                    alertify.alert('提示','积分必须为数字并且必须大于0!');
+                    alertify.alert('提示', '积分必须为数字并且必须大于0!');
                     $scope.data.usePoint = '';
                     return;
                 }
@@ -452,14 +453,17 @@ angular
                         '元的预收运费，该金额不能做其他订单的交易，等到该极速转运订单出库后会计算出最终运费,如有多余运费会退回到您的CUL EXPRESS账户余额中，详情可到财务明细中查询。';
                 }
 
-                alertify.confirm('确认',text,
-                    function(){
+                alertify.confirm('确认', text,
+                    function () {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
+
                         orderSvr
                             .submitOrder(data)
                             .then(function (result) {
                                 if (result.data.orderNumber) {
                                     alertify.success('订单提交成功!');
+                                    $scope.$root.currentUser.myPoint = $scope.$root.currentUser.myPoint - $scope.data.usePoint;
+                                    console.log($scope.$root.currentUser.myPoint)
                                     $state.go('customer.myorders');
                                 }
                             }, function (result) {
@@ -467,7 +471,7 @@ angular
                                     alertify.alert('错误', result.data.message);
                                 }
                             });
-                    },function(){
+                    }, function () {
                         alertify.error('已取消提交订单!');
                     })
                 // SweetAlert.swal({
@@ -528,6 +532,7 @@ angular
 
             $scope.deleteOrder = function (number) {
                 if (!number) return false;
+                console.log("删除订单程序")
                 alertify.confirm('确定要删除订单[' + number + ']?',
                     function () {
                         orderSvr.deleteOrder(number)
@@ -541,7 +546,7 @@ angular
                                     alertify.alert('错误', result.data.message);
                                 }
                             });
-                });
+                    });
             }
 
             var payOrderServie = function (orderItem, callback) {
@@ -577,11 +582,11 @@ angular
                     return false;
                 }
 
-                alertify.confirm('确认','您将被扣款' + orderItem.totalCount + '元，确定支付订单?',
+                alertify.confirm('确认', '您将被扣款' + orderItem.totalCount + '元，确定支付订单?',
                     function () {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
                         payOrderServie(orderItem);
-                    },function(){
+                    }, function () {
                         alertify.error('已取消支付!');
                     });
             }
@@ -638,47 +643,44 @@ angular
                         }
 
                         //身份证渠道需要验证选择的收货地址是否通过验证
-                        var addressItem = 
-                            $scope.addressListData.filter(function(value){
+                        var addressItem =
+                            $scope.addressListData.filter(function (value) {
                                 return value.transactionNumber == packageItem.addressNumber;
                             })[0];
 
-                        if(addressItem != undefined
+                        if (addressItem != undefined
                             && $scope.data.shipServiceItem != undefined
                             && $scope.data.shipServiceItem.needIDCard === 1
-                            && addressItem.verifyMark !== 1)
-                            {
-                                alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince+' '
-                                    +addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName + 
-                                    '</small>]还未通过身份验证。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
-                                    '</small>]要求收货地址必须提供验证通过的身份证信息,请更改地址信息或者选择其他收货地址。');
-                                return false;
-                            }
-                        
+                            && addressItem.verifyMark !== 1) {
+                            alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' '
+                                + addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
+                                '</small>]还未通过身份验证。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                '</small>]要求收货地址必须提供验证通过的身份证信息,请更改地址信息或者选择其他收货地址。');
+                            return false;
+                        }
+
                         //USPS渠道要求收货人姓名必须为英文/拼音,地址为拼音
-                        if(addressItem != undefined
+                        if (addressItem != undefined
                             && $scope.data.shipServiceItem != undefined
                             && $scope.data.shipServiceItem.requireEnglish4Name === 1
-                            && !/^[a-z\s0-9]+$/i.test(addressItem.receivePersonName))
-                            {
-                                alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince+' '
-                                    +addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName + 
-                                    '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
-                                    '</small>]要求收货人姓名必须为英文或者拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
-                                return false;
-                            }
+                            && !/^[a-z\s0-9]+$/i.test(addressItem.receivePersonName)) {
+                            alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' '
+                                + addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
+                                '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                '</small>]要求收货人姓名必须为英文或者拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
+                            return false;
+                        }
 
-                        if(addressItem != undefined
+                        if (addressItem != undefined
                             && $scope.data.shipServiceItem != undefined
                             && $scope.data.shipServiceItem.requireEnglish4Address === 1
-                            && !/^[a-z\s0-9]+$/i.test(addressItem.address1 + addressItem.zipcode))
-                            {
-                                alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince+' '
-                                    +addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName + 
-                                    '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
-                                    '</small>]要求收货人地址必须为英文拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
-                                return false;
-                            }
+                            && !/^[a-z\s0-9]+$/i.test(addressItem.address1 + addressItem.zipcode)) {
+                            alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' '
+                                + addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
+                                '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                '</small>]要求收货人地址必须为英文拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
+                            return false;
+                        }
 
                         if (!packageItem.goodsCategory) {
                             alertify.alert('提示', '请确保每个转运包裹都选择了商品类别!');
@@ -700,7 +702,10 @@ angular
             $scope.countFee = {};
 
             $scope.calculateFee = function (category, ctrlType) {
-
+                var pointTotal = $scope.$root.currentUser.myPoint;
+                if ($scope.data.usePoint > pointTotal) {
+                    $scope.data.usePoint = pointTotal;
+                }
                 var getPackageFirstWeight = function (shipService) {
                     var packageWeight = 0, outboundItems = $scope.shippingItems;
                     for (var i = 0, ii = outboundItems.length; i < ii; i++) {
