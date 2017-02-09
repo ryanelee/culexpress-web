@@ -2243,8 +2243,8 @@ select:-webkit-autofill {
 	background-color: #98abcb;
 }
 
-.my-home .sidebar-nav-v1 > li ul > li.active , .my-home .sidebar-nav-v1 > li ul > li.active:hover {
-	background: rgba(136, 160, 198, 0.6);
+.my-home .sidebar-nav-v1 > li ul > li.active a {
+	background-color: #dce7f8;
 }
 
 .my-home .sidebar-nav-v1 > li.active a, .my-home .sidebar-nav-v1 > li.active:hover a {
@@ -2258,6 +2258,11 @@ select:-webkit-autofill {
 .my-home .sidebar-nav-v1 > li.active ul a, .my-home .sidebar-nav-v1 > li.active:hover ul a {
 	color: #98abcb;
 }
+
+.my-home .sidebar-nav-v1 > li.active ul a{
+	background-color: #ebf1fc;
+}
+
 
 .myhome-header {
 	background: url('../img/dashbard/header-bg.png') no-repeat center center;
@@ -2643,6 +2648,10 @@ select:-webkit-autofill {
 	cursor: pointer;
 }
 
+.my-home .ques dl {
+	margin: 0;
+}
+
 .my-home .ques dt {
 	width: 80px;
 	line-height: 2;
@@ -2653,6 +2662,15 @@ select:-webkit-autofill {
 	line-height: 2;
 	display: inline-block;
 	margin-left: 10px;
+}
+
+.my-home .ques dt.mes {
+	line-height: 1.5;
+}
+
+.my-home .ques dd.des {
+	line-height: 1.5;
+	width: calc(100% - 100px);
 }
 
 .my-home .ques dt .fa {

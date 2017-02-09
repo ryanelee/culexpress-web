@@ -165,9 +165,9 @@ angular.module('culwebApp')
                     //购买保险标识 0,1
                     insuranceMark: (orderData.insuranceMark ? 1 : 0),
                     //使用积分标识 0,1
-                    pointMark: orderData.pointMark,
+                    pointMark:(orderData.usePoint > 0 ? 1: 0),
                     //使用积分数 number
-                    usedPoint: orderData.usedPoint,
+                    usedPoint: orderData.usePoint,
                     //积分抵现 number
                     pointCash: orderData.pointCash,
                     //小费 number

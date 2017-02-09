@@ -5,6 +5,13 @@
         订单详情
       </h2>
     </div>
+    <div class="row" style="margin-top: 20px;">
+    <div class="col-sm-12">
+        <div class="item item-zhi">
+          <h4>订单编号：{{data.orderNumber}}/{{data.shipServiceName}}</h4>
+        </div>
+    </div>
+  </div>
 <div class="row" style="margin-top: 20px;">
     <div class="col-sm-6">
         <div class="item item-user">
@@ -51,7 +58,7 @@
         <label>积分抵扣：</label> <span>{{(data.usedPoint||0) * -1 | currency:'￥'}}</span>
         </div>
         <div>
-            <strong><label><strong>运费总计：</strong></label> <span>{{(data.totalCount + data.insuranceFee - data.usedPoint)|currency:'¥'}}</span></strong>
+            <strong><label><strong>运费总计：</strong></label> <span>{{data.totalCount|currency:'¥'}}</span></strong>
         </div>
       </div>
     </div>
@@ -72,11 +79,13 @@
     <div class="item item-zhi">
       <h4>增值服务: </h4>
       <div>
-        <span class="margin-left-20" ng-show="data.pack_takeoutInvoice == 1">取出发票</span>
-        <span class="margin-left-20" ng-show="data.pack_urgentProcess == 1">加急处理</span>
-        <span class="margin-left-20" ng-show="data.pack_steadyInner == 1">内件加固</span>
-        <span class="margin-left-20" ng-show="data.pack_replaceCarton == 1">更换外箱</span>
-        <span class="margin-left-20" ng-show="data.pack_removeInner == 1">去除内件</span>
+        <span class="margin-left-20" ng-show="data.pack_takeoutInvoice == null && data.pack_urgentProcess == null 
+          && data.pack_steadyInner == null && data.pack_replaceCarton == null && data.pack_removeInner == null"><i class="fa fa-times-circle"></i> 没有选择任何增值服务</span>
+        <span class="margin-left-20" ng-show="data.pack_takeoutInvoice == 1"><i class="fa fa-check-circle"></i> 取出发票</span>
+        <span class="margin-left-20" ng-show="data.pack_urgentProcess == 1"><i class="fa fa-check-circle"></i> 加急处理</span>
+        <span class="margin-left-20" ng-show="data.pack_steadyInner == 1"><i class="fa fa-check-circle"></i> 内件加固</span>
+        <span class="margin-left-20" ng-show="data.pack_replaceCarton == 1"><i class="fa fa-check-circle"></i >更换外箱</span>
+        <span class="margin-left-20" ng-show="data.pack_removeInner == 1"><i class="fa fa-check-circle"></i> 去除内件</span>
       </div>
     </div>
   </div>
