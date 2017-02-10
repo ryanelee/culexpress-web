@@ -34,8 +34,9 @@
                                 </span>
                             </td>
                             <td>
-                                <span class="label label-info" ng-if="questionItem.status==0">处理中</span>
-                                <span class="label label-info" ng-if="questionItem.status==1">已处理</span>
+                                <span class="label label-info" ng-if="questionItem.status=='Closed'">已关闭</span>
+                                <span class="label label-info" ng-if="questionItem.status=='Processing'">待处理</span>
+                                <span class="label label-info" ng-if="questionItem.status=='ForwardWH'">转交仓库</span>
                             </td>
                             <td><button class="btn-u btn-u-xs btn-u-default" type="button" ng-click="deleteQuestion(questionItem.messageNumber)">删除</button></td>
                         </tr>
