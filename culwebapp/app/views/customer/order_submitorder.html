@@ -128,41 +128,43 @@
                                     </div>
                                     <div style="background-color: #f9f9f9; padding: 20px;">
                                       <div class="s-title">入库包裹信息</div>
-                                      <div class="row media-body ques" ng-repeat="shippingItem in shippingItems" style="background-color: #fff; margin-bottom: 25px;">
-                                          <div class="col-md-4">
-                                              <dl class="dl-horizontal ques" style="margin: 10px 0;">
-                                                  <dt><i class="fa fa-barcode"></i> 商品编号:</dt>
-                                                  <dd class="ng-binding">{{shippingItem.trackingNumber}}</dd><br>
-                                                  <dt><i class="fa fa-clock-o"></i> 预报时间:</dt>
+                                      <div ng-repeat="shippingItem in shippingItems" style="background-color: #fff; margin-bottom: 15px; padding: 10px 0;">
+                                        <div class="row media-body ques">
+                                            <div class="col-md-6">
+                                                <dl class="dl-horizontal ques">
+                                                    <dt><i class="fa fa-barcode"></i> 商品编号:</dt>
+                                                    <dd class="ng-binding">{{shippingItem.trackingNumber}}</dd><br>
+                                                    <dt><i class="fa fa-clock-o"></i> 预报时间:</dt>
+                                                    <dd class="ng-binding">
+                                                      <span ng-if="!!shippingItem.inboundDate">
+                                                          {{shippingItem.inboundDate|sysdate}}
+                                                      </span>
+                                                      <span ng-if="!shippingItem.inboundDate">
+                                                          {{shippingItem.createDate|sysdate}}
+                                                      </span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dl class="dl-horizontal ques">
+                                                  <dt><i class="fa fa-cubes"></i> 包裹重量:</dt>
                                                   <dd class="ng-binding">
-                                                    <span ng-if="!!shippingItem.inboundDate">
-                                                        {{shippingItem.inboundDate|sysdate}}
-                                                    </span>
-                                                    <span ng-if="!shippingItem.inboundDate">
-                                                        {{shippingItem.createDate|sysdate}}
-                                                    </span>
-                                                  </dd>
-                                              </dl>
-                                          </div>
-                                          <div class="col-md-4">
-                                              <dl class="dl-horizontal ques" style="margin: 10px 0;">
-                                                  <dt><i class="fa fa-archive"></i> 运单内容:</dt>
-                                                  <dd class="ng-binding">{{shippingItem.packageDescription}}
+                                                    {{shippingItem.packageWeight}}磅
                                                   </dd><br>
                                                   <dt><i class="fa fa-map-marker"></i> 发货仓库:</dt>
                                                   <dd>
                                                     {{shippingItem.warehouseName}}
                                                   </dd>
-                                              </dl>
+                                                </dl>
+                                            </div>
+                                          <div class="col-md-12">
+                                            <dl class="dl-horizontal ques">
+                                              <dt class="mes"><i class="fa fa-archive"></i> 运单内容:</dt>
+                                              <dd class="ng-binding des">{{shippingItem.packageDescription}}
+                                              </dd>
+                                            </dl>
                                           </div>
-                                          <div class="col-md-4" style="margin: 10px 0;">
-                                              <dl class="dl-horizontal ques">
-                                                <dt><i class="fa fa-cubes"></i> 包裹重量:</dt>
-                                                <dd class="ng-binding">
-                                                  {{shippingItem.packageWeight}}磅
-                                                </dd>
-                                              </dl>
-                                          </div>
+                                        </div>
                                       </div>
                                       <div class="s-title" style="margin-top: 25px;">转运包裹信息</div>
                                           <div ng-repeat="outboundPackageItem in outboundPackages" style="margin-bottom: 15px; padding:20px 30px; background-color: #fff;">
@@ -295,7 +297,7 @@
                             <div class="form-group row" style="margin:5px 15px">
                                 <div class="col-sm-2"><label class="label">使用积分：</label></div>
                                 <div class="col-sm-4">
-                                    <input type="text" ng-model="data.usePoint" class="form-control" ng-change="usePointChanged()" />
+                                    <input type="number" ng-model="data.usePoint" class="form-control" ng-change="calculateFee('usePoint');" ng-blur="usePointChanged()" />
                                 </div>
                                 <div class="col-sm-4" style="padding-top:6px;">
                                     <span>剩余积分：({{(currentUser.myPoint||0)|number}}) </span>
@@ -350,7 +352,7 @@
                                     <td class="td-m">{{countFee.insuranceFee|currency:'¥'}}</td>
                                     <td class="td-m">{{countFee.tip|currency:'¥'}}</td>
                                     <td class="td-m">¥0.00</td>
-                                    <td class="td-m">{{(data.usePoint||0) * -1|currency:'￥'}}</td>
+                                    <td class="td-m" style="color: red">{{(countFee.usePoint||0) * -1|currency:'￥'}}</td>
                                     <td class="td-m"><strong>{{countFee.totalCount|currency:'¥'}}</strong></td>
                                   </tr>
                                 </tbody>

@@ -31,7 +31,7 @@
                     ngModel: '=',
                     childName: '@'
                 },
-                template: '<li ng-class="{\'list-toggle\':!!ngModel.toggle,active:ngModel.actived,\'list-group-item\':!ngModel.leaf}"  ng-click="itemSelect($event)">' + '<a href="javascript:void(0);" ng-if="!ngModel.toggle"><i ng-if="!!ngModel.icon" class="{{ngModel.icon}}"></i> {{ngModel.name}}</a>' + '<a href="javascript:void(0);" data-toggle="collapse" data-parent="#sidebar-nav" ' + 'data-target="#collapse-{{ngModel.key}}" class="collapsed" aria-expanded="false"' + ' ng-if="!!ngModel.toggle"><i ng-if="!!ngModel.icon" class="{{ngModel.icon}}"></i> {{ngModel.name}}</a>' + '</li>',
+                template: '<li ng-class="{\'list-toggle\':!!ngModel.toggle,active:ngModel.actived,\'list-group-item\':!ngModel.leaf}"  ng-click="itemSelect($event)">' + '<a href="javascript:void(0);" ng-if="!ngModel.toggle" ><i ng-if="!!ngModel.icon" class="{{ngModel.icon}}"></i> {{ngModel.name}}</a>' + '<a href="javascript:void(0);" data-toggle="collapse" data-parent="#sidebar-nav" ' + 'data-target="#collapse-{{ngModel.key}}" class="collapsed" aria-expanded="false"' + ' ng-if="!!ngModel.toggle"><i ng-if="!!ngModel.icon" class="{{ngModel.icon}}"></i> {{ngModel.name}}</a>' + '</li>',
                 link: function(scope, element, attrs) {
                     var childName = scope.childName || scope.$parent.childName,
                         childData = scope.ngModel[childName];
@@ -49,6 +49,11 @@
                           } else {
                             $state.go(scope.ngModel.route);
                           }
+                          // if (scope.ngModel.name === '使用流程') {
+                          //   var url = $state.href(scope.ngModel.route);
+                          //   window.open(url, '_blank');
+                          // } else {
+                          // }
                         }
                         menuSerivce.changState(scope.ngModel);
                         if (!scope.ngModel.toggle) {
@@ -218,7 +223,8 @@
                         key: 'manual',
                         name: '使用流程',
                         icon: 'fa fa-graduation-cap',
-                        route: 'howtouse'
+                        route: 'howtouse',
+                        target: '_blank'
                     },{
                         leaf: true,
                         key: 'askquestion',

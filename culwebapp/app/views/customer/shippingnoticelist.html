@@ -61,11 +61,15 @@
                 <table class="table table-hover table-bordered" style="margin-bottom:0px">
                     <thead>
                         <tr>
-                            <th style="width:30px; min-width: 30px;"><input type="checkbox" ng-click="selectAll()" ng-model="selectedAll"></th>
-                            <th style="width:20px; min-width: 20px;">#</th>
+                            <th style="width:30px; min-width: 30px;">
+                              <!-- <input type="checkbox" ng-click="selectAll()" ng-model="selectedAll"> -->
+                              <input id="pack_urgentProcess" ng-click="selectAll()" class="pk-checkbox-input" type="checkbox" ng-model="selectedAll" />
+                              <label for="pack_urgentProcess"></label>
+                            </th>
+                            <th style="width:35px; min-width: 20px;">#</th>
                             <th>预报快递单号</th>
                             <th class="hidden-sm">运单内容</th>
-                            <th>运单备注</th>
+                            <th class="hidden-sm">运单备注</th>
                             <th>仓库</th>
                             <th>预报时间</th>
                             <th>货物状态</th>
@@ -75,8 +79,11 @@
                     <tbody>
                         <tr ng-repeat="shippingNoticeItem in shippingNoticeList track by shippingNoticeItem.transactionNumber">
                             <td>
-                                <input type="checkbox" style="margin-left:5px" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)"
-                                    ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'" />
+                              <input id="pack_item{{shippingNoticeItem.rownumber}}" class="pk-checkbox-input" type="checkbox" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)"
+                                ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'"/>
+                              <label for="pack_item{{shippingNoticeItem.rownumber}}" ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'"></label>
+                                <!-- <input type="checkbox" style="margin-left:5px" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)"
+                                    ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'" /> -->
                             </td>
                             <td>{{shippingNoticeItem.rownumber}}</td>
                             <td>{{ shippingNoticeItem.trackingNumber }}</td>
@@ -93,7 +100,7 @@
                                 <p ng-if="shippingNoticeItem.status === 'InOrder'">
                                     <small>
                                         <!-- <i class="fa fa-shopping-cart"></i> -->
-                                        <a href="javascript:void(0)" ng-click="redirectToOrderDetail(shippingNoticeItem.orderNumber);"><u>{{shippingNoticeItem.orderNumber}}</u></a>
+                                        <a href="javascript:void(0)" ng-click="redirectToOrderDetail(shippingNoticeItem.orderNumber);">{{shippingNoticeItem.orderNumber}}</a>
                                     </small>
                                 </p>
                                 <p ng-if="shippingNoticeItem.status === 'Inbound'">
@@ -106,7 +113,7 @@
                             </td>
                             <td>
                                   <a href="javascript:void(0);" ng-show="shippingNoticeItem.status === 'Intransit'" class="op-btn">
-                                      <i class="fa fa-trash-o" ng-click="deleteShippingNotice(shippingNoticeItem)"></i>
+                                      <i class="fa fa-trash-o" ng-click="deleteShippingNotice(shippingNoticeItem)">删除</i>
                                   </a>
                             </td>
                         </tr>
