@@ -157,7 +157,9 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">可用积分：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="data.myPoint" ng-disabled="!tpl_status.editPoint">
+                        <!--<input type="text" class="form-control" ng-model="data.myPoint" disabled>-->
+                        <input type="text" class="form-control" ng-model="data.myPoint" disabled>
+                        <input type="number" placeholder=" 输入的数值为增加或则减少的积分,减少用-" class="form-control" ng-model="data.changePoint" ng-show="tpl_status.editPoint">
                     </div>
                     <label class="col-sm-6 control-label">总获得积分：{{data.totalPoint || 0}}，已使用积分：{{(data.totalPoint - data.myPoint) || 0}}</label>
                 </div>

@@ -22,6 +22,7 @@ angular.module('culAdminApp')
           $scope.customerNumber = $location.search().customerNumber;
           customerService.getDetail($scope.customerNumber, function (result) {
               $scope.data = result;
+              console.log($scope.data);
           });
 
           $scope.btnSave = function () {
@@ -55,12 +56,13 @@ angular.module('culAdminApp')
           $scope.btnEditPoint = function () {
               customerService.updatePoint({
                   "customerNumber": $scope.data.customerNumber,
-                  "myPoint": $scope.data.myPoint
+                  "changePoint": $scope.data.changePoint
                   //TODO: 积分调整理由?
               }, function (result) {
                   if (result.success == true) {
                       $scope.tpl_status.editPoint = false;
                       plugMessenger.success("积分调整成功");
+                        $window.location.reload();
                   }
               });
           }
