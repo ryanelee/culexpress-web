@@ -35,7 +35,8 @@ angular.module('culAdminApp')
                 inventoryConditionValue: "0",
                 categoryId: "",
                 categorySubId: "",
-
+                sendType: "",
+                keywordType: "receiptNumber",
                 dateRange: "",
                 startDate: "",
                 endDate: "",

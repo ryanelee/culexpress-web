@@ -9,25 +9,17 @@
                     <label class="search-label">搜索条目：</label>
                     <select class="form-control search-control" ng-model="searchBar.keywordType">
                         <option value="customerNumber">客户编号</option>
-                        <option value="trackingNumber">包裹跟踪号</option>                        
-                        <option value="userName">账号</option>
+                        <option value="userName">客户ID(注册名)</option>
                         <!--<option value="name">姓名</option>-->
-                        <option value="emailAddress">邮箱</option>
-                        <option value="receivePersonName">客户ID</option>
-                        <option value="customerNumber">客户标识</option>
-                        <option value="cellphoneNumber">手机号</option>
+                        <option value="emailAddress">注册邮箱</option>
+                        <option value="receiveIdentity">客户标示</option>
+                        <option value="cellphoneNumber">手机号码</option>
                         <option value="telephoneNumber">电话号码</option>
                         <option value="idCard">身份证号</option>
-
-
-
-
-
-
-
-
-
-
+                        <option value="orderNumber">订单编号</option>  
+                        <option value="trackingNumber">包裹跟踪号</option> 
+                        <option value="cnTrackingNumber">国内物流号</option>              
+                        <option value="receivePersonName">收货人姓名</option>
                     </select>
                     <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
