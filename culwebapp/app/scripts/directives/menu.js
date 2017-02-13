@@ -231,6 +231,12 @@
                         name: '在线咨询',
                         icon: 'fa fa-comment',
                         route: 'customer.askquestion'
+                    },{
+                        leaf: true,
+                        key: 'refer-a-friend',
+                        name: '好友邀请',
+                        icon: 'fa fa-gift',
+                        route: 'refer-a-friend'
                     }]
                 }];
                 //为了方便实现，这里直接设置数组的第一个元素为默认选中元素
