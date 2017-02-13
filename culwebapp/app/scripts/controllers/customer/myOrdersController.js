@@ -546,8 +546,11 @@ angular
                                     alertify.alert('错误', result.data.message);
                                 }
                             });
-                    });
-            }
+                    },
+                        function(){
+                            alertify.error('已取消删除!');
+                        })
+            };
 
             var payOrderServie = function (orderItem, callback) {
                 orderSvr.paymentOrder(orderItem.orderNumber)
