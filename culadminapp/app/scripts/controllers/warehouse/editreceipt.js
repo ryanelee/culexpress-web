@@ -92,7 +92,7 @@ angular.module('culAdminApp')
 
           $scope.btnSaveAndPrint = function () {
             //   $scope.btnSave(function () {
-                $scope.data.trackingNumber = "1z9002034234234"
+                //$scope.data.trackingNumber = "1z9002034234234"
                   $scope.$broadcast("print-inboundPackage.action", $scope.data.trackingNumber);
                 //   _clearAndFocus();
             //   });

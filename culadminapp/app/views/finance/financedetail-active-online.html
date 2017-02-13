@@ -102,8 +102,10 @@
                 <td>{{item.warehouseName}}</td>
                 <td>{{item.actualWeight}}</td>
                 <td>￥{{item.shippingFee}}</td>
+                <!--<td>￥{{item.packageTotalFee}}</td>
+                <td>￥{{item.shippingFeeAdjust}}</td>-->
+                <td>￥{{item.totalCount}}</td>
                 <td>￥{{item.packageTotalFee}}</td>
-                <td>￥{{item.shippingFeeAdjust}}</td>
                 <td>
                     <a href="javascript:void(0)" ng-click="btnPay(item)" ng-show="item.orderStatus == 'Arrears'">余额支付</a>
                 </td>
