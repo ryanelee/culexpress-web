@@ -332,6 +332,10 @@ angular
                     url: '/embargo',
                     templateUrl: 'views/embargo.html'
                 })
+                .state('refer-a-friend', {
+                    url: '/refer-a-friend',
+                    templateUrl: 'views/refer-a-friend.html'
+                })
                 .state('uploadIDCard', {
                     url: '/uploadIDCard',
                     templateUrl: 'views/uploadIDCard.html'
