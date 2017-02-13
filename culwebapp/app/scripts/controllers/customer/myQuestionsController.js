@@ -2,9 +2,60 @@
 
 angular
     .module('culwebApp')
-    .controller('MyQuestionsController', ['$scope', '$state', 'Customer', 'OrderSvr', 
+    .controller('MyQuestionsController', ['$scope', '$state', 'Customer', 'OrderSvr',
         function ($scope, $state, customer, orderSvr) {
 
+
+
+
+            $scope.myKeyup = function (e) {
+                console.log('2323')
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                    $scope.myClass = 'green';
+                    $scope.myClick();
+                }
+            };
+            $scope.myClick = function () {
+                $scope.isClick = 'Yes!';
+            };
+
+
+
+            $scope.$on('$viewContentLoaded', function () {
+                console.log("卧槽")
+                loadFileinput();
+            });
+            function loadFileinput() {//初始化 fileinput
+                $("#file").fileinput({
+                    language: 'zh',//设置语言
+                    //uploadUrl: "report/photo/add",//上传的地址
+                    uploadUrl: cul.apiPath + "/customermessage/uploadImage?customNumber=" + $scope.customNumber,//上传的地址
+                    allowedFileExtensions: ["jpg", "png", "gif", 'jpeg'],//接收的文件后缀
+                    browseOnZoneClick: true,  //是否启用 点击预览区进行【文件浏览/选择】操作。默认为假。
+                    minFileCount: 2,//同一时间上传的最小
+                    maxFileCount: 2,//同一时间上传的最大数量
+                    resizePreference: 'height',
+                    overwriteInitial: false,
+                    uploadLabel: "上传",
+                    browseLabel: "选择图片",
+                    dropZoneTitle: "点击",
+                    dropZoneClickTitle: "选择图片",
+                    browseClass: "btn btn-primary", //按钮样式
+                    //showUpload: false, //是否显示上传按钮
+                    showCaption: false,//是否显示标题
+                    showUploadedThumbs: 'false',
+                    resizeImage: true
+
+                });
+            }
+
+
+
+
+
+
+            console.log('23')
             var currentUser = $scope.currentUser = $scope.$root.currentUser;
 
 
@@ -44,7 +95,7 @@ angular
 
             $scope.deleteQuestion = function (number) {
                 if (!number) return false;
-                alertify.confirm('确认','确定要删除问题[' + number + ']?', 
+                alertify.confirm('确认', '确定要删除问题[' + number + ']?',
                     function () {
                         customer.delQuestion(number)
                             .then(function (result) {
@@ -57,9 +108,9 @@ angular
                                     alertify.alert('错误', result.data.message, 'error');
                                 }
                             });
-                },function(){
-                    alertify.error('已取消删除!');
-                });
+                    }, function () {
+                        alertify.error('已取消删除!');
+                    });
             }
 
 
@@ -108,8 +159,13 @@ angular
                 }
             }
 
-
-             loadQuestionList();
+            loadQuestionList();
             /* end add question*/
+
+
+
+
+
+
 
         }]);

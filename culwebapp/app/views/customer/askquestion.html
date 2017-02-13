@@ -2,7 +2,7 @@
 <div class="row">
     <form action="#" id="sky-form3" class="sky-form">
         <header>在线咨询</header>
-
+        <p id="w">12</p>
         <fieldset>
             <section>
                 <label class="label">反馈问题类别</label>
@@ -55,12 +55,16 @@
                 <div class="note">您需要反馈的发货单号,格式例如:UMI000000001</div>
             </section>
 
+       
             <section>
-                <label class="label">图片上传</label>
+
+
+
+                <!--<label class="label">图片上传</label>
                 <label for="file" class="input input-file">
                     <div class="button bg-color-ffb"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">浏览</div><input type="text" readonly="">
                 </label>
-                <div class="note">仅支持jpg,jpeg,bmp,png,gif图片格式</div>
+                <div class="note">仅支持jpg,jpeg,bmp,png,gif图片格式</div>-->
             </section>
 
             <section>
@@ -86,4 +90,15 @@
         </footer>
     </form>
 </div>
+
+     <div class="form-group">
+                <label class="label required">身份证件上传</label>
+                <div style="height: 50%">
+                    <form enctype="multipart/form-data" id="addForm">
+                        <div class="form-group">
+                            <label></label>
+                            <input id="file" type="file" class="file" name="file" multiple="true" ,accept="image/*">
+                        </div>
+                    </form>
+            </div>
 <!-- End Content -->

@@ -132,7 +132,4 @@ angular
                 templateUrl: 'views/products/sendi_detail.html',
                 controller: 'SendiDetailCtrl'
             });
-
-
-
     });
