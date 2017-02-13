@@ -84,9 +84,13 @@
                 <th>受理仓库</th>
                 <th>重量（磅）</th>
                 <!--<th>金额（￥）</th>-->
+                <th>运费</th>
+                <th>购买保险</th>
+                <th>小费</th>
+                <th>增值服务</th>
+                <th>积分抵扣</th>
+                <th>运费总计</th>
                 <th>订单已支付运费</th>
-                <th>运费总额</th>
-                <th>运费差额</th>
                 <th>操作</th>
             </tr>
         </thead>
@@ -100,12 +104,16 @@
                 <td><span class="red">字段不明确</span></td>
                 <td><span class="red">字段不明确</span></td>-->
                 <td>{{item.warehouseName}}</td>
-                <td>{{item.actualWeight}}</td>
-                <td>￥{{item.shippingFee}}</td>
+                <td>{{item.actualWeight|number : 2}}磅</td>
                 <!--<td>￥{{item.packageTotalFee}}</td>
                 <td>￥{{item.shippingFeeAdjust}}</td>-->
-                <td>￥{{item.totalCount}}</td>
-                <td>￥{{item.packageTotalFee}}</td>
+                <td>{{item.shippingFee|currency:'¥'}}</td>
+                <td>{{item.insuranceFee|currency:'¥'}}</td>
+                <td>{{item.tip|currency:'¥'}}</td>
+                <td>{{item.valueAddFee|currency:'¥'}}</td>
+                <td style="color: red">{{(item.usedPoint||0) * -1 | currency:'￥'}}</td>
+                <td>{{item.totalCount|currency:'¥'}}</td>
+                <td>{{item.paied|currency:'¥'}}</td>
                 <td>
                     <a href="javascript:void(0)" ng-click="btnPay(item)" ng-show="item.orderStatus == 'Arrears'">余额支付</a>
                 </td>
