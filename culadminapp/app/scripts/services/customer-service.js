@@ -8,7 +8,7 @@
  * Service in the culAdminApp.
  */
 angular.module('culAdminApp')
-    .service('customerService', ["$http", function($http) {
+    .service('customerService', ["$window", "$http", function($window, $http) {
         var self = this;
 
         self.getDetail = function(customerNumber, callback) {
@@ -94,6 +94,19 @@ angular.module('culAdminApp')
         }
 
         self.statisticsList = function(options, callback) {
+            var customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
+
+            if(customer_ids != undefined && parseInt(customer_ids) !== 0){
+
+                if (options["customerNumber"] != undefined
+                    && !customer_ids.includes(options["customerNumber"].toUpperCase())) {//搜索指定customer#不在当前用户允许查询的customer权限中，直接返回空数据集
+                        return;
+                };
+
+                if (options["customerNumber"] == undefined)//默认只返回具备权限查看customer的数据
+                    options["customerNumber"] = customer_ids;
+            };
+
             $http.post(cul.apiPath + "/customer/statistics/list", options).success(function(result) {
                 callback(result);
             });

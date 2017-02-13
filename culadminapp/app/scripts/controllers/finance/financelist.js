@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('FinanceListCtrl', ["$window","$scope","$rootScope","$location", "$filter", "customerService", "warehouseService", "plugMessenger",
-      function ($window,$scope,$rootScope,$location, $filter, customerService, warehouseService, plugMessenger) {
+  .controller('FinanceListCtrl', ["$timeout", "$window","$scope","$rootScope","$location", "$filter", "customerService", "warehouseService", "plugMessenger",
+      function ($timeout, $window,$scope,$rootScope,$location, $filter, customerService, warehouseService, plugMessenger) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -24,7 +24,6 @@ angular.module('culAdminApp')
           }
 
           $scope.dataList = [];
-          $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
 
           $scope.pagination = {
               pageSize: "20",
@@ -55,12 +54,6 @@ angular.module('culAdminApp')
                   _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
               }
               if (!!$scope.searchBar.keywords) {
-                  if ($scope.searchBar.keywordType == "customerNumber"
-                      && parseInt($scope.customer_ids) !== 0
-                      && !$scope.customer_ids.split(",").includes($scope.searchBar.keywords)) {
-                      $scope.searchBar.keywords = "没有查看该客户的权限,请联系统管理员";
-                  }
-
                   _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
               }
               return angular.copy(_options);
@@ -69,18 +62,9 @@ angular.module('culAdminApp')
           $scope.getData = function () {
               var _options = _filterOptions();
               customerService.statisticsList(angular.copy(_options), function (result) {
-                  var _data = result.data;
-                  if (parseInt($scope.customer_ids) !== 0) {
-                      _data = _data.filter(function(x){
-                          $scope.customer_ids.split(",").includes(x.customerNumber)
-                      });
-                  }
-
-                  $scope.dataList = _data;
+                  $scope.dataList = result.data;
 
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
-
-                  $rootScope.$emit("changeMenu");
               });
           }
 
@@ -104,5 +88,8 @@ angular.module('culAdminApp')
               }
           }
 
-          $scope.getData();
+          $timeout(function(){
+            $scope.getData();
+          },500);
+          
       }]);
