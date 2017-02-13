@@ -17,6 +17,42 @@ angular.module('culAdminApp')
             ];
             $scope.data = null;
 
+
+            $scope.myKeyup = function (e, item) {
+                console.log(item);
+
+                $scope.myKeyup = function (e) {
+                    var keycode = window.event ? e.keyCode : e.which;
+                    if (keycode == 13) {
+                        $scope.btnSave(item);
+                    }
+                };
+
+                // console.log('2323')
+                // var keycode = window.event ? e.keyCode : e.which;
+                // if (keycode == 13) {
+                //     $scope.myClass = 'green';
+                //     $scope.myClick();
+                // }
+            };
+            // $scope.myClick = function () {
+            //     $scope.isClick = 'Yes!';
+            // };
+
+
+
+
+            $scope.$on('$viewContentLoaded', function () {
+                var element = $window.document.getElementById('weight');
+                if (element)
+                    element.focus();
+                //  var weight = document.getElementById("weight").focus();
+
+                //     var weight = document.getElementById("weight");
+                //     weight.focus();
+            });
+
+
             $scope.tempReceiptNumber = $location.search().receiptNumber || "";
             console.log($scope.tempReceiptNumber);
             var _timeout = null;
@@ -31,12 +67,15 @@ angular.module('culAdminApp')
                                 if (!result.message) {
                                     $scope.data = result;
                                 }
-                                if ($scope.data.sendType == '2',$scope.data.isTransfer == '1') {
+                                if ($scope.data.sendType == '2', $scope.data.isTransfer == '1') {
                                     if ($scope.data.packageWeight) {
-                                    $scope.data.items[0].weight = $scope.data.packageWeight
+                                        $scope.data.items[0].weight = $scope.data.packageWeight
                                     }
 
                                 }
+                                var element = $window.document.getElementById('weight');
+                                if (element)
+                                    element.focus();
                                 $scope.tempReceiptNumber = "";
                             });
                         } else {
@@ -48,7 +87,7 @@ angular.module('culAdminApp')
 
             $scope.checkReceiptNumber();
 
-            $scope.btnSave = function () {
+            $scope.btnSave = function (item) {
                 $scope.data.isUnusual = 0;
                 $("input[name='pro']:checked").each(function (index, e) {
                     $scope.isStaffFlag = $(this).attr("value");
@@ -59,7 +98,13 @@ angular.module('culAdminApp')
                 var _callback = function (result) {
                     if (!result.message) {
                         plugMessenger.success("操作成功");
-                        $scope.data = null;
+                        if (item) {
+                            $scope.btnPrint(item)
+                        } else {
+                            $scope.data = null;
+                        }
+
+
                     }
                 }
                 // return;
@@ -109,15 +154,16 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrint = function (item) {
+                console.log(item);
                 switch ($scope.data.sendType) {
                     case 1: //寄送库存
-                        $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber });
+                        $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber }); $scope.data = null;
                         break;
                     case 2: //海淘包裹
                         // $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: item.receiptNumber, number: 1 });
                         // $scope.$broadcast("print-inboundPackage.action", trackingNumber);
                         $scope.$broadcast("print-inboundPackage.action", item.receiptNumber);
-
+                        $scope.data = null;
                         break;
                 }
             }

@@ -150,15 +150,15 @@
                 <div class="search-col">
                     <label class="search-label">搜索条目：</label>
                     <select class="form-control search-control" ng-model="searchBar.keywordType">
+                        <option value="orderNumber">订单编号</option>
                         <option value="customerNumber">客户编号</option>
                         <option value="userName">客户ID</option>
-                        <option value="orderNumber">订单编号</option>
                         <option value="outBoundTrackingNumber">包裹单号</option>
                         <option value="receiveidentity">客户标示</option>
                         <option value="referenceOrderNumber">客户关联号</option>
                         <option value="cnTrackingNumber">国内物流号</option>
                     </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
+                   <textarea type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ></textarea>
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                 </div>
             </div>

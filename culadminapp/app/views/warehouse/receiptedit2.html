@@ -2,6 +2,7 @@
     <div class="widget-header">
         <h3><i class="fa fa-edit"></i> 入库登记</h3>
     </div>
+     
     <div class="widget-content">
         <form class="form-horizontal" role="form">
             <fieldset>
@@ -88,7 +89,9 @@
                             <th>操作</th>
                         </tr>
                     </thead>
+                     <input id="weight" type="text" class="form-control" ng-model="item.weight" />
                     <tbody>
+                          
                         <tr ng-repeat="item in data.items">
                             <td style="vertical-align: middle;">{{item.itemNumber}}</td>
                             <td style="vertical-align: middle;">{{item.upccode}}</td>
@@ -98,7 +101,9 @@
                             <td style="vertical-align: middle;"><span ng-show="item.properties[1]">{{item.properties[1].propertyName + ': ' + item.properties[1].propertyValue}}</span></td>
                             <td style="vertical-align: middle;">{{item.sendCount}}</td>
                             <td style="vertical-align: middle; width:140px;" ng-show="data.sendType == 2">
-                                <input type="text" class="form-control" ng-model="item.weight" />
+                                <input name="weight" type="text" class="form-control" ng-model="item.weight"
+                                ng-keyup="myKeyup($event,item)"
+                                 />
                             </td>
                             <td style="vertical-align: middle;">
                                 <a href="javascript:void(0)" ng-click="btnPrint(item)" ng-show="data.sendType == 1">打印清单标签</a><!-- 寄送库存 -->
@@ -120,3 +125,17 @@
     <print-helper></print-helper>
     <print-inbound-package></print-inbound-package>
 </div>
+
+<script>
+// $(function(){
+//  var weight = document.getElementById("weight").focus();
+// })
+//  console.log(weight);
+//      weight.onkeydown = function(event) {
+//         e = event ? event : (window.event ? window.event : null);
+//         // 按下回车键且输入框值非空时  
+//         if (e.keyCode == 13 && receiveIdentity.value) {
+//         }
+//     }
+
+    </script>

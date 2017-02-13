@@ -52,6 +52,7 @@ angular.module('culAdminApp')
         };
 
           $http.post(cul.apiPath + "/order/list", options).success(function (result) {
+              console.log('nimens')
               $.each(result.data, function (index, item) {
 
                   item._orderStatus = _getOrderStatus(item.orderStatus);
@@ -113,8 +114,8 @@ angular.module('culAdminApp')
          return $http.post(cul.apiPath + "/order/checkOrderNumber", order)
       }
 
-      self.delete = function (orderNumber, callback) {
-          $http.delete(cul.apiPath + "/order?number=" + orderNumber).success(function (result) {
+      self.delete = function (searchOrder, callback) {
+          $http.delete(cul.apiPath + "/order?number=" + searchOrder.orderNumber+"&orderNumberList="+searchOrder.orderNumberList).success(function (result) {
               callback(result);
           });
       }
