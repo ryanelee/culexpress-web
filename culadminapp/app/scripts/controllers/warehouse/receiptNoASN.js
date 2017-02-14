@@ -21,7 +21,6 @@ angular.module('culAdminApp')
 
 
 
-
             $scope.checkReceiveIdentity = function () {
                 if (!$scope.data.receiveIdentity) {
                     plugMessenger.error("客户标识不能为空");

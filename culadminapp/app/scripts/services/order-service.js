@@ -38,6 +38,7 @@ angular.module('culAdminApp')
       }
 
       self.getList = function (options, callback) {
+          console.log(options);
         var customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
 
         if(customer_ids != undefined && parseInt(customer_ids) !== 0){

@@ -118,9 +118,10 @@ angular.module('culAdminApp')
               if (!!$scope.searchBar.keywords) {                  
                   _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                       if ($scope.searchBar.keywordType == 'orderNumber') {
-                        if ($scope.searchBar.keywords.indexOf(' ') >= 0) {
-                            _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split(' ')
+                       if ($scope.searchBar.keywords.indexOf('\n') >= 0) {
+                            _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split('\n')
                         }
+
 
                     }
               }

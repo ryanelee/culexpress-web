@@ -8,17 +8,6 @@ angular
 
 
 
-            $scope.myKeyup = function (e) {
-                console.log('2323')
-                var keycode = window.event ? e.keyCode : e.which;
-                if (keycode == 13) {
-                    $scope.myClass = 'green';
-                    $scope.myClick();
-                }
-            };
-            $scope.myClick = function () {
-                $scope.isClick = 'Yes!';
-            };
 
 
 
