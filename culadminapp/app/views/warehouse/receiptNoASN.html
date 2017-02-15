@@ -63,7 +63,7 @@
             <div class="form-group">
                 <label class="col-sm-2  text-right">包裹重量：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <input type="number" id="packageWeight" class="form-control" placeholder="包裹重量" ng-model="data.packageWeight">
+                    <input type="number"  ng-keyup="myKeyup($event)"  class="form-control" placeholder="包裹重量" ng-model="data.packageWeight">
                 </div>
             </div>
             <div class="form-group">
@@ -138,11 +138,11 @@
             packageWeight.focus();
         }
     }
-    packageWeight.onkeydown = function(event) {
-        e = event ? event : (window.event ? window.event : null);
-        // 按下回车键且输入框值非空时  
-        if (e.keyCode == 13 && packageWeight.value) {
-            warehouseNote.focus();
-        }
-    }
+    // packageWeight.onkeydown = function(event) {
+    //     e = event ? event : (window.event ? window.event : null);
+    //     // 按下回车键且输入框值非空时  
+    //     if (e.keyCode == 13 && packageWeight.value) {
+    //         warehouseNote.focus();
+    //     }
+    // }
 </script>

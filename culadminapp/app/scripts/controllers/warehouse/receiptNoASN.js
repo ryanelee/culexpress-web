@@ -20,6 +20,16 @@ angular.module('culAdminApp')
             $scope.flag = '0'
 
 
+            $scope.myKeyup = function (e) {
+                $scope.myKeyup = function (e) {
+                    var keycode = window.event ? e.keyCode : e.which;
+                    if (keycode == 13) {
+                    $scope.register();
+                    }
+                };
+            };
+
+
 
 
 
@@ -199,7 +209,7 @@ angular.module('culAdminApp')
 
 
             $scope.btnPrev = function () {
-                $window.history.back();
+                $location.path('/warehouse/receipt2')
             }
             $scope.print = function () {
                 console
