@@ -16,8 +16,67 @@ angular.module('culAdminApp')
                 'Karma'
             ];
             $scope.data = {};
-            $scope.warehouseList = [];  
+            $scope.warehouseList = [];
             $scope.flag = '0'
+
+
+
+
+
+            $scope.data = {
+                trackingNumber: angular.copy($location.search().trackingNumber || "")
+            }
+            $scope._trackingNumber = "";
+
+            $scope.tpl_status = {
+                warehouseList: [],
+                isExist: false
+            }
+
+            $scope.getPackageDetail = function () {
+                if (!!$scope.data.trackingNumber && $scope._trackingNumber != $scope.data.trackingNumber) {
+                    warehouseService.getInboundPackageDetail($scope.data.trackingNumber, function (result) {
+                        if (result == null) {
+                            //新增
+                            var _newNumber = angular.copy($scope.data.trackingNumber);
+                            $scope.data = { trackingNumber: _newNumber }
+                            $scope._trackingNumber = "";
+                            $scope.tpl_status.isExist = false;
+                        } else {
+                            //修改
+                            console.log("feichang" + JSON.stringify(result));
+                            $scope.data = result;
+                            $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
+                            $scope.tpl_status.isExist = true;
+                        }
+                    });
+                }
+            }
+
+            $scope.hotKey = function (event) {
+                switch (event.keyCode) {
+                    case 13:  //enter
+                        $scope.getPackageDetail();
+                        break;
+                }
+            }
+
+            // warehouseService.getWarehouse(function (result) {
+            //     $scope.tpl_status.warehouseList = result;
+            // });
+
+
+            warehouseService.getWarehouse(function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    var detail = {}
+                    $scope.data.warehouseNumber = result[0].warehouseNumber
+                    detail['key'] = result[i].warehouseNumber
+                    detail['value'] = result[i].warehouseName;
+                    $scope.warehouseList.push(detail);
+                    $scope.getPackageDetail();
+
+                }
+            });
 
 
 
@@ -68,15 +127,7 @@ angular.module('culAdminApp')
             }
 
 
-            warehouseService.getWarehouse(function (result) {
-                for (var i = 0; i < result.length; i++) {
-                    var detail = {}
-                    $scope.data.warehouseNumber = result[0].warehouseNumber
-                    detail['key'] = result[i].warehouseNumber
-                    detail['value'] = result[i].warehouseName;
-                    $scope.warehouseList.push(detail);
-                }
-            });
+
 
 
             $scope.inboundpackage = function () {
@@ -91,8 +142,8 @@ angular.module('culAdminApp')
             $scope.btnSave = function (trackingNumber) {
                 var _callback = function (result) {
                     if (!result.message) {
-                        $scope.$broadcast("print-inboundPackage.action",  trackingNumber);
-                        
+                        $scope.$broadcast("print-inboundPackage.action", trackingNumber);
+
                         // $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: trackingNumber, number: 1 });
                         $scope.data = null;
                     } else {
@@ -101,6 +152,16 @@ angular.module('culAdminApp')
                 }
                 receiptService.saveForOnline($scope.data, _callback);
             }
+
+
+            $scope.register = function () {
+                if ($scope.tpl_status.isExist) {
+                    $scope.updateSave();
+                } else {
+                    $scope.btnSaveAndPrint();
+                }
+            }
+
 
 
 
@@ -140,5 +201,58 @@ angular.module('culAdminApp')
             $scope.btnPrev = function () {
                 $window.history.back();
             }
+            $scope.print = function () {
+                console
+                $scope.$broadcast("print-inboundPackage.action", $scope.data.trackingNumber);
+            }
+
+
+
+
+            $scope.updateSave = function (item) {
+                if (!$scope.data.packageWeight) {
+                    plugMessenger.error("必须填写重量");
+                    return;
+                }
+                $scope.data.isUnusual = 0;
+                $("input[name='pro']:checked").each(function (index, e) {
+                    $scope.isStaffFlag = $(this).attr("value");
+                });
+                if ($scope.isStaffFlag == 'true') {
+                    $scope.data.isUnusual = 1;
+                }
+                var _callback = function (result) {
+                    if (!result.message) {
+                        plugMessenger.success("操作成功");
+                        $scope.$broadcast("print-inboundPackage.action", $scope.data.trackingNumber);
+                        $scope.data = null;
+                        // if (item) {
+                        // } else {
+                        //     // $scope.data = null;
+                        // }
+                    }
+                }
+                $scope.options = {
+                    "receiptNumber": $scope.data.trackingNumber,
+                    "customerNumber": $scope.data.customerNumber,
+                    "isUnusual": $scope.data.isUnusual,
+                    "weight": $scope.data.packageWeight
+                }
+                console.log($scope.options);
+                // return;
+                receiptService.saveForOnline($scope.options, _callback);
+            }
+
+
+            $scope.btnException = function () {
+                $location.search({ "receiptNumber": $scope.data.trackingNumber });
+                $location.path("warehouse/receiptexceptionedit");
+            }
+
+
+
+
+
+
         }
     ]);

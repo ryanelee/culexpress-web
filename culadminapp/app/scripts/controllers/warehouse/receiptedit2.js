@@ -43,9 +43,9 @@ angular.module('culAdminApp')
 
 
             $scope.$on('$viewContentLoaded', function () {
-                var element = $window.document.getElementById('weight');
-                if (element)
-                    element.focus();
+                // var element = $window.document.getElementById('weight');
+                // if (element)
+                //     element.focus();
                 //  var weight = document.getElementById("weight").focus();
 
                 //     var weight = document.getElementById("weight");
@@ -55,8 +55,27 @@ angular.module('culAdminApp')
 
             $scope.tempReceiptNumber = $location.search().receiptNumber || "";
             console.log($scope.tempReceiptNumber);
+
+            $scope.tempReceipt = $scope.tempReceiptNumber.substring(0, 3);
+            console.log($scope.tempReceipt)
+
+            if ($scope.tempReceiptNumber) {
+                if ($scope.tempReceipt == 'ASN') {
+                    $scope.checkReceiptNumber();
+                } else {
+                    $location.search({ "trackingNumber": $scope.tempReceiptNumber });
+                    $location.path("/warehouse/receiptNoASN");
+                }
+
+            }
+
             var _timeout = null;
             $scope.checkReceiptNumber = function () {
+                if ($scope.tempReceiptNumber && $scope.tempReceipt != 'ASN') {
+                    $location.search({ "trackingNumber": $scope.tempReceiptNumber });
+                    $location.path("/warehouse/receiptNoASN");
+                    return;
+                }
                 if (!!_timeout) clearTimeout(_timeout);
                 _timeout = setTimeout(function () {
                     $scope.$apply(function () {
@@ -85,7 +104,7 @@ angular.module('culAdminApp')
                 }, 1000);
             }
 
-            $scope.checkReceiptNumber();
+
 
             $scope.btnSave = function (item) {
                 $scope.data.isUnusual = 0;
