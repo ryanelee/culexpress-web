@@ -1189,6 +1189,7 @@ select::-ms-expand {
 	line-height: 1.2;
 }
 
+
 .howuse .step-two {
 	text-align: right;
 	box-sizing: border-box;
@@ -3162,6 +3163,12 @@ select:-webkit-autofill {
 
 .my-home .btn-op:hover {
 	background-color:#ffb528 !important;
+}
+
+@media (min-width: 1000px) {
+	.howuse .sp6 {
+		margin-left: calc(30% - 100px);
+	}
 }
 
 @media (max-width: 1203px) {
