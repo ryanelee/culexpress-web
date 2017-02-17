@@ -28,9 +28,6 @@ angular.module('culwebApp')
                 }
             }
 
-
-            console.log($scope.isOrderPackage);
-
             $scope.packagesList = [];
             if ($scope.isOrderPackage) {
                 if (!$scope.trackingNumber) {
@@ -44,6 +41,8 @@ angular.module('culwebApp')
                                 $scope.packagesList = result.data;
                                 if ($scope.packagesList.length <= 0) {
                                     $scope.isErrorNumber = true;
+                                } else {
+
                                 }
                             }
                         }, function () {
@@ -87,7 +86,6 @@ angular.module('culwebApp')
             if (!$scope.isOrderPackage) {
                 orderSvr.getOrderTrackingList($scope.trackingNumber)
                     .then(function (result) {
-                        // console.log(result);
                         var eventObj = result.data,
                             eventList = [],
                             tempEventList = angular.copy($scope.orderEventInfo.eventList);
@@ -113,7 +111,6 @@ angular.module('culwebApp')
                                 $scope.orderEventInfo.outboundDate = eventItem.time;
                             }
                         }
-                        console.log(eventList)
                         $scope.orderEventInfo = angular.extend($scope.orderEventInfo, eventObj, { eventList: eventList, outboundDate: $scope.orderEventInfo.outboundDate });
 
                         $scope.showTrack = true;
