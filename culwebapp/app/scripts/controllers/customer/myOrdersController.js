@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular
+var app = angular
     .module('culwebApp')
     .controller('MyOrdersController', ['$rootScope','$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter',
         function ($rootScope,$scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter) {
@@ -648,43 +648,46 @@ angular
 
                         //身份证渠道需要验证选择的收货地址是否通过验证
                         var addressItem =
-                            $scope.addressListData.filter(function (value) {
+                            $scope.addressListData.filter(function(value){
                                 return value.transactionNumber == packageItem.addressNumber;
                             })[0];
 
                         if (addressItem != undefined
                             && $scope.data.shipServiceItem != undefined
                             && $scope.data.shipServiceItem.needIDCard === 1
-                            && addressItem.verifyMark !== 1) {
-                            alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' '
-                                + addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
-                                '</small>]还未通过身份验证。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
-                                '</small>]要求收货地址必须提供验证通过的身份证信息,请更改地址信息或者选择其他收货地址。');
-                            return false;
-                        }
+                            && addressItem.verifyMark !== 1)
+                            {
+                                alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince+' '
+                                    +addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName +
+                                    '</small>]还未通过身份验证。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                    '</small>]要求收货地址必须提供验证通过的身份证信息,请更改地址信息或者选择其他收货地址。');
+                                return false;
+                            }
 
                         //USPS渠道要求收货人姓名必须为英文/拼音,地址为拼音
                         if (addressItem != undefined
                             && $scope.data.shipServiceItem != undefined
                             && $scope.data.shipServiceItem.requireEnglish4Name === 1
-                            && !/^[a-z\s0-9]+$/i.test(addressItem.receivePersonName)) {
-                            alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' '
-                                + addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
-                                '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
-                                '</small>]要求收货人姓名必须为英文或者拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
-                            return false;
-                        }
+                            && !/^[a-z\s0-9]+$/i.test(addressItem.receivePersonName))
+                            {
+                                alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince+' '
+                                    +addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName +
+                                    '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                    '</small>]要求收货人姓名必须为英文或者拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
+                                return false;
+                            }
 
                         if (addressItem != undefined
                             && $scope.data.shipServiceItem != undefined
                             && $scope.data.shipServiceItem.requireEnglish4Address === 1
-                            && !/^[a-z\s0-9]+$/i.test(addressItem.address1 + addressItem.zipcode)) {
-                            alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' '
-                                + addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
-                                '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
-                                '</small>]要求收货人地址必须为英文拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
-                            return false;
-                        }
+                            && !/^[a-z\s0-9]+$/i.test(addressItem.address1 + addressItem.zipcode))
+                            {
+                                alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince+' '
+                                    +addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName +
+                                    '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                    '</small>]要求收货人地址必须为英文拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
+                                return false;
+                            }
 
                         if (!packageItem.goodsCategory) {
                             alertify.alert('提示', '请确保每个转运包裹都选择了商品类别!');
@@ -826,3 +829,15 @@ angular
             }
 
         }]);
+app.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngEnter);
+                });
+                event.preventDefault();
+            }
+        });
+    };
+});
