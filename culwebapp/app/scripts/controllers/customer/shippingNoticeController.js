@@ -128,7 +128,7 @@ var app = angular
 
                     });
             };
-            $scope.initShippingNoticeList();
+            //$scope.initShippingNoticeList();
 
             $scope.onPaged = function (pageIndex) {
                 $scope.initShippingNoticeList(pageIndex);
