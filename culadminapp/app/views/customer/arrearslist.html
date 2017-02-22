@@ -1,0 +1,179 @@
+<div class="widget widget-table">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i> 客户查询 </h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-sm-12 search-bar">
+                <div class="search-col">
+                    <label class="search-label">地区：</label>
+                    <select class="form-control search-control" ng-model="searchBar.countryCode">
+                        <option value="">全部</option>
+                        <option value="CHN">中国</option>
+                        <option value="other">海外</option>
+                    </select>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">余额：</label>
+                    <select class="form-control search-control" ng-model="searchBar.accountBalance">
+                        <option value="">全部</option>
+                        <option value="1">有余额</option>
+                        <option value="0">无余额</option>
+                    </select>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">注册开始日期：</label>
+                    <p class="input-group">
+                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate"
+                            is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true"
+                        />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">注册结束日期：</label>
+                    <p class="input-group">
+                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate"
+                            is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true"
+                        />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+
+
+
+
+
+
+                <div class="clearfix"></div>
+                <div class="search-col">
+                    <label class="search-label">搜索条目：</label>
+                    <select class="form-control search-control" ng-model="searchBar.keywordType">
+                        <option value="customerNumber">客户编号</option>
+                        <option value="userName">客户ID(注册名)</option>
+                        <!--<option value="telephoneNumber">电话号码</option>-->
+                        <!--<option value="name">姓名</option>-->
+                        <option value="emailAddress">注册邮箱</option>
+                        <option value="receiveIdentity">客户标示</option>
+                        <option value="cellphoneNumber">手机号码</option>
+                        <option value="customerName">客户姓名</option>
+                        <!--<option value="outBoundTrackingNumber">包裹跟踪号</option>-->
+                        <!--<option value="idCard">身份证号</option>-->
+                    </select>
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords"
+                    />
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>客户编号</th>
+                    <th>客户ID</th>
+                    <th>用户类型</th>
+                    <th>注册日期</th>
+                    <th>客户标示</th>
+                    <th>账户余额</th>
+                    <th>订单编号</th>
+                    <th>订单状态</th>
+                    <th>生成日期</th>
+                    <th>订单金额</th>
+                    <th>使用积分</th>
+                    <th>实收金额</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-if="dataList.length == 0">
+                    <td colspan="14">没有数据，请选择条件进行搜索。</td>
+                </tr>
+
+
+                <tr ng-if="dataList.length > 0" ng-repeat="item in dataList">
+                    <td>{{item.rownumber}}</td>
+                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item)">{{item.customerNumber}}</a></td>
+                    <td>{{item.inuserName}}</td>
+                    <td>{{item.isVip ? 'VIP客户' : '普通客户'}}</td>
+                    <td>{{item.registerDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                    <td>{{item.receiveIdentity}}</td>
+                    <td>{{item.accountBalance}}</td>
+                     <td style="max-width: 200px;">
+                        <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
+                        <span ng-if="item.isFastOrder == 1" title="极速原箱">
+                            <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                        </span>
+                    </td>
+                    <td>{{item.orderStatus | _orderStatus}}</td>
+                    <td>{{item.orderDate}}</td>
+                    <td>{{item.shippingFee + item.tip}}</td>
+                    <td>{{item.usedPoint}}</td>
+                    <td>{{item.totalCount}}</td>
+                    <td>
+                        <a href="javascript:void(0);" class="role" data-role="25" ng-click="btnDelete(item)">余额支付</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount"
+                    items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页"
+                    next-text="下一页" first-text="首页" last-text="尾页">
+                    </uib-pagination>
+                    <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/html" id="tplVip_approval_form">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <legend>VIP审批</legend>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label text-right">账号：</label>
+                    <div class="col-sm-9">
+                        <label class="control-label">{{vipCustomer.customer.userName}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label text-right">审批状态：</label>
+                    <div class="col-sm-5">
+                        <select class="form-control search-control" ng-model="vipCustomer.vipStatus">
+                            <option value="Approved">同意</option>
+                            <option value="Cancelled">取消</option>
+                            <option value="Rejected">拒绝</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label text-right">选择仓库：</label>
+                    <div class="col-sm-5">
+                        <select class="form-control search-control" ng-model="vipCustomer.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in warehouse.list"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label text-right">备注：</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" ng-model="vipCustomer.memo"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-primary" ng-click="btnApprove($event)">批准</button>
+                <button type="button" class="btn btn-default" ng-click="btnCancel($event)">取消</button>
+            </div>
+        </form>
+    </script>
+</div>

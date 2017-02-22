@@ -32,8 +32,34 @@ angular.module('culAdminApp')
                 });
         }
 
+        
+
         self.getList = function(options, callback) {
             $http.post(cul.apiPath + "/customer/list", options)
+                .success(function(result) {
+                    $.each(result.data, function(i, item) {
+                        switch (item.vipStatus) {
+                            case "Applied":
+                                item._vipStatus = "申请";
+                                break;
+                            case "Approved":
+                                item._vipStatus = "同意";
+                                break;
+                            case "Cancelled":
+                                item._vipStatus = "取消";
+                                break;
+                            case "Rejected":
+                                item._vipStatus = "拒绝";
+                                break;
+                        }
+                    });
+                    callback(result);
+                });
+        }
+
+
+            self.getArrearsList = function(options, callback) {
+            $http.post(cul.apiPath + "/customer/arrearslist", options)
                 .success(function(result) {
                     $.each(result.data, function(i, item) {
                         switch (item.vipStatus) {
