@@ -1,5 +1,5 @@
 ﻿<!-- Begin Content -->
-<div class="row" ng-controller="ShippingNoticeController" style="background-color: #fff;">
+<div class="row" ng-controller="ShippingNoticeController" ng-init="initShippingNoticeList()" style="background-color: #fff;">
     <div class="profile-body margin-bottom-20 order-list">
         <div class="common-title">
           <h2>
@@ -28,7 +28,7 @@
                     <div class="form-group">
                         <label>搜索条目：</label>
                         <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
-                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" />
+                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" ng-enter="searchList()"/>
                         <a javascript:void(0) ng-click="searchList()" class="btn-u bg-color-ffb">查找订单</a>
                     </div>
                 </div>

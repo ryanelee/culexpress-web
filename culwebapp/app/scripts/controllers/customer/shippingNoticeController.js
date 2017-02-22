@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular
+var app = angular
     .module('culwebApp')
     .controller('ShippingNoticeController', ['$scope', '$rootScope', '$filter', '$stateParams', 'OrderSvr', '$state',
         function ($scope, $rootScope, $filter, $stateParams, orderSvr, $state) {
@@ -128,7 +128,7 @@ angular
 
                     });
             };
-            $scope.initShippingNoticeList();
+            //$scope.initShippingNoticeList();
 
             $scope.onPaged = function (pageIndex) {
                 $scope.initShippingNoticeList(pageIndex);
@@ -335,3 +335,16 @@ angular
             }
 
         }]);
+
+  app.directive('ngEnter', function () {
+      return function (scope, element, attrs) {
+          element.bind("keydown keypress", function (event) {
+              if(event.which === 13) {
+                  scope.$apply(function (){
+                      scope.$eval(attrs.ngEnter);
+                  });
+                  event.preventDefault();
+              }
+          });
+      };
+  });

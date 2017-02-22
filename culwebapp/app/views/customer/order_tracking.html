@@ -47,9 +47,9 @@
         </ul>
     </div> -->
     <div class="container-fluid content order-track" ng-if="!isErrorNumber">
-      <img src="../../assets/img/ordertracking/bg-banner.png" />
-      <div class="container order-container">
-        <div class="row">
+      <img ng-if="orderEventInfo.usedTimeString" src="../../assets/img/ordertracking/bg-banner.png" />
+      <div class="container" ng-class="{'order-container':orderEventInfo.usedTimeString, 'order-package':isOrderPackage}">
+        <div class="row" ng-if="orderEventInfo.usedTimeString">
           <div class="col-sm-3 col-xs-12">
             <div class="item-baoguo">
               <img src='../../assets/img/ordertracking/icon-left-baoguo.png' />
@@ -87,6 +87,19 @@
               暂无任何记录
             </div>
           </div>
+        </div>
+        <div class="row" ng-if="isOrderPackage" style="background-color: #fff;">
+            <div class="common-title">
+              <h2 style="width: 190px;">
+                <i class="fa fa-shopping-cart"></i>
+                订单包裹信息
+              </h2>
+            </div>
+            <ul class="list-unstyled" style="margin-top: 20px;">
+                <li class="list-row" ng-repeat="packageNumber in packagesList">
+                    <a href="javascript:void(0)" ng-click="showTrackInfo(packageNumber);"><u>{{packageNumber}}</u></a>
+                </li>
+            </ul>
         </div>
       </div>
     </div>

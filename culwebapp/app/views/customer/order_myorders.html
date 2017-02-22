@@ -16,7 +16,7 @@
                     <div class="form-group" style="margin-left: 50px;">
                         <label>搜索条目：</label>
                         <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
-                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" />
+                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" ng-enter="searchOrder()" />
                         <a href="javascript:void(0)" ng-click="searchOrder()" class="btn-u bg-color-ffb">查找订单</a>
                     </div>
                 </div>
