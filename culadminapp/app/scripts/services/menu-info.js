@@ -20,7 +20,13 @@ angular.module('culAdminApp')
         }
         _menus = _.groupBy(funcs, 'type')[1];
         _methods = _.groupBy(funcs, 'type')[2];
-        _funcs = role.functions ? JSON.parse(role.functions) : {};
+        
+        if(role && role.length > 0){
+            role.forEach(function(item){
+                _funcs = $.extend(_funcs,item.functions ? JSON.parse(item.functions) : {});
+            })
+        }
+        //_funcs = role[0].functions ? JSON.parse(role[0].functions) : {};
       }
 
       setMenu();
@@ -30,6 +36,7 @@ angular.module('culAdminApp')
           setMenu();
           var functions = [];
           var funcObj = {};
+
           _menus.forEach(function(item) {
               // 根据保存的权限来匹配
               if (_funcs[item.functionID] == 1) {

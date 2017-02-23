@@ -1,11 +1,11 @@
 <div class="widget widget-table">
     <div class="widget-header">
-        <h3><i class="fa fa-table"></i>用户组管理</h3>
+        <h3><i class="fa fa-table"></i>部门管理</h3>
     </div>
     <div class="widget-content">
         <div class="row">
             <div class="col-sm-12" style="padding:0 20px 15px 12px;">
-                <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="addReceipt();">添加用户组</button>
+                <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="addReceipt();">添加部门</button>
             </div>
             <div class="col-sm-12 search-bar">
                 <div class="clearfix"></div>
@@ -28,10 +28,10 @@
                     <thead>
                         <tr>
                             <th style="min-width:50px;">序号</th>
-                            <th style="min-width:100px;">用户组名称</th>
-                            <th style="min-width:100px;">用户组描述</th>
+                            <th style="min-width:100px;">部门名称</th>
+                            <th style="min-width:100px;">部门描述</th>
                             <th style="min-width:50px;">状态</th>
-                            <th style="min-width:50px;">角色名</th>
+                            <!--<th style="min-width:50px;">岗位名称</th>-->
                             <th style="min-width:100px;">最后修改用户</th>
                             <th style="min-width:100px;">最后修改时间</th>
                             <th style="min-width:110px;">操作</th>
@@ -43,7 +43,7 @@
                             <td>{{item.gname}}</td>
                             <td>{{item.gdescribe}}</td>
                             <td>{{item.gstatus == 0 ? '禁用' : '启用'}}</td>
-                            <td>{{item.role_name}}</td>
+                            <!--<td>{{item.role_name}}</td>-->
                             <td>{{item.updater}}</td>
                             <td>{{item.update_time | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                             <td>

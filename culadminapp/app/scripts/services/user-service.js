@@ -52,14 +52,14 @@ angular.module('culAdminApp')
                           }
                           break;
                   }
-
+console.log(result);
                   var str_userInfo = JSON.stringify(user);
                   if (userInfo.remember) {
                       localStorage.setItem(userInfoKey, str_userInfo);
                   } else {
                       sessionStorage.setItem(userInfoKey, str_userInfo);
                   }
-                  sessionStorage.setItem('role', JSON.stringify(result.role));
+                  sessionStorage.setItem('role', JSON.stringify(result.role.data));
                   sessionStorage.setItem('group', JSON.stringify(result.group));
                   sessionStorage.setItem('functions', JSON.stringify(result.functions));
                   $rootScope.userInfo = result.user;

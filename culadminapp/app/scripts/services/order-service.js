@@ -38,8 +38,12 @@ angular.module('culAdminApp')
       }
 
       self.getList = function (options, callback) {
-          console.log(options);
-        var customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
+        var customer_ids;
+        
+        var roles = JSON.parse($window.sessionStorage.getItem("role"));
+        roles.forEach(function(role){
+            customer_ids = $.grep([customer_ids,role.customer_ids],Boolean).join(",");
+        });
 
         if(customer_ids != undefined && parseInt(customer_ids) !== 0){
 
@@ -53,7 +57,6 @@ angular.module('culAdminApp')
         };
 
           $http.post(cul.apiPath + "/order/list", options).success(function (result) {
-              console.log('nimens')
               $.each(result.data, function (index, item) {
 
                   item._orderStatus = _getOrderStatus(item.orderStatus);

@@ -190,7 +190,8 @@ angular.module('culAdminApp')
 
           // 返回列表
           $scope.back = function () {
-              $location.path('/system/rolelist');
+              //$location.path('/system/rolelist');
+              $window.history.back();
           }
 
       }]);

@@ -94,8 +94,13 @@ angular.module('culAdminApp')
         }
 
         self.statisticsList = function(options, callback) {
-            var customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
+            var customer_ids;
 
+            var roles = JSON.parse($window.sessionStorage.getItem("role"));
+            roles.forEach(function (role) {
+                customer_ids = $.grep([customer_ids, role.customer_ids], Boolean).join(",");
+            });
+console.log(customer_ids);
             if(customer_ids != undefined && parseInt(customer_ids) !== 0){
 
                 if (options["customerNumber"] != undefined

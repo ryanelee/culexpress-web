@@ -36,9 +36,10 @@ angular.module('culAdminApp')
                 }
                 userService.getList(_options, function(result) {
                     var _data = result.data;
-                    $scope.dataList = result.data.filter(function(x) {
-                        return x.customerNumber == null;
-                    });
+                    $scope.dataList = result.data;
+                    // .filter(function(x) {
+                    //     return x.customerNumber == null;
+                    // });
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
                 });
             }
@@ -61,7 +62,7 @@ angular.module('culAdminApp')
 
             // 删除用户
             $scope.del = function(id) {
-                plugMessenger.confirm("确认删除该用户吗?", function(isOk) {
+                plugMessenger.confirm("确认删除该员工吗?", function(isOk) {
                     if (isOk) {
                         userService.delete(id, function(res) {
                             if (res.success) {
@@ -82,6 +83,10 @@ angular.module('culAdminApp')
                     }
                 });
             }
+
+            $scope.goToRolePage = function(role){
+                $location.path('/system/editrole').search({ roleId: role.role_id });
+            };
 
             $scope.getData();
         }

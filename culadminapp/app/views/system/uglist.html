@@ -1,6 +1,6 @@
 <div class="widget widget-table">
     <div class="widget-header">
-        <h3><i class="fa fa-table"></i>用户管理</h3>
+        <h3><i class="fa fa-table"></i>员工管理</h3>
         <a class="btn btn-link" href="javascript:void(0);" ng-click="back()">返回</a>
     </div>
     <div class="widget-content">
@@ -10,13 +10,13 @@
                     <thead>
                         <tr>
                             <th style="min-width:50px;">序号</th>
-                            <th style="min-width:100px;">用户名</th>
+                            <th style="min-width:100px;">员工名</th>
                             <th style="min-width:100px;">邮箱</th>
-                            <th style="min-width:100px;">客户编号</th>
+                            <!--<th style="min-width:100px;">客户编号</th>-->
                             <th style="min-width:50px;">状态</th>
-                            <th style="min-width:100px;">用户组</th>
-                            <th style="min-width:100px;">角色名</th>
-                            <th style="min-width:100px;">国家码</th>
+                            <th style="min-width:100px;">部门</th>
+                            <th style="min-width:100px;">岗位名</th>
+                            <!--<th style="min-width:100px;">国家码</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -24,11 +24,13 @@
                             <td>{{$index + 1}}</td>
                             <td>{{item.userName}}</td>
                             <td>{{item.emailAddress}}</td>
-                            <td>{{item.customerNumber}}</td>
+                            <!--<td>{{item.customerNumber}}</td>-->
                             <td>{{item.active | activeStr}}</td>
                             <td>{{item.gname}}</td>
-                            <td>{{item.role_name}}</td>
-                            <td>{{item.countryCode}}</td>
+                            <td>
+                                <a ng-repeat="role in item.roles" href="javascript:void(0);" ng-click="goToRolePage(role);">{{ role.role_name }} </a>
+                            </td>
+                            <!--<td>{{item.countryCode}}</td>-->
                         </tr>
                     </tbody>
                 </table>
