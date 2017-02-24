@@ -100,7 +100,7 @@
                     <td>{{item.rownumber}}</td>
                     <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item)">{{item.customerNumber}}</a></td>
                     <td>{{item.inuserName}}</td>
-                    <td>{{item.isVip ? 'VIP客户' : '普通客户'}}</td>
+                    <td>{{item.vipStatus == 'Approved' ? 'VIP客户' : '普通客户'}}</td>
                     <td>{{item.registerDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                     <td>{{item.receiveIdentity}}</td>
                     <td>{{item.accountBalance}}</td>
@@ -116,7 +116,7 @@
                     <td>{{item.usedPoint}}</td>
                     <td>{{item.totalCount}}</td>
                     <td>
-                        <a href="javascript:void(0);" class="role" data-role="25" ng-click="btnDelete(item)">余额支付</a>
+                        <a href="javascript:void(0);" class="role" data-role="25" ng-click="btnOpenDetail(item)">余额支付</a>
                     </td>
                 </tr>
             </tbody>
