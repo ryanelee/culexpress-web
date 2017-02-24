@@ -126,7 +126,7 @@ angular.module('culAdminApp')
             roles.forEach(function (role) {
                 customer_ids = $.grep([customer_ids, role.customer_ids], Boolean).join(",");
             });
-console.log(customer_ids);
+
             if(customer_ids != undefined && parseInt(customer_ids) !== 0){
 
                 if (options["customerNumber"] != undefined

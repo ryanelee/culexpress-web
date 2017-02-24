@@ -48,7 +48,7 @@ angular.module('culAdminApp')
         if(customer_ids != undefined && parseInt(customer_ids) !== 0){
 
             if (options["customerNumber"] != undefined
-                && !customer_ids.includes(options["customerNumber"].toUpperCase())) {//搜索指定customer#不在当前用户允许查询的customer权限中，直接返回空数据集
+                && customer_ids.toString().split(",").indexof(options["customerNumber"].toUpperCase()) == -1) {//搜索指定customer#不在当前用户允许查询的customer权限中，直接返回空数据集
                     return;
             };
 
