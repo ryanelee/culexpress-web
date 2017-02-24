@@ -1,11 +1,11 @@
 <div class="widget widget-table">
     <div class="widget-header">
-        <h3><i class="fa fa-table"></i>用户管理</h3>
+        <h3><i class="fa fa-table"></i>员工管理</h3>
     </div>
     <div class="widget-content">
         <div class="row">
             <div class="col-sm-12" style="padding:0 20px 15px 12px;">
-                <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="addReceipt();">添加用户</button>
+                <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="addReceipt();">添加员工</button>
             </div>
             <div class="col-sm-12 search-bar">
                 <div class="clearfix"></div>
@@ -16,8 +16,10 @@
                         <option value="1">已激活</option>
                         <option value="0">未激活</option>
                         <option value="-1">已禁用</option>
-                    </select> &nbsp;
-                    <label class="search-label">用户名称:</label>
+                    </select>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">员工姓名:</label>
                     <input type="text" class="form-control search-control" style="margin-left:5px; width:400px;" placeholder="请输入查询关键字" ng-model="searchBar.userName" />
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                 </div>
@@ -29,13 +31,13 @@
                     <thead>
                         <tr>
                             <th style="min-width:50px;">序号</th>
-                            <th style="min-width:100px;">用户名</th>
-                            <th style="min-width:100px;">邮箱</th>
-                            <th style="min-width:100px;">客户编号</th>
+                            <th style="min-width:100px;">员工姓名</th>
+                            <th style="min-width:100px;">员工邮箱</th>
+                            <!--<th style="min-width:100px;">客户编号</th>-->
                             <th style="min-width:50px;">状态</th>
-                            <th style="min-width:100px;">用户组</th>
-                            <th style="min-width:100px;">角色名</th>
-                            <th style="min-width:100px;">国家码</th>
+                            <th style="min-width:100px;">所在部门</th>
+                            <th style="min-width:100px;">所在岗位</th>
+                            <!--<th style="min-width:100px;">国家码</th>-->
                             <th style="min-width:100px;">操作</th>
                         </tr>
                     </thead>
@@ -44,11 +46,13 @@
                             <td>{{$index + 1}}</td>
                             <td>{{item.userName}}</td>
                             <td>{{item.emailAddress}}</td>
-                            <td>{{item.customerNumber}}</td>
+                            <!--<td>{{item.customerNumber}}</td>-->
                             <td>{{item.active | activeStr}}</td>
                             <td>{{item.gname}}</td>
-                            <td>{{item.role_name}}</td>
-                            <td>{{item.countryCode}}</td>
+                            <td>
+                                <a ng-repeat="role in item.roles" href="javascript:void(0);" ng-click="goToRolePage(role);">{{ role.role_name }} </a>
+                            </td>
+                            <!--<td>{{item.countryCode}}</td>-->
                             <td>
                                 <a href="javascript:void(0);" ng-click="edit(item.userID)">修改</a>
                                 <a href="javascript:void(0);" ng-click="del(item.userID)">删除</a>

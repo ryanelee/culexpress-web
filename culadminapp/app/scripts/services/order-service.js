@@ -38,13 +38,17 @@ angular.module('culAdminApp')
         }
 
         self.getList = function (options, callback) {
-            console.log(options);
-            var customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
+            var customer_ids;
+
+            var roles = JSON.parse($window.sessionStorage.getItem("role"));
+            roles.forEach(function (role) {
+                customer_ids = $.grep([customer_ids, role.customer_ids], Boolean).join(",");
+            });
 
             if (customer_ids != undefined && parseInt(customer_ids) !== 0) {
 
                 if (options["customerNumber"] != undefined
-                    && !customer_ids.includes(options["customerNumber"].toUpperCase())) {//搜索指定customer#不在当前用户允许查询的customer权限中，直接返回空数据集
+                    && customer_ids.toString().split(",").indexof(options["customerNumber"].toUpperCase()) == -1) {//搜索指定customer#不在当前用户允许查询的customer权限中，直接返回空数据集
                     return;
                 };
 
@@ -53,7 +57,6 @@ angular.module('culAdminApp')
             };
 
             $http.post(cul.apiPath + "/order/list", options).success(function (result) {
-                console.log('nimens')
                 $.each(result.data, function (index, item) {
 
                     item._orderStatus = _getOrderStatus(item.orderStatus);
@@ -104,17 +107,12 @@ angular.module('culAdminApp')
                 callback(result);
             });
         }
-        self.adminPaymentOrder = function (obj) {
-            return $http.put(cul.apiPath + '/order/adminPayment', obj);
-        },
 
-
-
-            self.update = function (order, callback) {
-                $http.put(cul.apiPath + "/order", order).success(function (result) {
-                    callback(result);
-                });
-            }
+        self.update = function (order, callback) {
+            $http.put(cul.apiPath + "/order", order).success(function (result) {
+                callback(result);
+            });
+        }
 
         self.checkOrderNumber = function (order) {
             return $http.post(cul.apiPath + "/order/checkOrderNumber", order)
@@ -249,4 +247,11 @@ angular.module('culAdminApp')
                 callback(result);
             });
         }
+
+        self.adminPaymentOrder = function (obj) {
+            return $http.put(cul.apiPath + "/order/adminPayment", obj)
+        }
+
+
+
     }]);

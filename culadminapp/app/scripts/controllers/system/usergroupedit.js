@@ -20,18 +20,17 @@ angular.module('culAdminApp')
           $scope.form = {
               name: '',
               describe: '',
-              status: '1',
-              role_id: 0
+              status: '1'
           }
-          $scope.roles = []
+          //$scope.roles = []
 
           // 获取权限列表
-          sysroleService.getList({}, function(result) {
-              $scope.roles = result.data;
-              if (result.data.length > 0 && !$scope.groupId) {
-                  $scope.form.role_id = result.data[0].role_id;
-              }
-          })
+        //   sysroleService.getList({}, function(result) {
+        //       $scope.roles = result.data;
+        //       if (result.data.length > 0 && !$scope.groupId) {
+        //           $scope.form.role_id = result.data[0].role_id;
+        //       }
+        //   })
 
           // 如果是编辑
           $scope.groupId = $location.search().groupId;
@@ -41,7 +40,6 @@ angular.module('culAdminApp')
                       $scope.form.name = result.gname;
                       $scope.form.describe = result.gdescribe;
                       $scope.form.status = result.gstatus;
-                      $scope.form.role_id = result.role_id;
                   }
               });
           }
@@ -56,13 +54,14 @@ angular.module('culAdminApp')
                   return;
               }
               if (!$scope.form.describe) {
-                  plugMessenger.info("请输入描述!");
-                  return;
+                //   plugMessenger.info("请输入描述!");
+                //   return;
+                $scope.form.describe = $scope.form.name;
               }
-              if (!$scope.form.role_id) {
-                  plugMessenger.info("请选择角色!");
-                  return;
-              }
+            //   if (!$scope.form.role_id) {
+            //       plugMessenger.info("请选择角色!");
+            //       return;
+            //   }
               if ($scope.groupId) {
                   $scope.form.group_id = $scope.groupId;
                   ugService.update($scope.form, function(res) {

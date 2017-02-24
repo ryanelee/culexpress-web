@@ -154,7 +154,7 @@ culAdminApp.controller('PayDetailCtrl', ["$scope", "$rootScope", "$location", "$
             if ($scope.data.remark) {
                 $scope.data.memo = $scope.data.memo + $scope.data.remark
             }
-            orderService.adminPaymentOrder($scope.data).then(function (result) {
+            orderService.adminPaymentOrder($scope.data).then(function (data) {
                 if (data.status == 200) {
                     plugMessenger.success("扣款成功");
                     $location.path('/customer/arrearslist')

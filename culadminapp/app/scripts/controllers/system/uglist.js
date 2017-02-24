@@ -47,4 +47,8 @@ angular.module('culAdminApp')
           if ($scope.groupId) {
             $scope.getData();
           }
+
+          $scope.goToRolePage = function (role) {
+              $location.path('/system/editrole').search({ roleId: role.role_id });
+          };
       }]);
