@@ -112,7 +112,7 @@
                         </span>
                     </td>
                     <td>{{item.orderStatus | _orderStatus}}</td>
-                    <td>{{item.orderDate}}</td>
+                    <td>{{item.orderDate | date:'yyyy-MM-dd hh:mm:ss'}}</td>
                     <td>{{item.shippingFee + item.tip}}</td>
                     <td>{{item.usedPoint}}</td>
                     <td>{{item.totalCount}}</td>
