@@ -1,0 +1,83 @@
+<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 客户管理-余额支付</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                    <legend>客户信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">客户编号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.customerNumber}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">用户类型：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{item.vipStatus == 'Approved' ? 'VIP客户' : '普通客户' }}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">账户余额：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.accountBalance}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">客户ID(注册名)：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label" >{{data.inuserName}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">客户标示：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.receiveIdentity}}</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>支付信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">订单编号：</label>
+                    <div class="col-sm-4">
+                      
+                        <label class="control-label">{{data.orderNumber}}</label>
+
+                    </div>
+                    <label class="col-sm-2 control-label text-right">订单金额：</label>
+                    <div class="col-sm-4">
+                            <label class="control-label">{{data.shippingFee + data.tip}}</label>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">使用积分：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.usedPoint}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">发货单号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.deliveryTrackingNumber}}</label>
+                    </div>
+                </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">扣款金额：</label>
+                    <div class="col-sm-4">
+                         <input  type="number" class="form-control" ng-model="data.balance" disabled></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">备注：</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ng-model="data.remark"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+    <div class="form-group text-center">
+        <!--<button type="button" class="btn btn-primary" class="role" data-role="32" ng-click="btnUpdateStatus('ForwardWH')">转交仓库</button>-->
+        <button type="button" class="btn btn-primary" class="role" ng-click="pay()" data-role="31"  ng-if="data.status!='Closed'">扣款</button>
+        <button type="button" ng-click="back()" class="btn btn-default" ><i class="fa fa-reply"></i>返回</button>
+    </div>
+    </form>
+</div>
+</div>

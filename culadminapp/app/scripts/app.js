@@ -216,6 +216,10 @@ angular
                 templateUrl: 'views/customer/arrearslist.html',
                 controller: 'ArrearslistCtrl'
             })
+              .when('/customer/paydetail', {
+                templateUrl: 'views/customer/paydetail.html',
+                controller: 'PayDetailCtrl'
+            })
             .when('/order/orderlist', {
                 templateUrl: 'views/order/orderlist.html',
                 controller: 'OrderListCtrl'

@@ -22,6 +22,7 @@ angular.module('culAdminApp')
 
           customerService.getDetail($scope.customerNumber, function (result) {
               $scope.data.customer = result;
+              console.log(result);
           });
 
           customerService.getUnpaid({
