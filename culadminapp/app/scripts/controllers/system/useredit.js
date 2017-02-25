@@ -33,11 +33,16 @@ angular.module('culAdminApp')
               }
           });
 
+          $scope.roles = [];
+          roleService.getList({ status: 1 }, function (result) {
+              $scope.roles = result.data;
+          });
+
           // 如果是编辑
+          //$timeout(function(){
           $scope.userId = $location.search().userId;
           if ($scope.userId) {
               userService.getDetail($scope.userId, function (result) {
-                  console.log(result);
                   if (!result.message) {
                       $scope.form.userName = result.userName;
                       $scope.form.password = result.password;
@@ -47,41 +52,33 @@ angular.module('culAdminApp')
                       $scope.form.roleId = result.role_id;
                       $scope.form.gender = result.gender;
                       $scope.form.active = result.active;
-                      $scope.form.selectedRoles = null;
-                  }
+                      //$scope.form.selectedRoles = result.roles;
+
+                      if($scope.roles && $scope.roles.length > 0){
+                            var role_ids = [];
+                            
+                            if ($scope.form.roleId) {
+                                role_ids = $scope.form.roleId.split(",").map(Number);
+                            }
+                            if (role_ids && role_ids.length > 0) {
+                                $scope.roles.forEach(function (item) {
+                                    if (role_ids.indexOf(item.role_id) >= 0)
+                                        item.selected = true;
+                                })
+                            }
+                        };
+
+                        $("#roleSel2").select2();
+                  };
               });
           } else {
             $scope.form.gender = 'M';
             $scope.form.active = 1;
           }
+          //},500);
 
-          $scope.roles = [];
 
-          $timeout(function () {
-              roleService.getList({ status: 1 }, function (result) {
-                  //$scope.roles = result.data;
-                  if (result.data.length > 0 && $scope.userId) {
-                      var role_ids = [];
-                      var selected_role = [];
-                      if ($scope.form.roleId) {
-                          role_ids = $scope.form.roleId.split(",").map(Number);
-                      };
-                      if (role_ids && role_ids.length > 0) {
-                          result.data.forEach(function (item) {
-                              if (role_ids.indexOf(item.role_id) >= 0){
-                                  item.selected = true;
-                                  selected_role.push(item.role_name);
-                              };
-                          });
-                      };
-                  };
-
-                  $scope.roles = result.data;
-                  $scope.form.selectedRoles = selected_role;
-                  console.log($scope.roles);
-                  console.log($scope.form.selectedRoles);
-              });
-          }, 500);
+         
 
           /**
            * 保存员工数据
