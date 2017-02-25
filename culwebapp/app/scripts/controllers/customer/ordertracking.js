@@ -19,6 +19,7 @@ angular.module('culwebApp')
             $scope.trackingNumber = $stateParams.trackingNumber;
             $scope.isOrderPackage = true;//是否显示订单包裹列表
             $scope.showOutboundDate = false;
+            console.log($scope.trackingNumber)
 
             var packageNumberMarks = ['cht', 'umi'];
             for (var i = 0, ii = packageNumberMarks.length; i < ii; i++) {
@@ -54,7 +55,7 @@ angular.module('culwebApp')
 
 
             $scope.showTrackInfo = function (packageNumber) {
-                $location.path('/ordertracking/' + packageNumber);
+                $location.path('/ordertrack/' + packageNumber);
             }
 
             $scope.showTrack = false;
