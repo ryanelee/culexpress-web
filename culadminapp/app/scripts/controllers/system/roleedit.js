@@ -152,12 +152,13 @@ angular.module('culAdminApp')
            */
           $scope.saveRole = function () {
               if (!$scope.form.roleName) {
-                  plugMessenger.info("请输入角色名称!");
+                  plugMessenger.info("请输入岗位名称!");
                   return;
               }
               if (!$scope.form.roleDescribe) {
-                  plugMessenger.info("请输入角色描述!");
-                  return;
+                  //plugMessenger.info("请输入岗位描述!");
+                  //return;
+                  $scope.form.roleDescribe = $scope.form.roleName;
               }
               //仓库
               $scope.form.warehouseIds = $scope.warehouseIds.join(',');
