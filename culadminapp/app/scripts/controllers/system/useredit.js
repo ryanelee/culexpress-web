@@ -33,13 +33,13 @@ angular.module('culAdminApp')
               }
           });
 
+
           $scope.roles = [];
           roleService.getList({ status: 1 }, function (result) {
               $scope.roles = result.data;
           });
 
           // 如果是编辑
-          //$timeout(function(){
           $scope.userId = $location.search().userId;
           if ($scope.userId) {
               userService.getDetail($scope.userId, function (result) {
@@ -52,33 +52,14 @@ angular.module('culAdminApp')
                       $scope.form.roleId = result.role_id;
                       $scope.form.gender = result.gender;
                       $scope.form.active = result.active;
-                      //$scope.form.selectedRoles = result.roles;
+                      $scope.form.selectedRoles = result.roles;
 
-                      if($scope.roles && $scope.roles.length > 0){
-                            var role_ids = [];
-                            
-                            if ($scope.form.roleId) {
-                                role_ids = $scope.form.roleId.split(",").map(Number);
-                            }
-                            if (role_ids && role_ids.length > 0) {
-                                $scope.roles.forEach(function (item) {
-                                    if (role_ids.indexOf(item.role_id) >= 0)
-                                        item.selected = true;
-                                })
-                            }
-                        };
-
-                        $("#roleSel2").select2();
                   };
               });
           } else {
             $scope.form.gender = 'M';
             $scope.form.active = 1;
-          }
-          //},500);
-
-
-         
+          };
 
           /**
            * 保存员工数据
@@ -120,12 +101,11 @@ angular.module('culAdminApp')
               }
 
               $scope.form.roleId = null;
-              $scope.roles.forEach(function(item){
-                  $scope.form.selectedRoles.forEach(function(x){
-                      if(item.role_name === x)
+              if($scope.form.selectedRoles && $scope.form.selectedRoles.length > 0){
+                  $scope.form.selectedRoles.forEach(function(item){
                         $scope.form.roleId = $.grep([$scope.form.roleId,item.role_id],Boolean).join(",");
                   });
-              });
+              }
 
               if ($scope.userId) {
                   $scope.form.userId = $scope.userId;

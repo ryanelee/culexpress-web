@@ -40,6 +40,7 @@ module.exports = function(config) {
       'bower_components/flot/jquery.flot.js',
       'bower_components/blueimp-file-upload/js/jquery.fileupload.js',
       'bower_components/underscore/underscore.js',
+      'bower_components/angular-ui-select/dist/select.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

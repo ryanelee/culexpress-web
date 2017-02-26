@@ -26,10 +26,10 @@
                                                 <li class="notification-header">
                                                     <em>您有 {{tipMessageLength}} 条未处理客户留言</em>
                                                 </li>
-                                                <li ng-repeat="message in tipMessage" class="inbox-item clearfix" ng-click="btnViewMessage(message);">
+                                                <li ng-repeat="message in tipMessage" ng-if="$index < 5" class="inbox-item clearfix" ng-click="btnViewMessage(message);">
                                                     <a href="javascript:void(0);">
                                                         <i class="fa fa-envelope green-font"></i>
-                                                        <span class="text">客户{{message.customerNumber}}留言:{{message.message}}...</span>
+                                                        <span class="text">客户{{message.customerNumber}}留言:{{message.message | cutText:true:10:' ...'}}</span>
                                                         <span class="timestamp">{{message.indate| date:'MM-dd h:mm:ss'}} 前</span>
                                                     </a>
                                                 </li>
