@@ -26,28 +26,28 @@
                                                 <li class="notification-header">
                                                     <em>您有 {{tipMessageLength}} 条未处理客户留言</em>
                                                 </li>
-                                                <li ng-repeat="message in tipMessage" ng-if="$index < 5" class="inbox-item clearfix" ng-click="btnViewMessage(message);">
+                                                <!--<li ng-repeat="message in tipMessage" ng-if="$index < 15" class="inbox-item clearfix" ng-click="btnViewMessage(message);">
                                                     <a href="javascript:void(0);">
                                                         <i class="fa fa-envelope green-font"></i>
-                                                        <span class="text">客户{{message.customerNumber}}留言:{{message.message | cutText:true:10:' ...'}}</span>
-                                                        <span class="timestamp">{{message.indate| date:'MM-dd h:mm:ss'}} 前</span>
+                                                        <span class="text">客户{{message.customerNumber}}:{{message.message | cutText:true:10}}</span>
+                                                        <span class="timestamp">{{message.indate| date:'MM-dd h:mm'}} 前</span>
                                                     </a>
-                                                </li>
-                                                <!--<li class="inbox-item unread clearfix">
+                                                </li>-->
+                                                <li class="inbox-item unread clearfix" ng-repeat="message in tipMessage" ng-if="$index < 5" ng-click="btnViewMessage(message);">
                                                     <a href="javascript:void(0);">
                                                         <div class="media">
                                                             <div class="media-left">
-                                                                <img class="media-object" src="assets/img/user2.png" alt="Antonio">
+                                                                <i class="fa fa-envelope green-font"></i>
                                                             </div>
                                                             <div class="media-body">
-                                                                <h5 class="media-heading name">Michael</h5>
-                                                                <p class="text">Hey dude, cool theme!</p>
-                                                                <span class="timestamp">2 hours ago</span>
+                                                                <h5 class="media-heading name">客户{{message.customerNumber}}</h5>
+                                                                <p class="text">{{message.message | cutText:true:30}}</p>
+                                                                <span class="timestamp">{{message.indate| date:'yyyy-MM-dd hh:mm'}}</span>
                                                             </div>
                                                         </div>
                                                     </a>
                                                 </li>
-                                                <li class="inbox-item unread clearfix">
+                                                <!--<li class="inbox-item unread clearfix">
                                                     <a href="javascript:void(0);">
                                                         <div class="media">
                                                             <div class="media-left">
