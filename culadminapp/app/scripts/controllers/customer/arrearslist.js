@@ -137,7 +137,7 @@ culAdminApp.controller('PayDetailCtrl', ["$scope", "$rootScope", "$location", "$
 
         $scope.data = JSON.parse($location.search().payMessage)
         console.log($scope.data);
-        $scope.data.balance = $scope.data.shippingFee + $scope.data.tip
+        $scope.data.balance = $scope.data.shippingFee + $scope.data.tip- $scope.data.usedPoint;
 
         //    $rootScope.getUser
         console.log($rootScope.userInfo)
