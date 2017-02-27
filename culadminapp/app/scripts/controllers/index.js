@@ -40,7 +40,7 @@ angular.module('culAdminApp')
             $('.role').each(function() {
               var roleId = $(this).data('role')
               // 没有权限则隐藏
-              if (_funcs[roleId] == 2) {
+              if (!_funcs[roleId] || _funcs[roleId] == 2) {
                 $(this).hide();
               }
             })
