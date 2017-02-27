@@ -99,7 +99,7 @@
 
                 <tr ng-if="dataList.length > 0" ng-repeat="item in dataList">
                     <td>{{item.rownumber}}</td>
-                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item)">{{item.customerNumber}}</a></td>
+                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customerNumber}}</a></td>
                     <td>{{item.inuserName}}</td>
                     <td>{{item.vipStatus == 'Approved' ? 'VIP客户' : '普通客户'}}</td>
                     <td>{{item.registerDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>

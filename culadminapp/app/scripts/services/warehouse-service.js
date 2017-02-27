@@ -108,7 +108,6 @@ angular.module('culAdminApp')
 
                 if (role && role.length > 0) {
                     role.forEach(function (item) {
-                        console.log(item.warehouse_ids);
                         warehouse_ids = $.extend(warehouse_ids,item.warehouse_ids.toString().split(","));
                     })
                 }

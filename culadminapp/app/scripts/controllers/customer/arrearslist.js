@@ -63,10 +63,19 @@ culAdminApp.controller('ArrearslistCtrl', ["$scope", "$rootScope", "$location", 
             $scope.getData();
         }
 
-        $scope.btnOpenDetail = function (payMessage) {
-            console.log(payMessage);
-            $location.search({ payMessage: JSON.stringify(payMessage) });
-            $location.path("/customer/paydetail");
+        $scope.btnOpenDetail = function (payMessage,location) {
+            if (location === 'customerdetail'){
+                $location.search({ customerNumber: payMessage.customerNumber });
+                $location.path("/customer/customerdetail");
+            }
+            else if(location === 'orderdetail'){
+                $location.search({ orderNumber: payMessage.orderNumber });
+                $location.path("/order/orderdetail");
+            }
+            else {
+                $location.search({ payMessage: JSON.stringify(payMessage) });
+                $location.path("/customer/paydetail");
+            }
         }
         //删除用户
         // $scope.btnDelete = function (customer) {
