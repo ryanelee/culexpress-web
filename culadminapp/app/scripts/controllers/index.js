@@ -19,11 +19,19 @@ angular.module('culAdminApp')
       $scope.userInfo = null;
       $rootScope.$on('changeMenu', function() {
           // 获取权限
-          var role = {}
+          var role = {}, _funcs = [];
           if ($window.sessionStorage.getItem('role')) {
               role = JSON.parse($window.sessionStorage.getItem('role'));
+              //role = JSON.parse($window.sessionStorage.getItem('role'));
           }
-          var _funcs = role.functions ? JSON.parse(role.functions) : {};
+
+          if (role && role.length > 0) {
+            role.forEach(function (item) {
+              _funcs = $.extend(_funcs, item.functions ? JSON.parse(item.functions) : {});
+            })
+          }
+
+          //var _funcs = role.functions ? JSON.parse(role.functions) : {};
 
           // 处理页面权限
           var count = 1;

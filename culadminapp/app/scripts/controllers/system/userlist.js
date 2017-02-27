@@ -32,7 +32,8 @@ angular.module('culAdminApp')
                 var _options = {
                     "pageInfo": $scope.pagination,
                     'active': $scope.searchBar.active,
-                    'userName': $scope.searchBar.userName
+                    'userName': $scope.searchBar.userName,
+                    'customerNumber': 'null'
                 }
                 userService.getList(_options, function(result) {
                     var _data = result.data;

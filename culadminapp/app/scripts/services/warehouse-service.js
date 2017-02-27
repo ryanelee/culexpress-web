@@ -101,13 +101,24 @@ angular.module('culAdminApp')
         self.getWarehouse = function (callback) {
             $http.get(cul.apiPath + "/warehouse").success(function (result) {
 
-                var warehouse_ids = JSON.parse($window.sessionStorage.getItem('role')).warehouse_ids;
+                var role = [],warehouse_ids=[];
+                if ($window.sessionStorage.getItem('role')) {
+                    role = JSON.parse($window.sessionStorage.getItem('role'));
+                }
+
+                if (role && role.length > 0) {
+                    role.forEach(function (item) {
+                        console.log(item.warehouse_ids);
+                        warehouse_ids = $.extend(warehouse_ids,item.warehouse_ids.toString().split(","));
+                    })
+                }
+
                 var _data = result;
 
                 //filter by role
-                if (!!warehouse_ids) {
+                if (warehouse_ids) {
                     _data = result.filter(function (x) {
-                        return warehouse_ids.split(",").includes('' + x.warehouseNumber);
+                        return warehouse_ids.includes('' + x.warehouseNumber);
                     });
                 };
 
