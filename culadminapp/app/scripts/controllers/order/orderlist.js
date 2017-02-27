@@ -208,7 +208,6 @@ angular.module('culAdminApp')
 
 
             $scope.btnDelete = function (item) {
-                console.log(item);
                 $scope.searchOrder = {};
                 if (item instanceof Array) {
                     $scope.searchOrder.orderNumberList = item;

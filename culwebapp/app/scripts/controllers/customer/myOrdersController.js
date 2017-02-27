@@ -532,7 +532,6 @@ var app = angular
 
             $scope.deleteOrder = function (number) {
                 if (!number) return false;
-                console.log("删除订单程序")
                 alertify.confirm('确定要删除订单[' + number + ']?',
                     function () {
                         orderSvr.deleteOrder(number)

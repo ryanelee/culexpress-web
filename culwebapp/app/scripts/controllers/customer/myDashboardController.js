@@ -5,13 +5,14 @@ angular
     .controller('MyDashboardController', ['$scope', '$rootScope', '$anchorScroll', 'OrderSvr',
         function ($scope, $rootScope, $anchorScroll, orderSvr) {
             $scope.currentUser = $rootScope.currentUser;
+            console.log($scope.currentUser);
 
             var model = $scope.model = {
                 addressList: []
             };
 
-            $scope.toggle = function(id) {
-              $('#'+id).toggle();
+            $scope.toggle = function (id) {
+                $('#' + id).toggle();
             }
 
             orderSvr.getWarehouses()

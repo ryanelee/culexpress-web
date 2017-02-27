@@ -46,7 +46,6 @@ angular.module('culAdminApp')
             faqService.getDetail($scope.tpl_status.messageNumber, function(result) {
                 $scope.data = result;
                 faqService.getMessagelog({ messageNumber: $scope.tpl_status.messageNumber }, function(logs) {
-                    console.log("logs" + JSON.stringify(logs));
                     $scope.logs = logs.data;
                     var _messageType = $.grep($scope.tpl_status.messageTypeData, function(n) { return n.typeID == $scope.data.messageType });
                     if (_messageType.length > 0) $scope.data._messageType = _messageType[0].typeName;

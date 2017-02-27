@@ -62,6 +62,7 @@ culAdminApp.controller('ArrearslistCtrl', ["$scope", "$rootScope", "$location", 
             $scope.pagination.totalCount = 0;
             $scope.getData();
         }
+         $scope.btnSearch()
 
         $scope.btnOpenDetail = function (payMessage,location) {
             if (location === 'customerdetail'){
@@ -145,11 +146,9 @@ culAdminApp.controller('PayDetailCtrl', ["$scope", "$rootScope", "$location", "$
         ];
 
         $scope.data = JSON.parse($location.search().payMessage)
-        console.log($scope.data);
         $scope.data.balance = $scope.data.shippingFee + $scope.data.tip- $scope.data.usedPoint;
 
         //    $rootScope.getUser
-        console.log($rootScope.userInfo)
         // 订单编号: AB69901000001 扣款人: cz001 备注: 获得客户批准扣款。
         $scope.back = function () {
             window.history.back()

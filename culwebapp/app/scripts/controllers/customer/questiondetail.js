@@ -15,7 +15,6 @@ angular.module('culwebApp')
             'AngularJS',
             'Karma'
           ];
-          console.log("你进来了吗")
           var currentUser = $scope.currentUser = $scope.$root.currentUser;
 
           var questionid = $stateParams.questionid;

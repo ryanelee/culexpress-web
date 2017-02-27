@@ -62,6 +62,7 @@ angular.module('culAdminApp')
               $scope.pagination.totalCount = 0;
               $scope.getData();
           }
+           $scope.btnSearch()
 
           $scope.btnOpenDetail = function (customer) {
               $location.search({ customerNumber: customer.customerNumber });

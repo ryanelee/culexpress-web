@@ -12,7 +12,6 @@ angular
 
 
             $scope.$on('$viewContentLoaded', function () {
-                console.log("卧槽")
                 loadFileinput();
             });
             function loadFileinput() {//初始化 fileinput
