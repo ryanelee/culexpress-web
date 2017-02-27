@@ -57,7 +57,7 @@ angular.module('culAdminApp')
 
           // 删除用户
           $scope.del = function(id) {
-            plugMessenger.confirm("确认删除该角色吗?", function (isOk) {
+            plugMessenger.confirm("确认删除该岗位吗?", function (isOk) {
                 if (isOk) {
                   sysroleService.delete(id, function(res) {
                       if (res.success) {

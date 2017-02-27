@@ -41,8 +41,8 @@ angular.module('culAdminApp')
                   if (userFn) {
                       item.status = userFn[item.functionID]
                   } else {
-                    // 默认启用
-                    item.status = 1;
+                    // 默认禁用
+                    item.status = 2;
                   }
 
                   // 菜单收起
@@ -109,6 +109,24 @@ angular.module('culAdminApp')
               }
           }
 
+          //父级菜单状态为“启用”后子菜单自动展开并且可用
+          $scope.enableSubFunc = function(currentFunc){
+              if (!currentFunc)
+                return;
+                
+              if(currentFunc.childs && currentFunc.childs.length > 0){
+                  if (currentFunc.status == 1)
+                        currentFunc.close = false;
+                  else{
+                        currentFunc.close = true;
+                        currentFunc.childs.forEach(function (item) {
+                            item.status = 2;
+                        })
+                  }
+              }
+
+          };
+
           // 移除客户编号
           $scope.removeCNumber = function(idx) {
               $scope.selCNumbers.splice(idx, 1)
@@ -152,15 +170,16 @@ angular.module('culAdminApp')
            */
           $scope.saveRole = function () {
               if (!$scope.form.roleName) {
-                  plugMessenger.info("请输入角色名称!");
+                  plugMessenger.info("请输入岗位名称!");
                   return;
               }
               if (!$scope.form.roleDescribe) {
-                  plugMessenger.info("请输入角色描述!");
-                  return;
+                  //plugMessenger.info("请输入岗位描述!");
+                  //return;
+                  $scope.form.roleDescribe = $scope.form.roleName;
               }
               //仓库
-              $scope.form.warehouseIds = $scope.warehouseIds.join(',');
+              $scope.form.warehouseIds = $scope.warehouseIds.filter(Boolean).join(',');
               // 客户
               $scope.form.customerIds = $scope.customers == 0 ? 0 : $scope.selCNumbers.join(',');
               // 菜单角色

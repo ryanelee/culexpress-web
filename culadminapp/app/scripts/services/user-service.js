@@ -52,7 +52,7 @@ angular.module('culAdminApp')
                           }
                           break;
                   }
-console.log(result);
+
                   var str_userInfo = JSON.stringify(user);
                   if (userInfo.remember) {
                       localStorage.setItem(userInfoKey, str_userInfo);
