@@ -262,6 +262,10 @@ angular
                 templateUrl: 'views/finance/financedetail-pay.html',
                 controller: 'FinanceDetailPayCtrl'
             })
+             .when('/finance/arriveCount', {
+                templateUrl: 'views/finance/arrivecount.html',
+                controller: 'ArriveCountCtrl'
+            })
             .when('/system/operationloglist', {
                 templateUrl: 'views/system/operationloglist.html',
                 controller: 'SystemOperationLogListCtrl'
