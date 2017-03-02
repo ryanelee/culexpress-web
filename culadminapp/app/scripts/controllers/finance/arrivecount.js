@@ -8,120 +8,179 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('ArriveCountCtrl', ["$scope", "$rootScope", "$location", "$filter", "customerService", "warehouseService", "plugMessenger", "$compile", "$http",
-      function ($scope, $rootScope, $location, $filter, customerService, warehouseService, plugMessenger, $compile, $http) {
-          this.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-          ];
+    .controller('ArriveCountCtrl', ['$rootScope', '$scope', '$location', "$filter", '$window', 'warehouseService', 'shelfService', 'receiptService', 'plugMessenger',
+        function ($rootScope, $scope, $location, $filter, $window, warehouseService, shelfService, receiptService, plugMessenger) {
+            this.awesomeThings = [
+                'HTML5 Boilerplate',
+                'AngularJS',
+                'Karma'
+            ];
 
-          $scope.dataList = [];
-          $scope.pagination = {
-              pageSize: "20",
-              pageIndex: 1,
-              totalCount: 0
-          }
-          /*search bar*/
-          $scope.searchBar = {
-              keywordType: "customerNumber",
-              countryCode: "",
-              accountBalance: "",
-              startDate: "",
-              endDate: "",
-              opened: {
-                  startDate: false,
-                  endDate: false
-              }
-          }
 
-          $scope.getData = function () {
-              var _options = {
-                  "pageInfo": $scope.pagination,
-                  "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
-                  "dateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : "",
-                  "active": 1
-              }
-              if (!!$scope.searchBar.countryCode) {
-                  _options["countryCode"] = $scope.searchBar.countryCode;
-              }
-              if (!!$scope.searchBar.accountBalance) {
-                  _options["accountBalance"] = $scope.searchBar.accountBalance;
-              }
-              _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
-              customerService.getList(_options, function (result) {
-                  $scope.dataList = result.data;
-                  $scope.pagination.totalCount = result.pageInfo.totalCount;
-                  $rootScope.$emit('changeMenu');
-              });
-          }
+            $scope.compareDate = function (start) {
+                var end = new Date();
+                start = new Date(start);
+                var starttimes = start.getTime();
+                var endtimes = end.getTime();
 
-          $scope.btnSearch = function () {
-              $scope.dataList = [];
-              $scope.pagination.pageIndex = 1;
-              $scope.pagination.totalCount = 0;
-              $scope.getData();
-          }
-           $scope.btnSearch()
+                var intervalTime = endtimes - starttimes;//两个日期相差的毫秒数 一天86400000毫秒 
+                var Inter_Days = ((intervalTime).toFixed(2) / 86400000) + 1;//加1，是让同一天的两个日期返回一天 
 
-          $scope.btnOpenDetail = function (customer) {
-              $location.search({ customerNumber: customer.customerNumber });
-              $location.path("/customer/customerdetail");
-          }
-          //删除用户
-           $scope.btnDelete = function(customer) {
-            plugMessenger.confirm("确认删除该用户吗?", function (isOk) {
-                if (isOk) {
-                  customerService.delete(customer.customerNumber, function (result) {
-                  if (result.success == true) {
-                      plugMessenger.success("删除成功");
-                      $scope.getData();
-                  }
-                  })
+                return Math.floor(Inter_Days);
+            }
+
+
+            $scope.dataList = [];
+            $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
+
+            $scope.pagination = {
+                pageSize: "20",
+                pageIndex: 1,
+                totalCount: 0
+            }
+            /*search bar*/
+            $scope.searchBar = {
+                keywordType: "receiptNumber",
+                keywords: $location.search().receiptNumber || "",
+                warehouseNumber: "",
+                sendType: "",
+                inboundStatus: "",
+                startDate: "",
+                endDate: "",
+                opened: {
+                    startDate: false,
+                    endDate: false
+                }
+            }
+
+            $scope.searchBar.startDate = new Date();
+            $scope.searchBar.endDate = new Date();
+
+            warehouseService.getWarehouse(function (result) {
+                if (result.length == 1) {
+                    $scope.searchBar.warehouseList = result;
+                    $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
+                } else {
+                    $scope.searchBar.warehouseList = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
                 }
             });
-          }
 
+            var _filterOptions = function () {
 
-          $scope.vipCustomer = {
-              customer: null,
-              vipStatus: "",
-              memo: "",
-              warehouseNumber: ""
-          }
-          $scope.btnApproveVIP = function (customer) {
-              $scope.vipCustomer.customer = customer;
-              $scope.vipCustomer.vipStatus = "Approved";
-              $scope.vipCustomer.memo = ""; //customer.vipAuditMemo;
-              $scope.vipCustomer.warehouseNumber = customer.warehouseNumber || "";
-              plugMessenger.template($compile($("#tplVip_approval_form").html())($scope));
-          }
+                var _options = {
+                    "pageInfo": $scope.pagination,
+                    "inboundDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
+                    "inboundDateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : ""
+                }
+                $scope.searchBar.inboundStatus = 3
+                if (!!$scope.searchBar.sendType) {
+                    _options["sendType"] = $scope.searchBar.sendType;
+                }
+                if (!!$scope.searchBar.inboundStatus) {
+                    _options["inboundStatus"] = $scope.searchBar.inboundStatus;
+                }
+                //if (!!$scope.searchBar.shelfStatus) {
+                //    _options["shelfStatus"] = $scope.searchBar.shelfStatus;
+                //}
+                if (!!$scope.searchBar.warehouseNumber) {
+                    _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
+                }
+                if (!!$scope.searchBar.keywords) {
+                    if ($scope.searchBar.keywordType == "customerNumber"
+                        && $scope.customer_ids != undefined
+                        && parseInt($scope.customer_ids) !== 0
+                        && !$scope.customer_ids.split(",").includes($scope.searchBar.keywords)) {
+                        $scope.searchBar.keywords = "没有查看该客户的权限,请联系统管理员";
+                    }
+                    _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
+                }
+                return angular.copy(_options);
+            }
 
-          $scope.warehouse = {
-              list: []
-          }
-          warehouseService.getWarehouse(function (result) {
-              if (result.length == 1) {
-                  $scope.warehouse.list = result;
-                  $scope.vipCustomer.warehouseNumber = $scope.warehouse.list[0].warehouseNumber;
-              } else {
-                  $scope.warehouse.list = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
-              }
-          });
-          $scope.btnApprove = function (event) {
-              customerService.vipApprove({
-                  customerNumber: $scope.vipCustomer.customer.customerNumber,
-                  vipStatus: $scope.vipCustomer.vipStatus,
-                  memo: $scope.vipCustomer.memo,
-                  warehouseNumber: $scope.vipCustomer.warehouseNumber || ""
-              }, function (result) {
-                  if (!!result && result.success) {
-                      plugMessenger.success("审核通过");
-                      $(event.currentTarget).parents("#confirm-modal").modal("hide");
-                  } 
-              });
-          }
-          $scope.btnCancel = function (event) {
-              $(event.currentTarget).parents("#confirm-modal").modal("hide");
-          }
-      }]);
+            $scope.getData = function () {
+                shelfService.getTransportList(_filterOptions(), function (result) {
+                    console.log('///////////////////////')
+                    $scope.allTotal = result.allTotal;
+                    console.log(JSON.stringify(result))
+                    var _data = result.data;
+                    if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
+                        _data = _data.filter(function (x) {
+                            return $scope.customer_ids.toString().split(",").indexof(x.customerNumber) >= 0;
+                        });
+                    }
+                    _data.forEach(function (e) {
+                        console.log(e.indate);
+                        e.day = $scope.compareDate(e.indate);
+                        if (e.packageDescription && e.packageDescription.length > 20) {
+                            e.packageDescriptionFlag = 1;
+                        }
+                        if (e.packageDescription) {
+
+                            e.packageDescription1 = e.packageDescription.substring(0, 20);
+                        }
+                        if (e.packageNoteFlag && e.packageNote.length > 20) {
+                            e.packageNoteFlag = 1;
+                        }
+                        if (e.packageNote) {
+                            e.packageNote1 = e.packageNote.substring(0, 20);
+                        }
+                    })
+
+                    $scope.dataList = _data;
+                    $scope.pagination.totalCount = result.pageInfo.totalCount;
+                    $rootScope.$emit("changeMenu");
+                });
+            }
+
+            $scope.btnSearch = function () {
+                $scope.dataList = [];
+                $scope.pagination.pageIndex = 1;
+                $scope.pagination.totalCount = 0;
+                $scope.getData();
+            }
+
+            $scope.btnOpenDetail = function (type, item) {
+                switch (type) {
+                    case "receiptDetail":
+                        $location.search({ receiptNumber: item.receiptNumber });
+                        $location.path("/warehouse/receiptdetail2");
+                        break;
+                    case "customerDetail":
+                        $location.search({ customerNumber: item.customerNumber });
+                        $location.path("/customer/customerdetail");
+                        break;
+                }
+            }
+
+            $scope.btnAction = function (type, item) {
+                switch (type) {
+                    case "exception":
+                        $location.path('/warehouse/receiptexception');
+                        break;
+                    case "inbound":
+                        if (!!item) $location.search({ receiptNumber: item.receiptNumber });
+                        $location.path('/warehouse/receiptedit2');
+                        break;
+                    case "check":
+                        if (!!item) $location.search({ receiptNumber: item.receiptNumber });
+                        $location.path('/warehouse/receiptcheck2');
+                        break;
+                    case "delete":
+                        plugMessenger.confirm("请确认是否删除该记录？", function (isOK) {
+                            if (isOK) {
+                                receiptService.delete({
+                                    "receiptNumber": [item.receiptNumber]
+                                }, function (result) {
+                                    if (result.success == true) {
+                                        plugMessenger.success("删除成功");
+                                        $scope.getData();
+                                    }
+                                });
+                            }
+                        });
+                        break;
+                }
+            }
+
+            $scope.getData();
+        }]);

@@ -80,6 +80,7 @@ angular.module('culAdminApp')
 
             $scope.getData = function () {
                 shelfService.getTransportList(_filterOptions(), function (result) {
+                    console.log(JSON.stringify(result.data))
                     var _data = result.data;
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function (x) {
