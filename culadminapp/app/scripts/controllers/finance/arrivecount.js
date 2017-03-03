@@ -139,48 +139,7 @@ angular.module('culAdminApp')
                 $scope.getData();
             }
 
-            $scope.btnOpenDetail = function (type, item) {
-                switch (type) {
-                    case "receiptDetail":
-                        $location.search({ receiptNumber: item.receiptNumber });
-                        $location.path("/warehouse/receiptdetail2");
-                        break;
-                    case "customerDetail":
-                        $location.search({ customerNumber: item.customerNumber });
-                        $location.path("/customer/customerdetail");
-                        break;
-                }
-            }
-
-            $scope.btnAction = function (type, item) {
-                switch (type) {
-                    case "exception":
-                        $location.path('/warehouse/receiptexception');
-                        break;
-                    case "inbound":
-                        if (!!item) $location.search({ receiptNumber: item.receiptNumber });
-                        $location.path('/warehouse/receiptedit2');
-                        break;
-                    case "check":
-                        if (!!item) $location.search({ receiptNumber: item.receiptNumber });
-                        $location.path('/warehouse/receiptcheck2');
-                        break;
-                    case "delete":
-                        plugMessenger.confirm("请确认是否删除该记录？", function (isOK) {
-                            if (isOK) {
-                                receiptService.delete({
-                                    "receiptNumber": [item.receiptNumber]
-                                }, function (result) {
-                                    if (result.success == true) {
-                                        plugMessenger.success("删除成功");
-                                        $scope.getData();
-                                    }
-                                });
-                            }
-                        });
-                        break;
-                }
-            }
-
+       
+       
             $scope.getData();
         }]);
