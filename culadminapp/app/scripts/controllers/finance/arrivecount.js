@@ -1,20 +1,34 @@
-﻿'use strict';
+'use strict';
 
 /**
  * @ngdoc function
- * @name culAdminApp.controller:Receipt2Ctrl
+ * @name culAdminApp.controller:CustomerListCtrl
  * @description
- * # Receipt2Ctrl
+ * # CustomerListCtrl
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('Receipt2Ctrl', ['$rootScope', '$scope', '$location', "$filter", '$window', 'warehouseService', 'shelfService', 'receiptService', 'plugMessenger',
+    .controller('ArriveCountCtrl', ['$rootScope', '$scope', '$location', "$filter", '$window', 'warehouseService', 'shelfService', 'receiptService', 'plugMessenger',
         function ($rootScope, $scope, $location, $filter, $window, warehouseService, shelfService, receiptService, plugMessenger) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
                 'Karma'
             ];
+
+
+            $scope.compareDate = function (start) {
+                var end = new Date();
+                start = new Date(start);
+                var starttimes = start.getTime();
+                var endtimes = end.getTime();
+
+                var intervalTime = endtimes - starttimes;//两个日期相差的毫秒数 一天86400000毫秒 
+                var Inter_Days = ((intervalTime).toFixed(2) / 86400000) + 1;//加1，是让同一天的两个日期返回一天 
+
+                return Math.floor(Inter_Days);
+            }
+
 
             $scope.dataList = [];
             $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
@@ -39,6 +53,9 @@ angular.module('culAdminApp')
                 }
             }
 
+            $scope.searchBar.startDate = new Date();
+            $scope.searchBar.endDate = new Date();
+
             warehouseService.getWarehouse(function (result) {
                 if (result.length == 1) {
                     $scope.searchBar.warehouseList = result;
@@ -49,11 +66,13 @@ angular.module('culAdminApp')
             });
 
             var _filterOptions = function () {
+
                 var _options = {
                     "pageInfo": $scope.pagination,
                     "inboundDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
                     "inboundDateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : ""
                 }
+                $scope.searchBar.inboundStatus = 3
                 if (!!$scope.searchBar.sendType) {
                     _options["sendType"] = $scope.searchBar.sendType;
                 }
@@ -80,7 +99,9 @@ angular.module('culAdminApp')
 
             $scope.getData = function () {
                 shelfService.getTransportList(_filterOptions(), function (result) {
-                    console.log(JSON.stringify(result.data))
+                    console.log('///////////////////////')
+                    $scope.allTotal = result.allTotal;
+                    console.log(JSON.stringify(result))
                     var _data = result.data;
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function (x) {
@@ -88,6 +109,8 @@ angular.module('culAdminApp')
                         });
                     }
                     _data.forEach(function (e) {
+                        console.log(e.indate);
+                        e.day = $scope.compareDate(e.indate);
                         if (e.packageDescription && e.packageDescription.length > 20) {
                             e.packageDescriptionFlag = 1;
                         }
@@ -116,48 +139,7 @@ angular.module('culAdminApp')
                 $scope.getData();
             }
 
-            $scope.btnOpenDetail = function (type, item) {
-                switch (type) {
-                    case "receiptDetail":
-                        $location.search({ receiptNumber: item.receiptNumber });
-                        $location.path("/warehouse/receiptdetail2");
-                        break;
-                    case "customerDetail":
-                        $location.search({ customerNumber: item.customerNumber });
-                        $location.path("/customer/customerdetail");
-                        break;
-                }
-            }
-
-            $scope.btnAction = function (type, item) {
-                switch (type) {
-                    case "exception":
-                        $location.path('/warehouse/receiptexception');
-                        break;
-                    case "inbound":
-                        if (!!item) $location.search({ receiptNumber: item.receiptNumber });
-                        $location.path('/warehouse/receiptedit2');
-                        break;
-                    case "check":
-                        if (!!item) $location.search({ receiptNumber: item.receiptNumber });
-                        $location.path('/warehouse/receiptcheck2');
-                        break;
-                    case "delete":
-                        plugMessenger.confirm("请确认是否删除该记录？", function (isOK) {
-                            if (isOK) {
-                                receiptService.delete({
-                                    "receiptNumber": [item.receiptNumber]
-                                }, function (result) {
-                                    if (result.success == true) {
-                                        plugMessenger.success("删除成功");
-                                        $scope.getData();
-                                    }
-                                });
-                            }
-                        });
-                        break;
-                }
-            }
-
+       
+       
             $scope.getData();
         }]);

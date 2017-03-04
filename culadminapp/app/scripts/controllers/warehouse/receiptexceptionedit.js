@@ -97,7 +97,6 @@ angular.module('culAdminApp')
                         $scope.$broadcast("print-helper.action", "receipt-tag-exception-tag", { exceptionNumber: $scope.data.exceptionNumber });
                         break;
                     case 2: //海淘包裹
-                        console.log("开始打印");
                         $scope.$broadcast("print-helper.action", "receipt-tag-exception-tag", { exceptionNumber: $scope.data.exceptionNumber });
                         break;
                 }

@@ -32,7 +32,6 @@ angular.module('culAdminApp')
                     $scope.dataList = [];
                     $.each($scope.trackingNumbers, function (index, trackingNumber) {
                         warehouseService.getInboundPackageDetail(trackingNumber, function (result) {
-                            console.log(result);
                             if (typeof result == Array) {
                                 result.forEach(function (e) {
                                    result.receipt = result.trackingNumber.substr(result.trackingNumber.length-6, 6);

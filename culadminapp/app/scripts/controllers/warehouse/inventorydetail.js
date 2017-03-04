@@ -55,7 +55,6 @@ angular.module('culAdminApp')
 
                                 }
                                 $scope.tempItemNumber = "";
-                                console.log($scope.data);
                             });
                         } else {
                             $scope.tempItemNumber = "";

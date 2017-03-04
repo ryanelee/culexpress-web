@@ -262,6 +262,14 @@ angular
                 templateUrl: 'views/finance/financedetail-pay.html',
                 controller: 'FinanceDetailPayCtrl'
             })
+             .when('/finance/arriveCount', { //入库统计
+                templateUrl: 'views/finance/arrivecount.html',
+                controller: 'ArriveCountCtrl'
+            })
+              .when('/finance/financeout', { //出库统计
+                templateUrl: 'views/finance/finance-out.html',
+                controller: 'FinanceOutCtrl'
+            })
             .when('/system/operationloglist', {
                 templateUrl: 'views/system/operationloglist.html',
                 controller: 'SystemOperationLogListCtrl'

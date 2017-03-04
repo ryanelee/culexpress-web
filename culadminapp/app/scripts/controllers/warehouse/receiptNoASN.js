@@ -246,9 +246,11 @@ angular.module('culAdminApp')
                     "receiptNumber": $scope.data.trackingNumber,
                     "customerNumber": $scope.data.customerNumber,
                     "isUnusual": $scope.data.isUnusual,
-                    "weight": $scope.data.packageWeight
+                    "weight": $scope.data.packageWeight,
+                    "warehouseNote": $scope.data.warehouseNote
                 }
                 console.log($scope.options);
+
                 // return;
                 receiptService.saveForOnline($scope.options, _callback);
             }
