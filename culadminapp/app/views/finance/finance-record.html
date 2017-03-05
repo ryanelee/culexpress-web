@@ -1,0 +1,27 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 消费记录统计 </h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="widget-content">
+                    <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                        <li class="active"><a href="javascript:void(0)" role="tab" data-target="#payment-history" data-toggle="tab">消费记录</a></li>
+                        
+                        <li ><a href="javascript:void(0)" role="tab" data-target="#recharge-logs" data-toggle="tab">充值记录</a></li>
+                    </ul>
+                    <div class="tab-content">
+                           <div class="tab-pane fade in active" id="payment-history"><div ng-include="'views/finance/financerecord-payment-logs.html'"></div></div>
+                        <div class="tab-pane fade " id="recharge-logs"><div ng-include="'views/finance/financerecord-recharge-logs.html'"></div></div>
+                     
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+            </div>
+        </form>
+    </div>
+</div>

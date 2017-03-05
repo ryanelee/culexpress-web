@@ -20,7 +20,7 @@ angular
         'ngTouch',
         "ui.bootstrap",
         'warehourseFilters',
-        'ui.select', 
+        'ui.select',
         'ngSanitize'
     ])
     .config(["$routeProvider", function ($routeProvider) {
@@ -218,7 +218,7 @@ angular
                 templateUrl: 'views/customer/arrearslist.html',
                 controller: 'ArrearslistCtrl'
             })
-              .when('/customer/paydetail', {
+            .when('/customer/paydetail', {
                 templateUrl: 'views/customer/paydetail.html',
                 controller: 'PayDetailCtrl'
             })
@@ -262,13 +262,21 @@ angular
                 templateUrl: 'views/finance/financedetail-pay.html',
                 controller: 'FinanceDetailPayCtrl'
             })
-             .when('/finance/arriveCount', { //入库统计
+            .when('/finance/arriveCount', { //入库统计
                 templateUrl: 'views/finance/arrivecount.html',
                 controller: 'ArriveCountCtrl'
             })
-              .when('/finance/financeout', { //出库统计
+            .when('/finance/financeout', { //出库统计
                 templateUrl: 'views/finance/finance-out.html',
                 controller: 'FinanceOutCtrl'
+            })
+            .when('/finance/financetotal', { //财务总计
+                templateUrl: 'views/finance/finance-total.html',
+                controller: 'FinanceTotalCtrl'
+            })
+             .when('/finance/financerecord', { //财务总计
+                templateUrl: 'views/finance/finance-record.html',
+                controller: 'FinanceRecordCtrl'
             })
             .when('/system/operationloglist', {
                 templateUrl: 'views/system/operationloglist.html',

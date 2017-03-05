@@ -52,7 +52,7 @@ angular.module('culAdminApp')
             });
 
             var _filterOptions = function () {
-                $scope.searchBar.orderStatus = "Paid"
+                // $scope.searchBar.orderStatus = "Paid"
                 var _options = {
                     "pageInfo": $scope.pagination,
                     "outDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
