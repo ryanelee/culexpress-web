@@ -29,6 +29,21 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     return function (input) {
         return orderStatus[input] || input;
     };
+}).filter('_shipService', function () {
+    var orderStatus = {
+        "1": "标准包裹服务",
+        "3": "特快服务A",
+        "4": "特快服务B",
+        "5": "标准邮寄服务A",
+        "6": "标准邮寄服务B",
+        "7": "标准邮寄服务C",
+        "8": "身份证渠道",
+        "9": "美国邮政 USPS特快",
+        "10": "美国邮政USPS PRIORITY MAIL"
+    };
+    return function (input) {
+        return orderStatus[input] || input;
+    };
 }).filter('cutText', function(){
     return function (value, wordwise, max ,tail) {
         if(!value) return '';

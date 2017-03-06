@@ -238,6 +238,17 @@ angular.module('culAdminApp')
             });
         }
 
+
+
+            //财务按渠道统计
+          self.financeTotal = function(options, callback) {
+            $http.post(cul.apiPath + "/order/financeTotal", options).success(function(result) {
+                callback(result);
+            });
+        }
+
+
+
         self.activitiesList = function (options, callback) {
             $http.post(cul.apiPath + "/order/activities", options).success(function (result) {
                 $.each(result.data, function (index, item) {

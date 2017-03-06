@@ -8,14 +8,14 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('FinanceTotalCtrl', ['$rootScope', '$scope', '$location', "$filter", '$window', 'warehouseService', 'shelfService', 'receiptService', 'plugMessenger',
-        function ($rootScope, $scope, $location, $filter, $window, warehouseService, shelfService, receiptService, plugMessenger) {
+    .controller('FinanceTotalCtrl', ['$rootScope', '$scope', '$location', "$filter", '$window', 'warehouseService', 'shelfService', 'receiptService', 'plugMessenger','orderService',
+        function ($rootScope, $scope, $location, $filter, $window, warehouseService, shelfService, receiptService, plugMessenger,orderService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
                 'Karma'
             ];
-
+            $scope.path = cul.apiPath;
 
             $scope.compareDate = function (start) {
                 var end = new Date();
@@ -28,7 +28,6 @@ angular.module('culAdminApp')
 
                 return Math.floor(Inter_Days);
             }
-
 
             $scope.dataList = [];
             $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
@@ -69,12 +68,15 @@ angular.module('culAdminApp')
 
                 var _options = {
                     "pageInfo": $scope.pagination,
-                    "inboundDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
-                    "inboundDateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : ""
+                    "dateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
+                    "dateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : ""
                 }
-                $scope.searchBar.inboundStatus = 3
+                // $scope.searchBar.inboundStatus = 3
                 if (!!$scope.searchBar.sendType) {
                     _options["sendType"] = $scope.searchBar.sendType;
+                }
+                 if (!!$scope.searchBar.orderStatus) {
+                    _options["orderStatus"] = $scope.searchBar.orderStatus;
                 }
                 if (!!$scope.searchBar.inboundStatus) {
                     _options["inboundStatus"] = $scope.searchBar.inboundStatus;
@@ -98,37 +100,42 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function () {
-                shelfService.getTransportList(_filterOptions(), function (result) {
-                    console.log('///////////////////////')
-                    $scope.allTotal = result.allTotal;
-                    console.log(JSON.stringify(result))
-                    var _data = result.data;
-                    if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
-                        _data = _data.filter(function (x) {
-                            return $scope.customer_ids.toString().split(",").indexof(x.customerNumber) >= 0;
-                        });
+                orderService.financeTotal(_filterOptions(), function (result) {
+                    console.log("返回结果"+JSON.stringify(result));
+                    if(result.code == '999'){
+                        plugMessenger.error(result.msg)
                     }
-                    _data.forEach(function (e) {
-                        console.log(e.indate);
-                        e.day = $scope.compareDate(e.indate);
-                        if (e.packageDescription && e.packageDescription.length > 20) {
-                            e.packageDescriptionFlag = 1;
-                        }
-                        if (e.packageDescription) {
+                    $scope.dataList = result.data;
+                    // console.log('///////////////////////')
+                    // $scope.allTotal = result.allTotal;
+                    // console.log(JSON.stringify(result))
+                    // var _data = result.data;
+                    // if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
+                    //     _data = _data.filter(function (x) {
+                    //         return $scope.customer_ids.toString().split(",").indexof(x.customerNumber) >= 0;
+                    //     });
+                    // }
+                    // _data.forEach(function (e) {
+                    //     console.log(e.indate);
+                    //     e.day = $scope.compareDate(e.indate);
+                    //     if (e.packageDescription && e.packageDescription.length > 20) {
+                    //         e.packageDescriptionFlag = 1;
+                    //     }
+                    //     if (e.packageDescription) {
 
-                            e.packageDescription1 = e.packageDescription.substring(0, 20);
-                        }
-                        if (e.packageNoteFlag && e.packageNote.length > 20) {
-                            e.packageNoteFlag = 1;
-                        }
-                        if (e.packageNote) {
-                            e.packageNote1 = e.packageNote.substring(0, 20);
-                        }
-                    })
+                    //         e.packageDescription1 = e.packageDescription.substring(0, 20);
+                    //     }
+                    //     if (e.packageNoteFlag && e.packageNote.length > 20) {
+                    //         e.packageNoteFlag = 1;
+                    //     }
+                    //     if (e.packageNote) {
+                    //         e.packageNote1 = e.packageNote.substring(0, 20);
+                    //     }
+                    // })
 
-                    $scope.dataList = _data;
-                    $scope.pagination.totalCount = result.pageInfo.totalCount;
-                    $rootScope.$emit("changeMenu");
+                    // $scope.dataList = _data;
+                    // $scope.pagination.totalCount = result.pageInfo.totalCount;
+                    // $rootScope.$emit("changeMenu");
                 });
             }
 
