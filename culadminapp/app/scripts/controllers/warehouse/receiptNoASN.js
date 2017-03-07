@@ -36,6 +36,9 @@ angular.module('culAdminApp')
             $scope.data = {
                 trackingNumber: angular.copy($location.search().trackingNumber || "")
             }
+            if($scope.data.trackingNumber){
+            $window.document.getElementById("packageWeight").focus();  
+            }
             $scope._trackingNumber = "";
 
             $scope.tpl_status = {
