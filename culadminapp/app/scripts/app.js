@@ -23,7 +23,7 @@ angular
         'ui.select',
         'ngSanitize'
     ])
-    .config(["$routeProvider", function ($routeProvider) {
+    .config(["$routeProvider", function($routeProvider) {
         $routeProvider
             .when('/', {
                 cache: false,
@@ -274,9 +274,13 @@ angular
                 templateUrl: 'views/finance/finance-total.html',
                 controller: 'FinanceTotalCtrl'
             })
-             .when('/finance/financerecord', { //财务总计
+            .when('/finance/financerecord', { //财务总计
                 templateUrl: 'views/finance/finance-record.html',
                 controller: 'FinanceRecordCtrl'
+            })
+            .when('/finance/deletelist', { //删货统计
+                templateUrl: 'views/finance/deletelist.html',
+                controller: 'DeleteListCtrl'
             })
             .when('/system/operationloglist', {
                 templateUrl: 'views/system/operationloglist.html',
@@ -318,9 +322,9 @@ angular
                 redirectTo: '/'
             });
     }])
-    .run(["$rootScope", "$location", "userService", function ($rootScope, $location, userService) {
+    .run(["$rootScope", "$location", "userService", function($rootScope, $location, userService) {
         $rootScope.userInfo = userService.getUserInfo();
-        $rootScope.$on('$routeChangeSuccess', function () {
+        $rootScope.$on('$routeChangeSuccess', function() {
             $rootScope.$emit('changeMenu');
             ga("send", "pageview", { page: $location.path() });
         })
