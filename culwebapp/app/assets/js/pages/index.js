@@ -11,11 +11,11 @@ var Index = function () {
 			    bgincrement : 50,  
 			    // increment the background position 
 			    // (parallax effect) when sliding
-			     
-			    autoplay    : false,
+			    circular	: true,
+			    autoplay    : true,
 			    // slideshow on / off
 			     
-			    interval    : 4000  
+			    intervalSec    : 500  
 			    // time between transitions
 			});
         },
