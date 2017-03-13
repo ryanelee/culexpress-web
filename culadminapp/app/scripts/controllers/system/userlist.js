@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('UserListCtrl', ["$scope", "$location", "userService", "plugMessenger",
-        function($scope, $location, userService, plugMessenger) {
+        function ($scope, $location, userService, plugMessenger) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -18,24 +18,24 @@ angular.module('culAdminApp')
 
             $scope.dataList = [];
             $scope.pagination = {
-                    pageSize: "20",
-                    pageIndex: 1,
-                    totalCount: 0
-                }
-                /*search bar*/
+                pageSize: "20",
+                pageIndex: 1,
+                totalCount: 0
+            }
+            /*search bar*/
             $scope.searchBar = {
                 active: "",
                 userName: ""
             }
 
-            $scope.getData = function() {
+            $scope.getData = function () {
                 var _options = {
                     "pageInfo": $scope.pagination,
                     'active': $scope.searchBar.active,
                     'userName': $scope.searchBar.userName,
                     'customerNumber': 'null'
                 }
-                userService.getList(_options, function(result) {
+                userService.getList(_options, function (result) {
                     var _data = result.data;
                     $scope.dataList = result.data;
                     // .filter(function(x) {
@@ -45,7 +45,7 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.btnSearch = function() {
+            $scope.btnSearch = function () {
 
                 $scope.dataList = [];
                 $scope.pagination.pageIndex = 1;
@@ -53,19 +53,19 @@ angular.module('culAdminApp')
                 $scope.getData();
             }
 
-            $scope.addReceipt = function() {
+            $scope.addReceipt = function () {
                 $location.path('/system/edituser').search({});
             }
 
-            $scope.edit = function(id) {
+            $scope.edit = function (id) {
                 $location.path('/system/edituser').search({ userId: id });
             }
 
             // 删除用户
-            $scope.del = function(id) {
-                plugMessenger.confirm("确认删除该员工吗?", function(isOk) {
+            $scope.del = function (id) {
+                plugMessenger.confirm("确认删除该员工吗?", function (isOk) {
                     if (isOk) {
-                        userService.delete(id, function(res) {
+                        userService.delete(id, function (res) {
                             if (res.success) {
                                 plugMessenger.success("删除成功");
                                 $scope.getData();
@@ -75,24 +75,28 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.btnResetPassword = function(email) {
-                userService.resetPassword({
-                    "emailAddress": email
-                }, function(result) {
-                    if (result.success == true) {
-                        plugMessenger.success("密码重置成功");
+            $scope.btnResetPassword = function (email) {
+                plugMessenger.confirm("确认重置密码吗?", function (isOk) {
+                    if (isOk) {
+                        userService.resetPassword({
+                            "emailAddress": email
+                        }, function (result) {
+                            if (result.success == true) {
+                                plugMessenger.success("密码重置成功");
+                            }
+                        });
                     }
-                });
+                })
             }
 
-            $scope.goToRolePage = function(role){
+            $scope.goToRolePage = function (role) {
                 $location.path('/system/editrole').search({ roleId: role.role_id });
             };
 
             $scope.getData();
         }
-    ]).filter('activeStr', function() {
-        return function(active) {
+    ]).filter('activeStr', function () {
+        return function (active) {
             var str = '已激活';
             if (active == 0) {
                 str = '未激活';
