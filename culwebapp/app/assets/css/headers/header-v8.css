@@ -18,6 +18,37 @@
 /* --------------------------------------------------
 	[1. Header - Topbar blog]
 ---------------------------------------------------- */
+
+/****news and promo banner************/
+.top-promo {
+	background: url('../../img/index/promo_top.png') no-repeat left center;
+  	background-size: cover;
+	  height: 68px;
+}
+.top-news {
+	padding-top: 20px;
+	padding-left: 20px;
+}
+.top-news span {
+	border: 1px solid white;
+	border-radius: 10px !important;
+	color: white;
+	padding: 3px 3px 3px 3px;
+	margin-left: 20px;
+	display: inline-block;
+	font-size: 13px;
+}
+.top-news #angle-icon {
+	display: inline-block;
+	vertical-align: middle
+}
+.top-news a {
+	opacity: 1;
+	text-align: right;
+	position: absolute;
+	color: white;
+}
+/************************************/
 .blog-topbar {
 	background: #a8a8a8;
 }
