@@ -40,6 +40,7 @@ angular.module('culAdminApp')
               selectedAll: false,
               rechargeType: "2,8,9,10,11",
               dateRange: "",
+              keywordType: "customerNumber",
               startDate: "",
               endDate: "",
               opened: {

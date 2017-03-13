@@ -40,6 +40,7 @@ angular.module('culAdminApp')
                 customerNumber: $location.search().customerNumber,
                 selectedAll: false,
                 rechargeType: "1,3,4,5,6,7",
+                keywordType: "customerNumber",
                 dateRange: "",
                 startDate: "",
                 endDate: "",

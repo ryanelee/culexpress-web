@@ -24,6 +24,12 @@ angular.module('culAdminApp')
               $scope.data.customer = result;
           });
 
+
+            $scope.searchBar = {
+              selectedAll: false,
+              keywordType: "customerNumber"
+          }
+
           customerService.getUnpaid({
               customerNumber: $scope.customerNumber
           }, function (result) {
