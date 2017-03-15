@@ -1924,6 +1924,43 @@ select:-webkit-autofill {
 　　color:#fff !important;opacity:1;
 }
 
+.promo-cashback {
+	padding-top: 100px;
+	height: 1290px;
+	background: url('../../assets/img/promotion/cashback.jpg') no-repeat top;
+}
+
+.promo-cashback .headline h1{
+	text-align: center;
+	font-weight: bold;
+}
+
+.promo-cashback .content {
+	padding-top: 350px;
+	padding-left: 150px;
+	width: 800px
+}
+
+.promo-cashback .content span {
+	color: red;
+}
+
+.promo-cashback .headline h2{
+    border-bottom: 2px solid #ffb830;
+}
+
+.promo-cashback h3 {
+	border-left: solid 2px #ffb830;
+	padding-left: 5px;
+	margin-top: 20px;
+	line-height: 18px;
+	font-size: 18px;
+}
+
+.promo-cashback .list-unstyled li {
+	color: #5e5e5e;
+}
+
 .job-description {
 	padding-top: 100px;
 	background: url('../../assets/img/job/job_bg.png') no-repeat right top;

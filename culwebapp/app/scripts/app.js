@@ -372,8 +372,13 @@ angular
                     url: '/jobs',
                     templateUrl: 'views/jobs.html',
                     controller: function () { }
-                }).
-                state('ordertrack', {
+                })
+                .state('cashback', {
+                    url: '/cashback',
+                    templateUrl: 'views/promotion/cashback.html',
+                    controller: function(){}
+                })
+                .state('ordertrack', {
                     url: '/ordertrack/:trackingNumber',
                     templateUrl: 'views/customer/order_track.html',
                     controller: function () { }
