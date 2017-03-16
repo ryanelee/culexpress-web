@@ -234,7 +234,6 @@ angular.module('culwebApp')
                         markObj.hookHandler && markObj.hookHandler();
                     }
                 }, function () {
-                  console.log('error')
                     markObj.error = true;
                     markObj.hookHandler && markObj.hookHandler(false);
                 });

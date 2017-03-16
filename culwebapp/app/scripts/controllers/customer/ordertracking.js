@@ -19,8 +19,6 @@ angular.module('culwebApp')
             $scope.trackingNumber = $stateParams.trackingNumber;
             $scope.isOrderPackage = true;//是否显示订单包裹列表
             $scope.showOutboundDate = false;
-            console.log($scope.trackingNumber)
-            console.log("你好")
 
             var packageNumberMarks = ['cul','cht', 'umi'];
             for (var i = 0, ii = packageNumberMarks.length; i < ii; i++) {
@@ -88,7 +86,6 @@ angular.module('culwebApp')
             if (!$scope.isOrderPackage) {
                 orderSvr.getOrderTrackingList($scope.trackingNumber)
                     .then(function (result) {
-                        console.log("result"+JSON.stringify(result));
                         var eventObj = result.data,
                             eventList = [],
                             tempEventList = angular.copy($scope.orderEventInfo.eventList);

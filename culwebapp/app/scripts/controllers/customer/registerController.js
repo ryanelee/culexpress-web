@@ -121,7 +121,6 @@ angular
                   $scope.model.email = registerData.emailAddress;
               }
             },function(err) {
-              console.log(err)
               $scope.showRegisterError = true;
               $scope.registerError = err.data.message;
             })

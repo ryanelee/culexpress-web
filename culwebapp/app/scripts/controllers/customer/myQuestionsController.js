@@ -38,12 +38,6 @@ angular
                 });
             }
 
-
-
-
-
-
-            console.log('23')
             var currentUser = $scope.currentUser = $scope.$root.currentUser;
 
 

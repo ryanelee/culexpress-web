@@ -373,6 +373,26 @@ angular
                     templateUrl: 'views/jobs.html',
                     controller: function () { }
                 })
+                .state('insuranceinstruction', {
+                    url: '/insuranceinstruction',
+                    templateUrl: 'views/terms/insurance_instruction.html',
+                    controller: function () { }
+                })
+                .state('appendixlimit', {
+                    url: '/appendixlimit',
+                    templateUrl: 'views/terms/appendix_limit.html',
+                    controller: function () { }
+                })
+                .state('appendixormd', {
+                    url: '/appendixormd',
+                    templateUrl: 'views/terms/appendix_ORMD.html',
+                    controller: function () { }
+                })
+                .state('termsenglish', {
+                    url: '/termsenglish',
+                    templateUrl: 'views/terms/terms_en.html',
+                    controller: function () { }
+                })
                 .state('cashback', {
                     url: '/cashback',
                     templateUrl: 'views/promotion/cashback.html',

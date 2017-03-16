@@ -4,16 +4,12 @@ angular
     .module('culwebApp')
     .controller('uploadIDCardCtrl', ['$rootScope', '$scope', 'AuthService', '$state', 'Customer', "$http",
         function ($rootScope, $scope, AuthService, $state, Customer, $http) {
-            console.log("身份证上传")
             $scope.data = {};
             $scope.data.urls = [];
-            console.log(cul.apiPath);
             $scope.customNumber = ""
             $scope.flag = '0'
 
             $scope.checkNumber = function () {
-                console.log('23')
-                console.log(!$scope.data.trackingNumber)
                 if (!$scope.data.trackingNumber) {
                     alertify.alert("提示","包裹号不能为空");
                     return;
@@ -25,7 +21,6 @@ angular
                         alertify.alert("提示", data.data.msg)
                         return
                     }
-                    console.log(data);
                     if (data.data.code == '000') {
                         $scope.customNumber = data.data.data.customerNumber
                         $scope.flag = '1'
@@ -95,7 +90,6 @@ angular
                 }
                 else {
                     $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
-                        console.log(data)
                         if (data.status == 200) {
                             alertify.alert('提示', data.data.msg)
                         }

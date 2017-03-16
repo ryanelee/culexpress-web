@@ -5,8 +5,6 @@ var app = angular
     .controller('MyOrdersController', ['$rootScope','$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter',
         function ($rootScope,$scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter) {
             if (!$scope.$root.orderOptions) $scope.$root.orderOptions = {};
-            console.log($rootScope.currentUser.userName)
-            console.log($scope.$root.currentUser.myPoint)
             $scope.orderItems = [];
             $scope.addOrderItem = function ($event, shippingItem) {
                 var orderItem = {
@@ -435,7 +433,6 @@ var app = angular
 
             var preSubmitToService = function (data) {
                 var text = '';
-                console.log(data);
                 if (!data.isFastOrder) {
                     text = "确定提交订单?";
                 }
@@ -463,7 +460,6 @@ var app = angular
                                 if (result.data.orderNumber) {
                                     alertify.success('订单提交成功!');
                                     $scope.$root.currentUser.myPoint = $scope.$root.currentUser.myPoint - $scope.data.usePoint;
-                                    console.log($scope.$root.currentUser.myPoint)
                                     $state.go('customer.myorders');
                                 }
                             }, function (result) {
@@ -501,7 +497,13 @@ var app = angular
                 //     }
                 // });
             }
+
             $scope.submitOrder = function () {
+console.log($scope.submitagreeterms);
+                if(!$scope.submitagreeterms || $scope.submitagreeterms != 1){
+                    alertify.alert('提示', '提交订单之前,请勾选我已阅读并同意CULExpress免责赔偿条款!');
+                    return;
+                }
 
                 var orderItems = $scope.orderItems = angular.copy(getOrders());
                 $scope.data.isFastOrder = $scope.shippingItems[0].isFastOrder;
@@ -626,7 +628,7 @@ var app = angular
                 if (index === 2) {
 
                     //selectedCategory(outboundPackageItem,'currentCategory',null);
-
+                    $scope.submitagreeterms = 0;
                     var orderItems = getOrders();
                     for (var i = 0, ii = orderItems.length; i < ii; i++) {
                         var orderItem = orderItems[i];

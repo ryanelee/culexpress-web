@@ -47,7 +47,6 @@ angular
                             sessionStorage.setItem('cul-token', result.headers('Token'));
                             // }
                         }
-                        console.log(1111);
 
                         $scope.$root.currentUser = result.data;
 

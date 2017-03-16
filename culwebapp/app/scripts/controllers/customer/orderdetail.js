@@ -22,7 +22,6 @@ angular.module('culwebApp')
               orderSvr
                   .getOrderInfo(orderId)
                   .then(function (result) {
-                      console.log(result);
                       $scope.data = result.data;
 
                       loadOrderMessage();
