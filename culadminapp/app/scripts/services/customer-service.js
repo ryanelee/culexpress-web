@@ -53,10 +53,22 @@ angular.module('culAdminApp')
                                 break;
                         }
                     });
+                    console.log(result);
                     callback(result);
                 });
         }
 
+        //获取积分调整记录
+
+          self.getPointLog = function(options, callback) {
+            $http.post(cul.apiPath + "/customer/getPointLog", options)
+                .success(function(result) {
+                    console.log(result);
+                    callback(result);
+                });
+        }
+
+        // /customer/getPointLog'
 
             self.getArrearsList = function(options, callback) {
             $http.post(cul.apiPath + "/customer/arrearslist", options)
