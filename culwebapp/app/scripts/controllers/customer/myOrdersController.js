@@ -363,6 +363,7 @@ var app = angular
                         }
                     }
                 }
+
                 return orders;
             }
 
@@ -499,8 +500,7 @@ var app = angular
             }
 
             $scope.submitOrder = function () {
-console.log($scope.submitagreeterms);
-                if(!$scope.submitagreeterms || $scope.submitagreeterms != 1){
+                if(!$scope.data.submit_agreeterms || $scope.data.submit_agreeterms != true){
                     alertify.alert('提示', '提交订单之前,请勾选我已阅读并同意CULExpress免责赔偿条款!');
                     return;
                 }
@@ -628,7 +628,6 @@ console.log($scope.submitagreeterms);
                 if (index === 2) {
 
                     //selectedCategory(outboundPackageItem,'currentCategory',null);
-                    $scope.submitagreeterms = 0;
                     var orderItems = getOrders();
                     for (var i = 0, ii = orderItems.length; i < ii; i++) {
                         var orderItem = orderItems[i];
@@ -746,9 +745,9 @@ console.log($scope.submitagreeterms);
                         if (!shipService) shipService = data.shipServiceItem;
 
                         if (!calculData) calculData = {};
-
+                        
                         if ($scope.data.insuranceMark == 1)
-                            calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate;
+                            calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95);
                         else {
                             calculData.insuranceMark = 0;
                             calculData.insuranceFee = 0;
