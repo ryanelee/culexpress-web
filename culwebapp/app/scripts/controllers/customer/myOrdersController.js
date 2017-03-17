@@ -745,9 +745,9 @@ var app = angular
                         if (!shipService) shipService = data.shipServiceItem;
 
                         if (!calculData) calculData = {};
-
+                        
                         if ($scope.data.insuranceMark == 1)
-                            calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate;
+                            calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95);
                         else {
                             calculData.insuranceMark = 0;
                             calculData.insuranceFee = 0;
