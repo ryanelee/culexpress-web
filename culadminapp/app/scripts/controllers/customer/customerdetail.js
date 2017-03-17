@@ -55,7 +55,9 @@ angular.module('culAdminApp')
           $scope.btnEditPoint = function () {
               customerService.updatePoint({
                   "customerNumber": $scope.data.customerNumber,
-                  "changePoint": $scope.data.changePoint
+                  "changePoint": $scope.data.changePoint,
+                  "pointNote": $scope.data.pointNote,
+                  "backFlag": '1'
                   //TODO: 积分调整理由?
               }, function (result) {
                   if (result.success == true) {
