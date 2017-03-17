@@ -15,6 +15,7 @@ angular.module('culAdminApp')
             'AngularJS',
             'Karma'
           ];
+          
 
           $scope.tpl_status = {
               "rechargeType": [

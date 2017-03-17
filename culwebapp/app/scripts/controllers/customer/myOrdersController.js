@@ -432,7 +432,12 @@ var app = angular
                 $state.go('customer.myaddress', { addressId: addressItem.transactionNumber });
             }
 
+
             var preSubmitToService = function (data) {
+                    console.log(data.insuranceFee);
+                    console.log(JSON.stringify(data));
+                    // return;  
+                
                 var text = '';
                 if (!data.isFastOrder) {
                     text = "确定提交订单?";
@@ -454,7 +459,6 @@ var app = angular
                 alertify.confirm('确认', text,
                     function () {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
-
                         orderSvr
                             .submitOrder(data)
                             .then(function (result) {
@@ -748,6 +752,7 @@ var app = angular
                         
                         if ($scope.data.insuranceMark == 1)
                             calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95);
+                            // calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate ;
                         else {
                             calculData.insuranceMark = 0;
                             calculData.insuranceFee = 0;
@@ -779,6 +784,7 @@ var app = angular
                             $scope.countFee = calculData;
                         })
                     };
+                    // (shipService.RMBExchangeRate || 6.95);
 
                 //需要即时计算的费用不需要调用API
                 if (!!category) {

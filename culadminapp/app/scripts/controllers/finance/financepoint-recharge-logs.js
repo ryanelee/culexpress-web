@@ -20,13 +20,9 @@ angular.module('culAdminApp')
 
             $scope.tpl_status = {
                 "rechargeType": [
-                    { "title": "全部", "value": "1,3,4,5,6,7" },
-                    { "title": "支付宝人民币充值", "value": "1" },
+                    { "title": "全部", "value": "3,4" },
                     { "title": "赠送", "value": "3" },
                     { "title": "退款", "value": "4" },
-                    { "title": "新用户首单奖励", "value": "5" },
-                    { "title": "推荐人奖励", "value": "6" },
-                    { "title": "推荐人订单奖励", "value": "7" }
                 ]
             }
 
@@ -105,7 +101,7 @@ angular.module('culAdminApp')
                     console.log(result);
                     $scope.allTotal = result.allTotal;
                     $scope.dataList = result.data;
-                    $scope.pagination.totalCount = result.pageInfo.totalCount;
+                    // $scope.pagination.totalCount = result.pageInfo.totalCount;
                 });
             }
 

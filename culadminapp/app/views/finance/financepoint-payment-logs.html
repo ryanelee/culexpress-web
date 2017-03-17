@@ -5,10 +5,10 @@
     <div class="widget-content">
         <div class="row">
             <div class="col-sm-12 search-bar">
-                <div class="search-col">
+                <!--<div class="search-col">
                     <label class="search-label">支付方式：</label>
                     <select class="form-control search-control" ng-model="searchBar.rechargeType" ng-options="item.value as item.title for item in tpl_status.rechargeType"></select>
-                </div>
+                </div>-->
                 <div class="search-col">
                     <label class="search-label">交易时间：</label>
                     <select class="form-control search-control" ng-model="searchBar.dateRange" ng-change="changeDate()">
@@ -43,9 +43,9 @@
                    <div class="search-col">
                     <label class="search-label">搜索条目：</label>
                     <select class="form-control search-control" ng-model="searchBar.keywordType">
-                        <option value="orderNumber">订单编号</option>
+                        <!--<option value="orderNumber">订单编号</option>-->
                         <option value="customerNumber">客户编号</option>
-                        <option value="inuserName">客户ID</option>
+                        <!--<option value="inuserName">客户ID</option>-->
                     </select>
                       <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
 
@@ -59,14 +59,20 @@
     </div>
     <table class="table table-bordered">
         <thead>
+             <!--obj.rownumber = start++;
+                        obj.customerNumber = row.customerNumber;
+                        obj.transactionNumber = row.transactionNumber;
+                        obj.operationType = row.operationType;
+                        obj.point = row.point;
+                        obj.description = row.description;
+                        obj.indate = row.indate;
+                        obj.inuserName = row.inuserName;-->
             <tr>
-                <th>客户</th>
-                <th>支付方式</th>
-                <th>订单号</th>
-                <th>支付宝交易号</th>
-                <th>支付金额</th>
-                <th>支付状态</th>
-                <th>支付日期</th>
+                <th>序号</th>
+                <th>客户编号</th>
+                <th>调整积分</th>
+                <th>调整时间</th>
+                <th>操作人</th>
                 <th style="max-width:300px;">备注</th>
             </tr>
         </thead>
@@ -74,14 +80,10 @@
             <tr ng-repeat="item in dataList">
                 <td>{{item.rownumber}}</td>
                 <td>{{item.customerNumber}}</td>
+                <td>{{item.point}}</td>
+                <td>{{item.indate}}</td>
                 <td>{{item.inuserName}}</td>
-                <td>{{item.operationType}}</td>
-                <td>{{item.orderNumber}}</td>
-                <td>{{item.rechargeNumber || ''}}</td>
-                <td>{{item.payment}}</td>
-                <td>{{item.status == 1 ? "支付成功" : "支付失败"}}</td>
-                <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                <td style="max-width:300px;">{{item.memo}}</td>
+                <td>{{item.description || ''}}</td>
             </tr>
         </tbody>
     </table>
@@ -89,8 +91,8 @@
       <div class="widget-content">
               <div class="search-bar">
                      <div class="search-col" style="margin-bottom: 0px;">
-                    <label class="search-label">总计金额：</label>
-                    <input class="form-control" type="text" disabled value="{{allTotal.totalPayment}}" />
+                    <label class="search-label">总计积分：</label>
+                    <input class="form-control" type="text" disabled value="{{allTotal.totalPoint}}" />
               </div>
               </div>
 
