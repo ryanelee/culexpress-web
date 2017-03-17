@@ -363,6 +363,7 @@ var app = angular
                         }
                     }
                 }
+
                 return orders;
             }
 

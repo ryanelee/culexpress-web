@@ -281,7 +281,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <label class="checkbox-inline" style="margin-top:5px">
-                                        <input type="checkbox" ng-model="data.insuranceMark" id="buyInsurance" ng-click="calculateFee('insuranceMark','checkbox')" /> 购买5%保险
+                                        <input type="checkbox" ng-model="data.insuranceMark" id="buyInsurance" ng-click="calculateFee('insuranceMark','checkbox')" /> 购买保险({{ (data.shipServiceItem.insuranceFeeRate * 100||2) | number:0 }}%申报价值)
                                     </label>
                                 </div>
                             </div>
