@@ -92,14 +92,16 @@ angular.module('culwebApp')
                 return $http.get(cul.apiPath + '/customermessagetype?type=1');
             },
             addQuestion: function (questionItem) {
+                console.log('--------');
+                console.log(questionItem);
                 return $http.post(cul.apiPath + '/customermessage', {
                     customerNumber: questionItem.customerNumber,
                     messageType: questionItem.messageType,
                     receivedWarehouseNumber: questionItem.receivedWarehouseNumber,
                     receiveTrackingNumber: questionItem.receiveTrackingNumber,
-                    orderNumber: questionItem.SONumber,
+                    orderNumber: questionItem.orderNumber,
                     deliveryTrackingNumber: questionItem.deliveryTrackingNumber,
-                    images: questionItem.images || null,//��ʱ����ͼƬ�ϴ�
+                    images: questionItem.images || null,
                     message: questionItem.message,
                     status: 0
                 });

@@ -5,7 +5,8 @@ angular
     .controller('MyQuestionsController', ['$scope', '$state', 'Customer', 'OrderSvr',
         function ($scope, $state, customer, orderSvr) {
 
-
+            $scope.imageArr = [];
+            $scope.images;
 
 
 
@@ -14,14 +15,16 @@ angular
             $scope.$on('$viewContentLoaded', function () {
                 loadFileinput();
             });
+
             function loadFileinput() {//初始化 fileinput
-                $("#file").fileinput({
+                $("#file1").fileinput({
                     language: 'zh',//设置语言
                     //uploadUrl: "report/photo/add",//上传的地址
-                    uploadUrl: cul.apiPath + "/customermessage/uploadImage?customNumber=" + $scope.customNumber,//上传的地址
+                    uploadUrl: cul.apiPath + "/customermessage/uploadImage",//上传的地址
+                    // uploadUrl: cul.apiPath + "/customermessage/uploadImage?customNumber=" + $scope.customNumber,//上传的地址
                     allowedFileExtensions: ["jpg", "png", "gif", 'jpeg'],//接收的文件后缀
                     browseOnZoneClick: true,  //是否启用 点击预览区进行【文件浏览/选择】操作。默认为假。
-                    minFileCount: 2,//同一时间上传的最小
+                    minFileCount: 1,//同一时间上传的最小
                     maxFileCount: 2,//同一时间上传的最大数量
                     resizePreference: 'height',
                     overwriteInitial: false,
@@ -35,6 +38,9 @@ angular
                     showUploadedThumbs: 'false',
                     resizeImage: true
 
+                }).on('fileuploaded', function (event, data) {
+                    console.log(JSON.stringify(data));
+                    $scope.imageArr.push(data.response.url);
                 });
             }
 
@@ -104,13 +110,23 @@ angular
                 messageType: null,
                 receivedWarehouseNumber: null,
                 receiveTrackingNumber: '',
-                orderNumber: '',
                 deliveryTrackingNumber: '',
                 message: ''
+                // images:$scope.imageArr
             };
 
 
             $scope.submitQuestion = function () {
+                $scope.imageArr.forEach(function (e, index) {
+                    console.log(index);
+                    if (index == 0) {
+                        $scope.images = e;
+                    } else {
+                        $scope.images = $scope.images + "," + e;
+                    }
+                })
+                console.log($scope.images);
+                $scope.model.images = $scope.images;
                 if (!$scope.model.message) {
                     alertify.alert('提示', '请您先填写问题详细描述。', 'warning');
                     return false;

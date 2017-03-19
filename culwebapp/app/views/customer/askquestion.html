@@ -2,7 +2,6 @@
 <div class="row">
     <form action="#" id="sky-form3" class="sky-form">
         <header>在线咨询</header>
-        <p id="w">12</p>
         <fieldset>
             <section>
                 <label class="label">反馈问题类别</label>
@@ -55,10 +54,8 @@
                 <div class="note">您需要反馈的发货单号,格式例如:CUL000000001</div>
             </section>
 
-       
+
             <section>
-
-
 
                 <!--<label class="label">图片上传</label>
                 <label for="file" class="input input-file">
@@ -67,14 +64,29 @@
                 <div class="note">仅支持jpg,jpeg,bmp,png,gif图片格式</div>-->
             </section>
 
+
             <section>
                 <section>
-                    <label class="label">问题详细描述</label>
-                    <label class="textarea textarea-resizable">
+                    <label class="label">照片上传
+                    </label>
+                    <div style="height: 50%">
+                        <form enctype="multipart/form-data" id="addForm">
+                            <div class="form-group">
+                                <label></label>
+                                <input id="file1" type="file" class="file" name="file" multiple="true" ,accept="image/*">
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <section>
+                    <section>
+                        <label class="label">问题详细描述</label>
+                        <label class="textarea textarea-resizable">
                         <i class="icon-append fa fa-comment"></i>
                         <textarea rows="4" placeholder="请详细描述您需要咨询的问题" name="message" id="message" ng-model="model.message"></textarea>
                     </label>
-                </section>
+                    </section>
         </fieldset>
         <footer>
             <div class="row">
@@ -91,7 +103,7 @@
     </form>
 </div>
 
-     <div class="form-group">
+<!--<div class="form-group">
                 <label class="label required">身份证件上传</label>
                 <div style="height: 50%">
                     <form enctype="multipart/form-data" id="addForm">
@@ -100,5 +112,5 @@
                             <input id="file" type="file" class="file" name="file" multiple="true" ,accept="image/*">
                         </div>
                     </form>
-            </div>
+            </div>-->
 <!-- End Content -->
