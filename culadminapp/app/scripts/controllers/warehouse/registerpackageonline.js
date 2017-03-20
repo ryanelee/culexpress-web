@@ -18,16 +18,20 @@ angular.module('culAdminApp')
           $scope.data = null;
 
           $scope.tempOutboundPackageNumber = $location.search().trackingNumber || "";
-
+          console.log($scope.tempOutboundPackageNumber)
           var _timeout = null;
           $scope.checkInboundPackageNumber = function () {
+              console.log('1')
               if (!!_timeout) clearTimeout(_timeout);
               _timeout = setTimeout(function () {
                   $scope.$apply(function () {
-                      if (!!$scope.tempInboundPackageNumber) {
+                      if (!!$scope.tempOutboundPackageNumber) {
+                          console.log('23')
                           orderService.getList({
                               receiveTrackingNumber: $scope.tempInboundPackageNumber
                           }, function (result) {
+                            console.log('12348')
+                            console.log(result)
                               if (!!result && !!result.data && result.data.length > 0) {
                                   if (!$scope.data) {
                                       $scope.data = result.data[0];
