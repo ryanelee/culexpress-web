@@ -363,6 +363,7 @@ var app = angular
                         }
                     }
                 }
+
                 return orders;
             }
 
@@ -431,7 +432,12 @@ var app = angular
                 $state.go('customer.myaddress', { addressId: addressItem.transactionNumber });
             }
 
+
             var preSubmitToService = function (data) {
+                    console.log(data.insuranceFee);
+                    console.log(JSON.stringify(data));
+                    // return;  
+                
                 var text = '';
                 if (!data.isFastOrder) {
                     text = "确定提交订单?";
@@ -453,7 +459,6 @@ var app = angular
                 alertify.confirm('确认', text,
                     function () {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
-
                         orderSvr
                             .submitOrder(data)
                             .then(function (result) {
@@ -499,8 +504,7 @@ var app = angular
             }
 
             $scope.submitOrder = function () {
-console.log($scope.submitagreeterms);
-                if(!$scope.submitagreeterms || $scope.submitagreeterms != 1){
+                if(!$scope.data.submit_agreeterms || $scope.data.submit_agreeterms != true){
                     alertify.alert('提示', '提交订单之前,请勾选我已阅读并同意CULExpress免责赔偿条款!');
                     return;
                 }
@@ -628,7 +632,6 @@ console.log($scope.submitagreeterms);
                 if (index === 2) {
 
                     //selectedCategory(outboundPackageItem,'currentCategory',null);
-                    $scope.submitagreeterms = 0;
                     var orderItems = getOrders();
                     for (var i = 0, ii = orderItems.length; i < ii; i++) {
                         var orderItem = orderItems[i];
@@ -746,9 +749,10 @@ console.log($scope.submitagreeterms);
                         if (!shipService) shipService = data.shipServiceItem;
 
                         if (!calculData) calculData = {};
-
+                        
                         if ($scope.data.insuranceMark == 1)
-                            calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate;
+                            calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95);
+                            // calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate ;
                         else {
                             calculData.insuranceMark = 0;
                             calculData.insuranceFee = 0;
@@ -780,6 +784,7 @@ console.log($scope.submitagreeterms);
                             $scope.countFee = calculData;
                         })
                     };
+                    // (shipService.RMBExchangeRate || 6.95);
 
                 //需要即时计算的费用不需要调用API
                 if (!!category) {

@@ -22,7 +22,7 @@
                     </div>
                     <label class="col-sm-2 control-label text-right">问题状态：</label>
                     <div class="col-sm-4">
-                        <label class="control-label" ng-if="logs.length>0">已转交</label>
+                        <label class="control-label">{{data.status | _question}}</label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -68,6 +68,15 @@
                         <label class="control-label">{{data.message}}</label>
                     </div>
                 </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>上传图片</legend>
+                <div class="form-group">
+                    <div class="col-sm-4" ng-repeat="image in images">
+                        <img src="{{image}}" width="300px" height="300px" />
+                       
+                 </div>
             </fieldset>
             <legend>转交问题</legend>
             <div>
@@ -115,13 +124,13 @@
                     <button type="button" class="btn btn-default" ng-click="setMessageLog()"><i class="fa fa-comment"></i>转交问题</button>
                 </div>
 
+                </div>
+            </fieldset>
+            <div class="form-group text-center">
+                <!--<button type="button" class="btn btn-primary" class="role" data-role="32" ng-click="btnUpdateStatus('ForwardWH')">转交仓库</button>-->
+                <button type="button" class="btn btn-primary" class="role" data-role="31" ng-click="btnUpdateStatus('Closed')" ng-if="data.status!='Closed'">关闭问题</button>
+                <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+            </div>
+        </form>
     </div>
-    </fieldset>
-    <div class="form-group text-center">
-        <!--<button type="button" class="btn btn-primary" class="role" data-role="32" ng-click="btnUpdateStatus('ForwardWH')">转交仓库</button>-->
-        <button type="button" class="btn btn-primary" class="role" data-role="31" ng-click="btnUpdateStatus('Closed')" ng-if="data.status!='Closed'">关闭问题</button>
-        <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
-    </div>
-    </form>
-</div>
 </div>

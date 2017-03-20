@@ -1,5 +1,5 @@
 ﻿'use strict';
-
+ 
 /**
  * @ngdoc function
  * @name culAdminApp.controller:FAQDetailCtrl
@@ -44,6 +44,9 @@ angular.module('culAdminApp')
             });
 
             faqService.getDetail($scope.tpl_status.messageNumber, function(result) {
+                console.log(result);
+                $scope.images = result.images.split(',')
+                console.log($scope.images)
                 $scope.data = result;
                 faqService.getMessagelog({ messageNumber: $scope.tpl_status.messageNumber }, function(logs) {
                     $scope.logs = logs.data;

@@ -274,13 +274,17 @@ angular
                 templateUrl: 'views/finance/finance-total.html',
                 controller: 'FinanceTotalCtrl'
             })
-            .when('/finance/financerecord', { //财务总计
+            .when('/finance/financerecord', { //消费统计记录
                 templateUrl: 'views/finance/finance-record.html',
                 controller: 'FinanceRecordCtrl'
             })
             .when('/finance/deletelist', { //删货统计
                 templateUrl: 'views/finance/deletelist.html',
                 controller: 'DeleteListCtrl'
+            })
+             .when('/finance/pointlog', { //调分记录
+                templateUrl: 'views/finance/finance-pointlog.html',
+                controller: 'PointLogCtrl'
             })
             .when('/system/operationloglist', {
                 templateUrl: 'views/system/operationloglist.html',

@@ -56,17 +56,17 @@
               <h3 class="title">包裹轨迹</h3>
               <p>Parcel trajectory</p>
             </div>
-            <div class="item-left item-yun">
+            <div  ng-if="status != 'Init'" class="item-left item-yun">
               <img src="../../assets/img/ordertracking/icon-left-yunsong.png" />
-              <div class='item-content'>
+              <div class='item-content' ng-if="status != 'Init'">
                 <p>已运送</p>
                 <p class="time">{{orderEventInfo.usedTimeString}}</p>
               </div>
             </div>
-            <div class="item-left item-time" v-if="orderEventInfo.eventList && orderEventInfo.eventList.length > 0">
+            <div  ng-if="status != 'Init'" class="item-left item-time" v-if="orderEventInfo.eventList && orderEventInfo.eventList.length > 0">
               <img src="../../assets/img/ordertracking/icon-left-chuku.png" />
               <div class='item-content'>
-                <p>出库时间</p>
+                <p>出库时间{{orderEventInfo.status}}</p>
                 <p class="chuku">{{orderEventInfo.eventList[0].operationDate|date:'yyyy.MM.dd HH:mm'}}</p>
               </div>
             </div>

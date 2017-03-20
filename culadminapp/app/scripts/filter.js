@@ -44,6 +44,15 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     return function (input) {
         return orderStatus[input] || input;
     };
+}).filter('_question', function () {
+    var question = {
+        "Closed": "已关闭",
+        "Processing": "待处理",
+        "ForwardWH": "转交仓库"
+    };
+    return function (input) {
+        return question[input] || input;
+    };
 }).filter('cutText', function(){
     return function (value, wordwise, max ,tail) {
         if(!value) return '';
@@ -89,3 +98,4 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
 //         return value + (tail || ' ...');
 //     }
 // });
+

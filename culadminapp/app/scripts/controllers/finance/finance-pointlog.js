@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 /**
  * @ngdoc function
@@ -8,13 +8,14 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('FinanceRecordCtrl', ["$scope", "$location", "$filter", "$window", "customerService", "warehouseService", "plugMessenger",
+  .controller('PointLogCtrl', ["$scope", "$location", "$filter", "$window", "customerService", "warehouseService", "plugMessenger",
       function ($scope, $location, $filter, $window, customerService, warehouseService, plugMessenger) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
             'Karma'
           ];
+          
 
           $scope.data = {}
           $scope.customerNumber = $location.search().customerNumber;
