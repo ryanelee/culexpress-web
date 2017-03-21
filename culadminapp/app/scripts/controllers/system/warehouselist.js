@@ -15,6 +15,10 @@ angular.module('culAdminApp')
             'AngularJS',
             'Karma'
           ];
+          warehouseService.getWarehouse(function(data){
+              console.log('data')
+              console.log(data)
+          })
 
           // 返回列表
           $scope.back = function () {
