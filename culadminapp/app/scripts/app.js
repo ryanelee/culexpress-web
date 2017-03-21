@@ -162,6 +162,7 @@ angular
                 templateUrl: 'views/warehouse/package.html',
                 controller: 'WarehousePackageCtrl'
             })
+            
             .when('/warehouse/editpackage', {
                 templateUrl: 'views/warehouse/editpackage.html',
                 controller: 'WarehouseEditpackageCtrl'
@@ -297,6 +298,10 @@ angular
             .when('/system/rolelist', {
                 templateUrl: 'views/system/rolelist.html',
                 controller: 'SysRoleListCtrl'
+            })
+                .when('/system/warehouselist', {
+                templateUrl: 'views/system/warehouselist.html',
+                controller: 'WarehouseListCtrl'
             })
             .when('/system/editrole', {
                 templateUrl: 'views/system/editrole.html',
