@@ -106,7 +106,7 @@
                 <li class="hoverSelector" data-ng-show="isLogined">
                     <i class="fa fa-user"></i>
                     <a class="topbar-down" ui-sref="customer.myaccount({anchorid:'profile'})">您好,<span data-ng-bind="currentUser.userName"></span> <span class="color-red" ng-show="isLackProfile">[您还未填写个人资料]</span></a>
-                    <ul class="topbar-dropdown  hidden-xs hidden-sm" ng-show="!isLackProfile">
+                    <ul class="topbar-dropdown  hidden-xs hidden-sm" ng-show="!isLackProfile" style="z-index:12">
                         <li ng-class="{active: $state.includes('customer.myhome')}">
                             <a ui-sref="customer.myhome"><i class="fa fa-bar-chart-o"></i> 用户中心</a>
                         </li>
@@ -208,8 +208,8 @@
 				</div>
 			</div>
       <div class="visible-md-block visible-lg-block container search-container">
-        <div class="search-bar">
-          <input class="search-txt" type="text" placeholder="运单查询" ng-model="trackingNumber1" />
+        <div class="search-bar" style="z-index:11;">
+          <input class="search-txt" type="text" placeholder="运单查询" ng-model="trackingNumber1"/>
           <span class="search-bar-btn">
               <a href="#/ordertracking/{{trackingNumber1}}">
                   <i class="fa fa-search"></i>
@@ -408,7 +408,7 @@
           </div>
         </div>
       </footer>
-      <div class="float-window">
+      <div class="float-window" style="z-index:13;">
         <div>
           <a href="http://wpa.qq.com/msgrd?v=3&uin=189525376&site=qq&menu=yes" target="_blank" class="show-icon">
             <i class="fa fa-comments"></i>
@@ -446,8 +446,8 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>

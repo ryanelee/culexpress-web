@@ -1937,7 +1937,7 @@ select:-webkit-autofill {
 
 .promo-cashback .content {
 	padding-top: 350px;
-	padding-left: 150px;
+	/*padding-left: 150px;*/
 	width: 800px
 }
 
