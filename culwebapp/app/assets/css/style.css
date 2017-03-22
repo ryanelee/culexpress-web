@@ -3481,5 +3481,40 @@ select:-webkit-autofill {
 		height: 343px !important;
 	}
 }
+@media (max-width: 801px) {
+	.index-banner-height {
+		height: 272px !important;
+	}
+}
+@media (max-width: 768px) {
+	.index-banner-height {
+		height: 259px !important;
+	}
+}
+@media (max-width: 602px) {
+	.index-banner-height {
+		height: 202px !important;
+	}
+}
+@media (max-width: 435px) {
+	.index-banner-height {
+		height: 151px !important;
+	}
+}
+@media (max-width: 414px) {
+	.index-banner-height {
+		height: 138px !important;
+	}
+}
+@media (max-width: 375px) {
+	.index-banner-height {
+		height: 122px !important;
+	}
+}
+@media (max-width: 320px) {
+	.index-banner-height {
+		height: 110px !important;
+	}
+}
 
 
