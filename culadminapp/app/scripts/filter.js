@@ -14,6 +14,31 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     return function (input) {
         return sendType[input] || input;
     };
+}).filter('webType', function () {
+    var _webType = {
+        1: "登入广告",
+        2: "普通公告",
+        3: "促销活动"
+    };
+    return function (input) {
+        return _webType[input] || input;
+    };
+}).filter('webstatus', function () {
+    var _webstatus = {
+        0: "禁用",
+        1: "启用"
+    };
+    return function (input) {
+        return _webstatus[input] || input;
+    };
+}).filter('webopenAll', function () {
+    var _webopenAll = {
+        0: "所有可见",
+        1: "登录后可见"
+    };
+    return function (input) {
+        return _webType[input] || input;
+    };
 }).filter('_orderStatus', function () {
     var orderStatus = {
         "Canceled": "取消",

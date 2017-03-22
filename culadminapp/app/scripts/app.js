@@ -327,6 +327,10 @@ angular
                 templateUrl: 'views/system/edituser.html',
                 controller: 'UserEditCtrl'
             })
+             .when('/web/announce', {
+                templateUrl: 'views/web/announce.html',
+                controller: 'AnnounceCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });

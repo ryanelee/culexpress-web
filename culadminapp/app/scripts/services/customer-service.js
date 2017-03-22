@@ -8,12 +8,12 @@
  * Service in the culAdminApp.
  */
 angular.module('culAdminApp')
-    .service('customerService', ["$window", "$http", function($window, $http) {
+    .service('customerService', ["$window", "$http", function ($window, $http) {
         var self = this;
 
-        self.getDetail = function(customerNumber, callback) {
+        self.getDetail = function (customerNumber, callback) {
             $http.get(cul.apiPath + "/customer/" + customerNumber)
-                .success(function(result) {
+                .success(function (result) {
                     switch (result && result.vipStatus) {
                         case "Applied":
                             result._vipStatus = "申请";
@@ -32,12 +32,12 @@ angular.module('culAdminApp')
                 });
         }
 
-        
 
-        self.getList = function(options, callback) {
+
+        self.getList = function (options, callback) {
             $http.post(cul.apiPath + "/customer/list", options)
-                .success(function(result) {
-                    $.each(result.data, function(i, item) {
+                .success(function (result) {
+                    $.each(result.data, function (i, item) {
                         switch (item.vipStatus) {
                             case "Applied":
                                 item._vipStatus = "申请";
@@ -60,9 +60,9 @@ angular.module('culAdminApp')
 
         //获取积分调整记录
 
-          self.getPointLog = function(options, callback) {
+        self.getPointLog = function (options, callback) {
             $http.post(cul.apiPath + "/customer/getPointLog", options)
-                .success(function(result) {
+                .success(function (result) {
                     console.log(result);
                     callback(result);
                 });
@@ -70,10 +70,10 @@ angular.module('culAdminApp')
 
         // /customer/getPointLog'
 
-            self.getArrearsList = function(options, callback) {
+        self.getArrearsList = function (options, callback) {
             $http.post(cul.apiPath + "/customer/arrearslist", options)
-                .success(function(result) {
-                    $.each(result.data, function(i, item) {
+                .success(function (result) {
+                    $.each(result.data, function (i, item) {
                         switch (item.vipStatus) {
                             case "Applied":
                                 item._vipStatus = "申请";
@@ -93,45 +93,45 @@ angular.module('culAdminApp')
                 });
         }
 
-        self.delete = function(ids, callback) {
+        self.delete = function (ids, callback) {
             $http.delete(cul.apiPath + "/customer?number=" + ids)
-                .success(function(result) {
+                .success(function (result) {
                     callback(result);
                 });
         }
 
-        self.update = function(data, callback) {
+        self.update = function (data, callback) {
             $http.put(cul.apiPath + "/customer/profile", data)
-                .success(function(result) {
+                .success(function (result) {
                     callback(result);
                 });
         }
 
-        self.vipApprove = function(options, callback) {
-            $http.put(cul.apiPath + "/customer/vip/audit", options).success(function(result) {
+        self.vipApprove = function (options, callback) {
+            $http.put(cul.apiPath + "/customer/vip/audit", options).success(function (result) {
                 callback(result);
             });
         }
 
-        self.getVipAndMsg = function(options, callback) {
-            $http.post(cul.apiPath + "/customer/getVipAndMsg", options).success(function(result) {
+        self.getVipAndMsg = function (options, callback) {
+            $http.post(cul.apiPath + "/customer/getVipAndMsg", options).success(function (result) {
                 callback(result);
             });
         }
 
-        self.updatePoint = function(options, callback) {
-            $http.put(cul.apiPath + "/customer/mypoint", options).success(function(result) {
+        self.updatePoint = function (options, callback) {
+            $http.put(cul.apiPath + "/customer/mypoint", options).success(function (result) {
                 callback(result);
             });
         }
 
-        self.clearReference = function(customerNumber, callback) {
-            $http.put(cul.apiPath + "/customer/cancelReference/" + customerNumber).success(function(result) {
+        self.clearReference = function (customerNumber, callback) {
+            $http.put(cul.apiPath + "/customer/cancelReference/" + customerNumber).success(function (result) {
                 callback(result);
             });
         }
 
-        self.statisticsList = function(options, callback) {
+        self.statisticsList = function (options, callback) {
             var customer_ids;
 
             var roles = JSON.parse($window.sessionStorage.getItem("role"));
@@ -139,56 +139,68 @@ angular.module('culAdminApp')
                 customer_ids = $.grep([customer_ids, role.customer_ids], Boolean).join(",");
             });
 
-            if(customer_ids != undefined && parseInt(customer_ids) !== 0){
+            if (customer_ids != undefined && parseInt(customer_ids) !== 0) {
 
                 if (options["customerNumber"] != undefined
                     && !customer_ids.includes(options["customerNumber"].toUpperCase())) {//搜索指定customer#不在当前用户允许查询的customer权限中，直接返回空数据集
-                        return;
+                    return;
                 };
 
                 if (options["customerNumber"] == undefined)//默认只返回具备权限查看customer的数据
                     options["customerNumber"] = customer_ids;
             };
 
-            $http.post(cul.apiPath + "/customer/statistics/list", options).success(function(result) {
+            $http.post(cul.apiPath + "/customer/statistics/list", options).success(function (result) {
                 callback(result);
             });
         }
 
-        self.getUnpaid = function(options, callback) {
-            $http.post(cul.apiPath + "/customer/unpaid", options).success(function(result) {
+        self.getUnpaid = function (options, callback) {
+            $http.post(cul.apiPath + "/customer/unpaid", options).success(function (result) {
                 callback(result);
             });
         }
 
-        self.financeLogList = function(options, callback) {
-            $http.post(cul.apiPath + "/customer/financeLog/list", options).success(function(result) {
+        self.financeLogList = function (options, callback) {
+            $http.post(cul.apiPath + "/customer/financeLog/list", options).success(function (result) {
                 callback(result);
             });
         }
 
 
-        self.refundRecharge = function(options, callback) {
-            $http.post(cul.apiPath + "/customer/recharge", options).success(function(result) {
+        self.refundRecharge = function (options, callback) {
+            $http.post(cul.apiPath + "/customer/recharge", options).success(function (result) {
                 callback(result);
             });
         }
 
-        self.paymentByOffline = function(options, callback) {
-            $http.post(cul.apiPath + "/customer/manual/offline/payment", options).success(function(result) {
+        self.paymentByOffline = function (options, callback) {
+            $http.post(cul.apiPath + "/customer/manual/offline/payment", options).success(function (result) {
                 callback(result);
             });
         }
 
-        self.paymentByOnline = function(options, callback) {
-            $http.post(cul.apiPath + "/customer/manual/online/payment", options).success(function(result) {
+        self.paymentByOnline = function (options, callback) {
+            $http.post(cul.apiPath + "/customer/manual/online/payment", options).success(function (result) {
                 callback(result);
             });
         }
-        self.getVipAndMsg = function(options, callback) {
-            $http.post(cul.apiPath + "/customer/getVipAndMsg", options).success(function(result) {
+        self.getVipAndMsg = function (options, callback) {
+            $http.post(cul.apiPath + "/customer/getVipAndMsg", options).success(function (result) {
                 callback(result);
             });
         }
+
+        //获取系统公告
+        self.getWebAnnounce = function (options, callback) {
+            $http.post(cul.apiPath + "/web/getWebAnnounce", options).success(function (result) {
+                callback(result);
+            });
+        }
+
+
+
+
+
 
     }]);
