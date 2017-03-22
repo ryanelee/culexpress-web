@@ -1,1 +1,127 @@
-1212121
+
+<div class="widget widget-table">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i> 仓库管理</h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-sm-12 search-bar">
+                <div class="col-sm-12 search-bar">
+                    <div class="search-col" style="margin-bottom: 0px;">
+                        <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="addWarehouse()">新建仓库</button>
+                    </div>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">国家/地区：</label>
+                    <select class="form-control search-control"
+                            ng-model="searchBar.status">
+                        <option value="">所有</option>
+                        <option value="A">美国</option>
+                        <option value="B">中国</option>
+                    </select>
+                </div>
+                 <div class="search-col">
+                    <label class="search-label">状态：</label>
+                    <select class="form-control search-control"  ng-model="searchBar.type">
+                        <option value="">所有</option>
+                        <option value="1">启用</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </div>
+                <!--<div class="search-col">
+                    <label class="search-label">状态：</label>
+                    <select class="form-control search-control"
+                            ng-model="searchBar.warehouseNumber"
+                            ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                </div>-->
+                <div class="clearfix"></div>
+                <div class="search-col">
+                    <label class="search-label">搜索条目：</label>
+                    <select class="form-control search-control" ng-model="searchBar.keywordType">
+                        <option value="">仓库编号</option><!--houseNumber-->
+                        <option value="houseShortName">仓库简称</option>
+                        <option value="houseName">仓库名</option>
+                    </select>
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>仓库编号</th>
+                            <th>简称</th>
+                            <th>仓库名</th>
+                            <th>仓库类型</th>
+                            <th>免税仓</th>
+                            <th>联系人</th>
+                            <th>联系电话</th>
+                            <th>地址1</th>
+                            <th>地址2</th>
+                            <th>城市</th>
+                            <th>邮编</th>
+                            <th>省/州</th>
+                            <th>国家</th>
+                            <th>最后修改用户</th>
+                            <th>最后修改时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in dataList">
+                            <td>{{item.rownumber}}</td>
+                            <td>{{getWarehouseName(item.warehouseNumber)}}</td>
+                            <td>{{item._type}}</td>
+                            <td>{{item.rownumber}}</td>
+                            <td>{{getWarehouseName(item.warehouseNumber)}}</td>
+                            <td>{{item._type}}</td>
+                            <td>{{item.rownumber}}</td>
+                            <td>{{getWarehouseName(item.warehouseNumber)}}</td>
+                            <td>{{item._type}}</td>
+                            <td>{{item.rownumber}}</td>
+                            <td>{{getWarehouseName(item.warehouseNumber)}}</td>
+                            <td>{{item._type}}</td>
+                            <td>{{getWarehouseName(item.warehouseNumber)}}</td>
+                            <td>{{item._type}}</td>
+                            <td>
+                                <a href="javascript:void(0)" ng-click="btnAction('detail', item)">{{item.shelfNumber}}</a>
+                            </td>
+                            <td>{{item.itemCount}}</td>
+                            <td>
+                                <a href="javascript:void(0);" ng-click="edit(item.group_id)">修改</a> &nbsp;
+                                <a href="javascript:void(0);" ng-click="del(item.group_id)">删除</a> &nbsp;
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 text-right pull-right">
+                <uib-pagination class="pagination pagination-rewrite pull-right"
+                                boundary-links="true"
+                                max-size="5"
+                                total-items="pagination.totalCount"
+                                items-per-page="pagination.pageSize"
+                                ng-model="pagination.pageIndex"
+                                ng-change="getData()"
+                                previous-text="上一页"
+                                next-text="下一页"
+                                first-text="首页"
+                                last-text="尾页">
+                </uib-pagination>
+                <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<print-helper></print-helper>

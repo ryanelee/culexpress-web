@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name culAdminApp.controller:SysRoleEditCtrl
+ * @name culAdminApp.controller:UserEditCtrl
  * @description
- * # SysRoleEditCtrl
+ * # UserEditCtrl
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
@@ -19,20 +19,9 @@ angular.module('culAdminApp')
               console.log('data')
               console.log(data)
           })
-          // 新建仓库
-          $scope.addWarehouse = function () {
-              $location.path('/system/editwarehouse').search({});
-          }
-          // 修改仓库
-          $scope.edit = function (id) {
-              $location.path('/system/editwarehouse').search({ groupId: id });
-          }
+
           // 返回列表
           $scope.back = function () {
-              //$location.path('/system/rolelist');
-              $window.history.back();
+              $location.path('/system/warehouselist').search({});
           }
-  
-          
-
       }]);
