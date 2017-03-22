@@ -1734,6 +1734,9 @@ select::-ms-expand {
 	position: relative;
 }
 
+
+
+
 .login-main .login-icon {
 	margin: 35px auto 45px;
 	display: inline-block;
@@ -3452,3 +3455,31 @@ select:-webkit-autofill {
 		padding: 0;
 	}
 }
+
+@media (max-width: 1920px) {
+	.index-banner-height {
+		height: 648px !important;
+	}
+}
+@media (max-width: 1680px) {
+	.index-banner-height {
+		height:566px !important;
+	}
+}
+@media (max-width: 1400px) {
+	.index-banner-height {
+		height: 457px !important;
+	}
+}
+@media (max-width: 1280px) {
+	.index-banner-height {
+		height: 430px !important;
+	}
+}
+@media (max-width: 1024px) {
+	.index-banner-height {
+		height: 343px !important;
+	}
+}
+
+
