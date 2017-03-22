@@ -303,6 +303,10 @@ angular
                 templateUrl: 'views/system/warehouselist.html',
                 controller: 'WarehouseListCtrl'
             })
+                .when('/system/editwarehouse', {
+                templateUrl: 'views/system/editwarehouse.html',
+                controller: 'EditWarehouseCtrl'
+            })
             .when('/system/editrole', {
                 templateUrl: 'views/system/editrole.html',
                 controller: 'SysRoleEditCtrl'

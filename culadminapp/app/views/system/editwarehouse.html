@@ -1,0 +1,144 @@
+<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i>仓库管理-新建仓库</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">仓库简称：<small style="color:red">*</small></label>
+                <div class="col-sm-10 text-left">
+                    <input id="txtRoleName" type="text" class="form-control" placeholder="员工名称" ng-model="form.userName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">仓库名：</label>
+                <div class="col-sm-10 text-left">
+                  <input id="txtRoleDescribe" type="text" class="form-control" placeholder="员工邮箱" ng-model="form.emailAddress" >
+                </div>
+            </div>
+            <!--<div class="form-group" ng-hide="userId">
+                <label class="col-sm-2 control-label text-right">密码：<small style="color:red">*</small></label>
+                <div class="col-sm-10 text-left">
+                  <input id="txtpassword" type="text" class="form-control" placeholder="密码" ng-model="form.password">
+                </div>
+            </div>-->
+            <!--<div class="form-group">
+                <label class="col-sm-2  text-right">所在部门：<small style="color:red">*</small></label>
+                <div class="col-sm-10 text-left">
+                    <select ng-model="form.groupId"
+                      class="form-control"
+                      ng-options="x.group_id as x.gname for x in groups">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2  text-right">所在岗位：<small style="color:red">*</small></label>
+                <div class="col-sm-10 text-left">
+                      <ui-select multiple ng-model="form.selectedRoles" close-on-select="false">
+                        <ui-select-match placeholder="选择岗位...">{{$item.role_name}}</ui-select-match>
+                        <ui-select-choices repeat="role in roles | filter:$select.search">
+                            {{ role.role_name }}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-sm-2  text-right">状态：</label>
+                <div class="col-sm-10 text-left">
+                  <label>
+                    <input type="radio" name="status" id="status1" value="M" ng-model="form.status">
+                    启用
+                  </label> &nbsp;
+                  <label>
+                    <input type="radio" name="status" id="status2" value="F" ng-model="form.status">
+                    禁用
+                  </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2  text-right">仓库类型：</label>
+                <div class="col-sm-10 text-left">
+                  <label>
+                    <input type="radio" name="type" id="type1" value="M" ng-model="form.type">
+                    普通仓库
+                  </label> &nbsp;
+                  <label>
+                    <input type="radio" name="type" id="type2" value="F" ng-model="form.type">
+                    转仓仓库
+                  </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2  text-right">免税仓：</label>
+                <div class="col-sm-10 text-left">
+                  <label>
+                    <input type="radio" name="freeStatus" id="freeStatus1" value="M" ng-model="form.freeStatus">
+                    是
+                  </label> &nbsp;
+                  <label>
+                    <input type="radio" name="freeStatus" id="freeStatus2" value="F" ng-model="form.freeStatus">
+                    否
+                  </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">联系人：<small style="color:red">*</small></label>
+                <div class="col-sm-10 text-left">
+                    <input id="txtRoleName" type="text" class="form-control" placeholder="员工名称" ng-model="form.userName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">联系电话：</label>
+                <div class="col-sm-10 text-left">
+                  <input id="txtRoleDescribe" type="text" class="form-control" placeholder="员工邮箱" ng-model="form.emailAddress" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">地址1：<small style="color:red">*</small></label>
+                <div class="col-sm-10 text-left">
+                    <input id="txtRoleName" type="text" class="form-control" placeholder="员工名称" ng-model="form.userName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">地址2：</label>
+                <div class="col-sm-10 text-left">
+                  <input id="txtRoleDescribe" type="text" class="form-control" placeholder="员工邮箱" ng-model="form.emailAddress" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">城市：<small style="color:red">*</small></label>
+                <div class="col-sm-10 text-left">
+                    <input id="txtRoleName" type="text" class="form-control" placeholder="员工名称" ng-model="form.userName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">邮编：</label>
+                <div class="col-sm-10 text-left">
+                  <input id="txtRoleDescribe" type="text" class="form-control" placeholder="员工邮箱" ng-model="form.emailAddress" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">省/州：<small style="color:red">*</small></label>
+                <div class="col-sm-10 text-left">
+                    <input id="txtRoleName" type="text" class="form-control" placeholder="员工名称" ng-model="form.userName">
+                </div>
+            </div>
+            <div class="search-col">
+                <label class="search-label">国家/地区：</label>
+                <select class="form-control search-control"
+                        ng-model="searchBar.status">
+                    <option value="">所有</option>
+                    <option value="A">美国</option>
+                    <option value="B">中国</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-click="saveUser()">确认</button>
+                    <a class="btn btn-link" href="javascript:void(0);" ng-click="back()">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<print-inbound-package></print-inbound-package>
