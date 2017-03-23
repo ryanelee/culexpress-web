@@ -1,0 +1,119 @@
+<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 创建公告</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">公告标题</label>
+                    <div class="col-sm-4 text-left">
+                        <input type="text" class="form-control" placeholder="公告标题" ng-model="data.title">
+
+                    </div>
+                </div>
+
+              
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">公告时间</label>
+                    <div class="col-sm-4 text-left">
+                        <p class="input-group pull-left">
+                            <input type="text" class="form-control search-control" style="width:310px;" uib-datepicker-popup ng-model="data.openTime"
+                                is-open="searchBar.opened.startDate" show-button-bar="false" 
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                        </p>
+                    </div>
+                </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">展示时间起</label>
+                    <div class="col-sm-2 text-left">
+                        <p class="input-group pull-left">
+                            <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="data.start"
+                                is-open="searchBar.opened.openTime" show-button-bar="false" 
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.openTime = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                        </p>
+                    </div>
+                     <label class="col-sm-1 control-label text-right">至</label>
+                    <div class="col-sm-2 text-left">
+                        <p class="input-group pull-left">
+                            <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="data.end"
+                                is-open="searchBar.opened.end" show-button-bar="false" 
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.end = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">公告类型</label>
+                    <div class="col-sm-4 text-left">
+                        <select class="form-control search-control" ng-model="data.type">
+                            <option value = 1>登入广告</option>
+                            <option value = 2>普通公告</option>
+                            <option value = 3>促销活动</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                  <div class="form-group">
+                <label class="col-sm-2  text-right">状态：</label>
+                <div class="col-sm-4 text-left">
+                  <label>
+                    <input type="radio" name="status" id="status1" value=1 ng-model="data.status">
+                    启用
+                  </label> &nbsp;
+                  <label>
+                    <input type="radio" name="status" id="status2" value=0 ng-model="data.status">
+                    禁用
+                  </label>
+                </div>
+            </div>
+
+               <div class="form-group">
+                <label class="col-sm-2  text-right">登陆后可见：</label>
+                <div class="col-sm-4 text-left">
+                  <label>
+                    <input type="radio" name="openAll" id="status3" value=0 ng-model="data.openAll">
+                    是
+                  </label> &nbsp;
+                  <label>
+                    <input type="radio" name="openAll" id="status4" value=1 ng-model="data.openAll">
+                    否
+                  </label>
+                </div>
+            </div>
+
+              <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">公告正文</label>
+                    <div class="col-sm-4 text-left">
+                        <textarea type="text" rows="10"  class="form-control" placeholder="公告正文" ng-model="data.content"></textarea>
+                    </div>
+                </div>
+
+            
+
+
+             
+            </fieldset>
+            <div class="form-group">
+                <div  ng-if="flag !='1'" class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-click="btnSave()"><i class="fa fa-save"></i>创建</button>
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+                 <div ng-if="flag =='1'" class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-click="updateAnnounce()"><i class="fa fa-save"></i>更新</button>
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <print-helper></print-helper>
+</div>

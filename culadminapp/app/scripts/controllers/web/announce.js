@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('AnnounceCtrl', ['$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService', 'customerService',
-        function ($window, $rootScope, $scope, $location, warehouseService, shelfService, customerService) {
+    .controller('AnnounceCtrl', ['$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService', 'customerService', 'plugMessenger',
+        function ($window, $rootScope, $scope, $location, warehouseService, shelfService, customerService, plugMessenger) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -20,6 +20,7 @@ angular.module('culAdminApp')
             $scope.warehouseList = [];
             $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
 
+
             $scope.getWarehouseName = function (warehouseNumber) {
                 var warehouse = _.findWhere($scope.warehouseList, { warehouseNumber: warehouseNumber });
                 return !!warehouse ? warehouse.warehouseName : "";
@@ -29,8 +30,16 @@ angular.module('culAdminApp')
             $scope.searchBar = {
                 keywordType: "title",
                 type: "",
-                status: ""
+                status: "",
+                opened: {
+                    openTime: false,
+                    endDate: false,
+                    start: false,
+                    end: false
+                }
             }
+
+
 
             $scope.pagination = {
                 pageSize: "20",
@@ -83,9 +92,11 @@ angular.module('culAdminApp')
                     $rootScope.$emit("changeMenu");
                 });
             }
-            $scope.getData();
+                $scope.getData();
+
 
             $scope.btnSearch = function () {
+                console.log('23')
                 $scope.selectedListCache = [];
                 $scope.dataList = [];
                 $scope.pagination.pageIndex = 1;
@@ -100,7 +111,7 @@ angular.module('culAdminApp')
                         $location.path("/warehouse/shelfmanagementdetail");
                         break;
                     case "create":
-                        $location.path("/warehouse/shelfmanagementcreate");
+                        $location.path("/web/newAnnounce");
                         break;
                 }
             }
@@ -108,4 +119,94 @@ angular.module('culAdminApp')
             $scope.btnPrint = function (item) {
                 $scope.$broadcast("print-helper.action", "shelf-management-tag", { shelfNumber: item.shelfNumber });
             }
+
+            $scope.btnSave = function () {
+                console.log('13')
+                customerService.createWebAnnounce($scope.data, function (result) {
+                    if (result.code = '000') {
+                        plugMessenger.success("创建成功");
+                        $location.path('/web/announce')
+                    } else {
+                        plugMessenger.error("创建失败");
+
+                    }
+                })
+            }
+
+
+
+            $scope.btnPrev = function () {
+                $window.history.back();
+            }
+
+            //路由
+            $scope.update = function (item) {
+                if (!!item) $location.search({ item: item });
+                $location.path("/web/updateAnnounce");
+            }
+
+
+            //更新
+
+            $scope.updateAnnounce = function () {
+                console.log(123)
+                customerService.updateWebAnnounce($scope.data, function (result) {
+                    if (result.code == '000') {
+                        plugMessenger.success("更新成功");
+                        $location.path("/web/announce");
+                    }
+                })
+            }
+
+
+
+
+            $scope.btnDelete = function (announce) {
+                console.log(announce);
+                plugMessenger.confirm("确认删除吗" + announce.title + "？", function (isOk) {
+                    if (isOk) {
+                        customerService.deleteWebAnnounce(announce, function (result) {
+                            if (result.code == '000') {
+                                plugMessenger.success("删除成功");
+                                $scope.getData();
+                            }
+                        })
+                    }
+                });
+            }
+        }]);
+
+
+angular.module('culAdminApp')
+    .controller('UpdateAnnounceCtrl', ['$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService', 'customerService', 'plugMessenger',
+        function ($window, $rootScope, $scope, $location, warehouseService, shelfService, customerService, plugMessenger) {
+            this.awesomeThings = [
+                'HTML5 Boilerplate',
+                'AngularJS',
+                'Karma'
+            ];
+            $scope.flag = '1';
+
+            $scope.data = $location.search().item;
+
+            $scope.btnPrev = function () {
+                $window.history.back();
+            }
+
+            //更新
+
+            $scope.updateAnnounce = function () {
+                console.log(123)
+                customerService.updateWebAnnounce($scope.data, function (result) {
+                    if (result.code == '000') {
+                        plugMessenger.success("更新成功");
+                        $location.path("/web/announce");
+                    }
+                })
+            }
+
+
+
+
+       
         }]);

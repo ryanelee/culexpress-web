@@ -335,6 +335,14 @@ angular
                 templateUrl: 'views/web/announce.html',
                 controller: 'AnnounceCtrl'
             })
+                .when('/web/newAnnounce', { //新增布告
+                templateUrl: 'views/web/new-announce.html',
+                controller: 'AnnounceCtrl'
+            })
+                .when('/web/updateAnnounce', {  //更新布告
+                templateUrl: 'views/web/new-announce.html',
+                controller: 'UpdateAnnounceCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });
