@@ -1093,6 +1093,16 @@ select::-ms-expand {
 	position: relative;
 	cursor: pointer;
 }
+.faq-container .faq-title:hover {
+	background-color: #bbc9e0;
+	color: #a7b8d2;
+	font-size: 16px;
+	height: 40px;
+	vertical-align: middle;
+	border-radius: 2px;
+	position: relative;
+	cursor: pointer;
+}
 
 .faq-container .faq-title::after {
 	content: '+';
@@ -1129,7 +1139,15 @@ select::-ms-expand {
 	height: 40px;
 	line-height: 40px;
 	vertical-align: middle;
-	color: #a7b8d2;
+	color: #414a58;
+}
+
+.faq-container .faq-title-content:hover {
+	margin-left: 30px;
+	height: 40px;
+	line-height: 40px;
+	vertical-align: middle;
+	color: #f58e21;
 }
 
 .faq-one .faq-title-content {

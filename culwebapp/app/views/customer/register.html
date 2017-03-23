@@ -91,7 +91,7 @@
 <div class="login-container register-container" >
   <div class="login-main" ng-show="model.registed===false">
     <img class="register-icon" src="../../assets/img/login/register-lc.png" /><br />
-    <form ng-submit="register()" id="sky-form-register" autocomplete="off" novalidate="novalidate" class="register-form">
+    <form ng-submit="register()" id="sky-form-register" autocomplete="off" novalidate="novalidate" class="register-form" style="color:#333;">
       <input class="txt name" name="username" placeholder="用户名" data-ng-model="userName"
         autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" ng-blur="ck('userName')"/><br />
       <p class="error" ng-if="userNameErr">
