@@ -48,28 +48,28 @@
 </div>-->
 
 <div class="login-container" ng-controller="LoginController">
-    <div class="login-main login-tab">
+    <div class="login-main login-tab" >
         <img class="login-icon" src="../../assets/img/login/login-icon.png" /><br />
-        <form ng-submit="login()" autocomplete="off">
+        <form ng-submit="login()" autocomplete="off" >
             <input class="txt name" name="username" data-ng-model="emailAddress" placeholder="请输入用户名或邮箱" autocomplete="on" readonly
-                onfocus="this.removeAttribute('readonly');"/>
-<b class="tooltip tooltip-bottom-right">请输入您注册时填写的邮箱地址/用户名</b>
-<input class="txt pwd" type="password" name="password" data-ng-model="password" placeholder="请输入登录密码" autocomplete="on"
-    readonly onfocus="this.removeAttribute('readonly');"/><br />
-<b class="tooltip tooltip-bottom-right">密码长度为6-20位，可为英文、符号、数字</b>
-<div style="margin-top:20px">
-<div style="display:inline; padding-top:30px"><input type="checkbox" ng-model="rememberMe"><span> 记住密码</span></div>
-<div style="display:inline" <a ui-sref="forgetpassword" class="modal-opener forget"><i>?</i> 忘记密码</a></div>
-</div>
-<div class="btn-container">
-    <button type="submit" name="submit" class="btns btn-login">登 录</button>
-    <a ui-sref="register" class="btns btn-register">注 册</a>
-    <div class="login-error">
-        <i class="color-red icon-line icon-shield" data-ng-show="showLoginError"></i>
-        <span class="color-red" data-ng-show="showLoginError" data-ng-bind="loginError"></span>
-    </div>
-</div>
-</form>
+                        onfocus="this.removeAttribute('readonly');"/>
+            <b class="tooltip tooltip-bottom-right">请输入您注册时填写的邮箱地址/用户名</b>
+            <input class="txt pwd" type="password" name="password" data-ng-model="password" placeholder="请输入登录密码" autocomplete="on"
+                readonly onfocus="this.removeAttribute('readonly');"/><br />
+            <b class="tooltip tooltip-bottom-right">密码长度为6-20位，可为英文、符号、数字</b>
+            <div style="margin-top:20px;display: inline-block; width: 80%;max-width: 430px;">
+                <div style=" padding:25px 0px 0px 50px; float:left;"><input type="checkbox" ng-model="rememberMe"><span> 记住密码</span></div>
+                <div style=" padding:0px 50px 0px 0px;float:right;" <a ui-sref="forgetpassword" class="modal-opener forget"><i>?</i> 忘记密码</a></div>
+            </div>
+            <div class="btn-container">
+                <button type="submit" name="submit" class="btns btn-login">登 录</button>
+                <a ui-sref="register" class="btns btn-register">注 册</a>
+                <div class="login-error">
+                    <i class="color-red icon-line icon-shield" data-ng-show="showLoginError"></i>
+                    <span class="color-red" data-ng-show="showLoginError" data-ng-bind="loginError"></span>
+                </div>
+            </div>
+        </form>
 <img class="login-bao" src="../../assets/img/login/login-bao.png" />
 </div>
 </div>
