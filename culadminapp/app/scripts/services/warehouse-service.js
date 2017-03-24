@@ -165,4 +165,38 @@ angular.module('culAdminApp')
                 callback(result.data);
             })
         }
+
+        // //获取系统公告
+        // self.getWebAnnounce = function (options, callback) {
+        //     $http.post(cul.apiPath + "/web/getWebAnnounce", options).success(function (result) {
+        //         callback(result);
+        //     });
+        // }
+
+        //创建仓库
+        self.createWarehouse = function (options, callback) {
+            $http.post(cul.apiPath + "/warehouse", options).success(function (result) {
+                callback(result);
+            });
+        }
+
+        //搜索仓库
+        self.getWarehouse = function (options, callback) {
+            $http.get(cul.apiPath + "/warehouse", options).success(function (result) {
+                callback(result);
+            });
+        }
+
+        //删除仓库
+        self.deleteWarehouse = function (options, callback) {
+            $http.post(cul.apiPath + "/deleteWebAnnounce", options).success(function (result) {
+                callback(result);
+            });
+        }
+        //更新仓库
+        self.updateWarehouse = function (options, callback) {
+            $http.post(cul.apiPath + "/api/warehouse", options).success(function (result) {
+                callback(result);
+            });
+        }
     }]);
