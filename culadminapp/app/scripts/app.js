@@ -299,11 +299,11 @@ angular
                 templateUrl: 'views/system/rolelist.html',
                 controller: 'SysRoleListCtrl'
             })
-                .when('/system/warehouselist', {
+            .when('/system/warehouselist', {
                 templateUrl: 'views/system/warehouselist.html',
                 controller: 'WarehouseListCtrl'
             })
-                .when('/system/editwarehouse', {
+            .when('/system/editwarehouse', {
                 templateUrl: 'views/system/editwarehouse.html',
                 controller: 'EditWarehouseCtrl'
             })

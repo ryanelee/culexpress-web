@@ -22,25 +22,19 @@
                 </div>
                  <div class="search-col">
                     <label class="search-label">状态：</label>
-                    <select class="form-control search-control"  ng-model="searchBar.type">
+                    <select class="form-control search-control"  ng-model="searchBar.country">
                         <option value="">所有</option>
                         <option value="1">启用</option>
                         <option value="0">禁用</option>
                     </select>
                 </div>
-                <!--<div class="search-col">
-                    <label class="search-label">状态：</label>
-                    <select class="form-control search-control"
-                            ng-model="searchBar.warehouseNumber"
-                            ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
-                </div>-->
                 <div class="clearfix"></div>
                 <div class="search-col">
                     <label class="search-label">搜索条目：</label>
                     <select class="form-control search-control" ng-model="searchBar.keywordType">
                         <option value="">仓库编号</option><!--houseNumber-->
-                        <option value="houseShortName">仓库简称</option>
-                        <option value="houseName">仓库名</option>
+                        <option value="S">仓库简称</option>
+                        <option value="N">仓库名</option>
                     </select>
                     <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
@@ -72,28 +66,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in dataList">
-                            <td>{{item.rownumber}}</td>
-                            <td>{{getWarehouseName(item.warehouseNumber)}}</td>
-                            <td>{{item._type}}</td>
-                            <td>{{item.rownumber}}</td>
-                            <td>{{getWarehouseName(item.warehouseNumber)}}</td>
-                            <td>{{item._type}}</td>
-                            <td>{{item.rownumber}}</td>
-                            <td>{{getWarehouseName(item.warehouseNumber)}}</td>
-                            <td>{{item._type}}</td>
-                            <td>{{item.rownumber}}</td>
-                            <td>{{getWarehouseName(item.warehouseNumber)}}</td>
-                            <td>{{item._type}}</td>
-                            <td>{{getWarehouseName(item.warehouseNumber)}}</td>
-                            <td>{{item._type}}</td>
+                        <tr ng-repeat="item in dataList track by $index">
+                            <td>{{$index + 1}}</td>
+                            <td>{{item.warehouseNumber}}</td>
+                            <td>{{item.warehouseShortName}}</td>
+                            <td>{{item.warehouseName}}</td>
                             <td>
-                                <a href="javascript:void(0)" ng-click="btnAction('detail', item)">{{item.shelfNumber}}</a>
+                                <span ng-if='item.warehouseType == "0"'>普通仓库</span>
+                                <span ng-if='item.warehouseType == "1"'>转仓仓库</span></td>
                             </td>
-                            <td>{{item.itemCount}}</td>
                             <td>
-                                <a href="javascript:void(0);" ng-click="edit(item.group_id)">修改</a> &nbsp;
-                                <a href="javascript:void(0);" ng-click="del(item.group_id)">删除</a> &nbsp;
+                                <span ng-if="item.isTaxFree == true">是</span>
+                                <span ng-if="item.isTaxFree == false">否</span></td>
+                            <td>{{item.contactName}}</td>
+                            <td>{{item.contactPhoneNumber}}</td>
+                            <td>{{item.address1}}</td>
+                            <td>{{item.address2}}</td>
+                            <td>{{item.city}}</td>
+                            <td>{{item.zipCode}}</td>
+                            <td>{{item.stateOrProvince}}</td>
+                            <td></td>
+                            <td>                              
+                            </td>
+                            <td></td>
+                            <td>
+                                <a href="javascript:void(0);" ng-click="edit(item.warehouseNumber)">修改</a> &nbsp;
+                                <a href="javascript:void(0);" ng-click="del(item.warehouseNumber)">删除</a> &nbsp;
                             </td>
                         </tr>
                     </tbody>
