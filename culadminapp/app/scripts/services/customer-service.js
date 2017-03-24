@@ -198,6 +198,28 @@ angular.module('culAdminApp')
             });
         }
 
+        //创建公告
+        self.createWebAnnounce = function (options, callback) {
+            $http.post(cul.apiPath + "/web/createWebAnnounce", options).success(function (result) {
+                callback(result);
+            });
+        }
+
+        //删除公告
+        self.deleteWebAnnounce = function (options, callback) {
+            $http.post(cul.apiPath + "/web/deleteWebAnnounce", options).success(function (result) {
+                callback(result);
+            });
+        }
+        //更新公告
+        self.updateWebAnnounce = function (options, callback) {
+            $http.post(cul.apiPath + "/web/updateWebAnnounce", options).success(function (result) {
+                callback(result);
+            });
+        }
+
+
+
 
 
 

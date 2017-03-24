@@ -37,7 +37,7 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
         1: "登录后可见"
     };
     return function (input) {
-        return _webType[input] || input;
+        return _webopenAll[input] || input;
     };
 }).filter('_orderStatus', function () {
     var orderStatus = {

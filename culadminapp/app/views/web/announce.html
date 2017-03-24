@@ -1,13 +1,13 @@
 ﻿<div class="widget widget-table">
     <div class="widget-header">
-        <h3><i class="fa fa-table"></i> 架位管理</h3>
+        <h3><i class="fa fa-table"></i> 公告管理</h3>
     </div>
     <div class="widget-content">
         <div class="row">
             <div class="col-sm-12 search-bar">
                 <div class="col-sm-12 search-bar">
                     <div class="search-col" style="margin-bottom: 0px;">
-                        <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="btnAction('create')">创建架位</button>
+                        <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="btnAction('create')">新建公告</button>
                     </div>
                 </div>
                 <div class="search-col">
@@ -57,6 +57,8 @@
                             <th>公告类型</th>
                             <th>状态</th>
                             <th>公开</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
                             <th>最后修改用户</th>
                             <th>最后修改时间</th>
                             <th>操作</th>
@@ -67,15 +69,17 @@
                             <td>{{item.rownumber}}</td>
                             <td>{{item.title}}</td>
                             <td>{{item.content}}</td>
-                            <td>{{item.openTime}}</td>
+                            <td>{{item.openTime | date:"yyyy-MM-dd"}}</td>
                             <td>{{item.type | webType}}</td>
-                            <td>{{item.status}}</td>
-                            <td>{{item.openAll}}</td>
+                            <td>{{item.status | webstatus}}</td>
+                            <td>{{item.openAll | webopenAll}}</td>
+                            <td>{{item.start | date:"yyyy-MM-dd"}}</td>
+                            <td>{{item.end | date:"yyyy-MM-dd"}}</td>
                             <td>{{item.lastEditUser}}</td>
                             <td>{{item.lastEditTime | date:"yyyy-MM-dd hh:mm:ss"}}</td>
                             <td>
-                                <a href="javascript:void(0)" ng-click="btnAction('detail', item)">修改</a>
-                                <a href="javascript:void(0)" ng-click="btnAction('detail', item)">删除</a>
+                                <a href="javascript:void(0)" ng-click="update(item)">修改</a>
+                                <a href="javascript:void(0)" ng-click="btnDelete(item)">删除</a>
                             </td>
                         </tr>
                     </tbody>
