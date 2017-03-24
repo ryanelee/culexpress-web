@@ -106,9 +106,19 @@ angular.module('culAdminApp')
           
           // 提交表单的数据
           $scope.form = {
+              warehouseShortName: '',
+              warehouseName: '',
               status: '1',
               warehouseType:'0',
-              isTaxFree: '0'
+              isTaxFree: '0',
+              contactName: '',
+              contactPhoneNumber: '',
+              address1: '',
+              address2: '',
+              city: '',
+              zipCode: '',
+              stateOrProvince: '',
+              countryCode: ''
           }
           // 返回列表
           $scope.back = function () {
