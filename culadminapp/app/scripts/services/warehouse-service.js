@@ -195,7 +195,7 @@ angular.module('culAdminApp')
         }
         //更新仓库
         self.updateWarehouse = function (options, callback) {
-            $http.post(cul.apiPath + "/api/warehouse", options).success(function (result) {
+            $http.post(cul.apiPath + "/updateWarehouse", options).success(function (result) {
                 callback(result);
             });
         }
