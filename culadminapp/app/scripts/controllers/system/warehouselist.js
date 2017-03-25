@@ -56,7 +56,7 @@ angular.module('culAdminApp')
 
             //   $scope.dataList = [];
             $scope.getData = function () {
-                warehouseService.getWarehouse(_filterOptions(), function (result) {
+                warehouseService.getWarehouseList(_filterOptions(), function (result) {
                     console.log(result);
                   $scope.dataList = result.data.data;
                     $scope.pagination.totalCount = result.data.pageInfo.totalCount;
