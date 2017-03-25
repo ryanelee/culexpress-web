@@ -182,7 +182,7 @@ angular.module('culAdminApp')
 
         //搜索仓库
         self.getWarehouse = function (options, callback) {
-            $http.get(cul.apiPath + "/warehouse", options).success(function (result) {
+            $http.post(cul.apiPath + "/getWarehouse", options).success(function (result) {
                 callback(result);
             });
         }

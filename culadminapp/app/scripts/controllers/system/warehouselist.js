@@ -34,8 +34,8 @@ angular.module('culAdminApp')
                     "pageInfo": $scope.pagination
                 }
 
-                if (!!$scope.searchBar.warehouseType) {
-                    _options["country"] = $scope.searchBar.country;
+                if (!!$scope.searchBar.countryCode) {
+                    _options["countryCode"] = $scope.searchBar.countryCode;
                 }
                 if (!!$scope.searchBar.status) {
                     _options["status"] = $scope.searchBar.status;
@@ -50,6 +50,7 @@ angular.module('culAdminApp')
 
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 }
+                console.log("options"+JSON.stringify(_options));
                 return angular.copy(_options);
             }
 
@@ -57,10 +58,8 @@ angular.module('culAdminApp')
             $scope.getData = function () {
                 warehouseService.getWarehouse(_filterOptions(), function (result) {
                     console.log(result);
-                    $scope.dataList = result;
-                    console.log("********************************");
-                    console.log($scope.dataList);
-                    $scope.pagination.totalCount = 3;
+                  $scope.dataList = result.data.data;
+                    $scope.pagination.totalCount = result.data.pageInfo.totalCount;
                     //result.data.pageInfo.totalCount;
                     //   $rootScope.$emit("changeMenu");
                 });

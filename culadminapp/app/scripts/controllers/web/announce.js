@@ -47,15 +47,15 @@ angular.module('culAdminApp')
                 totalCount: 0
             }
 
-            warehouseService.getWarehouse(function (result) {
-                if (result.length == 1) {
-                    $scope.searchBar.warehouseList = result;
-                    $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
-                } else {
-                    $scope.searchBar.warehouseList = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
-                }
-                $scope.warehouseList = result;
-            });
+            // warehouseService.getWarehouse(function (result) {
+            //     if (result.length == 1) {
+            //         $scope.searchBar.warehouseList = result;
+            //         $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
+            //     } else {
+            //         $scope.searchBar.warehouseList = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
+            //     }
+            //     $scope.warehouseList = result;
+            // });
 
             var _filterOptions = function () {
                 var _options = {
