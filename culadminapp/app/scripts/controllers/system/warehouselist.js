@@ -19,9 +19,9 @@ angular.module('culAdminApp')
             $scope.dataList = [];
             /*search bar*/
             $scope.searchBar = {
-                country: "",
+                countryCode: "",
                 status: "",
-                keywordType: ""
+                keywordType: "warehouseNumber"
             }
             $scope.pagination = {
                 pageSize: "20",
@@ -41,31 +41,20 @@ angular.module('culAdminApp')
                     _options["status"] = $scope.searchBar.status;
                 }
                 if (!!$scope.searchBar.keywords) {
-                    // if ($scope.searchBar.keywordType == "customerNumber"
-                    //     && $scope.customer_ids != undefined
-                    //     && parseInt($scope.customer_ids) !== 0
-                    //     && !$scope.customer_ids.split(",").includes($scope.searchBar.keywords)) {
-                    //     $scope.searchBar.keywords = "没有查看该客户的权限,请联系统管理员";
-                    // }
-
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 }
                 console.log("options"+JSON.stringify(_options));
                 return angular.copy(_options);
             }
 
-            //   $scope.dataList = [];
             $scope.getData = function () {
                 warehouseService.getWarehouseList(_filterOptions(), function (result) {
                     console.log(result);
                   $scope.dataList = result.data.data;
                     $scope.pagination.totalCount = result.data.pageInfo.totalCount;
-                    //result.data.pageInfo.totalCount;
-                    //   $rootScope.$emit("changeMenu");
                 });
             }
             $scope.btnSearch = function () {
-                //   $scope.selectedListCache = [];
                 $scope.dataList = [];
                 $scope.pagination.pageIndex = 1;
                 $scope.pagination.totalCount = 0;
@@ -75,7 +64,6 @@ angular.module('culAdminApp')
 
             // 新建仓库跳转
             $scope.addWarehouse = function () {
-
                 $location.path('/system/editwarehouse').search({});
             }
             // 修改仓库
@@ -83,6 +71,18 @@ angular.module('culAdminApp')
                 // console.log(item);
                 if (!!item) $location.search({ item: item, flag: "update" });
                 $location.path('/system/editwarehouse')
+            }
+            $scope.del = function (warehouseNumber) {
+                plugMessenger.confirm("确认删除该仓库吗?", function (isOk) {
+                    if (isOk) {
+                        warehouseService.delete(id, function(res) {
+                            if (res.success) {
+                                plugMessenger.success("删除成功");
+                                $scope.getData();
+                            }
+                        })
+                    }
+                });
             }
             // 返回列表
             $scope.back = function () {
@@ -105,49 +105,50 @@ angular.module('culAdminApp')
 
             if ($scope.data) {
                 $scope.flag = '1'
-                $scope.form.isTaxFree = $scope.data.isTaxFree,
-                    $scope.form.status = $scope.data.status,
-                    $scope.form.warehouseNumber = $scope.data.warehouseNumber,
-                    $scope.form.warehouseShortName = $scope.data.warehouseShortName,
-                    $scope.form.contactPhoneNumber = $scope.data.contactPhoneNumber,
-                    $scope.form.warehouseName = $scope.data.warehouseName,
-                    $scope.form.warehouseType = $scope.data.warehouseType,
-                    $scope.form.contactName = $scope.data.contactName,
-                    $scope.form.contactPhoneNumber = $scope.data.contactPhoneNumber,
-                    $scope.form.address1 = $scope.data.address1,
-                    $scope.form.address2 = $scope.data.address2,
-                    $scope.form.city = $scope.data.city,
-                    $scope.form.zipcode = $scope.data.zipcode,
-                    $scope.form.status = $scope.data.status,
-                    $scope.form.stateOrProvince = $scope.data.stateOrProvince,
-                    $scope.form.countryCode = $scope.data.countryCode,
-                    $scope.form.lastEditUserName = $scope.data.lastEditUserName,
-                    $scope.form.status = $scope.data.status
+                // $scope.form.isTaxFree = $scope.data.isTaxFree,
+                // $scope.form.status = $scope.data.status,
+                // $scope.form.warehouseNumber = $scope.data.warehouseNumber,
+                // $scope.form.warehouseShortName = $scope.data.warehouseShortName,
+                // $scope.form.contactPhoneNumber = $scope.data.contactPhoneNumber,
+                // $scope.form.warehouseName = $scope.data.warehouseName,
+                // $scope.form.warehouseType = $scope.data.warehouseType,
+                // $scope.form.contactName = $scope.data.contactName,
+                // $scope.form.contactPhoneNumber = $scope.data.contactPhoneNumber,
+                // $scope.form.address1 = $scope.data.address1,
+                // $scope.form.address2 = $scope.data.address2,
+                // $scope.form.city = $scope.data.city,
+                // $scope.form.zipcode = $scope.data.zipcode,
+                // $scope.form.status = $scope.data.status,
+                // $scope.form.stateOrProvince = $scope.data.stateOrProvince,
+                // $scope.form.countryCode = $scope.data.countryCode,
+                // $scope.form.lastEditUserName = $scope.data.lastEditUserName,
+                // $scope.form.status = $scope.data.status
             }
-            $scope.btnSearch = function () {
+            else {
+              // 如果是编辑
+            //   warehouseService.getDetail($scope.item.warehouseNumber, function (result) {
+            //       if (!result.message) {
+            //           $scope.form.name = result.gname;
+            //           $scope.form.describe = result.gdescribe;
+            //           $scope.form.status = result.gstatus;
+            //       }
+            //   });
+            }
 
-                warehouseService.getWarehouse(function (data) {
+            $scope.btnSearch = function () {
+                warehouseService.getWarehouseList(function (data) {
                     console.log('data')
                     console.log(data)
                 })
             }
 
-            // 提交表单的数据
-            // $scope.form = {
-            //     warehouseShortName: '',
-            //     warehouseName: '',
-            //     status: '1',
-            //     warehouseType: '0',
-            //     isTaxFree: '0',
-            //     contactName: '',
-            //     contactPhoneNumber: '',
-            //     address1: '',
-            //     address2: '',
-            //     city: '',
-            //     zipCode: '',
-            //     stateOrProvince: '',
-            //     countryCode: ''
-            // }
+            //提交表单的数据
+            $scope.form = {
+                status: '1',
+                warehouseType: '1',
+                isTaxFree: '0',
+                countryCode: 'USA'
+            }
             // 返回列表
             $scope.back = function () {
                 $location.path('/system/warehouselist').search({});
@@ -162,7 +163,6 @@ angular.module('culAdminApp')
                     plugMessenger.info("请输入仓库简称!");
                     return;
                 }
-
                 if (!$scope.form.warehouseName) {
                     plugMessenger.info("请输入仓库名!");
                     return;
@@ -183,29 +183,20 @@ angular.module('culAdminApp')
                     plugMessenger.info("请输入城市!");
                     return;
                 }
-                if (!$scope.form.zipCode) {
-                    plugMessenger.info("请输入邮箱!");
+                if (!$scope.form.zipcode) {
+                    plugMessenger.info("请输入邮编!");
                     return;
                 }
                 if (!$scope.form.stateOrProvince) {
                     plugMessenger.info("请省/州!");
                     return;
                 }
-
-
                 warehouseService.createWarehouse($scope.form, function (res) {
                     if (!res.message) {
                         plugMessenger.success("保存成功");
                         $location.path('/system/warehouselist')
-                        // $window.history.back();
                     }
                 })
-
-
-
-
-
-
             }
             //更新仓库
             $scope.update = function () {
@@ -214,7 +205,6 @@ angular.module('culAdminApp')
                     if (res.code == '000') {
                         plugMessenger.success("更新成功");
                         $location.path('/system/warehouselist')
-                        // $window.history.back();
                     }else{
                        plugMessenger.success("更新失败"+req.msg); 
                     }

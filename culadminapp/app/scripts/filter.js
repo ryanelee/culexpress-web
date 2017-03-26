@@ -115,6 +115,22 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
 
         return value + (tail || ' ...');
     }
+}).filter('_webIsTaxFree', function () {
+    var question = {
+        "0": "否",
+        "1": "是",
+    };
+    return function (input) {
+        return question[input] || input;
+    };
+}).filter('_webWarehouseType', function () {
+    var question = {
+        "0": "转仓仓库",
+        "1": "普通仓库",
+    };
+    return function (input) {
+        return question[input] || input;
+    };
 });
 
 // angular.module('ngFilters').filter('cutText', function(){

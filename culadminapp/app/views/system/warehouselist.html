@@ -73,13 +73,8 @@
                             <td>{{item.warehouseShortName}}</td>
                             <td>{{item.status | warehourseStatus}}</td>
                             <td>{{item.warehouseName}}</td>
-                            <td>
-                                <span ng-if='item.warehouseType == "0"'>普通仓库</span>
-                                <span ng-if='item.warehouseType == "1"'>转仓仓库</span></td>
-                            </td>
-                            <td>
-                                <span ng-if="item.isTaxFree == true">是</span>
-                                <span ng-if="item.isTaxFree == false">否</span></td>
+                            <td>{{item.warehouseType | _webWarehouseType}}</td>
+                            <td>{{item.isTaxFree | _webIsTaxFree}}
                             <td>{{item.contactName}}</td>
                             <td>{{item.contactPhoneNumber}}</td>
                             <td>{{item.address1}}</td>

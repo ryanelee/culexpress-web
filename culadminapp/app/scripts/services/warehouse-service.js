@@ -181,23 +181,11 @@ angular.module('culAdminApp')
         }
 
         //搜索仓库
-        self.getWarehouse = function (options, callback) {
-            $http.get(cul.apiPath + "/warehouse", options).success(function (result) {
-                callback(result);
-            });
-        }
-
-
-        //搜索仓库
         self.getWarehouseList = function (options, callback) {
             $http.post(cul.apiPath + "/getWarehouse", options).success(function (result) {
                 callback(result);
             });
         }
-
-
-
-
         //删除仓库
         self.deleteWarehouse = function (options, callback) {
             $http.post(cul.apiPath + "/deleteWebAnnounce", options).success(function (result) {
