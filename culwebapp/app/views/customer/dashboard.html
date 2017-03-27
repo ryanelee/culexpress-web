@@ -261,8 +261,8 @@
             </div>
         </div>-->
         <div class="col-md-4 col-sm-6" ng-repeat="addressItem in model.addressList">
-            <div class="address-item">
-              <div class="address-head">
+            <div class="address-item" style="height:715px" >
+              <div class="address-head" style="height:210px;">
                 <span class="short-name">{{addressItem.warehouseShortName}}</span>
                 <h3 class="title">{{addressItem.warehouseName}} <span>
                 <span class="remark" ng-if="addressItem.isTaxFree=='1'">免税州收货地址</span>
@@ -309,7 +309,7 @@
                   </li>
                   <li>
                     <i class="fa fa-exclamation-circle pull-left"></i>
-                    <div class="list-remark">
+                    <div class="list-remark list-item-warehouse" >
                       <span>
                         {{addressItem.note}}
                       </span>
