@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('MyDashboardController', ['$scope', '$rootScope', '$anchorScroll', 'OrderSvr',
-        function ($scope, $rootScope, $anchorScroll, orderSvr) {
+    .controller('MyDashboardController', ['$scope','$http', '$rootScope', '$anchorScroll', 'OrderSvr',
+        function ($scope,$http, $rootScope, $anchorScroll, orderSvr) {
             $scope.currentUser = $rootScope.currentUser;
             console.log( $scope.currentUser);
 
@@ -33,6 +33,35 @@ angular
                           }
                      })
                 })
+
+           //登入普通广告管理
+            $scope.primAnnounceList = [{
+                title:"",
+                content:""
+            }];
+            var obj = {type:2,status:1};
+            $scope.getPrimAnnounce = function(obj) {
+                $http.post(cul.apiPath + '/web/getWebAnnounce',obj).then(function (result) {
+                    $scope.primAnnounceList = result.data.data.data;
+                    console.log($scope.primAnnounceList);
+                });
+            }
+            $scope.getPrimAnnounce();
+
+            //登入促销活动管理
+            $scope.proAnnounceList = [{
+                title:"",
+                content:"",
+                openTime:""
+            }];
+            var obj = {type:3,status:1};
+            $scope.getProAnnounce = function(obj) {
+                $http.post(cul.apiPath + '/web/getWebAnnounce',obj).then(function (result) {
+                    $scope.proAnnounceList = result.data.data.data;
+                    console.log($scope.proAnnounceList);
+                });
+            }
+            $scope.getProAnnounce();
 
         }
     ]);

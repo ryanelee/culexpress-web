@@ -104,14 +104,23 @@
                     <i class="fa fa-chevron-down pull-right" ng-click="toggle('scrollbar')"></i>
                 </div>
                 <div id="scrollbar" class="panel-body no-padding mCustomScrollbar" data-mcs-theme="minimal-dark">
-                    <div class="profile-post color-one">
+                    <!--<div >-->
+                        <div class="profile-post color-one" ng-repeat="item in primAnnounceList track by $index">
+                            <span class="profile-post-numb">{{$index + 1}}</span>
+                            <div class="profile-post-in">
+                                <h3 class="heading-xs"><a href="#">{{item.title}}</a></h3>
+                                <p>{{item.content}}</p>
+                            </div>
+                        </div>
+                    <!--</div>-->
+                    <!--<div class="profile-post color-one">
                         <span class="profile-post-numb">01</span>
                         <div class="profile-post-in">
                             <h3 class="heading-xs"><a href="#">重要通知</a></h3>
                             <p>加州收货地址改为: 712 Nogales St,City of Industry,CA 91748. 请大家发货到新地址.</p>
                         </div>
-                    </div>
-                    <div class="profile-post color-two">
+                    </div>-->
+                    <!--<div class="profile-post color-two">
                         <span class="profile-post-numb">02</span>
                         <div class="profile-post-in">
                             <h3 class="heading-xs"><a href="#">OR-CA线小包裹全线提速</a></h3>
@@ -131,7 +140,15 @@
                             <h3 class="heading-xs"><a href="#">美货商城有新品上架</a></h3>
                             <p>美国原装 Schiff Move Free 三倍强效维骨力160粒 售价：149元.大家可以进入美货商城下订单,仅限CA仓库.</p>
                         </div>
+                    </div>-->
+                    <div class="profile-post color-three">
+                        <span class="profile-post-numb">04</span>
+                        <div class="profile-post-in">
+                            <h3 class="heading-xs"><a href="#">美货商城有新品上架</a></h3>
+                            <p>美国原装 Schiff Move Free 三倍强效维骨力160粒 售价：149元.大家可以进入美货商城下订单,仅限CA仓库.</p>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -144,17 +161,17 @@
                     <i class="fa fa-chevron-down pull-right" ng-click="toggle('scrollbar2')"></i>
                 </div>
                 <div id="scrollbar2" class="panel-body no-padding mCustomScrollbar" data-mcs-theme="minimal-dark">
-                    <div class="profile-event">
+                    <div class="profile-event" ng-repeat="item in proAnnounceList track by $index">
                         <div class="date-formats">
                             <span>26</span>
-                            <small>11, 2015</small>
+                            <small>{{item.openTime}}</small>
                         </div>
                         <div class="overflow-h">
-                            <h3 class="heading-xs"><a href="#">感恩节</a></h3>
-                            <p>年度最大促销从感恩节前一个月左右开始，这个时候各个商家都争先恐后地推出最大折扣，商品的价格低得吓人！是全年最佳的入货时间.</p>
+                            <h3 class="heading-xs"><a href="#">{{item.title}}</a></h3>
+                            <p>{{item.content}}</p>
                         </div>
                     </div>
-                    <div class="profile-event">
+                    <!--<div class="profile-event">
                         <div class="date-formats">
                             <span>27</span>
                             <small>11, 2015</small>
@@ -173,7 +190,7 @@
                             <h3 class="heading-xs"><a href="#">网络星期一</a></h3>
                             <p>黑色星期五之后的周一被称为Cyber Monday，也是感恩节促销的高峰日。因为之后不久就是圣诞节，所以这个打折季会持续两个月，是最疯狂的折扣季节.</p>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
