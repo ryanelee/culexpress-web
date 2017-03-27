@@ -131,6 +131,7 @@ angular.module('culwebApp')
             checkTrackingNumber: function(obj){
                 return $http.post(cul.apiPath + '/customermessage/checkTrackingNumber',obj);
             },
+            
             ProvinceList: provinceList
         };
     });

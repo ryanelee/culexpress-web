@@ -112,6 +112,15 @@ angular
             });
 
         }
-
-
+        $scope.webAnnounce = [{
+            title:"",
+            content:""
+        }];
+        var obj = {type:"1",status:1};
+        $scope.getWebAnnounce = function(obj) {
+            $http.post(cul.apiPath + '/web/getWebAnnounce',obj).then(function (result) {
+                $scope.webAnnounce = result.data.data.data;
+            });
+        }
+        $scope.getWebAnnounce();
     }]);

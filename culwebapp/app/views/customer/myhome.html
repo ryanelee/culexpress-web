@@ -98,14 +98,23 @@
     <div class="row">
         <div class="alert alert-warning fade in alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4 class="heading-sm">
+            <!--<h4 class="heading-sm">
                 <i class="icon-custom rounded-x icon-sm icon-bg-red fa fa-bullhorn"></i>
                 <span>中美速递最新公告</span>
             </h4>
             <p>
                 为了给大家更好的服务质量，CUL中美速递 OR-俄勒冈仓库于2017年1月起暂停收货， 已经发往OR仓库的包裹我们将会继续收货45天，请大家放心。 
                 请大家以后将包裹发往CA-加州仓库和DE-特拉华免税仓库，CA仓库和DE仓库会一如既往的提供给大家更快的转运速度和更好的服务，祝大家购物愉快。
+            </p>-->
+            <div ng-repeat="item in webAnnounce">
+            <h4 class="heading-sm">
+                <i class="icon-custom rounded-x icon-sm icon-bg-red fa fa-bullhorn"></i>
+                <span>{{item.title}}</span>
+            </h4>
+            <p>
+                {{item.content}}
             </p>
+            </div>
         </div>
         <!--Left Sidebar-->
         <div class="col-md-3 md-margin-bottom-40">
