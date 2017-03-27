@@ -14,27 +14,27 @@
                 <div class="search-col">
                     <label class="search-label">国家/地区：</label>
                     <select class="form-control search-control"
-                            ng-model="searchBar.status">
+                            ng-model="searchBar.countryCode">
                         <option value="">所有</option>
-                        <option value="A">美国</option>
-                        <option value="B">中国</option>
+                        <option value="USA">美国</option>
+                        <option value="CHN">中国</option>
                     </select>
                 </div>
                  <div class="search-col">
                     <label class="search-label">状态：</label>
-                    <select class="form-control search-control"  ng-model="searchBar.country">
+                    <select class="form-control search-control"  ng-model="searchBar.status">
                         <option value="">所有</option>
-                        <option value="1">启用</option>
-                        <option value="0">禁用</option>
+                        <option value=1>启用</option>
+                        <option value=0>禁用</option>
                     </select>
                 </div>
                 <div class="clearfix"></div>
                 <div class="search-col">
                     <label class="search-label">搜索条目：</label>
                     <select class="form-control search-control" ng-model="searchBar.keywordType">
-                        <option value="">仓库编号</option><!--houseNumber-->
-                        <option value="S">仓库简称</option>
-                        <option value="N">仓库名</option>
+                        <option value="warehouseNumber">仓库编号</option><!--houseNumber-->
+                        <option value="warehouseShortName">仓库简称</option>
+                        <option value="warehouseName">仓库名</option>
                     </select>
                     <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
@@ -49,6 +49,7 @@
                             <th>序号</th>
                             <th>仓库编号</th>
                             <th>简称</th>
+                            <th>状态</th>
                             <th>仓库名</th>
                             <th>仓库类型</th>
                             <th>免税仓</th>
@@ -70,27 +71,22 @@
                             <td>{{$index + 1}}</td>
                             <td>{{item.warehouseNumber}}</td>
                             <td>{{item.warehouseShortName}}</td>
+                            <td>{{item.status | warehourseStatus}}</td>
                             <td>{{item.warehouseName}}</td>
-                            <td>
-                                <span ng-if='item.warehouseType == "0"'>普通仓库</span>
-                                <span ng-if='item.warehouseType == "1"'>转仓仓库</span></td>
-                            </td>
-                            <td>
-                                <span ng-if="item.isTaxFree == true">是</span>
-                                <span ng-if="item.isTaxFree == false">否</span></td>
+                            <td>{{item.warehouseType | _webWarehouseType}}</td>
+                            <td>{{item.isTaxFree | _webIsTaxFree}}
                             <td>{{item.contactName}}</td>
                             <td>{{item.contactPhoneNumber}}</td>
                             <td>{{item.address1}}</td>
                             <td>{{item.address2}}</td>
                             <td>{{item.city}}</td>
-                            <td>{{item.zipCode}}</td>
+                            <td>{{item.zipcode}}</td>
                             <td>{{item.stateOrProvince}}</td>
-                            <td></td>
-                            <td>                              
-                            </td>
-                            <td></td>
+                            <td>{{item.countryCode |countryCodeFilter }}</td>
+                            <td>{{item.lastEditUserName}} </td>
+                            <td>{{item.lastEditDate | date:"yyyy-MM-dd hh:mm:ss"}} </td>
                             <td>
-                                <a href="javascript:void(0);" ng-click="edit(item.warehouseNumber)">修改</a> &nbsp;
+                                <a href="javascript:void(0);" ng-click="edit(item)">修改</a> &nbsp;
                                 <a href="javascript:void(0);" ng-click="del(item.warehouseNumber)">删除</a> &nbsp;
                             </td>
                         </tr>

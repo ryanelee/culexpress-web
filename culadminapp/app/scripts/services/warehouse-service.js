@@ -101,14 +101,14 @@ angular.module('culAdminApp')
         self.getWarehouse = function (callback) {
             $http.get(cul.apiPath + "/warehouse").success(function (result) {
 
-                var role = [],warehouse_ids=[];
+                var role = [], warehouse_ids = [];
                 if ($window.sessionStorage.getItem('role')) {
                     role = JSON.parse($window.sessionStorage.getItem('role'));
                 }
 
                 if (role && role.length > 0) {
                     role.forEach(function (item) {
-                        warehouse_ids = $.extend(warehouse_ids,item.warehouse_ids.toString().split(","));
+                        warehouse_ids = $.extend(warehouse_ids, item.warehouse_ids.toString().split(","));
                     })
                 }
 
@@ -181,12 +181,11 @@ angular.module('culAdminApp')
         }
 
         //搜索仓库
-        self.getWarehouse = function (options, callback) {
-            $http.get(cul.apiPath + "/warehouse", options).success(function (result) {
+        self.getWarehouseList = function (options, callback) {
+            $http.post(cul.apiPath + "/getWarehouse", options).success(function (result) {
                 callback(result);
             });
         }
-
         //删除仓库
         self.deleteWarehouse = function (options, callback) {
             $http.post(cul.apiPath + "/deleteWebAnnounce", options).success(function (result) {
@@ -195,7 +194,7 @@ angular.module('culAdminApp')
         }
         //更新仓库
         self.updateWarehouse = function (options, callback) {
-            $http.post(cul.apiPath + "/api/warehouse", options).success(function (result) {
+            $http.post(cul.apiPath + "/updateWarehouse", options).success(function (result) {
                 callback(result);
             });
         }

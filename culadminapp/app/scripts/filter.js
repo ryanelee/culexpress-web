@@ -39,6 +39,22 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     return function (input) {
         return _webopenAll[input] || input;
     };
+}).filter('countryCodeFilter', function () {
+    var _countryCode = {
+        "USA": "美国",
+        "CHN": "中国"
+    };
+    return function (input) {
+        return _countryCode[input] || input;
+    };
+}).filter('warehourseStatus', function () {
+    var _warehourseStatus = {
+        0: "禁用",
+        1: "启用"
+    };
+    return function (input) {
+        return _warehourseStatus[input] || input;
+    };
 }).filter('_orderStatus', function () {
     var orderStatus = {
         "Canceled": "取消",
@@ -78,18 +94,18 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     return function (input) {
         return question[input] || input;
     };
-}).filter('cutText', function(){
-    return function (value, wordwise, max ,tail) {
-        if(!value) return '';
+}).filter('cutText', function () {
+    return function (value, wordwise, max, tail) {
+        if (!value) return '';
 
         max = parseInt(max, 10);
         if (!max) return value;
         if (value.length <= max) return value;
 
         value = value.substr(0, max);
-        if (wordwise){
+        if (wordwise) {
             var lastspace = value.lastIndexOf(' ');
-            if (lastspace != -1){
+            if (lastspace != -1) {
                 if (value.charAt(lastspace - 1) == '.' || value.charAt(lastspace - 1) == ',') {
                     lastspace = lastspace - 1;
                 }
@@ -99,6 +115,22 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
 
         return value + (tail || ' ...');
     }
+}).filter('_webIsTaxFree', function () {
+    var question = {
+        "0": "否",
+        "1": "是",
+    };
+    return function (input) {
+        return question[input] || input;
+    };
+}).filter('_webWarehouseType', function () {
+    var question = {
+        "0": "转仓仓库",
+        "1": "普通仓库",
+    };
+    return function (input) {
+        return question[input] || input;
+    };
 });
 
 // angular.module('ngFilters').filter('cutText', function(){
