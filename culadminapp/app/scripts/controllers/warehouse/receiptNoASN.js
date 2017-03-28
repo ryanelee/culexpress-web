@@ -17,7 +17,8 @@ angular.module('culAdminApp')
             ];
             $scope.data = {};
             $scope.warehouseList = [];
-            $scope.flag = '0'
+            $scope.flag = '0';
+            $scope.customerNumberFocus = false;
 
 
             $scope.myKeyup = function (e) {
@@ -28,10 +29,6 @@ angular.module('culAdminApp')
                     }
                 };
             };
-
-
-
-
 
             $scope.data = {
                 trackingNumber: angular.copy($location.search().trackingNumber || "")
@@ -115,11 +112,15 @@ angular.module('culAdminApp')
             $scope.checkCustomerNumber = function () {
                 if (!$scope.data.customerNumber) {
                     plugMessenger.error("客户编号不能为空");
+                    // $scope.customerNumberFocus = true;
+                    $window.document.getElementById("customerNumber").focus();  
                     return;
                 }
                 if ($scope.data.tempCustomerNumber != $scope.data.customerNumber) {
                     plugMessenger.error("客户标识和客户编号对应，请重新输入");
                     $scope.data.customerNumber = "";
+                    $window.document.getElementById("customerNumber").focus();  
+                    // $scope.customerNumberFocus = true;
                     return;
                 }
             }

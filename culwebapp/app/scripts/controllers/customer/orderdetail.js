@@ -23,7 +23,7 @@ angular.module('culwebApp')
                   .getOrderInfo(orderId)
                   .then(function (result) {
                       $scope.data = result.data;
-
+                      console.log(result.data)
                       loadOrderMessage();
                   });
           }
