@@ -39,7 +39,7 @@ angular
                 title:"",
                 content:""
             }];
-            var obj = {type:2,status:1};
+            var obj = {type:2,status:1,openAll:0};
             $scope.getPrimAnnounce = function(obj) {
                 $http.post(cul.apiPath + '/web/getWebAnnounce',obj).then(function (result) {
                     $scope.primAnnounceList = result.data.data.data;
@@ -54,7 +54,7 @@ angular
                 content:"",
                 openTime:""
             }];
-            var obj = {type:3,status:1};
+            var obj = {type:3,status:1,openAll:0};
             $scope.getProAnnounce = function(obj) {
                 $http.post(cul.apiPath + '/web/getWebAnnounce',obj).then(function (result) {
                     $scope.proAnnounceList = result.data.data.data;
