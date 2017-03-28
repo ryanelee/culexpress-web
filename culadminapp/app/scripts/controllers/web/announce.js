@@ -92,7 +92,7 @@ angular.module('culAdminApp')
                     $rootScope.$emit("changeMenu");
                 });
             }
-                $scope.getData();
+            $scope.getData();
 
 
             $scope.btnSearch = function () {
@@ -158,6 +158,17 @@ angular.module('culAdminApp')
                 })
             }
 
+              console.log("wonder")
+            $scope.changeOpenAll = function (type) {
+                console.log(type)
+                if (type == 1 || type == 3) {
+                    $scope.data.openAll = 0
+                    $scope.openFlag = 1
+                } else {
+                    $scope.openFlag = 0
+                }
+            }
+
 
 
 
@@ -205,8 +216,17 @@ angular.module('culAdminApp')
                 })
             }
 
+            console.log("wonder")
+            $scope.changeOpenAll = function (type) {
+                console.log(type)
+                if (type == 1 || type == 3) {
+                    $scope.data.openAll = 0
+                    $scope.openFlag = 1
+                } else {
+                    $scope.openFlag = 0
+                }
+            }
 
 
 
-       
         }]);

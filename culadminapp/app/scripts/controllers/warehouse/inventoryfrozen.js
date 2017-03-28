@@ -52,6 +52,8 @@ angular.module('culAdminApp')
               }, 1000);
           }
 
+        //   incrementInventory_frozen
+
           $scope.checkItemNumber();
 
           $scope.btnSave = function (type) {
@@ -61,6 +63,7 @@ angular.module('culAdminApp')
               }
               var data = angular.copy($scope.data);
               data.type = type;
+              $scope.data.inventory_frozen = undefined;
               inventoryService.frozen(data, function (result) {
                   if (result.success) {
                       plugMessenger.success("操作成功");

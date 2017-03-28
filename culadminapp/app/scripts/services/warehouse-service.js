@@ -188,7 +188,7 @@ angular.module('culAdminApp')
         }
         //删除仓库
         self.deleteWarehouse = function (options, callback) {
-            $http.post(cul.apiPath + "/deleteWebAnnounce", options).success(function (result) {
+            $http.post(cul.apiPath + "/deleteWarehouse", options).success(function (result) {
                 callback(result);
             });
         }

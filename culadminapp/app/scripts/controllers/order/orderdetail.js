@@ -35,7 +35,7 @@ angular.module('culAdminApp')
                   $scope.data._shippingFeeTotal += outboundPackage.shippingFee;
               });
               $scope.data._shippingFeeTotal = $scope.data._shippingFeeTotal.toFixed(2);
-
+              
               $scope.refreshMessage();
           });
 
