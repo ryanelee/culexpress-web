@@ -81,7 +81,6 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <span>状态：{{data.inboundStatus}}</span>
                     <input type="hidden" ng-keyup="myKeyup($event)" id="inboundStatus" class="form-control" placeholder="包裹重量" ng-model="data.inboundStatus">
                     <button type="button" class="btn btn-primary" ng-click="register()" ng-if="data.inboundStatus <= 1">登记并打印入库单</button>
                     <button type="button" class="btn btn-primary" ng-click="print()" ng-if="data.inboundStatus > 1">重新打印入库单</button>
