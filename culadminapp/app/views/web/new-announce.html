@@ -12,7 +12,7 @@
 
                     </div>
                 </div>
-
+ 
               
 
                 <div class="form-group">
@@ -30,7 +30,7 @@
 
                   <div class="form-group">
                     <label class="col-sm-2 control-label text-right">展示时间起</label>
-                    <div class="col-sm-2 text-left">
+                    <div class="col-sm-3 text-left">
                         <p class="input-group pull-left">
                             <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="data.start"
                                 is-open="searchBar.opened.openTime" show-button-bar="false" 
@@ -40,7 +40,7 @@
                         </p>
                     </div>
                      <label class="col-sm-1 control-label text-right">至</label>
-                    <div class="col-sm-2 text-left">
+                    <div class="col-sm-3 text-left">
                         <p class="input-group pull-left">
                             <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="data.end"
                                 is-open="searchBar.opened.end" show-button-bar="false" 
@@ -54,7 +54,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">公告类型</label>
                     <div class="col-sm-4 text-left">
-                        <select class="form-control search-control" ng-model="data.type">
+                        <select class="form-control search-control" ng-change="changeOpenAll(data.type)" ng-model="data.type">
                             <option value = 1>登入广告</option>
                             <option value = 2>普通公告</option>
                             <option value = 3>促销活动</option>
@@ -77,15 +77,15 @@
                 </div>
             </div>
 
-               <div class="form-group">
+               <div class="form-group" ng-show="openFlag != 1">
                 <label class="col-sm-2  text-right">登陆后可见：</label>
                 <div class="col-sm-4 text-left">
                   <label>
-                    <input type="radio" name="openAll" id="status3" value=0 ng-model="data.openAll">
+                    <input type="radio" name="openAll" id="status3" value=0  ng-model="data.openAll">
                     是
                   </label> &nbsp;
                   <label>
-                    <input type="radio" name="openAll" id="status4" value=1 ng-model="data.openAll">
+                    <input type="radio" name="openAll" id="status4" value=1  ng-model="data.openAll">
                     否
                   </label>
                 </div>

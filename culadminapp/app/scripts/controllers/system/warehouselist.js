@@ -43,14 +43,14 @@ angular.module('culAdminApp')
                 if (!!$scope.searchBar.keywords) {
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 }
-                console.log("options"+JSON.stringify(_options));
+                console.log("options" + JSON.stringify(_options));
                 return angular.copy(_options);
             }
 
             $scope.getData = function () {
                 warehouseService.getWarehouseList(_filterOptions(), function (result) {
                     console.log(result);
-                  $scope.dataList = result.data.data;
+                    $scope.dataList = result.data.data;
                     $scope.pagination.totalCount = result.data.pageInfo.totalCount;
                 });
             }
@@ -73,12 +73,17 @@ angular.module('culAdminApp')
                 $location.path('/system/editwarehouse')
             }
             $scope.del = function (warehouseNumber) {
+                console.log(warehouseNumber);
+                // return;
                 plugMessenger.confirm("确认删除该仓库吗?", function (isOk) {
                     if (isOk) {
-                        warehouseService.delete(id, function(res) {
-                            if (res.success) {
+                        warehouseService.deleteWarehouse({ warehouseNumber: warehouseNumber }, function (res) {
+                            if (res.code == '000') {
                                 plugMessenger.success("删除成功");
                                 $scope.getData();
+                            } else {
+                                plugMessenger.error("删除出错");
+
                             }
                         })
                     }
@@ -101,9 +106,9 @@ angular.module('culAdminApp')
             ];
             $scope.form = {};
 
-            $scope.data = $location.search().item;
+            $scope.form = $location.search().item;
 
-            if ($scope.data) {
+            if ($scope.form) {
                 $scope.flag = '1'
                 // $scope.form.isTaxFree = $scope.data.isTaxFree,
                 // $scope.form.status = $scope.data.status,
@@ -125,14 +130,20 @@ angular.module('culAdminApp')
                 // $scope.form.status = $scope.data.status
             }
             else {
-              // 如果是编辑
-            //   warehouseService.getDetail($scope.item.warehouseNumber, function (result) {
-            //       if (!result.message) {
-            //           $scope.form.name = result.gname;
-            //           $scope.form.describe = result.gdescribe;
-            //           $scope.form.status = result.gstatus;
-            //       }
-            //   });
+                $scope.form = {
+                    status: '1',
+                    warehouseType: '1',
+                    isTaxFree: '0',
+                    countryCode: 'USA'
+                }
+                // 如果是编辑
+                //   warehouseService.getDetail($scope.item.warehouseNumber, function (result) {
+                //       if (!result.message) {
+                //           $scope.form.name = result.gname;
+                //           $scope.form.describe = result.gdescribe;
+                //           $scope.form.status = result.gstatus;
+                //       }
+                //   });
             }
 
             $scope.btnSearch = function () {
@@ -143,12 +154,7 @@ angular.module('culAdminApp')
             }
 
             //提交表单的数据
-            $scope.form = {
-                status: '1',
-                warehouseType: '1',
-                isTaxFree: '0',
-                countryCode: 'USA'
-            }
+
             // 返回列表
             $scope.back = function () {
                 $location.path('/system/warehouselist').search({});
@@ -205,8 +211,8 @@ angular.module('culAdminApp')
                     if (res.code == '000') {
                         plugMessenger.success("更新成功");
                         $location.path('/system/warehouselist')
-                    }else{
-                       plugMessenger.success("更新失败"+req.msg); 
+                    } else {
+                        plugMessenger.success("更新失败" + req.msg);
                     }
                 })
             }

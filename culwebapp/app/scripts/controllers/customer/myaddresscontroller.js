@@ -135,7 +135,7 @@ angular.module('culwebApp')
 
             $scope.selectProvince = function () {
                 // console.log($scope.data.stateOrProvince.cities);
-                $scope.selectedCity = $scope.data.stateOrProvince.cities[0];
+                // $scope.selectedCity = $scope.data.stateOrProvince.cities[0];
             }
 
             var data = $scope.data = {
@@ -351,10 +351,13 @@ angular.module('culwebApp')
                                 var province = result.data.stateOrProvince;
                                 var city = result.data.city;
                                 var area = result.data.area;
+                                console.log(province)
+                                console.log(city)
+                                console.log(area)
                                 $scope.getProvince(province,city,area);
 
 
-                                rebindStateOrProvince($scope.data.stateOrProvince, $scope.data.city);
+                                // rebindStateOrProvince($scope.data.stateOrProvince, $scope.data.city);
                                 $scope.$apply(function () {
                                     if (!!$scope.data.idCardFront) $scope.state.showCardFront = false;
                                     if (!!$scope.data.idCardBack) $scope.state.showCardBack = false;

@@ -2,8 +2,8 @@
 
 var app = angular
     .module('culwebApp')
-    .controller('MyOrdersController', ['$rootScope','$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter',
-        function ($rootScope,$scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter) {
+    .controller('MyOrdersController', ['$rootScope', '$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter', '$window',
+        function ($rootScope, $scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter, $window) {
             if (!$scope.$root.orderOptions) $scope.$root.orderOptions = {};
             $scope.orderItems = [];
             $scope.addOrderItem = function ($event, shippingItem) {
@@ -434,10 +434,10 @@ var app = angular
 
 
             var preSubmitToService = function (data) {
-                    console.log(data.insuranceFee);
-                    console.log(JSON.stringify(data));
-                    // return;  
-                
+                console.log(data.insuranceFee);
+                console.log(JSON.stringify(data));
+                // return;  
+
                 var text = '';
                 if (!data.isFastOrder) {
                     text = "确定提交订单?";
@@ -447,7 +447,7 @@ var app = angular
                         alertify.alert('提示', '您需要支付' + $scope.countFee.totalCount + '元，而您的账户余额为' + $scope.$root.currentUser.accountBalance + '元,请充值后再进行支付!');
                         return false;
                     }
-                    text = '您好，感谢您提交了CUL EXPRESS极速转运服务订单， 按确定即可完成本次订单的提交，您的包裹预估重量为' +  
+                    text = '您好，感谢您提交了CUL EXPRESS极速转运服务订单， 按确定即可完成本次订单的提交，您的包裹预估重量为' +
                         parseFloat($scope.shippingItems[0].packageWeight + 0.5) +
                         '磅，我们会锁定您' +
                         $scope.countFee.packageWeight +
@@ -504,7 +504,7 @@ var app = angular
             }
 
             $scope.submitOrder = function () {
-                if(!$scope.data.submit_agreeterms || $scope.data.submit_agreeterms != true){
+                if (!$scope.data.submit_agreeterms || $scope.data.submit_agreeterms != true) {
                     alertify.alert('提示', '提交订单之前,请勾选我已阅读并同意CULExpress免责赔偿条款!');
                     return;
                 }
@@ -552,9 +552,9 @@ var app = angular
                                 }
                             });
                     },
-                        function(){
-                            alertify.error('已取消删除!');
-                        })
+                    function () {
+                        alertify.error('已取消删除!');
+                    })
             };
 
             var payOrderServie = function (orderItem, callback) {
@@ -562,12 +562,16 @@ var app = angular
                     .then(function (result) {
                         if (result.data.success) {
                             callback && callback();
-                           orderItem.totalCount  = orderItem.totalCount  - $scope.$root.currentUser.accountBalance  
-                            alertify.success('支付成功.');
+                            orderItem.totalCount = orderItem.totalCount - $scope.$root.currentUser.accountBalance
+                            alertify.alert("支付成功");
+                            setTimeout(function () {
+                                $window.location.reload()
+                            }, 1000);
 
                             //支付之后刷新一下全局余额
                             $scope.$root.autologin(function (result) {
                                 $scope.$root.currentUser.accountBalance = result.accountBalance;
+
                                 return false;
                             });
                         }
@@ -652,46 +656,43 @@ var app = angular
 
                         //身份证渠道需要验证选择的收货地址是否通过验证
                         var addressItem =
-                            $scope.addressListData.filter(function(value){
+                            $scope.addressListData.filter(function (value) {
                                 return value.transactionNumber == packageItem.addressNumber;
                             })[0];
 
                         if (addressItem != undefined
                             && $scope.data.shipServiceItem != undefined
                             && $scope.data.shipServiceItem.needIDCard === 1
-                            && addressItem.verifyMark !== 1)
-                            {
-                                alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince+' '
-                                    +addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName +
-                                    '</small>]还未通过身份验证。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
-                                    '</small>]要求收货地址必须提供验证通过的身份证信息,请更改地址信息或者选择其他收货地址。');
-                                return false;
-                            }
+                            && addressItem.verifyMark !== 1) {
+                            alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' '
+                                + addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
+                                '</small>]还未通过身份验证。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                '</small>]要求收货地址必须提供验证通过的身份证信息,请更改地址信息或者选择其他收货地址。');
+                            return false;
+                        }
 
                         //USPS渠道要求收货人姓名必须为英文/拼音,地址为拼音
                         if (addressItem != undefined
                             && $scope.data.shipServiceItem != undefined
                             && $scope.data.shipServiceItem.requireEnglish4Name === 1
-                            && !/^[a-z\s0-9]+$/i.test(addressItem.receivePersonName))
-                            {
-                                alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince+' '
-                                    +addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName +
-                                    '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
-                                    '</small>]要求收货人姓名必须为英文或者拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
-                                return false;
-                            }
+                            && !/^[a-z\s0-9]+$/i.test(addressItem.receivePersonName)) {
+                            alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' '
+                                + addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
+                                '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                '</small>]要求收货人姓名必须为英文或者拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
+                            return false;
+                        }
 
                         if (addressItem != undefined
                             && $scope.data.shipServiceItem != undefined
                             && $scope.data.shipServiceItem.requireEnglish4Address === 1
-                            && !/^[a-z\s0-9]+$/i.test(addressItem.address1 + addressItem.zipcode))
-                            {
-                                alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince+' '
-                                    +addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName +
-                                    '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
-                                    '</small>]要求收货人地址必须为英文拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
-                                return false;
-                            }
+                            && !/^[a-z\s0-9]+$/i.test(addressItem.address1 + addressItem.zipcode)) {
+                            alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' '
+                                + addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
+                                '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                '</small>]要求收货人地址必须为英文拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
+                            return false;
+                        }
 
                         if (!packageItem.goodsCategory) {
                             alertify.alert('提示', '请确保每个转运包裹都选择了商品类别!');
@@ -749,10 +750,10 @@ var app = angular
                         if (!shipService) shipService = data.shipServiceItem;
 
                         if (!calculData) calculData = {};
-                        
+
                         if ($scope.data.insuranceMark == 1)
                             calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95);
-                            // calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate ;
+                        // calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate ;
                         else {
                             calculData.insuranceMark = 0;
                             calculData.insuranceFee = 0;
@@ -784,7 +785,7 @@ var app = angular
                             $scope.countFee = calculData;
                         })
                     };
-                    // (shipService.RMBExchangeRate || 6.95);
+                // (shipService.RMBExchangeRate || 6.95);
 
                 //需要即时计算的费用不需要调用API
                 if (!!category) {
@@ -838,8 +839,8 @@ var app = angular
 app.directive('ngEnter', function () {
     return function (scope, element, attrs) {
         element.bind("keydown keypress", function (event) {
-            if(event.which === 13) {
-                scope.$apply(function (){
+            if (event.which === 13) {
+                scope.$apply(function () {
                     scope.$eval(attrs.ngEnter);
                 });
                 event.preventDefault();
