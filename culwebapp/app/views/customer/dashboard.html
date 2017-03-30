@@ -104,43 +104,13 @@
                     <i class="fa fa-chevron-down pull-right" ng-click="toggle('scrollbar')"></i>
                 </div>
                 <div id="scrollbar" class="panel-body no-padding mCustomScrollbar" data-mcs-theme="minimal-dark">
-                    <!--<div >-->
-                        <div class="profile-post color-one" ng-repeat="item in primAnnounceList track by $index">
-                            <span class="profile-post-numb">{{$index + 1}}</span>
-                            <div class="profile-post-in">
-                                <h3 class="heading-xs"><a href="#">{{item.title}}</a></h3>
-                                <p>{{item.content}}</p>
-                            </div>
-                        </div>
-                    <!--</div>-->
-                    <!--<div class="profile-post color-one">
-                        <span class="profile-post-numb">01</span>
+                    <div class="profile-post color-one" ng-repeat="item in primAnnounceList track by $index">
+                        <span class="profile-post-numb">{{$index + 1}}</span>
                         <div class="profile-post-in">
-                            <h3 class="heading-xs"><a href="#">重要通知</a></h3>
-                            <p>加州收货地址改为: 712 Nogales St,City of Industry,CA 91748. 请大家发货到新地址.</p>
-                        </div>
-                    </div>-->
-                    <!--<div class="profile-post color-two">
-                        <span class="profile-post-numb">02</span>
-                        <div class="profile-post-in">
-                            <h3 class="heading-xs"><a href="#">OR-CA线小包裹全线提速</a></h3>
-                            <p>自5月开始,OR-CA线10lb以下的小包裹全线提速.中转费只要6.5RMB!中转时间是3-5个工作日,经济又实惠!</p>
+                            <h3 class="heading-xs"><a href="#">{{item.title}}</a></h3>
+                            <p>{{item.content}}</p>
                         </div>
                     </div>
-                    <div class="profile-post color-three">
-                        <span class="profile-post-numb">03</span>
-                        <div class="profile-post-in">
-                            <h3 class="heading-xs"><a href="#">网购返利利器</a></h3>
-                            <p>网购返利访问<a href="http://www.rebateus.com">RebateUS.com</a>,更多折扣信息更多返利收益!</p>
-                        </div>
-                    </div>
-                    <div class="profile-post color-three">
-                        <span class="profile-post-numb">04</span>
-                        <div class="profile-post-in">
-                            <h3 class="heading-xs"><a href="#">美货商城有新品上架</a></h3>
-                            <p>美国原装 Schiff Move Free 三倍强效维骨力160粒 售价：149元.大家可以进入美货商城下订单,仅限CA仓库.</p>
-                        </div>
-                    </div>-->
                     <div class="profile-post color-three">
                         <span class="profile-post-numb">04</span>
                         <div class="profile-post-in">
@@ -163,34 +133,14 @@
                 <div id="scrollbar2" class="panel-body no-padding mCustomScrollbar" data-mcs-theme="minimal-dark">
                     <div class="profile-event" ng-repeat="item in proAnnounceList track by $index">
                         <div class="date-formats">
-                            <span>26</span>
-                            <small>{{item.openTime}}</small>
+                            <span>{{item.openTime | date:"yyyy-MM-dd" | limitTo:2:8}}</span>
+                            <small>{{item.openTime | date:"yyyy-MM-dd"}}</small>
                         </div>
                         <div class="overflow-h">
                             <h3 class="heading-xs"><a href="#">{{item.title}}</a></h3>
                             <p>{{item.content}}</p>
                         </div>
                     </div>
-                    <!--<div class="profile-event">
-                        <div class="date-formats">
-                            <span>27</span>
-                            <small>11, 2015</small>
-                        </div>
-                        <div class="overflow-h">
-                            <h3 class="heading-xs"><a href="#">黑色星期五</a></h3>
-                            <p>感恩节后的第一天,很多消费者把这一天看作准备圣诞礼物或买到便宜货的黄金时刻，由于降价商品数量有限，很多热门商店（如沃尔玛）门前在前一天晚上就会排起长队.</p>
-                        </div>
-                    </div>
-                    <div class="profile-event">
-                        <div class="date-formats">
-                            <span>01</span>
-                            <small>12, 2015</small>
-                        </div>
-                        <div class="overflow-h">
-                            <h3 class="heading-xs"><a href="#">网络星期一</a></h3>
-                            <p>黑色星期五之后的周一被称为Cyber Monday，也是感恩节促销的高峰日。因为之后不久就是圣诞节，所以这个打折季会持续两个月，是最疯狂的折扣季节.</p>
-                        </div>
-                    </div>-->
                 </div>
             </div>
         </div>

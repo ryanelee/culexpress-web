@@ -20,7 +20,6 @@ angular.module('culAdminApp')
             $scope.flag = '0';
             $scope.customerNumberFocus = false;
 
-
             $scope.myKeyup = function (e) {
                 $scope.myKeyup = function (e) {
                     var keycode = window.event ? e.keyCode : e.which;
@@ -33,7 +32,12 @@ angular.module('culAdminApp')
 
 
             $scope.data = {
-                trackingNumber: angular.copy($location.search().trackingNumber || "")
+                trackingNumber: angular.copy($location.search().trackingNumber || ""),
+                inboundStatus: angular.copy($location.search().inboundStatus || "")
+            }
+
+            if ($scope.data.inboundStatus <= 1) {
+                $window.document.getElementById("txtTrackingNumber").focus();
             }
             if ($scope.data.trackingNumber) {
                 $window.document.getElementById("packageWeight").focus();
@@ -54,10 +58,12 @@ angular.module('culAdminApp')
                             $scope.data = { trackingNumber: _newNumber }
                             $scope._trackingNumber = "";
                             $scope.tpl_status.isExist = false;
+                            $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                         } else {
                             //修改
                             console.log("feichang" + JSON.stringify(result));
                             $scope.data = result;
+                            $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
                             $scope.tpl_status.isExist = true;
                         }
@@ -76,7 +82,6 @@ angular.module('culAdminApp')
             // warehouseService.getWarehouse(function (result) {
             //     $scope.tpl_status.warehouseList = result;
             // });
-
 
             warehouseService.getWarehouse(function (result) {
                 for (var i = 0; i < result.length; i++) {
@@ -182,10 +187,6 @@ angular.module('culAdminApp')
                 })
             }
 
-
-
-
-
             $scope.inboundpackage = function () {
                 warehouseService.inboundpackage($scope.data).then(function (result) {
                     if (result.status == 200) {
@@ -193,7 +194,6 @@ angular.module('culAdminApp')
                     }
                 })
             }
-
 
             $scope.btnSave = function (trackingNumber) {
                 var _callback = function (result) {
@@ -209,7 +209,6 @@ angular.module('culAdminApp')
                 receiptService.saveForOnline($scope.data, _callback);
             }
 
-
             $scope.register = function () {
                 if ($scope.tpl_status.isExist) {
                     $scope.updateSave();
@@ -217,13 +216,6 @@ angular.module('culAdminApp')
                     $scope.btnSaveAndPrint();
                 }
             }
-
-
-
-
-
-
-
 
             $scope.btnSaveAndPrint = function () {
                 $scope.data.isUnusual = 0;
@@ -246,13 +238,10 @@ angular.module('culAdminApp')
                     $scope.data.receiptNumber = $scope.data.trackingNumber
                     $scope.inboundpackage()
                 }
-
             }
-
             // $scope.btnPrint = function (item) {
             //     $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item });
             // }
-
 
             $scope.btnPrev = function () {
                 $location.path('/warehouse/receipt2')
@@ -261,9 +250,6 @@ angular.module('culAdminApp')
                 console
                 $scope.$broadcast("print-inboundPackage.action", $scope.data.trackingNumber);
             }
-
-
-
 
             $scope.updateSave = function (item) {
                 if (!$scope.data.packageWeight) {
@@ -301,16 +287,9 @@ angular.module('culAdminApp')
                 receiptService.saveForOnline($scope.options, _callback);
             }
 
-
             $scope.btnException = function () {
                 $location.search({ "receiptNumber": $scope.data.trackingNumber });
                 $location.path("warehouse/receiptexceptionedit");
             }
-
-
-
-
-
-
         }
     ]);

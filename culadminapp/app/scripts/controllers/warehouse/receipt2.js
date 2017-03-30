@@ -119,7 +119,7 @@ angular.module('culAdminApp')
             $scope.btnOpenDetail = function (type, item) {
                 switch (type) {
                     case "receiptDetail":
-                        $location.search({ receiptNumber: item.receiptNumber });
+                        $location.search({ receiptNumber: item.receiptNumber});
                         $location.path("/warehouse/receiptdetail2");
                         break;
                     case "customerDetail":
@@ -135,7 +135,7 @@ angular.module('culAdminApp')
                         $location.path('/warehouse/receiptexception');
                         break;
                     case "inbound":
-                        if (!!item) $location.search({ receiptNumber: item.receiptNumber });
+                        if (!!item) $location.search({ receiptNumber: item.receiptNumber, inboundStatus: item.inboundStatus });
                         $location.path('/warehouse/receiptedit2');
                         break;
                     case "check":

@@ -54,7 +54,9 @@ angular.module('culAdminApp')
 
 
             $scope.tempReceiptNumber = $location.search().receiptNumber || "";
+            $scope.tempInboundStatus = $location.search().inboundStatus || 1;
             console.log($scope.tempReceiptNumber);
+             console.log($scope.tempInboundStatus);
 
             $scope.tempReceipt = $scope.tempReceiptNumber.substring(0, 3);
             console.log($scope.tempReceipt)
@@ -63,7 +65,7 @@ angular.module('culAdminApp')
                 if ($scope.tempReceipt == 'ASN') {
                     $scope.checkReceiptNumber();
                 } else {
-                    $location.search({ "trackingNumber": $scope.tempReceiptNumber });
+                    $location.search({ "trackingNumber": $scope.tempReceiptNumber, "inboundStatus": $scope.tempInboundStatus });
                     $location.path("/warehouse/receiptNoASN");
                 }
 
@@ -71,8 +73,9 @@ angular.module('culAdminApp')
 
             var _timeout = null;
             $scope.checkReceiptNumber = function () {
+                $scope.tempInboundStatus = -1;
                 if ($scope.tempReceiptNumber && $scope.tempReceipt != 'ASN') {
-                    $location.search({ "trackingNumber": $scope.tempReceiptNumber });
+                    $location.search({ "trackingNumber": $scope.tempReceiptNumber, "inboundStatus": $scope.tempInboundStatus });
                     $location.path("/warehouse/receiptNoASN");
                     return;
                 }
