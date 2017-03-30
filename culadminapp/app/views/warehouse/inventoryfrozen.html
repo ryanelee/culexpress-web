@@ -1,0 +1,49 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 冻结库存</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">商品编号：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="tempItemNumber" ng-change="checkItemNumber()" />
+                    </div>
+                    <div class="col-sm-1 col-padding-clear">
+                        <button id="tip_itemNumber" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-if="!!data">
+                <div class="form-group green">
+                    <label class="col-sm-2 control-label text-right">已扫描商品：</label>
+                    <div class="col-sm-4 text-left">
+                        <label class="control-label">{{data.itemNumber}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">冻结数量：</label>
+                    <div class="col-sm-4 text-left">
+                        <input type="text" class="form-control" placeholder="冻结数量" ng-model="data.incrementInventory_frozen">
+                    </div>
+                    <label class="col-sm-6 control-label text-left" style="opacity:0.5;">想解冻前面加-</label>
+                    
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">冻结原因：</label>
+                    <div class="col-sm-4 text-left">
+                        <textarea class="form-control" rows="5" cols="30" placeholder="冻结原因" ng-model="data.reason"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" ng-click="btnSave(4)" ng-if="!!data"><i class="fa fa-save"></i>确定</button>
+                    <button type="button" class="btn btn-primary role" data-role="67" ng-click="btnSave(5)" ng-if="!!data" ng-disabled="!tpl_status.btnRelieve"><i class="fa fa-save"></i>解除</button>
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

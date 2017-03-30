@@ -25,16 +25,18 @@ angular.module('culAdminApp')
                 $scope.myKeyup = function (e) {
                     var keycode = window.event ? e.keyCode : e.which;
                     if (keycode == 13) {
-                    $scope.register();
+                        $scope.register();
                     }
                 };
             };
 
+
+
             $scope.data = {
                 trackingNumber: angular.copy($location.search().trackingNumber || "")
             }
-            if($scope.data.trackingNumber){
-            $window.document.getElementById("packageWeight").focus();  
+            if ($scope.data.trackingNumber) {
+                $window.document.getElementById("packageWeight").focus();
             }
             $scope._trackingNumber = "";
 
@@ -63,13 +65,13 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.hotKey = function (event) {
-                switch (event.keyCode) {
-                    case 13:  //enter
-                        $scope.getPackageDetail();
-                        break;
-                }
-            }
+            // $scope.hotKey = function (event) {
+            //     switch (event.keyCode) {
+            //         case 13:  //enter
+            //             $scope.getPackageDetail();
+            //             break;
+            //     }
+            // }
 
             // warehouseService.getWarehouse(function (result) {
             //     $scope.tpl_status.warehouseList = result;
@@ -88,42 +90,82 @@ angular.module('culAdminApp')
                 }
             });
 
-
-
-            $scope.checkReceiveIdentity = function () {
-                if (!$scope.data.receiveIdentity) {
-                    plugMessenger.error("客户标示不能为空");
-                    return;
-                }
-                $scope.flag = '0'
-                receiptService.checkReceiveIdentity($scope.data).then(function (result) {
-                    if (result.data.code == '999') {
-                        plugMessenger.error(result.data.msg);
+            $scope.checkReceiveIdentity = function (e) {
+                console.log('2345')
+                // $scope.myKeyup = function (e) {
+                console.log(2)
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                    console.log('2345')
+                    if (!$scope.data.receiveIdentity) {
+                        plugMessenger.error("客户标示不能为空");
                         return;
                     }
-                    if (result.data.code == '000') {
-                        $scope.data.tempCustomerNumber = result.data.data[0].customerNumber
-                        console.log($scope.data.tempCustomerNumber);
-                    }
-                })
-            }
+                    $scope.flag = '0'
+                    receiptService.checkReceiveIdentity($scope.data).then(function (result) {
+                        if (result.data.code == '999') {
+                            document.getElementById("receiveIdentity").focus()
+                            plugMessenger.error(result.data.msg);
+                            return;
+                        }
+                        if (result.data.code == '000') {
+                            packageDescription.focus()
+                            $scope.data.customerNumber = result.data.data[0].customerNumber
+                            console.log($scope.data.tempCustomerNumber);
+                        }
+                    })
+                }
+                // };
+            };
 
 
-            $scope.checkCustomerNumber = function () {
-                if (!$scope.data.customerNumber) {
-                    plugMessenger.error("客户编号不能为空");
-                    // $scope.customerNumberFocus = true;
-                    $window.document.getElementById("customerNumber").focus();  
-                    return;
-                }
-                if ($scope.data.tempCustomerNumber != $scope.data.customerNumber) {
-                    plugMessenger.error("客户标识和客户编号对应，请重新输入");
-                    $scope.data.customerNumber = "";
-                    $window.document.getElementById("customerNumber").focus();  
-                    // $scope.customerNumberFocus = true;
-                    return;
-                }
-            }
+            //  $scope.myKeyup = function (e) {
+            //     $scope.myKeyup = function (e) {
+            //         var keycode = window.event ? e.keyCode : e.which;
+            //         if (keycode == 13) {
+            //             $scope.register();
+            //         }
+            //     };
+            // };
+
+
+
+
+            // $scope.checkReceiveIdentity = function () {
+            //     if (!$scope.data.receiveIdentity) {
+            //         plugMessenger.error("客户标示不能为空");
+            //         return;
+            //     }
+            // $scope.flag = '0'
+            // receiptService.checkReceiveIdentity($scope.data).then(function (result) {
+            //     if (result.data.code == '999') {
+            //         document.getElementById("receiveIdentity").focus()
+            //         plugMessenger.error(result.data.msg);
+            //         return;
+            //     }
+            //     if (result.data.code == '000') {
+            //         $scope.data.customerNumber = result.data.data[0].customerNumber
+            //         console.log($scope.data.tempCustomerNumber);
+            //     }
+            // })
+            // }
+
+
+            // $scope.checkCustomerNumber = function () {
+            //     if (!$scope.data.customerNumber) {
+            //         plugMessenger.error("客户编号不能为空");
+            //         // $scope.customerNumberFocus = true;
+            //         $window.document.getElementById("customerNumber").focus();  
+            //         return;
+            //     }
+            //     if ($scope.data.tempCustomerNumber != $scope.data.customerNumber) {
+            //         plugMessenger.error("客户标识和客户编号对应，请重新输入");
+            //         $scope.data.customerNumber = "";
+            //         $window.document.getElementById("customerNumber").focus();  
+            //         // $scope.customerNumberFocus = true;
+            //         return;
+            //     }
+            // }
 
             $scope.checkInboundPackage = function () {
                 receiptService.checkInboundPackage($scope.data).then(function (result) {

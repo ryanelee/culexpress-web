@@ -163,7 +163,7 @@
                                     <td style="width: 20%;">{{orderItem.unitprice|currency}}</td>
                                     <td style="width: 20%;">{{(orderItem.quantity*orderItem.unitprice)|currency}}</td>
                                 </tr>
-                                <tr style="border-bottom: 0;">
+                                <tr style="border-bottom: 0;"> 
                                   <td colspan="5" style="text-align: left;">
                                     <i class="fa fa-map-marker color-ffb" style="margin-right: 5px;"></i>收货地址：
                                     <span><span ng-if="!!packageItem.address.receiveCompanyName&&packageItem.address.receiveCompanyName!='null'">{{packageItem.address.receiveCompanyName}}/</span>{{orderItem.address.receivePersonName}}</span>

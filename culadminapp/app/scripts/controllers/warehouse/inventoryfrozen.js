@@ -57,7 +57,7 @@ angular.module('culAdminApp')
           $scope.checkItemNumber();
 
           $scope.btnSave = function (type) {
-              if (type == 4 && !$scope.data.inventory_frozen) {
+              if (type == 4 && !$scope.data.incrementInventory_frozen) {
                   plugMessenger.info("请填写正确的数量");
                   return;
               }

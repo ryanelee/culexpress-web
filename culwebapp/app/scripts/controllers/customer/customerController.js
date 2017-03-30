@@ -47,7 +47,7 @@ angular
                 url: '/orderhistory',
                 templateUrl: 'views/customer/order_orderhistory.html',
                 controller: function () { }
-            })
+            }) 
             .state('customer.submitorder', {
                 url: '/submitorder/:ids',
                 templateUrl: 'views/customer/order_submitorder.html',

@@ -8,8 +8,8 @@
  * Controller of the culwebApp
  */
 angular.module('culwebApp')
-    .controller('MyAddressController', ['$rootScope', '$scope', '$state', '$timeout', '$q', '$http', '$filter', 'addressSvr', '$stateParams', '$element', 'Customer',
-        function ($rootScope, $scope, $state, $timeout, $q, $http, $filter, addressSvr, $stateParams, $element, Customer) {
+    .controller('MyAddressController', ['$rootScope', '$scope', '$state', '$timeout', '$q', '$http', '$filter', 'addressSvr', '$stateParams', '$element', 'Customer','$window',
+        function ($rootScope, $scope, $state, $timeout, $q, $http, $filter, addressSvr, $stateParams, $element, Customer,$window) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -179,7 +179,8 @@ angular.module('culwebApp')
                     .updateAddressInfo($scope.data)
                     .then(function (result) {
                         if (result.data.success) {
-                            $state.go('customer.myaccount', { anchorid: 'addressbook' })
+                            $window.history.back();
+                            // $state.go('customer.myaccount', { anchorid: 'addressbook' })
                         }
                     }, function (result) {
                         if (result.data.message) {
@@ -339,11 +340,13 @@ angular.module('culwebApp')
             }
 
 
-
+            console.log("1234567");
+            console.log($stateParams.addressId);
             if ($stateParams.addressId) {
                 addressSvr
                     .getAddressInfo($stateParams.addressId)
                     .then(function (result) {
+                        console.log(result);
                         if (result.data) {
                             $timeout(function () {
                                 $scope.data = result.data;
