@@ -20,7 +20,6 @@ angular.module('culAdminApp')
             $scope.warehouseList = [];
             $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
 
-
             $scope.getWarehouseName = function (warehouseNumber) {
                 var warehouse = _.findWhere($scope.warehouseList, { warehouseNumber: warehouseNumber });
                 return !!warehouse ? warehouse.warehouseName : "";
@@ -38,8 +37,6 @@ angular.module('culAdminApp')
                     end: false
                 }
             }
-
-
 
             $scope.pagination = {
                 pageSize: "20",
@@ -94,7 +91,6 @@ angular.module('culAdminApp')
             }
             $scope.getData();
 
-
             $scope.btnSearch = function () {
                 console.log('23')
                 $scope.selectedListCache = [];
@@ -133,8 +129,6 @@ angular.module('culAdminApp')
                 })
             }
 
-
-
             $scope.btnPrev = function () {
                 $window.history.back();
             }
@@ -145,9 +139,7 @@ angular.module('culAdminApp')
                 $location.path("/web/updateAnnounce");
             }
 
-
             //更新
-
             $scope.updateAnnounce = function () {
                 console.log(123)
                 customerService.updateWebAnnounce($scope.data, function (result) {
@@ -158,7 +150,7 @@ angular.module('culAdminApp')
                 })
             }
 
-              console.log("wonder")
+            console.log("wonder")
             $scope.changeOpenAll = function (type) {
                 console.log(type)
                 if (type == 1 || type == 3) {
@@ -168,9 +160,6 @@ angular.module('culAdminApp')
                     $scope.openFlag = 0
                 }
             }
-
-
-
 
             $scope.btnDelete = function (announce) {
                 console.log(announce);
@@ -205,9 +194,7 @@ angular.module('culAdminApp')
             }
 
             //更新
-
             $scope.updateAnnounce = function () {
-                console.log(123)
                 customerService.updateWebAnnounce($scope.data, function (result) {
                     if (result.code == '000') {
                         plugMessenger.success("更新成功");
@@ -215,10 +202,8 @@ angular.module('culAdminApp')
                     }
                 })
             }
-
-            console.log("wonder")
+            
             $scope.changeOpenAll = function (type) {
-                console.log(type)
                 if (type == 1 || type == 3) {
                     $scope.data.openAll = 0
                     $scope.openFlag = 1
@@ -226,7 +211,4 @@ angular.module('culAdminApp')
                     $scope.openFlag = 0
                 }
             }
-
-
-
         }]);

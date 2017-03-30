@@ -12,14 +12,11 @@
 
                     </div>
                 </div>
- 
-              
-
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">公告时间</label>
                     <div class="col-sm-4 text-left">
                         <p class="input-group pull-left">
-                            <input type="text" class="form-control search-control" style="width:310px;" uib-datepicker-popup ng-model="data.openTime"
+                            <input type="text" class="form-control search-control" style="width:284px;" uib-datepicker-popup ng-model="data.openTime"
                                 is-open="searchBar.opened.startDate" show-button-bar="false" 
                             <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
@@ -27,7 +24,6 @@
                         </p>
                     </div>
                 </div>
-
                   <div class="form-group">
                     <label class="col-sm-2 control-label text-right">展示时间起</label>
                     <div class="col-sm-3 text-left">
@@ -52,31 +48,29 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">公告类型</label>
+                    <label class="col-sm-2 control-label text-right">公告类型</label>        
                     <div class="col-sm-4 text-left">
-                        <select class="form-control search-control" ng-change="changeOpenAll(data.type)" ng-model="data.type">
-                            <option value = 1>登入广告</option>
-                            <option value = 2>普通公告</option>
-                            <option value = 3>促销活动</option>
+                        <select class="form-control search-control" ng-change="changeOpenAll(data.type)" ng-model="data.type" style="color:black">
+                            <option value = "">请选择公告类型</option>
+                            <option value = 1 ng-selected="data.type == 1">登入广告</option>
+                            <option value = 2 ng-selected="data.type == 2">普通公告</option>
+                            <option value = 3 ng-selected="data.type == 3">促销活动</option>
                         </select>
-
                     </div>
                 </div>
-
-                  <div class="form-group">
-                <label class="col-sm-2  text-right">状态：</label>
-                <div class="col-sm-4 text-left">
-                  <label>
-                    <input type="radio" name="status" id="status1" value=1 ng-model="data.status">
-                    启用
-                  </label> &nbsp;
-                  <label>
-                    <input type="radio" name="status" id="status2" value=0 ng-model="data.status">
-                    禁用
-                  </label>
-                </div>
-            </div>
-
+                <div class="form-group">
+                    <label class="col-sm-2  text-right">状态：</label>
+                    <div class="col-sm-4 text-left">
+                    <label>
+                        <input type="radio" name="status" id="status1" value=1 ng-model="data.status">
+                        启用
+                    </label> &nbsp;
+                    <label>
+                        <input type="radio" name="status" id="status2" value=0 ng-model="data.status">
+                        禁用
+                    </label>
+                    </div>
+               </div>
                <div class="form-group" ng-show="openFlag != 1">
                 <label class="col-sm-2  text-right">登陆后可见：</label>
                 <div class="col-sm-4 text-left">
@@ -90,18 +84,12 @@
                   </label>
                 </div>
             </div>
-
               <div class="form-group">
                     <label class="col-sm-2 control-label text-right">公告正文</label>
                     <div class="col-sm-4 text-left">
                         <textarea type="text" rows="10"  class="form-control" placeholder="公告正文" ng-model="data.content"></textarea>
                     </div>
                 </div>
-
-            
-
-
-             
             </fieldset>
             <div class="form-group">
                 <div  ng-if="flag !='1'" class="col-sm-offset-2 col-sm-10">
