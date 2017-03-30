@@ -41,7 +41,7 @@ angular
             }];
             var obj = {type:2,status:1,openAll:0};
             $scope.getPrimAnnounce = function(obj) {
-                $http.post(cul.apiPath + '/web/getWebAnnounce',obj).then(function (result) {
+                $http.post(cul.apiPath + '/web/WebAnnounce',obj).then(function (result) {
                     $scope.primAnnounceList = result.data.data.data;
                     console.log($scope.primAnnounceList);
                 });
@@ -56,7 +56,7 @@ angular
             }];
             var obj = {type:3,status:1,openAll:0};
             $scope.getProAnnounce = function(obj) {
-                $http.post(cul.apiPath + '/web/getWebAnnounce',obj).then(function (result) {
+                $http.post(cul.apiPath + '/web/WebAnnounce',obj).then(function (result) {
                     $scope.proAnnounceList = result.data.data.data;
                     console.log($scope.proAnnounceList);
                 });

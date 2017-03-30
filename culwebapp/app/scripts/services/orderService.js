@@ -108,7 +108,8 @@ angular.module('culwebApp')
                         }
                     }
                 }
-                return $http.get(cul.apiPath + '/warehouse');
+                var obj = {status:1};
+                return $http.get(cul.apiPath + '/warehouse',obj);
             },
             getShipChannelItems: function () {
                 return $http.post(cul.apiPath + '/shipservice/list');
