@@ -155,9 +155,11 @@ angular.module('culAdminApp')
                 console.log(type)
                 if (type == 1 || type == 3) {
                     $scope.data.openAll = 0
-                    $scope.openFlag = 1
+                    // $scope.openFlag = 0
                 } else {
-                    $scope.openFlag = 0
+                    $scope.data.openAll = 1
+                    
+                    // $scope.openFlag = 1
                 }
             }
 
