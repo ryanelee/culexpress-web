@@ -18,6 +18,36 @@ angular.module('culAdminApp')
             $scope.data = null;
 
 
+            $scope.checkReceiveIdentity = function (e) {
+                console.log('2345')
+                // $scope.myKeyup = function (e) {
+                console.log(2)
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                    console.log('2345')
+                    if (!$scope.data.receiveIdentity) {
+                        plugMessenger.error("客户标示不能为空");
+                        return;
+                    }
+                    $scope.flag = '0'
+                    receiptService.checkReceiveIdentity($scope.data).then(function (result) {
+                        if (result.data.code == '999') {
+                            document.getElementById("receiveIdentity").focus()
+                            plugMessenger.error(result.data.msg);
+                            return;
+                        }
+                        if (result.data.code == '000') {
+                            packageDescription.focus()
+                            $scope.data.customerNumber = result.data.data[0].customerNumber
+                            console.log($scope.data.tempCustomerNumber);
+                        }
+                    })
+                }
+                // };
+            };
+
+
+
             $scope.myKeyup = function (e, item) {
                 console.log(item);
 
@@ -56,7 +86,7 @@ angular.module('culAdminApp')
             $scope.tempReceiptNumber = $location.search().receiptNumber || "";
             $scope.tempInboundStatus = $location.search().inboundStatus || 1;
             console.log($scope.tempReceiptNumber);
-             console.log($scope.tempInboundStatus);
+            console.log($scope.tempInboundStatus);
 
             $scope.tempReceipt = $scope.tempReceiptNumber.substring(0, 3);
             console.log($scope.tempReceipt)
@@ -72,39 +102,43 @@ angular.module('culAdminApp')
             }
 
             var _timeout = null;
-            $scope.checkReceiptNumber = function () {
-                $scope.tempInboundStatus = -1;
-                if ($scope.tempReceiptNumber && $scope.tempReceipt != 'ASN') {
-                    $location.search({ "trackingNumber": $scope.tempReceiptNumber, "inboundStatus": $scope.tempInboundStatus });
-                    $location.path("/warehouse/receiptNoASN");
-                    return;
-                }
-                if (!!_timeout) clearTimeout(_timeout);
-                _timeout = setTimeout(function () {
-                    $scope.$apply(function () {
-                        if (!!$scope.tempReceiptNumber) {
-                            receiptService.getDetail($scope.tempReceiptNumber, function (result) {
-                                console.log(result);
-                                $scope.data = null;
-                                if (!result.message) {
-                                    $scope.data = result;
-                                }
-                                if ($scope.data.sendType == '2', $scope.data.isTransfer == '1') {
-                                    if ($scope.data.packageWeight) {
-                                        $scope.data.items[0].weight = $scope.data.packageWeight
+            $scope.checkReceiptNumber = function (e) {
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                    $scope.tempInboundStatus = -1;
+                    if ($scope.tempReceiptNumber && $scope.tempReceipt != 'ASN') {
+                        $location.search({ "trackingNumber": $scope.tempReceiptNumber, "inboundStatus": $scope.tempInboundStatus });
+                        $location.path("/warehouse/receiptNoASN");
+                        return;
+                    }
+                    if (!!_timeout) clearTimeout(_timeout);
+                    _timeout = setTimeout(function () {
+                        $scope.$apply(function () {
+                            if (!!$scope.tempReceiptNumber) {
+                                receiptService.getDetail($scope.tempReceiptNumber, function (result) {
+                                    console.log(result);
+                                    $scope.data = null;
+                                    if (!result.message) {
+                                        $scope.data = result;
                                     }
+                                    if ($scope.data.sendType == '2', $scope.data.isTransfer == '1') {
+                                        if ($scope.data.packageWeight) {
+                                            $scope.data.items[0].weight = $scope.data.packageWeight
+                                        }
 
-                                }
-                                var element = $window.document.getElementById('weight');
-                                if (element)
-                                    element.focus();
+                                    }
+                                    var element = $window.document.getElementById('weight');
+                                    if (element)
+                                        element.focus();
+                                    $scope.tempReceiptNumber = "";
+                                });
+                            } else {
                                 $scope.tempReceiptNumber = "";
-                            });
-                        } else {
-                            $scope.tempReceiptNumber = "";
-                        }
-                    })
-                }, 1000);
+                            }
+                        })
+                    }, 1000);
+                }
+
             }
 
 
