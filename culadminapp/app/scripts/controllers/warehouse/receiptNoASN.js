@@ -39,9 +39,7 @@ angular.module('culAdminApp')
             // if ($scope.data.inboundStatus <= 1) {
             //     $window.document.getElementById("txtTrackingNumber").focus();
             // }
-            // if ($scope.data.trackingNumber) {
-            //     $window.document.getElementById("packageWeight").focus();
-            // }
+
             $scope._trackingNumber = "";
 
             $scope.tpl_status = {
@@ -66,18 +64,21 @@ angular.module('culAdminApp')
                             $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
                             $scope.tpl_status.isExist = true;
+                            if ($scope.data.trackingNumber &&  (!$scope.data.packageWeight  ||  $scope.data.packageWeight == 0) ) {
+                                $window.document.getElementById("packageWeight").focus();
+                            }
                         }
                     });
                 }
             }
 
-            $scope.hotKey = function (event) {
-                switch (event.keyCode) {
-                    case 13:  //enter
-                        $scope.getPackageDetail();
-                        break;
-                }
-            }
+            // $scope.hotKey = function (event) {
+            //     switch (event.keyCode) {
+            //         case 13:  //enter
+            //             $scope.getPackageDetail();
+            //             break;
+            //     }
+            // }
 
             warehouseService.getWarehouse(function (result) {
                 $scope.tpl_status.warehouseList = result;
