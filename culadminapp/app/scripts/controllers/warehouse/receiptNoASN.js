@@ -40,7 +40,7 @@ angular.module('culAdminApp')
                 $window.document.getElementById("txtTrackingNumber").focus();
             }
             if ($scope.data.trackingNumber) {
-                $window.document.getElementById("packageWeight").focus();
+                //$window.document.getElementById("packageWeight").focus();
             }
             $scope._trackingNumber = "";
 
