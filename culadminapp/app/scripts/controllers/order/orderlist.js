@@ -148,14 +148,13 @@ angular.module('culAdminApp')
             }
 
             $scope.selectedListCache = [];
-
-
+      
             $scope.btnSelectedItem = function (item) {
                 if (!!item) {
-                    if (!item._selected) {
-                        $scope.searchBar.selectedAll = false;
+                    if (!item._selected) {                                    
+                        $scope.searchBar.selectedAll = false;                   
                     }
-                } else {
+                } else {                        
                     $.each($scope.dataList, function (i, item) {
                         item._selected = $scope.searchBar.selectedAll;
                     });
@@ -163,11 +162,11 @@ angular.module('culAdminApp')
                 //将当前页所有选中的item缓存到$scope.selectedListCache中（并去重）。
                 $.each($scope.dataList, function (i, item) {
                     var isExists = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
-                    if (!!item._selected && isExists == false) {
+                    if (!!item._selected && isExists == false) {                
                         $scope.selectedListCache.push(angular.copy(item));
                     } else if (!item._selected && isExists == true) {
                         $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
-                    }
+                    }         
                 });
                 var _orderNumbers = [];
                 var _options = _filterOptions();
@@ -194,7 +193,9 @@ angular.module('culAdminApp')
             }
 
             $scope.delSomeOrder = function () {
-                $scope.dataList.forEach(function (e) {
+                //每次执行批量删除时，将之前的选中记录清理掉。
+                $scope.orderNumberList = [];
+                $scope.dataList.forEach(function (e) {                       
                     if (e._selected == true) {
                         $scope.orderNumberList.push(e.orderNumber)
                     }
@@ -207,7 +208,6 @@ angular.module('culAdminApp')
                 }
             }
 
-
             $scope.btnDelete = function (item) {
                 $scope.searchOrder = {};
                 if (item instanceof Array) {
@@ -216,7 +216,7 @@ angular.module('culAdminApp')
                     $scope.searchOrder.orderNumber = item.orderNumber
                 }
 
-                plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
+                plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {                  
                     if (!!isOK) {
                         orderService.delete($scope.searchOrder, function () {
                             $scope.getData();
