@@ -277,8 +277,17 @@
 					<img class="unslider-arrow next" src="../assets/img/index/icon-info-right.png" />
 				</div>
 			</div>
-				<ul>
-					<li class="info-banner1">
+				<ul>                
+                    <li class="info-banner1" ng-repeat="item in openAnnounceList">
+						<div class="container">
+							<h1 class="info-title">{{item.title}}</h1>
+							<div class="info-content">
+								<img src="../assets/img/index/info-person1.png" />
+								<p class="info-detail-lg">{{item.content}}</p>
+							</div>
+						</div>
+					</li>
+					<!--<li class="info-banner1">
 						<div class="container">
 							<h1 class="info-title">OR俄勒冈仓库暂停收货通知</h1>
 							<div class="info-content">
@@ -306,7 +315,7 @@
 								<p class="info-detail-lg">中美速递的在线客户系统是由中美速递开发团队自主研发的专门面向海淘用户的全新系统, 系统采用业内流行的网页开发技术,操作简单，功能覆盖范围全面，让海淘变得更轻松</p>
 							</div>
 						</div>
-					</li>                  
+					</li>                  -->
 				</ul>
 		</div>
     <!--=== Cube-Portfdlio ===-->

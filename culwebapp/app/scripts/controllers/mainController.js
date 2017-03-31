@@ -37,6 +37,20 @@ angular
               var dom = $('.lc-right');
               dom.removeClass('lc-rk').removeClass('lc-ck').removeClass('lc-ps').addClass(sty);
             }
+
+            //普通广告管理 公开
+            $scope.openAnnounceList = [{
+                title:"",
+                content:""
+            }];
+            var obj = {type:2,status:1,openAll:0};
+            $scope.getOpenAnnounce = function(obj) {
+                $http.post(cul.apiPath + '/web/WebAnnounce',obj).then(function (result) {
+                    $scope.openAnnounceList = result.data.data.data;
+                    console.log($scope.openAnnounceList);
+                });
+            }
+            $scope.getOpenAnnounce();
         }
     ])
 .directive('ourclient', function () {
