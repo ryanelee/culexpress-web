@@ -36,12 +36,10 @@ angular.module('culAdminApp')
                 inboundStatus: angular.copy($location.search().inboundStatus || "")
             }
 
-            if ($scope.data.inboundStatus <= 1) {
-                $window.document.getElementById("txtTrackingNumber").focus();
-            }
-            if ($scope.data.trackingNumber) {
-                //$window.document.getElementById("packageWeight").focus();
-            }
+            // if ($scope.data.inboundStatus <= 1) {
+            //     $window.document.getElementById("txtTrackingNumber").focus();
+            // }
+
             $scope._trackingNumber = "";
 
             $scope.tpl_status = {
@@ -66,6 +64,9 @@ angular.module('culAdminApp')
                             $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
                             $scope.tpl_status.isExist = true;
+                            if ($scope.data.trackingNumber &&  (!$scope.data.packageWeight  ||  $scope.data.packageWeight == 0) ) {
+                                $window.document.getElementById("packageWeight").focus();
+                            }
                         }
                     });
                 }
@@ -79,9 +80,9 @@ angular.module('culAdminApp')
             //     }
             // }
 
-            // warehouseService.getWarehouse(function (result) {
-            //     $scope.tpl_status.warehouseList = result;
-            // });
+            warehouseService.getWarehouse(function (result) {
+                $scope.tpl_status.warehouseList = result;
+            });
 
             warehouseService.getWarehouse(function (result) {
                 for (var i = 0; i < result.length; i++) {
