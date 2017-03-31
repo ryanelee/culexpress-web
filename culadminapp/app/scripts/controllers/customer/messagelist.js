@@ -130,14 +130,20 @@ angular.module('culAdminApp')
               if (item.status == 0) {
                   return;
               }
-              faqService.update({
-                  "messageNumber": item.messageNumber,
-                  "messageType": item.messageType,
-                  "status": "Closed"
-              }, function (result) {
-                  if (result.success == true) {
-                      plugMessenger.success("处理成功");
-                  }
+              var _update = function() { 
+                faqService.update({
+                    "messageNumber": item.messageNumber,
+                    "messageType": item.messageType,
+                    "status": "Closed"
+                }, function (result) {
+                    if (result.success == true) {
+                        plugMessenger.success("处理成功");
+                        $scope.btnSearch;
+                    }
+                })
+              }
+              plugMessenger.confirm("确认关闭该问题?", function(isOk) {
+                  if (isOk) _update();
               })
           }
 
