@@ -33,8 +33,8 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     };
 }).filter('webopenAll', function () {
     var _webopenAll = {
-        0: "所有可见",
-        1: "登录后可见"
+        1: "所有可见",
+        0: "登录后可见"
     };
     return function (input) {
         return _webopenAll[input] || input;
