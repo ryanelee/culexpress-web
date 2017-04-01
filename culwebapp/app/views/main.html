@@ -278,17 +278,17 @@
 				</div>
 			</div>
 				<ul>                
-                    <li class="info-banner1" ng-repeat="item in openAnnounceList">
+                    <li class="info-banner1" ng-repeat="item in openAnnounceList track by $index">
 						<div class="container">
 							<h1 class="info-title">{{item.title}}</h1>
 							<div class="info-content">
-								<img src="../assets/img/index/info-person1.png" />
+								<img src="../assets/img/index/info-person{{$index%3+1}}.png" />
 								<p class="info-detail-lg">{{item.content}}</p>
 							</div>
 						</div>
 					</li>
-					<!--<li class="info-banner1">
-						<div class="container">
+					<li class="info-banner1">
+						<!--<div class="container">
 							<h1 class="info-title">OR俄勒冈仓库暂停收货通知</h1>
 							<div class="info-content">
 								<img src="../assets/img/index/info-person1.png" />
@@ -296,9 +296,9 @@
 已经发往OR仓库的包裹我们将会继续收货45天，请大家放心。
 请大家以后将包裹发往CA加州仓库和 DE特拉华免税仓库，CA仓库和DE仓库正常收货发货一切照旧，会带给大家更好的服务，和更好的速度，请大家拭目以待。</p>
 							</div>
-						</div>
+						</div>-->
 					</li>
-					<li class="info-banner1">
+					<!--<li class="info-banner1">
 						<div class="container">
 							<h1 class="info-title">中美速递新仓储管理系统正式上线</h1>
 							<div class="info-content">
@@ -315,7 +315,16 @@
 								<p class="info-detail-lg">中美速递的在线客户系统是由中美速递开发团队自主研发的专门面向海淘用户的全新系统, 系统采用业内流行的网页开发技术,操作简单，功能覆盖范围全面，让海淘变得更轻松</p>
 							</div>
 						</div>
-					</li>                  -->
+					</li>
+                    <li class="info-banner1">
+						<div class="container">
+							<h1 class="info-title">中美速递线上客户系统正式上线</h1>
+							<div class="info-content">
+								<img src="../assets/img/index/info-person3.png" />
+								<p class="info-detail-lg">中美速递的在线客户系统是由中美速递开发团队自主研发的专门面向海淘用户的全新系统, 系统采用业内流行的网页开发技术,操作简单，功能覆盖范围全面，让海淘变得更轻松</p>
+							</div>
+						</div>
+					</li>                   -->
 				</ul>
 		</div>
     <!--=== Cube-Portfdlio ===-->

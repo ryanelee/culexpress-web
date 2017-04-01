@@ -38,10 +38,10 @@ angular
             $scope.primAnnounceList = [{
                 title:"",
                 content:""
-            }];
-            var obj = {type:2,status:1,openAll:0};
-            $scope.getPrimAnnounce = function(obj) {
-                $http.post(cul.apiPath + '/web/WebAnnounce',obj).then(function (result) {
+            }];     
+            $scope.getPrimAnnounce = function() {
+                var objPrim = {type:2,status:1,openAll:0};
+                $http.post(cul.apiPath + '/web/WebAnnounce',objPrim).then(function (result) {
                     $scope.primAnnounceList = result.data.data.data;
                     console.log($scope.primAnnounceList);
                 });
@@ -54,9 +54,10 @@ angular
                 content:"",
                 openTime:""
             }];
-            var obj = {type:3,status:1,openAll:0};
-            $scope.getProAnnounce = function(obj) {
-                $http.post(cul.apiPath + '/web/WebAnnounce',obj).then(function (result) {
+            
+            $scope.getProAnnounce = function() {
+                var objPro = {type:3,status:1,openAll:0};
+                $http.post(cul.apiPath + '/web/WebAnnounce',objPro).then(function (result) {
                     $scope.proAnnounceList = result.data.data.data;
                     console.log($scope.proAnnounceList);
                 });

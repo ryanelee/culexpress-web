@@ -117,9 +117,9 @@ angular
         $scope.webAnnounce = [{
             title:"",
             content:""
-        }];
-        var obj = {type:1,status:1,openAll:0};
-        $scope.getWebAnnounce = function(obj) {
+        }];       
+        $scope.getWebAnnounce = function() {
+            var obj = {type:1,status:1,openAll:0};
             $http.post(cul.apiPath + '/web/WebAnnounce',obj).then(function (result) {
                 $scope.webAnnounce = result.data.data.data;
             });
