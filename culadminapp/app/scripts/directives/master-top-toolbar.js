@@ -32,15 +32,17 @@ angular.module('culAdminApp')
                             $scope.vipData = result.data.data;
                         })
                     }
-                    $scope.getmessageList = function() {
+                    $rootScope.getmessageList = function() {
                         // status: 'Processing' 
                         faqService.getList({ status: 'Processing' }, function(result) {
                             $scope.tipMessage = result.data;
                             $scope.tipMessageLength = result.data.length;
+                            console.log("**************tipMessageLength*****************");
+                            console.log($scope.tipMessageLength);
                         })
                     }
                     $scope.getVipAndMsg();
-                    $scope.getmessageList();
+                    $rootScope.getmessageList();
                     $scope.btnViewMessage = function(message) {
                         $location.path("/customer/faqdetail").search({ messageNumber: message.messageNumber });
                     }
