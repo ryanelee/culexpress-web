@@ -23,236 +23,244 @@
                         <span ng-if="data.isFastOrder == 1" title="极速原箱">
                             <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
 </span>
-</div>
-<label class="col-sm-2 control-label text-right">订单批号：</label>
-<div class="col-sm-4">
-    <label class="control-label">{{data.batchNumber || '-'}}</label>
-</div>
-</div>
-<div class="form-group">
-    <label class="col-sm-2 control-label text-right">客户账号：</label>
-    <div class="col-sm-4">
-        <label class="control-label">{{data.customer.userName}}</label>
-    </div>
-    <label class="col-sm-2 control-label text-right">客户姓名：</label>
-    <div class="col-sm-4">
-        <label class="control-label">{{data.customer.lastName}} {{data.customer.firstName}}</label>
-    </div>
-</div>
-<div class="form-group">
-    <label class="col-sm-2 control-label text-right">订单状态：</label>
-    <div class="col-sm-4">
-        <label class="control-label">{{data._orderStatus}}</label>
-    </div>
-    <label class="col-sm-2 control-label text-right">生成日期：</label>
-    <div class="col-sm-4">
-        <label class="control-label">{{data.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
-    </div>
-</div>
-<div class="form-group">
-    <label class="col-sm-2 control-label text-right" ng-if="isPrintDetail">打印状态：</label>
-    <div class="col-sm-4" ng-if="isPrintDetail">
-        <label class="control-label green" style="font-weight: bold;">{{data._printStatus}}</label>
-</div>
-<label class="col-sm-2 control-label text-right" ng-if="!!data.payDate">付款时间：</label>
-<div class="col-sm-4" ng-if="!!data.payDate">
-    <label class="control-label">{{data.payDate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
-</div>
-</div>
-</fieldset>
-<fieldset>
-    <legend>收货地址</legend>
-    <div class="form-group">
-        <div class="col-sm-8 col-sm-offset-2">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th style="width:130px;">包裹号</th>
-<th>收货地址</th>
-<th style="width:130px;">操作</th>
-</tr>
-</thead>
-<tbody>
-    <tr ng-repeat="address in data.shipToAddresses">
-        <td>
-            <div ng-repeat="trackingNumber in address._trackingNumbers">{{trackingNumber}}</div>
-        </td>
-        <td>
-            <div ng-show="!address._edit">
-                2323
-                {{address.receivePersonName}}<span ng-if="!!address.cellphoneNumber">({{address.cellphoneNumber}})</span>                {{address.address1}}{{address.receiveCompanyName}}
-                <span ng-if="!!address.zipcode">({{address.zipcode}})</span>
-            </div>
-            <div ng-show="!!address._edit">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">收货人：</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="address.receivePersonName" />
                     </div>
-                    <label class="col-sm-2 control-label text-right">手机号码：</label>
+                    <label class="col-sm-2 control-label text-right">订单批号：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="address.cellphoneNumber" />
+                        <label class="control-label">{{data.batchNumber || '-'}}</label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">详细地址：</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" ng-model="address.address1" />
+                    <label class="col-sm-2 control-label text-right">客户账号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.customer.userName}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">客户姓名：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.customer.lastName}} {{data.customer.firstName}}</label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">收货公司：</label>
+                    <label class="col-sm-2 control-label text-right">订单状态：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="address.receiveCompanyName" />
+                        <label class="control-label">{{data._orderStatus}}</label>
                     </div>
-                    <label class="col-sm-2 control-label text-right">邮政编码：</label>
+                    <label class="col-sm-2 control-label text-right">生成日期：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="address.zipcode" />
+                        <label class="control-label">{{data.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
                     </div>
                 </div>
-            </div>
-        </td>
-        <td>
-            <button type="button" class="btn btn-link role" data-role="86" ng-click="btnEditOrderAddress(address)" ng-show="!address._edit">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right" ng-if="isPrintDetail">打印状态：</label>
+                    <div class="col-sm-4" ng-if="isPrintDetail">
+                        <label class="control-label green" style="font-weight: bold;">{{data._printStatus}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right" ng-if="!!data.payDate">付款时间：</label>
+                    <div class="col-sm-4" ng-if="!!data.payDate">
+                        <label class="control-label">{{data.payDate | date:'MM/dd/yyyy HH:mm:ss'}}</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>收货地址</legend>
+                <div class="form-group">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:130px;">包裹号</th>
+                                    <th>收货地址</th>
+                                    <th style="width:130px;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="address in data.shipToAddresses">
+                                    <td>
+                                        <div ng-repeat="trackingNumber in address._trackingNumbers">{{trackingNumber}}</div>
+                                    </td>
+                                    <td>
+                                        <div ng-show="!address._edit">
+                                            2323 {{address.receivePersonName}}
+                                            <span ng-if="!!address.cellphoneNumber">({{address.cellphoneNumber}})</span>                                            {{address.address1}}{{address.receiveCompanyName}}
+                                            <span ng-if="!!address.zipcode">({{address.zipcode}})</span>
+                                        </div>
+                                        <div ng-show="!!address._edit">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label text-right">收货人：</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" ng-model="address.receivePersonName" />
+                                                </div>
+                                                <label class="col-sm-2 control-label text-right">手机号码：</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" ng-model="address.cellphoneNumber" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label text-right">详细地址：</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" ng-model="address.address1" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label text-right">收货公司：</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" ng-model="address.receiveCompanyName" />
+                                                </div>
+                                                <label class="col-sm-2 control-label text-right">邮政编码：</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" class="form-control" ng-model="address.zipcode" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <!--<button type="button" class="btn btn-link role" data-role="86" ng-click="btnEditOrderAddress(address)" ng-show="!address._edit">
+                                            <i class="fa fa-edit"></i>修改地址
+                                        </button>-->
+                                        <button type="button" class="btn btn-link "  ng-click="btnEditOrderAddress(address)" ng-show="!address._edit">
                                             <i class="fa fa-edit"></i>修改地址
                                         </button>
-            <button type="button" class="btn btn-link" ng-click="btnSaveAddress(address)" ng-show="!!address._edit"><i class="fa fa-save"></i>保存</button>
-            <button type="button" class="btn btn-link" ng-click="btnCancelAddress(address)" ng-show="!!address._edit"><i class="fa fa-repeat"></i>取消</button>
-        </td>
-    </tr>
-</tbody>
-</table>
-</div>
-</div>
-</fieldset>
-<fieldset>
-    <legend>订单内容</legend>
-    <div class="form-group">
-        <label class="col-sm-2 control-label text-right">发货渠道：</label>
-        <div class="col-sm-4">
-            <label class="control-label">{{ data.shipServiceName }}</label>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label text-right">收货单号：</label>
-        <div class="row col-sm-8">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>单号</th>
-                        <th>重量</th>
-                        <th>创建时间</th>
-                        <th>入库时间</th>
-                        <th>仓位</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in data.inboundPackages">
-                        <td>{{item.trackingNumber}}</td>
-                        <td>{{item.packageWeight}}</td>
-                        <td>{{ item.createDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
-                        <td>{{ item.inboundDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
-                        <td>{{item.location}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!--<div cla
+
+
+                                        <button type="button" class="btn btn-link" ng-click="btnSaveAddress(address)" ng-show="!!address._edit"><i class="fa fa-save"></i>保存</button>
+                                        <button type="button" class="btn btn-link" ng-click="btnCancelAddress(address)" ng-show="!!address._edit"><i class="fa fa-repeat"></i>取消</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>订单内容</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">发货渠道：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{ data.shipServiceName }}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货单号：</label>
+                    <div class="row col-sm-8">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>单号</th>
+                                    <th>重量</th>
+                                    <th>创建时间</th>
+                                    <th>入库时间</th>
+                                    <th>仓位</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in data.inboundPackages">
+                                    <td>{{item.trackingNumber}}</td>
+                                    <td>{{item.packageWeight}}</td>
+                                    <td>{{ item.createDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
+                                    <td>{{ item.inboundDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
+                                    <td>{{item.location}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--<div cla
                 ss="form-group">
                     <label class="col-sm-2 control-label text-right">额外商品：</label>
                     <div class="col-sm-4">
                         <label class="control-label">{{'0'}}</label>
                     </div>
                 </div>-->
-    <div class="form-group">
-        <label class="col-sm-2 control-label text-right">申报价值：</label>
-        <div class="col-sm-4">
-            <label class="control-label">{{data.declareGoodsValue | number:2}}</label>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label text-right">申报品名：</label>
-        <div class="col-sm-4" ng-if="isPrintDetail">
-            <label class="control-label">{{data.declareGoodsName}}</label>
-        </div>
-        <div class="row col-sm-8" ng-if="!isPrintDetail">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th width="50px">序号</th>
-                        <th>品牌</th>
-                        <th>商品描述</th>
-                        <th>数量</th>
-                        <th>价值</th>
-                        <th>属性1</th>
-                        <th>属性2</th>
-                        <th>属性3</th>
-                        <th>属性4</th>
-                        <th>属性5</th>
-                        <th width="70px" ng-show="!!_editOrderItems">操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in data.orderItems">
-                        <td>{{$index+1}}</td>
-                        <td>
-                            <span ng-show="!_editOrderItems">{{item.itemBrand}}</span>
-                            <input type="text" class="form-control" ng-model="item.itemBrand" ng-show="!!_editOrderItems" />
-                        </td>
-                        <td>
-                            <span ng-show="!_editOrderItems">{{item.description}}</span>
-                            <input type="text" class="form-control" ng-model="item.description" ng-show="!!_editOrderItems" />
-                        </td>
-                        <td>
-                            <span ng-show="!_editOrderItems">{{item.quantity}}</span>
-                            <input type="text" class="form-control" ng-model="item.quantity" ng-show="!!_editOrderItems" />
-                        </td>
-                        <td>
-                            <span ng-show="!_editOrderItems">{{item.unitprice | number:2}}</span>
-                            <input type="text" class="form-control" ng-model="item.unitprice" ng-show="!!_editOrderItems" />
-                        </td>
-                        <td>
-                            <span ng-show="!_editOrderItems">{{item.property1}}</span>
-                            <input type="text" class="form-control" ng-model="item.property1" ng-show="!!_editOrderItems" />
-                        </td>
-                        <td>
-                            <span ng-show="!_editOrderItems">{{item.property2}}</span>
-                            <input type="text" class="form-control" ng-model="item.property2" ng-show="!!_editOrderItems" />
-                        </td>
-                        <td>
-                            <span ng-show="!_editOrderItems">{{item.property3}}</span>
-                            <input type="text" class="form-control" ng-model="item.property3" ng-show="!!_editOrderItems" />
-                        </td>
-                        <td>
-                            <span ng-show="!_editOrderItems">{{item.property4}}</span>
-                            <input type="text" class="form-control" ng-model="item.property4" ng-show="!!_editOrderItems" />
-                        </td>
-                        <td>
-                            <span ng-show="!_editOrderItems">{{item.property5}}</span>
-                            <input type="text" class="form-control" ng-model="item.property5" ng-show="!!_editOrderItems" />
-                        </td>
-                        <td ng-show="!!_editOrderItems">
-                            <a href="javascript:void(0);" title="删除" ng-click="btnOrderItems_Oper('del',$index)"><i class="fa fa-remove btn-icon red"></i></a>
-                            <a href="javascript:void(0);" title="取消修改" ng-click="btnOrderItems_Oper('repeat',$index)"><i class="fa fa-repeat btn-icon gray"></i></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('cancel')" ng-show="!!_editOrderItems">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">申报价值：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.declareGoodsValue | number:2}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">申报品名：</label>
+                    <div class="col-sm-4" ng-if="isPrintDetail">
+                        <label class="control-label">{{data.declareGoodsName}}</label>
+                    </div>
+                    <div class="row col-sm-8" ng-if="!isPrintDetail">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="50px">序号</th>
+                                    <th>品牌</th>
+                                    <th>商品描述</th>
+                                    <th>数量</th>
+                                    <th>价值</th>
+                                    <th>属性1</th>
+                                    <th>属性2</th>
+                                    <th>属性3</th>
+                                    <th>属性4</th>
+                                    <th>属性5</th>
+                                    <th width="70px" ng-show="!!_editOrderItems">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in data.orderItems">
+                                    <td>{{$index+1}}</td>
+                                    <td>
+                                        <span ng-show="!_editOrderItems">{{item.itemBrand}}</span>
+                                        <input type="text" class="form-control" ng-model="item.itemBrand" ng-show="!!_editOrderItems" />
+                                    </td>
+                                    <td>
+                                        <span ng-show="!_editOrderItems">{{item.description}}</span>
+                                        <input type="text" class="form-control" ng-model="item.description" ng-show="!!_editOrderItems" />
+                                    </td>
+                                    <td>
+                                        <span ng-show="!_editOrderItems">{{item.quantity}}</span>
+                                        <input type="text" class="form-control" ng-model="item.quantity" ng-show="!!_editOrderItems" />
+                                    </td>
+                                    <td>
+                                        <span ng-show="!_editOrderItems">{{item.unitprice | number:2}}</span>
+                                        <input type="text" class="form-control" ng-model="item.unitprice" ng-show="!!_editOrderItems" />
+                                    </td>
+                                    <td>
+                                        <span ng-show="!_editOrderItems">{{item.property1}}</span>
+                                        <input type="text" class="form-control" ng-model="item.property1" ng-show="!!_editOrderItems" />
+                                    </td>
+                                    <td>
+                                        <span ng-show="!_editOrderItems">{{item.property2}}</span>
+                                        <input type="text" class="form-control" ng-model="item.property2" ng-show="!!_editOrderItems" />
+                                    </td>
+                                    <td>
+                                        <span ng-show="!_editOrderItems">{{item.property3}}</span>
+                                        <input type="text" class="form-control" ng-model="item.property3" ng-show="!!_editOrderItems" />
+                                    </td>
+                                    <td>
+                                        <span ng-show="!_editOrderItems">{{item.property4}}</span>
+                                        <input type="text" class="form-control" ng-model="item.property4" ng-show="!!_editOrderItems" />
+                                    </td>
+                                    <td>
+                                        <span ng-show="!_editOrderItems">{{item.property5}}</span>
+                                        <input type="text" class="form-control" ng-model="item.property5" ng-show="!!_editOrderItems" />
+                                    </td>
+                                    <td ng-show="!!_editOrderItems">
+                                        <a href="javascript:void(0);" title="删除" ng-click="btnOrderItems_Oper('del',$index)"><i class="fa fa-remove btn-icon red"></i></a>
+                                        <a href="javascript:void(0);" title="取消修改" ng-click="btnOrderItems_Oper('repeat',$index)"><i class="fa fa-repeat btn-icon gray"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('cancel')"
+                            ng-show="!!_editOrderItems">
 <i class="fa fa-repeat"></i>取消修改
 </button>
-<button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('add')" ng-show="!!_editOrderItems">
+                        <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('add')"
+                            ng-show="!!_editOrderItems">
 <i class="fa fa-plus"></i>新增
 </button>
-<label class="control-label red pull-right" ng-show="!!_editOrderItems">内容修改后，请点击底部“保存”按钮。</label>
-<button type="button" class="btn btn-default pull-right role" data-role="84" style="margin-left: 10px;" ng-click="btnEditOrderItems()" ng-show="!_editOrderItems">
+                        <label class="control-label red pull-right" ng-show="!!_editOrderItems">内容修改后，请点击底部“保存”按钮。</label>
+                        <button type="button" class="btn btn-default pull-right role" data-role="84" style="margin-left: 10px;" ng-click="btnEditOrderItems()"
+                            ng-show="!_editOrderItems">
 <i class="fa fa-edit"></i>修改品名
 </button>
-</div>
-</div>
-<div class="clearfix"></div>
-<!--<div class="form-group">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <!--<div class="form-group">
                     <label class="col-sm-2 control-label text-right">增值服务：</label>
                     <div class="col-sm-4">
                         <label class="control-label">{{data.valueAddService || "无"}}</label>
@@ -271,105 +279,105 @@
                         <label class="control-label">{{data.couponNo || "无"}}</label>
                     </div>
                 </div>-->
-</fieldset>
-<fieldset ng-if="!isPrintDetail">
-    <legend>批价信息</legend>
-    <div class="form-group">
-        <label class="col-sm-2 control-label text-right">包裹信息：</label>
-        <div class="row col-sm-8">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>出货跟踪号</th>
-                        <th>实际重量</th>
-                        <th>运费价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in data.outboundPackages">
-                        <td>{{item.trackingNumber}}</td>
-                        <td>{{item.actualWeight || 0}}</td>
-                        <td>{{item.shippingFee || 0}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label text-right">包裹件数：</label>
-        <div class="col-sm-4">
-            <label class="control-label">{{data.outboundPackages.length}}</label>
-        </div>
-        <label class="col-sm-2 control-label text-right">发货仓库：</label>
-        <div class="col-sm-4">
-            <label class="control-label">{{data.warehouseName}}</label>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label text-right">合计({{data.orderType == 0 && data.customer.isVip == true ? '$' : '￥'}})：</label>
-        <div class="col-sm-4">
-            <label class="control-label">{{data._shippingFeeTotal || 0}}</label>
-        </div>
-        <label class="col-sm-2 control-label text-right">打包人员：</label>
-        <div class="col-sm-4">
-            <label class="control-label">{{data.inuserName}}</label>
-        </div>
-    </div>
-</fieldset>
-<fieldset>
-    <legend>附加服务：</legend>
-    <div class="form-group">
-        <label class="col-sm-2 control-label text-right">附加服务：</label>
-        <div class="col-sm-2" ng-show="result.pack_takeoutInvoice == 1">
-            <label class="control-label">取出发票</label>
-        </div>
-        <div class="col-sm-2" ng-show="result.pack_urgentProcess == 1">
-            <label class="control-label">加急处理</label>
-        </div>
-        <div class="col-sm-2" ng-show="result.pack_steadyInner == 1">
-            <label class="control-label">内件加固</label>
-        </div>
-        <div class="col-sm-2" ng-show="result.pack_replaceCarton == 1">
-            <label class="control-label">更换外箱</label>
-        </div>
-        <div class="col-sm-2" ng-show="result.pack_removeInner == 1">
-            <label class="control-label">去除内件</label>
-        </div>
-    </div>
+            </fieldset>
+            <fieldset ng-if="!isPrintDetail">
+                <legend>批价信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">包裹信息：</label>
+                    <div class="row col-sm-8">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>出货跟踪号</th>
+                                    <th>实际重量</th>
+                                    <th>运费价格</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in data.outboundPackages">
+                                    <td>{{item.trackingNumber}}</td>
+                                    <td>{{item.actualWeight || 0}}</td>
+                                    <td>{{item.shippingFee || 0}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">包裹件数：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.outboundPackages.length}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">发货仓库：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.warehouseName}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">合计({{data.orderType == 0 && data.customer.isVip == true ? '$' : '￥'}})：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data._shippingFeeTotal || 0}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">打包人员：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.inuserName}}</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>附加服务：</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">附加服务：</label>
+                    <div class="col-sm-2" ng-show="result.pack_takeoutInvoice == 1">
+                        <label class="control-label">取出发票</label>
+                    </div>
+                    <div class="col-sm-2" ng-show="result.pack_urgentProcess == 1">
+                        <label class="control-label">加急处理</label>
+                    </div>
+                    <div class="col-sm-2" ng-show="result.pack_steadyInner == 1">
+                        <label class="control-label">内件加固</label>
+                    </div>
+                    <div class="col-sm-2" ng-show="result.pack_replaceCarton == 1">
+                        <label class="control-label">更换外箱</label>
+                    </div>
+                    <div class="col-sm-2" ng-show="result.pack_removeInner == 1">
+                        <label class="control-label">去除内件</label>
+                    </div>
+                </div>
 
-</fieldset>
-<fieldset>
+            </fieldset>
+            <fieldset>
 
-    <legend>备注信息</legend>
-    <div class="form-group">
-        <label class="col-sm-2 control-label text-right">留言记录：</label>
-        <div class="row col-sm-4">
-            <div style=" margin-bottom:10px;" ng-repeat="item in data.messageLogs">
-<div class="col-sm-6 blue">{{item.operationUserName}}</div>
-<div class="col-sm-6 text-right">{{item.operationDate | date:'MM/dd/yyyy HH:mm:ss'}}</div>
-<div class="col-sm-12">{{item.message}}</div>
-<div class="clearfix"></div>
-</div>
-</div>
-</div>
-{{result.pack_takeoutInvoice}}
+                <legend>备注信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">留言记录：</label>
+                    <div class="row col-sm-4">
+                        <div style=" margin-bottom:10px;" ng-repeat="item in data.messageLogs">
+                            <div class="col-sm-6 blue">{{item.operationUserName}}</div>
+                            <div class="col-sm-6 text-right">{{item.operationDate | date:'MM/dd/yyyy HH:mm:ss'}}</div>
+                            <div class="col-sm-12">{{item.message}}</div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                {{result.pack_takeoutInvoice}}
 
-<div class="form-group">
-    <label class="col-sm-2 control-label text-right">您的留言：</label>
-    <div class="col-sm-4">
-        <textarea class="form-control" ng-model="_message"></textarea>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">您的留言：</label>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" ng-model="_message"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-default role" data-role="85" ng-click="btnMessagePush()"><i class="fa fa-comment"></i>留言</button>
+                </div>
+
+            </fieldset>
+            <div class="form-group text-center">
+                <!--<button type="button" class="btn btn-primary" ng-if="!isPrintDetail">通过</button>-->
+                <button type="button" class="btn btn-primary role" data-role="87" ng-if="!isPrintDetail" ng-click="btnSave()"><i class="fa fa-save"></i>保存</button>
+
+                <button type="button" class="btn btn-primary" ng-if="isPrintDetail"><i class="fa fa-print"></i>打印</button>
+                <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+            </div>
+        </form>
     </div>
-    <button type="button" class="btn btn-default role" data-role="85" ng-click="btnMessagePush()"><i class="fa fa-comment"></i>留言</button>
-</div>
-
-</fieldset>
-<div class="form-group text-center">
-    <!--<button type="button" class="btn btn-primary" ng-if="!isPrintDetail">通过</button>-->
-    <button type="button" class="btn btn-primary role" data-role="87" ng-if="!isPrintDetail" ng-click="btnSave()"><i class="fa fa-save"></i>保存</button>
-
-    <button type="button" class="btn btn-primary" ng-if="isPrintDetail"><i class="fa fa-print"></i>打印</button>
-    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
-</div>
-</form>
-</div>
 </div>

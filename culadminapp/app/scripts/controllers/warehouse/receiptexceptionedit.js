@@ -54,7 +54,7 @@ angular.module('culAdminApp')
                         }
                     })
                 }, 1000);
-            }
+            }  
 
             $scope.checkReceiptNumber();
 
