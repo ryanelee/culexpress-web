@@ -197,7 +197,7 @@ angular.module('culAdminApp')
                     plugMessenger.info("请省/州!");
                     return;
                 }
-                warehouseService.createWarehouse($scope.form, function (res) {
+                warehouseService.createWarehouse($scope.form, function (res) {                   
                     if (!res.message) {
                         plugMessenger.success("保存成功");
                         $location.path('/system/warehouselist')

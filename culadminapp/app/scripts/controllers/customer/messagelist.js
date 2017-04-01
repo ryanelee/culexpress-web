@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('MessageListCtrl', ["$scope", "$rootScope","$location", "faqService", "warehouseService", "plugMessenger",
-      function ($scope, $rootScope,$location, faqService, warehouseService, plugMessenger) {
+  .controller('MessageListCtrl', ["$scope", "$rootScope","$location", "faqService", "warehouseService", "plugMessenger","$route",
+      function ($scope, $rootScope,$location, faqService, warehouseService, plugMessenger,$route) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -137,8 +137,10 @@ angular.module('culAdminApp')
                     "status": "Closed"
                 }, function (result) {
                     if (result.success == true) {
-                        plugMessenger.success("处理成功");
-                        $scope.btnSearch;
+                        //关闭问题时同时刷新top-bar上的留言条数
+                        $rootScope.getmessageList();
+                        $route.reload(); 
+                        plugMessenger.success("处理成功");                    
                     }
                 })
               }
@@ -168,5 +170,10 @@ angular.module('culAdminApp')
                   }
               });
           }, 500);
+
+        //   $scope.reloadRoute = function () {
+        //       $window.location.reload();
+        //       console.log("重新加载");
+        //   };
           
       }]);

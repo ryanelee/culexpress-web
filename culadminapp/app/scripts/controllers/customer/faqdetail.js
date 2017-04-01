@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('FAQDetailCtrl', ["$scope", "$location", "$window", "faqService", "warehouseService", "customerMessageService", "plugMessenger",
-        function($scope, $location, $window, faqService, warehouseService, customerMessageService, plugMessenger) {
+    .controller('FAQDetailCtrl', ["$scope", "$rootScope", "$location", "$window", "faqService", "warehouseService", "customerMessageService", "plugMessenger",
+        function($scope, $rootScope, $location, $window, faqService, warehouseService, customerMessageService, plugMessenger) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -22,9 +22,6 @@ angular.module('culAdminApp')
                 messageTypeData: [],
                 warehouseList: []
             }
-
-
-
 
             faqService.getMessageType(7, function(result) {
                 $scope.tpl_status.messageTypeData = [{ "typeID": "", "typeName": "全部" }].concat(result);
@@ -82,17 +79,17 @@ angular.module('culAdminApp')
             }
 
             $scope.btnMessagePush = function() {
-                    if (!!$scope._message) {
-                        customerMessageService.push({
-                            "messageNumber": $scope.tpl_status.messageNumber,
-                            "message": $scope._message
-                        }, function(result) {
-                            $scope.refreshMessage();
-                            $scope._message = "";
-                        });
-                    }
+                if (!!$scope._message) {
+                    customerMessageService.push({
+                        "messageNumber": $scope.tpl_status.messageNumber,
+                        "message": $scope._message
+                    }, function(result) {
+                        $scope.refreshMessage();
+                        $scope._message = "";
+                    });
                 }
-                //查看客户信息
+           }
+           //查看客户信息
            $scope.btnOpenDetail = function (type, item) {
               switch (type) {
                   case "customerDetail":
@@ -108,7 +105,6 @@ angular.module('culAdminApp')
                 $location.path("/order/orderdetail").search({ orderNumber: 'JK020OJWV10000049' });
             }
 
-
             $scope.setMessageLog = function() {
                 if (!$scope.search.messageType) {
                     plugMessenger.error("请选择转交问题");
@@ -121,11 +117,6 @@ angular.module('culAdminApp')
                 })
             }
 
-
-
-
-
-
             $scope.btnUpdateStatus = function(status) {
                 var _update = function() {
                     faqService.update({
@@ -134,6 +125,8 @@ angular.module('culAdminApp')
                         "status": status
                     }, function(result) {
                         if (result.success == true) {
+                            //关闭问题时同时刷新top-bar上的留言条数
+                            $rootScope.getmessageList();
                             plugMessenger.success("处理成功");
                             $scope.btnPrev();
                         }
