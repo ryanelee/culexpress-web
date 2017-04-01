@@ -48,15 +48,19 @@ angular.module('culAdminApp')
             }
 
             $scope.getPackageDetail = function () {
+                console.log('1234564324543')
                 if (!!$scope.data.trackingNumber && $scope._trackingNumber != $scope.data.trackingNumber) {
                     warehouseService.getInboundPackageDetail($scope.data.trackingNumber, function (result) {
                         if (result == null) {
                             //新增
+                            console.log('1234567ui')
                             var _newNumber = angular.copy($scope.data.trackingNumber);
                             $scope.data = { trackingNumber: _newNumber }
                             $scope._trackingNumber = "";
                             $scope.tpl_status.isExist = false;
                             $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
+                            // $window.document.getElementById("txtTrackingNumber").focus();
+
                         } else {
                             //修改
                             console.log("feichang" + JSON.stringify(result));
@@ -64,8 +68,14 @@ angular.module('culAdminApp')
                             $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
                             $scope.tpl_status.isExist = true;
-                            if ($scope.data.trackingNumber &&  (!$scope.data.packageWeight  ||  $scope.data.packageWeight == 0) ) {
+                            $scope.tpl_status.isExist_p = true;
+                            console.log('2345');
+                            console.log($scope.data.packageWeight);
+                            if ($scope.data.trackingNumber && $scope.data.inboundStatus < 3) {
                                 $window.document.getElementById("packageWeight").focus();
+                                packageWeight.focus();
+                                $scope.tpl_status.isExist_p = false;
+
                             }
                         }
                     });

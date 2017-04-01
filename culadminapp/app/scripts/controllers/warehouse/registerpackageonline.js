@@ -22,10 +22,12 @@ angular.module('culAdminApp')
           var _timeout = null;
           $scope.checkInboundPackageNumber = function () {
               console.log('1')
+              console.log($scope.tempOutboundPackageNumber)
               if (!!_timeout) clearTimeout(_timeout);
               _timeout = setTimeout(function () {
                   $scope.$apply(function () {
-                      if (!!$scope.tempOutboundPackageNumber) {
+                          console.log('234')
+                      if (!!$scope.tempInboundPackageNumber) {
                           console.log('23')
                           orderService.getList({
                               receiveTrackingNumber: $scope.tempInboundPackageNumber

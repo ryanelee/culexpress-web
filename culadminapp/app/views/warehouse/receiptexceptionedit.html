@@ -34,6 +34,7 @@
                         <select class="form-control search-control" ng-model="data.type">
                             <option value="1" ng-if="data.sendType == 2">无预报记录</option> <!--海淘包裹-->
                             <option value="2" ng-if="data.sendType == 2">物品损坏</option> <!--海淘包裹-->
+                            <option value="7" ng-if="data.sendType == 2">员工包裹</option> <!--海淘包裹-->
                             <option value="3" ng-if="data.sendType == 1">错送</option> <!--寄送库存-->
                             <option value="4" ng-if="data.sendType == 1">少送</option> <!--寄送库存-->
                             <option value="5" ng-if="data.sendType == 1">多送</option> <!--寄送库存-->
