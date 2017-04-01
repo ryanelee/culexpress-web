@@ -25,6 +25,7 @@ angular.module('culAdminApp')
               if (!!_timeout) clearTimeout(_timeout);
               _timeout = setTimeout(function () {
                   $scope.$apply(function () {
+                          console.log('234')
                       if (!!$scope.tempOutboundPackageNumber) {
                           console.log('23')
                           orderService.getList({
