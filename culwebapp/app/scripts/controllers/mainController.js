@@ -45,7 +45,7 @@ angular
             }];
             
             $scope.getOpenAnnounce = function() {
-                var obj = {type:2,status:1,openAll:0};
+                var obj = {type:2,status:1,openAll:1};
                 $http.post(cul.apiPath + '/web/WebAnnounce',obj).then(function (result) {
                     $scope.openAnnounceList = result.data.data.data;
                      console.log("普通广告管理 公开");
