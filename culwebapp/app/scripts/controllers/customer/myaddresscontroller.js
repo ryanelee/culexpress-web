@@ -8,8 +8,8 @@
  * Controller of the culwebApp
  */
 angular.module('culwebApp')
-    .controller('MyAddressController', ['$rootScope', '$scope', '$state', '$timeout', '$q', '$http', '$filter', 'addressSvr', '$stateParams', '$element', 'Customer','$window',
-        function ($rootScope, $scope, $state, $timeout, $q, $http, $filter, addressSvr, $stateParams, $element, Customer,$window) {
+    .controller('MyAddressController', ['$rootScope', '$scope', '$state', '$timeout', '$q', '$http', '$filter', 'addressSvr', '$stateParams', '$element', 'Customer', '$window',
+        function ($rootScope, $scope, $state, $timeout, $q, $http, $filter, addressSvr, $stateParams, $element, Customer, $window) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -59,7 +59,7 @@ angular.module('culwebApp')
                 $scope.search.parentid = $scope.search.city.id;
                 addressSvr.getDistrict($scope.search).then(function (data) {
                     $scope.areas = data.data.data;
-                     if (area) {
+                    if (area) {
                         $scope.areas.forEach(function (e) {
                             if (area.indexOf(e.name) >= 0) {
                                 $scope.search.area = e;
@@ -229,7 +229,7 @@ angular.module('culwebApp')
                         markObj.result = true;
                         var key = markObj.dataProp || name;
                         $scope.data[key] = result.data.filePath;
-                        $scope.data[key+'Url'] = result.data.url;
+                        $scope.data[key + 'Url'] = result.data.url;
                         markObj.url = result.data.url;
 
                         markObj.hookHandler && markObj.hookHandler();
@@ -357,7 +357,7 @@ angular.module('culwebApp')
                                 console.log(province)
                                 console.log(city)
                                 console.log(area)
-                                $scope.getProvince(province,city,area);
+                                $scope.getProvince(province, city, area);
 
 
                                 // rebindStateOrProvince($scope.data.stateOrProvince, $scope.data.city);
@@ -373,6 +373,19 @@ angular.module('culwebApp')
                         }
                     });
             }
+
+            if ($stateParams.addressId) {
+                 addressSvr
+                    .checkAddress({addressNumber:$stateParams.addressId})
+                    .then(function (result) {
+                        console.log('12345');
+                        if(result.data.code == '999'){
+                            alertify.alert('提示', result.data.msg, 'error');
+                            $scope.changeAddress = '0'
+                        }
+                        console.log(result)
+                    })
+             }
 
 
         }]);

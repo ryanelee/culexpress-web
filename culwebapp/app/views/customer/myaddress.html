@@ -1,4 +1,4 @@
-﻿<div class="row" ng-controller="MyAddressController">
+﻿<div class="row" ng-controller="MyAddressController">  
     <!-- <div class="profile-body margin-bottom-20">
         <form class="sky-form">
             <div class="form-group ">
@@ -216,7 +216,7 @@
               <textarea class="form-control" rows="5" ng-model="data.note"></textarea>
           </div>
           <div class="form-group pull-right">
-              <a class="btn-u bg-color-ffb" href="javascript:void(0)" ng-click="submitAddress();">
+              <a  ng-if="changeAddress != '0'"  class="btn-u bg-color-ffb" href="javascript:void(0)" ng-click="submitAddress();">
                   <i class="fa fa-save"></i> 保存并返回
               </a>
               <a class="btn-u btn-u-default" href="javascript:void(0)" ng-click="goback()">

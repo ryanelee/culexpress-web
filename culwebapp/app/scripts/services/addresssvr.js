@@ -52,6 +52,9 @@ angular.module('culwebApp')
         self.getAddressInfo = function (addressKey) {
             return $http.get(cul.apiPath + '/receiveaddress/' + addressKey);
         }
+        self.checkAddress = function (obj) {
+            return $http.post(cul.apiPath + '/address/checkAddress', obj);
+        }
         self.delAddressInfo = function (addressKeysString) {
             return $http.delete(cul.apiPath + '/receiveaddress?number=' + addressKeysString);
         }
