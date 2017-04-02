@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('ReceiptExceptionEditCtrl', ['$scope', '$location', '$window', 'receiptService', 'warehouseService', 'plugMessenger', '$timeout',
-        function($scope, $location, $window, receiptService, warehouseService, plugMessenger, $timeout) {
+    .controller('ReceiptStaffCtrl', ['$scope', '$location', '$window', 'receiptService', 'warehouseService', 'plugMessenger', '$timeout',
+        function ($scope, $location, $window, receiptService, warehouseService, plugMessenger, $timeout) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -18,33 +18,51 @@ angular.module('culAdminApp')
             $scope.data = null;
 
             $scope.tempReceiptNumber = $location.search().receiptNumber || "";
-            warehouseService.getWarehouse(function(result) {
+            $scope.staff = $location.search().staff;
+
+            warehouseService.getWarehouse(function (result) {
                 $scope.warehouseList = result;
             });
 
+
+            $scope.checkReceiptNumber = function (e) {
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                    receiptService.getDetail($scope.tempReceiptNumber, function (result) {
+                        if (!result.message) {
+                            $location.search({ "trackingNumber": $scope.tempReceiptNumber, "inboundStatus": $scope.tempInboundStatus, isUnusual: 1 });
+                            $location.path("/warehouse/receiptNoASN");
+                        }
+                    })
+                }
+            }
+
             var _timeout = null;
-            $scope.checkReceiptNumber = function() {
+            $scope.checkReceiptNumber = function () {
                 if (!!_timeout) clearTimeout(_timeout);
-                _timeout = setTimeout(function() {
-                    $scope.$apply(function() {
+                _timeout = setTimeout(function () {
+                    $scope.$apply(function () {
                         if (!!$scope.tempReceiptNumber) {
-                            receiptService.getDetail($scope.tempReceiptNumber, function(result) {
+                            receiptService.getDetail($scope.tempReceiptNumber, function (result) {
                                 $scope.data = null;
                                 if (!result.message) {
-                                    $scope.data = {
-                                        receiptNumber: result.receiptNumber,
-                                        sendType: result.sendType,
-                                        customerNumber: result.customerNumber,
-                                        warehouseNumber: result.warehouseNumber != null ? result.warehouseNumber : $scope.warehouseList[0].warehouseNumber
-                                    }
-                                    switch ($scope.data.sendType) {
-                                        case 1: //寄送包裹
-                                            $scope.data.type = "3";
-                                            break;
-                                        case 2: //海淘包裹
-                                            $scope.data.type = "1";
-                                            break;
-                                    }
+                                    $location.search({ "trackingNumber": $scope.tempReceiptNumber, "inboundStatus": $scope.tempInboundStatus, "isUnusual": 1 });
+                                    $location.path("/warehouse/receiptNoASN");
+
+                                    //     $scope.data = {
+                                    //         receiptNumber: result.receiptNumber,
+                                    //         sendType: result.sendType,
+                                    //         customerNumber: result.customerNumber,
+                                    //         warehouseNumber: result.warehouseNumber != null ? result.warehouseNumber : $scope.warehouseList[0].warehouseNumber
+                                    //     }
+                                    //     switch ($scope.data.sendType) {
+                                    //         case 1: //寄送包裹
+                                    //             $scope.data.type = "3";
+                                    //             break;
+                                    //         case 2: //海淘包裹
+                                    //             $scope.data.type = "1";
+                                    //             break;
+                                    //     }
                                 }
                                 $scope.tempReceiptNumber = "";
                             });
@@ -53,11 +71,11 @@ angular.module('culAdminApp')
                         }
                     })
                 }, 1000);
-            }  
+            }
 
             $scope.checkReceiptNumber();
 
-            $scope.btnSave = function() {
+            $scope.btnSave = function () {
                 receiptService.exceptionSave({
                     customerNumber: $scope.data.customerNumber,
                     receiptNumber: $scope.data.receiptNumber,
@@ -65,7 +83,7 @@ angular.module('culAdminApp')
                     type: $scope.data.type,
                     sendtype: $scope.data.sendType,
                     memo: $scope.data.memo
-                }, function(result) {
+                }, function (result) {
                     plugMessenger.success("操作成功");
                     $scope.data.exceptionNumber = result.data[0].exceptionNumber
                     $scope.btnPrint();
@@ -73,7 +91,7 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.btnPrev = function() {
+            $scope.btnPrev = function () {
                 $window.history.back();
             }
 
@@ -89,7 +107,7 @@ angular.module('culAdminApp')
             //}
 
 
-            $scope.btnPrint = function(item) {
+            $scope.btnPrint = function (item) {
                 console.log($scope.data.sendType);
                 switch ($scope.data.sendType) {
                     case 1: //寄送库存

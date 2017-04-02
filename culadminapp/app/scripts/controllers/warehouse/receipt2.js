@@ -104,6 +104,15 @@ angular.module('culAdminApp')
                     })
 
                     $scope.dataList = _data;
+                    $scope.dataList.forEach(function (e) {
+                        console.log(e.isUnusual)
+                        if (e.isUnusual == 1) {
+                            e._sendType = "员工包裹";
+                        }
+                        if (e.isUnusual == 2) {
+                            e._sendType = "异常包裹";
+                        }
+                    })
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
                     $rootScope.$emit("changeMenu");
                 });
@@ -119,7 +128,7 @@ angular.module('culAdminApp')
             $scope.btnOpenDetail = function (type, item) {
                 switch (type) {
                     case "receiptDetail":
-                        $location.search({ receiptNumber: item.receiptNumber});
+                        $location.search({ receiptNumber: item.receiptNumber });
                         $location.path("/warehouse/receiptdetail2");
                         break;
                     case "customerDetail":

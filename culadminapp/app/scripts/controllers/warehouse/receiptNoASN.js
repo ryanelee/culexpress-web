@@ -28,13 +28,13 @@ angular.module('culAdminApp')
                     }
                 };
             };
-
-
+            $scope.isUnusual = $location.search().isUnusual;
 
             $scope.data = {
                 trackingNumber: angular.copy($location.search().trackingNumber || ""),
-                inboundStatus: angular.copy($location.search().inboundStatus || "")
+                inboundStatus: angular.copy($location.search().inboundStatus || ""),
             }
+
 
             // if ($scope.data.inboundStatus <= 1) {
             //     $window.document.getElementById("txtTrackingNumber").focus();
@@ -229,10 +229,13 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSaveAndPrint = function () {
-                $scope.data.isUnusual = 0;
-                $("input[name='pro']:checked").each(function (index, e) {
-                    $scope.isStaffFlag = $(this).attr("value");
-                });
+                if ($scope.isUnusual) {
+                    $scope.data.isUnusual = $scope.isUnusual;
+                }
+                // $scope.data.isUnusual = 0;
+                // $("input[name='pro']:checked").each(function (index, e) {
+                //     $scope.isStaffFlag = $(this).attr("value");
+                // });
                 if ($scope.isStaffFlag == 'true') {
                     $scope.data.isUnusual = 1;
                 }
@@ -267,13 +270,16 @@ angular.module('culAdminApp')
                     plugMessenger.error("必须填写重量");
                     return;
                 }
-                $scope.data.isUnusual = 0;
-                $("input[name='pro']:checked").each(function (index, e) {
-                    $scope.isStaffFlag = $(this).attr("value");
-                });
-                if ($scope.isStaffFlag == 'true') {
-                    $scope.data.isUnusual = 1;
+                if ($scope.isUnusual) {
+                    $scope.data.isUnusual = $scope.isUnusual;
                 }
+                // $scope.data.isUnusual = 0;
+                // $("input[name='pro']:checked").each(function (index, e) {
+                //     $scope.isStaffFlag = $(this).attr("value");
+                // });
+                // if ($scope.isStaffFlag == 'true') {
+                //     $scope.data.isUnusual = 1;
+                // }
                 var _callback = function (result) {
                     if (!result.message) {
                         plugMessenger.success("操作成功");

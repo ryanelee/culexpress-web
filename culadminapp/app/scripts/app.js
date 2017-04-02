@@ -82,6 +82,10 @@ angular
                 templateUrl: 'views/warehouse/receiptexceptionedit.html',
                 controller: 'ReceiptExceptionEditCtrl'
             })
+              .when('/warehouse/receiptstaff', {
+                templateUrl: 'views/warehouse/receiptstaff.html',
+                controller: 'ReceiptStaffCtrl'
+            })
             .when('/warehouse/receiptexceptiondetail', {
                 templateUrl: 'views/warehouse/receiptexceptiondetail.html',
                 controller: 'ReceiptExceptionDetailCtrl'
