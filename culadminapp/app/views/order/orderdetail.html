@@ -116,7 +116,7 @@
                                         <!--<button type="button" class="btn btn-link role" data-role="86" ng-click="btnEditOrderAddress(address)" ng-show="!address._edit">
                                             <i class="fa fa-edit"></i>修改地址
                                         </button>-->
-                                        <button type="button" class="btn btn-link "  ng-click="btnEditOrderAddress(address)" ng-show="!address._edit">
+                                        <button type="button" class="btn btn-link " ng-click="btnEditOrderAddress(address)" ng-show="!address._edit">
                                             <i class="fa fa-edit"></i>修改地址
                                         </button>
 
@@ -253,10 +253,15 @@
 <i class="fa fa-plus"></i>新增
 </button>
                         <label class="control-label red pull-right" ng-show="!!_editOrderItems">内容修改后，请点击底部“保存”按钮。</label>
-                        <button type="button" class="btn btn-default pull-right role" data-role="84" style="margin-left: 10px;" ng-click="btnEditOrderItems()"
+                        <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnEditOrderItems()"
                             ng-show="!_editOrderItems">
 <i class="fa fa-edit"></i>修改品名
 </button>
+     <label class="control-label red pull-right" ng-show="!!_editOrderItems">内容修改后，请点击底部“保存”按钮。</label>
+                        <!--<button type="button" class="btn btn-default pull-right role" data-role="84" style="margin-left: 10px;" ng-click="btnEditOrderItems()"
+                            ng-show="!_editOrderItems">
+<i class="fa fa-edit"></i>修改品名
+</button>-->
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -373,7 +378,7 @@
             </fieldset>
             <div class="form-group text-center">
                 <!--<button type="button" class="btn btn-primary" ng-if="!isPrintDetail">通过</button>-->
-                <button type="button" class="btn btn-primary role" data-role="87" ng-if="!isPrintDetail" ng-click="btnSave()"><i class="fa fa-save"></i>保存</button>
+                <button type="button" class="btn btn-primary" ng-if="!isPrintDetail" ng-click="btnSave()"><i class="fa fa-save"></i>保存</button>
 
                 <button type="button" class="btn btn-primary" ng-if="isPrintDetail"><i class="fa fa-print"></i>打印</button>
                 <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
