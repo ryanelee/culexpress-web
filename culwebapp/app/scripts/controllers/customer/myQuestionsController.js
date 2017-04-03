@@ -8,7 +8,7 @@ angular
             $scope.imageArr = [];
             $scope.images;
 
-
+            console.log('123456')
 
 
 

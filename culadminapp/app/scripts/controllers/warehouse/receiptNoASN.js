@@ -20,14 +20,14 @@ angular.module('culAdminApp')
             $scope.flag = '0';
             $scope.customerNumberFocus = false;
 
-            $scope.myKeyup = function (e) {
-                $scope.myKeyup = function (e) {
-                    var keycode = window.event ? e.keyCode : e.which;
-                    if (keycode == 13) {
-                        $scope.register();
-                    }
-                };
-            };
+            // $scope.myKeyup = function (e) {
+            //     $scope.myKeyup = function (e) {
+            //         var keycode = window.event ? e.keyCode : e.which;
+            //         if (keycode == 13) {
+            //             $scope.register();
+            //         }
+            //     };
+            // };
             $scope.isUnusual = $location.search().isUnusual;
 
             $scope.data = {
@@ -114,7 +114,7 @@ angular.module('culAdminApp')
                 if (keycode == 13) {
                     console.log('2345')
                     if (!$scope.data.receiveIdentity) {
-                        plugMessenger.error("客户标示不能为空");
+                        // plugMessenger.error("客户标示不能为空");
                         return;
                     }
                     $scope.flag = '0'
@@ -125,8 +125,8 @@ angular.module('culAdminApp')
                             return;
                         }
                         if (result.data.code == '000') {
-                            packageDescription.focus()
-                            $scope.data.customerNumber = result.data.data[0].customerNumber
+                            customerNumber.focus()
+                            $scope.data.tempCustomerNumber = result.data.data[0].customerNumber
                             console.log($scope.data.tempCustomerNumber);
                         }
                     })
@@ -135,14 +135,14 @@ angular.module('culAdminApp')
             };
 
 
-            //  $scope.myKeyup = function (e) {
-            //     $scope.myKeyup = function (e) {
-            //         var keycode = window.event ? e.keyCode : e.which;
-            //         if (keycode == 13) {
-            //             $scope.register();
-            //         }
-            //     };
-            // };
+             $scope.myKeyup = function (e) {
+                // $scope.myKeyup = function (e) {
+                    var keycode = window.event ? e.keyCode : e.which;
+                    if (keycode == 13) {
+                        $scope.register();
+                    }
+                // };
+            };
 
 
 
@@ -167,21 +167,21 @@ angular.module('culAdminApp')
             // }
 
 
-            // $scope.checkCustomerNumber = function () {
-            //     if (!$scope.data.customerNumber) {
-            //         plugMessenger.error("客户编号不能为空");
-            //         // $scope.customerNumberFocus = true;
-            //         $window.document.getElementById("customerNumber").focus();  
-            //         return;
-            //     }
-            //     if ($scope.data.tempCustomerNumber != $scope.data.customerNumber) {
-            //         plugMessenger.error("客户标识和客户编号对应，请重新输入");
-            //         $scope.data.customerNumber = "";
-            //         $window.document.getElementById("customerNumber").focus();  
-            //         // $scope.customerNumberFocus = true;
-            //         return;
-            //     }
-            // }
+            $scope.checkCustomerNumber = function () {
+                if (!$scope.data.customerNumber) {
+                    plugMessenger.error("客户编号不能为空");
+                    // $scope.customerNumberFocus = true;
+                    $window.document.getElementById("customerNumber").focus();  
+                    return;
+                }
+                if ($scope.data.tempCustomerNumber != $scope.data.customerNumber) {
+                    plugMessenger.error("客户标示和客户编号不匹配，请重新输入");
+                    $scope.data.customerNumber = "";
+                    $window.document.getElementById("customerNumber").focus();  
+                    // $scope.customerNumberFocus = true;
+                    return;
+                }
+            }
 
             $scope.checkInboundPackage = function () {
                 receiptService.checkInboundPackage($scope.data).then(function (result) {
