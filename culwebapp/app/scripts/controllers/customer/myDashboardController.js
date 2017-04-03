@@ -64,5 +64,11 @@ angular
             }
             $scope.getProAnnounce();
 
+            $scope.setStyle = function() {  
+                if($scope.proAnnounceList.length > 0) return 'col-sm-6';  
+                else{ return 'col-sm-12'; 
+                }              
+            };
+
         }
     ]);

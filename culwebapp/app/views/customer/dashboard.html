@@ -97,7 +97,8 @@
     <hr>
     <div class="row margin-bottom-40">
         <!--Profile Post-->
-        <div class="col-sm-6">
+        <!--<div class="col-sm-6" >-->
+            <div ng-class="setStyle()" ng-show="primAnnounceList.length>0" >
             <div class="panel panel-profile no-bg">
                 <div class="panel-heading overflow-h">
                     <h2 class="panel-title heading-sm pull-left"><i class="fa fa-bullhorn ffb"></i>公告</h2>
@@ -124,7 +125,8 @@
         </div>
         <!--End Profile Post-->
         <!--Profile Event-->
-        <div class="col-sm-6 md-margin-bottom-40">
+        <div class="col-sm-6 md-margin-bottom-40" ng-show="proAnnounceList.length>0">
+            <!--<div ng-class="setStyle()" ng-show="proAnnounceList">          -->
             <div class="panel panel-profile no-bg">
                 <div class="panel-heading overflow-h">
                     <h2 class="panel-title heading-sm pull-left"><i class="fa fa-shopping-cart"></i>促销活动</h2>
