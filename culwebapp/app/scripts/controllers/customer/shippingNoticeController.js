@@ -2,8 +2,8 @@
 
 var app = angular
     .module('culwebApp')
-    .controller('ShippingNoticeController', ['$scope', '$rootScope', '$filter', '$stateParams', 'OrderSvr', '$state',
-        function ($scope, $rootScope, $filter, $stateParams, orderSvr, $state) {
+    .controller('ShippingNoticeController', ['$scope', '$rootScope', '$filter', '$stateParams', 'OrderSvr', '$state','$window',
+        function ($scope, $rootScope, $filter, $stateParams, orderSvr, $state,$window) {
             $scope.$root.orderOptions = {};
             $scope.$root.wizardOptions = {};
             $scope.warehouses = [];
@@ -332,8 +332,13 @@ var app = angular
 
             $scope.redirectToOrderDetail = function (orderNumber) {
                 $state.go('customer.orderdetail', { id: orderNumber });
-            }
+            };
 
+            $window.document.getElementById("packageWeight").focus();
+            $scope.isShow = false;
+            $scope.isFocus = function(){              
+                $window.document.getElementById("packageWeight").focus();
+            }
         }]);
 
   app.directive('ngEnter', function () {

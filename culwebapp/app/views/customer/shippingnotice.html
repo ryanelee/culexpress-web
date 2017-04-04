@@ -30,11 +30,11 @@
                   <b class="tooltip tooltip-bottom-left">请输入您发货到我方仓库的快递运单号码，比如:LZ123456789</b>
               </label>
             </div>
-            <div class="right-row">
+            <div class="right-row" >
               <label class="label required">运单内容</label>
               <label class="input">
                   <i class="icon-prepend fa fa-question-circle"></i>
-                  <input type="text" name="required" class="form-control" ng-model="shippingNotice.packageDescription">
+                  <input type="text" name="required" class="form-control" id="packageDescription"  ng-model="shippingNotice.packageDescription">
                   <b class="tooltip tooltip-bottom-left">请填写您这个包裹的物品大致名称，例如：手机 ,衣服,维生素</b>
               </label>
             </div>
@@ -42,7 +42,7 @@
                 <label class="label required">包裹重量</label>
                 <label class="input">
                    <i class="icon-prepend fa fa-question-circle"></i>
-                   <input type="text" name="required" class="txt-item-l" ng-model="shippingNotice.packageWeight">
+                   <input type="text" name="required" class="txt-item-l" id="packageWeight" ng-model="shippingNotice.packageWeight">
                    <b class="tooltip tooltip-bottom-left">请输入包裹重量，如:10</b>
                 </label>
             </div>
@@ -58,7 +58,7 @@
             </div>
             <div class="form-group">
                 <div class="check-style">
-                  <input id="agree-message" class="checkbox-input" type="checkbox" ng-model="shippingNotice.isFastOrder" />
+                  <input id="agree-message" class="checkbox-input" type="checkbox" ng-click="isFocus()" id="isFastOrder" ng-model="shippingNotice.isFastOrder" />
                   <label for="agree-message"> 极速原箱 </label>
                 </div>
                 <!-- <label class="label"><input type="checkbox" ng-model="shippingNotice.isFastOrder"/> 极速原箱</label> -->
@@ -90,3 +90,4 @@
     </div>
 </div>
 <!-- End Content -->
+
