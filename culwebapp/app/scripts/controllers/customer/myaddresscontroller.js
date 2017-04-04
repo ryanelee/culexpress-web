@@ -338,15 +338,11 @@ angular.module('culwebApp')
                     addAddress();
                 }
             }
-
-
-            console.log("1234567");
             console.log($stateParams.addressId);
             if ($stateParams.addressId) {
                 addressSvr
                     .getAddressInfo($stateParams.addressId)
                     .then(function (result) {
-                        console.log(result);
                         if (result.data) {
                             $timeout(function () {
                                 $scope.data = result.data;
@@ -354,9 +350,6 @@ angular.module('culwebApp')
                                 var province = result.data.stateOrProvince;
                                 var city = result.data.city;
                                 var area = result.data.area;
-                                console.log(province)
-                                console.log(city)
-                                console.log(area)
                                 $scope.getProvince(province, city, area);
 
 
@@ -378,12 +371,10 @@ angular.module('culwebApp')
                  addressSvr
                     .checkAddress({addressNumber:$stateParams.addressId})
                     .then(function (result) {
-                        console.log('12345');
                         if(result.data.code == '999'){
                             alertify.alert('提示', result.data.msg, 'error');
                             $scope.changeAddress = '0'
                         }
-                        console.log(result)
                     })
              }
 

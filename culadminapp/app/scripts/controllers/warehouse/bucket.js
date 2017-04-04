@@ -64,8 +64,6 @@ angular.module('culAdminApp')
 
           $scope.getData = function () {
               bucketService.getList(_filterOptions(), function (result) {
-                    console.log("出库管理统计");
-                    console.log(result);
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
               });

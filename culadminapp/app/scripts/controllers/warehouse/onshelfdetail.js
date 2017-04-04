@@ -52,7 +52,6 @@ angular.module('culAdminApp')
                         if ($scope.tempItemNumber == $location.search().receiptNumber) {
                             inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
                                 $scope.data = null;
-                                console.log(result);
 
                                 if (!result.message) {
                                     $scope.data = result;
@@ -79,10 +78,8 @@ angular.module('culAdminApp')
 
                         if (!!$scope.tempItemNumber) {
                              $scope.tempReceiptNumber = $scope.tempItemNumber
-                            console.log($scope.tempItemNumber)
                             inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
                                 $scope.data = null;
-                                console.log(result);
 
                                 if (!result.message) {
                                     $scope.data = result;

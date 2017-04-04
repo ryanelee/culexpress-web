@@ -43,13 +43,11 @@ angular.module('culAdminApp')
                 if (!!$scope.searchBar.keywords) {
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 }
-                console.log("options" + JSON.stringify(_options));
                 return angular.copy(_options);
             }
 
             $scope.getData = function () {
                 warehouseService.getWarehouseList(_filterOptions(), function (result) {
-                    console.log(result);
                     $scope.dataList = result.data.data;
                     $scope.pagination.totalCount = result.data.pageInfo.totalCount;
                 });

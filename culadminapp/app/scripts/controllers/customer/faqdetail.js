@@ -41,9 +41,7 @@ angular.module('culAdminApp')
             });
 
             faqService.getDetail($scope.tpl_status.messageNumber, function(result) {
-                console.log(result);
                 $scope.images = result.images.split(',')
-                console.log($scope.images)
                 $scope.data = result;
                 faqService.getMessagelog({ messageNumber: $scope.tpl_status.messageNumber }, function(logs) {
                     $scope.logs = logs.data;
@@ -100,7 +98,6 @@ angular.module('culAdminApp')
           }
 
             $scope.btnViewCustomer = function(orderNumber) {
-                console.log(orderNumber);
                 return;
                 $location.path("/order/orderdetail").search({ orderNumber: 'JK020OJWV10000049' });
             }

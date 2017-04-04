@@ -99,9 +99,7 @@ angular.module('culAdminApp')
 
             $scope.getData = function () {
                 shelfService.getTransportList(_filterOptions(), function (result) {
-                    console.log('///////////////////////')
                     $scope.allTotal = result.allTotal;
-                    console.log(JSON.stringify(result))
                     var _data = result.data;
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function (x) {
@@ -109,7 +107,6 @@ angular.module('culAdminApp')
                         });
                     }
                     _data.forEach(function (e) {
-                        console.log(e.indate);
                         e.day = $scope.compareDate(e.indate);
                         if (e.packageDescription && e.packageDescription.length > 20) {
                             e.packageDescriptionFlag = 1;

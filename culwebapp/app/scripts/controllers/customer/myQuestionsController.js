@@ -8,10 +8,6 @@ angular
             $scope.imageArr = [];
             $scope.images;
 
-            console.log('123456')
-
-
-
             $scope.$on('$viewContentLoaded', function () {
                 loadFileinput();
             });
@@ -39,7 +35,6 @@ angular
                     resizeImage: true
 
                 }).on('fileuploaded', function (event, data) {
-                    console.log(JSON.stringify(data));
                     $scope.imageArr.push(data.response.url);
                 });
             }
@@ -118,14 +113,12 @@ angular
 
             $scope.submitQuestion = function () {
                 $scope.imageArr.forEach(function (e, index) {
-                    console.log(index);
                     if (index == 0) {
                         $scope.images = e;
                     } else {
                         $scope.images = $scope.images + "," + e;
                     }
                 })
-                console.log($scope.images);
                 $scope.model.images = $scope.images;
                 if (!$scope.model.message) {
                     alertify.alert('提示', '请您先填写问题详细描述。', 'warning');

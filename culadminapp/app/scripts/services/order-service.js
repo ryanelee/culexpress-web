@@ -78,8 +78,6 @@ angular.module('culAdminApp')
                         item._outboundTrackingNumbers.push(outboundPackage.trackingNumber);
                     });
                 });
-                console.log('2323')
-                console.log(result)
                 callback(result);
             });
         }

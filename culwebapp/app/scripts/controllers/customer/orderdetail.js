@@ -22,12 +22,7 @@ angular.module('culwebApp')
                 orderSvr
                     .getOrderInfo(orderId)
                     .then(function (result) {
-                        console.log('---------')
-                        console.log(result);
-
-
                         $scope.data = result.data;
-                        console.log(result.data)
                         loadOrderMessage();
                     });
             }

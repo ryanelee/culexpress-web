@@ -434,10 +434,6 @@ var app = angular
 
 
             var preSubmitToService = function (data) {
-                console.log(data.insuranceFee);
-                console.log(JSON.stringify(data));
-                // return;  
-
                 var text = '';
                 if (!data.isFastOrder) {
                     text = "确定提交订单?";

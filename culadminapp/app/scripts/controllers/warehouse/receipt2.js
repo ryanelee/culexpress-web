@@ -80,7 +80,6 @@ angular.module('culAdminApp')
 
             $scope.getData = function () {
                 shelfService.getTransportList(_filterOptions(), function (result) {
-                    console.log(JSON.stringify(result.data))
                     var _data = result.data;
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function (x) {
@@ -105,7 +104,6 @@ angular.module('culAdminApp')
 
                     $scope.dataList = _data;
                     $scope.dataList.forEach(function (e) {
-                        console.log(e.isUnusual)
                         if (e.isUnusual == 1) {
                             e._sendType = "员工包裹";
                         }

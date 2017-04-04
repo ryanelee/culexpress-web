@@ -16,9 +16,7 @@ angular.module('culAdminApp')
                 'Karma'
             ];
 
-            console.log('123456789')
             $scope.form = $location.search().item;
-            console.log($scope.form);
 
             // warehouseService.getWarehouse(function (data) {
             //     console.log('data')

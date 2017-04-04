@@ -63,7 +63,6 @@ angular.module('culAdminApp')
         self.getPointLog = function (options, callback) {
             $http.post(cul.apiPath + "/customer/getPointLog", options)
                 .success(function (result) {
-                    console.log(result);
                     callback(result);
                 });
         }

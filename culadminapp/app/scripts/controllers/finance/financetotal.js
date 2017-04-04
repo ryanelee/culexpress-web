@@ -101,7 +101,6 @@ angular.module('culAdminApp')
 
             $scope.getData = function () {
                 orderService.financeTotal(_filterOptions(), function (result) {
-                    console.log("返回结果"+JSON.stringify(result));
                     if(result.code == '999'){
                         plugMessenger.error(result.msg)
                     }
