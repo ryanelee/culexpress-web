@@ -334,10 +334,12 @@ var app = angular
                 $state.go('customer.orderdetail', { id: orderNumber });
             };
 
-            $window.document.getElementById("packageWeight").focus();
+            // $window.document.getElementById("packageWeight").focus();
             $scope.isShow = false;
-            $scope.isFocus = function(){              
+            $scope.isFocus = function(){
+                setTimeout(function(){
                 $window.document.getElementById("packageWeight").focus();
+                },300)              
             }
         }]);
 
