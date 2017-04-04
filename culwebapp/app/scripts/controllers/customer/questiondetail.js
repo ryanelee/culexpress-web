@@ -27,9 +27,6 @@ angular.module('culwebApp')
               customer
                  .getQuestionInfo(questionid)
                  .then(function (result) {
-                    console.log(result);
-
-
                      $scope.data = result.data;
                  });
           }

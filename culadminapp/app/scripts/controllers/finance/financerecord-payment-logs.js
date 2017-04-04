@@ -99,7 +99,6 @@ angular.module('culAdminApp')
           $scope.getData = function () {
               var _options = _filterOptions();
               customerService.financeLogList(angular.copy(_options), function (result) {
-                  console.log(result);
                   $scope.allTotal = result.allTotal;
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
