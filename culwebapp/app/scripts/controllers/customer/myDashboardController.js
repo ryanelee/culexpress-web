@@ -5,7 +5,6 @@ angular
     .controller('MyDashboardController', ['$scope','$http', '$rootScope', '$anchorScroll', 'OrderSvr',
         function ($scope,$http, $rootScope, $anchorScroll, orderSvr) {
             $scope.currentUser = $rootScope.currentUser;
-            console.log( $scope.currentUser);
 
             var model = $scope.model = {
                 addressList: []
@@ -42,8 +41,7 @@ angular
             $scope.getPrimAnnounce = function() {
                 var objPrim = {type:2,status:1,openAll:0};
                 $http.post(cul.apiPath + '/web/WebAnnounce',objPrim).then(function (result) {
-                    $scope.primAnnounceList = result.data.data.data;
-                    console.log($scope.primAnnounceList);
+                    $scope.primAnnounceList = result.data.data.data;                 
                 });
             }
             $scope.getPrimAnnounce();
@@ -58,8 +56,7 @@ angular
             $scope.getProAnnounce = function() {
                 var objPro = {type:3,status:1,openAll:0};
                 $http.post(cul.apiPath + '/web/WebAnnounce',objPro).then(function (result) {
-                    $scope.proAnnounceList = result.data.data.data;
-                    console.log($scope.proAnnounceList);
+                    $scope.proAnnounceList = result.data.data.data;                   
                 });
             }
             $scope.getProAnnounce();
