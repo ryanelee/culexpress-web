@@ -170,6 +170,7 @@ angular.module('culAdminApp')
                     receiptNumber: $scope.receiptNumber,
                     itemCount: $scope.data.itemCount
                 }
+                console.log(data);
                 if ($scope._itemType == "S2") {
                     data.receiptNumber = $scope.data.receiptNumber;
                 }

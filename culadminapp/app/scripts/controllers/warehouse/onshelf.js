@@ -21,13 +21,10 @@ angular.module('culAdminApp')
             $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
 
             $scope.isUnusual = $location.search().isUnusual;
-            console.log("is" + $scope.isUnusual);
-
 
             $scope.isExpecial = function () {
                 if ($scope.isUnusual == 1) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
-                    console.log(staffFlag);
                     if (staffFlag != 'D') {
                         $scope.data.shelfNumber = "";
                         plugMessenger.error("员工包裹必须以D开头");
@@ -35,7 +32,6 @@ angular.module('culAdminApp')
                 }
                 if ($scope.isUnusual == 1) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
-                    console.log(staffFlag);
                     if (staffFlag != 'C') {
                         $scope.data.shelfNumber = "";
                         plugMessenger.error("异常包裹必须以C开头");
@@ -94,7 +90,6 @@ angular.module('culAdminApp')
                     "inboundDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
                     "inboundDateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : "",
                 }
-                //console.log("search" + JSON.stringify($scope.searchBar))
 
                 if (!!$scope.searchBar.sendType) {
                     _options["sendType"] = $scope.searchBar.sendType;
@@ -124,7 +119,7 @@ angular.module('culAdminApp')
             $scope.getData = function () {
                 shelfService.getTransportList(_filterOptions(), function (result) {
                     var __data = result.data;
-                    var _data = [];
+                    var _data = [];                 
 
                     if (!$scope.searchBar.isUnusual && $scope.searchBar.sendType == 2) {
                         __data.map(function (e) {
@@ -136,10 +131,6 @@ angular.module('culAdminApp')
                         _data = __data;
                     }
                    
-
-
-
-
                     _data.forEach(function (e) {
                         if (e.sendType == 2 && e.isUnusual == 1) {
                               e._sendType = "员工包裹"
@@ -150,8 +141,7 @@ angular.module('culAdminApp')
                         }
                     })
                     if ($scope.searchBar.isUnusual == 2) {
-                        $scope.searchBar.sendType = $scope.sendTypes[3].key;
-                        console.log($scope.sendTypes[3]);
+                        $scope.searchBar.sendType = $scope.sendTypes[3].key;                       
                     }
                       if ($scope.searchBar.isUnusual == 1) {
                         $scope.searchBar.sendType =  $scope.sendTypes[4].key;
@@ -170,8 +160,7 @@ angular.module('culAdminApp')
             }
             $scope.getData();
 
-            $scope.btnSearch = function () {
-                console.log($scope.searchBar.sendType)
+            $scope.btnSearch = function () {  
                 $scope.searchBar.isUnusual = 0
                 if ($scope.searchBar.sendType == 3) {
                     $scope.searchBar.isUnusual = 2;

@@ -45,7 +45,7 @@ angular.module('culAdminApp')
               } else {
                   $scope.searchBar.warehouseList = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
               }
-              $scope.warehouseList = result;
+              $scope.warehouseList = result;          
           });
 
           var _filterOptions = function () {

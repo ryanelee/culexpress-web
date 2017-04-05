@@ -45,7 +45,7 @@ angular.module('culAdminApp')
                           });
                           break
                       case "receipt-tag-exception-tag":
-                          $scope.data = { exceptionNumber: options.exceptionNumber };
+                          $scope.data = { exceptionNumber: options.exceptionNumber };                       
                           _diffBarCodeOptions = { barHeight: "40", fontSize: "16" };
                           _render($element.find("#" + type), _diffBarCodeOptions);
                           break;

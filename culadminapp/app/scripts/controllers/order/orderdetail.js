@@ -18,9 +18,14 @@ angular.module('culAdminApp')
 
           $scope.isPrintDetail = !!$location.search().print;
 
+          $scope.isShow = true;
           orderService.getDetail($location.search().orderNumber, function (result) {
               $scope.data = result;
-              $scope.result = result
+              $scope.result = result;
+              console.log($scope.data);
+              if (result._orderStatus == "已出库" || result._printStatus == "已打印") {
+                 $scope.isShow = false;
+              };
               $.each($scope.data.shipToAddresses, function (i, address) {
                   address._trackingNumbers = [];
                   $.each($scope.data.outboundPackages, function (i, outboundPackage) {
@@ -56,6 +61,7 @@ angular.module('culAdminApp')
           $scope.cloneAddress = null;
           $scope.btnEditOrderAddress = function (address) {
               $scope.cloneAddress = angular.copy(address);
+
               address._edit = true;
           }
           $scope.btnSaveAddress = function (address) {
@@ -64,7 +70,7 @@ angular.module('culAdminApp')
                   !!address.address1 &&
                   !!address.receiveCompanyName &&
                   !!address.zipcode) {
-                  addressService.update(address, function (result) {
+                  addressService.update(address, function (result) {   
                       if (result.success == true) {
                           address._edit = false;
                           $scope.cloneAddress = null;

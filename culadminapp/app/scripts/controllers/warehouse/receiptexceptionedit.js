@@ -35,6 +35,7 @@ angular.module('culAdminApp')
                                         receiptNumber: result.receiptNumber,
                                         sendType: result.sendType,
                                         customerNumber: result.customerNumber,
+                                        warehouseName: result.warehouseName,
                                         warehouseNumber: result.warehouseNumber != null ? result.warehouseNumber : $scope.warehouseList[0].warehouseNumber
                                     }
                                     switch ($scope.data.sendType) {
@@ -65,7 +66,7 @@ angular.module('culAdminApp')
                     type: $scope.data.type,
                     sendtype: $scope.data.sendType,
                     memo: $scope.data.memo
-                }, function(result) {
+                }, function(result) {               
                     plugMessenger.success("操作成功");
                     $scope.data.exceptionNumber = result.data[0].exceptionNumber
                     $scope.btnPrint();
@@ -90,7 +91,6 @@ angular.module('culAdminApp')
 
 
             $scope.btnPrint = function(item) {
-                console.log($scope.data.sendType);
                 switch ($scope.data.sendType) {
                     case 1: //寄送库存
                         $scope.$broadcast("print-helper.action", "receipt-tag-exception-tag", { exceptionNumber: $scope.data.exceptionNumber });

@@ -69,7 +69,7 @@
                                 <tr>
                                     <th style="width:130px;">包裹号</th>
                                     <th>收货地址</th>
-                                    <th style="width:130px;">操作</th>
+                                    <th style="width:130px;" ng-show="!!isShow">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -112,7 +112,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td ng-show="!!isShow">
                                         <!--<button type="button" class="btn btn-link role" data-role="86" ng-click="btnEditOrderAddress(address)" ng-show="!address._edit">
                                             <i class="fa fa-edit"></i>修改地址
                                         </button>-->
@@ -155,8 +155,8 @@
                                 <tr ng-repeat="item in data.inboundPackages">
                                     <td>{{item.trackingNumber}}</td>
                                     <td>{{item.packageWeight}}</td>
-                                    <td>{{ item.createDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
-                                    <td>{{ item.inboundDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
+                                    <td>{{item.createDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
+                                    <td>{{item.inboundDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
                                     <td>{{item.location}}</td>
                                 </tr>
                             </tbody>
@@ -244,19 +244,21 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div ng-if="!!isShow">
                         <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('cancel')"
                             ng-show="!!_editOrderItems">
-<i class="fa fa-repeat"></i>取消修改
-</button>
+                                <i class="fa fa-repeat"></i>取消修改
+                        </button>
                         <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('add')"
                             ng-show="!!_editOrderItems">
-<i class="fa fa-plus"></i>新增
-</button>
+                            <i class="fa fa-plus"></i>新增
+                        </button>
                         <label class="control-label red pull-right" ng-show="!!_editOrderItems">内容修改后，请点击底部“保存”按钮。</label>
                         <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnEditOrderItems()"
                             ng-show="!_editOrderItems">
-<i class="fa fa-edit"></i>修改品名
-</button>
+                            <i class="fa fa-edit"></i>修改品名
+                        </button>
+                    </div>
      <label class="control-label red pull-right" ng-show="!!_editOrderItems">内容修改后，请点击底部“保存”按钮。</label>
                         <!--<button type="button" class="btn btn-default pull-right role" data-role="84" style="margin-left: 10px;" ng-click="btnEditOrderItems()"
                             ng-show="!_editOrderItems">
