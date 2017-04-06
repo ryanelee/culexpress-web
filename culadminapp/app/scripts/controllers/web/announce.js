@@ -150,16 +150,15 @@ angular.module('culAdminApp')
                 })
             }
 
-            console.log("wonder")
+            // 控制广告禁用启用属性
             $scope.changeOpenAll = function (type) {
                 console.log(type)
                 if (type == 1 || type == 3) {
                     $scope.data.openAll = 0
-                    // $scope.openFlag = 0
+                    $scope.disabledFlag = 1
                 } else {
                     $scope.data.openAll = 1
-                    
-                    // $scope.openFlag = 1
+                    $scope.disabledFlag = 0
                 }
             }
 

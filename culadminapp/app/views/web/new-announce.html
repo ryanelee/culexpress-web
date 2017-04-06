@@ -75,11 +75,11 @@
                 <label class="col-sm-2  text-right">是否公开：</label>
                 <div class="col-sm-4 text-left">
                   <label>
-                    <input type="radio"  name="openAll" id="status3" value=1  ng-model="data.openAll">
+                    <input type="radio"  name="openAll" id="status3" value=1  ng-model="data.openAll" ng-disabled="disabledFlag == 1">
                     是
                   </label> &nbsp;
                   <label>
-                    <input type="radio"  name="openAll" id="status4" value=0  ng-model="data.openAll">
+                    <input type="radio"  name="openAll" id="status4" value=0  ng-model="data.openAll" ng-disabled="disabledFlag == 1">
                     否
                   </label>
                 </div>
