@@ -30,7 +30,7 @@ angular.module('culAdminApp')
               keywordType: "customerNumber",
               messageType: "",
               status: "",
-              receivedWarehouseNumber: "",
+              receivedWarehouseNumber: " ",
               startDate: "",
               startTime_HH: "0",
               startTime_mm: "",
@@ -158,7 +158,13 @@ angular.module('culAdminApp')
                   $scope.searchBar.warehouseList = result;
                   $scope.searchBar.receivedWarehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
               } else {
-                  $scope.searchBar.warehouseList = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
+                  console.log(result)
+                //   result = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
+                  $scope.searchBar.warehouseList = result
+                  $scope.searchBar.warehouseList = [{ warehouseNumber: " ", warehouseName: "全部" }].concat(result);
+                //   console.log($scope.searchBar.warehouseList[0].warehouseNumber);
+                
+                //   $scope.searchBar.receivedWarehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
               }
           });
 

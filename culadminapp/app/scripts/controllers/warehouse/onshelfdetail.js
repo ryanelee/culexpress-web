@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('WarehouseOnShelfDetailCtrl', ['$scope', '$location', '$window', 'shelfService', 'inventoryService', 'plugMessenger', '$timeout',
-        function ($scope, $location, $window, shelfService, inventoryService, plugMessenger, $timeout) {
+        function($scope, $location, $window, shelfService, inventoryService, plugMessenger, $timeout) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -17,12 +17,12 @@ angular.module('culAdminApp')
             ];
             $scope.data = null;
             $scope.receiptNumber = null;
-           $scope.tempReceiptNumber =  $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
+            $scope.tempReceiptNumber = $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
             $scope.isUnusual = $location.search().isUnusual;
             console.log("is" + $scope.isUnusual);
             console.log($scope.tempItemNumber)
 
-            $scope.isExpecial = function () {
+            $scope.isExpecial = function() {
                 if ($scope.isUnusual == 1) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
                     console.log(staffFlag);
@@ -45,12 +45,12 @@ angular.module('culAdminApp')
 
 
             var _timeout = null;
-            $scope.checkItemNumber = function () {
+            $scope.checkItemNumber = function() {
                 if (!!_timeout) clearTimeout(_timeout);
-                _timeout = setTimeout(function () {
-                    $scope.$apply(function () {
+                _timeout = setTimeout(function() {
+                    $scope.$apply(function() {
                         if ($scope.tempItemNumber == $location.search().receiptNumber) {
-                            inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
+                            inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function(result) {
                                 $scope.data = null;
 
                                 if (!result.message) {
@@ -59,7 +59,7 @@ angular.module('culAdminApp')
                                     $scope._itemType = $scope.data.itemNumber.substr(0, 2);
                                     $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
 
-                                    $timeout(function () {
+                                    $timeout(function() {
                                         $('#tip_ASNNumber').popover({
                                             container: 'body',
                                             placement: 'top',
@@ -77,17 +77,18 @@ angular.module('culAdminApp')
                         }
 
                         if (!!$scope.tempItemNumber) {
-                             $scope.tempReceiptNumber = $scope.tempItemNumber
-                            inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
+                            $scope.receiptNumber = $scope.tempItemNumber;
+                            $scope.tempReceiptNumber = $scope.tempItemNumber
+                            inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function(result) {
                                 $scope.data = null;
 
                                 if (!result.message) {
                                     $scope.data = result;
-                                    $scope.receiptNumber = $location.search().receiptNumber;
+                                    // $scope.receiptNumber = $location.search().receiptNumber;
                                     $scope._itemType = $scope.data.itemNumber.substr(0, 2);
                                     $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
 
-                                    $timeout(function () {
+                                    $timeout(function() {
                                         $('#tip_ASNNumber').popover({
                                             container: 'body',
                                             placement: 'top',
@@ -135,7 +136,9 @@ angular.module('culAdminApp')
 
             $scope.checkItemNumber();
 
-            $scope.btnSave = function (type) {
+            $scope.btnSave = function(type) {
+                console.log($scope.receiptNumber);
+                // return;
                 //if (!$scope.data.inventory_frozen) {
                 //    plugMessenger.info("请填写正确的数量");
                 //    return;
@@ -174,7 +177,8 @@ angular.module('culAdminApp')
                 if ($scope._itemType == "S2") {
                     data.receiptNumber = $scope.data.receiptNumber;
                 }
-                shelfService.onshelfForInbound(data, function (result) {
+                // return;
+                shelfService.onshelfForInbound(data, function(result) {
                     if (result.success) {
                         plugMessenger.success("操作成功");
                         $scope.data = null;
@@ -182,7 +186,7 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.btnPrev = function () {
+            $scope.btnPrev = function() {
                 $window.history.back();
             }
 

@@ -24,7 +24,9 @@
                     <label class="search-label">收货仓库：</label>
                     <select class="form-control search-control"
                             ng-model="searchBar.receivedWarehouseNumber"
-                            ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                            ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList">
+                            <!--<option>全部</option>-->
+                            </select>
                 </div>
                 <div class="clearfix"></div>
                 <div class="search-col">
