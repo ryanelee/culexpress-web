@@ -48,6 +48,7 @@ angular
                 var obj = { type: 2, status: 1, openAll: 1 };
                 $http.post(cul.apiPath + '/web/WebAnnounce', obj).then(function(result) {
                     $scope.openAnnounceList = result.data.data.data;
+                    console.log($scope.openAnnounceList);
                     var htm = "";
                     if ($scope.openAnnounceList[0]) {
                         var htm1 = `<div class="container-fluid info-banner slideBox hidden-sm">
@@ -75,11 +76,16 @@ angular
                         var htm3 = ` </ul></div>`
                         htm = htm1 + htm2 + htm3;
 
-                        /*<li class="info-banner2">
-                                      </li>
-                                      <li class="info-banner3">
-                                      </li>*/
                         $("#bana").append(htm);
+                        var unslider = $('.info-banner').unslider({
+                            nav: false
+                        });
+
+                        $('.unslider-arrow').click(function() {
+
+                            var fn = this.className.split(' ')[1];
+                            unslider.data('unslider')[fn]();
+                        });
                     }
 
 
