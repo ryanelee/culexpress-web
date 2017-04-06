@@ -278,7 +278,7 @@
 				</div>
 			</div>
 				<ul>                
-                    <li class="info-banner1" ng-repeat="item in openAnnounceList track by $index">
+                    <li class="info-banner{{$index%3+1}}" ng-repeat="item in openAnnounceList track by $index">
 						<div class="container">
 							<h1 class="info-title">{{item.title}}</h1>
 							<div class="info-content">
@@ -298,7 +298,7 @@
 							</div>
 						</div>-->
 					</li>
-					<!--<li class="info-banner1">-->
+					<li class="info-banner3">
 						<!--<div class="container">
 							<h1 class="info-title">中美速递新仓储管理系统正式上线</h1>
 							<div class="info-content">
@@ -306,8 +306,8 @@
 								<p class="info-detail-lg">为了让客户的包裹更快速安全的经过仓库中转,中美速递开发团队自主研发的后台仓储管理系统让仓库服务管理和操作人员能准确轻松的通过监控包裹异常情况并快速的进行日常的操作</p>
 							</div>
 						</div>-->
-					<!--</li>-->
-					<!--<li class="info-banner1">
+					</li>
+					<!--<li class="info-banner3">
 						<div class="container">
 							<h1 class="info-title">中美速递线上客户系统正式上线</h1>
 							<div class="info-content">
