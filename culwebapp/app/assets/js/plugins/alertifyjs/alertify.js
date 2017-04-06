@@ -46,7 +46,7 @@
             position:'bottom-right'
         },
         glossary:{
-            title:'AlertifyJS',
+            title:'提示',
             ok: '确定',
             cancel: '取消',
             acccpt: 'Accept',

@@ -270,62 +270,53 @@
     <!--end pricing-->
     <!-- Testimonials Carousel -->
     <!-- Testimonials v3 -->
-		<div class="container-fluid info-banner slideBox hidden-sm">
+		<div class="container-fluid info-banner slideBox hidden-sm" ng-show="openAnnounceList.length > 0">
 			<div class="container">
 				<div class="info-op">
 					<img class="unslider-arrow prev" src="../assets/img/index/icon-info-left.png" />
 					<img class="unslider-arrow next" src="../assets/img/index/icon-info-right.png" />
 				</div>
 			</div>
-				<ul>                
-                    <li class="info-banner{{$index%3+1}}" ng-repeat="item in openAnnounceList track by $index">
-						<div class="container">
-							<h1 class="info-title">{{item.title}}</h1>
-							<div class="info-content">
-								<img src="../assets/img/index/info-person{{$index%3+1}}.png" />
-								<p class="info-detail-lg">{{item.content}}</p>
-							</div>
-						</div>
-					</li>
-					<li class="info-banner2">
-						<!--<div class="container">
-							<h1 class="info-title">OR俄勒冈仓库暂停收货通知</h1>
-							<div class="info-content">
-								<img src="../assets/img/index/info-person1.png" />
-								<p class="info-detail-lg">为了给大家更好的服务质量，CUL OR 俄勒冈仓库于2017年1月起暂停收货，
+            <ul>                
+                <li class="info-banner{{$index%3+1}}" ng-repeat="item in openAnnounceList track by $index">
+                    <div class="container">
+                        <h1 class="info-title">{{item.title}}</h1>
+                        <div class="info-content">
+                            <img src="../assets/img/index/info-person{{$index%3+1}}.png" />
+                            <p class="info-detail-lg">{{item.content}}</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="info-banner2">
+                    <!--<div class="container">
+                        <h1 class="info-title">OR俄勒冈仓库暂停收货通知</h1>
+                        <div class="info-content">
+                            <img src="../assets/img/index/info-person1.png" />
+                            <p class="info-detail-lg">为了给大家更好的服务质量，CUL OR 俄勒冈仓库于2017年1月起暂停收货，
 已经发往OR仓库的包裹我们将会继续收货45天，请大家放心。
 请大家以后将包裹发往CA加州仓库和 DE特拉华免税仓库，CA仓库和DE仓库正常收货发货一切照旧，会带给大家更好的服务，和更好的速度，请大家拭目以待。</p>
-							</div>
-						</div>-->
-					</li>
-					<li class="info-banner3">
-						<!--<div class="container">
-							<h1 class="info-title">中美速递新仓储管理系统正式上线</h1>
-							<div class="info-content">
-								<img src="../assets/img/index/info-person2.png" />
-								<p class="info-detail-lg">为了让客户的包裹更快速安全的经过仓库中转,中美速递开发团队自主研发的后台仓储管理系统让仓库服务管理和操作人员能准确轻松的通过监控包裹异常情况并快速的进行日常的操作</p>
-							</div>
-						</div>-->
-					</li>
-					<!--<li class="info-banner3">
-						<div class="container">
-							<h1 class="info-title">中美速递线上客户系统正式上线</h1>
-							<div class="info-content">
-								<img src="../assets/img/index/info-person3.png" />
-								<p class="info-detail-lg">中美速递的在线客户系统是由中美速递开发团队自主研发的专门面向海淘用户的全新系统, 系统采用业内流行的网页开发技术,操作简单，功能覆盖范围全面，让海淘变得更轻松</p>
-							</div>
-						</div>
-					</li>-->
-                    <!--<li class="info-banner1">
-						<div class="container">
-							<h1 class="info-title">中美速递线上客户系统正式上线</h1>
-							<div class="info-content">
-								<img src="../assets/img/index/info-person3.png" />
-								<p class="info-detail-lg">中美速递的在线客户系统是由中美速递开发团队自主研发的专门面向海淘用户的全新系统, 系统采用业内流行的网页开发技术,操作简单，功能覆盖范围全面，让海淘变得更轻松</p>
-							</div>
-						</div>
-					</li>                   -->
-				</ul>
+                        </div>
+                    </div>-->
+                </li>
+                <li class="info-banner3">
+                    <!--<div class="container">
+                        <h1 class="info-title">中美速递新仓储管理系统正式上线</h1>
+                        <div class="info-content">
+                            <img src="../assets/img/index/info-person2.png" />
+                            <p class="info-detail-lg">为了让客户的包裹更快速安全的经过仓库中转,中美速递开发团队自主研发的后台仓储管理系统让仓库服务管理和操作人员能准确轻松的通过监控包裹异常情况并快速的进行日常的操作</p>
+                        </div>
+                    </div>-->
+                </li>
+                <!--<li class="info-banner3">
+                    <div class="container">
+                        <h1 class="info-title">中美速递线上客户系统正式上线</h1>
+                        <div class="info-content">
+                            <img src="../assets/img/index/info-person3.png" />
+                            <p class="info-detail-lg">中美速递的在线客户系统是由中美速递开发团队自主研发的专门面向海淘用户的全新系统, 系统采用业内流行的网页开发技术,操作简单，功能覆盖范围全面，让海淘变得更轻松</p>
+                        </div>
+                    </div>
+                </li>-->
+            </ul>
 		</div>
     <!--=== Cube-Portfdlio ===-->
     <div class="parallax-counter-v2 parallaxBg1">
@@ -594,6 +585,13 @@
 
 <script type="text/javascript"> 
     jQuery(document).ready(function () {
+        var unslider = $('.info-banner').unslider({nav: false});
+        
+            $('.unslider-arrow').click(function() {
+                
+                var fn = this.className.split(' ')[1];                                      
+                unslider.data('unslider')[fn]();
+            });
         $('#da-slider').cslider({
             current     : 0,    
             // index of current slide
@@ -611,13 +609,13 @@
        (function ($, window, document, undefined) {
             'use strict';
             
-            var unslider = $('.info-banner').unslider({nav: false});
+            // var unslider = $('.info-banner').unslider({nav: false});
         
-            $('.unslider-arrow').click(function() {
+            // $('.unslider-arrow').click(function() {
                 
-                var fn = this.className.split(' ')[1];                                      
-                unslider.data('unslider')[fn]();
-            });
+            //     var fn = this.className.split(' ')[1];                                      
+            //     unslider.data('unslider')[fn]();
+            // });
             
 
             var gridContainer = $('#grid-container'),
