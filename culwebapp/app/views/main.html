@@ -1,78 +1,79 @@
 <div ng-controller="MainController">
-    	<!-- Promo Block -->
-		<!--<div>
+    <!-- Promo Block -->
+    <!--<div>
 			<img class="index-banner" src="../assets/img/index/index_banner.jpg" />
 		</div>-->
 
-       <!--=== Slider ===-->
-		<div class="slider-inner">
-			<div id="da-slider" class="da-slider index-banner-height" >
-				<div class="da-slide">
-                    <a ui-sref="cashback" target="_blank">
-					    <img class="index-banner" src="../assets/img/index/promo_cashback.jpg" />
-                    </a>
-				</div>
-				<div class="da-slide">
-                    <img class="index-banner" src="../assets/img/index/index_banner.jpg" />
-				</div>
-				<div class="da-arrows">
-					<span class="da-arrows-prev"></span>
-					<span class="da-arrows-next"></span>
-				</div>
-			</div>
-		</div><!--/slider-->
-		<!--=== End Slider ===-->
+    <!--=== Slider ===-->
+    <div class="slider-inner">
+        <div id="da-slider" class="da-slider index-banner-height">
+            <div class="da-slide">
+                <a ui-sref="cashback" target="_blank">
+                    <img class="index-banner" src="../assets/img/index/promo_cashback.jpg" />
+                </a>
+            </div>
+            <div class="da-slide">
+                <img class="index-banner" src="../assets/img/index/index_banner.jpg" />
+            </div>
+            <div class="da-arrows">
+                <span class="da-arrows-prev"></span>
+                <span class="da-arrows-next"></span>
+            </div>
+        </div>
+    </div>
+    <!--/slider-->
+    <!--=== End Slider ===-->
 
-		<!-- End Promo Block -->
-		<div class="container content-sm index-register">
-			<div class="row">
-				<div class="col-md-6 col-sm-6 regis-left">
-					新用户赠<strong>20</strong>￥运费
-				</div>
-                <a ui-sref="register({reference:currentUser.customerNumber})" target="_blank">
-                    <span class="index-register-icon"></span></a>
-				<div class="col-md-6 col-sm-6 regis-right">
-					邀请好友加入中美速递<br/>各得20￥运费
-				</div>
-			</div>
-		</div>
+    <!-- End Promo Block -->
+    <div class="container content-sm index-register">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 regis-left">
+                新用户赠<strong>20</strong>￥运费
+            </div>
+            <a ui-sref="register({reference:currentUser.customerNumber})" target="_blank">
+                <span class="index-register-icon"></span></a>
+            <div class="col-md-6 col-sm-6 regis-right">
+                邀请好友加入中美速递<br/>各得20￥运费
+            </div>
+        </div>
+    </div>
 
-		<!-- <div class="title-box ht-title">
+    <!-- <div class="title-box ht-title">
 			<img class="img-zj" src="../assets/img/ht-zj.png" />
 		</div> -->
     <div class="title-box ht-title ht-zj-main">
         <div class="title-box-text">海淘服务专家</div>
-        <p>海外购物  更轻松  更快速  更省心  更放心  让海淘变得更轻松<br/>是我们一直以来追求的目标</p>
-				<div class="container content-sm ht-zj">
-					<div class="row">
-						<div class="col-md-4 col-sm-5 text-right ht-qs" ng-mouseover="hoverHt('icon-m-qs', 'hover')" ng-mouseleave="hoverHt('icon-m-qs', 'level')">
-							<h2 class="zj-title">更轻松</h2>
-							<p class="zj-content">多年境外物流经验,强大的仓储物流基础和专业的服务团队,让您的海淘之旅毫无后顾之忧</p>
-						</div>
-						<div class="col-md-4 ht-middle-icon">
-							<span class="ht-icon icon-m-qs" ng-mouseover="hoverHt('icon-m-qs', 'hover')" ng-mouseleave="hoverHt('icon-m-qs', 'level')"></span>
-							<span class="ht-icon icon-m-sx" ng-mouseover="hoverHt('icon-m-sx', 'hover')" ng-mouseleave="hoverHt('icon-m-sx', 'level')"></span>
-						</div>
-						<div class="col-md-4 col-sm-5 col-md-offset-4 col-sm-offset-2 text-left ht-sx" ng-mouseover="hoverHt('icon-m-sx', 'hover')" ng-mouseleave="hoverHt('icon-m-sx', 'level')">
-							<h2 class="zj-title">更省心</h2>
-							<p class="zj-content">稳定安全的发货渠道 经验丰富的客服团队为您的宝贝保驾护航</p>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4 col-sm-5 text-right ht-ks" ng-mouseover="hoverHt('icon-m-ks', 'hover')" ng-mouseleave="hoverHt('icon-m-ks', 'level')">
-							<h2 class="zj-title">更快速</h2>
-							<p class="zj-content">免税州每天直发,丰富的航空路线让您既快又省的淘到您满意的宝贝</p>
-						</div>
-						<div class="col-md-4 ht-middle-icon">
-							<span class="ht-icon icon-m-ks" ng-mouseover="hoverHt('icon-m-ks', 'hover')" ng-mouseleave="hoverHt('icon-m-ks', 'level')"></span>
-							<span class="ht-icon icon-m-fx" ng-mouseover="hoverHt('icon-m-fx', 'hover')" ng-mouseleave="hoverHt('icon-m-fx', 'level')"></span>
-						</div>
-						<div class="col-md-4 col-sm-5 col-md-offset-4 col-sm-offset-2 text-left ht-fx" ng-mouseover="hoverHt('icon-m-fx', 'hover')" ng-mouseleave="hoverHt('icon-m-fx', 'level')">
-							<h2 class="zj-title">更放心</h2>
-							<p class="zj-content">完善的仓储配套设施和自主研发的软件系统 让您随时随地都能掌握宝贝的信息</p>
-						</div>
-					</div>
-				</div>
+        <p>海外购物 更轻松 更快速 更省心 更放心 让海淘变得更轻松<br/>是我们一直以来追求的目标</p>
+        <div class="container content-sm ht-zj">
+            <div class="row">
+                <div class="col-md-4 col-sm-5 text-right ht-qs" ng-mouseover="hoverHt('icon-m-qs', 'hover')" ng-mouseleave="hoverHt('icon-m-qs', 'level')">
+                    <h2 class="zj-title">更轻松</h2>
+                    <p class="zj-content">多年境外物流经验,强大的仓储物流基础和专业的服务团队,让您的海淘之旅毫无后顾之忧</p>
+                </div>
+                <div class="col-md-4 ht-middle-icon">
+                    <span class="ht-icon icon-m-qs" ng-mouseover="hoverHt('icon-m-qs', 'hover')" ng-mouseleave="hoverHt('icon-m-qs', 'level')"></span>
+                    <span class="ht-icon icon-m-sx" ng-mouseover="hoverHt('icon-m-sx', 'hover')" ng-mouseleave="hoverHt('icon-m-sx', 'level')"></span>
+                </div>
+                <div class="col-md-4 col-sm-5 col-md-offset-4 col-sm-offset-2 text-left ht-sx" ng-mouseover="hoverHt('icon-m-sx', 'hover')" ng-mouseleave="hoverHt('icon-m-sx', 'level')">
+                    <h2 class="zj-title">更省心</h2>
+                    <p class="zj-content">稳定安全的发货渠道 经验丰富的客服团队为您的宝贝保驾护航</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-5 text-right ht-ks" ng-mouseover="hoverHt('icon-m-ks', 'hover')" ng-mouseleave="hoverHt('icon-m-ks', 'level')">
+                    <h2 class="zj-title">更快速</h2>
+                    <p class="zj-content">免税州每天直发,丰富的航空路线让您既快又省的淘到您满意的宝贝</p>
+                </div>
+                <div class="col-md-4 ht-middle-icon">
+                    <span class="ht-icon icon-m-ks" ng-mouseover="hoverHt('icon-m-ks', 'hover')" ng-mouseleave="hoverHt('icon-m-ks', 'level')"></span>
+                    <span class="ht-icon icon-m-fx" ng-mouseover="hoverHt('icon-m-fx', 'hover')" ng-mouseleave="hoverHt('icon-m-fx', 'level')"></span>
+                </div>
+                <div class="col-md-4 col-sm-5 col-md-offset-4 col-sm-offset-2 text-left ht-fx" ng-mouseover="hoverHt('icon-m-fx', 'hover')" ng-mouseleave="hoverHt('icon-m-fx', 'level')">
+                    <h2 class="zj-title">更放心</h2>
+                    <p class="zj-content">完善的仓储配套设施和自主研发的软件系统 让您随时随地都能掌握宝贝的信息</p>
+                </div>
+            </div>
+        </div>
     </div>
     <!--=== Content Part ===-->
     <div class="container content-sm content-ht">
@@ -105,7 +106,7 @@
                     </div>
                 </div>
             </div>
-						<div class="col-md-4 item-fx">
+            <div class="col-md-4 item-fx">
                 <div class="service">
                     <i class="icon-ht icon-fx"></i>
                     <div class="desc">
@@ -116,161 +117,171 @@
             </div>
         </div>
         <!-- End Service Blokcs -->
-	</div>
-	<!--=== zbbn ===-->
+    </div>
+    <!--=== zbbn ===-->
 
-	 <div class="zbbl"></div>
-	<div class="container-fluid index-lc">
-		<div class="row margin-bottom-20">
-			<div class="col-md-6 col-sm-8 lc-left text-right">
-				<div class="item-lc item-gmbb" ng-mouseover="hoverLC('lc-gm')">
-					<h2>购买宝贝</h2>
-					<p>前往境外购物网站购买您中意的宝贝 并寄往专属于您的收货地址</p>
-					<span class="icon-lc icon-gm"></span>
-				</div>
-				<div class="item-lc item-rkbb" ng-mouseover="hoverLC('lc-rk')">
-					<h2>宝贝入库</h2>
-					<p>我们会通知您宝贝已经入库 您可以在线填写递送信息</p>
-					<span class="icon-lc icon-rk"></span>
-				</div>
-				<div class="item-lc item-ckbb" ng-mouseover="hoverLC('lc-ck')">
-					<h2>宝贝出库</h2>
-					<p>我们专业的仓库服务人员根据您的指示对宝贝进行重新包装加固 用最快捷的航空路线发送到您指定的地址</p>
-					<span class="icon-lc icon-ck"></span>
-				</div>
-				<div class="item-lc item-psbb" ng-mouseover="hoverLC('lc-ps')">
-					<h2>宝贝递送</h2>
-					<p>我们会及时通知您宝贝已经离开海关转送国内快递并更新国内快递单号让您方便的跟踪包裹走向</p>
-					<span class="icon-lc icon-ps"></span>
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-4 lc-right lc-gm">
-			</div>
-		</div>
-	</div>
+    <div class="zbbl"></div>
+    <div class="container-fluid index-lc">
+        <div class="row margin-bottom-20">
+            <div class="col-md-6 col-sm-8 lc-left text-right">
+                <div class="item-lc item-gmbb" ng-mouseover="hoverLC('lc-gm')">
+                    <h2>购买宝贝</h2>
+                    <p>前往境外购物网站购买您中意的宝贝 并寄往专属于您的收货地址</p>
+                    <span class="icon-lc icon-gm"></span>
+                </div>
+                <div class="item-lc item-rkbb" ng-mouseover="hoverLC('lc-rk')">
+                    <h2>宝贝入库</h2>
+                    <p>我们会通知您宝贝已经入库 您可以在线填写递送信息</p>
+                    <span class="icon-lc icon-rk"></span>
+                </div>
+                <div class="item-lc item-ckbb" ng-mouseover="hoverLC('lc-ck')">
+                    <h2>宝贝出库</h2>
+                    <p>我们专业的仓库服务人员根据您的指示对宝贝进行重新包装加固 用最快捷的航空路线发送到您指定的地址</p>
+                    <span class="icon-lc icon-ck"></span>
+                </div>
+                <div class="item-lc item-psbb" ng-mouseover="hoverLC('lc-ps')">
+                    <h2>宝贝递送</h2>
+                    <p>我们会及时通知您宝贝已经离开海关转送国内快递并更新国内快递单号让您方便的跟踪包裹走向</p>
+                    <span class="icon-lc icon-ps"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-4 lc-right lc-gm">
+            </div>
+        </div>
+    </div>
     <!--pricing-->
-		<div class="title-box ht-title">
-			<div class="title-box-text">标准转运服务</div>
-			<p>免仓租期目前为60天,增值服务目前免费包括取出发票和去除内件等一般服务<br/>其他增值服务请根据实际运算结果为准 所有解释权归中美速递</p>
-			<div class="container-fluid ht-price">
-				<div class="row">
-					<div class="index-price-list">
-						<span class="price-head">CUL</span>
-						<h3>特快服务A</h3>
-						<ul>
-							<li class="dui">衣服鞋帽</li>
-							<li class="suo">仅限衣服类 速度快</li>
-							<li class="user">无需身份证</li>
-							<li class="zhong">每个包裹<span>4磅</span>以下</li>
-							<li class="time"><span>4-7</span>个工作日</li>
-						</ul>
-						<div class="price-card">
-							<div class="card-item">
-								<div class="card-price">50</div>
-								<div class="card-remark">￥<br/>首重</div>
-							</div>
-							<div class="card-item">
-								<div class="card-price">50</div>
-								<div class="card-remark">￥<br/>续重</div>
-							</div>
-						</div>
-					</div>
-					<div class="index-price-list">
-						<span class="price-head">CUL</span>
-						<h3>特快服务B</h3>
-						<ul>
-							<li class="dui">包包</li>
-							<li class="suo">仅限包包类 速度快</li>
-							<li class="user">无需身份证</li>
-							<li class="zhong">每个包裹<span>4磅</span>以下</li>
-							<li class="time"><span>4-7</span>个工作日</li>
-						</ul>
-						<div class="price-card">
-							<div class="card-item">
-								<div class="card-price">50</div>
-								<div class="card-remark">￥<br/>首重</div>
-							</div>
-							<div class="card-item">
-								<div class="card-price">50</div>
-								<div class="card-remark">￥<br/>续重</div>
-							</div>
-						</div>
-					</div>
-					<div class="index-price-list">
-						<span class="price-head">USPS</span>
-						<h3>美国邮政</h3>
-						<ul>
-							<li class="dui">UPS特快</li>
-							<li class="quang">推荐电子产品</li>
-							<li class="user">无需身份证</li>
-							<li class="zhong">--- ---</li>
-							<li class="time"><span>3-5</span>个工作日</li>
-						</ul>
-						<div class="price-card">
-							<div class="card-item">
-								<div class="card-price">200</div>
-								<div class="card-remark">￥<br/>首重</div>
-							</div>
-							<div class="card-item">
-								<div class="card-price">35</div>
-								<div class="card-remark">￥<br/>续重</div>
-							</div>
-						</div>
-					</div>
-					<div class="index-price-list">
-						<span class="price-head">
+    <div class="title-box ht-title">
+        <div class="title-box-text">标准转运服务</div>
+        <p>免仓租期目前为60天,增值服务目前免费包括取出发票和去除内件等一般服务<br/>其他增值服务请根据实际运算结果为准 所有解释权归中美速递</p>
+        <div class="container-fluid ht-price">
+            <div class="row">
+                <div class="index-price-list">
+                    <span class="price-head">CUL</span>
+                    <h3>特快服务A</h3>
+                    <ul>
+                        <li class="dui">衣服鞋帽</li>
+                        <li class="suo">仅限衣服类 速度快</li>
+                        <li class="user">无需身份证</li>
+                        <li class="zhong">每个包裹<span>4磅</span>以下</li>
+                        <li class="time"><span>4-7</span>个工作日</li>
+                    </ul>
+                    <div class="price-card">
+                        <div class="card-item">
+                            <div class="card-price">50</div>
+                            <div class="card-remark">￥<br/>首重</div>
+                        </div>
+                        <div class="card-item">
+                            <div class="card-price">50</div>
+                            <div class="card-remark">￥<br/>续重</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="index-price-list">
+                    <span class="price-head">CUL</span>
+                    <h3>特快服务B</h3>
+                    <ul>
+                        <li class="dui">包包</li>
+                        <li class="suo">仅限包包类 速度快</li>
+                        <li class="user">无需身份证</li>
+                        <li class="zhong">每个包裹<span>4磅</span>以下</li>
+                        <li class="time"><span>4-7</span>个工作日</li>
+                    </ul>
+                    <div class="price-card">
+                        <div class="card-item">
+                            <div class="card-price">50</div>
+                            <div class="card-remark">￥<br/>首重</div>
+                        </div>
+                        <div class="card-item">
+                            <div class="card-price">50</div>
+                            <div class="card-remark">￥<br/>续重</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="index-price-list">
+                    <span class="price-head">USPS</span>
+                    <h3>美国邮政</h3>
+                    <ul>
+                        <li class="dui">UPS特快</li>
+                        <li class="quang">推荐电子产品</li>
+                        <li class="user">无需身份证</li>
+                        <li class="zhong">--- ---</li>
+                        <li class="time"><span>3-5</span>个工作日</li>
+                    </ul>
+                    <div class="price-card">
+                        <div class="card-item">
+                            <div class="card-price">200</div>
+                            <div class="card-remark">￥<br/>首重</div>
+                        </div>
+                        <div class="card-item">
+                            <div class="card-price">35</div>
+                            <div class="card-remark">￥<br/>续重</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="index-price-list">
+                    <span class="price-head">
 							<img src="../assets/img/index/icon-price-bzyj.png" />
 						</span>
-						<h3>标准邮寄服务A</h3>
-						<ul>
-							<li class="dui">关税补贴</li>
-							<li class="yi">普通服装鞋帽 玩具母婴</li>
-							<li class="user">无需身份证</li>
-							<li class="zhong">每个包裹<span>7磅</span>以下</li>
-							<li class="time"><span>7-10</span>个工作日</li>
-						</ul>
-						<div class="price-card">
-							<div class="card-item">
-								<div class="card-price">50</div>
-								<div class="card-remark">￥<br/>首重</div>
-							</div>
-							<div class="card-item">
-								<div class="card-price">28</div>
-								<div class="card-remark">￥<br/>续重</div>
-							</div>
-						</div>
-					</div>
-					<div class="index-price-list">
-							<span class="price-head">
+                    <h3>标准邮寄服务A</h3>
+                    <ul>
+                        <li class="dui">关税补贴</li>
+                        <li class="yi">普通服装鞋帽 玩具母婴</li>
+                        <li class="user">无需身份证</li>
+                        <li class="zhong">每个包裹<span>7磅</span>以下</li>
+                        <li class="time"><span>7-10</span>个工作日</li>
+                    </ul>
+                    <div class="price-card">
+                        <div class="card-item">
+                            <div class="card-price">50</div>
+                            <div class="card-remark">￥<br/>首重</div>
+                        </div>
+                        <div class="card-item">
+                            <div class="card-price">28</div>
+                            <div class="card-remark">￥<br/>续重</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="index-price-list">
+                    <span class="price-head">
 								<img src="../assets/img/index/icon-price-bzyj.png" />
 							</span>
-							<h3>标准邮寄服务B</h3>
-							<ul>
-								<li class="dui">关税补贴</li>
-								<li class="dian">一般家用电器</li>
-								<li class="user">无需身份证</li>
-								<li class="zhong">每个包裹<span>7磅</span>以下</li>
-								<li class="time"><span>7-10</span>个工作日</li>
-							</ul>
-							<div class="price-card">
-								<div class="card-item">
-									<div class="card-price">50</div>
-									<div class="card-remark">￥<br/>首重</div>
-								</div>
-								<div class="card-item">
-									<div class="card-price">50</div>
-									<div class="card-remark">￥<br/>续重</div>
-								</div>
-							</div>
-						</div>
-				</div>
-			</div>
-		</div>
-     <!--=== zbbn ===-->
+                    <h3>标准邮寄服务B</h3>
+                    <ul>
+                        <li class="dui">关税补贴</li>
+                        <li class="dian">一般家用电器</li>
+                        <li class="user">无需身份证</li>
+                        <li class="zhong">每个包裹<span>7磅</span>以下</li>
+                        <li class="time"><span>7-10</span>个工作日</li>
+                    </ul>
+                    <div class="price-card">
+                        <div class="card-item">
+                            <div class="card-price">50</div>
+                            <div class="card-remark">￥<br/>首重</div>
+                        </div>
+                        <div class="card-item">
+                            <div class="card-price">50</div>
+                            <div class="card-remark">￥<br/>续重</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--=== zbbn ===-->
     <!--end pricing-->
     <!-- Testimonials Carousel -->
     <!-- Testimonials v3 -->
-		<div class="container-fluid info-banner slideBox hidden-sm" ng-show="openAnnounceList.length > 0">
+    <div id="bana">
+
+    </div>
+
+
+
+
+
+
+
+    <!--<div class="container-fluid info-banner slideBox hidden-sm" ng-show="openAnnounceList.length > 0">
 			<div class="container">
 				<div class="info-op">
 					<img class="unslider-arrow prev" src="../assets/img/index/icon-info-left.png" />
@@ -288,7 +299,14 @@
                     </div>
                 </li>
                 <li class="info-banner2">
-                    <!--<div class="container">
+                </li>
+                <li class="info-banner3">
+                </li>
+            </ul>
+		</div>-->
+
+
+    <!--<div class="container">
                         <h1 class="info-title">OR俄勒冈仓库暂停收货通知</h1>
                         <div class="info-content">
                             <img src="../assets/img/index/info-person1.png" />
@@ -297,17 +315,19 @@
 请大家以后将包裹发往CA加州仓库和 DE特拉华免税仓库，CA仓库和DE仓库正常收货发货一切照旧，会带给大家更好的服务，和更好的速度，请大家拭目以待。</p>
                         </div>
                     </div>-->
-                </li>
-                <li class="info-banner3">
-                    <!--<div class="container">
+    <!--=== Cube-Portfdlio ===-->
+
+
+    <!--<div class="container">
                         <h1 class="info-title">中美速递新仓储管理系统正式上线</h1>
                         <div class="info-content">
                             <img src="../assets/img/index/info-person2.png" />
                             <p class="info-detail-lg">为了让客户的包裹更快速安全的经过仓库中转,中美速递开发团队自主研发的后台仓储管理系统让仓库服务管理和操作人员能准确轻松的通过监控包裹异常情况并快速的进行日常的操作</p>
                         </div>
                     </div>-->
-                </li>
-                <!--<li class="info-banner3">
+
+
+    <!--<li class="info-banner3">
                     <div class="container">
                         <h1 class="info-title">中美速递线上客户系统正式上线</h1>
                         <div class="info-content">
@@ -316,165 +336,164 @@
                         </div>
                     </div>
                 </li>-->
-            </ul>
-		</div>
-    <!--=== Cube-Portfdlio ===-->
     <div class="parallax-counter-v2 parallaxBg1">
         <div class="container">
-					<div class="title-box ht-title">
-						<div class="title-box-text">返利促销</div>
-            <div class="cube-portfolio container margin-bottom-60">
-                <div class="content-xs">
-                    <div id="filters-container" class="cbp-l-filters-text content-xs">
-                        <div data-filter="*" class="cbp-filter-item-active cbp-filter-item"> All </div> |
-                        <div data-filter=".hotRetailers" class="cbp-filter-item"> 热门商家 </div> |
-                        <div data-filter=".newOffers" class="cbp-filter-item"> 最新优惠 </div> |
-                        <div data-filter=".bestOffers" class="cbp-filter-item"> 最高返利 </div> |
-                    </div><!--/end Filters Container-->
-                </div>
+            <div class="title-box ht-title">
+                <div class="title-box-text">返利促销</div>
+                <div class="cube-portfolio container margin-bottom-60">
+                    <div class="content-xs">
+                        <div id="filters-container" class="cbp-l-filters-text content-xs">
+                            <div data-filter="*" class="cbp-filter-item-active cbp-filter-item"> All </div> |
+                            <div data-filter=".hotRetailers" class="cbp-filter-item"> 热门商家 </div> |
+                            <div data-filter=".newOffers" class="cbp-filter-item"> 最新优惠 </div> |
+                            <div data-filter=".bestOffers" class="cbp-filter-item"> 最高返利 </div> |
+                        </div>
+                        <!--/end Filters Container-->
+                    </div>
 
-                <div id="grid-container" class="cbp-l-grid-agency">
-                    <!--热门商家-->
-                    <div class="cbp-item hotRetailers">
-                        <div class="cbp-caption">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="images/rebates/hotretailes/delias.jpg" alt="">
-                            </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignCenter">
-                                    <div class="cbp-l-caption-body">
-                                        <ul class="link-captions">
-                                            <li><a href="http://www.rebateus.com/Jump/Site/159" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
-                                            <li><a href="http://www.rebateus.com/brands/159" target="new"><i class="rounded-x fa fa-eye"></i></a></li>
-                                        </ul>
-                                        <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/brands/159" target="new">dELiA*s</a></div>
-                                        <div class="cbp-l-grid-agency-desc">2% Cashback</div>
+                    <div id="grid-container" class="cbp-l-grid-agency">
+                        <!--热门商家-->
+                        <div class="cbp-item hotRetailers">
+                            <div class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    <img src="images/rebates/hotretailes/delias.jpg" alt="">
+                                </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <ul class="link-captions">
+                                                <li><a href="http://www.rebateus.com/Jump/Site/159" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
+                                                <li><a href="http://www.rebateus.com/brands/159" target="new"><i class="rounded-x fa fa-eye"></i></a></li>
+                                            </ul>
+                                            <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/brands/159" target="new">dELiA*s</a></div>
+                                            <div class="cbp-l-grid-agency-desc">2% Cashback</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="cbp-item hotRetailers">
-                        <div class="cbp-caption">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="images/rebates/hotretailes/nordstorm.jpg" alt="">
-                            </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignCenter">
-                                    <div class="cbp-l-caption-body">
-                                        <ul class="link-captions">
-                                            <li><a href="http://www.rebateus.com/Jump/Site/161" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
-                                            <li><a href="http://www.rebateus.com/brands/161" target="new"><i class="rounded-x fa fa-eye"></i></a></li>
-                                        </ul>
-                                        <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/brands/161" target="new">NORDSTORM.com</a></div>
-                                        <div class="cbp-l-grid-agency-desc">1% Cashback</div>
+                        <div class="cbp-item hotRetailers">
+                            <div class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    <img src="images/rebates/hotretailes/nordstorm.jpg" alt="">
+                                </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <ul class="link-captions">
+                                                <li><a href="http://www.rebateus.com/Jump/Site/161" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
+                                                <li><a href="http://www.rebateus.com/brands/161" target="new"><i class="rounded-x fa fa-eye"></i></a></li>
+                                            </ul>
+                                            <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/brands/161" target="new">NORDSTORM.com</a></div>
+                                            <div class="cbp-l-grid-agency-desc">1% Cashback</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="cbp-item hotRetailers">
-                        <div class="cbp-caption">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="images/rebates/hotretailes/drugstore.jpg" alt="">
-                            </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignCenter">
-                                    <div class="cbp-l-caption-body">
-                                        <ul class="link-captions">
-                                            <li><a href="http://www.rebateus.com/Jump/Site/163" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
-                                            <li><a href="http://www.rebateus.com/brands/163" target="new"><i class="rounded-x fa fa-eye"></i></a></li>
-                                        </ul>
-                                        <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/brands/163" target="new">drugstore.com</a></div>
-                                        <div class="cbp-l-grid-agency-desc">5% Cashback</div>
+                        <div class="cbp-item hotRetailers">
+                            <div class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    <img src="images/rebates/hotretailes/drugstore.jpg" alt="">
+                                </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <ul class="link-captions">
+                                                <li><a href="http://www.rebateus.com/Jump/Site/163" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
+                                                <li><a href="http://www.rebateus.com/brands/163" target="new"><i class="rounded-x fa fa-eye"></i></a></li>
+                                            </ul>
+                                            <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/brands/163" target="new">drugstore.com</a></div>
+                                            <div class="cbp-l-grid-agency-desc">5% Cashback</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--热门商家-->
-                    <!--最新优惠-->
-                    <div class="cbp-item newOffers">
-                        <div class="cbp-caption">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="images/rebates/newoffers/Karmaloop.jpg" alt="">
-                            </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignCenter">
-                                    <div class="cbp-l-caption-body">
-                                        <ul class="link-captions">
-                                            <li><a href="http://www.rebateus.com/Jump/Coupon/309" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                        <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/Jump/Coupon/309" target="new">Karmaloop.com</a></div>
-                                        <div class="cbp-l-grid-agency-desc">4% Cashback plus $10 off</div>
+                        <!--热门商家-->
+                        <!--最新优惠-->
+                        <div class="cbp-item newOffers">
+                            <div class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    <img src="images/rebates/newoffers/Karmaloop.jpg" alt="">
+                                </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <ul class="link-captions">
+                                                <li><a href="http://www.rebateus.com/Jump/Coupon/309" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                            <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/Jump/Coupon/309" target="new">Karmaloop.com</a></div>
+                                            <div class="cbp-l-grid-agency-desc">4% Cashback plus $10 off</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="cbp-item newOffers">
-                        <div class="cbp-caption">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="images/rebates/newoffers/toms.jpg" alt="">
-                            </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignCenter">
-                                    <div class="cbp-l-caption-body">
-                                        <ul class="link-captions">
-                                            <li><a href="http://www.rebateus.com/Jump/Coupon/454" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                        <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/Jump/Coupon/454" target="new">TOMS Shoes</a></div>
-                                        <div class="cbp-l-grid-agency-desc">4% Cashback plus Free Shipping</div>
+                        <div class="cbp-item newOffers">
+                            <div class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    <img src="images/rebates/newoffers/toms.jpg" alt="">
+                                </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <ul class="link-captions">
+                                                <li><a href="http://www.rebateus.com/Jump/Coupon/454" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                            <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/Jump/Coupon/454" target="new">TOMS Shoes</a></div>
+                                            <div class="cbp-l-grid-agency-desc">4% Cashback plus Free Shipping</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="cbp-item newOffers">
-                        <div class="cbp-caption">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="images/rebates/newoffers/Sanrio.jpg" alt="">
-                            </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignCenter">
-                                    <div class="cbp-l-caption-body">
-                                        <ul class="link-captions">
-                                            <li><a href="http://www.rebateus.com/Jump/Coupon/467" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                        <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/Jump/Coupon/467" target="new">Sanrio</a></div>
-                                        <div class="cbp-l-grid-agency-desc">5% Cashback plus Get Up to 60% Off</div>
+                        <div class="cbp-item newOffers">
+                            <div class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    <img src="images/rebates/newoffers/Sanrio.jpg" alt="">
+                                </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <ul class="link-captions">
+                                                <li><a href="http://www.rebateus.com/Jump/Coupon/467" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                            <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/Jump/Coupon/467" target="new">Sanrio</a></div>
+                                            <div class="cbp-l-grid-agency-desc">5% Cashback plus Get Up to 60% Off</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--最新优惠-->
-                    <!--最高返利-->
-                    <div class="cbp-item bestOffers">
-                        <div class="cbp-caption">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="images/rebates/bestoffers/promotion.jpg" alt="">
-                            </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignCenter">
-                                    <div class="cbp-l-caption-body">
-                                        <ul class="link-captions">
-                                            <li><a href="http://www.rebateus.com/Jump/Coupon/542" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                        <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/Jump/Coupon/542" target="new">Great Deals and Freebies!</a></div>
+                        <!--最新优惠-->
+                        <!--最高返利-->
+                        <div class="cbp-item bestOffers">
+                            <div class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    <img src="images/rebates/bestoffers/promotion.jpg" alt="">
+                                </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <ul class="link-captions">
+                                                <li><a href="http://www.rebateus.com/Jump/Coupon/542" target="new"><i class="rounded-x fa  fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                            <div class="cbp-l-grid-agency-title"><a href="http://www.rebateus.com/Jump/Coupon/542" target="new">Great Deals and Freebies!</a></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!--最高返利-->
                     </div>
-                    <!--最高返利-->
-                </div><!--/end Grid Container-->
+                    <!--/end Grid Container-->
+                </div>
             </div>
-					</div>
         </div>
     </div>
-        <!--=== End Cube-Portfdlio ===-->
-        <!--
+    <!--=== End Cube-Portfdlio ===-->
+    <!--
         <div class="row margin-bottom-20">
             <div class="col-md-3 col-sm-6" ng-repeat="RecentNotify in RecentNotifies">
                 <div class="thumbnails thumbnail-style thumbnail-kenburn">
@@ -491,9 +510,9 @@
                 </div>
             </div>
         </div>-->
-        <!-- End Recent Works -->
+    <!-- End Recent Works -->
 
-        <!-- Info Blokcs
+    <!-- Info Blokcs
         <div class="row margin-bottom-30">
             <div class="col-md-8 md-margin-bottom-40">
                 <div class="headline"><h2>欢迎访问culexpress.com中美速递</h2></div>
@@ -545,10 +564,10 @@
                 </div>
             </div>
         </div>-->
-        <!-- End Info Blokcs -->
+    <!-- End Info Blokcs -->
 
-        <!-- Owl Clients v1 -->
-        <!--
+    <!-- Owl Clients v1 -->
+    <!--
         <div class="headline"><h2>合作伙伴</h2></div>
         <div class="owl-clients-v1">
             <div class="item">
@@ -579,44 +598,47 @@
                 <a href="{{ Clients[8].url }}"><img ng-src="{{ Clients[8].image }}" alt=""></a>
             </div>
         </div>
-    </div>--><!--/container-->
+    </div>-->
+    <!--/container-->
     <!-- End Content Part -->
 </div>
 
-<script type="text/javascript"> 
-    jQuery(document).ready(function () {
-        var unslider = $('.info-banner').unslider({nav: false});
-        
-            $('.unslider-arrow').click(function() {
-                
-                var fn = this.className.split(' ')[1];                                      
-                unslider.data('unslider')[fn]();
-            });
-        $('#da-slider').cslider({
-            current     : 0,    
-            // index of current slide
-                
-            bgincrement : 50,  
-            // increment the background position 
-            // (parallax effect) when sliding
-            autoplay    : true,
-            // slideshow on / off
-                
-            interval    : 8000
-            // time between transitions
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        var unslider = $('.info-banner').unslider({
+            nav: false
         });
 
-       (function ($, window, document, undefined) {
+        $('.unslider-arrow').click(function() {
+
+            var fn = this.className.split(' ')[1];
+            unslider.data('unslider')[fn]();
+        });
+        $('#da-slider').cslider({
+            current: 0,
+            // index of current slide
+
+            bgincrement: 50,
+            // increment the background position 
+            // (parallax effect) when sliding
+            autoplay: true,
+            // slideshow on / off
+
+            interval: 8000
+                // time between transitions
+        });
+
+        (function($, window, document, undefined) {
             'use strict';
-            
+
             // var unslider = $('.info-banner').unslider({nav: false});
-        
+
             // $('.unslider-arrow').click(function() {
-                
+
             //     var fn = this.className.split(' ')[1];                                      
             //     unslider.data('unslider')[fn]();
             // });
-            
+
 
             var gridContainer = $('#grid-container'),
                 filtersContainer = $('#filters-container'),
@@ -658,27 +680,27 @@
                 wrap = filtersContainer.find('.cbp-l-filters-dropdownWrap');
 
                 wrap.on({
-                    'mouseover.cbp': function () {
+                    'mouseover.cbp': function() {
                         wrap.addClass('cbp-l-filters-dropdownWrap-open');
                     },
-                    'mouseleave.cbp': function () {
+                    'mouseleave.cbp': function() {
                         wrap.removeClass('cbp-l-filters-dropdownWrap-open');
                     }
                 });
 
-                filtersCallback = function (me) {
+                filtersCallback = function(me) {
                     wrap.find('.cbp-filter-item').removeClass('cbp-filter-item-active');
                     wrap.find('.cbp-l-filters-dropdownHeader').text(me.text());
                     me.addClass('cbp-filter-item-active');
                     wrap.trigger('mouseleave.cbp');
                 };
             } else {
-                filtersCallback = function (me) {
+                filtersCallback = function(me) {
                     me.addClass('cbp-filter-item-active').siblings().removeClass('cbp-filter-item-active');
                 };
             }
 
-            filtersContainer.on('click.cbp', '.cbp-filter-item', function () {
+            filtersContainer.on('click.cbp', '.cbp-filter-item', function() {
                 var me = $(this);
 
                 if (me.hasClass('cbp-filter-item-active')) {
@@ -691,14 +713,14 @@
                 }
 
                 // filter the items
-                gridContainer.cubeportfolio('filter', me.data('filter'), function () { });
+                gridContainer.cubeportfolio('filter', me.data('filter'), function() {});
             });
 
 
             /*********************************
                 activate counter for filters
              *********************************/
-            gridContainer.cubeportfolio('showCounter', filtersContainer.find('.cbp-filter-item'), function () {
+            gridContainer.cubeportfolio('showCounter', filtersContainer.find('.cbp-filter-item'), function() {
                 // read from url and change filter active
                 var match = /#cbpf=(.*?)([#|?&]|$)/gi.exec(location.href),
                     item;
@@ -712,7 +734,7 @@
 
         })(jQuery, window, document);
 
-      	// App.init();
+        // App.init();
         // App.initParallaxBg();
         // OwlCarousel.initOwlCarousel();
         // StyleSwitcher.initStyleSwitcher();
