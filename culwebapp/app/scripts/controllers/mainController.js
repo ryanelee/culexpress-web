@@ -64,10 +64,10 @@ angular
                             htm2 = htm2 + `
                       <li class="info-banner` + j + `" >
                     <div class="container">
-                        <h1 class="info-title">` + openAnnounceList[i].title + `</h1>
+                        <h1 class="info-title">` + $scope.openAnnounceList[i].title + `</h1>
                         <div class="info-content">
                             <img src="../assets/img/index/info-person` + j + `.png" />
-                            <p class="info-detail-lg">` + openAnnounceList[i].content + `</p>
+                            <p class="info-detail-lg">` + $scope.openAnnounceList[i].content + `</p>
                         </div>
                     </div>
                 </li>`
@@ -79,7 +79,7 @@ angular
                                       </li>
                                       <li class="info-banner3">
                                       </li>*/
-                        $("$bana").append(htm);
+                        $("#bana").append(htm);
                     }
 
 
