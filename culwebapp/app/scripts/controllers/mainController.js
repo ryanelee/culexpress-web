@@ -51,29 +51,29 @@ angular
                     console.log($scope.openAnnounceList);
                     var htm = "";
                     if ($scope.openAnnounceList[0]) {
-                        var htm1 = `<div class="container-fluid info-banner slideBox hidden-sm">
-			<div class="container">
-				<div class="info-op">
-					<img class="unslider-arrow prev" src="../assets/img/index/icon-info-left.png" />
-					<img class="unslider-arrow next" src="../assets/img/index/icon-info-right.png" />
-				</div>
-			</div>
-            <ul> `
+                        var htm1 = '<div class="container-fluid info-banner slideBox hidden-sm">'+
+			'<div class="container">'+
+				'<div class="info-op">'+
+					'<img class="unslider-arrow prev" src="../assets/img/index/icon-info-left.png" />'+
+					'<img class="unslider-arrow next" src="../assets/img/index/icon-info-right.png" />'+
+				'</div>'+
+			'</div>'+
+            '<ul> ';
                         var htm2 = ""
                         for (var i = 0; i < $scope.openAnnounceList.length; i++) {
                             var j = i % 3 + 1;
-                            htm2 = htm2 + `
-                      <li class="info-banner` + j + `" >
-                    <div class="container">
-                        <h1 class="info-title">` + $scope.openAnnounceList[i].title + `</h1>
-                        <div class="info-content">
-                            <img src="../assets/img/index/info-person` + j + `.png" />
-                            <p class="info-detail-lg">` + $scope.openAnnounceList[i].content + `</p>
-                        </div>
-                    </div>
-                </li>`
+                            htm2 = htm2 + ''+
+                      '<li class="info-banner' + j + '" >'+
+                    '<div class="container">'+
+                        '<h1 class="info-title">' + $scope.openAnnounceList[i].title + '</h1>'+
+                        '<div class="info-content">'+
+                        '    <img src="../assets/img/index/info-person' + j + '.png" />'+
+                            '<p class="info-detail-lg">' + $scope.openAnnounceList[i].content + '</p>'+
+                        '</div>'+
+                    '</div>'+
+                '</li>';
                         }
-                        var htm3 = ` </ul></div>`
+                        var htm3 = ' </ul></div>';
                         htm = htm1 + htm2 + htm3;
 
                         $("#bana").append(htm);
