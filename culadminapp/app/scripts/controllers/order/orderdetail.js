@@ -68,7 +68,7 @@ angular.module('culAdminApp')
                 if (!!address.receivePersonName &&
                     !!address.cellphoneNumber &&
                     !!address.address1 &&
-                    !!address.receiveCompanyName &&
+                    // !!address.receiveCompanyName &&
                     !!address.zipcode) {
                     console.log(address);
                     address.transactionNumber = address.addressNumber;

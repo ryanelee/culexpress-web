@@ -60,11 +60,16 @@ angular.module('culAdminApp')
             $scope.checkItemNumber();
 
             $scope.btnSave = function(type) {
-                if ($scope.data.incrementInventory_frozen + $scope.data.inventory_frozen > $scope.inventory) {
+                console.log($scope.data.inventory_frozen);
+                console.log($scope.inventory);
+                console.log($scope.data.incrementInventory_frozen);
+                // return;
+                console.log(Number($scope.data.incrementInventory_frozen) + Number($scope.data.inventory_frozen));
+                if ((Number($scope.data.incrementInventory_frozen) + Number($scope.data.inventory_frozen)) > Number($scope.inventory)) {
                     plugMessenger.info("冻结库存超过库存,请重新填写");
                     return;
                 }
-                if ($scope.data.incrementInventory_frozen + $scope.data.inventory_frozen < 0) {
+                if (Number($scope.data.incrementInventory_frozen) + Number($scope.data.inventory_frozen) < 0) {
                     plugMessenger.info("解冻库存超过冻结的，不允许解冻");
                     return;
                 }
