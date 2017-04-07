@@ -18,13 +18,12 @@ angular.module('culAdminApp')
 
             $scope.isPrintDetail = !!$location.search().print;
 
-            $scope.isShow = true;
+            $scope.isShow = false;
             orderService.getDetail($location.search().orderNumber, function(result) {
                 $scope.data = result;
                 $scope.result = result;
-                console.log($scope.data);
-                if (result._orderStatus == "已出库" || result._printStatus == "已打印") {
-                    $scope.isShow = false;
+                if (result._printStatus == "未打印") {
+                    $scope.isShow = true;
                 };
                 $.each($scope.data.shipToAddresses, function(i, address) {
                     address._trackingNumbers = [];

@@ -153,6 +153,7 @@ culAdminApp.controller('PayDetailCtrl', ["$scope", "$rootScope", "$location", "$
         $scope.back = function () {
             window.history.back()
         }
+        console.log( $scope.data);
         $scope.pay = function () {
 
             $scope.data.memo = "订单编号: " + $scope.data.orderNumber + " 扣款人: " + $rootScope.userInfo.userName + " 备注: "
@@ -161,7 +162,7 @@ culAdminApp.controller('PayDetailCtrl', ["$scope", "$rootScope", "$location", "$
             // }
             if ($scope.data.remark) {
                 $scope.data.memo = $scope.data.memo + $scope.data.remark
-            }
+            }        
             orderService.adminPaymentOrder($scope.data).then(function (data) {
                 if (data.status == 200) {
                     plugMessenger.success("扣款成功");
