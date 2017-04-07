@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('WarehouseShelfManagementCtrl', ['$window','$rootScope','$scope', '$location', 'warehouseService', 'shelfService',
-      function ($window,$rootScope,$scope, $location, warehouseService, shelfService) {
+  .controller('WarehouseShelfManagementCtrl', ['$timeout', '$window','$rootScope','$scope', '$location', 'warehouseService', 'shelfService',
+      function ($timeout,$window,$rootScope,$scope, $location, warehouseService, shelfService) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -56,6 +56,7 @@ angular.module('culAdminApp')
               if (!!$scope.searchBar.type) {
                   _options["type"] = $scope.searchBar.type;
               }
+
               if (!!$scope.searchBar.warehouseNumber) {
                   _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
               }
@@ -75,6 +76,7 @@ angular.module('culAdminApp')
           $scope.getData = function () {
               shelfService.getList(_filterOptions(), function (result) {
                   var _data = result.data;
+
                   if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                       _data = _data.filter(function(x){
                           return $scope.customer_ids.split(",").includes(x.customerNumber)
@@ -87,7 +89,10 @@ angular.module('culAdminApp')
                   $rootScope.$emit("changeMenu");
               });
           }
-          $scope.getData();
+
+          $timeout(function(){
+            $scope.getData();
+          },500);
 
           $scope.btnSearch = function () {
               $scope.selectedListCache = [];
