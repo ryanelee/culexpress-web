@@ -89,7 +89,15 @@ angular.module('culwebApp')
             if (!$scope.isOrderPackage) {
                 orderSvr.getOrderTrackingList($scope.trackingNumber)
                     .then(function (result) {
-                            $scope.status = result.data.data[0].status;
+console.log(result);
+                        if (!result || !result.data.data || result.data.data.length < 1) {
+                            $scope.isErrorNumber = true;
+                            $scope.showTrack = false;
+                            $scope.showOutboundDate = false;
+                            return;
+                        }
+
+                        $scope.status = result.data.data[0].status;
                         var eventObj = result.data,
                             eventList = [],
                             tempEventList = angular.copy($scope.orderEventInfo.eventList);

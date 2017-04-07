@@ -21,19 +21,14 @@ angular.module('culAdminApp')
           console.log($scope.tempOutboundPackageNumber)
           var _timeout = null;
           $scope.checkInboundPackageNumber = function () {
-              console.log('1')
               console.log($scope.tempOutboundPackageNumber)
               if (!!_timeout) clearTimeout(_timeout);
               _timeout = setTimeout(function () {
-                  $scope.$apply(function () {
-                          console.log('234')
+                  $scope.$apply(function () {                  
                       if (!!$scope.tempInboundPackageNumber) {
-                          console.log('23')
                           orderService.getList({
                               receiveTrackingNumber: $scope.tempInboundPackageNumber
                           }, function (result) {
-                            console.log('12348')
-                            console.log(result)
                               if (!!result && !!result.data && result.data.length > 0) {
                                   if (!$scope.data) {
                                       $scope.data = result.data[0];
@@ -99,14 +94,14 @@ angular.module('culAdminApp')
           }
 
           $scope.btnSave = function () {
-
               if (!!$scope.data && $scope.data.inboundPackages.length > 0) {
                   if ($.grep($scope.data.inboundPackages, function (n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
                       var _count = 0;
                       var checkedPackages = $scope.data.outboundPackages;
                       var _callback = function () {
                           plugMessenger.success("保存成功");
-                          //$window.history.back();
+                        //   $window.history.back();
+                        $location.path('/warehouse/package');
                           _reset();
                       }
                       //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
