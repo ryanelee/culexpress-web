@@ -88,8 +88,7 @@ angular.module('culwebApp')
 
             if (!$scope.isOrderPackage) {
                 orderSvr.getOrderTrackingList($scope.trackingNumber)
-                    .then(function (result) {
-console.log(result);
+                    .then(function (result) {                     
                         if (!result || !result.data.data || result.data.data.length < 1) {
                             $scope.isErrorNumber = true;
                             $scope.showTrack = false;
@@ -98,6 +97,13 @@ console.log(result);
                         }
 
                         $scope.status = result.data.data[0].status;
+                        
+                        // 订单跟踪，定位出库时间
+                        for (var i = 0, ii = result.data.data.length; i < ii; i++) {                        
+                            if ( result.data.data[i].eventCode == 103) {
+                                $scope.eventChukuDate = result.data.data[i].operationDate; 
+                            }                         
+                        }
                         var eventObj = result.data,
                             eventList = [],
                             tempEventList = angular.copy($scope.orderEventInfo.eventList);
