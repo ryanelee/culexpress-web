@@ -35,7 +35,7 @@ angular.module('culAdminApp')
           $scope.searchBar = {
               selectedAll: false,
               keywordType: "customerNumber",
-              orderStatus: "Processing",
+              orderStatus: "",
               warehouseNumber: "",
               exportStatus: "UnExported"
           }
