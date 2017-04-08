@@ -61,7 +61,7 @@
                 </div>
             </fieldset>
             <fieldset>
-                <legend>收货地址</legend>
+                <legend>收货地址1</legend>
                 <div class="form-group">
                     <div class="col-sm-8 col-sm-offset-2">
                         <table class="table">
@@ -80,7 +80,7 @@
                                     <td>
                                         <div ng-show="!address._edit">
                                             {{address.receivePersonName}}
-                                            <span ng-if="!!address.cellphoneNumber">({{address.cellphoneNumber}})</span>                                            {{address.address1}}{{address.receiveCompanyName}}
+                                            <span ng-if="!!address.cellphoneNumber">({{address.cellphoneNumber}})</span> {{address.address1}}{{address.receiveCompanyName}}
                                             <span ng-if="!!address.zipcode">({{address.zipcode}})</span>
                                         </div>
                                         <div ng-show="!!address._edit">
@@ -97,7 +97,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label text-right">详细地址：</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" ng-model="address.address1" />
+                                                    <input type="text" class="form-control" ng-model="address.address1_before" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -108,6 +108,27 @@
                                                 <label class="col-sm-2 control-label text-right">邮政编码：</label>
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control" ng-model="address.zipcode" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label text-right">收货地址</label>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <select style="padding: 0 10px;" class="form-control" ng-options="province as province.name for province in provinces" ng-model="address.province" ng-change="getCity();">
+                          <option>请选择省份</option>
+                      </select>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <select style="padding: 0 10px;" class="form-control" ng-options="city as city.name for city in citys" ng-model="address.city" ng-change="getArea();">
+                          <option>请选择城市</option>
+                      </select>
+                                                    </div>
+
+                                                    <div class="col-sm-3">
+                                                        <select style="padding: 0 10px;" class="form-control" ng-options="area as area.name for area in areas" ng-model="address.area">
+                          <option>请选择区</option>
+                      </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,21 +266,18 @@
                             </tbody>
                         </table>
                         <div ng-if="!!isShow">
-                        <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('cancel')"
-                            ng-show="!!_editOrderItems">
+                            <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('cancel')" ng-show="!!_editOrderItems">
                                 <i class="fa fa-repeat"></i>取消修改
                         </button>
-                        <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('add')"
-                            ng-show="!!_editOrderItems">
+                            <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('add')" ng-show="!!_editOrderItems">
                             <i class="fa fa-plus"></i>新增
                         </button>
-                        <label class="control-label red pull-right" ng-show="!!_editOrderItems">内容修改后，请点击底部“保存”按钮。</label>
-                        <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnEditOrderItems()"
-                            ng-show="!_editOrderItems">
+                            <label class="control-label red pull-right" ng-show="!!_editOrderItems">内容修改后，请点击底部“保存”按钮。</label>
+                            <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnEditOrderItems()" ng-show="!_editOrderItems">
                             <i class="fa fa-edit"></i>修改品名
                         </button>
-                    </div>
-     <label class="control-label red pull-right" ng-show="!!_editOrderItems">内容修改后，请点击底部“保存”按钮。</label>
+                        </div>
+                        <label class="control-label red pull-right" ng-show="!!_editOrderItems">内容修改后，请点击底部“保存”按钮。</label>
                         <!--<button type="button" class="btn btn-default pull-right role" data-role="84" style="margin-left: 10px;" ng-click="btnEditOrderItems()"
                             ng-show="!_editOrderItems">
 <i class="fa fa-edit"></i>修改品名

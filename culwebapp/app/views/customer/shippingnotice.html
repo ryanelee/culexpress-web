@@ -2,10 +2,9 @@
 <div class="row" ng-controller="ShippingNoticeController" style="background-color: #fff;">
     <div class="profile-body margin-bottom-20" style="background-color: #fff;">
         <div class="common-title">
-          <h2>
-            <i class="fa fa-clock-o"></i>
-            货物预报
-          </h2>
+            <h2>
+                <i class="fa fa-clock-o"></i> 货物预报
+            </h2>
         </div>
         <form class="sky-form edit-content">
             <div class="left-row">
@@ -16,23 +15,23 @@
                 </label>
             </div>
             <div class="right-row">
-              <label class="label">快递名称</label>
-              <label class="select">
+                <label class="label">快递名称</label>
+                <label class="select">
                   <select class="txt-item" ng-options="item.name for item in shippingCarriers track by item.id" ng-model="selectedshippingCarrier"></select>
                   <i class="sel-icon"></i>
               </label>
             </div>
             <div class="left-row">
-              <label class="label required">运单号码</label>
-              <label class="input">
+                <label class="label required">运单号码</label>
+                <label class="input">
                   <i class="icon-prepend fa fa-question-circle"></i>
                   <input type="text" name="required" class="form-control" ng-model="shippingNotice.trackingNumber">
                   <b class="tooltip tooltip-bottom-left">请输入您发货到我方仓库的快递运单号码，比如:LZ123456789</b>
               </label>
             </div>
-            <div class="right-row" >
-              <label class="label required">运单内容</label>
-              <label class="input">
+            <div class="right-row">
+                <label class="label required">运单内容</label>
+                <label class="input">
                   <i class="icon-prepend fa fa-question-circle"></i>
                   <input type="text" name="required" class="form-control" id="packageDescription"  ng-model="shippingNotice.packageDescription">
                   <b class="tooltip tooltip-bottom-left">请填写您这个包裹的物品大致名称，例如：手机 ,衣服,维生素</b>
@@ -47,19 +46,19 @@
                 </label>
             </div>
             <div class="form-group">
-              <label class="label">运单备注信息</label>
-              <label class="textarea">
+                <label class="label">运单备注信息</label>
+                <label class="textarea">
                   <i class="icon-append fa fa-comment"></i>
                   <textarea rows="3" placeholder="请填写您的运单备注信息" class="txt-item-l" ng-model="shippingNotice.packageNote"></textarea>
               </label>
-              <div class="note">
-                  <i class="fa fa-exclamation-triangle color-ffb"></i><strong>注意:</strong>在网上购物的时候,一定记得写上系统给您分配,由4个字母组成的收件标示,地址后面也要加上客户编号. 以防止在没有做货物预告或者包裹面单破损的情况下,我们仓库收到包裹会根据客户的收件标示和客户编号确认客户信息号.
-              </div>
+                <div class="note">
+                    <i class="fa fa-exclamation-triangle color-ffb"></i><strong>注意:</strong>在网上购物的时候,一定记得写上系统给您分配,由4个字母组成的收件标示,地址后面也要加上客户编号. 以防止在没有做货物预告或者包裹面单破损的情况下,我们仓库收到包裹会根据客户的收件标示和客户编号确认客户信息号.
+                </div>
             </div>
             <div class="form-group">
                 <div class="check-style">
-                  <input id="agree-message" class="checkbox-input" type="checkbox" ng-click="isFocus()" id="isFastOrder" ng-model="shippingNotice.isFastOrder" />
-                  <label for="agree-message"> 极速原箱 </label>
+                    <input id="agree-message" class="checkbox-input" type="checkbox" ng-click="isFocus()" id="isFastOrder" ng-model="shippingNotice.isFastOrder" />
+                    <label for="agree-message"> 极速原箱 </label>
                 </div>
                 <!-- <label class="label"><input type="checkbox" ng-model="shippingNotice.isFastOrder"/> 极速原箱</label> -->
                 <!--<div class="note" ng-show="currentUser.accountBalance<100">
@@ -67,8 +66,7 @@
                 </div>-->
 
                 <div class="note">
-                    <i class="fa fa-exclamation-triangle color-ffb"></i><strong>注意:</strong>勾选极速出库，则代表您的包裹第一时间到达仓库后，就有了不一样的极速标示，我们会根据到库称重的重量直接预扣除您的运费，确保在第一时间处理您的包裹，第一时间让您的包裹完成出库.
-                    推荐衣服鞋帽类，适合不易碎的，不需要加固的产品，请务必如实正确填写快递包裹的重量，如果重量低于实际到货称重重量，会造成包裹延误出库。
+                    <i class="fa fa-exclamation-triangle color-ffb"></i><strong>注意:</strong>勾选极速出库，则代表您的包裹第一时间到达仓库后，就有了不一样的极速标示，我们会根据到库称重的重量直接预扣除您的运费，确保在第一时间处理您的包裹，第一时间让您的包裹完成出库. 推荐衣服鞋帽类，适合不易碎的，不需要加固的产品，请务必如实正确填写快递包裹的重量，如果重量低于实际到货称重重量，会造成包裹延误出库。
                 </div>
             </div>
             <footer>
@@ -90,4 +88,3 @@
     </div>
 </div>
 <!-- End Content -->
-

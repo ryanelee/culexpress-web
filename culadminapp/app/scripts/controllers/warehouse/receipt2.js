@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('Receipt2Ctrl', ['$rootScope', '$scope', '$location', "$filter", '$window', 'warehouseService', 'shelfService', 'receiptService', 'plugMessenger',
-        function ($rootScope, $scope, $location, $filter, $window, warehouseService, shelfService, receiptService, plugMessenger) {
+        function($rootScope, $scope, $location, $filter, $window, warehouseService, shelfService, receiptService, plugMessenger) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -20,11 +20,11 @@ angular.module('culAdminApp')
             $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
 
             $scope.pagination = {
-                pageSize: "20",
-                pageIndex: 1,
-                totalCount: 0
-            }
-            /*search bar*/
+                    pageSize: "20",
+                    pageIndex: 1,
+                    totalCount: 0
+                }
+                /*search bar*/
             $scope.searchBar = {
                 keywordType: "receiptNumber",
                 keywords: $location.search().receiptNumber || "",
@@ -39,7 +39,7 @@ angular.module('culAdminApp')
                 }
             }
 
-            warehouseService.getWarehouse(function (result) {
+            warehouseService.getWarehouse(function(result) {
                 if (result.length == 1) {
                     $scope.searchBar.warehouseList = result;
                     $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
@@ -48,7 +48,7 @@ angular.module('culAdminApp')
                 }
             });
 
-            var _filterOptions = function () {
+            var _filterOptions = function() {
                 var _options = {
                     "pageInfo": $scope.pagination,
                     "inboundDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
@@ -67,10 +67,10 @@ angular.module('culAdminApp')
                     _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
                 }
                 if (!!$scope.searchBar.keywords) {
-                    if ($scope.searchBar.keywordType == "customerNumber"
-                        && $scope.customer_ids != undefined
-                        && parseInt($scope.customer_ids) !== 0
-                        && !$scope.customer_ids.split(",").includes($scope.searchBar.keywords)) {
+                    if ($scope.searchBar.keywordType == "customerNumber" &&
+                        $scope.customer_ids != undefined &&
+                        parseInt($scope.customer_ids) !== 0 &&
+                        !$scope.customer_ids.split(",").includes($scope.searchBar.keywords)) {
                         $scope.searchBar.keywords = "没有查看该客户的权限,请联系统管理员";
                     }
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
@@ -78,15 +78,16 @@ angular.module('culAdminApp')
                 return angular.copy(_options);
             }
 
-            $scope.getData = function () {
-                shelfService.getTransportList(_filterOptions(), function (result) {
+            $scope.getData = function() {
+                shelfService.getTransportList(_filterOptions(), function(result) {
+                    console.log(result);
                     var _data = result.data;
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
-                        _data = _data.filter(function (x) {
+                        _data = _data.filter(function(x) {
                             return $scope.customer_ids.toString().split(",").indexof(x.customerNumber) >= 0;
                         });
                     }
-                    _data.forEach(function (e) {
+                    _data.forEach(function(e) {
                         if (e.packageDescription && e.packageDescription.length > 20) {
                             e.packageDescriptionFlag = 1;
                         }
@@ -103,7 +104,7 @@ angular.module('culAdminApp')
                     })
 
                     $scope.dataList = _data;
-                    $scope.dataList.forEach(function (e) {
+                    $scope.dataList.forEach(function(e) {
                         if (e.isUnusual == 1) {
                             e._sendType = "员工包裹";
                         }
@@ -116,14 +117,14 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.btnSearch = function () {
+            $scope.btnSearch = function() {
                 $scope.dataList = [];
                 $scope.pagination.pageIndex = 1;
                 $scope.pagination.totalCount = 0;
                 $scope.getData();
             }
 
-            $scope.btnOpenDetail = function (type, item) {
+            $scope.btnOpenDetail = function(type, item) {
                 switch (type) {
                     case "receiptDetail":
                         $location.search({ receiptNumber: item.receiptNumber });
@@ -136,7 +137,7 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnAction = function (type, item) {
+            $scope.btnAction = function(type, item) {
                 switch (type) {
                     case "exception":
                         $location.path('/warehouse/receiptexception');
@@ -150,11 +151,11 @@ angular.module('culAdminApp')
                         $location.path('/warehouse/receiptcheck2');
                         break;
                     case "delete":
-                        plugMessenger.confirm("请确认是否删除该记录？", function (isOK) {
+                        plugMessenger.confirm("请确认是否删除该记录？", function(isOK) {
                             if (isOK) {
                                 receiptService.delete({
                                     "receiptNumber": [item.receiptNumber]
-                                }, function (result) {
+                                }, function(result) {
                                     if (result.success == true) {
                                         plugMessenger.success("删除成功");
                                         $scope.getData();
@@ -167,4 +168,5 @@ angular.module('culAdminApp')
             }
 
             $scope.getData();
-        }]);
+        }
+    ]);
