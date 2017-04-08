@@ -131,7 +131,22 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     return function (input) {
         return question[input] || input;
     };
-});
+}).filter('listInfo', function () {  
+        return function (collection, index) {  
+            console.info(collection);  
+            console.info(index);  
+            var output = [],  
+                keys = [];  
+            angular.forEach(collection, function (item) {  
+                var key = item[index];  
+                if (keys.indexOf(key) <= index && keys.indexOf(key) >= index)   {  
+                    keys.push(key);  
+                    output.push(item);  
+                }  
+            });  
+            return output;  
+        }  
+    });
 
 // angular.module('ngFilters').filter('cutText', function(){
 //     return function (value, wordwise, max ,tail) {

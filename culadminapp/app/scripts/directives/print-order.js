@@ -29,6 +29,7 @@ angular.module('culAdminApp')
               $scope.$on("print-order.action", function (e, orderNumbers) {
                   if (!angular.isArray(orderNumbers)) $scope.orderNumbers = [orderNumbers];
                   else $scope.orderNumbers = orderNumbers;
+                  $scope.printDate = new Date();
                   $scope.dataList = [];
                   var _options = {
                       pageInfo: {
@@ -40,7 +41,7 @@ angular.module('culAdminApp')
                   orderService.getList(_options, function (result) {
                       console.log("result>"+JSON.stringify(result));
                       $scope.dataList = result.data;
-
+                      console.log(result.data);
                       $.each($scope.dataList, function (i, _data) {
                           _data._shippingFeeTotal = 0;
                           $.each(_data.outboundPackages, function (i, outboundPackage) {
