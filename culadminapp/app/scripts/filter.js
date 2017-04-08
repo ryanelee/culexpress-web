@@ -132,18 +132,12 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
         return question[input] || input;
     };
 }).filter('listInfo', function () {  
-        return function (collection, index) {  
-            console.info(collection);  
-            console.info(index);  
+        return function (collection, index) {   
             var output = [],  
-                keys = [];  
-            angular.forEach(collection, function (item) {  
-                var key = item[index];  
-                if (keys.indexOf(key) <= index && keys.indexOf(key) >= index)   {  
-                    keys.push(key);  
-                    output.push(item);  
-                }  
-            });  
+                keys = [];
+            for(var i= index - index % 10, l = index; i<= l; i++){              
+                output.push(collection[i]);             
+            }                    
             return output;  
         }  
     });

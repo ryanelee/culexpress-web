@@ -170,19 +170,19 @@
                         <th>生成日期</th>
                         <th>小费</th>
                     </tr>
-                    <tr ng-repeat="data in dataList | listInfo:'$index'"> 
-                        <td>111</td>
-                        <td>11</td>
-                        <td>11</td>
-                        <td>1111111111</td>
-                        <td>11</td>
-                        <td>11</td>
-                        <td>11</td>
-                        <td>11</td>
-                    </tr>              
+                    <tr ng-repeat="data in dataList | listInfo: $index"> 
+                        <td>{{data.orderNumber}}</td>
+                        <td>11111</td>
+                        <td>{{data.customerNumber}}</td>
+                        <td>{{data.orderNumber}}</td>
+                        <td>{{data.actualWeight}}</td>
+                        <td>{{data.cartonCount}}</td>
+                        <td>{{data.orderDate}}</td>
+                        <td>{{data.transferringFee}}</td>
+                    </tr>             
                 </table>
             </div>
-            <div ng-if="($index+1) == dataList.length" class="height-100">
+            <div ng-if="($index+1) == dataList.length && ($index+1) % 10 != 0" class="height-100">
                 <table cellpadding="2" cellspacing="0" border="1" width="100%" class="list">
                     <tr>
                         <th>包裹跟踪号(后6位)</th>
@@ -194,16 +194,16 @@
                         <th>生成日期</th>
                         <th>小费</th>
                     </tr>
-                    <tr > 
-                        <td>111</td>
-                        <td>11</td>
-                        <td>11</td>
-                        <td>1111111111</td>
-                        <td>11</td>
-                        <td>11</td>
-                        <td>11</td>
-                        <td>11</td>
-                    </tr>              
+                    <tr ng-repeat="data in dataList | listInfo: $index"> 
+                        <td>{{data.orderNumber}}</td>
+                        <td>11111</td>
+                        <td>{{data.customerNumber}}</td>
+                        <td>{{data.orderNumber}}</td>
+                        <td>{{data.actualWeight}}</td>
+                        <td>{{data.cartonCount}}</td>
+                        <td>{{data.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                        <td>{{data.transferringFee}}</td>
+                    </tr>                  
                 </table>
             </div>
         </div>
