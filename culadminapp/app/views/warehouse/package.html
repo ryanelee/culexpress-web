@@ -12,13 +12,15 @@
                 <div class="search-col">
                     <label class="search-label">订单状态：</label>
                     <select class="form-control search-control" ng-model="searchBar.orderStatus">
-                        <option value="">全部(不包括已删除)</option>
+                        <option value="">全部</option><!--(不包括已删除)-->
                         <option value="Unpaid">待支付</option>
                         <option value="Paid">已支付</option>
                         <option value="Processing">处理中</option>
                         <option value="Arrears">运费不足</option>
                         <option value="Shipped">已出库</option>
-                        <option value="Void">已删除</option>
+                        <option value="Arrived">已送达</option>
+                        <option value="Canceled">已取消</option>
+                        <option value="Void">已删除</option>    
                     </select>
                 </div>
                 <div class="search-col">
@@ -74,6 +76,7 @@
                             <th>包裹重量（磅）</th>
                             <th>打包时间</th>
                             <th>打包人员</th>
+                            <th>订单状态</th>
                             <th>导出状态</th>
                             <th>操作</th>
                         </tr>
@@ -91,6 +94,7 @@
                             <td>{{item.actualWeight}}</td>
                             <td>{{item.lastEditDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
                             <td>{{item.lastEditUserName}}</td>
+                            <td>{{item._orderStatus}}</td>
                             <td>{{item._exportStatus}}</td>
                             <td>
                                 <a href="javascript:void(0)" class="role" data-role="73" ng-click="btnPrint(item,'flyingexpress')">打印翔通面单</a>

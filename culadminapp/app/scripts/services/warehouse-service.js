@@ -11,6 +11,23 @@ angular.module('culAdminApp')
     .service('warehouseService', ["$http", "$window", function ($http, $window) {
         var self = this;
 
+        var _getOrderStatus = function (orderStatus) {
+            var statusTitle = "";
+            switch (orderStatus) {
+                case "Canceled": statusTitle = "取消"; break;
+                case "Unpaid": statusTitle = "未支付"; break;
+                case "Paid": statusTitle = "已支付"; break;
+                case "Processing": statusTitle = "处理中"; break;
+                case "Checkout": statusTitle = "签出"; break;
+                case "Arrears": statusTitle = "欠费"; break;
+                case "Shipped": statusTitle = "已出库"; break;
+                case "Arrived": statusTitle = "已送达"; break;
+                case "Void": statusTitle = "已删除"; break;
+                case "PartialShipped": statusTitle = "部分出库"; break;
+            }
+            return statusTitle;
+        }
+
         self.getInboundPackageList = function (options, callback) {
             $http.post(cul.apiPath + "/inboundPackage/list", options).success(function (result) {
                 $.each(result.data, function (index, item) {
@@ -70,8 +87,9 @@ angular.module('culAdminApp')
         }
 
         self.getOutboundPackageList = function (options, callback) {
-            $http.post(cul.apiPath + "/outboundPackage/list", options).success(function (result) {
+            $http.post(cul.apiPath + "/outboundPackage/list", options).success(function (result) {          
                 $.each(result.data, function (i, item) {
+                    item._orderStatus = _getOrderStatus(item.orderStatus);
                     if (!!item.address) {
                         item._shipToAddresses = [];
                         var _str = item.address.receivePersonName;
