@@ -177,7 +177,7 @@
                         <td>{{data.orderNumber}}</td>
                         <td>{{data.actualWeight}}</td>
                         <td>{{data.cartonCount}}</td>
-                        <td>{{data.orderDate}}</td>
+                        <td>{{data.payDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                         <td>{{data.transferringFee}}</td>
                     </tr>             
                 </table>
@@ -201,7 +201,7 @@
                         <td>{{data.orderNumber}}</td>
                         <td>{{data.actualWeight}}</td>
                         <td>{{data.cartonCount}}</td>
-                        <td>{{data.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                        <td>{{data.payDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                         <td>{{data.transferringFee}}</td>
                     </tr>                  
                 </table>
