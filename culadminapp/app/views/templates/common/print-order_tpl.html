@@ -98,14 +98,14 @@
                                 <tr>
                                     <th>序号</th>
                                     <th>品牌</th>
-                                    <th>商品描述</th>
+                                    <!--<th>商品描述</th>-->
                                     <th>数量</th>
                                     <th>价值($)</th>
                                 </tr>
                                 <tr ng-repeat="item in data.orderItems">
                                     <td>{{$index + 1}}</td>
                                     <td>{{item.itemBrand}}</td>
-                                    <td style="max-width: 300px;">
+                                    <!--<td style="max-width: 300px;">
                                         <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:44px;">
                                             {{item.description}}
                                             {{ !!item.property1 ? " " + item.property1 : "" }}
@@ -114,11 +114,25 @@
                                             {{ !!item.property4 ? " " + item.property4 : "" }}
                                             {{ !!item.property5 ? " " + item.property5 : "" }}
                                         </div>
-                                    </td>
+                                    </td>-->
                                     <td>{{item.quantity}}</td>
                                     <td>{{item.unitprice | number:2}}</td>
-                                </tr>
+                                </tr>                               
                             </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">商品描述</td>
+                        <td colspan="3">
+                            <label ng-repeat="item in data.orderItems">
+                                {{item.itemBrand}}<label>&nbsp;</label> 
+                                {{item.description}}
+                                {{ !!item.property1 ? " " + item.property1 : "" }}
+                                {{ !!item.property2 ? " " + item.property2 : "" }}
+                                {{ !!item.property3 ? " " + item.property3 : "" }}
+                                {{ !!item.property4 ? " " + item.property4 : "" }}
+                                {{ !!item.property5 ? " " + item.property5 : "" }},
+                            </label>
                         </td>
                     </tr>
                     <tr>
@@ -150,11 +164,11 @@
                         <td class="title">合计</td>
                         <td >${{data._shippingFeeTotal || 0}}</td>
                         <td class="title">小费</td>
-                        <td>${{data._shippingFeeTotal || 0}}</td>
+                        <td>${{data.tip || 0}}</td>
                     </tr>
                     <tr>
                         <td class="title">备注</td>
-                        <td colspan="3">请加固并取出发票，谢谢</td>              
+                        <td colspan="3">请加固并取出发票，谢谢。</td>              
                     </tr>
                 </table>
             </div>
@@ -170,15 +184,21 @@
                         <th>生成日期</th>
                         <th>小费</th>
                     </tr>
-                    <tr ng-repeat="data in dataList | listInfo: $index"> 
-                        <td>{{data.orderNumber}}</td>
-                        <td>11111</td>
-                        <td>{{data.customerNumber}}</td>
-                        <td>{{data.orderNumber}}</td>
-                        <td>{{data.actualWeight}}</td>
-                        <td>{{data.cartonCount}}</td>
-                        <td>{{data.payDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                        <td>{{data.transferringFee}}</td>
+                    <tr ng-repeat="data in dataList | listInfo: $index | orderBy:data.outboundPackages.otrackingNumber">
+                        <td colspan="8">
+                            <table cellpadding="5" cellspacing="0" border="0" width="100%">
+                                <tr ng-repeat="item in data.outboundPackages track by $index">
+                                    <td>{{item[$index].otrackingNumber}}</td>
+                                    <td>11111</td>
+                                    <td>{{data.customerNumber}}</td>
+                                    <td>{{data.orderNumber}}</td>
+                                    <td>{{data.actualWeight}}</td>
+                                    <td>{{data.cartonCount}}</td>
+                                    <td>{{data.payDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                                    <td>{{data.tip || 0}}</td>
+                                </tr>
+                            </table>
+                        </td>                       
                     </tr>             
                 </table>
             </div>
@@ -202,7 +222,7 @@
                         <td>{{data.actualWeight}}</td>
                         <td>{{data.cartonCount}}</td>
                         <td>{{data.payDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                        <td>{{data.transferringFee}}</td>
+                        <td>{{data.tip || 0}}</td>
                     </tr>                  
                 </table>
             </div>

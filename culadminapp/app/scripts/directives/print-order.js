@@ -31,6 +31,7 @@ angular.module('culAdminApp')
                   else $scope.orderNumbers = orderNumbers;
                   $scope.printDate = new Date();
                   $scope.dataList = [];
+                  $scope.packagesList = [];
                   var _options = {
                       pageInfo: {
                           pageSize: 99999,
