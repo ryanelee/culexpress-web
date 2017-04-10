@@ -131,7 +131,7 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     return function (input) {
         return question[input] || input;
     };
-}).filter('listInfo', function () {  
+}).filter('listInfo', function () {  // 订单打印 每10单抓获清单
         return function (collection, index) {   
             var output = [],  
                 keys = [];
@@ -140,7 +140,13 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
             }                    
             return output;  
         }  
-    });
+    }).filter('intercept', function() { //截取字符串后六位
+    return function(input) {
+      if (input) {
+        return input.slice(input.length - 6, input.length);
+      }
+    }
+  });
 
 // angular.module('ngFilters').filter('cutText', function(){
 //     return function (value, wordwise, max ,tail) {
