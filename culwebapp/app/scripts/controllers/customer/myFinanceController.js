@@ -55,6 +55,7 @@ angular
             size: 10
         }
         var loadFinanceLog = function (index, callback) {
+            console.log("*************pageindex:" + index)
             customer.getFinanceLog(index, $scope.currentUser.customerNumber, operationType)
                 .then(function (result) {
                     callback && callback(result);
@@ -65,6 +66,7 @@ angular
             loadFinanceLog(pageIndex, function () {
                 $scope.myfinanceListData = result.data.data;
                 $scope.pagedOptions.total = result.data.pageInfo.totalCount;
+                 console.log("*************totalCount:" + result.data.pageInfo.totalCount)
             });
         }
 
@@ -73,7 +75,9 @@ angular
         $scope.onDebitPaged = function (pageIndex) {
             loadFinanceLog(pageIndex, function () {
                 $scope.myDebitListData = result.data.data;
+                console.log("*************pageresult:" + result)
                 $scope.pagedDebitOptions.total = result.data.pageInfo.totalCount;
+                console.log("*************totalCount:" + result.data.pageInfo.totalCount)
             });
         }
         if ($location.path() === '/customer/myfinancedetail/recharge' || $location.path() === '/customer/myfinancedetail/debit') {
@@ -83,8 +87,10 @@ angular
                     $scope.pagedOptions.total = result.data.pageInfo.totalCount;
                 }
                 else if (operationType === 2) {
+                    console.log(result)
                     $scope.myDebitListData = result.data.data;
                     $scope.pagedDebitOptions.total = result.data.pageInfo.totalCount;
+                     console.log("*************totalCount:" + result.data.pageInfo.totalCount)
                 }
             });
         }
