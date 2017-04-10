@@ -95,6 +95,27 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <label class="col-sm-2 control-label text-right">收货地址</label>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <select style="padding: 0 10px;" class="form-control" ng-options="province as province.name for province in provinces" ng-model="address.province" ng-change="getCity(null,null,address);">
+                          <option>请选择省份</option>
+                      </select>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <select style="padding: 0 10px;" class="form-control" ng-options="city as city.name for city in citys" ng-model="address.city" ng-change="getArea(null,address);">
+                          <option>请选择城市</option>
+                      </select>
+                                                    </div>
+
+                                                    <div class="col-sm-3">
+                                                        <select style="padding: 0 10px;" class="form-control" ng-options="area as area.name for area in areas" ng-model="address.area">
+                          <option>请选择区</option>
+                      </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="col-sm-2 control-label text-right">详细地址：</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" ng-model="address.address1_before" />
@@ -110,27 +131,7 @@
                                                     <input type="text" class="form-control" ng-model="address.zipcode" />
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label text-right">收货地址</label>
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <select style="padding: 0 10px;" class="form-control" ng-options="province as province.name for province in provinces" ng-model="address.province" ng-change="getCity();">
-                          <option>请选择省份</option>
-                      </select>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <select style="padding: 0 10px;" class="form-control" ng-options="city as city.name for city in citys" ng-model="address.city" ng-change="getArea();">
-                          <option>请选择城市</option>
-                      </select>
-                                                    </div>
 
-                                                    <div class="col-sm-3">
-                                                        <select style="padding: 0 10px;" class="form-control" ng-options="area as area.name for area in areas" ng-model="address.area">
-                          <option>请选择区</option>
-                      </select>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </td>
                                     <td ng-show="!!isShow">

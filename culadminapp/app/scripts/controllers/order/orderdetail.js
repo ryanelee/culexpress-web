@@ -39,7 +39,8 @@ angular.module('culAdminApp')
             $scope.getProvince();
 
             $scope.getCity = function(city, area, address) {
-                $scope.search.parentid = $scope.search.province.id;
+                $scope.search.parentid = address.province.id;
+                // address.province = e;
                 addressService.getDistrict($scope.search).then(function(data) {
                     $scope.citys = data.data.data;
                     if (city) {
@@ -57,12 +58,17 @@ angular.module('culAdminApp')
                 })
             }
             $scope.getArea = function(area, address) {
-                $scope.search.parentid = $scope.search.city.id;
+                console.log("area")
+                console.log(area)
+                $scope.search.parentid = address.city.id;
+                console.log($scope.search.parentid)
                 addressService.getDistrict($scope.search).then(function(data) {
                     $scope.areas = data.data.data;
+                    console.log($scope.areas)
                     if (area) {
                         $scope.areas.forEach(function(e) {
                             if (area.indexOf(e.name) >= 0) {
+                                console.log("你妹的")
                                 address.area = e;
                                 $scope.search.area = e
                             }
@@ -136,17 +142,21 @@ angular.module('culAdminApp')
                 address._edit = true;
             }
             $scope.btnSaveAddress = function(address) {
+                console.log(address);
+                // return;
                 if (!!address.receivePersonName &&
                     !!address.cellphoneNumber &&
                     !!address.address1_before &&
                     // !!address.receiveCompanyName &&
                     !!address.zipcode) {
                     console.log(address);
-                    address.stateOrProvince = address.stateOrProvince.name;
+                    address.stateOrProvince = address.province.name;
                     address.city = address.city.name;
                     address.area = address.area.name;
                     address.address1 = address.address1_before
                     address.transactionNumber = address.addressNumber;
+                    console.log(address);
+                    // return;
                     addressService.update(address, function(result) {
                         if (result.success == true) {
                             address._edit = false;
