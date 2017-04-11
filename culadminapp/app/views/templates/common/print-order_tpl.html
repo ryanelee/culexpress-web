@@ -181,7 +181,7 @@
             <div ng-if="($index+1) % 10 == 0" class="height-100">
                 <table cellpadding="2" cellspacing="0" border="1" width="100%" class="list">
                     <tr>
-                        <th width="11%">包裹跟踪号(后6位)</th>
+                        <th width="14%">包裹跟踪号(后6位)</th>
                         <!--<th width="10%">架位</th>-->
                         <th width="10%">客户编号</th>
                         <th width="29%">订单编号</th>
@@ -195,7 +195,7 @@
                             <table cellpadding="2" cellspacing="0" border="1" width="100%" class="packages">
                                 <tr ng-repeat="item in data.outboundPackages track by $index">
 
-                                    <td width="11%">{{item.trackingNumber | intercept}}</td>
+                                    <td width="14%">{{item.trackingNumber | intercept}}</td>
 
                                     <!--<td>{{data.shelfNumber}}</td>-->
                                     <td width="10%">{{data.customerNumber}}</td>
@@ -213,7 +213,7 @@
             <div ng-if="($index+1) == dataList.length && ($index+1) % 10 != 0" class="height-100">
                 <table cellpadding="2" cellspacing="0" border="1" width="100%" class="list">
                     <tr>
-                        <th width="11%">包裹跟踪号(后6位)</th>
+                        <th width="14%">包裹跟踪号(后6位)</th>
 
                         <!--<th width="10%">架位</th>-->
                         <th width="10%">客户编号</th>
@@ -228,7 +228,7 @@
                             <table cellpadding="2" cellspacing="0" border="1" width="100%">
                                 <tr ng-repeat="item in data.outboundPackages track by $index">
 
-                                    <td width="11%">{{item.trackingNumber | intercept}}</td>
+                                    <td width="14%">{{item.trackingNumber | intercept}}</td>
 
                                     <!--<td>{{data.shelfNumber}}</td>-->
                                     <td width="10%">{{data.customerNumber}}</td>
