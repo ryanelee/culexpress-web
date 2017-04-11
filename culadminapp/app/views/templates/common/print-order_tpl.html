@@ -43,6 +43,9 @@
             height: 100%;
             overflow: hidden;
         }
+         #printTemplate .packages > tr > td{
+            align:center;
+        }
     </style>
     <div id="printTemplate">
         <div ng-repeat="data in dataList track by $index">
@@ -109,8 +112,8 @@
                                     <th>价值($)</th>
                                 </tr>
                                 <tr ng-repeat="item in data.orderItems">
-                                    <td>{{$index + 1}}</td>
-                                    <td>{{item.itemBrand}}</td>
+                                    <td  align="center">{{$index + 1}}</td>
+                                    <td  align="center">{{item.itemBrand}}</td>
                                     <!--<td style="max-width: 300px;">
                                         <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:44px;">
                                             {{item.description}}
@@ -121,8 +124,8 @@
                                             {{ !!item.property5 ? " " + item.property5 : "" }}
                                         </div>
                                     </td>-->
-                                    <td>{{item.quantity}}</td>
-                                    <td>{{item.unitprice | number:2}}</td>
+                                    <td  align="center">{{item.quantity}}</td>
+                                    <td  align="center">{{item.unitprice | number:2}}</td>
                                 </tr>
                             </table>
                         </td>
@@ -143,16 +146,16 @@
                                 <tr>
                                     <th>跟踪号</th>
                                     <th>实际重量(磅)</th>
-                                    <th>架位</th>
+                                    <!--<th>架位</th>-->
                                     <th>运费价格($)</th>
                                 </tr>
                                 <tr ng-repeat="item in data.outboundPackages">
                                     <td>
                                         <div class="barcode" trackingNumber="{{item.trackingNumber}}"></div>
                                     </td>
-                                    <td>{{item.actualWeight || 0}}</td>
-                                    <td>{{item.actualWeight}}</td>
-                                    <td>{{item.shippingFee || 0}}</td>
+                                    <td align="center">{{item.actualWeight || 0}}</td>
+                                    <!--<td>{{item.actualWeight}}</td>-->
+                                    <td align="center">{{item.shippingFee || 0}}</td>
                                 </tr>
                             </table>
                         </td>
@@ -178,28 +181,28 @@
             <div ng-if="($index+1) % 10 == 0" class="height-100">
                 <table cellpadding="2" cellspacing="0" border="1" width="100%" class="list">
                     <tr>
-                        <th width="11%">包裹跟踪号(后6位)</th>
-                        <th width="10%">架位</th>
+                        <th width="14%">包裹跟踪号(后6位)</th>
+                        <!--<th width="10%">架位</th>-->
                         <th width="10%">客户编号</th>
                         <th width="29%">订单编号</th>
-                        <th width="8%">重量（磅）</th>
-                        <th width="8%">件数</th>
-                        <th width="16%">生成日期</th>
-                        <th width="8%">小费</th>
+                        <th width="10%">重量（磅）</th>
+                        <th width="10%">件数</th>
+                        <th width="17%">生成日期</th>
+                        <th width="10%">小费</th>
                     </tr>
                     <tr ng-repeat="data in dataList | listInfo: $index | orderBy:data.outboundPackages.trackingNumber">
                         <td colspan="8" width="100%">
-                            <table cellpadding="2" cellspacing="0" border="1" width="100%">
+                            <table cellpadding="2" cellspacing="0" border="1" width="100%" class="packages">
                                 <tr ng-repeat="item in data.outboundPackages track by $index">
 
-                                    <td width="11%">{{item.trackingNumber | intercept}}</td>
-                                    <td>{{data.shelfNumber}}</td>
+                                    <td width="14%">{{item.trackingNumber | intercept}}</td>
+                                    <!--<td>{{data.shelfNumber}}</td>-->
                                     <td width="10%">{{data.customerNumber}}</td>
                                     <td width="29%">{{data.orderNumber}}</td>
-                                    <td width="8%">{{data.actualWeight}}</td>
-                                    <td width="8%">{{data.cartonCount}}</td>
-                                    <td width="16%">{{data.payDate | date:'MM/dd/yyyy'}}</td>
-                                    <td width="8%">{{data.tip || 0}}</td>
+                                    <td width="10%">{{data.actualWeight}}</td>
+                                    <td width="10%">{{data.cartonCount}}</td>
+                                    <td width="17%">{{data.payDate | date:'MM/dd/yyyy'}}</td>
+                                    <td width="10%">{{data.tip || 0}}</td>
                                 </tr>
                             </table>
                         </td>
@@ -209,28 +212,28 @@
             <div ng-if="($index+1) == dataList.length && ($index+1) % 10 != 0" class="height-100">
                 <table cellpadding="2" cellspacing="0" border="1" width="100%" class="list">
                     <tr>
-                        <th width="11%">包裹跟踪号(后6位)</th>
-                        <th width="10%">架位</th>
+                        <th width="14%">包裹跟踪号(后6位)</th>
+                        <!--<th width="10%">架位</th>-->
                         <th width="10%">客户编号</th>
                         <th width="29%">订单编号</th>
-                        <th width="8%">重量（磅）</th>
-                        <th width="8%">件数</th>
-                        <th width="16%">生成日期</th>
-                        <th width="8%">小费</th>
+                        <th width="10%">重量（磅）</th>
+                        <th width="10%">件数</th>
+                        <th width="17%">生成日期</th>
+                        <th width="10%">小费</th>
                     </tr>
-
                     <tr ng-repeat="data in dataList | listInfo: $index | orderBy:data.outboundPackages.trackingNumber">
                         <td colspan="8" width="100%">
                             <table cellpadding="2" cellspacing="0" border="1" width="100%">
                                 <tr ng-repeat="item in data.outboundPackages track by $index">
-                                    <td width="11%">{{item.trackingNumber | intercept}}</td>
-                                    <td>{{data.shelfNumber}}</td>
+
+                                    <td width="14%">{{item.trackingNumber | intercept}}</td>
+                                    <!--<td>{{data.shelfNumber}}</td>-->
                                     <td width="10%">{{data.customerNumber}}</td>
                                     <td width="29%">{{data.orderNumber}}</td>
-                                    <td width="8%">{{data.actualWeight}}</td>
-                                    <td width="8%">{{data.cartonCount}}</td>
-                                    <td width="16%">{{data.payDate | date:'MM/dd/yyyy'}}</td>
-                                    <td width="8%">{{data.tip || 0}}</td>
+                                    <td width="10%">{{data.actualWeight}}</td>
+                                    <td width="10%">{{data.cartonCount}}</td>
+                                    <td width="17%">{{data.payDate | date:'MM/dd/yyyy'}}</td>
+                                    <td width="10%">{{data.tip || 0}}</td>
                                 </tr>
                             </table>
                         </td>
