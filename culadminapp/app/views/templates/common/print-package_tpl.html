@@ -16,157 +16,165 @@
         #print_Package_Template .barcode {
             margin: 0 auto;
         }
+        #print_Package_Template .image {
+            width:17%;
+        }
+        #print_Package_Template .heigth-100 {
+            height: 100%;
+        }
     </style>
-    <div id="print_Package_Template" ng-repeat="data in dataList">
-        <div style="height: 8%"><img src="assets/img/kingadmin-logo.png" /></div>
-        <table cellpadding="2" cellspacing="0" border="1" width="100%" height="{{data.orderItems.length > 2 ? '95%' : '45%'}}">
-            <tr>
-                <th colspan="6">客户信息</th>
-            </tr>
-            <tr>
-                <td class="title">客户编号</td>
-                <td>{{data.customerNumber}}</td>
-                <td class="title">客户姓名</td>
-                <td>{{data.lastName}}{{data.firstName}}</td>
-                <td class="title">客户账号</td>
-                <td>{{data.userName}}</td>
-            </tr>
-            <tr>
-                <td class="title">收货地址</td>
-                <td colspan="5">
-                    {{data.address.receivePersonName}}<span ng-show="!!data.address.cellphoneNumber">({{data.address.cellphoneNumber}})</span>{{data.address.address1}}{{data.address.receiveCompanyName}}<span ng-show="!!data.address.zipcode">({{data.address.zipcode}})</span>
-                </td>
-            </tr>
-            <tr>
-                <th colspan="6">订单内容</th>
-            </tr>
-            <tr>
-                <td class="title">申报品名</td>
-                <td colspan="5">
-                    <table cellpadding="5" cellspacing="0" border="1" width="100%">
-                        <tr>
-                            <th>序号</th>
-                            <th>品牌</th>
-                            <th>商品描述</th>
-                            <th>数量</th>
-                            <th>价值($)</th>
-                        </tr>
-                        <tr ng-repeat="item in data.orderItems">
-                            <td>{{$index + 1}}</td>
-                            <td>{{item.itemBrand}}</td>
-                            <td style="max-width: 300px;">
-                                <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:44px;">
-                                    {{item.description}}
-                                    {{ !!item.property1 ? " " + item.property1 : "" }}
-                                    {{ !!item.property2 ? " " + item.property2 : "" }}
-                                    {{ !!item.property3 ? " " + item.property3 : "" }}
-                                    {{ !!item.property4 ? " " + item.property4 : "" }}
-                                    {{ !!item.property5 ? " " + item.property5 : "" }}
-                                </div>
-                            </td>
-                            <td>{{item.quantity}}</td>
-                            <td>{{item.unitprice | number:2}}</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td class="title">包裹信息</td>
-                <td colspan="4">
-                    <table cellpadding="5" cellspacing="0" border="1" width="100%">
-                        <tr>
-                            <th>跟踪号</th>
-                            <th>实际重量(磅)</th>
-                            <th>运费价格($)</th>
-                        </tr>
-                        <tr>
-                            <td><div class="barcode" trackingNumber="{{data.trackingNumber}}"></div></td>
-                            <td>{{data.actualWeight || 0}}</td>
-                            <td>{{data.shippingFee || 0}}</td>
-                        </tr>
-                    </table>
-                </td>
-                <td><div class="barcode" trackingNumber="{{data.referenceOrderNumber}}"></div></td>
-            </tr>
-            <tr>
-                <td class="title">打包人员</td>
-                <td>{{data.inuserName}}</td>
-                <td class="title">合计</td>
-                <td>${{data.shippingFee || 0}}</td>
-                <td class="title">生成日期</td>
-                <td>{{data.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-            </tr>
-        </table>
-        <hr style="margin:2.5% auto; width:100%; color: #666;" ng-if="data.orderItems.length <= 2" />
-        <div style="height: 5%" ng-if="data.orderItems.length > 2"><img src="assets/img/kingadmin-logo.png"/></div>
-        <table cellpadding="2" cellspacing="0" border="1" width="100%" height="{{data.orderItems.length > 2 ? '95%' : '45%'}}">
-            <tr>
-                <th colspan="6">客户信息</th>
-            </tr>
-            <tr>
-                <td class="title">客户编号</td>
-                <td>{{data.customerNumber}}</td>
-                <td class="title">客户姓名</td>
-                <td>{{data.lastName}}{{data.firstName}}</td>
-                <td class="title">客户账号</td>
-                <td>{{data.userName}}</td>
-            </tr>
-            <tr>
-                <td class="title">收货地址</td>
-                <td colspan="5">
-                    {{data.address.receivePersonName}}<span ng-show="!!data.address.cellphoneNumber">({{data.address.cellphoneNumber}})</span>{{data.address.address1}}{{data.address.receiveCompanyName}}<span ng-show="!!data.address.zipcode">({{data.address.zipcode}})</span>
-                </td>
-            </tr>
-            <tr>
-                <th colspan="6">订单内容</th>
-            </tr>
-            <tr>
-                <td class="title">申报品名</td>
-                <td colspan="5">
-                    <table cellpadding="5" cellspacing="0" border="1" width="100%">
-                        <tr>
-                            <th>序号</th>
-                            <th>品牌</th>
-                            <th>商品描述</th>
-                            <th>数量</th>
-                            <th>价值($)</th>
-                        </tr>
-                        <tr ng-repeat="item in data.orderItems">
-                            <td>{{$index + 1}}</td>
-                            <td>{{item.itemBrand}}</td>
-                            <td>{{item.description}}</td>
-                            <td>{{item.quantity}}</td>
-                            <td>{{item.unitprice | number:2}}</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td class="title">包裹信息</td>
-                <td colspan="4">
-                    <table cellpadding="5" cellspacing="0" border="1" width="100%">
-                        <tr>
-                            <th>跟踪号</th>
-                            <th>实际重量(磅)</th>
-                            <th>运费价格($)</th>
-                        </tr>
-                        <tr>
-                            <td><div class="barcode" trackingNumber="{{data.trackingNumber}}"></div></td>
-                            <td>{{data.actualWeight || 0}}</td>
-                            <td>{{data.shippingFee || 0}}</td>
-                        </tr>
-                    </table>
-                </td>
-                <td><div class="barcode" trackingNumber="{{data.referenceOrderNumber}}"></div></td>
-            </tr>
-            <tr>
-                <td class="title">打包人员</td>
-                <td>{{data.inuserName}}</td>
-                <td class="title">合计</td>
-                <td>${{data.shippingFee || 0}}</td>
-                <td class="title">生成日期</td>
-                <td>{{data.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-            </tr>
-        </table>
+    <div id="print_Package_Template" ng-repeat="data in dataList" >
+        <div class="heigth-100">
+            <div><img class="image" src="assets/img/kingadmin-logo.png" /></div>
+            <table cellpadding="2" cellspacing="0" border="1" width="100%" height="{{data.orderItems.length > 2 ? '95%' : '45%'}}">
+                <tr>
+                    <th colspan="6">客户信息</th>
+                </tr>
+                <tr>
+                    <td class="title">客户编号</td>
+                    <td>{{data.customerNumber}}</td>
+                    <td class="title">客户姓名</td>
+                    <td>{{data.lastName}}{{data.firstName}}</td>
+                    <td class="title">客户账号</td>
+                    <td>{{data.userName}}</td>
+                </tr>
+                <tr>
+                    <td class="title">收货地址</td>
+                    <td colspan="5">
+                        {{data.address.receivePersonName}}<span ng-show="!!data.address.cellphoneNumber">({{data.address.cellphoneNumber}})</span>{{data.address.address1}}{{data.address.receiveCompanyName}}<span ng-show="!!data.address.zipcode">({{data.address.zipcode}})</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="6">订单内容</th>
+                </tr>
+                <tr>
+                    <td class="title">申报品名</td>
+                    <td colspan="5">
+                        <table cellpadding="5" cellspacing="0" border="1" width="100%">
+                            <tr>
+                                <th>序号</th>
+                                <th>品牌</th>
+                                <th>商品描述</th>
+                                <th>数量</th>
+                                <th>价值($)</th>
+                            </tr>
+                            <tr ng-repeat="item in data.orderItems">
+                                <td align="center">{{$index + 1}}</td>
+                                <td align="center">{{item.itemBrand}}</td>
+                                <td style="max-width: 300px;">
+                                    <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:44px;">
+                                        {{item.description}}
+                                        {{ !!item.property1 ? " " + item.property1 : "" }}
+                                        {{ !!item.property2 ? " " + item.property2 : "" }}
+                                        {{ !!item.property3 ? " " + item.property3 : "" }}
+                                        {{ !!item.property4 ? " " + item.property4 : "" }}
+                                        {{ !!item.property5 ? " " + item.property5 : "" }}
+                                    </div>
+                                </td>
+                                <td align="center">{{item.quantity}}</td>
+                                <td align="center">{{item.unitprice | number:2}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">包裹信息</td>
+                    <td colspan="4">
+                        <table cellpadding="5" cellspacing="0" border="1" width="100%">
+                            <tr>
+                                <th>跟踪号</th>
+                                <th>实际重量(磅)</th>
+                                <th>运费价格($)</th>
+                            </tr>
+                            <tr>
+                                <td align="center"><div class="barcode" trackingNumber="{{data.trackingNumber}}"></div></td>
+                                <td align="center">{{data.actualWeight || 0}}</td>
+                                <td align="center">{{data.shippingFee || 0}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td><div class="barcode" trackingNumber="{{data.referenceOrderNumber}}"></div></td>
+                </tr>
+                <tr>
+                    <td class="title">打包人员</td>
+                    <td>{{data.inuserName}}</td>
+                    <td class="title">合计</td>
+                    <td>${{data.shippingFee || 0}}</td>
+                    <td class="title">生成日期</td>
+                    <td>{{data.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                </tr>
+            </table>
+            <hr style="margin:2.5% auto; width:100%; color: #666;" ng-if="data.orderItems.length <= 2" />
+            <div style="height: 5%" ng-if="data.orderItems.length > 2"><img src="assets/img/kingadmin-logo.png"/></div>
+            <table cellpadding="2" cellspacing="0" border="1" width="100%" height="{{data.orderItems.length > 2 ? '95%' : '45%'}}">
+                <tr>
+                    <th colspan="6">客户信息</th>
+                </tr>
+                <tr>
+                    <td class="title">客户编号</td>
+                    <td>{{data.customerNumber}}</td>
+                    <td class="title">客户姓名</td>
+                    <td>{{data.lastName}}{{data.firstName}}</td>
+                    <td class="title">客户账号</td>
+                    <td>{{data.userName}}</td>
+                </tr>
+                <tr>
+                    <td class="title">收货地址</td>
+                    <td colspan="5">
+                        {{data.address.receivePersonName}}<span ng-show="!!data.address.cellphoneNumber">({{data.address.cellphoneNumber}})</span>{{data.address.address1}}{{data.address.receiveCompanyName}}<span ng-show="!!data.address.zipcode">({{data.address.zipcode}})</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="6">订单内容</th>
+                </tr>
+                <tr>
+                    <td class="title">申报品名</td>
+                    <td colspan="5">
+                        <table cellpadding="5" cellspacing="0" border="1" width="100%">
+                            <tr>
+                                <th>序号</th>
+                                <th>品牌</th>
+                                <th>商品描述</th>
+                                <th>数量</th>
+                                <th>价值($)</th>
+                            </tr>
+                            <tr ng-repeat="item in data.orderItems">
+                                <td align="center">{{$index + 1}}</td>
+                                <td align="center">{{item.itemBrand}}</td>
+                                <td align="center">{{item.description}}</td>
+                                <td align="center">{{item.quantity}}</td>
+                                <td align="center">{{item.unitprice | number:2}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">包裹信息</td>
+                    <td colspan="4">
+                        <table cellpadding="5" cellspacing="0" border="1" width="100%">
+                            <tr>
+                                <th>跟踪号</th>
+                                <th>实际重量(磅)</th>
+                                <th>运费价格($)</th>
+                            </tr>
+                            <tr>
+                                <td align="center"><div class="barcode" trackingNumber="{{data.trackingNumber}}"></div></td>
+                                <td align="center">{{data.actualWeight || 0}}</td>
+                                <td align="center">{{data.shippingFee || 0}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td><div class="barcode" trackingNumber="{{data.referenceOrderNumber}}"></div></td>
+                </tr>
+                <tr>
+                    <td class="title">打包人员</td>
+                    <td>{{data.inuserName}}</td>
+                    <td class="title">合计</td>
+                    <td>${{data.shippingFee || 0}}</td>
+                    <td class="title">生成日期</td>
+                    <td>{{data.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                </tr>
+            </table>
+         </div>
     </div>
 </div>
