@@ -19,7 +19,6 @@ angular.module('culAdminApp')
             $scope.receiptNumber = null;
             $scope.tempReceiptNumber = $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
             $scope.isUnusual = $location.search().isUnusual;
-            console.log("is" + $scope.isUnusual);
             console.log($scope.tempItemNumber)
 
             $scope.isExpecial = function() {

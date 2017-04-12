@@ -59,6 +59,9 @@
                 <div>
                     <strong><label><strong>运费总计：</strong></label> <span>{{data.totalCount|currency:'¥'}}</span></strong>
                 </div>
+                <div ng-if="data.orderStatus=='Arrears'">
+                    <strong><label><strong>运费拖欠：</strong></label> <span>{{data.shippingFeeAdjust|currency:'¥'}}</span></strong>
+                </div>
             </div>
         </div>
     </div>

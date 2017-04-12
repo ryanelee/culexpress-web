@@ -24,9 +24,7 @@
                 <div class="search-col">
                     <label class="search-label">注册开始日期：</label>
                     <p class="input-group">
-                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate"
-                            is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true"
-                        />
+                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate" is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
                         </span>
@@ -35,9 +33,7 @@
                 <div class="search-col">
                     <label class="search-label">注册结束日期：</label>
                     <p class="input-group">
-                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate"
-                            is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true"
-                        />
+                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate" is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
                         </span>
@@ -65,8 +61,7 @@
                         <!--<option value="outBoundTrackingNumber">包裹跟踪号</option>-->
                         <!--<option value="idCard">身份证号</option>-->
                     </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords"
-                    />
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                 </div>
             </div>
@@ -88,6 +83,7 @@
                     <th>订单金额</th>
                     <th>使用积分</th>
                     <th>实收金额</th>
+                    <th>欠费金额</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -105,7 +101,7 @@
                     <td>{{item.registerDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                     <td>{{item.receiveIdentity}}</td>
                     <td>{{item.accountBalance}}</td>
-                     <td style="max-width: 200px;">
+                    <td style="max-width: 200px;">
                         <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
                         <span ng-if="item.isFastOrder == 1" title="极速原箱">
                             <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
@@ -115,7 +111,9 @@
                     <td>{{item.orderDate | date:'yyyy-MM-dd hh:mm:ss'}}</td>
                     <td>{{item.shippingFee + item.tip}}</td>
                     <td>{{item.usedPoint}}</td>
+
                     <td>{{item.totalCount}}</td>
+                    <td>{{item.shippingFeeAdjust}}</td>
                     <td>
                         <a href="javascript:void(0);" class="role" data-role="95" ng-click="btnOpenDetail(item)">余额支付</a>
                     </td>
@@ -124,11 +122,10 @@
         </table>
         <div class="row">
             <div class="col-sm-12 text-right">
-                <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount"
-                    items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页"
-                    next-text="下一页" first-text="首页" last-text="尾页">
-                    </uib-pagination>
-                    <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount" items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页" next-text="下一页"
+                    first-text="首页" last-text="尾页">
+                </uib-pagination>
+                <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>

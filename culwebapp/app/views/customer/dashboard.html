@@ -71,7 +71,7 @@
                         <small>我的问题</small>
                         <h4 class="counter" id="myquestions">{{(currentUser.openQuestionCount||0)|number}}</h4>
                     </div>
-                </div>    
+                </div>
                 <div class="statistics">
                     <div class="progress progress-u progress-xxs">
                         <div style="width: 100%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" role="progressbar" class="progress-bar progress-bar-light">
@@ -91,14 +91,15 @@
                 </div>
             </div>
         </div>
-    </div><!--/end row-->
+    </div>
+    <!--/end row-->
     <!--End Service Block v3-->
 
     <hr>
     <div class="row margin-bottom-40">
         <!--Profile Post-->
         <!--<div class="col-sm-6" >-->
-            <div ng-class="setStyle()" ng-show="primAnnounceList.length>0" >
+        <div ng-class="setStyle()" ng-show="primAnnounceList.length>0">
             <div class="panel panel-profile no-bg">
                 <div class="panel-heading overflow-h">
                     <h2 class="panel-title heading-sm pull-left"><i class="fa fa-bullhorn ffb"></i>公告</h2>
@@ -147,13 +148,13 @@
             </div>
         </div>
         <!--End Profile Event-->
-    </div><!--/end row-->
+    </div>
+    <!--/end row-->
 
     <div class="headline">
-      <h2>
-        <i class="fa fa-map-marker" aria-hidden="true"></i>
-        收货地址
-      </h2>
+        <h2>
+            <i class="fa fa-map-marker" aria-hidden="true"></i> 收货地址
+        </h2>
     </div>
     <div class="alert alert-warning fade in">
         <strong>友情提醒:</strong>请大家在购物网站下单时一定记得写上姓后面的4个字母收件标示和单元号,单元号可以写在第一行地址后面也可以写在地址第二行.
@@ -176,8 +177,8 @@
                         </p>
                         </br>
                         <p>
-                            美国邮政国际特快， 最稳妥快捷的运输方式， 强烈推荐。 适合各种物品， 尤其是贵重物品和电子产品。不限制锂电池一般体积重,童车,游戏垫,玩具等单个包裹重量在66磅以下的包裹都可以发送. 
-                            但是大型物品比如滑雪板,大型玩具车,体育器材不能寄送,每个包裹不能超过66磅。</br>
+                            美国邮政国际特快， 最稳妥快捷的运输方式， 强烈推荐。 适合各种物品， 尤其是贵重物品和电子产品。不限制锂电池一般体积重,童车,游戏垫,玩具等单个包裹重量在66磅以下的包裹都可以发送. 但是大型物品比如滑雪板,大型玩具车,体育器材不能寄送,每个包裹不能超过66磅。
+                            </br>
                             价格：首磅200元，续磅35元。4磅起运,4磅以下(包含4磅)的包裹运费都是305.请大家注意提交.</br>
                         </p>
                         <p>
@@ -230,61 +231,62 @@
             </div>
         </div>-->
         <div class="col-md-4 col-sm-6" ng-repeat="addressItem in model.addressList">
-            <div class="address-item" style="height:740px;overflow: auto" >
-              <div class="address-head" style="height:210px;">
-                <span class="short-name">{{addressItem.warehouseShortName}}</span>
-                <h3 class="title">{{addressItem.warehouseName}} <span>
+            <div class="address-item" style="height:740px;overflow: auto">
+                <div class="address-head" style="height:210px;">
+                    <span class="short-name">{{addressItem.warehouseShortName}}</span>
+                    <h3 class="title">{{addressItem.warehouseName}} <span>
                 <span class="remark" ng-if="addressItem.isTaxFree=='1'">免税州收货地址</span>
-                <span class="remark" ng-if="addressItem.isTaxFree!='1'">&nbsp;</span></span></h3>
-              </div>
-              <ul class="address-content list-unstyled">
-                <li>
-                    <i class="fa fa-user pull-left"></i>
-                    <div class="list-remark"><strong>名 (First Name):</strong> <span ng-bind="currentUser.firstName | uppercase"></span>
-                    </div>
-                </li>
-                <li>
-                    <div class="list-remark"><strong>姓 (Last Name):</strong> <span ng-bind="currentUser.lastName | uppercase"></span> <span ng-bind="currentUser.receiveIdentity | uppercase"></span>
-                    </div>
-                </li>
-                <li>
-                    <i class="fa fa-map-marker pull-left"></i>
-                    <div class="list-remark"><strong>地址 (Address):</strong> <span>{{addressItem.address1}}</span>
-                    </div>
-                </li>
-               <li>
-                    <div class="list-remark"><strong>单元号 (Unit):</strong> <span ng-bind="currentUser.customerNumber | uppercase"></span>
-                    </div>
-                </li> 
-                <li>
-                    <div class="list-remark"><strong>城市 (City):</strong> <span ng-bind="addressItem.city | uppercase"></span>
-                    </div>
-                </li> 
-                <li>
-                    <div class="list-remark"><strong>州/省 (State):</strong> <span ng-bind="addressItem.stateOrProvince | uppercase"></span> 
-                    </div>
-                </li> 
-                <li>
-                    <div class="list-remark"><strong>邮编 (Zip Code):</strong> <span>{{addressItem.zipcode}}</span>
-                    </div>
-                </li>       
-                  <li>
-                    <i class="fa fa-phone pull-left"></i>
-                    <div class="list-remark"><strong>电话:</strong> {{addressItem.contactPhoneNumber}}</div>
-                  </li>
-                  <li ng-if="addressItem.isTaxFree=='1'">
-                    <i class="fa fa-check-circle pull-left"></i>
-                    <div class="list-remark">各种商品均无美国消费税</div>
-                  </li>
-                  <li>
-                    <i class="fa fa-exclamation-circle pull-left"></i>
-                    <div class="list-remark" >
-                      <span>
+                        <span class="remark" ng-if="addressItem.isTaxFree!='1'">&nbsp;</span></span>
+                    </h3>
+                </div>
+                <ul class="address-content list-unstyled">
+                    <li>
+                        <i class="fa fa-user pull-left"></i>
+                        <div class="list-remark"><strong>名 (First Name):</strong> <span ng-bind="currentUser.firstName | uppercase"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-remark"><strong>姓 (Last Name):</strong> <span ng-bind="currentUser.lastName | uppercase"></span> <span ng-bind="currentUser.receiveIdentity | uppercase"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-map-marker pull-left"></i>
+                        <div class="list-remark"><strong>地址 (Address):</strong> <span>{{addressItem.address1}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-remark"><strong>单元号 (Unit):</strong> <span ng-bind="currentUser.customerNumber | uppercase"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-remark"><strong>城市 (City):</strong> <span ng-bind="addressItem.city | uppercase"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-remark"><strong>州/省 (State):</strong> <span ng-bind="addressItem.stateOrProvince | uppercase"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-remark"><strong>邮编 (Zip Code):</strong> <span>{{addressItem.zipcode}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-phone pull-left"></i>
+                        <div class="list-remark"><strong>电话:</strong> {{addressItem.contactPhoneNumber}}</div>
+                    </li>
+                    <li ng-if="addressItem.isTaxFree=='1'">
+                        <i class="fa fa-check-circle pull-left"></i>
+                        <div class="list-remark">各种商品均无美国消费税</div>
+                    </li>
+                    <li>
+                        <i class="fa fa-exclamation-circle pull-left"></i>
+                        <div class="list-remark">
+                            <span>
                         {{addressItem.note}}
                       </span>
-                    </div>
-                  </li>
-              </ul>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
         </div>
@@ -296,20 +298,20 @@
 <script type="text/javascript" src="assets/plugins/counter/jquery.counterup.js"></script>
 <script type="text/javascript" src="assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script type="text/javascript">
-    jQuery(document).ready(function () {
-        App.init();
+    // jQuery(document).ready(function() {
+    //     App.init();
 
-        var scope = angular.element($('[ng-controller=MyDashboardController]')).scope();
-        $('#totalPackageCount').text(scope.currentUser.totalPackageCount);
-        $('#receivedPackageCount').text(scope.currentUser.receivedPackageCount);
-        $('#unreceivedPackageCount').text(scope.currentUser.unreceivedPackageCount);
-        $('#shippedOrderCount').text(scope.currentUser.shippedOrderCount);
-        $('#unpaidOrderCount').text(scope.currentUser.unpaidOrderCount);
-        $('#overdraftOrderCount').text(scope.currentUser.overdraftOrderCount);
-        $('#myAccountBalance').text(scope.currentUser.accountBalance);
-        $('#myPoint').text(scope.currentUser.myPoint);
-        $('#myquestions').text(scope.currentUser.openQuestionCount);
-        App.initCounter();
-        App.initScrollBar();
-    });
+    //     var scope = angular.element($('[ng-controller=MyDashboardController]')).scope();
+    //     $('#totalPackageCount').text(scope.currentUser.totalPackageCount);
+    //     $('#receivedPackageCount').text(scope.currentUser.receivedPackageCount);
+    //     $('#unreceivedPackageCount').text(scope.currentUser.unreceivedPackageCount);
+    //     $('#shippedOrderCount').text(scope.currentUser.shippedOrderCount);
+    //     $('#unpaidOrderCount').text(scope.currentUser.unpaidOrderCount);
+    //     $('#overdraftOrderCount').text(scope.currentUser.overdraftOrderCount);
+    //     $('#myAccountBalance').text(scope.currentUser.accountBalance);
+    //     $('#myPoint').text(scope.currentUser.myPoint);
+    //     $('#myquestions').text(scope.currentUser.openQuestionCount);
+    //     App.initCounter();
+    //     App.initScrollBar();
+    // });
 </script>

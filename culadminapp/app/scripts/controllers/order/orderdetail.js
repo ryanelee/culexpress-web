@@ -16,7 +16,7 @@ angular.module('culAdminApp')
                 'Karma'
             ];
             $scope.search = {};
-
+            $scope.search.parentid = 0;
             $scope.provinces = [];
             $scope.citys = [];
             $scope.areas = [];
@@ -39,11 +39,11 @@ angular.module('culAdminApp')
             $scope.getProvince();
 
             $scope.getCity = function(city, area, address) {
-                if(address || address.province || address.province.id)
-                    return;
-
+                // if (address || address.province || address.province.id)
+                //     return;
+                address.area = "";
+                address.city = "";
                 $scope.search.parentid = address.province.id;
-                // address.province = e;
                 addressService.getDistrict($scope.search).then(function(data) {
                     $scope.citys = data.data.data;
                     if (city) {
@@ -61,17 +61,14 @@ angular.module('culAdminApp')
                 })
             }
             $scope.getArea = function(area, address) {
-                if( address || address.city || address.city.id)
-                    return;
+                // if (address || address.city || address.city.id)
+                //     return;
                 $scope.search.parentid = address.city.id;
-                //console.log($scope.search.parentid)
                 addressService.getDistrict($scope.search).then(function(data) {
                     $scope.areas = data.data.data;
-                    //console.log($scope.areas)
                     if (area) {
                         $scope.areas.forEach(function(e) {
                             if (area.indexOf(e.name) >= 0) {
-                                //console.log("你妹的")
                                 address.area = e;
                                 $scope.search.area = e
                             }
@@ -150,12 +147,21 @@ angular.module('culAdminApp')
                 if (!!address.receivePersonName &&
                     !!address.cellphoneNumber &&
                     !!address.address1_before &&
-                    // !!address.receiveCompanyName &&
+                    !!address.city &&
                     !!address.zipcode) {
                     console.log(address);
                     address.stateOrProvince = address.province.name;
                     address.city = address.city.name;
                     address.area = address.area.name;
+
+                    if (address.stateOrProvince.indexOf("区") < 0 && address.stateOrProvince.indexOf("市") < 0) {
+                        if (!address.area) {
+                            plugMessenger.info("收货地址没有填写全，不能提交更改。");
+                            return;
+                        }
+                    } else {
+                        address.area = " ";
+                    }
                     address.address1 = address.address1_before
                     address.transactionNumber = address.addressNumber;
                     console.log(address);

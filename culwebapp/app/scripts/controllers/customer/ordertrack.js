@@ -9,7 +9,7 @@
  */
 angular.module('culwebApp')
     .controller('OrdertrackCtrl', ['$scope', '$stateParams', 'OrderSvr', '$location', '$filter',
-        function ($scope, $stateParams, orderSvr, $location, $filter) {
+        function($scope, $stateParams, orderSvr, $location, $filter) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -17,10 +17,10 @@ angular.module('culwebApp')
             ];
             $scope.isErrorNumber = false;
             $scope.trackingNumber = $stateParams.trackingNumber;
-            $scope.isOrderTracking = true;//是否显示订单包裹列表
+            $scope.isOrderTracking = true; //是否显示订单包裹列表
             $scope.showOutboundDate = false;
 
-            var packageNumberMarks = ['cul','cht', 'umi'];
+            var packageNumberMarks = ['cul', 'cht', 'umi'];
             for (var i = 0, ii = packageNumberMarks.length; i < ii; i++) {
                 if ((($scope.trackingNumber || '').toLowerCase().indexOf(packageNumberMarks[i]) === 0)) {
                     $scope.isOrderTracking = false;
@@ -35,12 +35,12 @@ angular.module('culwebApp')
                 } else {
                     orderSvr
                         .getOrderPackageNumber($scope.trackingNumber)
-                        .then(function (result) {
+                        .then(function(result) {
                             if (result.data) {
                                 $scope.packagesList = result.data;
                                 if ($scope.packagesList.length <= 0) $scope.isErrorNumber = true;
                             }
-                        }, function () {
+                        }, function() {
                             $scope.isErrorNumber = true;
                         });
                 }
@@ -48,7 +48,7 @@ angular.module('culwebApp')
             }
 
 
-            $scope.showTrackInfo = function (packageNumber) {
+            $scope.showTrackInfo = function(packageNumber) {
                 $location.path('/ordertrack/' + packageNumber);
             }
 
@@ -67,10 +67,10 @@ angular.module('culwebApp')
                     code: '104',
                     icon: 'fa-home',
                     title: '包裹已提货,交由国内物流公司递送',
-                    note: '<div class="row"><div class="col-sm-12">'
-                    + '<p class="highlight">物流公司:{{orderEventInfo.expressName}}</p>'
-                    + '<p class="highlight">物流跟踪号:{{orderEventInfo.expressNumber}}[请到国内物流公司官网使用该跟踪号查询包裹状态]</p>'
-                    + '</div></div>',
+                    note: '<div class="row"><div class="col-sm-12">' +
+                        '<p class="highlight">物流公司:{{orderEventInfo.expressName}}</p>' +
+                        '<p class="highlight">物流跟踪号:{{orderEventInfo.expressNumber}}[请到国内物流公司官网使用该跟踪号查询包裹状态]</p>' +
+                        '</div></div>',
                 }, {
                     show: false,
                     code: '103',
@@ -98,7 +98,7 @@ angular.module('culwebApp')
             };
             if (!$scope.isOrderTracking) {
                 orderSvr.getOrderStepList($scope.trackingNumber)
-                    .then(function (result) {
+                    .then(function(result) {
                         var eventObj = result.data,
                             eventList = [],
                             tempEventList = angular.copy($scope.orderEventInfo.eventList);
@@ -114,11 +114,10 @@ angular.module('culwebApp')
 
                         for (var i = 0, ii = eventList.length; i < ii; i++) {
                             var eventItem = eventList[i],
-                                queriedEvent = $filter('filter')(tempEventList, function (queryItem) { return queryItem.code == eventItem.code; });
+                                queriedEvent = $filter('filter')(tempEventList, function(queryItem) { return queryItem.code == eventItem.code; });
                             if (!!queriedEvent.length) {
                                 eventList[i] = angular.extend(eventItem, queriedEvent[0] || {}, { show: true });
-                            }
-                            else {
+                            } else {
                                 eventList[i].icon = 'fa-building-o';
                                 eventList[i].title = eventList[i].note;
                             }
@@ -130,7 +129,7 @@ angular.module('culwebApp')
                                 eventItem.icon = 'fa-bullhorn';
                             }
                         }
-                        var has104Steps = $filter('filter')(eventList, function (queryItem) { return queryItem.code == 104; });
+                        var has104Steps = $filter('filter')(eventList, function(queryItem) { return queryItem.code == 104; });
 
                         //如果API已经返回了具体的物流信息，但是eventList里面没有对应的步骤就直接加一个默认的进去
                         if (!(has104Steps || []).length && !!eventObj.expressName && !!eventObj.expressNumber) {
@@ -139,18 +138,19 @@ angular.module('culwebApp')
                                 code: '104',
                                 icon: 'fa-users',
                                 title: '包裹已提货,交由国内物流公司递送',
-                                note: '<p class="highlight">物流公司:{{orderEventInfo.expressName}}</p>'
-                                + '<p class="highlight">物流跟踪号:{{orderEventInfo.expressNumber}}</p>',
+                                note: '<p class="highlight">物流公司:{{orderEventInfo.expressName}}</p>' +
+                                    '<p class="highlight">物流跟踪号:{{orderEventInfo.expressNumber}}</p>',
                             }].concat(eventList);
                         }
 
                         $scope.orderEventInfo = angular.extend($scope.orderEventInfo, eventObj, { eventList: eventList, outboundDate: $scope.orderEventInfo.outboundDate });
 
                         $scope.showTrack = true;
-                    }, function () {
+                    }, function() {
                         $scope.isErrorNumber = true;
                         $scope.showTrack = false;
                         $scope.showOutboundDate = false;
                     });
             }
-        }]);
+        }
+    ]);
