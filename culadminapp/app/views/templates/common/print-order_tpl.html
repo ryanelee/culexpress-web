@@ -162,10 +162,10 @@
                                     <th>备注</th>
                                 </tr>
                                 <tr ng-repeat="item in data.inboundPackages">
-                                    <td align="center">{{item.itemNumber}}</td>
-                                    <td align="center">{{item.actualWeight || 0}}</td>
+                                    <td align="center">{{item.trackingNumber}}</td>
+                                    <td align="center">{{item.packageWeight || 0}}</td>
                                     <td align="center">{{item.shelfNumber}}</td>
-                                    <td align="center">{{item.shippingFee || 0}}</td>
+                                    <td align="center">{{item.packageNote || 0}}</td>
                                 </tr>
                             </table>
                         </td>
@@ -178,9 +178,9 @@
                     </tr>
                     <tr>
                         <td class="title">合计</td>
-                        <td>${{data._shippingFeeTotal || 0}}</td>
+                        <td>{{data._shippingFeeTotal || 0}}</td>
                         <td class="title">小费</td>
-                        <td>${{data.tip || 0}}</td>
+                        <td>{{data.tip || 0}}</td>
                     </tr>
                     <tr>
                         <td class="title">备注</td>
@@ -196,11 +196,11 @@
                         <th width="10%">客户编号</th>
                         <th width="26%">订单编号</th>
                         <th width="8%">重量（磅）</th>
-                        <th width="8%">件数</th>
-                        <th width="15%">生成日期</th>
+                        <th width="6%">件数</th>
+                        <th width="17%">生成日期</th>
                         <th width="8%">小费</th>
                     </tr>
-                    <tr ng-repeat="data in dataList | listInfo: $index | orderBy:data.inboundPackages.trackingNumber">
+                    <tr ng-repeat="data in dataList | listInfo: $index | orderBy:data.inboundPackages.shelfNumber">
                         <td colspan="8" width="100%">
                             <table cellpadding="2" cellspacing="0" border="0" width="100%" class="packages">
                                 <tr ng-repeat="item in data.inboundPackages track by $index" style="border-bottom:#6f6b6b solid 1px">
@@ -208,9 +208,9 @@
                                     <td width="15%">{{item.shelfNumber}}</td>
                                     <td width="10%">{{data.customerNumber}}</td>
                                     <td width="26%">{{data.orderNumber}}</td>
-                                    <td width="8%">{{data.actualWeight}}</td>
-                                    <td width="8%">{{data.cartonCount}}</td>
-                                    <td width="15%">{{data.payDate | date:'MM/dd/yyyy'}}</td>
+                                    <td width="8%">{{item.packageWeight || 0}}</td>
+                                    <td width="10%">{{data.cartonCount + '-1' || 0}}</td>
+                                    <td width="13%">{{data.payDate | date:'MM/dd/yyyy'}}</td>
                                     <td width="8%">{{data.tip || 0}}</td>
                                 </tr>
                             </table>
@@ -226,11 +226,11 @@
                         <th width="10%">客户编号</th>
                         <th width="26%">订单编号</th>
                         <th width="8%">重量（磅）</th>
-                        <th width="8%">件数</th>
-                        <th width="15%">生成日期</th>
+                        <th width="6%">件数</th>
+                        <th width="17%">生成日期</th>
                         <th width="8%">小费</th>
                     </tr>
-                    <tr ng-repeat="data in dataList | listInfo: $index | orderBy:data.inboundPackages.trackingNumber">
+                    <tr ng-repeat="data in dataList | listInfo: $index | orderBy:data.inboundPackages.shelfNumber">
                         <td colspan="8" width="100%">
                             <table cellpadding="2" cellspacing="0" border="0" width="100%" class="packages">
                                 <tr ng-repeat="item in data.inboundPackages track by $index" style="border-bottom:#6f6b6b solid 1px">
@@ -238,9 +238,9 @@
                                     <td width="15%">{{item.shelfNumber}}</td>
                                     <td width="10%">{{data.customerNumber}}</td>
                                     <td width="26%">{{data.orderNumber}}</td>
-                                    <td width="8%" align="center">{{data.actualWeight}}</td>
-                                    <td width="8%" align="center">{{data.cartonCount}}</td>
-                                    <td width="15%">{{data.payDate | date:'MM/dd/yyyy'}}</td>
+                                    <td width="8%" align="center">{{data.packageWeight || 0}}</td>
+                                    <td width="10%" align="center">{{data.cartonCount + '-1' || 0}}</td>
+                                    <td width="13%">{{data.payDate | date:'MM/dd/yyyy'}}</td>
                                     <td width="8%" align="center">{{data.tip || 0}}</td>
                                 </tr>
                             </table>

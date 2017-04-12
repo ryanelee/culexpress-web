@@ -48,6 +48,16 @@
                             ng-model="searchBar.warehouseNumber"
                             ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
                 </div>
+                <div class="search-col">
+                    <label class="search-label">发货渠道：</label>
+                    <select class="form-control search-control" ng-model="searchBar.shipServiceId" ng-options="item.shipServiceId as item.shipServiceName for item in searchBar.shippingChannelList"></select>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">
+                        <input type="checkbox" ng-model="searchBar.isFastOrder" />
+                        <span>极速原箱 <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i></span>
+                    </label>
+                </div>
                 <div class="clearfix"></div>
                 <div class="search-col">
                     <label class="search-label">开始日期：</label>
@@ -191,6 +201,7 @@
             <tr>
                 <th><input type="checkbox" ng-change="btnSelectedItem()" ng-model="searchBar.selectedAll" /></th>
                 <th>序号</th>
+                <th>订单批号</th>
                 <th>订单号</th>
                 <th>生成日期</th>
                 <th>客户编号</th>
@@ -206,7 +217,13 @@
             <tr ng-repeat="item in dataList">
                 <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
                 <td>{{item.rownumber}}</td>
-                <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a></td>
+                <td style="max-width: 150px;">{{item.batchNumber || '-'}}</td>
+                <td style="max-width: 200px;">
+                    <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
+                    <span ng-if="item.isFastOrder == 1" title="极速原箱">
+                        <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                    </span>
+                </td>
                 <td>{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                 <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
                 <td>{{item.customer.userName}}</td>

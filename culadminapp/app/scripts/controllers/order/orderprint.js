@@ -65,6 +65,15 @@ angular.module('culAdminApp')
               }
           });
 
+          warehouseService.getShippingChannelList(function (result) {
+                if (result.length == 1) {
+                    $scope.searchBar.shippingChannelList = result;
+                    $scope.searchBar.shipServiceId = $scope.searchBar.shippingChannelList[0].shipServiceId;
+                } else {
+                    $scope.searchBar.shippingChannelList = [{ shipServiceId: 0, shipServiceName: "全部" }].concat(result);
+                }
+            });
+
           $scope.selectedListCache = [];
 
           $scope.btnSelectedItem = function (item) {
@@ -114,6 +123,12 @@ angular.module('culAdminApp')
               }
               if (!!$scope.searchBar.warehouseNumber) {
                   _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
+              }
+              if (!!$scope.searchBar.shipServiceId) {
+                  _options["shipServiceId"] = $scope.searchBar.shipServiceId;
+              }
+              if ($scope.searchBar.isFastOrder == true) {
+                  _options["isFastOrder"] = 1;
               }
               if (!!$scope.searchBar.keywords) {                  
                   _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;

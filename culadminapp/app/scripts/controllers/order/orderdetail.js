@@ -39,6 +39,9 @@ angular.module('culAdminApp')
             $scope.getProvince();
 
             $scope.getCity = function(city, area, address) {
+                if(address || address.province || address.province.id)
+                    return;
+
                 $scope.search.parentid = address.province.id;
                 // address.province = e;
                 addressService.getDistrict($scope.search).then(function(data) {
@@ -58,17 +61,17 @@ angular.module('culAdminApp')
                 })
             }
             $scope.getArea = function(area, address) {
-                console.log("area")
-                console.log(area)
+                if( address || address.city || address.city.id)
+                    return;
                 $scope.search.parentid = address.city.id;
-                console.log($scope.search.parentid)
+                //console.log($scope.search.parentid)
                 addressService.getDistrict($scope.search).then(function(data) {
                     $scope.areas = data.data.data;
-                    console.log($scope.areas)
+                    //console.log($scope.areas)
                     if (area) {
                         $scope.areas.forEach(function(e) {
                             if (area.indexOf(e.name) >= 0) {
-                                console.log("你妹的")
+                                //console.log("你妹的")
                                 address.area = e;
                                 $scope.search.area = e
                             }
