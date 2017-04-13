@@ -45,9 +45,10 @@
                                 <dt><strong>生日 </strong></dt>
                                 <dd>
                                     <div class='input-group date' datetimepicker ng-model="model.birthday">
-                                    <input type='text' class="form-control" />
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                                        <input type='text' class="form-control" />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
                                     <!--<label class="input">  <input class="control-date" type="text" ng-model="model.birthday" placeholder="请输入您的出生年月日" /></label>-->
                                 </dd>
                                 <hr />
@@ -95,12 +96,12 @@
                                            </select>
                                         </div>
                                         <div class="col-sm-3">
-                                            <select class="form-control"  ng-options="city as city.name for city in citys" ng-model="selectedCity" ng-change="getArea();">
+                                            <select class="form-control" ng-options="city as city.name for city in citys" ng-model="selectedCity" ng-change="getArea();">
                                            </select>
                                         </div>
 
                                         <div class="col-sm-3">
-                                            <select class="form-control"  ng-options="area as area.name for area in areas" ng-model="selectedArea">
+                                            <select class="form-control" ng-options="area as area.name for area in areas" ng-model="selectedArea">
                                        </select>
                                         </div>
                                         <!--<span class="col col-4" ng-if="selectedCountry.code==='CHN'">

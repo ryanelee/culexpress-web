@@ -6,6 +6,7 @@ angular
         function($rootScope, $scope, AuthService, $state, Customer, $http) {
             $scope.data = {};
             $scope.data.urls = [];
+            $scope.data.idForever = 0;
             $scope.customNumber = ""
             $scope.flag = '0'
 
@@ -84,11 +85,15 @@ angular
 
 
             $scope.submit = function() {
+                console.log($scope.data);
                 if (!$scope.data.trackingNumber && !$scope.data.cellphoneNumber && !$scope.data.receivePersonName) {
                     alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
                     return;
                 } else if (!$scope.data.urls[0]) {
                     alertify.alert('提示', '<p style="color:red">请上传身份证正反面.<p>');
+                    return
+                } else if ($scope.data.idForever == 0 && !$scope.data.deadline) {
+                    alertify.alert('提示', '<p style="color:red">必须选择永久或则填写身份证有效期.<p>');
                     return
                 } else {
                     $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function(data) {

@@ -142,14 +142,11 @@ angular.module('culAdminApp')
                 address._edit = true;
             }
             $scope.btnSaveAddress = function(address) {
-                console.log(address);
-                // return;
                 if (!!address.receivePersonName &&
                     !!address.cellphoneNumber &&
                     !!address.address1_before &&
                     !!address.city &&
                     !!address.zipcode) {
-                    console.log(address);
                     address.stateOrProvince = address.province.name;
                     address.city = address.city.name;
                     address.area = address.area.name;
@@ -164,7 +161,6 @@ angular.module('culAdminApp')
                     }
                     address.address1 = address.address1_before
                     address.transactionNumber = address.addressNumber;
-                    console.log(address);
                     // return;
                     addressService.update(address, function(result) {
                         if (result.success == true) {

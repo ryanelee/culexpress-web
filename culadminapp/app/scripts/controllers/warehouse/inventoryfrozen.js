@@ -31,7 +31,6 @@ angular.module('culAdminApp')
                         if (!!$scope.tempItemNumber) {
                             inventoryService.getDetail($scope.tempItemNumber, function(result) {
                                 $scope.tpl_status.btnRelieve = true;
-                                console.log(result);
                                 if (result.length > 0) {
                                     $scope.data = {
                                         itemNumber: result[0].itemNumber,
