@@ -36,7 +36,9 @@ angular.module('culAdminApp')
                 opened: {
                     startDate: false,
                     endDate: false
-                }
+                },
+                isUnusual:"",
+                flag:"5"
             }
 
             warehouseService.getWarehouse(function(result) {
@@ -52,7 +54,8 @@ angular.module('culAdminApp')
                 var _options = {
                     "pageInfo": $scope.pagination,
                     "inboundDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
-                    "inboundDateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : ""
+                    "inboundDateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : "",
+                    "flag": $scope.searchBar.flag
                 }
                 if (!!$scope.searchBar.sendType) {
                     _options["sendType"] = $scope.searchBar.sendType;
@@ -75,6 +78,8 @@ angular.module('culAdminApp')
                     }
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 }
+                _options["isUnusual"] = $scope.searchBar.isUnusual;
+                // _options["flag"] = $scope.searchBar.flag;
                 return angular.copy(_options);
             }
 
