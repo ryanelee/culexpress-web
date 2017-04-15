@@ -444,8 +444,9 @@ var app = angular
                         alertify.alert('提示', '您需要支付' + $scope.countFee.totalCount + '元，而您的账户余额为' + $scope.$root.currentUser.accountBalance + '元,请充值后再进行支付!');
                         return false;
                     }
+                    //parseFloat($scope.shippingItems[0].packageWeight + 0.5) //显示重量原来的写法
                     text = '您好，感谢您提交了CUL EXPRESS极速转运服务订单， 按确定即可完成本次订单的提交，您的包裹预估重量为' +
-                        parseFloat($scope.shippingItems[0].packageWeight + 0.5) +
+                        parseFloat(parseFloat($scope.shippingItems[0].packageWeight) + 0.5) +
                         '磅，我们会锁定您' +
                         $scope.countFee.packageWeight +
                         '磅=' +

@@ -120,7 +120,6 @@ var app = angular
                     .then(function(result) {
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
                             $scope.shippingNoticeList = result.data.data;
-                            console.log($scope.shippingNoticeList);
                         },
                         function(err) {
 
