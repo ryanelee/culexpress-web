@@ -23,6 +23,8 @@
                     </select>
                     <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnPrint()">批量打印</button>
+                    <a class="btn btn-primary" style="margin-left:5px;" href="{{api}}/exportReceiveaddressList">导出</a>
                 </div>
             </div>
         </div>
@@ -64,17 +66,8 @@
         </table>
         <div class="row">
             <div class="col-sm-12 text-right">
-                <uib-pagination class="pagination pagination-rewrite pull-right"
-                                boundary-links="true"
-                                max-size="5"
-                                total-items="pagination.totalCount"
-                                items-per-page="pagination.pageSize"
-                                ng-model="pagination.pageIndex"
-                                ng-change="getData()"
-                                previous-text="上一页"
-                                next-text="下一页"
-                                first-text="首页"
-                                last-text="尾页">
+                <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount" items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页" next-text="下一页"
+                    first-text="首页" last-text="尾页">
                 </uib-pagination>
                 <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
                     <option value="10">10</option>
@@ -86,3 +79,4 @@
         </div>
     </div>
 </div>
+<print-idcard></print-idcard>

@@ -2,14 +2,14 @@
 
 var app = angular
     .module('culwebApp')
-    .controller('ShippingNoticeController', ['$scope', '$rootScope', '$filter', '$stateParams', 'OrderSvr', '$state','$window',
-        function ($scope, $rootScope, $filter, $stateParams, orderSvr, $state,$window) {
+    .controller('ShippingNoticeController', ['$scope', '$rootScope', '$filter', '$stateParams', 'OrderSvr', '$state', '$window',
+        function($scope, $rootScope, $filter, $stateParams, orderSvr, $state, $window) {
             $scope.$root.orderOptions = {};
             $scope.$root.wizardOptions = {};
             $scope.warehouses = [];
             orderSvr
                 .getWarehouses()
-                .then(function (result) {
+                .then(function(result) {
                     if (!window.sessionStorage.getItem('cache_warehouse')) {
                         window.sessionStorage.setItem('cache_warehouse', JSON.stringify(result.data));
                     }
@@ -29,20 +29,20 @@ var app = angular
 
             $scope.shippingNotice = {};
 
-            $scope.submitToFastOrder = function (packageNumber) {
+            $scope.submitToFastOrder = function(packageNumber) {
                 $scope.shippingNotice.warehouseNumber = $scope.retrieveWarehouseNumber;
                 $scope.shippingNotice.transactionNumber = packageNumber;
-                $scope.shippingNotice.inboundDate=new Date().toISOString();
-                $scope.shippingNotice.warehouseName=$scope.warehouses[0].warehouseName;
+                $scope.shippingNotice.inboundDate = new Date().toISOString();
+                $scope.shippingNotice.warehouseName = $scope.warehouses[0].warehouseName;
                 orderSvr.selectedShippingItems = [$scope.shippingNotice];
                 $state.go('customer.submitorder');
             }
 
 
 
-            $scope.addShippingNotice = function () {
+            $scope.addShippingNotice = function() {
 
-                if (!$scope.shippingNotice.trackingNumber) { alertify.alert('提醒','请输入运单号!'); return false; }
+                if (!$scope.shippingNotice.trackingNumber) { alertify.alert('提醒', '请输入运单号!'); return false; }
                 if (!$scope.shippingNotice.packageDescription) { alertify.alert('提醒', '请输入运单内容!'); return false; }
                 if (!!$scope.shippingNotice.isFastOrder) {
                     if (!$scope.shippingNotice.packageWeight) { alertify.alert('提醒', '极速原箱订单必须输入包裹重量!'); return false; }
@@ -59,29 +59,28 @@ var app = angular
                         packageWeight: $scope.shippingNotice.packageWeight,
                         isFastOrder: $scope.shippingNotice.isFastOrder
                     })
-                    .then(function (result) {
-                        if (!!result.data.transactionNumber) {
-                            if (!!$scope.shippingNotice.isFastOrder) {
-                                return $scope.submitToFastOrder(result.data.transactionNumber);
-                            } else {
-                                $state.go('customer.shippingnoticelist');
+                    .then(function(result) {
+                            if (!!result.data.transactionNumber) {
+                                if (!!$scope.shippingNotice.isFastOrder) {
+                                    return $scope.submitToFastOrder(result.data.transactionNumber);
+                                } else {
+                                    $state.go('customer.shippingnoticelist');
+                                }
                             }
-                        }
-                    },
-                    function (result) {
-                        if (result.data && result.data.message) {
-                            //SweetAlert.swal('错误', result.data.message, 'error');
-                            alertify.alert('错误',result.data.message);
-                        }
-                        else {
-                            //SweetAlert.swal('错误', '添加失败.', 'error');
-                            alertify.alert('错误','添加失败!');
-                        }
-                    });
+                        },
+                        function(result) {
+                            if (result.data && result.data.message) {
+                                //SweetAlert.swal('错误', result.data.message, 'error');
+                                alertify.alert('错误', result.data.message);
+                            } else {
+                                //SweetAlert.swal('错误', '添加失败.', 'error');
+                                alertify.alert('错误', '添加失败!');
+                            }
+                        });
             };
 
 
-            $scope.reset = function () {
+            $scope.reset = function() {
                 if (orderSvr.warehouses && orderSvr.warehouses.length)
                     $scope.retrieveWarehouseNumber = orderSvr.warehouses[0].warehouseNumber;
 
@@ -99,12 +98,10 @@ var app = angular
             }
 
 
-            $scope.searchKeyItems = [
-                {
-                    key: 'trackingNumber',
-                    text: '预报快递单号'
-                }
-            ];
+            $scope.searchKeyItems = [{
+                key: 'trackingNumber',
+                text: '预报快递单号'
+            }];
 
             var queryPara = $scope.queryPara = {
                 searchKeyName: 'trackingNumber',
@@ -112,7 +109,7 @@ var app = angular
             };
 
             $scope.shippingNoticeList = [];
-            $scope.initShippingNoticeList = function (index, para) {
+            $scope.initShippingNoticeList = function(index, para) {
                 if ($scope.$root.currentUser.userName === undefined) return;
                 var status = $scope.queryPara.status,
                     customerNumber = $rootScope.currentUser.customerNumber;
@@ -120,21 +117,22 @@ var app = angular
                 $scope.pagedOptions.index = index;
                 orderSvr
                     .retrieveShippingNoticeList(index, $.extend({ status: status, customerNumber: customerNumber }, para))
-                    .then(function (result) {
-                        $scope.pagedOptions.total = result.data.pageInfo.totalCount;
-                        $scope.shippingNoticeList = result.data.data;
-                    },
-                    function (err) {
+                    .then(function(result) {
+                            $scope.pagedOptions.total = result.data.pageInfo.totalCount;
+                            $scope.shippingNoticeList = result.data.data;
+                            console.log($scope.shippingNoticeList);
+                        },
+                        function(err) {
 
-                    });
+                        });
             };
             //$scope.initShippingNoticeList();
 
-            $scope.onPaged = function (pageIndex) {
+            $scope.onPaged = function(pageIndex) {
                 $scope.initShippingNoticeList(pageIndex);
             }
 
-            $scope.rangSearch = function (rangeItem) {
+            $scope.rangSearch = function(rangeItem) {
 
                 $scope.queryPara = {
                     searchKeyName: 'trackingNumber',
@@ -147,18 +145,18 @@ var app = angular
                 }));
             }
 
-            $scope.searchList = function () {
+            $scope.searchList = function() {
                 $scope.initShippingNoticeList(1, $scope.queryPara);
             }
 
-            $scope.changeQueryStaus = function (status) {
+            $scope.changeQueryStaus = function(status) {
                 $scope.queryPara.status = status || '';
                 $scope.initShippingNoticeList(1, $scope.queryPara);
             }
 
 
             $scope.selectedAll = false;
-            $scope.selectAll = function () {
+            $scope.selectAll = function() {
                 for (var i = 0, ii = $scope.shippingNoticeList.length; i < ii; i++) {
                     var shippingItem = $scope.shippingNoticeList[i];
                     if (shippingItem.status !== 'InOrder' && shippingItem.status !== 'Intransit') {
@@ -166,9 +164,9 @@ var app = angular
                     }
                 }
             }
-            var isSafeSelected = function () {
-                var canSelectItems = $filter('filter')($scope.shippingNoticeList, function (item) { return item.status === 'Inbound'; }),
-                    selectedItems = $filter('filter')(canSelectItems, function (item) { return item.checked === true; }),
+            var isSafeSelected = function() {
+                var canSelectItems = $filter('filter')($scope.shippingNoticeList, function(item) { return item.status === 'Inbound'; }),
+                    selectedItems = $filter('filter')(canSelectItems, function(item) { return item.checked === true; }),
                     checkedWarehouseNumber;
 
                 if (!selectedItems[0]) return true;
@@ -184,57 +182,55 @@ var app = angular
                 return true;
             }
 
-            var checkSelected = function () {
+            var checkSelected = function() {
                 var result = isSafeSelected();
                 if (result === 0) {
                     //SweetAlert.swal('提醒', '请至少选择一条数据。', 'warning');
-                    alertify.alert('提醒','请至少选择一条数据!');
+                    alertify.alert('提醒', '请至少选择一条数据!');
                     return false;
-                }
-                else if(result === 1){
-                    alertify.alert('提醒','一个订单最多允许选择10个包裹!');
+                } else if (result === 1) {
+                    alertify.alert('提醒', '一个订单最多允许选择10个包裹!');
                     return false;
-                }
-                else if (result === false) {
+                } else if (result === false) {
                     //SweetAlert.swal('提醒', '您选择的包裹不在同一个仓库，无法提交订单。不同仓库的包裹请分别提交订单。', 'warning');
-                    alertify.alert('提醒','您选择的包裹不在同一个仓库，无法提交订单。不同仓库的包裹请分别提交订单!');
+                    alertify.alert('提醒', '您选择的包裹不在同一个仓库，无法提交订单。不同仓库的包裹请分别提交订单!');
                     return false;
                 }
                 return true;
             }
 
-            $scope.selectItem = function (shippingNoticeItem) {
+            $scope.selectItem = function(shippingNoticeItem) {
                 if (!!shippingNoticeItem.checked) {
                     shippingNoticeItem.checked = checkSelected();
                 }
 
-                var canSelectItems = $filter('filter')($scope.shippingNoticeList, function (item) { return item.status === 'Inbound'; }),
-                    selectedItems = $filter('filter')(canSelectItems, function (item) { return item.checked === true; });
+                var canSelectItems = $filter('filter')($scope.shippingNoticeList, function(item) { return item.status === 'Inbound'; }),
+                    selectedItems = $filter('filter')(canSelectItems, function(item) { return item.checked === true; });
                 $scope.selectedAll = canSelectItems.length === selectedItems.length;
             }
 
 
-            $scope.deleteShippingNotice = function (item) {
-                alertify.confirm('确认','请确认是否要删除该记录?',
-                    function(){
+            $scope.deleteShippingNotice = function(item) {
+                alertify.confirm('确认', '请确认是否要删除该记录?',
+                    function() {
                         orderSvr
                             .deleteShippingNotice(item.trackingNumber)
-                            .then(function (result) {
-                                if (!!result.data.success) {
-                                    var index = $scope.shippingNoticeList.indexOf(item);
-                                    $scope.shippingNoticeList.splice(index, 1);
-                                }
+                            .then(function(result) {
+                                    if (!!result.data.success) {
+                                        var index = $scope.shippingNoticeList.indexOf(item);
+                                        $scope.shippingNoticeList.splice(index, 1);
+                                    }
 
-                                alertify.success('删除成功!');
-                            },
-                            function (result) {
-                                if (result.data.message) {
-                                    alertify.alert('错误',result.data.message);
-                                }
-                            });
+                                    alertify.success('删除成功!');
+                                },
+                                function(result) {
+                                    if (result.data.message) {
+                                        alertify.alert('错误', result.data.message);
+                                    }
+                                });
                     },
-                        function(){
-                            alertify.error('已取消删除!');
+                    function() {
+                        alertify.error('已取消删除!');
                     })
 
                 // SweetAlert.swal({
@@ -270,33 +266,34 @@ var app = angular
             };
 
 
-            var checkAndGetSelect = function (isFastOrder) {
-                var shippingList = $scope.shippingNoticeList, selectedItems = [];
-                if (!shippingList.length) return false;
-                for (var i = 0, ii = shippingList.length; i < ii; i++) {
-                    var shippItemData = shippingList[i];
-                    shippItemData.orderItems = [{ goodsCategory: '' }];
-                    if (shippItemData.checked) {
-                        if (!isFastOrder) {
-                            if (shippItemData.status !== 'Inbound') {
-                                //SweetAlert.swal('提醒', '普通订单只能提交已入库的货物信息.', 'warning');
-                                alertify.alert('提醒','普通订单只能提交已入库的货物信息!');
-                                return false;
+            var checkAndGetSelect = function(isFastOrder) {
+                    var shippingList = $scope.shippingNoticeList,
+                        selectedItems = [];
+                    if (!shippingList.length) return false;
+                    for (var i = 0, ii = shippingList.length; i < ii; i++) {
+                        var shippItemData = shippingList[i];
+                        shippItemData.orderItems = [{ goodsCategory: '' }];
+                        if (shippItemData.checked) {
+                            if (!isFastOrder) {
+                                if (shippItemData.status !== 'Inbound') {
+                                    //SweetAlert.swal('提醒', '普通订单只能提交已入库的货物信息.', 'warning');
+                                    alertify.alert('提醒', '普通订单只能提交已入库的货物信息!');
+                                    return false;
+                                }
                             }
+                            selectedItems.push(shippItemData);
                         }
-                        selectedItems.push(shippItemData);
                     }
-                }
 
-                if (!selectedItems.length) {
-                    //SweetAlert.swal('提醒', '请选择需要提交的货物信息.', 'warning');
-                    alertify.alert('提醒','请选择需要提交的货物信息!');
-                    return false;
+                    if (!selectedItems.length) {
+                        //SweetAlert.swal('提醒', '请选择需要提交的货物信息.', 'warning');
+                        alertify.alert('提醒', '请选择需要提交的货物信息!');
+                        return false;
+                    }
+                    return selectedItems;
                 }
-                return selectedItems;
-            }
-            //暂留未用
-            var getSelectedItemsId = function (selectedArr) {
+                //暂留未用
+            var getSelectedItemsId = function(selectedArr) {
                 var idArrr = [];
                 for (var i = 0, ii = (selectedArr || []).length; i < ii; i++) {
                     idArrr.push(selectedArr[i].transactionNumber);
@@ -304,7 +301,7 @@ var app = angular
                 return idArrr.join(',');
             }
             orderSvr.selectedShippingItems = [];
-            $scope.redirectToSubmitOrder = function () {
+            $scope.redirectToSubmitOrder = function() {
                 if (!checkSelected()) return false;
 
                 var selected = checkAndGetSelect();
@@ -316,7 +313,7 @@ var app = angular
                 }
             }
 
-            $scope.redirectToFastOrder = function () {
+            $scope.redirectToFastOrder = function() {
                 if (!checkSelected()) return false;
                 var selected = checkAndGetSelect(true);
                 if (selected.length > 1) {
@@ -330,26 +327,27 @@ var app = angular
                 }
             };
 
-            $scope.redirectToOrderDetail = function (orderNumber) {
+            $scope.redirectToOrderDetail = function(orderNumber) {
                 $state.go('customer.orderdetail', { id: orderNumber });
             };
 
-            $scope.isFocus = function(){
-                setTimeout(function(){
-                $window.document.getElementById("packageWeight").focus();
-                },300)              
+            $scope.isFocus = function() {
+                setTimeout(function() {
+                    $window.document.getElementById("packageWeight").focus();
+                }, 300)
             }
-        }]);
+        }
+    ]);
 
-  app.directive('ngEnter', function () {
-      return function (scope, element, attrs) {
-          element.bind("keydown keypress", function (event) {
-              if(event.which === 13) {
-                  scope.$apply(function (){
-                      scope.$eval(attrs.ngEnter);
-                  });
-                  event.preventDefault();
-              }
-          });
-      };
-  });
+app.directive('ngEnter', function() {
+    return function(scope, element, attrs) {
+        element.bind("keydown keypress", function(event) {
+            if (event.which === 13) {
+                scope.$apply(function() {
+                    scope.$eval(attrs.ngEnter);
+                });
+                event.preventDefault();
+            }
+        });
+    };
+});

@@ -77,63 +77,67 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="shippingNoticeItem in shippingNoticeList track by shippingNoticeItem.transactionNumber ">
+                            <!--<td></td>-->
                             <td>
-                                <input id="pack_item{{shippingNoticeItem.rownumber}}" class="pk-checkbox-input" type="checkbox" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)" ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'"
-                                />
-                                <label for="pack_item{{shippingNoticeItem.rownumber}}" ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'"></label>
-                                <!-- <input type="checkbox" style="margin-left:5px" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)"
-                                    ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'" /> -->
+                                {{shippingNoticeItem.status}}
+                                <!--<input id="pack_item{{shippingNoticeItem.rownumber}}" class="pk-checkbox-input" type="checkbox" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)" ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'"
+                                />-->
+                                <input id="pack_item{{shippingNoticeItem.rownumber}}" class="pk-checkbox-input" type="checkbox" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)" ng-show="shippingNoticeItem.status === 'Onshelf'" />
+                                <!--<label for=" pack_item{{shippingNoticeItem.rownumber}} " ng-hide="shippingNoticeItem.status==='InOrder' || shippingNoticeItem.status==='Intransit' "></label>-->
+                                <label for="pack_item{{shippingNoticeItem.rownumber}} " ng-show="shippingNoticeItem.status==='Onshelf' "></label>
+                                <!-- <input type="checkbox " style="margin-left:5px " ng-model="shippingNoticeItem.checked " ng-click="selectItem(shippingNoticeItem) "
+                                    ng-hide="shippingNoticeItem.status==='InOrder' || shippingNoticeItem.status==='Intransit' " /> -->
                             </td>
                             <td>{{shippingNoticeItem.rownumber}}</td>
                             <td>{{ shippingNoticeItem.trackingNumber }}</td>
-                            <td class="hidden-sm">{{ shippingNoticeItem.packageDescription }}</td>
-                            <td title="{{ shippingNoticeItem.packageNote }}" style="word-break:break-all;">{{ shippingNoticeItem.packageNote }}</td>
+                            <td class="hidden-sm ">{{ shippingNoticeItem.packageDescription }}</td>
+                            <td title="{{ shippingNoticeItem.packageNote }} " style="word-break:break-all; ">{{ shippingNoticeItem.packageNote }}</td>
                             <td>{{ shippingNoticeItem.warehouseName}}</td>
                             <td>{{ shippingNoticeItem.createDate|sysdate}}</td>
                             <td>
-                                <span ng-if="shippingNoticeItem.status === 'InOrder'" class="label label-success">已创建订单</span>
-                                <span ng-if="shippingNoticeItem.status === 'Inbound'" class="label label-ru">已入库</span>
-                                <span ng-if="shippingNoticeItem.status === 'Intransit'" class="label label-info">在途中</span>
-                                <span ng-if="shippingNoticeItem.status === 'Onshelf'" class="label label-info">已上架</span>
-                                <span ng-if="shippingNoticeItem.status === 'Offshelf'" class="label label-info">已下架</span>
-                                <p ng-if="shippingNoticeItem.status === 'InOrder'">
+                                <span ng-if="shippingNoticeItem.status==='InOrder' " class="label label-success ">已创建订单</span>
+                                <span ng-if="shippingNoticeItem.status==='Inbound' " class="label label-ru ">已入库</span>
+                                <span ng-if="shippingNoticeItem.status==='Intransit' " class="label label-info ">在途中</span>
+                                <span ng-if="shippingNoticeItem.status==='Onshelf' " class="label label-info ">已上架</span>
+                                <span ng-if="shippingNoticeItem.status==='Offshelf' " class="label label-info ">已下架</span>
+                                <p ng-if="shippingNoticeItem.status==='InOrder' ">
                                     <small>
-                                        <!-- <i class="fa fa-shopping-cart"></i> -->
-                                        <a href="javascript:void(0)" ng-click="redirectToOrderDetail(shippingNoticeItem.orderNumber);">{{shippingNoticeItem.orderNumber}}</a>
+                                        <!-- <i class="fa fa-shopping-cart "></i> -->
+                                        <a href="javascript:void(0) " ng-click="redirectToOrderDetail(shippingNoticeItem.orderNumber); ">{{shippingNoticeItem.orderNumber}}</a>
                                     </small>
                                 </p>
-                                <p ng-if="shippingNoticeItem.status === 'Inbound'">
-                                    <small class="hex">
-                                      <!-- <i class="fa fa-clock-o"></i>  -->
+                                <p ng-if="shippingNoticeItem.status==='Inbound' ">
+                                    <small class="hex ">
+                                      <!-- <i class="fa fa-clock-o "></i>  -->
                                       {{ shippingNoticeItem.inboundDate|sysdate}}</small>
-                                    <!--<small class="hex">是否转仓: <span ng-if="shippingNoticeItem.isTransfer">是</span><span ng-if="!shippingNoticeItem.isTransfer">否</span></small><br>-->
-                                    <small class="hex">入库重量:{{ shippingNoticeItem.packageWeight }}磅</small>
+                                    <!--<small class="hex ">是否转仓: <span ng-if="shippingNoticeItem.isTransfer ">是</span><span ng-if="!shippingNoticeItem.isTransfer ">否</span></small><br>-->
+                                    <small class="hex ">入库重量:{{ shippingNoticeItem.packageWeight }}磅</small>
                                 </p>
                             </td>
                             <td>
-                                <a href="javascript:void(0);" ng-show="shippingNoticeItem.status === 'Intransit'" class="op-btn">
-                                    <i class="fa fa-trash-o" ng-click="deleteShippingNotice(shippingNoticeItem)">删除</i>
+                                <a href="javascript:void(0); " ng-show="shippingNoticeItem.status==='Intransit' " class="op-btn ">
+                                    <i class="fa fa-trash-o " ng-click="deleteShippingNotice(shippingNoticeItem) ">删除</i>
                                 </a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="row" style="margin-top:20px;">
-                <div class="col-sm-6" style="margin:0;padding:0 10px;">
-                    <a class="btn-u bg-color-ffb" ui-sref="customer.shippingnotice">
-                        <i class="fa fa-truck"> 货物预报</i>
+            <div class="row " style="margin-top:20px; ">
+                <div class="col-sm-6 " style="margin:0;padding:0 10px; ">
+                    <a class="btn-u bg-color-ffb " ui-sref="customer.shippingnotice ">
+                        <i class="fa fa-truck "> 货物预报</i>
                     </a>
-                    <a class="btn-u bg-color-ffb" href="javascript:void(0);" ng-click="redirectToSubmitOrder();">
-                        <i class="fa fa-shopping-cart"> 提交订单</i>
+                    <a class="btn-u bg-color-ffb " href="javascript:void(0); " ng-click="redirectToSubmitOrder(); ">
+                        <i class="fa fa-shopping-cart "> 提交订单</i>
                     </a>
-                    <a class="btn-u bg-color-ffb" href="javascript:void(0);" ng-click="redirectToFastOrder();">
-                        <i class="fa fa-bolt"> 提交极速原箱</i>
+                    <a class="btn-u bg-color-ffb " href="javascript:void(0); " ng-click="redirectToFastOrder(); ">
+                        <i class="fa fa-bolt "> 提交极速原箱</i>
                     </a>
-                    <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
+                    <button type="button " class="btn-u btn-u-default " ng-click="goback() ">返回</button>
                 </div>
-                <div class="col-sm-6 text-right" style="margin:0;padding:0 10px;">
-                    <pagination options="pagedOptions" on-page="onPaged"></pagination>
+                <div class="col-sm-6 text-right " style="margin:0;padding:0 10px; ">
+                    <pagination options="pagedOptions " on-page="onPaged "></pagination>
                 </div>
             </div>
         </div>
