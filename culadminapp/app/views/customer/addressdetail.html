@@ -80,6 +80,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-2">
+                        <button ng-click="btnPrint()" class="btn btn-primary">身份证打印</button>
+
+                    </div>
                 </div>
             </fieldset>
             <fieldset>
@@ -87,15 +91,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">收货地址：</label>
                     <div class="col-sm-2">
-                        <select class="form-control" ng-options="province.name as province.name for province in provinces" ng-model="data.stateOrProvince"
-                            ng-change="getCity()"></select>
+                        <select class="form-control" ng-options="province as province.name for province in provinces" ng-model="data.stateOrProvince" ng-change="getCity()"></select>
                     </div>
                     <div class="col-sm-2">
-                        <select class="form-control" ng-options="city.name as city.name for city in citys" ng-model="data.city"
-                        ng-change="getArea()"></select>
+                        <select class="form-control" ng-options="city as city.name for city in citys" ng-model="data.city" ng-change="getArea()"></select>
                     </div>
                     <div class="col-sm-2">
-                        <select class="form-control" ng-options="area.name as area.name for area in areas" ng-model="data.area"></select>
+                        <select class="form-control" ng-options="area as area.name for area in areas" ng-model="data.area"></select>
                     </div>
                 </div>
 
@@ -149,3 +151,5 @@
         </form>
     </div>
 </div>
+
+<print-idcard></print-idcard>

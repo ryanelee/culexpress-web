@@ -3,16 +3,17 @@
         #print_unshelf_Template th {
             text-align: center;
         }
-
-        #print_unshelf_Template th, td {
+        
+        #print_unshelf_Template th,
+        td {
             padding: 2px;
         }
-
+        
         #print_unshelf_Template td.title {
             width: 100px;
             text-align: center;
         }
-
+        
         #print_unshelf_Template .barcode {
             margin: 0 auto;
         }
@@ -37,8 +38,12 @@
                         <th>架位编号</th>
                     </tr>
                     <tr ng-repeat="data in dataList['1']">
-                        <td><div class="barcode" trackingNumber="{{data.itemNumber}}"></div></td>
-                        <td><div class="barcode" trackingNumber="{{data.receiptNumber}}"></div></td>
+                        <td>
+                            <div class="barcode" trackingNumber="{{data.itemNumber}}"></div>
+                        </td>
+                        <td>
+                            <div class="barcode" trackingNumber="{{data.receiptNumber}}"></div>
+                        </td>
                         <td>{{data.unShelfCount}}</td>
                         <td></td>
                     </tr>
@@ -57,8 +62,12 @@
                         <th>架位编号</th>
                     </tr>
                     <tr ng-repeat="data in dataList['2']">
-                        <td><div class="barcode" trackingNumber="{{data.itemNumber}}"></div></td>
-                        <td><div class="barcode" trackingNumber="{{data.receiptNumber}}"></div></td>
+                        <td>
+                            <div class="barcode" trackingNumber="{{data.itemNumber}}"></div>
+                        </td>
+                        <td>
+                            <div class="barcode" trackingNumber="{{data.receiptNumber}}"></div>
+                        </td>
                         <td>{{data.unShelfCount}}</td>
                         <td></td>
                     </tr>

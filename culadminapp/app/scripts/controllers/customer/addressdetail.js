@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('AddressDetailCtrl', ["$scope", "$location", "addressService", "plugMessenger", "$window",
-        function ($scope, $location, addressService, plugMessenger, $window) {
+        function($scope, $location, addressService, plugMessenger, $window) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -26,84 +26,52 @@ angular.module('culAdminApp')
             $scope.search.province = {};
 
             $scope.provinces = [];
-            $scope.tempProvinces = [];
             $scope.citys = [];
-            $scope.tempCitys = [];
-            $scope.tempAreas = [];
             $scope.areas = [];
-            $scope.getProvince = function (province, city, area) {
-                console.log("province" + province)
-                addressService.getDistrict($scope.search).then(function (data) {
-                    $scope.tempProvinces = data.data.data;
-                    $scope.tempProvinces.forEach(function (e) {
-                        var detail = {};
-                        detail.name = e.name;
-                        $scope.provinces.push(detail);
-                        if (province && province.indexOf(e.name) >= 0) {
-                            $scope.data.stateOrProvince = e.name;
+            $scope.getProvince = function(province, city, area) {
+                addressService.getDistrict($scope.search).then(function(data) {
+                    $scope.provinces = data.data.data;
+                    if (province) {
+                        $scope.provinces.forEach(function(e) {
+                            if (province.indexOf(e.name) >= 0) {
+                                console.log("程序问题")
+                                $scope.data.stateOrProvince = e;
+                            }
+                        })
+                        if (city) {
                             $scope.getCity(city, area);
                         }
-                        // $scope.provinces.push(e.name);
-                        // console.log("-->" + JSON.stringify($scope.selectedProvince));
-                    })
-                })
-            }
-
-
-            $scope.getCity = function (city, area) {
-                $scope.selectedArea = {}
-                var flag = 0;
-                $scope.citys = [];
-                $scope.search.parentid;
-                $scope.tempProvinces.forEach(function (e) {
-
-                    // console.log($scope.search.selectedProvince);
-                    if ($scope.data.stateOrProvince == e.name) {
-                        console.log($scope.selectedProvince);
-                        $scope.search.parentid = e.id;
                     }
                 })
-                if ($scope.search.parentid) {
-                    addressService.getDistrict($scope.search).then(function (data) {
-                        console.log(data);
-
-                        $scope.tempCitys = data.data.data;
-                        $scope.tempCitys.forEach(function (e) {
-                            var detail = {};
-                            detail.name = e.name
-                            $scope.citys.push(detail);
-
-                            if (city && city.indexOf(e.name) >= 0) {
-                                console.log('nime')
-                                $scope.data.city = e.name;
-                                $scope.getArea(area);
-                            }
-                            // $scope.citys.push(e.name);
-                        })
-                    })
-                }
-
-
             }
-            // $scope.getCity();
-            $scope.getArea = function (area) {
-                $scope.areas = [];
-                $scope.tempCitys.forEach(function (e) {
-                    if ($scope.data.city.indexOf(e.name) >= 0) {
-                        $scope.search.parentid = e.id;
-                        console.log($scope.search.parentid);
-                        addressService.getDistrict($scope.search).then(function (data) {
+            $scope.getProvince();
 
-                            $scope.tempAreas = data.data.data;
-                            $scope.tempAreas.forEach(function (e) {
-                                var detail = {};
-                                detail.name = e.name
-                                $scope.areas.push(detail);
-                                if (area && e.name == area) {
-                                    $scope.data.area = e.name
-                                }
-                                // $scope.areas.push(e.name);
-                            })
+            $scope.getCity = function(city, area) {
+                $scope.search.parentid = $scope.data.stateOrProvince.id;
+                addressService.getDistrict($scope.search).then(function(data) {
+                    $scope.citys = data.data.data;
+                    if (city) {
+                        $scope.citys.forEach(function(e) {
+                            if (city.indexOf(e.name) >= 0) {
+                                $scope.data.city = e;
+                            }
+                        })
+                        if (area) {
+                            $scope.getArea(area);
+                        }
+                    }
+
+                })
+            }
+            $scope.getArea = function(area) {
+                $scope.search.parentid = $scope.data.city.id;
+                addressService.getDistrict($scope.search).then(function(data) {
+                    $scope.areas = data.data.data;
+                    if (area) {
+                        $scope.areas.forEach(function(e) {
+                            if (area.indexOf(e.name) >= 0) {
+                                $scope.data.area = e;
+                            }
                         })
                     }
                 })
@@ -111,14 +79,16 @@ angular.module('culAdminApp')
 
 
             // $scope.getProvince();
+            // $scope.change = function() {
+            //     console.log($scope.data.stateOrProvince)
+            // }
 
 
 
 
-
-            $scope.init = function () {
+            $scope.init = function() {
                 console.log("wonderful world");
-                addressService.getDetail($scope.transactionNumber, function (result) {
+                addressService.getDetail($scope.transactionNumber, function(result) {
                     $scope.data = result;
                     console.log("result");
                     console.log(result);
@@ -126,7 +96,7 @@ angular.module('culAdminApp')
                     $scope._city = result.city;
                     $scope._area = result.area;
                     $scope.getProvince($scope._province, $scope._city, $scope._area)
-                    _changeProvince();
+                        // _changeProvince();
                     _buildUpload($('#fileupload_front'), "idCardFront");
                     _buildUpload($('#fileupload_back'), "idCardBack");
                 });
@@ -140,27 +110,30 @@ angular.module('culAdminApp')
 
 
 
-  
 
 
-            var _changeProvince = function () {
-                var _selectedProvince = $.grep($scope.tpl_status.provinceList, function (n) { return n.name == $scope.data.stateOrProvince });
+
+            var _changeProvince = function() {
+                var _selectedProvince = $.grep($scope.tpl_status.provinceList, function(n) { return n.name == $scope.data.stateOrProvince });
                 if (_selectedProvince.length > 0) $scope.tpl_status.cities = [{ name: "请选择" }].concat(_selectedProvince[0].cities);
             }
 
-            $scope.changeProvince = function () {
+            $scope.changeProvince = function() {
                 $scope.data.city = "请选择";
                 _changeProvince()
             }
 
-            $scope.btnSave = function () {
+            $scope.btnSave = function() {
                 console.log("保存信息")
                 console.log($scope.data);
+                $scope.data.stateOrProvince = $scope.data.stateOrProvince.name;
+                $scope.data.city = $scope.data.city.name;
+                $scope.data.area = $scope.data.area.name;
                 if ($scope.data.city == "") {
                     plugMessenger.info("收货地址没有填写完整");
                     return;
                 }
-                addressService.update($scope.data, function (result) {
+                addressService.update($scope.data, function(result) {
                     if (!result.message) {
                         plugMessenger.success("保存成功");
                         $scope.btnPrev();
@@ -168,32 +141,39 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.btnPrev = function () {
+            $scope.btnPrev = function() {
                 $window.history.back();
             }
 
-            //----------upload file START----------
-            var _buildUpload = function ($el, key) {
-                console.log("key"+key);
-                var _$panel = $el.parents(".fileupload-buttonbar:first");
-                $el.fileupload({
-                    url: cul.apiPath + '/files/upload',
-                    type: "post",
-                    headers: {
-                        token: sessionStorage.getItem("token")
-                    }
-                }).bind('fileuploadprogress', function (e, result) {
-                    var progress = parseInt(result.loaded / result.total * 100, 10);
-                    _$panel.find("#progress").css('width', progress + '%');
-                }).bind('fileuploaddone', function (e, data) {
-                    _$panel.find("#file_btn_text").text("重新上传");
-                    $scope.$apply(function () {
-                        console.log("上传结束");
-                        $scope.data[key] = data.result.url;
-                        $scope.data[key+"Url"] = data.result.url;
-                        
-                    });
-                });
+            $scope.btnPrint = function() {
+                $scope.$broadcast("print-idcard.action", { data: [$scope.data] });
             }
-            //----------upload file END----------
-        }]);
+
+
+
+            //----------upload file START----------
+            var _buildUpload = function($el, key) {
+                    console.log("key" + key);
+                    var _$panel = $el.parents(".fileupload-buttonbar:first");
+                    $el.fileupload({
+                        url: cul.apiPath + '/files/upload',
+                        type: "post",
+                        headers: {
+                            token: sessionStorage.getItem("token")
+                        }
+                    }).bind('fileuploadprogress', function(e, result) {
+                        var progress = parseInt(result.loaded / result.total * 100, 10);
+                        _$panel.find("#progress").css('width', progress + '%');
+                    }).bind('fileuploaddone', function(e, data) {
+                        _$panel.find("#file_btn_text").text("重新上传");
+                        $scope.$apply(function() {
+                            console.log("上传结束");
+                            $scope.data[key] = data.result.url;
+                            $scope.data[key + "Url"] = data.result.url;
+
+                        });
+                    });
+                }
+                //----------upload file END----------
+        }
+    ]);
