@@ -39,9 +39,8 @@ angular.module('culAdminApp')
                 }
             }
 
-
           $scope.linkToShelfDetail = function (item) {
-              $location.search({ shelfNumber: item.shelfNumber });
+              $location.search({ shelfNumber: item.shelfNumber,warehouseNumber: item.warehouseNumber });            
               $location.path("/warehouse/shelfmanagementdetail");
           }
 

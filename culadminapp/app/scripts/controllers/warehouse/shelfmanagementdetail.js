@@ -22,9 +22,11 @@ angular.module('culAdminApp')
               $scope.warehouseList = result;
           });
 
-          shelfService.getDetail({ warehouseNumber: $location.search().warehouseNumber, shelfNumber: $location.search().shelfNumber }, function (result) {
+          shelfService.getDetail({ 
+              warehouseNumber: $location.search().warehouseNumber, 
+              shelfNumber: $location.search().shelfNumber 
+            }, function (result) {
               $scope.data = result;
-
               var warehouse = _.findWhere($scope.warehouseList,
                   { warehouseNumber: $scope.data.warehouseNumber });
               $scope.warehouseName = warehouse ? warehouse.warehouseName : "";
