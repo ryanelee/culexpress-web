@@ -19,6 +19,7 @@ angular.module('culAdminApp')
             $scope.receiptNumber = null;
             $scope.tempReceiptNumber = $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
             $scope.isUnusual = $location.search().isUnusual;
+
             console.log($scope.tempItemNumber)
 
             $scope.isExpecial = function() {
@@ -129,6 +130,7 @@ angular.module('culAdminApp')
                         } else {
                             $scope.tempItemNumber = "";
                         }
+                        $window.document.getElementById("shelfNumber").focus();
                     })
                 }, 1000);
             }
@@ -136,7 +138,7 @@ angular.module('culAdminApp')
             $scope.checkItemNumber();
 
             $scope.btnSave = function(type) {
-                console.log($scope.receiptNumber);
+                // console.log($scope.receiptNumber);
                 // return;
                 //if (!$scope.data.inventory_frozen) {
                 //    plugMessenger.info("请填写正确的数量");
@@ -172,7 +174,7 @@ angular.module('culAdminApp')
                     receiptNumber: $scope.receiptNumber,
                     itemCount: $scope.data.itemCount
                 }
-                console.log(data);
+                // console.log(data);
                 if ($scope._itemType == "S2") {
                     data.receiptNumber = $scope.data.receiptNumber;
                 }
@@ -181,6 +183,7 @@ angular.module('culAdminApp')
                     if (result.success) {
                         plugMessenger.success("操作成功");
                         $scope.data = null;
+                        $window.history.back();
                     }
                 });
             }

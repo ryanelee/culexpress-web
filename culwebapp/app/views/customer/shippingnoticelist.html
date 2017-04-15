@@ -81,7 +81,7 @@
                             <td>
                                 {{shippingNoticeItem.status}}
                                 <!--<input id="pack_item{{shippingNoticeItem.rownumber}}" class="pk-checkbox-input" type="checkbox" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)" ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'"
-                                />-->
+                                />-->                            
                                 <input id="pack_item{{shippingNoticeItem.rownumber}}" class="pk-checkbox-input" type="checkbox" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)" ng-show="shippingNoticeItem.status === 'Onshelf'" />
                                 <!--<label for=" pack_item{{shippingNoticeItem.rownumber}} " ng-hide="shippingNoticeItem.status==='InOrder' || shippingNoticeItem.status==='Intransit' "></label>-->
                                 <label for="pack_item{{shippingNoticeItem.rownumber}} " ng-show="shippingNoticeItem.status==='Onshelf' "></label>

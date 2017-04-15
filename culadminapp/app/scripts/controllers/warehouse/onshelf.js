@@ -191,8 +191,8 @@ angular.module('culAdminApp')
                         $location.path("/warehouse/shelf");
                         break;
                     case "onshelf":
-                        if (!!item && item.sendType == 2) $location.search({ receiptNumber: item.receiptNumber, isUnusual: item.isUnusual });
-                        $location.path("/warehouse/onshelfdetail");
+                        if (!!item && item.sendType == 2) $location.search({ receiptNumber: item.receiptNumber, isUnusual: item.isUnusual });                   
+                        $location.path("/warehouse/onshelfdetail");                    
                         break;
                 }
             }
