@@ -40,8 +40,6 @@ angular.module('culAdminApp')
                         orderNumber: orderNumbers
                     }
                     orderService.getList(_options, function(result) {
-                        console.log("美好的世界1")
-                            //   console.log("result>"+JSON.stringify(result));
                         $scope.dataList = result.data;
                         //console.log(result.data);
                         $.each($scope.dataList, function(i, _data) {
@@ -54,12 +52,11 @@ angular.module('culAdminApp')
 
 
                         var shelf = { flag: "shelf", data: [] }
-                        let j = 0;
+                        var j = 0;
                         for (var i = 0; i < $scope.dataList.length; i++) {
-                            console.log("美好的世界")
                             j++;
                             $scope.dataList[i].inboundPackages.forEach(function(e) {
-                                let detail = {
+                                var detail = {
                                     customerNumber: $scope.dataList[i].customerNumber,
                                     orderNumber: $scope.dataList[i].orderNumber,
                                     cartonCount: $scope.dataList[i].cartonCount,
@@ -88,7 +85,6 @@ angular.module('culAdminApp')
 
                             }
                         }
-                        console.log($scope.dataList);
                         _render();
                     });
 

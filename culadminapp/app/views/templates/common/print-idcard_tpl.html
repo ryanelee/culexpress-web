@@ -57,41 +57,37 @@
 
 
     <div id="printTemplate">
-        <div style="text-align:center; height:960px;" <div ng-repeat="data in dataList track by $index">
-            <div>
-                <h3>身份证打印</h3>
-            </div>
-            <table cellpadding="2" cellspacing="0" border="1" width="100%">
-                <tr>
-                    <th colspan="4">身份证信息</th>
-                </tr>
-                <tr>
-                    <td class="title">客户编号</td>
-                    <td>{{data.customerNumber}}</td>
-                    <td class="title">收货人</td>
-                    <td>{{data.receivePersonName}}</td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div class="image">
-                            <img src="http://cul-test.oss-cn-shenzhen.aliyuncs.com/{{data.idCardBack}}" />
-                        </div>
-                    </td>
-                    <td colspan="2">
-                        <div class="image">
-                            <img src="http://cul-test.oss-cn-shenzhen.aliyuncs.com/{{data.idCardFront}}" />
-                        </div>
-                    </td>
-                </tr>
-                <!--<tr>
-                    <td class="title">手机号码</td>
-                    <td>{{data.cellphoneNumber}}</td>
+        <div style="text-align:center; height:960px;" ng-repeat="data in dataList track by $index">
+                <div>
+                    <h3>身份证打印</h3>
+                </div>
+                <table cellpadding="2" cellspacing="0" border="1" width="100%">
+                    <tr>
+                        <th colspan="4">身份证信息</th>
+                    </tr>
+                    <tr>
+                        <td class="title">客户编号</td>
+                        <td>{{data.customerNumber}}</td>
+                        <td class="title">收货人</td>
+                        <td>{{data.receivePersonName}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="image">
+                                <img src="http://cul-test.oss-cn-shenzhen.aliyuncs.com/{{data.idCardBack}}" />
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div class="image">
+                                <img src="http://cul-test.oss-cn-shenzhen.aliyuncs.com/{{data.idCardFront}}" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!--<tr>
+                        <td class="title">手机号码</td>
+                        <td>{{data.cellphoneNumber}}</td>
 
-                </tr>-->
-            </table>
-
-
-
+                    </tr>-->
+                </table>
         </div>
-
     </div>
