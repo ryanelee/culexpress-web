@@ -5,7 +5,7 @@
             <ul class="nav nav-justified">
                 <li ng-class="{active: $stateParams.anchorid.includes('profile')}"><a data-toggle="tab" ui-sref="customer.myaccount({anchorid:'profile'})" data-ui-sref-opts="{cache: false,reload:true}">我的信息</a></li>
                 <li ng-class="{active: $stateParams.anchorid.includes('passwordTab')}"><a data-toggle="tab" ui-sref="customer.myaccount({anchorid:'passwordTab'})" ui-sref-opts="{reload: true, notify: true}">修改密码</a></li>
-                <li ng-class="{active: $stateParams.anchorid.includes('addressbook')}"><a data-toggle="tab" ui-sref="customer.myaccount({anchorid:'addressbook'})"ui-sref-opts="{reload:true}">收货地址</a></li>
+                <li ng-class="{active: $stateParams.anchorid.includes('addressbook')}"><a data-toggle="tab" ui-sref="customer.myaccount({anchorid:'addressbook'})" ui-sref-opts="{reload:true}">收货地址</a></li>
                 <!--commit by clark-->
                 <!--<li ng-class="{active: $stateParams.anchorid.includes('earnpoint')}"><a data-toggle="tab" href="#earnpoint">我的积分</a></li>-->
             </ul>
@@ -364,10 +364,10 @@
         </div>
     </div>
     <style>
-        .datepicker-dropdown:before,
+        /*.datepicker-dropdown:before,
         .datepicker-dropdown:after {
             display: none !important;
-        }
+        }*/
     </style>
 
 </div>

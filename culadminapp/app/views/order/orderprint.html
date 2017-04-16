@@ -35,8 +35,7 @@
                 </div>
                 <div class="search-col">
                     <label class="search-label">打印状态：</label>
-                    <select class="form-control search-control" 
-                            ng-model="searchBar.printStatus">
+                    <select class="form-control search-control" ng-model="searchBar.printStatus">
                         <option value="">全部</option>
                         <option value="UnPrinted">待打印</option>
                         <option value="Printed">已打印</option>
@@ -44,9 +43,7 @@
                 </div>
                 <div class="search-col">
                     <label class="search-label">发货仓库：</label>
-                    <select class="form-control search-control"
-                            ng-model="searchBar.warehouseNumber"
-                            ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                    <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
                 </div>
                 <div class="search-col">
                     <label class="search-label">发货渠道：</label>
@@ -62,12 +59,7 @@
                 <div class="search-col">
                     <label class="search-label">开始日期：</label>
                     <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;"
-                               uib-datepicker-popup
-                               ng-model="searchBar.startDate"
-                               is-open="searchBar.opened.startDate"
-                               show-button-bar="false"
-                               ng-click="searchBar.opened.startDate = true" />
+                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate" is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
                         </span>
@@ -110,12 +102,7 @@
                 <div class="search-col">
                     <label class="search-label">结束日期：</label>
                     <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;"
-                               uib-datepicker-popup
-                               ng-model="searchBar.endDate"
-                               is-open="searchBar.opened.endDate"
-                               show-button-bar="false"
-                               ng-click="searchBar.opened.endDate = true" />
+                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate" is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
                         </span>
@@ -168,7 +155,7 @@
                         <option value="referenceOrderNumber">客户关联号</option>
                         <option value="cnTrackingNumber">国内物流号</option>
                     </select>
-                   <textarea type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ></textarea>
+                    <textarea type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords"></textarea>
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                 </div>
             </div>
@@ -228,7 +215,9 @@
                 <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
                 <td>{{item.customer.userName}}</td>
                 <td>{{item.customer.receiveIdentity}}</td>
-                <td style="max-width: 150px;"><div ng-repeat="pkg in item.outboundPackages">{{pkg.trackingNumber}}</div></td>
+                <td style="max-width: 150px;">
+                    <div ng-repeat="pkg in item.outboundPackages">{{pkg.trackingNumber}}</div>
+                </td>
                 <td>{{item._printStatus}}</td>
                 <td>{{item._orderStatus}}</td>
                 <td>
@@ -243,17 +232,8 @@
     </table>
     <div class="row">
         <div class="col-sm-12 text-right">
-            <uib-pagination class="pagination pagination-rewrite pull-right"
-                            boundary-links="true"
-                            max-size="5"
-                            total-items="pagination.totalCount"
-                            items-per-page="pagination.pageSize"
-                            ng-model="pagination.pageIndex"
-                            ng-change="getData()"
-                            previous-text="上一页"
-                            next-text="下一页"
-                            first-text="首页"
-                            last-text="尾页">
+            <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount" items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页" next-text="下一页"
+                first-text="首页" last-text="尾页">
             </uib-pagination>
             <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
                 <option value="10">10</option>

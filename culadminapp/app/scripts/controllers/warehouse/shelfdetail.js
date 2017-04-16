@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('WarehouseShelfDetailCtrl', ['$scope', '$location', '$window', 'shelfService', 'warehouseService', 'plugMessenger',
-        function ($scope, $location, $window, shelfService, warehouseService, plugMessenger) {
+        function($scope, $location, $window, shelfService, warehouseService, plugMessenger) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -25,17 +25,17 @@ angular.module('culAdminApp')
             };
 
             $scope.warehouseList = [];
-            warehouseService.getWarehouse(function (result) {
+            warehouseService.getWarehouse(function(result) {
                 $scope.warehouseList = result;
                 $scope.data.warehouseNumber = $scope.warehouseList[0].warehouseNumber;
             });
 
-            $scope.btnSave = function (type) {
+            $scope.btnSave = function(type) {
                 if ($scope.data.moveItemCount <= 0) {
                     plugMessenger.error("移动数量不能小于等于0");
                     return;
                 }
-                 if (!$scope.data.targetShelfNumber) {
+                if (!$scope.data.targetShelfNumber) {
                     plugMessenger.error("目标价位不能为空");
                     return;
                 }
@@ -46,7 +46,7 @@ angular.module('culAdminApp')
                     warehouseNumber: $scope.data.warehouseNumber,
                     moveItemCount: $scope.data.moveItemCount
                 }
-                shelfService.onshelfForMove(data, function (result) {
+                shelfService.onshelfForMove(data, function(result) {
                     if (!result.message) {
                         plugMessenger.success("操作成功");
                         $scope.btnPrev();
@@ -54,7 +54,7 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.btnPrev = function () {
+            $scope.btnPrev = function() {
                 $window.history.back();
             }
 
@@ -66,4 +66,5 @@ angular.module('culAdminApp')
                 title: '',
                 content: "填000将会只添加商品到目标架位"
             });
-        }]);
+        }
+    ]);

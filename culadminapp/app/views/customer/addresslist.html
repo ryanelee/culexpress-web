@@ -21,7 +21,7 @@
                         <option value="cnTrackingNumber">国内物流号</option>              
                         <option value="receivePersonName">收货人姓名</option>
                     </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
+                    <textarea type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords"></textarea>
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnPrint()">批量打印</button>
                     <a class="btn btn-primary" style="margin-left:5px;" href="{{api}}/exportReceiveaddressList">导出</a>

@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('MyAccountController', ['$scope', '$stateParams', '$filter', 'Customer', '$rootScope', '$state', 'addressSvr', 'SweetAlert', '$location', 'AuthService',
-        function($scope, $stateParams, $filter, Customer, $rootScope, $state, addressSvr, SweetAlert, $location, AuthService) {
+    .controller('MyAccountController', ['$scope', '$stateParams', '$filter', 'Customer', '$rootScope', '$state', 'addressSvr', 'SweetAlert', '$location', 'AuthService', '$window',
+        function($scope, $stateParams, $filter, Customer, $rootScope, $state, addressSvr, SweetAlert, $location, AuthService, $window) {
             if (App) {
                 // App.init();
                 if (Masking) Masking.initMasking();
@@ -12,6 +12,7 @@ angular
                 if (Validation) Validation.initValidation();
                 if (CheckoutForm) CheckoutForm.initCheckoutForm();
             }
+
             $scope.selectedProvince
             $scope.search = {};
             $scope.search.parentid = 0;
@@ -43,18 +44,18 @@ angular
 
 
             $scope.getCity = function(city, area) {
-                 $scope.selectedArea = {}
+                    $scope.selectedArea = {}
                     var flag = 0;
                     $scope.citys = [];
                     $scope.search.parentid;
                     $scope.tempProvinces.forEach(function(e) {
 
                         if ($scope.selectedProvince.name == e.name) {
-                          $scope.search.parentid = e.id;
+                            $scope.search.parentid = e.id;
                         }
                     })
                     if ($scope.search.parentid) {
-                       addressSvr.getDistrict($scope.search).then(function(data) {
+                        addressSvr.getDistrict($scope.search).then(function(data) {
                             $scope.tempCitys = data.data.data;
                             $scope.tempCitys.forEach(function(e) {
                                 var detail = {};
