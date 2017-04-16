@@ -43,13 +43,14 @@
             height: 100%;
             overflow: hidden;
         }
-         #printTemplate .packages > tr > td{
-            align:center;
+        
+        #printTemplate .packages>tr>td {
+            align: center;
         }
     </style>
     <div id="printTemplate">
         <div ng-repeat="data in dataList track by $index">
-            <div class="height-100">
+            <div class="height-100" ng-if="data.flag != 'shelf'">
                 <div class="float-left"><img class="image" src="assets/img/kingadmin-logo.png" /></div>
                 <div class="print-date"><label>打印时间：{{printDate | date:'MM/dd/yyyy HH:mm:ss'}}</label></div>
                 <table cellpadding="2" cellspacing="0" border="1" width="100%">
@@ -93,11 +94,11 @@
                     <tr>
                         <td class="title">出库包裹</td>
                         <td colspan="3">
-                            <table cellpadding="5" cellspacing="0" border="0" width="100%">                            
+                            <table cellpadding="5" cellspacing="0" border="0" width="100%">
                                 <tr ng-repeat="item in data.outboundPackages">
                                     <td>
                                         <div class="barcode" trackingNumber="{{item.trackingNumber}}"></div>
-                                    </td>                        
+                                    </td>
                                 </tr>
                             </table>
                         </td>
@@ -116,7 +117,7 @@
                         <td class="title">申报品名</td>
                         <td colspan="3">
                             <table cellpadding="5" cellspacing="0" border="1" width="100%">
-                                <tr >
+                                <tr>
                                     <th>序号</th>
                                     <th>品牌</th>
                                     <!--<th>商品描述</th>-->
@@ -124,8 +125,8 @@
                                     <th>价值($)</th>
                                 </tr>
                                 <tr ng-repeat="item in data.orderItems">
-                                    <td  align="center">{{$index + 1}}</td>
-                                    <td  align="center">{{item.itemBrand}}</td>
+                                    <td align="center">{{$index + 1}}</td>
+                                    <td align="center">{{item.itemBrand}}</td>
                                     <!--<td style="max-width: 300px;">
                                         <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:44px;">
                                             {{item.description}}
@@ -136,8 +137,8 @@
                                             {{ !!item.property5 ? " " + item.property5 : "" }}
                                         </div>
                                     </td>-->
-                                    <td  align="center">{{item.quantity}}</td>
-                                    <td  align="center">{{item.unitprice | number:2}}</td>
+                                    <td align="center">{{item.quantity}}</td>
+                                    <td align="center">{{item.unitprice | number:2}}</td>
                                 </tr>
                             </table>
                         </td>
@@ -151,7 +152,7 @@
                             </label>
                         </td>
                     </tr>
-                     <tr>
+                    <tr>
                         <td class="title">收货明细</td>
                         <td colspan="3">
                             <table cellpadding="5" cellspacing="0" border="0" width="100%" bor>
@@ -188,7 +189,7 @@
                     </tr>
                 </table>
             </div>
-            <div ng-if="($index+1) % 10 == 0" class="height-100">
+            <div ng-if="data.flag =='shelf'" class="height-100">
                 <table cellpadding="2" cellspacing="0" border="0" width="100%" class="list">
                     <tr>
                         <th width="10%">收货单号(后6位)</th>
@@ -200,25 +201,21 @@
                         <th width="17%">生成日期</th>
                         <th width="8%">小费</th>
                     </tr>
-                    <tr ng-repeat="data in dataList | listInfo: $index | orderBy:data.inboundPackages.shelfNumber">
-                        <td colspan="8" width="100%">
-                            <table cellpadding="2" cellspacing="0" border="0" width="100%" class="packages">
-                                <tr ng-repeat="item in data.inboundPackages track by $index" style="border-bottom:#6f6b6b solid 1px">
-                                    <td width="10%">{{item.trackingNumber | intercept}}</td>
-                                    <td width="15%">{{item.shelfNumber}}</td>
-                                    <td width="10%">{{data.customerNumber}}</td>
-                                    <td width="26%">{{data.orderNumber}}</td>
-                                    <td width="8%">{{item.packageWeight || 0}}</td>
-                                    <td width="10%">{{data.cartonCount + '-1' || 0}}</td>
-                                    <td width="13%">{{data.payDate | date:'MM/dd/yyyy'}}</td>
-                                    <td width="8%">{{data.tip || 0}}</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
+                    <table cellpadding="2" cellspacing="0" border="0" width="100%" class="packages">
+                        <tr ng-repeat="item in data.data " style="border-bottom:#6f6b6b solid 1px">
+                            <td width="10%">{{item.trackingNumber | intercept}}</td>
+                            <td width="15%">{{item.shelfNumber}}</td>
+                            <td width="10%">{{item.customerNumber}}</td>
+                            <td width="26%">{{item.orderNumber}}</td>
+                            <td width="8%">{{item.packageWeight || 0}}</td>
+                            <td width="10%">{{item.cartonCount + '-1' || 0}}</td>
+                            <td width="13%">{{item.payDate | date:'MM/dd/yyyy'}}</td>
+                            <td width="8%">{{item.tip || 0}}</td>
+                        </tr>
+                    </table>
                 </table>
             </div>
-            <div ng-if="($index+1) == dataList.length && ($index+1) % 10 != 0" class="height-100">
+            <!--<div ng-if="($index+1) == dataList.length && ($index+1) % 10 != 0" class="height-100">
                 <table cellpadding="2" cellspacing="0" border="0" width="100%" class="list">
                     <tr style="border-bottom:#6f6b6b solid 1px">
                         <th width="10%">收货单号(后6位)</th>
@@ -247,7 +244,7 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>
