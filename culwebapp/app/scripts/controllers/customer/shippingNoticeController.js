@@ -7,7 +7,6 @@ var app = angular
             $scope.$root.orderOptions = {};
             $scope.$root.wizardOptions = {};
             $scope.warehouses = [];
-            console.log('are you ok')
             orderSvr
                 .getWarehouses()
                 .then(function(result) {

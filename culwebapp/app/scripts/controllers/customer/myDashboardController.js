@@ -8,7 +8,6 @@ angular
             AuthService.getCustomerMessage({ customerNumber: $rootScope.currentUser.customerNumber }).then(function(result) {
                 $scope.currentUser = result.data
             })
-            console.log($scope.currentUser);
             var model = $scope.model = {
                 addressList: []
             };
