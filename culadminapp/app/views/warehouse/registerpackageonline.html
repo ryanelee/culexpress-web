@@ -84,17 +84,21 @@
                                 <td>
                                     <input type="text" class="form-control" ng-model="item.actualWeight" />
                                 </td>
-                                <td class="">
+                                <td class="" style="height:65px;">                                    
                                     <div class="btn-tootip-left">
                                         <span ng-if="!isPrint">&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                         <span ng-if="isPrint">打印包裹单号</span>
-                                    </div>                     
+                                    </div>                                
                                     <div class="">                                                              
                                         <a href="javascript:void(0);" ng-click="btnPrint(item)" ng-mouseover="isPrint = true" ng-mouseleave="isPrint = fasle" style="float: left;"><i class="fa fa-print btn-icon red"></i></a>
                                         <a href="javascript:void(0);" ng-click="btnSplitPackage(item)" ng-mouseover="isSplit = true" ng-mouseleave="isSplit = fasle" style="float: left;"><i class="fa fa-cubes btn-icon red"></i></a>
+                                        <a href="javascript:void(0);" ng-click="btnDelPackage(item)" ng-mouseover="isDel = true" ng-mouseleave="isDel = fasle" style="float: left;"><i class="fa fa-delicious btn-icon red"></i></a>
                                     </div>  
                                     <div class="btn-tootip-right">
-                                        <span ng-if="!isSplit">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span ng-if="!isDel">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <span ng-if="isDel">删除</span>
+                                    </div>
+                                    <div class="btn-tootip-bom">
                                         <span ng-if="isSplit">分箱</span>
                                     </div>
                                 </td>

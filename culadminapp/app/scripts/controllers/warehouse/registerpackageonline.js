@@ -20,6 +20,7 @@ angular.module('culAdminApp')
           $scope.tempOutboundPackageNumber = $location.search().trackingNumber || "";
           $scope.isPrint = false;
           $scope.isSplit =  false;
+          $scope.isDel = false;
           console.log($scope.tempOutboundPackageNumber)
           var _timeout = null;
           $scope.checkInboundPackageNumber = function () {
@@ -92,6 +93,16 @@ angular.module('culAdminApp')
               }, function (result) {
                   result.checked = true
                   $scope.data.outboundPackages.push(result);
+              });
+          }
+           $scope.btnDelPackage = function (item) {
+              orderService.deleteOutboundPackage({
+                  "number": item.trackingNumber,
+              }, function (result) {
+                //   $scope.data.outboundPackages = result;
+                  console.log(result);
+                //   result.checked = true
+                //   $scope.data.outboundPackages.push(result);
               });
           }
 
