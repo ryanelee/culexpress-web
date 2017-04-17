@@ -18,6 +18,8 @@ angular.module('culAdminApp')
           $scope.data = null;
 
           $scope.tempOutboundPackageNumber = $location.search().trackingNumber || "";
+          $scope.isPrint = false;
+          $scope.isSplit =  false;
           console.log($scope.tempOutboundPackageNumber)
           var _timeout = null;
           $scope.checkInboundPackageNumber = function () {
