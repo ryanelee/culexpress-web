@@ -97,16 +97,17 @@ angular.module('culwebApp')
                     alertify.alert('提示', '订单还未计价,不能支付!', 'warning');
                     return false;
                 }
+                //运费不足状态下支付，扣除所欠费用即可
                 if (orderItem.orderStatus == "Arrears") {
                     orderItem.totalCount = orderItem.shippingFeeAdjust
                 }
 
                 if ($scope.currentUser.accountBalance < orderItem.totalCount) {
-                    alertify.alert('提示', '您需要支付' + -orderItem.totalCount + '元，但您的余额已不足，为' + $scope.$root.currentUser.accountBalance + ',请先充值!', 'warning');
+                    alertify.alert('提示', '您需要支付' + orderItem.totalCount + '元，但您的余额已不足，为' + $scope.$root.currentUser.accountBalance + ',请先充值!', 'warning');
                     return false;
                 }
 
-                alertify.confirm('确认', '您将被扣款' + -orderItem.totalCount + '元，确定支付订单?',
+                alertify.confirm('确认', '您将被扣款' + orderItem.totalCount + '元，确定支付订单?',
                     function() {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
 

@@ -588,12 +588,26 @@ var app = angular
                     alertify.alert('提示', '订单还未计价,不能支付!');
                     return false;
                 }
+                 //运费不足状态下支付，扣除所欠费用即可
+                if (orderItem.orderStatus == "Arrears") {
+                    orderItem.totalCount = orderItem.shippingFeeAdjust
+                }
 
                 if ($scope.$root.currentUser.accountBalance < orderItem.totalCount) {
                     alertify.alert('提示', '您需要支付' + orderItem.totalCount + '元，而您的账户余额为' + $scope.$root.currentUser.accountBalance + '元,请充值后再进行支付!');
                     return false;
                 }
-
+               
+                // if ( orderItem.orderStatus == "Arrears") {
+                //    alertify.confirm('确认', '您将被扣款' + orderItem.shippingFeeAdjust + '元，确定支付订单?',
+                //     function() {
+                //         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
+                //         payOrderServie(orderItem);
+                //     },
+                //     function() {
+                //         alertify.error('已取消支付!');
+                //     });
+                // } else {
                 alertify.confirm('确认', '您将被扣款' + orderItem.totalCount + '元，确定支付订单?',
                     function() {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
@@ -602,6 +616,7 @@ var app = angular
                     function() {
                         alertify.error('已取消支付!');
                     });
+                //  }
             }
 
 

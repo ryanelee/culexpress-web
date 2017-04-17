@@ -157,7 +157,7 @@ culAdminApp.controller('PayDetailCtrl', ["$scope", "$rootScope", "$location", "$
         $scope.pay = function() {
 
             $scope.data.memo = "订单编号: " + $scope.data.orderNumber + " 扣款人: " + $rootScope.userInfo.userName + " 备注: "
-            if (data.orderStatus == 'Arrears') {
+            if ($scope.data.orderStatus == 'Arrears') {
                 $scope.data.memo += "运费不足"
             }
             // if (!$scope.data.remark) {
