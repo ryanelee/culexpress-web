@@ -8,138 +8,171 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('RegisterPackageOnlineCtrl', ['$scope', '$location', '$window', 'orderService', 'warehouseService', 'plugMessenger',
-      function ($scope, $location, $window, orderService, warehouseService, plugMessenger) {
-          this.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-          ];
-          $scope.data = null;
+    .controller('RegisterPackageOnlineCtrl', ['$scope', '$location', '$window', 'orderService', 'warehouseService', 'plugMessenger',
+        function($scope, $location, $window, orderService, warehouseService, plugMessenger) {
+            this.awesomeThings = [
+                'HTML5 Boilerplate',
+                'AngularJS',
+                'Karma'
+            ];
+            $scope.data = null;
 
-          $scope.tempOutboundPackageNumber = $location.search().trackingNumber || "";
-          $scope.isPrint = false;
-          $scope.isSplit =  false;
-          $scope.isDel = false;
-          console.log($scope.tempOutboundPackageNumber)
-          var _timeout = null;
-          $scope.checkInboundPackageNumber = function () {
-              console.log($scope.tempOutboundPackageNumber)
-              if (!!_timeout) clearTimeout(_timeout);
-              _timeout = setTimeout(function () {
-                  $scope.$apply(function () {                  
-                      if (!!$scope.tempInboundPackageNumber) {
-                          orderService.getList({
-                              receiveTrackingNumber: $scope.tempInboundPackageNumber
-                          }, function (result) {
-                              if (!!result && !!result.data && result.data.length > 0) {
-                                  if (!$scope.data) {
-                                      $scope.data = result.data[0];
-                                  }
-                                  var _checked = false;
-                                  $.each($scope.data.inboundPackages, function (index, item) {
-                                      if (!item.checked) {
-                                          item.checked = item.trackingNumber == $scope.tempInboundPackageNumber;
-                                          _checked = true;
-                                      }
-                                  });
-                                  
-                                  //todo: 根据 _checked 调用提示音
-                                  if ($.grep($scope.data.inboundPackages, function (n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
-                                      //success
-                                  } else if(_checked == true){
-                                      //match
-                                  } else {
-                                      //no match
-                                  }
-                              }
-                              $scope.tempInboundPackageNumber = "";
-                          });
-                      } else {
-                          $scope.tempInboundPackageNumber = "";
-                      }
-                  })
-              }, 1000);
-          }
+            $scope.tempOutboundPackageNumber = $location.search().trackingNumber || "";
+            $scope.isPrint = false;
+            $scope.isSplit = false;
+            $scope.isDel = false;
+            var _timeout = null;
+            $scope.checkInboundPackageNumber = function() {
+                console.log('123454')
+                $scope.tempData = $scope.tempInboundPackageNumber
 
-          $scope.checkInboundPackageNumber();
+                if (!!_timeout) clearTimeout(_timeout);
+                _timeout = setTimeout(function() {
+                    $scope.$apply(function() {
+                        if (!!$scope.tempInboundPackageNumber) {
+                            orderService.getList({
+                                receiveTrackingNumber: $scope.tempInboundPackageNumber
+                            }, function(result) {
 
-          $scope.btnPrint = function (item) {
-              $("<div></div>").barcode(item.trackingNumber, "code128", {
-                  addQuietZone: "1",
-                  barHeight: "50",
-                  barWidth: "1",
-                  bgColor: "#FFFFFF",
-                  color: "#000000",
-                  moduleSize: "5",
-                  output: "css",
-                  posX: "10",
-                  posY: "20"
-              }).jqprint();
-          }
+                                if (!!result && !!result.data && result.data.length > 0) {
+                                    if (!$scope.data) {
+                                        $scope.data = result.data[0];
+                                    }
+                                    var _checked = false;
+                                    $.each($scope.data.inboundPackages, function(index, item) {
+                                        if (!item.checked) {
+                                            item.checked = item.trackingNumber == $scope.tempInboundPackageNumber;
+                                            _checked = true;
+                                        }
+                                    });
 
-          $scope.btnEditAddPackage = function () {
-              orderService.generatePackageNumber(function (result) {
-                  $scope.data.outboundPackages.push({
-                      trackingNumber: result[0].trackingNumber,
-                      actualWeight: null,
-                  });
-              });
-          }
+                                    //todo: 根据 _checked 调用提示音
+                                    if ($.grep($scope.data.inboundPackages, function(n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
+                                        //success
+                                    } else if (_checked == true) {
+                                        //match
+                                    } else {
+                                        //no match
+                                    }
+                                }
+                                $scope.tempInboundPackageNumber = "";
+                            });
+                        } else {
+                            $scope.tempInboundPackageNumber = "";
+                        }
+                    })
+                }, 1000);
+            }
 
-          $scope.btnSplitPackage = function (item) {
-              warehouseService.outboundPackageSplit({
-                  "trackingNumber": item.trackingNumber,
-              }, function (result) {
-                  result.checked = true
-                  $scope.data.outboundPackages.push(result);
-              });
-          }
-           $scope.btnDelPackage = function (item) {
-              orderService.deleteOutboundPackage({
-                  "number": item.trackingNumber,
-              }, function (result) {
-                //   $scope.data.outboundPackages = result;
-                  console.log(result);
-                //   result.checked = true
-                //   $scope.data.outboundPackages.push(result);
-              });
-          }
+            $scope.checkInboundPackageNumber();
 
-          $scope.btnSave = function () {
-              if (!!$scope.data && $scope.data.inboundPackages.length > 0) {
-                  if ($.grep($scope.data.inboundPackages, function (n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
-                      var _count = 0;
-                      var checkedPackages = $scope.data.outboundPackages;
-                      var _callback = function () {
-                          plugMessenger.success("保存成功");
-                        //   $window.history.back();
-                        $location.path('/warehouse/package');
-                          _reset();
-                      }
-                      //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
-                      $.each(checkedPackages, function (i, pkg) {
-                          orderService.updateOutboundPackage(pkg, function (result) {
-                              if (!result.message) {
-                                  _count++;
-                                  if (_count == checkedPackages.length) {
-                                      _callback();
-                                  }
-                              }
-                          })
-                      });
-                  } else {
-                      plugMessenger.info("订单包裹尚未完成扫描");
-                  }
-              }
-          }
+            $scope.btnPrint = function(item) {
+                $("<div></div>").barcode(item.trackingNumber, "code128", {
+                    addQuietZone: "1",
+                    barHeight: "50",
+                    barWidth: "1",
+                    bgColor: "#FFFFFF",
+                    color: "#000000",
+                    moduleSize: "5",
+                    output: "css",
+                    posX: "10",
+                    posY: "20"
+                }).jqprint();
+            }
 
-          $scope.btnPrev = function () {
-              $window.history.back();
-          }
+            $scope.btnEditAddPackage = function() {
+                orderService.generatePackageNumber(function(result) {
+                    $scope.data.outboundPackages.push({
+                        trackingNumber: result[0].trackingNumber,
+                        actualWeight: null,
+                    });
+                });
+            }
 
-          var _reset = function () {
-              $scope.data = null;
-              $scope.tempOutboundPackageNumber = "";
-          }
-      }]);
+            $scope.btnSplitPackage = function(item) {
+                warehouseService.outboundPackageSplit({
+                    "trackingNumber": item.trackingNumber,
+                }, function(result) {
+                    result.checked = true
+                    $scope.data.outboundPackages.push(result);
+                });
+            }
+            $scope.btnDelPackage = function(item) {
+                if ($scope.data.outboundPackages.length <= 1) {
+                    return plugMessenger.info("只有一个包裹，不允许删除");
+                }
+                orderService.deleteOutboundPackage({
+                    "number": item.trackingNumber,
+                }, function(result) {
+                    console.log('121212333');
+                    console.log($scope.tempData);
+                    $scope.tempInboundPackageNumber = $scope.tempData;
+                    $scope.getData();
+
+                });
+            }
+
+
+            $scope.getData = function() {
+                if (!!$scope.tempInboundPackageNumber) {
+                    orderService.getList({
+                        receiveTrackingNumber: $scope.tempInboundPackageNumber
+                    }, function(result) {
+                        console.log(result);
+                        if (!!result && !!result.data && result.data.length > 0) {
+                            $scope.data = result.data[0];
+                            var _checked = false;
+                            $.each($scope.data.inboundPackages, function(index, item) {
+                                if (!item.checked) {
+                                    item.checked = item.trackingNumber == $scope.tempInboundPackageNumber;
+                                    _checked = true;
+                                }
+                            });
+                            console.log($scope.data.outboundPackages);
+                            $scope.data.outboundPackages
+                        }
+                        $scope.tempInboundPackageNumber = "";
+                    });
+                } else {
+                    $scope.tempInboundPackageNumber = "";
+                }
+            }
+
+            $scope.btnSave = function() {
+                if (!!$scope.data && $scope.data.inboundPackages.length > 0) {
+                    if ($.grep($scope.data.inboundPackages, function(n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
+                        var _count = 0;
+                        var checkedPackages = $scope.data.outboundPackages;
+                        var _callback = function() {
+                                plugMessenger.success("保存成功");
+                                //   $window.history.back();
+                                $location.path('/warehouse/package');
+                                _reset();
+                            }
+                            //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
+                        $.each(checkedPackages, function(i, pkg) {
+                            orderService.updateOutboundPackage(pkg, function(result) {
+                                if (!result.message) {
+                                    _count++;
+                                    if (_count == checkedPackages.length) {
+                                        _callback();
+                                    }
+                                }
+                            })
+                        });
+                    } else {
+                        plugMessenger.info("订单包裹尚未完成扫描");
+                    }
+                }
+            }
+
+            $scope.btnPrev = function() {
+                $window.history.back();
+            }
+
+            var _reset = function() {
+                $scope.data = null;
+                $scope.tempOutboundPackageNumber = "";
+            }
+        }
+    ]);
