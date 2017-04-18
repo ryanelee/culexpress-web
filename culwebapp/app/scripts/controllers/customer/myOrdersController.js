@@ -504,7 +504,7 @@ var app = angular
 
             $scope.submitOrder = function() {
                 if (!$scope.data.submit_agreeterms || $scope.data.submit_agreeterms != true) {
-                    alertify.alert('提示', '提交订单之前,请勾选我已阅读并同意CULExpress免责赔偿条款!');
+                    alertify.alert('提示', '提交订单之前,请勾选我已阅读并同意CULEXPRESS免责赔偿条款!');
                     return;
                 }
 

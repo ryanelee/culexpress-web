@@ -89,7 +89,7 @@ angular.module('culAdminApp')
                     $rootScope.$emit("changeMenu");
                 });
             }
-            $scope.getData();
+            // $scope.getData();
 
             $scope.btnSearch = function () {
                 console.log('23')

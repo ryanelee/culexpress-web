@@ -121,7 +121,7 @@
                         <!--<option value="referenceOrderNumber">客户关联号</option>-->
                         <!--<option value="cnTrackingNumber">国内物流号</option>-->
                     </select>
-                    <textarea type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords"></textarea>
+                    <textarea type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"></textarea>
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                 </div>
             </div>

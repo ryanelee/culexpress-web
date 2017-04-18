@@ -17,7 +17,7 @@
                         <option value="0">禁用</option>
                     </select> &nbsp;
                     <label class="search-label">名称:</label>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:400px;" placeholder="请输入查询关键字" ng-model="searchBar.name" />
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:400px;" placeholder="请输入查询关键字" ng-model="searchBar.name" ng-enter="btnSearch()"/>
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                 </div>
             </div>
