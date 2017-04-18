@@ -3,45 +3,46 @@
         <h3><i class="fa fa-table"></i> 公告管理</h3>
     </div>
     <div class="widget-content">
-        <div class="row">
-            <div class="col-sm-12 search-bar">
+        <form id="sky-form" class="sky-form form-inline" novalidate="novalidate">
+            <div class="row">
                 <div class="col-sm-12 search-bar">
-                    <div class="search-col" style="margin-bottom: 0px;">
-                        <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="btnAction('create')">新建公告</button>
+                    <div class="col-sm-12 search-bar">
+                        <div class="search-col" style="margin-bottom: 0px;">
+                            <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="btnAction('create')">新建公告</button>
+                        </div>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">公告类型：</label>
+                        <select class="form-control search-control" ng-model="searchBar.type">
+                            <option value="">所有</option>
+                            <option value="1">登入公告</option>
+                            <option value="2">普通公告</option>
+                            <option value="3">促销活动</option>
+                        </select>
+                    </div>
+
+                    <div class="search-col">
+                        <label class="search-label">状态：</label>
+                        <select class="form-control search-control" ng-model="searchBar.status">
+                            <option value="">所有</option>
+                            <option value="1">启用</option>
+                            <option value="0">禁用</option>
+                        </select>
+                    </div>
+                
+                    <div class="clearfix"></div>
+                    <div class="search-col">
+                        <label class="search-label">搜索条目：</label>
+                        <select class="form-control search-control" ng-model="searchBar.keywordType">
+                            <option value="title">标题</option>
+                        </select>
+                        <input type="text" name="search" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"
+                        />
+                        <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                     </div>
                 </div>
-                <div class="search-col">
-                    <label class="search-label">公告类型：</label>
-                    <select class="form-control search-control" ng-model="searchBar.type">
-                        <option value="">所有</option>
-                        <option value="1">登入公告</option>
-                        <option value="2">普通公告</option>
-                        <option value="3">促销活动</option>
-                    </select>
-                </div>
-
-                 <div class="search-col">
-                    <label class="search-label">状态：</label>
-                    <select class="form-control search-control" ng-model="searchBar.status">
-                        <option value="">所有</option>
-                        <option value="1">启用</option>
-                        <option value="0">禁用</option>
-                    </select>
-                </div>
-               
-                <div class="clearfix"></div>
-                <div class="search-col">
-                    <label class="search-label">搜索条目：</label>
-                    <select class="form-control search-control" ng-model="searchBar.keywordType">
-                        <option value="title">标题</option>
-                    </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords"
-                    />
-                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
-                </div>
             </div>
-        </div>
-
+        </form>
 
 
 
@@ -103,3 +104,12 @@
     </div>
 </div>
 <print-helper></print-helper>
+
+<script>
+    document.getElementById('search').addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>

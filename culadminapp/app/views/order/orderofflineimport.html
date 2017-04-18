@@ -20,7 +20,7 @@
                         <div class="col-sm-6 col-padding-clear"><a class="btn btn-sm btn-primary" download="offlineorder.xlsx"   href="resource/offlineorder.xlsx"><i class="fa fa-download fa-3x pull-left"></i> 批量线下订单模板<br /><small>Excel文件下载</small></a></div>
                         <div class="search-col pull-right col-padding-clear">
                             <label class="search-label">批号查询：</label>
-                            <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="输入订单批号" ng-model="searchBatchNumber" />
+                            <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="输入订单批号" ng-model="searchBatchNumber" ng-enter="btnBatchQuery()"/>
                             <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnBatchQuery()">搜索</button>
                         </div>
                         <div class="clearfix"></div>
