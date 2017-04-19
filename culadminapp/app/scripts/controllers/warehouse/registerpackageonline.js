@@ -96,14 +96,18 @@ angular.module('culAdminApp')
               });
           }
            $scope.btnDelPackage = function (item) {
-              orderService.deleteOutboundPackage({
-                  "number": item.trackingNumber,
-              }, function (result) {
-                //   $scope.data.outboundPackages = result;
-                  console.log(result);
-                //   result.checked = true
-                //   $scope.data.outboundPackages.push(result);
-              });
+               plugMessenger.confirm("确认删除转运包裹" + item.trackingNumber + "吗？", function (isOk) {
+                    if (isOk) {
+                       orderService.deleteOutboundPackage({
+                            "number": item.trackingNumber,
+                        }, function (result) {
+                            console.log(result)
+                            if (result.code == '000') {
+                                plugMessenger.success("删除成功");
+                            }
+                        })
+                    }
+                });       
           }
 
           $scope.btnSave = function () {

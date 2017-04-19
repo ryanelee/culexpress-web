@@ -92,6 +92,7 @@ angular.module('culwebApp')
             }
 
             $scope.payOrder = function(orderItem) {
+                console.log(orderItem)
                 if (!orderItem) return false;
                 if (!orderItem.totalCount) {
                     alertify.alert('提示', '订单还未计价,不能支付!', 'warning');
