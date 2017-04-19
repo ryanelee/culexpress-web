@@ -64,7 +64,6 @@ angular.module('culAdminApp')
                 }, 1000);
             }
 
-<<<<<<< HEAD
           $scope.btnSplitPackage = function (item) {
               warehouseService.outboundPackageSplit({
                   "trackingNumber": item.trackingNumber,
@@ -87,9 +86,8 @@ angular.module('culAdminApp')
                     }
                 });       
           }
-=======
+
             $scope.checkInboundPackageNumber();
->>>>>>> 8d7caf8a2814f1481d3b198bc8818d018fb9a971
 
             $scope.btnPrint = function(item) {
                 $("<div></div>").barcode(item.trackingNumber, "code128", {
