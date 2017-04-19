@@ -44,6 +44,7 @@
                 <tr ng-if="dataList.length == 0">
                     <td colspan="13">没有数据，请选择条件进行搜索。</td>
                 </tr>
+
                 <tr ng-if="dataList.length > 0" ng-repeat="item in dataList">
                     <td>{{item.rownumber}}</td>
                     <td><a href="javascript:void(0);" ng-click="btnOpenDetail('customer',item)">{{item.customerNumber}}</a></td>
