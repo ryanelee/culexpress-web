@@ -123,7 +123,7 @@ angular.module('culAdminApp')
                 if ($scope.data.outboundPackages.length <= 1) {
                     return plugMessenger.info("只有一个包裹，不允许删除");
                 }
-                plugMessenger.confirm("确认删除转运包裹" + item.trackingNumber + "吗？", function (isOk) {
+                plugMessenger.confirm("确认删除转运包裹“" + item.trackingNumber + "”吗？", function (isOk) {
                     if (isOk) {
                        orderService.deleteOutboundPackage({
                             "number": item.trackingNumber,
