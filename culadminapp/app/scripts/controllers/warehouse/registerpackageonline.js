@@ -23,7 +23,6 @@ angular.module('culAdminApp')
             $scope.isDel = false;
             var _timeout = null;
             $scope.checkInboundPackageNumber = function() {
-                console.log('123454')
                 $scope.tempData = $scope.tempInboundPackageNumber
 
                 if (!!_timeout) clearTimeout(_timeout);
@@ -64,28 +63,28 @@ angular.module('culAdminApp')
                 }, 1000);
             }
 
-          $scope.btnSplitPackage = function (item) {
-              warehouseService.outboundPackageSplit({
-                  "trackingNumber": item.trackingNumber,
-              }, function (result) {
-                  result.checked = true
-                  $scope.data.outboundPackages.push(result);
-              });
-          }
-           $scope.btnDelPackage = function (item) {
-               plugMessenger.confirm("确认删除转运包裹" + item.trackingNumber + "吗？", function (isOk) {
-                    if (isOk) {
-                       orderService.deleteOutboundPackage({
-                            "number": item.trackingNumber,
-                        }, function (result) {
-                            console.log(result)
-                            if (result.code == '000') {
-                                plugMessenger.success("删除成功");
-                            }
-                        })
-                    }
-                });       
-          }
+        //   $scope.btnSplitPackage = function (item) {
+        //       warehouseService.outboundPackageSplit({
+        //           "trackingNumber": item.trackingNumber,
+        //       }, function (result) {
+        //           result.checked = true
+        //           $scope.data.outboundPackages.push(result);
+        //       });
+        //   }
+        //    $scope.btnDelPackage = function (item) {
+        //        plugMessenger.confirm("确认删除转运包裹" + item.trackingNumber + "吗？", function (isOk) {
+        //             if (isOk) {
+        //                orderService.deleteOutboundPackage({
+        //                     "number": item.trackingNumber,
+        //                 }, function (result) {
+        //                     console.log(result)
+        //                     if (result.code == '000') {
+        //                         plugMessenger.success("删除成功");
+        //                     }
+        //                 })
+        //             }
+        //         });       
+        //   }
 
             $scope.checkInboundPackageNumber();
 
@@ -124,24 +123,26 @@ angular.module('culAdminApp')
                 if ($scope.data.outboundPackages.length <= 1) {
                     return plugMessenger.info("只有一个包裹，不允许删除");
                 }
-                orderService.deleteOutboundPackage({
-                    "number": item.trackingNumber,
-                }, function(result) {
-                    console.log('121212333');
-                    console.log($scope.tempData);
-                    $scope.tempInboundPackageNumber = $scope.tempData;
-                    $scope.getData();
+                plugMessenger.confirm("确认删除转运包裹" + item.trackingNumber + "吗？", function (isOk) {
+                    if (isOk) {
+                       orderService.deleteOutboundPackage({
+                            "number": item.trackingNumber,
+                        }, function(result) {
+                            // console.log($scope.tempData);
+                            $scope.tempInboundPackageNumber = $scope.tempData;
+                            $scope.getData();
 
-                });
+                        });
+                    }
+                });       
             }
-
 
             $scope.getData = function() {
                 if (!!$scope.tempInboundPackageNumber) {
                     orderService.getList({
                         receiveTrackingNumber: $scope.tempInboundPackageNumber
                     }, function(result) {
-                        console.log(result);
+                        // console.log(result);
                         if (!!result && !!result.data && result.data.length > 0) {
                             $scope.data = result.data[0];
                             var _checked = false;
@@ -151,7 +152,6 @@ angular.module('culAdminApp')
                                     _checked = true;
                                 }
                             });
-                            console.log($scope.data.outboundPackages);
                             $scope.data.outboundPackages
                         }
                         $scope.tempInboundPackageNumber = "";
