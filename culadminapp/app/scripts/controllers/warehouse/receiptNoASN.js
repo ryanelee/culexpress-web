@@ -261,7 +261,6 @@ angular.module('culAdminApp')
                 $location.path('/warehouse/receipt2')
             }
             $scope.print = function () {
-                console
                 $scope.$broadcast("print-inboundPackage.action", $scope.data.trackingNumber);
             }
 

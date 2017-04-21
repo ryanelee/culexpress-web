@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('CustomerListCtrl', ["$scope", "$rootScope", "$location", "$filter", "customerService", "warehouseService", "plugMessenger", "$compile", "$http",
-      function ($scope, $rootScope, $location, $filter, customerService, warehouseService, plugMessenger, $compile, $http) {
+  .controller('CustomerListCtrl', ["$scope", "$rootScope", "$location", "$filter", "customerService", "warehouseService", "plugMessenger", "$compile", "$http",'$window',
+      function ($scope, $rootScope, $location, $filter, customerService, warehouseService, plugMessenger, $compile, $http,$window) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -35,6 +35,12 @@ angular.module('culAdminApp')
               }
           }
 
+        //   $scope.serchFocus = function () {
+        //     //   $window.location.reload();
+        //       $window.document.getElementById("search").focus(); 
+        //   }
+
+        //   $scope.serchFocus();
           $scope.getData = function () {
               var _options = {
                   "pageInfo": $scope.pagination,
@@ -62,7 +68,8 @@ angular.module('culAdminApp')
               $scope.pagination.totalCount = 0;
               $scope.getData();
           }
-           $scope.btnSearch()
+          //去掉默認全部查詢
+          // $scope.btnSearch()
 
           $scope.btnOpenDetail = function (customer) {
               $location.search({ customerNumber: customer.customerNumber });

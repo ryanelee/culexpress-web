@@ -3,144 +3,145 @@
         <h3><i class="fa fa-table"></i>客户留言</h3>
     </div>
     <div class="widget-content">
-        <div class="row">
-            <div class="col-sm-12 search-bar">
-                <div class="search-col">
-                    <label class="search-label">问题类型：</label>
-                    <select class="form-control search-control"
-                            ng-model="searchBar.messageType"
-                            ng-options="type.typeID as type.typeName for type in searchBar.messageTypeData"></select>
-                </div>
-                <div class="search-col">
-                    <label class="search-label">问题状态：</label>
-                    <select class="form-control search-control" ng-model="searchBar.status">
-                        <option value="">全部</option>
-                        <option value="Processing">处理中</option>
-                        <option value="ForwardWH">转交仓库</option>
-                        <option value="Closed">已关闭</option>
-                    </select>
-                </div>
-                <div class="search-col">
-                    <label class="search-label">收货仓库：</label>
-                    <select class="form-control search-control"
-                            ng-model="searchBar.receivedWarehouseNumber"
-                            ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList">
-                            <!--<option>全部</option>-->
+        <form>
+            <div class="row">
+                <div class="col-sm-12 search-bar">
+                    <div class="search-col">
+                        <label class="search-label">问题类型：</label>
+                        <select class="form-control search-control"
+                                ng-model="searchBar.messageType"
+                                ng-options="type.typeID as type.typeName for type in searchBar.messageTypeData"></select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">问题状态：</label>
+                        <select class="form-control search-control" ng-model="searchBar.status">
+                            <option value="">全部</option>
+                            <option value="Processing">处理中</option>
+                            <option value="ForwardWH">转交仓库</option>
+                            <option value="Closed">已关闭</option>
+                        </select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">收货仓库：</label>
+                        <select class="form-control search-control"
+                                ng-model="searchBar.receivedWarehouseNumber"
+                                ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList">
+                                <!--<option>全部</option>-->
+                                </select>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="search-col">
+                        <label class="search-label">开始日期：</label>
+                        <p class="input-group pull-left">
+                            <input type="text" class="form-control search-control" style="width:110px;"
+                                uib-datepicker-popup
+                                ng-model="searchBar.startDate"
+                                is-open="searchBar.opened.startDate"
+                                show-button-bar="false"
+                                ng-click="searchBar.opened.startDate = true" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                        <div class="pull-left">
+                            <label class="search-label">日</label>
+                            <select class="form-control search-control" style="width:55px; padding-left: 5px;" ng-model="searchBar.startTime_HH">
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
                             </select>
-                </div>
-                <div class="clearfix"></div>
-                <div class="search-col">
-                    <label class="search-label">开始日期：</label>
-                    <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;"
-                               uib-datepicker-popup
-                               ng-model="searchBar.startDate"
-                               is-open="searchBar.opened.startDate"
-                               show-button-bar="false"
-                               ng-click="searchBar.opened.startDate = true" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
-                        </span>
-                    </p>
-                    <div class="pull-left">
-                        <label class="search-label">日</label>
-                        <select class="form-control search-control" style="width:55px; padding-left: 5px;" ng-model="searchBar.startTime_HH">
-                            <option value="0">00</option>
-                            <option value="1">01</option>
-                            <option value="2">02</option>
-                            <option value="3">03</option>
-                            <option value="4">04</option>
-                            <option value="5">05</option>
-                            <option value="6">06</option>
-                            <option value="7">07</option>
-                            <option value="8">08</option>
-                            <option value="9">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                        </select>
-                        <label class="search-label">时</label>
-                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.startTime_mm" />
-                        <label class="search-label">分</label>
-                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.startTime_ss" />
-                        <label class="search-label">秒</label>
+                            <label class="search-label">时</label>
+                            <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.startTime_mm" />
+                            <label class="search-label">分</label>
+                            <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.startTime_ss" />
+                            <label class="search-label">秒</label>
+                        </div>
                     </div>
-                </div>
-                <div class="search-col">
-                    <label class="search-label">结束日期：</label>
-                    <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;"
-                               uib-datepicker-popup
-                               ng-model="searchBar.endDate"
-                               is-open="searchBar.opened.endDate"
-                               show-button-bar="false"
-                               ng-click="searchBar.opened.endDate = true" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
-                        </span>
-                    </p>
-                    <div class="pull-left">
-                        <label class="search-label">日</label>
+                    <div class="search-col">
+                        <label class="search-label">结束日期：</label>
+                        <p class="input-group pull-left">
+                            <input type="text" class="form-control search-control" style="width:110px;"
+                                uib-datepicker-popup
+                                ng-model="searchBar.endDate"
+                                is-open="searchBar.opened.endDate"
+                                show-button-bar="false"
+                                ng-click="searchBar.opened.endDate = true" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                        <div class="pull-left">
+                            <label class="search-label">日</label>
 
-                        <select class="form-control search-control" style="width:55px; padding-left: 5px;" ng-model="searchBar.endTime_HH">
-                            <option value="0">00</option>
-                            <option value="1">01</option>
-                            <option value="2">02</option>
-                            <option value="3">03</option>
-                            <option value="4">04</option>
-                            <option value="5">05</option>
-                            <option value="6">06</option>
-                            <option value="7">07</option>
-                            <option value="8">08</option>
-                            <option value="9">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                        </select>
-                        <label class="search-label">时</label>
-                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.endTime_mm" />
-                        <label class="search-label">分</label>
-                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.endTime_ss" />
-                        <label class="search-label">秒</label>
+                            <select class="form-control search-control" style="width:55px; padding-left: 5px;" ng-model="searchBar.endTime_HH">
+                                <option value="0">00</option>
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                            </select>
+                            <label class="search-label">时</label>
+                            <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.endTime_mm" />
+                            <label class="search-label">分</label>
+                            <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.endTime_ss" />
+                            <label class="search-label">秒</label>
+                        </div>
                     </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="search-col">
-                    <label class="search-label">搜索条目：</label>
-                    <select class="form-control search-control" ng-model="searchBar.keywordType">
-                        <option value="customerNumber">客户编号</option>
-                        <option value="orderNumber">订单编号</option>
-                    </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" 
-                        placeholder="请输入查询关键字" ng-model="searchBar.keywords"  ng-enter="btnSearch()"/>
-                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    <div class="clearfix"></div>
+                    <div class="search-col">
+                        <label class="search-label">搜索条目：</label>
+                        <select class="form-control search-control" ng-model="searchBar.keywordType">
+                            <option value="customerNumber">客户编号</option>
+                            <option value="orderNumber">订单编号</option>
+                        </select>
+                        <input type="text"  name="search" id="search"class="form-control search-control" style="margin-left:5px; width:480px;" 
+                            placeholder="请输入查询关键字" ng-model="searchBar.keywords"  ng-enter="btnSearch()"/>
+                        <button type="submit" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <table class="table table-bordered">
+        </form>
+        <table class="table table-bordered"> 
             <thead>
                 <tr>
                     <th>序号</th>
@@ -195,3 +196,13 @@
         </div>
     </div>
 </div>
+<script>
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>

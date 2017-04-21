@@ -3,7 +3,7 @@
         <h3><i class="fa fa-table"></i> 公告管理</h3>
     </div>
     <div class="widget-content">
-        <form id="sky-form" class="sky-form form-inline" novalidate="novalidate">
+        <form>
             <div class="row">
                 <div class="col-sm-12 search-bar">
                     <div class="col-sm-12 search-bar">
@@ -36,15 +36,13 @@
                         <select class="form-control search-control" ng-model="searchBar.keywordType">
                             <option value="title">标题</option>
                         </select>
-                        <input type="text" name="search" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"
-                        />
+                        <input type="text" name="search" id="search" class="form-control search-control" style="margin-left:5px; width:480px;"
+                         placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
                         <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                     </div>
                 </div>
             </div>
         </form>
-
-
 
         <div class="row">
             <div class="col-sm-12">
@@ -106,7 +104,9 @@
 <print-helper></print-helper>
 
 <script>
-    document.getElementById('search').addEventListener('keypress', function(event) {
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function(event) {
         if (event.keyCode == 13) {
             event.preventDefault();
             document.getElementById('submit').click();

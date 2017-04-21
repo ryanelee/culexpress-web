@@ -3,41 +3,43 @@
         <h3><i class="fa fa-table"></i> 架位管理</h3>
     </div>
     <div class="widget-content">
-        <div class="row">
-            <div class="col-sm-12 search-bar">
+        <form>
+            <div class="row">
                 <div class="col-sm-12 search-bar">
-                    <div class="search-col" style="margin-bottom: 0px;">
-                        <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="btnAction('create')">创建架位</button>
+                    <div class="col-sm-12 search-bar">
+                        <div class="search-col" style="margin-bottom: 0px;">
+                            <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="btnAction('create')">创建架位</button>
+                        </div>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">架位类型：</label>
+                        <select class="form-control search-control"
+                                ng-model="searchBar.type">
+                            <option value="">所有</option>
+                            <option value="A">海淘客户</option>
+                            <option value="B">大客户</option>
+                        </select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">所在仓库：</label>
+                        <select class="form-control search-control"
+                                ng-model="searchBar.warehouseNumber"
+                                ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="search-col">
+                        <label class="search-label">搜索条目：</label>
+                        <select class="form-control search-control" ng-model="searchBar.keywordType">
+                            <option value="shelfNumber">架位编号</option>
+                            <option value="customerNumber">客户编号</option>
+                            <option value="itemNumber">商品编号</option>
+                        </select>
+                        <input type="text" id="search"  class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
+                        <button type="button"  id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                     </div>
                 </div>
-                <div class="search-col">
-                    <label class="search-label">架位类型：</label>
-                    <select class="form-control search-control"
-                            ng-model="searchBar.type">
-                        <option value="">所有</option>
-                        <option value="A">海淘客户</option>
-                        <option value="B">大客户</option>
-                    </select>
-                </div>
-                <div class="search-col">
-                    <label class="search-label">所在仓库：</label>
-                    <select class="form-control search-control"
-                            ng-model="searchBar.warehouseNumber"
-                            ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
-                </div>
-                <div class="clearfix"></div>
-                <div class="search-col">
-                    <label class="search-label">搜索条目：</label>
-                    <select class="form-control search-control" ng-model="searchBar.keywordType">
-                        <option value="shelfNumber">架位编号</option>
-                        <option value="customerNumber">客户编号</option>
-                        <option value="itemNumber">商品编号</option>
-                    </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
-                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
-                </div>
             </div>
-        </div>
+        </form>
         <div class="row">
             <div class="col-sm-12">
                 <table class="table table-bordered">
@@ -94,3 +96,14 @@
     </div>
 </div>
 <print-helper></print-helper>
+
+<script>
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>

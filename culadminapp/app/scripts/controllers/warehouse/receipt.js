@@ -113,5 +113,5 @@ angular.module('culAdminApp')
               $location.path('/warehouse/editreceipt');
           }
 
-          $scope.getData();
+        //   $scope.getData();
       }]);

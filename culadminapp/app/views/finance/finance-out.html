@@ -3,83 +3,86 @@
         <h3><i class="fa fa-table"></i> 出库统计</h3>
     </div>
     <div class="widget-content">
-        <div class="row">
-            <!--<div class="col-sm-12" style="padding:0 20px 15px 12px;">
-                <button type="button" class="btn btn-primary role" data-role="71" style="margin-left:5px;" ng-click="addPackage('online');">打包登记(线上订单)</button>
-                <button type="button" class="btn btn-primary role" data-role="72" style="margin-left:5px;" ng-click="addPackage('offline');">打包登记(线下订单)</button>
-            </div>-->
-            <div class="col-sm-12 search-bar">
-                <!--<div class="search-col">
-                    <label class="search-label">订单状态：</label>
-                    <select class="form-control search-control" ng-model="searchBar.orderStatus">
-                        <option value="">全部(不包括已删除)</option>
-                        <option value="Unpaid">待支付</option>
-                        <option value="Paid">已支付</option>
-                        <option value="Processing">处理中</option>
-                        <option value="Arrears">运费不足</option>
-                        <option value="Shipped">已出库</option>
-                        <option value="Void">已删除</option>
-                    </select>
+        <form>
+            <div class="row">
+                <!--<div class="col-sm-12" style="padding:0 20px 15px 12px;">
+                    <button type="button" class="btn btn-primary role" data-role="71" style="margin-left:5px;" ng-click="addPackage('online');">打包登记(线上订单)</button>
+                    <button type="button" class="btn btn-primary role" data-role="72" style="margin-left:5px;" ng-click="addPackage('offline');">打包登记(线下订单)</button>
                 </div>-->
-                <!--<div class="search-col">
-                    <label class="search-label">导出状态：</label>
-                    <select class="form-control search-control" ng-model="searchBar.exportStatus">
-                        <option value="">全部(不包括已删除)</option>
-                        <option value="UnExported">未导出</option>
-                        <option value="Exported">已导出</option>
-                    </select>
-                </div>-->
-                <div class="search-col">
-                    <label class="search-label">发货仓库：</label>
-                    <select class="form-control search-control"
-                            ng-model="searchBar.warehouseNumber"
-                            ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                <div class="col-sm-12 search-bar">
+                    <!--<div class="search-col">
+                        <label class="search-label">订单状态：</label>
+                        <select class="form-control search-control" ng-model="searchBar.orderStatus">
+                            <option value="">全部(不包括已删除)</option>
+                            <option value="Unpaid">待支付</option>
+                            <option value="Paid">已支付</option>
+                            <option value="Processing">处理中</option>
+                            <option value="Arrears">运费不足</option>
+                            <option value="Shipped">已出库</option>
+                            <option value="Void">已删除</option>
+                        </select>
+                    </div>-->
+                    <!--<div class="search-col">
+                        <label class="search-label">导出状态：</label>
+                        <select class="form-control search-control" ng-model="searchBar.exportStatus">
+                            <option value="">全部(不包括已删除)</option>
+                            <option value="UnExported">未导出</option>
+                            <option value="Exported">已导出</option>
+                        </select>
+                    </div>-->
+                    <div class="search-col">
+                        <label class="search-label">发货仓库：</label>
+                        <select class="form-control search-control"
+                                ng-model="searchBar.warehouseNumber"
+                                ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">开始日期：</label>
+                        <p class="input-group">
+                            <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate"
+                                is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true"
+                            />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">结束日期：</label>
+                        <p class="input-group">
+                            <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate"
+                                is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true"
+                            />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="search-col">
+                        <label class="search-label">搜索条目：</label>
+                        <select class="form-control search-control" ng-model="searchBar.keywordType">
+                            <option value="customerNumber">客户编号</option>
+                            <option value="userName">客户ID</option>
+                            <option value="orderNumber">订单编号</option>
+                            <option value="trackingNumber">包裹单号</option>
+                            <!--<option value="receiveidentity">客户标示</option>
+                            <option value="referenceOrderNumber">客户关联号</option>
+                            <option value="cnTrackingNumber">国内物流号</option>-->
+                        </select>
+                        <input type="text" name="search" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" 
+                        placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
+                        <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    </div>
                 </div>
-                  <div class="search-col">
-                    <label class="search-label">开始日期：</label>
-                    <p class="input-group">
-                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate"
-                            is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true"
-                        />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
-                        </span>
-                    </p>
-                </div>
-                <div class="search-col">
-                    <label class="search-label">结束日期：</label>
-                    <p class="input-group">
-                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate"
-                            is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true"
-                        />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
-                        </span>
-                    </p>
-                </div>
-                <div class="clearfix"></div>
-                <div class="search-col">
-                    <label class="search-label">搜索条目：</label>
-                    <select class="form-control search-control" ng-model="searchBar.keywordType">
-                        <option value="customerNumber">客户编号</option>
-                        <option value="userName">客户ID</option>
-                        <option value="orderNumber">订单编号</option>
-                        <option value="trackingNumber">包裹单号</option>
-                        <!--<option value="receiveidentity">客户标示</option>
-                        <option value="referenceOrderNumber">客户关联号</option>
-                        <option value="cnTrackingNumber">国内物流号</option>-->
-                    </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
-                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                <div class="col-sm-12 search-bar" ng-show="selectedListCache.length > 0">
+                    <div class="search-col" style="margin-bottom: 0px;">
+                        <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>
+                        <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-12 search-bar" ng-show="selectedListCache.length > 0">
-                <div class="search-col" style="margin-bottom: 0px;">
-                    <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>
-                    <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
-                </div>
-            </div>
-        </div>
+        </form>
         <div class="row">
             <div class="col-sm-12">
                 <table class="table table-bordered">
@@ -215,6 +218,17 @@
     </div>
 </div>
 <print-flying-express></print-flying-express>
+
+<script>
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>
 
 
 

@@ -64,7 +64,7 @@ culAdminApp.controller('ArrearslistCtrl', ["$scope", "$rootScope", "$location", 
             $scope.pagination.totalCount = 0;
             $scope.getData();
         }
-        $scope.btnSearch()
+        // $scope.btnSearch()
 
         $scope.btnOpenDetail = function(payMessage, location) {
                 if (location === 'customerdetail') {

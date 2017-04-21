@@ -47,9 +47,9 @@
                         <option value="customerNumber">客户编号</option>
                         <!--<option value="inuserName">客户ID</option>-->
                     </select>
-                      <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
+                      <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
 
-                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    <button type="button"  id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                 </div>
                 <!--<div class="search-col">
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">查询</button>
@@ -111,3 +111,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>

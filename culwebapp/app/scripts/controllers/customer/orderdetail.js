@@ -91,7 +91,7 @@ angular.module('culwebApp')
                     });
             }
 
-            $scope.payOrder = function(orderItem) {
+            $scope.payOrder = function(orderItem) {            
                 if (!orderItem) return false;
                 if (!orderItem.totalCount) {
                     alertify.alert('提示', '订单还未计价,不能支付!', 'warning');
@@ -99,7 +99,8 @@ angular.module('culwebApp')
                 }
                 //运费不足状态下支付，扣除所欠费用即可
                 if (orderItem.orderStatus == "Arrears") {
-                    orderItem.totalCount = orderItem.shippingFeeAdjust
+                    // orderItem.totalCount = orderItem.shippingFeeAdjust
+                    orderItem.totalCount = Math.abs(orderItem.shippingFeeAdjust)
                 }
 
                 if ($scope.currentUser.accountBalance < orderItem.totalCount) {

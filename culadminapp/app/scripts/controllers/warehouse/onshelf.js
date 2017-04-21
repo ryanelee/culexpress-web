@@ -158,7 +158,7 @@ angular.module('culAdminApp')
                     $rootScope.$emit("changeMenu");
                 });
             }
-            $scope.getData();
+            // $scope.getData();
 
             $scope.btnSearch = function() {
                 $scope.searchBar.isUnusual = 0

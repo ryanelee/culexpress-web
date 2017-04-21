@@ -16,8 +16,6 @@ angular.module('culAdminApp')
                 'Karma'
             ];
             
-            
-
             $scope.tpl_status = {
                 "rechargeType": [
                     { "title": "全部", "value": "3,4" },
@@ -111,5 +109,5 @@ angular.module('culAdminApp')
                 $scope.getData();
             }
 
-            $scope.getData();
+            // $scope.getData();
         }]);
