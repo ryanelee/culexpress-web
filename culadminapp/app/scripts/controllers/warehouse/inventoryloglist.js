@@ -108,7 +108,7 @@ angular.module('culAdminApp')
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
               });
           }
-          $scope.getData();
+        //   $scope.getData();
 
           $scope.btnSearch = function () {
               $scope.selectedListCache = [];

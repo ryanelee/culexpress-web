@@ -113,5 +113,5 @@ angular.module('culAdminApp')
               $scope.getData();
           }
 
-          $scope.getData();
+        //   $scope.getData();
       }]);

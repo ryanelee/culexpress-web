@@ -3,89 +3,91 @@
         <h3><i class="fa fa-table"></i> 库存日志</h3>
     </div>
     <div class="widget-content">
-        <div class="row">
-            <div class="col-sm-12 search-bar">
-                <div class="search-col">
-                    <label class="search-label">发货仓库：</label>
-                    <select class="form-control search-control"
-                            ng-model="searchBar.warehouseNumber"
-                            ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
-                </div>
-                <div class="search-col">
-                    <label class="search-label">库存：</label>
-                    <select class="form-control search-control" ng-model="searchBar.inventoryCondition">
-                        <option value="">所有</option>
-                        <option value=">">大于</option>
-                        <option value="=">等于</option>
-                        <option value="<">小于</option>
-                    </select>
-                    <input class="form-control search-control" style="width:100px;" ng-model="searchBar.inventoryConditionValue" ng-show="searchBar.inventoryCondition != ''" />
-                </div>
-                <div class="search-col">
-                    <label class="search-label">商品主类别：</label>
-                    <select class="form-control search-control"
-                            ng-model="searchBar.categoryId"
-                            ng-change="changeCategory()"
-                            ng-options="item.cateid as item.name for item in searchBar.categoryList"></select>
-                </div>
-                <div class="search-col">
-                    <label class="search-label">商品子类别：</label>
-                    <select class="form-control search-control"
-                            ng-model="searchBar.categorySubId"
-                            ng-options="item.cateid as item.name for item in searchBar.categorySubList"></select>
-                </div>
-                <!--<div class="search-col">
-                    <label class="search-label">创建时间：</label>
-                    <select class="form-control search-control" ng-model="searchBar.dateRange" ng-change="changeDate()">
-                        <option value="">所有</option>
-                        <option value="3">最近3天</option>
-                        <option value="7">最近7天</option>
-                        <option value="range">时间范围</option>
-                    </select>
-                </div>-->
-                <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
-                <div class="search-col">
-                    <label class="search-label">创建时间: 起</label>
-                    <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;"
-                               uib-datepicker-popup
-                               ng-model="searchBar.startDate"
-                               is-open="searchBar.opened.startDate"
-                               show-button-bar="false"
-                               ng-click="searchBar.opened.startDate = true" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
-                        </span>
-                    </p>
-                </div>
-                <div class="search-col">
-                <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
-                    <label class="search-label">至</label>
-                    <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;"
-                               uib-datepicker-popup
-                               ng-model="searchBar.endDate"
-                               is-open="searchBar.opened.endDate"
-                               show-button-bar="false"
-                               ng-click="searchBar.opened.endDate = true" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
-                        </span>
-                    </p>
-                </div>
-                <div class="clearfix"></div>
-                <div class="search-col">
-                    <label class="search-label">搜索条目：</label>
-                    <select class="form-control search-control">
-                        <option value="itemNumber">商品编号</option>
-                        <option value="upccode">UPC</option>
-                        <option value="customerNumber">客户编号</option>
-                    </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
-                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+        <form>
+            <div class="row">
+                <div class="col-sm-12 search-bar">
+                    <div class="search-col">
+                        <label class="search-label">发货仓库：</label>
+                        <select class="form-control search-control"
+                                ng-model="searchBar.warehouseNumber"
+                                ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">库存：</label>
+                        <select class="form-control search-control" ng-model="searchBar.inventoryCondition">
+                            <option value="">所有</option>
+                            <option value=">">大于</option>
+                            <option value="=">等于</option>
+                            <option value="<">小于</option>
+                        </select>
+                        <input class="form-control search-control" style="width:100px;" ng-model="searchBar.inventoryConditionValue" ng-show="searchBar.inventoryCondition != ''" />
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">商品主类别：</label>
+                        <select class="form-control search-control"
+                                ng-model="searchBar.categoryId"
+                                ng-change="changeCategory()"
+                                ng-options="item.cateid as item.name for item in searchBar.categoryList"></select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">商品子类别：</label>
+                        <select class="form-control search-control"
+                                ng-model="searchBar.categorySubId"
+                                ng-options="item.cateid as item.name for item in searchBar.categorySubList"></select>
+                    </div>
+                    <!--<div class="search-col">
+                        <label class="search-label">创建时间：</label>
+                        <select class="form-control search-control" ng-model="searchBar.dateRange" ng-change="changeDate()">
+                            <option value="">所有</option>
+                            <option value="3">最近3天</option>
+                            <option value="7">最近7天</option>
+                            <option value="range">时间范围</option>
+                        </select>
+                    </div>-->
+                    <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
+                    <div class="search-col">
+                        <label class="search-label">创建时间: 起</label>
+                        <p class="input-group pull-left">
+                            <input type="text" class="form-control search-control" style="width:110px;"
+                                uib-datepicker-popup
+                                ng-model="searchBar.startDate"
+                                is-open="searchBar.opened.startDate"
+                                show-button-bar="false"
+                                ng-click="searchBar.opened.startDate = true" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="search-col">
+                    <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
+                        <label class="search-label">至</label>
+                        <p class="input-group pull-left">
+                            <input type="text" class="form-control search-control" style="width:110px;"
+                                uib-datepicker-popup
+                                ng-model="searchBar.endDate"
+                                is-open="searchBar.opened.endDate"
+                                show-button-bar="false"
+                                ng-click="searchBar.opened.endDate = true" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="search-col">
+                        <label class="search-label">搜索条目：</label>
+                        <select class="form-control search-control">
+                            <option value="itemNumber">商品编号</option>
+                            <option value="upccode">UPC</option>
+                            <option value="customerNumber">客户编号</option>
+                        </select>
+                        <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
+                        <button type="button" id="submit"  class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="row">
             <div class="col-sm-12">
                 <table class="table table-bordered">
@@ -139,3 +141,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>

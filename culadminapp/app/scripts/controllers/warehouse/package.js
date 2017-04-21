@@ -183,7 +183,7 @@ angular.module('culAdminApp')
               $scope.exportOptions = $.extend({ token: _token }, _options);
           }
 
-          $scope.getData();
+          //$scope.getData();
 
           $scope.addPackage = function (type) {
               switch (type) {

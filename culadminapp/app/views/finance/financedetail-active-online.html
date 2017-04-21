@@ -3,73 +3,75 @@
         <h3><i class="fa fa-table"></i> 海淘订单</h3>
     </div>
     <div class="widget-content">
-        <div class="row">
-            <div class="col-sm-12 search-bar">
-                <div class="search-col">
-                    <label class="search-label">交易类型：</label>
-                    <select class="form-control search-control" ng-model="searchBar.type">
-                        <option value="">全部</option>
-                        <option value="1">运费</option>
-                    </select>
-                </div>
-                <div class="search-col">
-                    <label class="search-label">支付状态：</label>
-                    <select class="form-control search-control" ng-model="searchBar.paidstatus">
-                        <option value="">全部</option>
-                        <option value="Unpaid">未支付</option>
-                        <option value="Paid">已支付</option>
-                        <option value="Arrears">运费不足</option>
-                    </select>
-                </div>
-                <div class="search-col">
-                    <label class="search-label">交易时间：</label>
-                    <select class="form-control search-control" ng-model="searchBar.dateRange" ng-change="changeDate()">
-                        <option value="">所有</option>
-                        <option value="3">最近3天</option>
-                        <option value="7">最近7天</option>
-                        <option value="range">时间范围</option>
-                    </select>
-                </div>
-                <div class="search-col" ng-show="searchBar.dateRange == 'range'">
-                    <label class="search-label">开始日期：</label>
-                    <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;"
-                               uib-datepicker-popup
-                               ng-model="searchBar.startDate"
-                               is-open="searchBar.opened.startDate"
-                               show-button-bar="false"
-                               ng-click="searchBar.opened.startDate = true" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
-                        </span>
-                    </p>
-                </div>
-                <div class="search-col" ng-show="searchBar.dateRange == 'range'">
-                    <label class="search-label">结束日期：</label>
-                    <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;"
-                               uib-datepicker-popup
-                               ng-model="searchBar.endDate"
-                               is-open="searchBar.opened.endDate"
-                               show-button-bar="false"
-                               ng-click="searchBar.opened.endDate = true" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
-                        </span>
-                    </p>
-                </div>
-                <div class="clearfix"></div>
-                <div class="search-col">
-                    <label class="search-label">搜索条目：</label>
-                    <select class="form-control search-control" ng-model="searchBar.keywordType">
-                        <option value="orderNumber">订单编号</option>
-                        <option value="outBoundTrackingNumber">包裹跟踪号</option>
-                    </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
-                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+        <form>
+            <div class="row">
+                <div class="col-sm-12 search-bar">
+                    <div class="search-col">
+                        <label class="search-label">交易类型：</label>
+                        <select class="form-control search-control" ng-model="searchBar.type">
+                            <option value="">全部</option>
+                            <option value="1">运费</option>
+                        </select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">支付状态：</label>
+                        <select class="form-control search-control" ng-model="searchBar.paidstatus">
+                            <option value="">全部</option>
+                            <option value="Unpaid">未支付</option>
+                            <option value="Paid">已支付</option>
+                            <option value="Arrears">运费不足</option>
+                        </select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">交易时间：</label>
+                        <select class="form-control search-control" ng-model="searchBar.dateRange" ng-change="changeDate()">
+                            <option value="">所有</option>
+                            <option value="3">最近3天</option>
+                            <option value="7">最近7天</option>
+                            <option value="range">时间范围</option>
+                        </select>
+                    </div>
+                    <div class="search-col" ng-show="searchBar.dateRange == 'range'">
+                        <label class="search-label">开始日期：</label>
+                        <p class="input-group pull-left">
+                            <input type="text" class="form-control search-control" style="width:110px;"
+                                uib-datepicker-popup
+                                ng-model="searchBar.startDate"
+                                is-open="searchBar.opened.startDate"
+                                show-button-bar="false"
+                                ng-click="searchBar.opened.startDate = true" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="search-col" ng-show="searchBar.dateRange == 'range'">
+                        <label class="search-label">结束日期：</label>
+                        <p class="input-group pull-left">
+                            <input type="text" class="form-control search-control" style="width:110px;"
+                                uib-datepicker-popup
+                                ng-model="searchBar.endDate"
+                                is-open="searchBar.opened.endDate"
+                                show-button-bar="false"
+                                ng-click="searchBar.opened.endDate = true" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="search-col">
+                        <label class="search-label">搜索条目：</label>
+                        <select class="form-control search-control" ng-model="searchBar.keywordType">
+                            <option value="orderNumber">订单编号</option>
+                            <option value="outBoundTrackingNumber">包裹跟踪号</option>
+                        </select>
+                        <input type="text" name="search" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
+                        <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <table class="table table-bordered">
         <thead>

@@ -166,6 +166,5 @@ angular.module('culAdminApp')
                         break;
                 }
             }
-
-            $scope.getData();
+            // $scope.getData();
         }]);

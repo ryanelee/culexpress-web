@@ -91,7 +91,7 @@ angular.module('culAdminApp')
           }
 
           $timeout(function(){
-            $scope.getData();
+            // $scope.getData();
           },500);
 
           $scope.btnSearch = function () {

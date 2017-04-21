@@ -93,7 +93,7 @@ angular.module('culAdminApp')
                 $location.path('/system/editrole').search({ roleId: role.role_id });
             };
 
-            $scope.getData();
+            // $scope.getData();
         }
     ]).filter('activeStr', function () {
         return function (active) {

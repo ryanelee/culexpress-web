@@ -3,28 +3,30 @@
         <h3><i class="fa fa-table"></i>员工管理</h3>
     </div>
     <div class="widget-content">
-        <div class="row">
-            <div class="col-sm-12" style="padding:0 20px 15px 12px;">
-                <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="addReceipt();">添加员工</button>
-            </div>
-            <div class="col-sm-12 search-bar">
-                <div class="clearfix"></div>
-                <div class="search-col">
-                    <label class="search-label">状态:</label>
-                    <select class="form-control search-control" ng-model="searchBar.active" ng-change="btnSearch()">
-                        <option value="">所有</option>
-                        <option value="1">已激活</option>
-                        <option value="0">未激活</option>
-                        <option value="-1">已禁用</option>
-                    </select>
+        <form>
+            <div class="row">
+                <div class="col-sm-12" style="padding:0 20px 15px 12px;">
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="addReceipt();">添加员工</button>
                 </div>
-                <div class="search-col">
-                    <label class="search-label">员工姓名:</label>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:400px;" placeholder="请输入查询关键字" ng-model="searchBar.userName" ng-enter="btnSearch()"/>
-                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                <div class="col-sm-12 search-bar">
+                    <div class="clearfix"></div>
+                    <div class="search-col">
+                        <label class="search-label">状态:</label>
+                        <select class="form-control search-control" ng-model="searchBar.active" ng-change="btnSearch()">
+                            <option value="">所有</option>
+                            <option value="1">已激活</option>
+                            <option value="0">未激活</option>
+                            <option value="-1">已禁用</option>
+                        </select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">员工姓名:</label>
+                        <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:400px;" placeholder="请输入查询关键字" ng-model="searchBar.userName" ng-enter="btnSearch()"/>
+                        <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="row">
             <div class="col-sm-12">
                 <table class="table table-bordered">
@@ -87,3 +89,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>

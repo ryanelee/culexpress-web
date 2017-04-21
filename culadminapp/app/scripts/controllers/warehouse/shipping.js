@@ -30,7 +30,7 @@ angular.module('culAdminApp')
               $scope.dataList = dataResult.list;
               $scope.pagination.total = dataResult.total;
           }
-          $scope.getData();
+        //   $scope.getData();
 
           /*search bar*/
           $scope.searchBar = {

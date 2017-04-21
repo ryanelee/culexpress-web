@@ -3,6 +3,7 @@
         <h3><i class="fa fa-table"></i> 收货管理</h3>
     </div>
     <div class="widget-content">
+        <form>
         <div class="row">
             <div class="col-sm-12" style="padding:0 20px 15px 12px;">
                 <button type="button" class="btn btn-primary role" data-role="54" style="margin-left:5px;" ng-click="btnAction('inbound')">入库登记</button>
@@ -73,12 +74,13 @@
                         <option value="receiveIdentity">客户标识</option>>
                         <option value="userName">客户ID</option>>
                     </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"
+                    <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"
                     />
-                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                 </div>
             </div>
         </div>
+        </form>
         <div class="row">
             <div class="col-sm-12">
                 <table class="table table-bordered">
@@ -158,9 +160,17 @@
     </div>
 </div>
 
-
-
-
 <style>
 
 </style>
+
+<script>
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>

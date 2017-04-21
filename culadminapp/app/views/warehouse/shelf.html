@@ -3,6 +3,7 @@
         <h3><i class="fa fa-table"></i> 上架管理 - 架位管理</h3>
     </div>
     <div class="widget-content">
+        <form>
         <div class="row">
             <div class="col-sm-12 search-bar">
                 <div class="col-sm-12 search-bar">
@@ -25,11 +26,12 @@
                         <option value="customerNumber">客户编号</option>
                         <option value="itemNumber">商品编号</option>
                     </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
-                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    <input type="text" id="search"  class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" />
+                    <button type="button" id="submit"  class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                 </div>
             </div>
         </div>
+        </form>
         <div class="row">
             <div class="col-sm-12">
                 <table class="table table-bordered">
@@ -97,3 +99,14 @@
     </div>
 </div>
 <print-unshelf></print-unshelf>
+
+<script>
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>
