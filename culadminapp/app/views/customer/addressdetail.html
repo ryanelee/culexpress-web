@@ -30,6 +30,15 @@
                         <input type="text" class="form-control" ng-model="data.idCard">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">身份证有效期：</label>
+                    <div ng-if=" !data.idForever || data.idForever==0 " class="col-sm-4">
+                        <input type="text" class="form-control" value="{{data.deadline | date:'yyyy-MM-dd'}}">
+                    </div>
+                    <div ng-if="data.idForever==1" class="col-sm-4">
+                        <input type="text" class="form-control" value="永久">
+                    </div>
+                </div>
                 <!--<div class="form-group">
                     <label class="col-sm-2 control-label text-right">身份证正反面：</label>
                     <div class="col-sm-4">

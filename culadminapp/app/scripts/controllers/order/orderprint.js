@@ -249,6 +249,7 @@ angular.module('culAdminApp')
                 }
                 var _checkConfirm = function() {
                     switch (type) {
+                        case "order":
                         case "flyingexpress":
                         case "flyingexpress2":
                             plugMessenger.confirm("订单将变为已打印状态,请确认是否打印？", function(isOK) {

@@ -23,9 +23,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">目标仓库：</label>
                     <div class="col-sm-4 text-left">
-                        <select class="form-control search-control"
-                                ng-model="data.warehouseNumber"
-                                ng-options="item.warehouseNumber as item.warehouseName for item in warehouseList"></select>
+                        <select class="form-control search-control" disabled ng-model="data.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in warehouseList"></select>
                     </div>
                 </div>
                 <div class="form-group">

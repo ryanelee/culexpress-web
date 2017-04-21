@@ -37,9 +37,17 @@ angular.module('culAdminApp')
                     startDate: false,
                     endDate: false
                 },
-                isUnusual:"",
-                flag:"5"
+                isUnusual: "",
+                flag: "5"
             }
+
+            $scope.sendTypes = [
+                { key: "", value: "全部" },
+                { key: "1", value: "寄送库存" },
+                { key: "2", value: "海淘包裹" },
+                { key: "3", value: "异常包裹" },
+                { key: "4", value: "员工包裹" },
+            ]
 
             warehouseService.getWarehouse(function(result) {
                 if (result.length == 1) {
@@ -59,6 +67,10 @@ angular.module('culAdminApp')
                 }
                 if (!!$scope.searchBar.sendType) {
                     _options["sendType"] = $scope.searchBar.sendType;
+                }
+
+                if (!!$scope.searchBar.isUnusual) {
+                    _options["isUnusual"] = $scope.searchBar.isUnusual;
                 }
                 if (!!$scope.searchBar.inboundStatus) {
                     _options["inboundStatus"] = $scope.searchBar.inboundStatus;
@@ -108,6 +120,13 @@ angular.module('culAdminApp')
                         }
                     })
 
+                    if ($scope.searchBar.isUnusual == 2) {
+                        $scope.searchBar.sendType = $scope.sendTypes[3].key;
+                    }
+                    if ($scope.searchBar.isUnusual == 1) {
+                        $scope.searchBar.sendType = $scope.sendTypes[4].key;
+                    }
+
                     $scope.dataList = _data;
                     $scope.dataList.forEach(function(e) {
                         if (e.isUnusual == 1) {
@@ -123,6 +142,17 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSearch = function() {
+                $scope.searchBar.isUnusual = 0
+                if ($scope.searchBar.sendType == 3) {
+                    $scope.searchBar.isUnusual = 2;
+                    $scope.searchBar.sendType = 2;
+                }
+                if ($scope.searchBar.sendType == 4) {
+                    $scope.searchBar.isUnusual = 1;
+                    $scope.searchBar.sendType = 2;
+                }
+
+
                 $scope.dataList = [];
                 $scope.pagination.pageIndex = 1;
                 $scope.pagination.totalCount = 0;

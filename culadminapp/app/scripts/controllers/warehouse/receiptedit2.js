@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('ReceiptEdit2Ctrl', ['$scope', '$location', '$window', 'receiptService', 'plugMessenger', '$timeout',
-        function ($scope, $location, $window, receiptService, plugMessenger, $timeout) {
+        function($scope, $location, $window, receiptService, plugMessenger, $timeout) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -18,9 +18,9 @@ angular.module('culAdminApp')
             $scope.data = null;
 
 
-            $scope.checkReceiveIdentity = function (e) {
+            $scope.checkReceiveIdentity = function(e) {
                 console.log('2345')
-                // $scope.myKeyup = function (e) {
+                    // $scope.myKeyup = function (e) {
                 console.log(2)
                 var keycode = window.event ? e.keyCode : e.which;
                 if (keycode == 13) {
@@ -30,7 +30,7 @@ angular.module('culAdminApp')
                         return;
                     }
                     $scope.flag = '0'
-                    receiptService.checkReceiveIdentity($scope.data).then(function (result) {
+                    receiptService.checkReceiveIdentity($scope.data).then(function(result) {
                         if (result.data.code == '999') {
                             document.getElementById("receiveIdentity").focus()
                             plugMessenger.error(result.data.msg);
@@ -48,10 +48,10 @@ angular.module('culAdminApp')
 
 
 
-            $scope.myKeyup = function (e, item) {
+            $scope.myKeyup = function(e, item) {
                 console.log(item);
 
-                $scope.myKeyup = function (e) {
+                $scope.myKeyup = function(e) {
                     var keycode = window.event ? e.keyCode : e.which;
                     if (keycode == 13) {
                         $scope.btnSave(item);
@@ -72,7 +72,7 @@ angular.module('culAdminApp')
 
 
 
-            $scope.$on('$viewContentLoaded', function () {
+            $scope.$on('$viewContentLoaded', function() {
                 // var element = $window.document.getElementById('weight');
                 // if (element)
                 //     element.focus();
@@ -102,7 +102,9 @@ angular.module('culAdminApp')
             }
 
             var _timeout = null;
-            $scope.checkReceiptNumber = function (e) {
+
+
+            $scope.checkReceiptNumber = function(e) {
                 var keycode = window.event ? e.keyCode : e.which;
                 if (keycode == 13) {
                     $scope.tempInboundStatus = -1;
@@ -112,10 +114,10 @@ angular.module('culAdminApp')
                         return;
                     }
                     if (!!_timeout) clearTimeout(_timeout);
-                    _timeout = setTimeout(function () {
-                        $scope.$apply(function () {
+                    _timeout = setTimeout(function() {
+                        $scope.$apply(function() {
                             if (!!$scope.tempReceiptNumber) {
-                                receiptService.getDetail($scope.tempReceiptNumber, function (result) {
+                                receiptService.getDetail($scope.tempReceiptNumber, function(result) {
                                     console.log(result);
                                     $scope.data = null;
                                     if (!result.message) {
@@ -141,29 +143,64 @@ angular.module('culAdminApp')
 
             }
 
+            $scope.checkReceiptNumber2 = function() {
+                $scope.tempInboundStatus = -1;
+                if ($scope.tempReceiptNumber && $scope.tempReceipt != 'ASN') {
+                    $location.search({ "trackingNumber": $scope.tempReceiptNumber, "inboundStatus": $scope.tempInboundStatus });
+                    $location.path("/warehouse/receiptNoASN");
+                    return;
+                }
+                if (!!_timeout) clearTimeout(_timeout);
+                _timeout = setTimeout(function() {
+                    $scope.$apply(function() {
+                        if (!!$scope.tempReceiptNumber) {
+                            receiptService.getDetail($scope.tempReceiptNumber, function(result) {
+                                console.log(result);
+                                $scope.data = null;
+                                if (!result.message) {
+                                    $scope.data = result;
+                                }
+                                if ($scope.data.sendType == '2', $scope.data.isTransfer == '1') {
+                                    if ($scope.data.packageWeight) {
+                                        $scope.data.items[0].weight = $scope.data.packageWeight
+                                    }
+
+                                }
+                                var element = $window.document.getElementById('weight');
+                                if (element)
+                                    element.focus();
+                                $scope.tempReceiptNumber = "";
+                            });
+                        } else {
+                            $scope.tempReceiptNumber = "";
+                        }
+                    })
+                }, 1000);
+            }
 
 
-            $scope.btnSave = function (item) {
+
+            $scope.btnSave = function(item) {
                 $scope.data.isUnusual = 0;
-                $("input[name='pro']:checked").each(function (index, e) {
+                $("input[name='pro']:checked").each(function(index, e) {
                     $scope.isStaffFlag = $(this).attr("value");
                 });
                 if ($scope.isStaffFlag == 'true') {
                     $scope.data.isUnusual = 1;
                 }
-                var _callback = function (result) {
-                    if (!result.message) {
-                        plugMessenger.success("操作成功");
-                        if (item) {
-                            $scope.btnPrint(item)
-                        } else {
-                            $scope.data = null;
+                var _callback = function(result) {
+                        if (!result.message) {
+                            plugMessenger.success("操作成功");
+                            if (item) {
+                                $scope.btnPrint(item)
+                            } else {
+                                $scope.data = null;
+                            }
+
+
                         }
-
-
                     }
-                }
-                // return;
+                    // return;
                 switch ($scope.data.sendType) {
                     case 1: //寄送库存
                         receiptService.saveForOffline({
@@ -182,12 +219,12 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnException = function () {
+            $scope.btnException = function() {
                 $location.search({ "receiptNumber": $scope.data.receiptNumber });
                 $location.path("warehouse/receiptexceptionedit");
             }
 
-            $scope.btnPrev = function () {
+            $scope.btnPrev = function() {
                 $window.history.back();
             }
 
@@ -200,7 +237,7 @@ angular.module('culAdminApp')
                 content: "请扫描收货单据编号。<br/>海淘包裹请扫描包裹上面的快递跟踪编号，<br/>比如UPS是1z开头的14-18位条码。<br/>VIP客户寄送库存单据请扫描ASN开头的条码。"
             });
 
-            $scope.btnOpenDetail = function (item, type) {
+            $scope.btnOpenDetail = function(item, type) {
                 switch (type) {
                     case "customerdetail":
                         $location.search({ customerNumber: item.customerNumber });
@@ -209,11 +246,12 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnPrint = function (item) {
+            $scope.btnPrint = function(item) {
                 console.log(item);
                 switch ($scope.data.sendType) {
                     case 1: //寄送库存
-                        $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber }); $scope.data = null;
+                        $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber });
+                        $scope.data = null;
                         break;
                     case 2: //海淘包裹
                         // $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: item.receiptNumber, number: 1 });
@@ -224,7 +262,7 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnNoASN = function () {
+            $scope.btnNoASN = function() {
                 $location.path("/warehouse/receiptNoASN");
             }
         }

@@ -61,7 +61,8 @@
         <div style="text-align:center; ">
             <h3>身份证打印</h3>
         </div>
-        <div style="height:960px;" ng-repeat="data in dataList track by $index">
+        <!--track by $index-->
+        <div style="height:900px;" ng-repeat="data in dataList">
             <div>
                 <div>收货人姓名：{{data.receivePersonName}}</div>
                 <div>身份证号：{{data.idCard}}</div>
@@ -78,6 +79,24 @@
 
 
         </div>
+
+        <!--<div ng-if="flag==1">
+            <div>
+                <div>收货人姓名1：{{data.receivePersonName}}</div>
+                <div>身份证号：{{data.idCard}}</div>
+                <div>
+                    <div class="image">
+                        <img src="http://cul-test.oss-cn-shenzhen.aliyuncs.com/{{data.idCardBack}}" />
+                    </div>
+                    <div class="image">
+                        <img src="http://cul-test.oss-cn-shenzhen.aliyuncs.com/{{data.idCardFront}}" />
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>-->
     </div>
 
 

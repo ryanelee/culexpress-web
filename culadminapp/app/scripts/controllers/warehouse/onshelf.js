@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('WarehouseOnShelfCtrl', ['$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService',
-        function ($window, $rootScope, $scope, $location, warehouseService, shelfService) {
+        function($window, $rootScope, $scope, $location, warehouseService, shelfService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -22,7 +22,7 @@ angular.module('culAdminApp')
 
             $scope.isUnusual = $location.search().isUnusual;
 
-            $scope.isExpecial = function () {
+            $scope.isExpecial = function() {
                 if ($scope.isUnusual == 1) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
                     if (staffFlag != 'D') {
@@ -39,7 +39,7 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.getWarehouseName = function (warehouseNumber) {
+            $scope.getWarehouseName = function(warehouseNumber) {
                 var warehouse = _.findWhere($scope.warehouseList, { warehouseNumber: warehouseNumber });
                 return !!warehouse ? warehouse.warehouseName : "";
             }
@@ -66,15 +66,15 @@ angular.module('culAdminApp')
                 pageIndex: 1,
                 totalCount: 0
             }
-             $scope.sendTypes = [
-                      { key: "",value:"全部"},
-                      { key: "1",value:"寄送库存"},
-                      { key: "2",value:"海淘包裹"},
-                      { key: "3",value:"异常包裹"},
-                      { key: "4",value:"员工包裹"},
-                    ]
+            $scope.sendTypes = [
+                { key: "", value: "全部" },
+                { key: "1", value: "寄送库存" },
+                { key: "2", value: "海淘包裹" },
+                { key: "3", value: "异常包裹" },
+                { key: "4", value: "员工包裹" },
+            ]
 
-            warehouseService.getWarehouse(function (result) {
+            warehouseService.getWarehouse(function(result) {
                 if (result.length == 1) {
                     $scope.searchBar.warehouseList = result;
                     $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
@@ -84,7 +84,7 @@ angular.module('culAdminApp')
                 $scope.warehouseList = result;
             });
 
-            var _filterOptions = function () {
+            var _filterOptions = function() {
                 var _options = {
                     "pageInfo": $scope.pagination,
                     "inboundDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
@@ -104,9 +104,9 @@ angular.module('culAdminApp')
                     _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
                 }
                 if (!!$scope.searchBar.keywords) {
-                    if ($scope.searchBar.keywordType == "customerNumber" 
-                        && $scope.customer_ids != undefined
-                        && parseInt($scope.customer_ids) !== 0 &&
+                    if ($scope.searchBar.keywordType == "customerNumber" &&
+                        $scope.customer_ids != undefined &&
+                        parseInt($scope.customer_ids) !== 0 &&
                         !$scope.customer_ids.split(",").includes($scope.searchBar.keywords)) {
                         $scope.searchBar.keywords = "没有查看该客户的权限,请联系统管理员";
                     }
@@ -116,13 +116,13 @@ angular.module('culAdminApp')
                 return angular.copy(_options);
             }
 
-            $scope.getData = function () {
-                shelfService.getTransportList(_filterOptions(), function (result) {
+            $scope.getData = function() {
+                shelfService.getTransportList(_filterOptions(), function(result) {
                     var __data = result.data;
-                    var _data = [];                 
+                    var _data = [];
 
                     if (!$scope.searchBar.isUnusual && $scope.searchBar.sendType == 2) {
-                        __data.map(function (e) {
+                        __data.map(function(e) {
                             if (e.isUnusual != 1 && e.isUnusual != 2) {
                                 _data.push(e);
                             }
@@ -130,10 +130,10 @@ angular.module('culAdminApp')
                     } else {
                         _data = __data;
                     }
-                   
-                    _data.forEach(function (e) {
+
+                    _data.forEach(function(e) {
                         if (e.sendType == 2 && e.isUnusual == 1) {
-                              e._sendType = "员工包裹"
+                            e._sendType = "员工包裹"
 
                         }
                         if (e.sendType == 2 && e.isUnusual == 2) {
@@ -141,13 +141,13 @@ angular.module('culAdminApp')
                         }
                     })
                     if ($scope.searchBar.isUnusual == 2) {
-                        $scope.searchBar.sendType = $scope.sendTypes[3].key;                       
+                        $scope.searchBar.sendType = $scope.sendTypes[3].key;
                     }
-                      if ($scope.searchBar.isUnusual == 1) {
-                        $scope.searchBar.sendType =  $scope.sendTypes[4].key;
+                    if ($scope.searchBar.isUnusual == 1) {
+                        $scope.searchBar.sendType = $scope.sendTypes[4].key;
                     }
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
-                        _data = _data.filter(function (x) {
+                        _data = _data.filter(function(x) {
                             return $scope.customer_ids.split(",").includes(x.customerNumber);
                         });
                     }
@@ -160,7 +160,7 @@ angular.module('culAdminApp')
             }
             $scope.getData();
 
-            $scope.btnSearch = function () {  
+            $scope.btnSearch = function() {
                 $scope.searchBar.isUnusual = 0
                 if ($scope.searchBar.sendType == 3) {
                     $scope.searchBar.isUnusual = 2;
@@ -177,7 +177,7 @@ angular.module('culAdminApp')
                 $scope.getData();
             }
 
-            $scope.btnAction = function (type, item) {
+            $scope.btnAction = function(type, item) {
                 switch (type) {
                     case "receipt":
                         if (!!item) $location.search({ receiptNumber: item.receiptNumber });
@@ -191,13 +191,13 @@ angular.module('culAdminApp')
                         $location.path("/warehouse/shelf");
                         break;
                     case "onshelf":
-                        if (!!item && item.sendType == 2) $location.search({ receiptNumber: item.receiptNumber, isUnusual: item.isUnusual });                   
-                        $location.path("/warehouse/onshelfdetail");                    
+                        if (!!item && item.sendType == 2) $location.search({ receiptNumber: item.receiptNumber, isUnusual: item.isUnusual });
+                        $location.path("/warehouse/onshelfdetail");
                         break;
                 }
             }
 
-            $scope.btnPrint = function (warehouseNumber) {
+            $scope.btnPrint = function(warehouseNumber) {
                 $scope.$broadcast("print-unshelf.action", warehouseNumber);
             }
         }

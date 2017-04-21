@@ -30,6 +30,11 @@ angular.module('culAdminApp')
                     console.log("开始")
                     console.log(data)
                     $scope.dataList = data.data;
+                    // if ($scope.dataList.length == 1) {
+                    //     console.log('这是为什么呢')
+                    //     $scope.falg = 1;
+                    //     $scope.data = $scope.dataList[0]
+                    // }
                     // $scope.idCardBackUrl = images.images.idCardBackUrl;
                     // $scope.idCardFrontUrl = images.images.idCardFrontUrl;
                     _render();
@@ -39,12 +44,8 @@ angular.module('culAdminApp')
                     if ($scope.dataList.length == $scope.dataList.length) {
                         console.log($scope.dataList);
                         $timeout(function() {
-                            $.each($element.find("div[trackingNumber]"), function(index, el) {
-                                $(el).barcode($(el).attr("trackingNumber"), "code128", barCodeSettings);
-                            });
-
                             $element.children().jqprint();
-                        }, 500);
+                        }, 1000);
                     }
                 }
             }
