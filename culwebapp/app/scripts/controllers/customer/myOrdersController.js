@@ -583,6 +583,7 @@ var app = angular
             }
 
             $scope.payOrder = function(orderItem) {
+                console.log(orderItem)
                 if (!orderItem) return false;
                 if (!orderItem.totalCount) {
                     alertify.alert('提示', '订单还未计价,不能支付!');
@@ -590,7 +591,8 @@ var app = angular
                 }
                  //运费不足状态下支付，扣除所欠费用即可
                 if (orderItem.orderStatus == "Arrears") {
-                    orderItem.totalCount = orderItem.shippingFeeAdjust
+                    orderItem.totalCount = Math.abs(orderItem.shippingFeeAdjust)
+                    // orderItem.totalCount = orderItem.shippingFee
                 }
 
                 if ($scope.$root.currentUser.accountBalance < orderItem.totalCount) {
