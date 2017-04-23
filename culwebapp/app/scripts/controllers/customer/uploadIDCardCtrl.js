@@ -2,13 +2,22 @@
 
 angular
     .module('culwebApp')
-    .controller('uploadIDCardCtrl', ['$rootScope', '$scope', 'AuthService', '$state', 'Customer', "$http",
-        function($rootScope, $scope, AuthService, $state, Customer, $http) {
+    .controller('uploadIDCardCtrl', ['$rootScope', '$scope', 'AuthService', '$state', 'Customer', "$http", "$window",
+        function($rootScope, $scope, AuthService, $state, Customer, $http, $window) {
+            if ($window.sessionStorage.flag != 1) {
+                $window.sessionStorage.flag = 1;
+                $window.location.reload();
+            } else {
+                $window.sessionStorage.flag++;
+            }
+
             $scope.data = {};
             $scope.data.urls = [];
             $scope.data.idForever = 0;
             $scope.customNumber = ""
             $scope.flag = '0'
+
+
 
             $scope.checkNumber = function() {
                 if (!$scope.data.trackingNumber) {

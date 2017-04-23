@@ -75,6 +75,7 @@ angular.module('culAdminApp')
             ]
 
             warehouseService.getWarehouse(function(result) {
+                // console.log()
                 if (result.length == 1) {
                     $scope.searchBar.warehouseList = result;
                     $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
@@ -117,48 +118,48 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function() {
-                shelfService.getTransportList(_filterOptions(), function(result) {
-                    var __data = result.data;
-                    var _data = [];
+                    shelfService.getTransportList(_filterOptions(), function(result) {
+                        var __data = result.data;
+                        var _data = [];
 
-                    if (!$scope.searchBar.isUnusual && $scope.searchBar.sendType == 2) {
-                        __data.map(function(e) {
-                            if (e.isUnusual != 1 && e.isUnusual != 2) {
-                                _data.push(e);
+                        if (!$scope.searchBar.isUnusual && $scope.searchBar.sendType == 2) {
+                            __data.map(function(e) {
+                                if (e.isUnusual != 1 && e.isUnusual != 2) {
+                                    _data.push(e);
+                                }
+                            })
+                        } else {
+                            _data = __data;
+                        }
+
+                        _data.forEach(function(e) {
+                            if (e.sendType == 2 && e.isUnusual == 1) {
+                                e._sendType = "员工包裹"
+
+                            }
+                            if (e.sendType == 2 && e.isUnusual == 2) {
+                                e._sendType = "异常包裹"
                             }
                         })
-                    } else {
-                        _data = __data;
-                    }
-
-                    _data.forEach(function(e) {
-                        if (e.sendType == 2 && e.isUnusual == 1) {
-                            e._sendType = "员工包裹"
-
+                        if ($scope.searchBar.isUnusual == 2) {
+                            $scope.searchBar.sendType = $scope.sendTypes[3].key;
                         }
-                        if (e.sendType == 2 && e.isUnusual == 2) {
-                            e._sendType = "异常包裹"
+                        if ($scope.searchBar.isUnusual == 1) {
+                            $scope.searchBar.sendType = $scope.sendTypes[4].key;
                         }
-                    })
-                    if ($scope.searchBar.isUnusual == 2) {
-                        $scope.searchBar.sendType = $scope.sendTypes[3].key;
-                    }
-                    if ($scope.searchBar.isUnusual == 1) {
-                        $scope.searchBar.sendType = $scope.sendTypes[4].key;
-                    }
-                    if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
-                        _data = _data.filter(function(x) {
-                            return $scope.customer_ids.split(",").includes(x.customerNumber);
-                        });
-                    }
+                        if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
+                            _data = _data.filter(function(x) {
+                                return $scope.customer_ids.split(",").includes(x.customerNumber);
+                            });
+                        }
 
-                    $scope.dataList = _data;
+                        $scope.dataList = _data;
 
-                    $scope.pagination.totalCount = result.pageInfo.totalCount;
-                    $rootScope.$emit("changeMenu");
-                });
-            }
-            // $scope.getData();
+                        $scope.pagination.totalCount = result.pageInfo.totalCount;
+                        $rootScope.$emit("changeMenu");
+                    });
+                }
+                // $scope.getData();
 
             $scope.btnSearch = function() {
                 $scope.searchBar.isUnusual = 0

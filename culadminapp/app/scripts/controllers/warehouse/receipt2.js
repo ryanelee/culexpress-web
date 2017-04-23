@@ -96,6 +96,16 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function() {
+
+                $scope.searchBar.isUnusual = 0
+                if ($scope.searchBar.sendType == 3) {
+                    $scope.searchBar.isUnusual = 2;
+                    $scope.searchBar.sendType = 2;
+                }
+                if ($scope.searchBar.sendType == 4) {
+                    $scope.searchBar.isUnusual = 1;
+                    $scope.searchBar.sendType = 2;
+                }
                 shelfService.getTransportList(_filterOptions(), function(result) {
                     console.log(result);
                     var _data = result.data;
@@ -142,15 +152,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSearch = function() {
-                $scope.searchBar.isUnusual = 0
-                if ($scope.searchBar.sendType == 3) {
-                    $scope.searchBar.isUnusual = 2;
-                    $scope.searchBar.sendType = 2;
-                }
-                if ($scope.searchBar.sendType == 4) {
-                    $scope.searchBar.isUnusual = 1;
-                    $scope.searchBar.sendType = 2;
-                }
+
 
 
                 $scope.dataList = [];
