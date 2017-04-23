@@ -54,7 +54,7 @@
                     <label>增值服务：</label> <span>{{data.valueAddFee|currency:'¥'}}</span>
                 </div>
                 <div style="color:red;">
-                    <label>积分抵扣：</label> <span>{{(data.usedPoint||0) * -1 | currency:'￥'}}</span>
+                    <label>积分抵扣：</label> <span>{{(data.usedPoint||0)  | currency:'￥'}}</span>
                 </div>
                 <div>
                     <strong><label><strong>运费总计：</strong></label> <span>{{data.totalCount|currency:'¥'}}</span></strong>

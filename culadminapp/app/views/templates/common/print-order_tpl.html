@@ -181,7 +181,7 @@
                         <td class="title">合计</td>
                         <td>{{data._shippingFeeTotal || 0}}</td>
                         <td class="title">小费</td>
-                        <td>{{data.tip || 0}}</td>
+                        <td>{{data.tip | number:2}}</td>
                     </tr>
                     <tr>
                         <td class="title">备注</td>
@@ -210,7 +210,7 @@
                             <td width="8%">{{item.packageWeight || 0}}</td>
                             <td width="10%">{{item.cartonCount + '-1' || 0}}</td>
                             <td width="15%">{{item.payDate | date:'MM/dd/yyyy'}}</td>
-                            <td width="6%">{{item.tip || 0}}</td>
+                            <td width="6%">{{item.tip | number:2}}</td>
                         </tr>
                     </table>
                 </table>
