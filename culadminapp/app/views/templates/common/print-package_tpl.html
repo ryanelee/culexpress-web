@@ -61,7 +61,7 @@
                             <tr ng-repeat="item in data.orderItems">
                                 <td align="center">{{$index + 1}}</td>
                                 <td align="center">{{item.itemBrand}}</td>
-                                <td style="max-width: 300px;">
+                                <td align="center" style="max-width: 300px;">
                                     <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:44px;">
                                         {{item.description}}
                                         {{ !!item.property1 ? " " + item.property1 : "" }}

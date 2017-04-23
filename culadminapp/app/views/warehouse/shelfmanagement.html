@@ -18,6 +18,8 @@
                             <option value="">所有</option>
                             <option value="A">海淘客户</option>
                             <option value="B">大客户</option>
+                            <option value="C">异常包裹</option>
+                            <option value="D">员工包裹</option>
                         </select>
                     </div>
                     <div class="search-col">
@@ -65,6 +67,7 @@
                             <td>
                                 <a href="javascript:void(0)" ng-click="btnAction('detail', item)">查看</a>
                                 <a href="javascript:void(0)" class="role" data-role="62" ng-click="btnPrint(item)">打印架位标签</a>
+                                <a href="javascript:void(0)" ng-click="btnDel(item)">删除</a>
                             </td>
                         </tr>
                     </tbody>
