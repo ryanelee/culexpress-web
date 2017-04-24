@@ -81,6 +81,7 @@ angular.module('culAdminApp')
               console.log(_options);
               faqService.getList(angular.copy(_options), function (result) {
                   $scope.dataList = result.data;
+                  console.log(result.data)
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
                   $rootScope.$emit("changeMenu");
 

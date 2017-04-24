@@ -88,3 +88,27 @@
     </div>
 </div>
 <print-inbound-package></print-inbound-package>
+
+<script>
+   var txtRoleName = document.getElementById("txtRoleName");
+   var txtRoleDescribe = document.getElementById("txtRoleDescribe");
+   var txtpassword = document.getElementById("txtpassword");
+
+    txtRoleName.focus();
+    
+    txtRoleName.onkeydown = function (event) {
+        e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        if (e.keyCode == 13 && txtRoleName.value) {
+            txtRoleDescribe.focus();
+        }
+    }
+
+     txtRoleDescribe.onkeydown = function (event) {
+        e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        if (e.keyCode == 13 && txtRoleDescribe.value) {
+            txtpassword.focus();
+        }
+    }
+</script>

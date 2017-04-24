@@ -70,6 +70,9 @@ angular.module('culAdminApp')
                                         });
                                     });
                                 }
+                                var element = $window.document.getElementById('shelfNumber');
+                                    if (element)
+                                        element.focus();
                                 $scope.tempItemNumber = "";
                             });
 

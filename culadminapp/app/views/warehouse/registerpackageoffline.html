@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">CUL包裹编号：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="tempOutboundPackageNumber" ng-change="checkOutboundPackageNumber()" />
+                        <input type="text" id="tempOutboundPackageNumber" class="form-control" ng-model="tempOutboundPackageNumber" ng-change="checkOutboundPackageNumber()" />
                     </div>
                     <div class="col-sm-1 col-padding-clear">
                         <button id="tip_umipackage" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
@@ -106,3 +106,9 @@
     </div>
 </div>
 <print-flying-express></print-flying-express>
+
+<script>
+     $(function() {
+        var weight = document.getElementById("tempOutboundPackageNumber").focus();
+     })
+</script>

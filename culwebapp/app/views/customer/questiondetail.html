@@ -64,7 +64,8 @@
                         <div class="messages">
                           <div class="msg-item" ng-repeat="replyMessageItem in data.messageLogs">
                             <div class="header-icon">
-                              <img src="../../assets/img/dashbard/icon-user.png" />
+                              <img ng-if="replyMessageItem.operationUserName && replyMessageItem.operationUserName!=currentUser.userName" src="../../assets/img/dashbard/icon-admin.png" />
+                              <img ng-if="replyMessageItem.operationUserName==currentUser.userName || !replyMessageItem.operationUserName" src="../../assets/img/dashbard/icon-user.png" />
                             </div>
                             <div class="b-txt">
                               <h4 class="media-heading">
