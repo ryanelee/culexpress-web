@@ -19,10 +19,17 @@ angular.module('culAdminApp')
             $scope.data = {
                 itemNumber: $location.search().itemNumber || "",
                 originShelfNumber: $location.search().shelfNumber || "",
+                warehouseName: $location.search().warehouseName || "",
                 targetShelfNumber: "",
                 warehouseNumber: "",
                 moveItemCount: ""
             };
+
+
+            // $scope.getWarehouseName = function(warehouseNumber) {
+            //     var warehouse = _.findWhere($scope.warehouseList, { warehouseNumber: warehouseNumber });
+            //     return !!warehouse ? warehouse.warehouseName : "";
+            // }
 
             $scope.warehouseList = [];
             warehouseService.getWarehouse(function(result) {
@@ -44,6 +51,7 @@ angular.module('culAdminApp')
                     originShelfNumber: $scope.data.originShelfNumber,
                     targetShelfNumber: $scope.data.targetShelfNumber,
                     warehouseNumber: $scope.data.warehouseNumber,
+                    warehouseName: $scope.data.warehouseName,
                     moveItemCount: $scope.data.moveItemCount
                 }
                 shelfService.onshelfForMove(data, function(result) {

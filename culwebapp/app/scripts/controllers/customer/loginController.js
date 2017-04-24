@@ -65,6 +65,7 @@ angular
                             } else {
                                 $state.go('customer.myhome');
                             }
+                            $window.location.reload();
                         },
                         function(result) {
                             $scope.showLoginError = true;
