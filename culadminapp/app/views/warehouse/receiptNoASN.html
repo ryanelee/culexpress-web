@@ -113,17 +113,7 @@
     var inboundStatus = document.getElementById("inboundStatus");
 
     trackingNumber.focus();
-    // if (!trackingNumber.value || !receiveIdentity.value) {
-    //     trackingNumber.focus();
-    // } else {
-    //     packageWeight.focus();      
-    // }
-    //  if(inboundStatus.value =1 ) {
-    //     packageWeight.focus();
-    //  }
-    //  else{
-    //      trackingNumber.focus();
-    //  }
+  
     trackingNumber.onkeydown = function (event) {
         e = event ? event : (window.event ? window.event : null);
         // 按下回车键且输入框值非空时  
