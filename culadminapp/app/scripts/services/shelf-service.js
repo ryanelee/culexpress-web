@@ -29,6 +29,12 @@ angular.module('culAdminApp')
                         case "B":
                             item._type = "大客户";
                             break;
+                        case "C":
+                            item._type = "异常包裹";
+                            break;
+                        case "D":
+                            item._type = "员工包裹";
+                            break;
                     }
                 });
                 callback(result);
