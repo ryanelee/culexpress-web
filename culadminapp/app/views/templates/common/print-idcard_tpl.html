@@ -18,20 +18,41 @@
 
     <div id="printTemplate">
         <span class="title"> 身份证打印</span>
-        <div style="height:95%;" ng-repeat="data in dataList track by $index">
-            <div>
-                <div>收货人姓名：{{data.receivePersonName}}</div>
-                <div>身份证号：{{data.idCard}}</div>
+        <div ng-if="dataList.length != 1">
+            <div style="height:900px;" ng-repeat="data in dataList track by $index">
                 <div>
-                    <div class="image">
-                        <img src="http://cul-test.oss-cn-shenzhen.aliyuncs.com/{{data.idCardBack}}" />
-                    </div>
-                    <div class="image">
-                        <img src="http://cul-test.oss-cn-shenzhen.aliyuncs.com/{{data.idCardFront}}" />
-                    </div>
+                    <div>收货人姓名：{{data.receivePersonName}}</div>
+                    <div>身份证号：{{data.idCard}}</div>
+                    <div>
+                        <div class="image">
+                            <img src="{{data.idCardBackUrl}}" />
+                        </div>
+                        <div class="image">
+                            <img src="{{data.idCardFrontUrl}}" />
+                        </div>
 
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
+        <div ng-if="dataList.length == 1">
+            <div style="height:90%" ng-repeat="data in dataList track by $index">
+                <div>
+                    <div>收货人姓名：{{data.receivePersonName}}</div>
+                    <div>身份证号：{{data.idCard}}</div>
+                    <div>
+                        <div class="image">
+                            <img src="{{data.idCardBackUrl}}" />
+                        </div>
+                        <div class="image">
+                            <img src="{{data.idCardFrontUrl}}" />
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>

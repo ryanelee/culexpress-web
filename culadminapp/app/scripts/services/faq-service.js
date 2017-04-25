@@ -19,6 +19,8 @@ angular.module('culAdminApp')
 
         self.getList = function(options, callback) {
             $http.post(cul.apiPath + "/customermessage/list", options).success(function(result) {
+                console.log("数据返回")
+                console.log(result)
                 callback(result);
             });
         }

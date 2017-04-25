@@ -33,9 +33,7 @@
                     </div>
                     <div class="search-col">
                         <label class="search-label">发货仓库：</label>
-                        <select class="form-control search-control"
-                                ng-model="searchBar.warehouseNumber"
-                                ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                        <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
                     </div>
                     <div class="clearfix"></div>
                     <div class="search-col">
@@ -45,18 +43,19 @@
                             <option value="userName">客户ID</option>
                             <option value="orderNumber">订单编号</option>
                             <option value="trackingNumber">包裹单号</option>
+                            <option value="receiveTrackingNumber">入库单号</option>
                             <option value="receiveidentity">客户标示</option>
                             <option value="referenceOrderNumber">客户关联号</option>
                             <option value="cnTrackingNumber">国内物流号</option>
                         </select>
-                        <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
-                        <button type="button"id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                        <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()" />
+                        <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                     </div>
                 </div>
                 <div class="col-sm-12 search-bar" ng-show="selectedListCache.length > 0">
                     <div class="search-col" style="margin-bottom: 0px;">
                         <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>
-                        <button type="button"  class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
+                        <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
                     </div>
                 </div>
             </div>
@@ -91,7 +90,9 @@
                             <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customerNumber}}</a></td>
                             <td style="max-width: 200px;">{{item.referenceOrderNumber}}</td>
                             <td style="max-width: 150px;"><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'trackingNumber')">{{item.trackingNumber}}</a></td>
-                            <td style="max-width: 300px;"><div class="td-row" ng-repeat="ads in item._shipToAddresses">{{ads}}</div></td>
+                            <td style="max-width: 300px;">
+                                <div class="td-row" ng-repeat="ads in item._shipToAddresses">{{ads}}</div>
+                            </td>
                             <td>{{item.actualWeight}}</td>
                             <td>{{item.lastEditDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
                             <td>{{item.lastEditUserName}}</td>
@@ -139,17 +140,8 @@
                         <button style="float:left" id="tip_batchOutbound" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
                     </div>
                     <div class="col-sm-6 text-right pull-right">
-                        <uib-pagination class="pagination pagination-rewrite pull-right"
-                                        boundary-links="true"
-                                        max-size="5"
-                                        total-items="pagination.totalCount"
-                                        items-per-page="pagination.pageSize"
-                                        ng-model="pagination.pageIndex"
-                                        ng-change="getData()"
-                                        previous-text="上一页"
-                                        next-text="下一页"
-                                        first-text="首页"
-                                        last-text="尾页">
+                        <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount" items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页" next-text="下一页"
+                            first-text="首页" last-text="尾页">
                         </uib-pagination>
                         <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
                             <option value="10">10</option>
