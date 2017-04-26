@@ -19,7 +19,7 @@
     <div id="printTemplate">
         <span class="title"> 身份证打印</span>
         <div ng-if="dataList.length != 1">
-            <div style="height:900px;" ng-repeat="data in dataList track by $index">
+            <div style="height:100%;" ng-repeat="data in dataList track by $index">
                 <div>
                     <div>收货人姓名：{{data.receivePersonName}}</div>
                     <div>身份证号：{{data.idCard}}</div>
@@ -30,10 +30,8 @@
                         <div class="image">
                             <img src="{{data.idCardFrontUrl}}" />
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
         <div ng-if="dataList.length == 1">
@@ -48,11 +46,8 @@
                         <div class="image">
                             <img src="{{data.idCardFrontUrl}}" />
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
