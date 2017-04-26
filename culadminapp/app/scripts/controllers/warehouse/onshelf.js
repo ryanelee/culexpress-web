@@ -154,7 +154,7 @@ angular.module('culAdminApp')
                         }
 
                         $scope.dataList = _data;
-
+                        console.log($scope.dataList)
                         $scope.pagination.totalCount = result.pageInfo.totalCount;
                         $rootScope.$emit("changeMenu");
                     });

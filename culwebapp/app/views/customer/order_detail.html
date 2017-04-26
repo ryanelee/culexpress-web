@@ -7,7 +7,11 @@
     <div class="row" style="margin-top: 20px;">
         <div class="col-sm-12">
             <div class="item item-zhi">
-                <h4>订单编号：{{data.orderNumber}}/{{data.shipServiceName}}</h4>
+                <h4><span>订单编号：{{data.orderNumber}}</span>
+                    <small ng-if="data.isFastOrder" title="极速原单">
+                            <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                    </small>
+                    <span>/{{data.shipServiceName}}</span></h4>
             </div>
         </div>
     </div>

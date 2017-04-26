@@ -103,7 +103,12 @@
                             <td>{{item.warehouseName}}</td>
                             <td>{{item._sendType}}</td>
                             <td>{{item.carrierName}}</td>
-                            <td><a href="javascript:void(0)" ng-click="btnAction('inbound', item)">{{item.receiptNumber}}</a></td>
+                            <td>
+                                <a href="javascript:void(0)" ng-click="btnAction('inbound', item)">{{item.receiptNumber}}</a>
+                                <span ng-if="item.isFastOrder == 1" title="极速原箱">
+                                    <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                                </span>
+                        </td>
                             <td ng-mouseenter="show=true" ng-mouseleave="show=false">
                                 <div class='requirement_css'>
                                     <span class="m-l">{{item.packageDescription1}}<span ng-show="item.packageDescriptionFlag">...</span></span>
