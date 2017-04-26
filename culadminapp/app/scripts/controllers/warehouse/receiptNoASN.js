@@ -70,7 +70,7 @@ angular.module('culAdminApp')
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
                             $scope.tpl_status.isExist = true;
                             $scope.tpl_status.isExist_p = true;
-                            console.log('2345');
+                            // console.log('2345');
                             console.log($scope.data.packageWeight);
                             if ($scope.data.trackingNumber && $scope.data.inboundStatus < 3) {
                                 // $window.document.getElementById("packageWeight").focus();

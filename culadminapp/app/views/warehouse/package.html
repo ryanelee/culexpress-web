@@ -85,7 +85,12 @@
                         <tr ng-repeat="item in dataList">
                             <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
                             <td>{{item.rownumber}}</td>
-                            <td style="max-width: 200px;"><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a></td>
+                            <td style="max-width: 200px;">
+                                <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
+                                <span ng-if="item.isFastOrder == 1" title="极速原箱">
+                                    <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                                </span>
+                            </td>
                             <!--<td>{{item.orderType == 0 ? '线下订单':'线上订单'}}</td>-->
                             <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customerNumber}}</a></td>
                             <td style="max-width: 200px;">{{item.referenceOrderNumber}}</td>

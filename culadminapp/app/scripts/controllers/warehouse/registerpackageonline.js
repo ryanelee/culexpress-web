@@ -36,12 +36,20 @@ angular.module('culAdminApp')
                                 if (!!result && !!result.data && result.data.length > 0) {
                                     if (!$scope.data) {
                                         $scope.data = result.data[0];
+                                        console.log($scope.data);
                                     }
                                     var _checked = false;
                                     $.each($scope.data.inboundPackages, function(index, item) {
                                         if (!item.checked) {
                                             item.checked = item.trackingNumber == $scope.tempInboundPackageNumber;
                                             _checked = true;
+                                            // $each($scope.data.outboundPackages, function(i, t) {
+                                            //     t.actualWeight = item.packageWeight
+                                            // })
+                                        }
+                                         $scope.data.outboundPackages[0].actualWeight = 0;
+                                        if (item.checked) {
+                                            $scope.data.outboundPackages[0].actualWeight += item.packageWeight;
                                         }
                                     });
 
