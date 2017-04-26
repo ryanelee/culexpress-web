@@ -211,7 +211,7 @@ angular.module('culAdminApp')
                 var _callback = function(result) {
                     if (!result.message) {
                         $scope.$broadcast("print-inboundPackage.action", trackingNumber);
-                        $location.path('/warehouse/receiptedit2');
+                        // $location.path('/warehouse/receiptedit2');
                         // $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: trackingNumber, number: 1 });
                         $scope.data = null;
                     } else {
@@ -286,7 +286,7 @@ angular.module('culAdminApp')
                         plugMessenger.success("操作成功");
                         $scope.$broadcast("print-inboundPackage.action", $scope.data.trackingNumber);
                         $scope.data = null;
-                        $location.path('/warehouse/receiptedit2');
+                        // $location.path('/warehouse/receiptedit2');
                         // if (item) {
                         // } else {
                         //     // $scope.data = null;
