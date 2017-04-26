@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('ReceiptNoASNCtrl', ['$scope', '$location', '$window', 'receiptService', 'warehouseService', 'plugMessenger', '$timeout',
-        function ($scope, $location, $window, receiptService, warehouseService, plugMessenger, $timeout) {
+        function($scope, $location, $window, receiptService, warehouseService, plugMessenger, $timeout) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -47,11 +47,12 @@ angular.module('culAdminApp')
                 isExist: false
             }
 
-            $scope.getPackageDetail = function () {
+            $scope.getPackageDetail = function() {
                 console.log('1234564324543')
                 if (!!$scope.data.trackingNumber && $scope._trackingNumber != $scope.data.trackingNumber) {
-                    warehouseService.getInboundPackageDetail($scope.data.trackingNumber, function (result) {
+                    warehouseService.getInboundPackageDetail($scope.data.trackingNumber, function(result) {
                         if (result == null) {
+                            trackingNumber.focus();
                             //新增
                             console.log('1234567ui')
                             var _newNumber = angular.copy($scope.data.trackingNumber);
@@ -72,7 +73,7 @@ angular.module('culAdminApp')
                             // console.log('2345');
                             console.log($scope.data.packageWeight);
                             if ($scope.data.trackingNumber && $scope.data.inboundStatus < 3) {
-                                $window.document.getElementById("packageWeight").focus();
+                                // $window.document.getElementById("packageWeight").focus();
                                 packageWeight.focus();
                                 $scope.tpl_status.isExist_p = false;
 
@@ -90,11 +91,11 @@ angular.module('culAdminApp')
             //     }
             // }
 
-            warehouseService.getWarehouse(function (result) {
+            warehouseService.getWarehouse(function(result) {
                 $scope.tpl_status.warehouseList = result;
             });
 
-            warehouseService.getWarehouse(function (result) {
+            warehouseService.getWarehouse(function(result) {
                 for (var i = 0; i < result.length; i++) {
                     var detail = {}
                     $scope.data.warehouseNumber = result[0].warehouseNumber
@@ -106,9 +107,9 @@ angular.module('culAdminApp')
                 }
             });
 
-            $scope.checkReceiveIdentity = function (e) {
+            $scope.checkReceiveIdentity = function(e) {
                 console.log('2345')
-                // $scope.myKeyup = function (e) {
+                    // $scope.myKeyup = function (e) {
                 console.log(2)
                 var keycode = window.event ? e.keyCode : e.which;
                 if (keycode == 13) {
@@ -118,7 +119,7 @@ angular.module('culAdminApp')
                         return;
                     }
                     $scope.flag = '0'
-                    receiptService.checkReceiveIdentity($scope.data).then(function (result) {
+                    receiptService.checkReceiveIdentity($scope.data).then(function(result) {
                         if (result.data.code == '999') {
                             document.getElementById("receiveIdentity").focus()
                             plugMessenger.error(result.data.msg);
@@ -135,12 +136,12 @@ angular.module('culAdminApp')
             };
 
 
-             $scope.myKeyup = function (e) {
+            $scope.myKeyup = function(e) {
                 // $scope.myKeyup = function (e) {
-                    var keycode = window.event ? e.keyCode : e.which;
-                    if (keycode == 13) {
-                        $scope.register();
-                    }
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                    $scope.register();
+                }
                 // };
             };
 
@@ -167,24 +168,24 @@ angular.module('culAdminApp')
             // }
 
 
-            $scope.checkCustomerNumber = function () {
+            $scope.checkCustomerNumber = function() {
                 if (!$scope.data.customerNumber) {
                     plugMessenger.error("客户编号不能为空");
                     // $scope.customerNumberFocus = true;
-                    $window.document.getElementById("customerNumber").focus();  
+                    $window.document.getElementById("customerNumber").focus();
                     return;
                 }
                 if ($scope.data.tempCustomerNumber != $scope.data.customerNumber) {
                     plugMessenger.error("客户标示和客户编号不匹配，请重新输入");
                     $scope.data.customerNumber = "";
-                    $window.document.getElementById("customerNumber").focus();  
+                    $window.document.getElementById("customerNumber").focus();
                     // $scope.customerNumberFocus = true;
                     return;
                 }
             }
 
-            $scope.checkInboundPackage = function () {
-                receiptService.checkInboundPackage($scope.data).then(function (result) {
+            $scope.checkInboundPackage = function() {
+                receiptService.checkInboundPackage($scope.data).then(function(result) {
                     $scope.flag = '0'
                     if (result.data.code == '999') {
                         plugMessenger.error(result.data.msg);
@@ -198,29 +199,30 @@ angular.module('culAdminApp')
                 })
             }
 
-            $scope.inboundpackage = function () {
-                warehouseService.inboundpackage($scope.data).then(function (result) {
+            $scope.inboundpackage = function() {
+                warehouseService.inboundpackage($scope.data).then(function(result) {
                     if (result.status == 200) {
                         $scope.btnSave($scope.data.trackingNumber);
                     }
                 })
             }
 
-            $scope.btnSave = function (trackingNumber) {
-                var _callback = function (result) {
+            $scope.btnSave = function(trackingNumber) {
+                var _callback = function(result) {
                     if (!result.message) {
                         $scope.$broadcast("print-inboundPackage.action", trackingNumber);
-
+                        $location.path('/warehouse/receiptedit2');
                         // $scope.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: trackingNumber, number: 1 });
                         $scope.data = null;
                     } else {
                         plugMessenger.success("货物预报成功，入库失败，请到收货仓库入库");
+
                     }
                 }
                 receiptService.saveForOnline($scope.data, _callback);
             }
 
-            $scope.register = function () {
+            $scope.register = function() {
                 if ($scope.tpl_status.isExist) {
                     $scope.updateSave();
                 } else {
@@ -228,43 +230,43 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnSaveAndPrint = function () {
-                if ($scope.isUnusual) {
-                    $scope.data.isUnusual = $scope.isUnusual;
+            $scope.btnSaveAndPrint = function() {
+                    if ($scope.isUnusual) {
+                        $scope.data.isUnusual = $scope.isUnusual;
+                    }
+                    // $scope.data.isUnusual = 0;
+                    // $("input[name='pro']:checked").each(function (index, e) {
+                    //     $scope.isStaffFlag = $(this).attr("value");
+                    // });
+                    if ($scope.isStaffFlag == 'true') {
+                        $scope.data.isUnusual = 1;
+                    }
+                    if (!$scope.data.receiveIdentity ||
+                        !$scope.data.customerNumber ||
+                        !$scope.data.trackingNumber ||
+                        !$scope.data.warehouseNumber ||
+                        !$scope.data.packageWeight
+                    ) {
+                        plugMessenger.error("请填写所有必填项");
+                        return;
+                    } else {
+                        $scope.data.weight = $scope.data.packageWeight
+                        $scope.data.receiptNumber = $scope.data.trackingNumber
+                        $scope.inboundpackage()
+                    }
                 }
-                // $scope.data.isUnusual = 0;
-                // $("input[name='pro']:checked").each(function (index, e) {
-                //     $scope.isStaffFlag = $(this).attr("value");
-                // });
-                if ($scope.isStaffFlag == 'true') {
-                    $scope.data.isUnusual = 1;
-                }
-                if (!$scope.data.receiveIdentity ||
-                    !$scope.data.customerNumber ||
-                    !$scope.data.trackingNumber ||
-                    !$scope.data.warehouseNumber ||
-                    !$scope.data.packageWeight
-                ) {
-                    plugMessenger.error("请填写所有必填项");
-                    return;
-                } else {
-                    $scope.data.weight = $scope.data.packageWeight
-                    $scope.data.receiptNumber = $scope.data.trackingNumber
-                    $scope.inboundpackage()
-                }
-            }
-            // $scope.btnPrint = function (item) {
-            //     $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item });
-            // }
+                // $scope.btnPrint = function (item) {
+                //     $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item });
+                // }
 
-            $scope.btnPrev = function () {
+            $scope.btnPrev = function() {
                 $location.path('/warehouse/receipt2')
             }
-            $scope.print = function () {
+            $scope.print = function() {
                 $scope.$broadcast("print-inboundPackage.action", $scope.data.trackingNumber);
             }
 
-            $scope.updateSave = function (item) {
+            $scope.updateSave = function(item) {
                 if (!$scope.data.packageWeight) {
                     plugMessenger.error("必须填写重量");
                     return;
@@ -279,11 +281,12 @@ angular.module('culAdminApp')
                 // if ($scope.isStaffFlag == 'true') {
                 //     $scope.data.isUnusual = 1;
                 // }
-                var _callback = function (result) {
+                var _callback = function(result) {
                     if (!result.message) {
                         plugMessenger.success("操作成功");
                         $scope.$broadcast("print-inboundPackage.action", $scope.data.trackingNumber);
                         $scope.data = null;
+                        $location.path('/warehouse/receiptedit2');
                         // if (item) {
                         // } else {
                         //     // $scope.data = null;
@@ -303,7 +306,7 @@ angular.module('culAdminApp')
                 receiptService.saveForOnline($scope.options, _callback);
             }
 
-            $scope.btnException = function () {
+            $scope.btnException = function() {
                 $location.search({ "receiptNumber": $scope.data.trackingNumber });
                 $location.path("warehouse/receiptexceptionedit");
             }

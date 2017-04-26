@@ -18,8 +18,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">收货仓库：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <select class="form-control" id="warehouseNumber" ng-model="data.warehouseNumber" ng-disabled="tpl_status.isExist == true"
-                        ng-options="item.key as item.value for item in warehouseList">
+                    <select class="form-control" id="warehouseNumber" ng-model="data.warehouseNumber" ng-disabled="tpl_status.isExist == true" ng-options="item.key as item.value for item in warehouseList">
                     </select>
                 </div>
 
@@ -41,16 +40,14 @@
             <div class="form-group">
                 <label class="col-sm-2  text-right">客户标示：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <input type="text" class="form-control" ng-keyup="checkReceiveIdentity($event)" placeholder="客户标示" id='receiveIdentity' ng-model="data.receiveIdentity"
-                        ng-disabled="tpl_status.isExist == true">
+                    <input type="text" class="form-control" ng-keyup="checkReceiveIdentity($event)" placeholder="客户标示" id='receiveIdentity' ng-model="data.receiveIdentity" ng-disabled="tpl_status.isExist == true">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2  text-right">客户编号：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <input focus type="text" placeholder="客户编号" class="form-control" ng-blur="checkCustomerNumber()" ng-model="data.customerNumber"
-                        id='customerNumber'  ng-disabled="tpl_status.isExist == true">
+                    <input focus type="text" placeholder="客户编号" class="form-control" ng-blur="checkCustomerNumber()" ng-model="data.customerNumber" id='customerNumber' ng-disabled="tpl_status.isExist == true">
                 </div>
             </div>
             <div class="form-group">
@@ -68,8 +65,7 @@
             <div class="form-group">
                 <label class="col-sm-2  text-right">包裹重量：<span class="required-indicator" style="color:red">*</span></label>
                 <div class="col-sm-10 text-left">
-                    <input type="number" ng-keyup="myKeyup($event)" id="packageWeight" class="form-control" placeholder="包裹重量" ng-model="data.packageWeight"
-                        ng-disabled="tpl_status.isExist_p == true">
+                    <input type="number" ng-keyup="myKeyup($event)" id="packageWeight" class="form-control" placeholder="包裹重量" ng-model="data.packageWeight" ng-disabled="tpl_status.isExist_p == true">
                 </div>
             </div>
             <!--<div class="form-group" ng-if="data.packageWeight > 0">
@@ -112,55 +108,54 @@
     var customerNumber = document.getElementById("customerNumber");
     var inboundStatus = document.getElementById("inboundStatus");
 
-    trackingNumber.focus();
-  
-    trackingNumber.onkeydown = function (event) {
+
+
+    trackingNumber.onkeydown = function(event) {
         e = event ? event : (window.event ? window.event : null);
         // 按下回车键且输入框值非空时  
         if (e.keyCode == 13 && trackingNumber.value) {
             warehouseNumber.focus();
         }
     }
-    warehouseNumber.onkeydown = function (event) {
+    warehouseNumber.onkeydown = function(event) {
         e = event ? event : (window.event ? window.event : null);
         // 按下回车键且输入框值非空时  
         if (e.keyCode == 13 && warehouseNumber.value) {
             carrierName.focus();
         }
     }
-    carrierName.onkeydown = function (event) {
-        e = event ? event : (window.event ? window.event : null);
-        // 按下回车键且输入框值非空时  
-        if (e.keyCode == 13 && carrierName.value) {
-            receiveIdentity.focus();
+    carrierName.onkeydown = function(event) {
+            e = event ? event : (window.event ? window.event : null);
+            // 按下回车键且输入框值非空时  
+            if (e.keyCode == 13 && carrierName.value) {
+                receiveIdentity.focus();
+            }
         }
-    }
-    // receiveIdentity.onkeydown = function(event) {
-    //     e = event ? event : (window.event ? window.event : null);
-    //     // 按下回车键且输入框值非空时  
-    //     if (e.keyCode == 13 && receiveIdentity.value) {
-    //         customerNumber.focus();
-    //     }
-    // }
-    customerNumber.onkeydown = function (event) {
+        // receiveIdentity.onkeydown = function(event) {
+        //     e = event ? event : (window.event ? window.event : null);
+        //     // 按下回车键且输入框值非空时  
+        //     if (e.keyCode == 13 && receiveIdentity.value) {
+        //         customerNumber.focus();
+        //     }
+        // }
+    customerNumber.onkeydown = function(event) {
         e = event ? event : (window.event ? window.event : null);
         // 按下回车键且输入框值非空时  
         if (e.keyCode == 13 && customerNumber.value) {
             packageDescription.focus();
         }
     }
-    packageDescription.onkeydown = function (event) {
+    packageDescription.onkeydown = function(event) {
         e = event ? event : (window.event ? window.event : null);
         // 按下回车键时
         if (e.keyCode == 13) {
             packageNote.focus();
         }
     }
-    packageNote.onkeydown = function (event) {
+    packageNote.onkeydown = function(event) {
         e = event ? event : (window.event ? window.event : null);
-         if (e.keyCode == 13) {
+        if (e.keyCode == 13) {
             packageWeight.focus();
         }
     }
-
 </script>

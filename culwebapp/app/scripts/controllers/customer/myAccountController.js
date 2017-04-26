@@ -4,6 +4,14 @@ angular
     .module('culwebApp')
     .controller('MyAccountController', ['$scope', '$stateParams', '$filter', 'Customer', '$rootScope', '$state', 'addressSvr', 'SweetAlert', '$location', 'AuthService', '$window',
         function($scope, $stateParams, $filter, Customer, $rootScope, $state, addressSvr, SweetAlert, $location, AuthService, $window) {
+
+            if ($window.sessionStorage.flag_1 != 1) {
+                $window.sessionStorage.flag_1 = 1;
+                $window.location.reload();
+            } else {
+                $window.sessionStorage.flag_1++;
+            }
+
             if (App) {
                 // App.init();
                 if (Masking) Masking.initMasking();
