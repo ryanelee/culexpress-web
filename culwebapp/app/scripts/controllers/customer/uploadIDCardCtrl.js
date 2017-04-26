@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('uploadIDCardCtrl', ['$rootScope', '$scope', 'AuthService', '$state', 'Customer', "$http", "$window",
-        function($rootScope, $scope, AuthService, $state, Customer, $http, $window) {
+    .controller('uploadIDCardCtrl', ['$rootScope', '$location', '$scope', 'AuthService', '$state', 'Customer', "$http", "$window",
+        function($rootScope, $location, $scope, AuthService, $state, Customer, $http, $window) {
             if ($window.sessionStorage.flag != 1) {
                 $window.sessionStorage.flag = 1;
                 $window.location.reload();
@@ -107,7 +107,10 @@ angular
                 } else {
                     $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function(data) {
                         if (data.status == 200) {
-                            alertify.alert('提示', data.data.msg)
+                            alertify.alert('提示', data.data.msg);
+                            if (!$rootScope.isLogined) {
+                                $location.path('/login');
+                            }
                         }
 
                     })
