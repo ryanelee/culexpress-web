@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('WarehouseShelfManagementCtrl', ['$timeout', '$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService',
-        function($timeout, $window, $rootScope, $scope, $location, warehouseService, shelfService) {
+    .controller('WarehouseShelfManagementCtrl', ['$timeout', '$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService', 'plugMessenger',
+        function($timeout, $window, $rootScope, $scope, $location, warehouseService, shelfService, plugMessenger) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -125,6 +125,27 @@ angular.module('culAdminApp')
 
             $scope.btnPrint = function(item) {
                 $scope.$broadcast("print-helper.action", "shelf-management-tag", { shelfNumber: item.shelfNumber });
+            }
+
+            $scope.deleteShelf = function(item) {
+                if (item.itemCount > 0) {
+                    plugMessenger.info("该架位还有包裹，不允许删除");
+                    return;
+                }
+                plugMessenger.confirm("确认删除架位" + item.shelfNumber + "吗?", function(isOK) {
+                    if (isOK) {
+                        shelfService.deleteShelf(item, function(result) {
+                            console.log(result);
+                            if (result.code == '000') {
+                                plugMessenger.success("操作成功");
+                                $scope.getData();
+                            }
+                        })
+
+                    }
+                })
+
+
             }
         }
     ]);

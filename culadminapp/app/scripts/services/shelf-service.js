@@ -13,7 +13,13 @@ angular.module('culAdminApp')
 
         //获取架位
         self.getDetail = function(options, callback) {
-            $http.get(cul.apiPath + "/warehouse/shelf?shelfNumber=" + options.shelfNumber + "&warehouseNumber="+ options.warehouseNumber).success(function(result) {
+                $http.get(cul.apiPath + "/warehouse/shelf?shelfNumber=" + options.shelfNumber + "&warehouseNumber=" + options.warehouseNumber).success(function(result) {
+                    callback(result);
+                })
+            }
+            //删除架位
+        self.deleteShelf = function(item, callback) {
+            $http.post(cul.apiPath + "/warehouse/deleteshelf/", item).success(function(result) {
                 callback(result);
             })
         }
