@@ -58,6 +58,7 @@ angular.module('culAdminApp')
                     if (!result.message) {
                         plugMessenger.success("操作成功");
                         $scope.btnPrev();
+                        
                     }
                 });
             }

@@ -177,7 +177,9 @@ angular.module('culAdminApp')
                         var _callback = function() {
                                 plugMessenger.success("保存成功");
                                 //   $window.history.back();
-                                $location.path('/warehouse/package');
+                                // $location.path('/warehouse/package');
+                                //打包完成后继续跳转到打包界面继续打包操作 
+                                 $location.path('/warehouse/registerpackageonline');
                                 _reset();
                             }
                             //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
