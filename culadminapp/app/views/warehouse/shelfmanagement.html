@@ -13,8 +13,7 @@
                     </div>
                     <div class="search-col">
                         <label class="search-label">架位类型：</label>
-                        <select class="form-control search-control"
-                                ng-model="searchBar.type">
+                        <select class="form-control search-control" ng-model="searchBar.type">
                             <option value="">所有</option>
                             <option value="A">海淘客户</option>
                             <option value="B">大客户</option>
@@ -24,9 +23,7 @@
                     </div>
                     <div class="search-col">
                         <label class="search-label">所在仓库：</label>
-                        <select class="form-control search-control"
-                                ng-model="searchBar.warehouseNumber"
-                                ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                        <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
                     </div>
                     <div class="clearfix"></div>
                     <div class="search-col">
@@ -36,8 +33,8 @@
                             <option value="customerNumber">客户编号</option>
                             <option value="itemNumber">商品编号</option>
                         </select>
-                        <input type="text" id="search"  class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
-                        <button type="button"  id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                        <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()" />
+                        <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                     </div>
                 </div>
             </div>
@@ -67,7 +64,7 @@
                             <td>
                                 <a href="javascript:void(0)" ng-click="btnAction('detail', item)">查看</a>
                                 <a href="javascript:void(0)" class="role" data-role="62" ng-click="btnPrint(item)">打印架位标签</a>
-                                <a href="javascript:void(0)" ng-click="btnDel(item)">删除</a>
+                                <a href="javascript:void(0)" ng-click="deleteShelf(item)">删除</a>
                             </td>
                         </tr>
                     </tbody>
@@ -76,17 +73,8 @@
         </div>
         <div class="row">
             <div class="col-sm-6 text-right pull-right">
-                <uib-pagination class="pagination pagination-rewrite pull-right"
-                                boundary-links="true"
-                                max-size="5"
-                                total-items="pagination.totalCount"
-                                items-per-page="pagination.pageSize"
-                                ng-model="pagination.pageIndex"
-                                ng-change="getData()"
-                                previous-text="上一页"
-                                next-text="下一页"
-                                first-text="首页"
-                                last-text="尾页">
+                <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount" items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页" next-text="下一页"
+                    first-text="首页" last-text="尾页">
                 </uib-pagination>
                 <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
                     <option value="10">10</option>

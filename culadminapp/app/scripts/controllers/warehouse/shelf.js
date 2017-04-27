@@ -72,6 +72,8 @@ angular.module('culAdminApp')
 
             $scope.getData = function() {
                     shelfService.getOnshelfList(_filterOptions(), function(result) {
+                        console.log("result")
+                        console.log(result)
                         var _data = result.data;
                         if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                             _data = _data.filter(function(x) {
