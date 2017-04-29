@@ -1,53 +1,53 @@
 'use strict';
 
 angular.module('culwebApp')
-    .factory('Customer', function ($http) {
+    .factory('Customer', function($http) {
 
         var provinceList = [];
 
         //retrieveUtility(success,error){};
 
         return {
-            getCustomerInfo: function (customerId) {
+            getCustomerInfo: function(customerId) {
                 return $http.get(cul.apiPath + '/customer/' + customerId);
             },
-            updateCustomerProfile: function (customer, success, error) {
-                $http.put(cul.apiPath + '/customer/profile', customer).then(function (data) {
+            updateCustomerProfile: function(customer, success, error) {
+                $http.put(cul.apiPath + '/customer/profile', customer).then(function(data) {
                     success(data);
-                },function(err){
+                }, function(err) {
                     error(err);
                 });
             },
-            updateCustomerPoint: function (customer, success, error) {
-                $http.put(cul.apiPath + '/customer/mypoint', customer).then(function (data) {
+            updateCustomerPoint: function(customer, success, error) {
+                $http.put(cul.apiPath + '/customer/mypoint', customer).then(function(data) {
                     success(data);
                 }).error(error);
             },
-            activateCustomerPoint: function (customer, success, error) {
-                $http.put(cul.apiPath + '/customer/mypoint/activate', customer).then(function (data) {
+            activateCustomerPoint: function(customer, success, error) {
+                $http.put(cul.apiPath + '/customer/mypoint/activate', customer).then(function(data) {
                     success(data);
                 }).error(error);
             },
-            updateCustomerAccountBalance: function (customer, success, error) {
-                $http.put(cul.apiPath + '/customer/accountbalance', customer).then(function (data) {
+            updateCustomerAccountBalance: function(customer, success, error) {
+                $http.put(cul.apiPath + '/customer/accountbalance', customer).then(function(data) {
                     success(data);
                 }).error(error);
             },
             //身份证上传
-            uploadID: function (data, success, error) {
+            uploadID: function(data, success, error) {
                 $http.post(cul.apiPath + '/customer/uploadID', data)
             },
 
 
-            retrieveProvinceList: function (success, error) {
-                $http.get(cul.apiPath + '/province').then(function (data) {
+            retrieveProvinceList: function(success, error) {
+                $http.get(cul.apiPath + '/province').then(function(data) {
                     success(data);
                     provinceList = data;
-                },function(err){
-                  error(err)
+                }, function(err) {
+                    error(err)
                 });
             },
-            changePassword: function (password, newPassword, emailAddress) {
+            changePassword: function(password, newPassword, emailAddress) {
                 var data = {
                     password: password,
                     newPassword: newPassword,
@@ -63,13 +63,13 @@ angular.module('culwebApp')
 
                 return $http.put(cul.apiPath + '/customer/password', bodyData);
             },
-            userPay: function (customerNumber, amount) {
+            userPay: function(customerNumber, amount) {
                 return $http.post(cul.apiPath + '/alipay/create_direct_pay_by_user', {
                     WIDtotal_fee: amount,
                     customerNumber: customerNumber
                 });
             },
-            getFinanceLog: function (index, customerNumber, operationType) {
+            getFinanceLog: function(index, customerNumber, operationType) {
                 return $http.post(cul.apiPath + '/customer/financelog/list', {
                     pageInfo: {
                         pageSize: 10,
@@ -79,7 +79,7 @@ angular.module('culwebApp')
                     customerNumber: customerNumber,
                 });
             },
-            getQuestionList: function (index, customerNumber) {
+            getQuestionList: function(index, customerNumber) {
                 return $http.post(cul.apiPath + '/customermessage/list/customer', {
                     pageInfo: {
                         pageSize: 10,
@@ -88,10 +88,10 @@ angular.module('culwebApp')
                     customerNumber: customerNumber,
                 });
             },
-            getQuestionCategories: function () {
+            getQuestionCategories: function() {
                 return $http.get(cul.apiPath + '/customermessagetype?type=1');
             },
-            addQuestion: function (questionItem) {
+            addQuestion: function(questionItem) {
                 console.log(questionItem);
                 return $http.post(cul.apiPath + '/customermessage', {
                     customerNumber: questionItem.customerNumber,
@@ -105,21 +105,21 @@ angular.module('culwebApp')
                     status: 0
                 });
             },
-            delQuestion: function (questionNumber) {
+            delQuestion: function(questionNumber) {
                 return $http.delete(cul.apiPath + '/customermessage?number=' + questionNumber);
             },
-            getQuestionInfo: function (questionNumber) {
+            getQuestionInfo: function(questionNumber) {
                 return $http.get(cul.apiPath + '/customermessage/' + questionNumber);
             },
-            applyVIP: function (customerNumber) {
+            applyVIP: function(customerNumber) {
                 return $http.put(cul.apiPath + '/customer/vip/apply', { customerNumber: customerNumber });
             },
-            sendForgetPasswordEmail: function (emailAddress) {
+            sendForgetPasswordEmail: function(emailAddress) {
                 return $http.post(cul.apiPath + '/user/password/forgetmail', {
                     emailAddress: emailAddress
                 });
             },
-            resetPasswordEmail: function (emailAddress, password, uuid) {
+            resetPasswordEmail: function(emailAddress, password, uuid) {
                 return $http.put(cul.apiPath + '/user/password/reset', {
                     emailAddress: emailAddress,
                     password: password,
@@ -127,10 +127,18 @@ angular.module('culwebApp')
                 });
             },
 
-            checkTrackingNumber: function(obj){
-                return $http.post(cul.apiPath + '/customermessage/checkTrackingNumber',obj);
+            checkTrackingNumber: function(obj) {
+                return $http.post(cul.apiPath + '/customermessage/checkTrackingNumber', obj);
             },
-            
+
+
+            getMessageOperationlog: function(obj) {
+                return $http.post(cul.apiPath + '/customermessage/getMessageOperationlog', obj);
+            },
+            updateMessageOperation: function(obj) {
+                return $http.post(cul.apiPath + '/customermessage/updateMessageOperation', obj);
+            },
+
             ProvinceList: provinceList
         };
     });
