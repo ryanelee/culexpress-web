@@ -100,7 +100,9 @@ angular.module('culAdminApp')
                   var _count = 0;
                   var checkedPackages = $.grep($scope.data.outboundPackages, function (n) { return n.checked == true });
                   var _callback = callback || function () {
-                      $location.path('/warehouse/package');
+                    //   $location.path('/warehouse/package');
+                     //打包完成后继续跳转到打包界面继续打包操作 
+                    $location.path('/warehouse/registerpackageoffline');
                       plugMessenger.success("保存成功");
                       //$window.history.back();
                       _reset();

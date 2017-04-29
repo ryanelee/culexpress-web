@@ -39,6 +39,7 @@ angular.module('culAdminApp')
                                         console.log($scope.data);
                                     }
                                     var _checked = false;
+                                    $scope.data.outboundPackages[0].actualWeight = 0;
                                     $.each($scope.data.inboundPackages, function(index, item) {
                                         if (!item.checked) {
                                             item.checked = item.trackingNumber == $scope.tempInboundPackageNumber;
@@ -46,8 +47,7 @@ angular.module('culAdminApp')
                                             // $each($scope.data.outboundPackages, function(i, t) {
                                             //     t.actualWeight = item.packageWeight
                                             // })
-                                        }
-                                         $scope.data.outboundPackages[0].actualWeight = 0;
+                                        }                                        
                                         if (item.checked) {
                                             $scope.data.outboundPackages[0].actualWeight += item.packageWeight;
                                         }
@@ -177,7 +177,9 @@ angular.module('culAdminApp')
                         var _callback = function() {
                                 plugMessenger.success("保存成功");
                                 //   $window.history.back();
-                                $location.path('/warehouse/package');
+                                // $location.path('/warehouse/package');
+                                //打包完成后继续跳转到打包界面继续打包操作 
+                                 $location.path('/warehouse/registerpackageonline');
                                 _reset();
                             }
                             //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
