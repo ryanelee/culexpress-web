@@ -14,10 +14,10 @@ angular
         'ngResource',
         'ui.router'
     ])
-    .directive('bindHtmlUnsafe', function ($compile) {
-        return function ($scope, $element, $attrs) {
+    .directive('bindHtmlUnsafe', function($compile) {
+        return function($scope, $element, $attrs) {
 
-            var compile = function (newHTML) { // Create re-useable compile function
+            var compile = function(newHTML) { // Create re-useable compile function
                 newHTML = $compile(newHTML)($scope); // Compile html
                 $element.html('').append(newHTML); // Clear and append it
             };
@@ -25,36 +25,36 @@ angular
             var htmlName = $attrs.bindHtmlUnsafe; // Get the name of the variable
             // Where the HTML is stored
 
-            $scope.$watch(htmlName, function (newHTML) { // Watch for changes to
+            $scope.$watch(htmlName, function(newHTML) { // Watch for changes to
                 // the HTML
                 if (!newHTML) return;
-                compile(newHTML);   // Compile it
+                compile(newHTML); // Compile it
             });
 
         };
     })
-    .filter('sysdate', ['$filter', function ($filter) {
-        return function (inputText) {
+    .filter('sysdate', ['$filter', function($filter) {
+        return function(inputText) {
             return $filter('date')(inputText, 'yyyy/MM/dd HH:mm')
         }
     }])
-    .factory('loadingSvr', ['$timeout', function ($timeout) {
+    .factory('loadingSvr', ['$timeout', function($timeout) {
         return {
-            hide: function (delay) {
-                $timeout(function () {
+            hide: function(delay) {
+                $timeout(function() {
                     angular.element('#sys-overlay').hide();
                     angular.element('#sys-loading').hide();
                 }, delay);
             },
-            show: function () {
-                $timeout(function () {
+            show: function() {
+                $timeout(function() {
                     angular.element('#sys-overlay').show();
                     angular.element('#sys-loading').show();
                 });
             }
         }
     }])
-    .directive('loading', ['$rootScope', function ($rootScope) {
+    .directive('loading', ['$rootScope', function($rootScope) {
         return {
             templateUrl: '/views/loading.html',
             restrict: 'E',
@@ -63,7 +63,7 @@ angular
             }
         };
     }])
-    .directive('pagination', ['$rootScope', function ($rootScope) {
+    .directive('pagination', ['$rootScope', function($rootScope) {
         return {
             templateUrl: '/views/pagination.html',
             restrict: 'E',
@@ -71,7 +71,7 @@ angular
                 options: '=',
                 onPage: '&',
             },
-            link: function ($scope, $element, attrs) {
+            link: function($scope, $element, attrs) {
                 var options = {},
                     index = $scope.index = 1,
                     startPage = 1,
@@ -83,7 +83,7 @@ angular
                 $scope.canPrev = false;
                 $scope.canNext = true;
 
-                var calculateSteps = function (isNext) {
+                var calculateSteps = function(isNext) {
                     var total = options.total,
                         size = options.size,
                         maxSteps = options.stepSize,
@@ -114,58 +114,54 @@ angular
                 }
 
 
-                var setPagedButtonStatus = function () {
+                var setPagedButtonStatus = function() {
                     $scope.canNext = pagedCheck.canNext($scope.index);
                     $scope.canPrev = pagedCheck.canPrev($scope.index);
                 }
 
 
                 var pagedCheck = {
-                    canNext: function (pageIndex) {
+                    canNext: function(pageIndex) {
                         return Math.ceil(options.total / options.size) > pageIndex;
                     },
-                    canPrev: function (pageIndex) {
+                    canPrev: function(pageIndex) {
                         return pageIndex > 1;
                     }
                 }
 
-                var next = function (pageIndex) {
+                var next = function(pageIndex) {
                     var canNext = pagedCheck.canNext(pageIndex - 1);
                     if (canNext) {
                         $scope.index = pageIndex;
                         calculateSteps(true);
-                    }
-                    else {
+                    } else {
                         $scope.index = Math.ceil(options.total / options.size);
                     }
                     // $scope.canPrev = true;
                 }
 
-                var prev = function (pageIndex) {
+                var prev = function(pageIndex) {
                     var canPrev = pagedCheck.canPrev(pageIndex + 1);
                     if (canPrev) {
                         $scope.index = pageIndex;
                         calculateSteps();
-                    }
-                    else {
+                    } else {
                         $scope.index = 1;
                     }
                     //$scope.canNext = true;
                 }
 
 
-                $scope.paged = function (pageMark) {
+                $scope.paged = function(pageMark) {
                     var prevedIndex = $scope.index;
                     if (typeof pageMark === 'string') {
                         ({
                             next: next,
                             prev: prev,
                         })[pageMark](pageMark === 'next' ? ++$scope.index : --$scope.index);
-                    }
-                    else if (pageMark > $scope.index) {
+                    } else if (pageMark > $scope.index) {
                         next(pageMark);
-                    }
-                    else if (pageMark < $scope.index) {
+                    } else if (pageMark < $scope.index) {
                         prev(pageMark);
                     }
                     if (prevedIndex !== pageMark) {
@@ -175,7 +171,7 @@ angular
                     }
                 }
 
-                $scope.$watch('options.total', function (newVal) {
+                $scope.$watch('options.total', function(newVal) {
                     //if (newVal && newVal > 0) {
                     options = angular.extend({
                         size: 10,
@@ -188,7 +184,7 @@ angular
                 });
 
 
-                $scope.$watch('options.index', function (newVal) {
+                $scope.$watch('options.index', function(newVal) {
                     if (newVal && newVal > 0) {
                         options = angular.extend({
                             size: 10,
@@ -205,18 +201,18 @@ angular
             }
         };
     }])
-    .factory('SweetAlert', ['$rootScope', function ($rootScope) {
+    .factory('SweetAlert', ['$rootScope', function($rootScope) {
 
         var swal = window.swal;
 
         //public methods
         var self = {
 
-            swal: function (arg1, arg2, arg3) {
-                $rootScope.$evalAsync(function () {
-                    if (typeof (arg2) === 'function') {
-                        swal(arg1, function (isConfirm) {
-                            $rootScope.$evalAsync(function () {
+            swal: function(arg1, arg2, arg3) {
+                $rootScope.$evalAsync(function() {
+                    if (typeof(arg2) === 'function') {
+                        swal(arg1, function(isConfirm) {
+                            $rootScope.$evalAsync(function() {
                                 arg2(isConfirm);
                             });
                         }, arg3);
@@ -225,33 +221,33 @@ angular
                     }
                 });
             },
-            success: function (title, message) {
-                $rootScope.$evalAsync(function () {
+            success: function(title, message) {
+                $rootScope.$evalAsync(function() {
                     swal(title, message, 'success');
                 });
             },
-            error: function (title, message) {
-                $rootScope.$evalAsync(function () {
+            error: function(title, message) {
+                $rootScope.$evalAsync(function() {
                     swal(title, message, 'error');
                 });
             },
-            warning: function (title, message) {
-                $rootScope.$evalAsync(function () {
+            warning: function(title, message) {
+                $rootScope.$evalAsync(function() {
                     swal(title, message, 'warning');
                 });
             },
-            info: function (title, message) {
-                $rootScope.$evalAsync(function () {
+            info: function(title, message) {
+                $rootScope.$evalAsync(function() {
                     swal(title, message, 'info');
                 });
             },
-            showInputError: function (message) {
-                $rootScope.$evalAsync(function () {
+            showInputError: function(message) {
+                $rootScope.$evalAsync(function() {
                     swal.showInputError(message);
                 });
             },
-            close: function () {
-                $rootScope.$evalAsync(function () {
+            close: function() {
+                $rootScope.$evalAsync(function() {
                     swal.close();
                 });
             }
@@ -260,9 +256,9 @@ angular
         return self;
     }])
     .factory('sysHttpInterceptor', ['$q', '$location', 'loadingSvr', 'SweetAlert',
-        function ($q, $location, loadingSvr, SweetAlert) {
+        function($q, $location, loadingSvr, SweetAlert) {
             return {
-                'request': function (config) {
+                'request': function(config) {
                     if (config.url.indexOf('.html') < 0 && config.url.indexOf('excel/check') < 0 && config.url.indexOf('excel/create') < 0) {
                         loadingSvr.show();
                     }
@@ -273,21 +269,20 @@ angular
                     }
                     return config;
                 },
-                'requestError': function (rejection) {
+                'requestError': function(rejection) {
                     loadingSvr.hide();
 
                     return $q.reject(rejection);
                 },
-                'response': function (response) {
+                'response': function(response) {
                     loadingSvr.hide();
 
                     return response;
                 },
-                'responseError': function (rejection, status) {
+                'responseError': function(rejection, status) {
                     if (status == 401 || rejection.status == 401) {
                         $location.path('/login');
-                    }
-                    else if (status == 500 || rejection.status == 500) {
+                    } else if (status == 500 || rejection.status == 500) {
                         SweetAlert.swal('错误', '系统异常，请稍后重试！', 'error');
                         loadingSvr.hide();
                         return $q.reject();
@@ -298,158 +293,158 @@ angular
                     return $q.reject(rejection);
                 }
             };
-        }])
-    .config(['$httpProvider', function ($httpProvider) {
+        }
+    ])
+    .config(['$httpProvider', function($httpProvider) {
         $httpProvider.interceptors.push('sysHttpInterceptor');
     }])
-    .config(function ($locationProvider) {
+    .config(function($locationProvider) {
         //$locationProvider.html5Mode(true);
     })
-    .config(['$provide', '$stateProvider', '$urlRouterProvider'
-        , function ($provide, $stateProvider, $urlRouterProvider) {
+    .config(['$provide', '$stateProvider', '$urlRouterProvider', function($provide, $stateProvider, $urlRouterProvider) {
 
-            $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/');
 
-            $stateProvider
-                .state('/', {
-                    url: '/',
-                    templateUrl: 'views/main.html',
-                    controller: function () { }
-                })
-                .state('services', {
-                    url: '/services',
-                    templateUrl: 'views/services.html'
-                })
-                .state('pricing', {
-                    url: '/pricing',
-                    templateUrl: 'views/pricing.html'
-                })
-                .state('howtouse', {
-                    url: '/howtouse',
-                    templateUrl: 'views/howtouse.html'
-                })
-                .state('embargo', {
-                    url: '/embargo',
-                    templateUrl: 'views/embargo.html'
-                })
-                .state('refer-a-friend', {
-                    url: '/refer-a-friend',
-                    templateUrl: 'views/refer-a-friend.html'
-                })
-                .state('uploadIDCard', {
-                    url: '/uploadIDCard',
-                    templateUrl: 'views/uploadIDCard.html'
-                })
-                .state('faq', {
-                    url: '/faq',
-                    templateUrl: 'views/faq.html'
-                })
-                .state('contact', {
-                    url: '/contact',
-                    templateUrl: 'views/contact.html',
-                    controller: function () { }
-                })
-                .state('about', {
-                    url: '/about',
-                    templateUrl: 'views/about.html',
-                    controller: function () { }
-                })
-                .state('links', {
-                    url: '/links',
-                    templateUrl: 'views/links.html',
-                    controller: function () { }
-                })
-                .state('news', {
-                    url: '/news',
-                    templateUrl: 'views/news.html',
-                    controller: function () { }
-                })
-                .state('terms', {
-                    url: '/terms',
-                    templateUrl: 'views/terms.html'
-                })
-                .state('jobs', {
-                    url: '/jobs',
-                    templateUrl: 'views/jobs.html',
-                    controller: function () { }
-                })
-                .state('insuranceinstruction', {
-                    url: '/insuranceinstruction',
-                    templateUrl: 'views/terms/insurance_instruction.html',
-                    controller: function () { }
-                })
-                .state('appendixlimit', {
-                    url: '/appendixlimit',
-                    templateUrl: 'views/terms/appendix_limit.html',
-                    controller: function () { }
-                })
-                .state('appendixormd', {
-                    url: '/appendixormd',
-                    templateUrl: 'views/terms/appendix_ORMD.html',
-                    controller: function () { }
-                })
-                .state('termsenglish', {
-                    url: '/termsenglish',
-                    templateUrl: 'views/terms/terms_en.html',
-                    controller: function () { }
-                })
-                .state('cashback', {
-                    url: '/cashback',
-                    templateUrl: 'views/promotion/cashback.html',
-                    controller: function(){}
-                })
-                .state('ordertrack', {
-                    url: '/ordertrack/:trackingNumber',
-                    templateUrl: 'views/customer/order_track.html',
-                    controller: function () { }
-                }).
-                state('ordertracking', {
-                    url: '/ordertracking/:trackingNumber',
-                    templateUrl: 'views/customer/order_tracking.html',
-                    controller: function () { }
-                }).
-                state('useractive', {
-                    url: '/useractive',
-                    templateUrl: 'views/customer/useractive.html',
-                    controller: function () { }
-                }).
-                state('forgetpassword', {
-                    url: '/forgetpassword',
-                    templateUrl: 'views/customer/forgetpassword.html',
-                    controller: function () { }
-                }).
-                state('resetpassword', {
-                    url: '/resetpassword',
-                    templateUrl: 'views/customer/resetpassword.html',
-                    controller: function () { }
-                }).
-                state('successpay', {
-                    url: '/successpay',
-                    templateUrl: 'views/successpay.html',
-                    controller: function () { }
-                }).
-                state('failedpay', {
-                    url: '/failedpay',
-                    templateUrl: 'views/failedpay.html',
-                    controller: function () { }
-                });
+        $stateProvider
+            .state('/', {
+                url: '/',
+                templateUrl: 'views/main.html',
+                controller: function() {}
+            })
+            .state('services', {
+                url: '/services',
+                templateUrl: 'views/services.html'
+            })
+            .state('pricing', {
+                url: '/pricing',
+                templateUrl: 'views/pricing.html'
+            })
+            .state('howtouse', {
+                url: '/howtouse',
+                templateUrl: 'views/howtouse.html'
+            })
+            .state('embargo', {
+                url: '/embargo',
+                templateUrl: 'views/embargo.html'
+            })
+            .state('refer-a-friend', {
+                url: '/refer-a-friend',
+                templateUrl: 'views/refer-a-friend.html'
+            })
+            .state('uploadIDCard', {
+                url: '/uploadIDCard',
+                templateUrl: 'views/uploadIDCard.html'
+            })
+            .state('faq', {
+                url: '/faq',
+                templateUrl: 'views/faq.html'
+            })
+            .state('contact', {
+                url: '/contact',
+                templateUrl: 'views/contact.html',
+                controller: function() {}
+            })
+            .state('about', {
+                url: '/about',
+                templateUrl: 'views/about.html',
+                controller: function() {}
+            })
+            .state('links', {
+                url: '/links',
+                templateUrl: 'views/links.html',
+                controller: function() {}
+            })
+            .state('news', {
+                url: '/news',
+                templateUrl: 'views/news.html',
+                controller: function() {}
+            })
+            .state('terms', {
+                url: '/terms',
+                templateUrl: 'views/terms.html'
+            })
+            .state('jobs', {
+                url: '/jobs',
+                templateUrl: 'views/jobs.html',
+                controller: function() {}
+            })
+            .state('insuranceinstruction', {
+                url: '/insuranceinstruction',
+                templateUrl: 'views/terms/insurance_instruction.html',
+                controller: function() {}
+            })
+            .state('appendixlimit', {
+                url: '/appendixlimit',
+                templateUrl: 'views/terms/appendix_limit.html',
+                controller: function() {}
+            })
+            .state('appendixormd', {
+                url: '/appendixormd',
+                templateUrl: 'views/terms/appendix_ORMD.html',
+                controller: function() {}
+            })
+            .state('termsenglish', {
+                url: '/termsenglish',
+                templateUrl: 'views/terms/terms_en.html',
+                controller: function() {}
+            })
+            .state('cashback', {
+                url: '/cashback',
+                templateUrl: 'views/promotion/cashback.html',
+                controller: function() {}
+            })
+            .state('ordertrack', {
+                url: '/ordertrack/:trackingNumber',
+                templateUrl: 'views/customer/order_track.html',
+                controller: function() {}
+            }).
+        state('ordertracking', {
+            url: '/ordertracking/:trackingNumber',
+            templateUrl: 'views/customer/order_tracking.html',
+            controller: function() {}
+        }).
+        state('useractive', {
+            url: '/useractive',
+            templateUrl: 'views/customer/useractive.html',
+            controller: function() {}
+        }).
+        state('forgetpassword', {
+            url: '/forgetpassword',
+            templateUrl: 'views/customer/forgetpassword.html',
+            controller: function() {}
+        }).
+        state('resetpassword', {
+            url: '/resetpassword',
+            templateUrl: 'views/customer/resetpassword.html',
+            controller: function() {}
+        }).
+        state('successpay', {
+            url: '/successpay',
+            templateUrl: 'views/successpay.html',
+            controller: function() {}
+        }).
+        state('failedpay', {
+            url: '/failedpay',
+            templateUrl: 'views/failedpay.html',
+            controller: function() {}
+        });
 
-            $stateProvider
-                .state('login', {
-                    url: '/login',
-                    templateUrl: 'views/customer/login.html',
-                    controller: function () { }
-                })
-                .state('register', {
-                    url: '/register/:reference',
-                    templateUrl: 'views/customer/register.html',
-                    controller: function () { }
-                })
-                .state('customer', {
-                    url: '/customer',
-                    templateUrl: 'views/customer/myhome.html'
-                });
-        }])
+        $stateProvider
+            .state('login', {
+                url: '/login',
+                templateUrl: 'views/customer/login.html',
+                controller: function() {}
+            })
+            .state('register', {
+                url: '/register/:reference',
+                templateUrl: 'views/customer/register.html',
+                controller: function() {}
+            })
+            .state('customer', {
+                url: '/customer',
+                templateUrl: 'views/customer/myhome.html'
+            });
+    }])
     .run([
         '$rootScope',
         '$state',
@@ -459,21 +454,21 @@ angular
         'SweetAlert',
         '$location',
         '$window',
-        function ($rootScope, $state, $stateParams, loadingSvr, AuthService, SweetAlert, $location, $window) {
+        function($rootScope, $state, $stateParams, loadingSvr, AuthService, SweetAlert, $location, $window) {
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
             loadingSvr.show();
 
-            $rootScope.$on('autologin', function () {
+            $rootScope.$on('autologin', function() {
                 autologin();
             });
 
-            $rootScope.goback = function ($event) {
+            $rootScope.goback = function($event) {
                 if ($event && $event.stopPropagation) $event.stopPropagation();
                 $window.history.back();
             }
 
-            var autologin = $rootScope.autologin = function (callback) {
+            var autologin = $rootScope.autologin = function(callback) {
                 var localUserString = AuthService.getStorage(AuthService.userInfoKey),
                     path = $location.path();
                 if (localUserString) {
@@ -485,7 +480,7 @@ angular
                     };
                     AuthService
                         .login(loginData)
-                        .then(function (result) {
+                        .then(function(result) {
                             if (result.data) {
 
                                 AuthService.clearStorage();
@@ -505,7 +500,7 @@ angular
                                     }
                                 }
                             }
-                        }, function (result) {
+                        }, function(result) {
                             if (result.data.message) {
                                 window.console && window.console.error(result.data.message);
                                 window.localStorage.removeItem('cul-token');
@@ -519,8 +514,8 @@ angular
 
             autologin();
 
-            $rootScope.$on('$stateChangeSuccess', function (scope, next, current) {
-                setTimeout(function () {
+            $rootScope.$on('$stateChangeSuccess', function(scope, next, current) {
+                setTimeout(function() {
                     $(document.body).scrollTop(0);
                     if ($location.path() === '/') {
                         $('#txtTrackingNumber').val('');
@@ -531,4 +526,5 @@ angular
                     ga("send", "pageview", { page: $location.path() })
                 }, 200);
             });
-        }]);
+        }
+    ]);

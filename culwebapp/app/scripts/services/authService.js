@@ -64,6 +64,7 @@ angular.module('culwebApp')
         }
 
         self.logout = function(success) {
+            console.log('wewewew')
             self.clearStorage();
             $rootScope.isLogined = false;
             $rootScope.currentUser = null;
