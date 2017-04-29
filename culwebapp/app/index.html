@@ -145,6 +145,34 @@
                         </li>
                     </ul>
                 </li>
+                <li data-ng-show="isLogined" class="hoverSelector">
+                  <!--<a ui-sref="login" data-ng-click="logout()">注销</a>-->
+                  <i class="fa fa-envelope"></i><span class="count">11</span>
+                  <!--<span class="circle"></span>-->
+                  <ul class="topbar-dropdown  hidden-xs hidden-sm" style="width:200px;left:-80px;z-index:14;padding:0px;background-color: #E7E7E7" ng-show="!isLackProfile">
+                      <li class="topbar-dropdown-header">
+                          <em>有新回复消息</em>
+                      </li>
+                      <!--<li class="inbox-item unread clearfix" ng-repeat="message in tipMessage" ng-if="$index < 5" ng-click="btnViewMessage(message);">-->
+                        <li class="topbar-dropdown-body inbox-item unread clearfix" ng-click="btnViewMessage(message);">
+                          <a href="javascript:void(0);">
+                              <div class="media">
+                                  <div class="media-left">
+                                      <i class="fa fa-envelope " style="color: green"></i>
+                                  </div>
+                                  <div class="media-body">
+                                      <h5 class="media-heading name">客服kkj56</h5>
+                                      <p class="media-text">您好！</p>
+                                      <p class="media-text">2017.1.11 3:30</p>
+                                  </div>
+                              </div>
+                          </a>
+                        </li>         
+                      <li class="topbar-dropdown-footer" >
+                          <a href="javascript:void(0);" ng-click="btnViewMessageList();" style="color:#333 !important;">查看所有回复消息</a>
+                      </li>
+                  </ul>
+                </li>
 							</ul>
 						</div>
 					</div><!--/end row-->

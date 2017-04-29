@@ -109,6 +109,7 @@
 	background: #98abcc;
 	position: absolute;
 }
+
 @media (min-width: 769px) {
 	.topbar-list li:hover .topbar-dropdown {
 		display: block;
@@ -129,6 +130,25 @@
 }
 .topbar-list .topbar-dropdown li a:hover {
 	text-decoration: none;
+}
+
+/* add for message*/
+.topbar-list .topbar-dropdown .topbar-dropdown-header {
+   background-color: #ffffff;
+   height:30px;
+   padding-top:8px;
+}
+.topbar-list .topbar-dropdown .topbar-dropdown-footer {
+	text-align: center;
+	background-color: #ffffff;
+	color:#333 !important;
+}
+.topbar-list .topbar-dropdown .topbar-dropdown-footer a:hover{
+	color:#666;
+	text-decoration: underline;
+}
+.topbar-list .topbar-dropdown .topbar-dropdown-body a:hover {
+	background-color: #f9f9f9;
 }
 
 /* Topbar Submenu */

@@ -3535,4 +3535,26 @@ select:-webkit-autofill {
 	}
 }
 
+.hoverSelector .count {
+    position: absolute;
+    top: -7px;
+    left: 58%;
+    padding: 0px 5px;
+    border-radius: 30px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 10px;
+    border-width: 2px;
+    border-style: solid;
+    color: #fff;
+    background: #E60404 !important;
+    border-color: #a8a8a8;
+}
+
+.media-text {
+    font-size: 0.75em;
+    color: #888888;
+	margin:0px;
+}
+
 
