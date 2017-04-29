@@ -10,25 +10,28 @@ angular
                 });
             };
 
-
-
+            $scope.tipMessageList=[];
             $scope.getMessageOperationlog = function() {
                 Customer.getMessageOperationlog().then(function(data) {
                     console.log("34567")
-                    console.log(data)
+                    console.log(data.data.data);
+                    $scope.tipMessageList = data.data.data;
                 })
             }
             $scope.getMessageOperationlog();
 
-            $scope.getDetail = function() {
-                Customer.getMessageOperationlog({ messageNumber: item.messageNumber }).then(function(data) {
+            $scope.getDetail = function(item) {
+                Customer.updateMessageOperation({ messageNumber: item.messageNumber }).then(function(data) {
                     console.log("34567")
                     console.log(data)
                 })
-                $location.path('customer/question/JK07220170424155914')
+                $location.path('customer/question/' + item.messageNumber)
 
             }
-
+            
+            $scope.btnViewMessageList = function() {
+                $location.path('customer/myquestions');
+            }
 
 
             // $http.get(cul.apiPath + '/web/reference').then(function (data) {

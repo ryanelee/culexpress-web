@@ -149,23 +149,23 @@
                                 </li>
                                 <li data-ng-show="isLogined" class="hoverSelector">
                                     <!--<a ui-sref="login" data-ng-click="logout()">注销</a>-->
-                                    <i class="fa fa-envelope"></i><span class="count">11</span>
+                                    <i class="fa fa-envelope"></i><span class="count">{{tipMessageList.length}}</span>
                                     <!--<span class="circle"></span>-->
                                     <ul class="topbar-dropdown  hidden-xs hidden-sm" style="width:200px;left:-80px;z-index:14;padding:0px;background-color: #E7E7E7" ng-show="!isLackProfile">
                                         <li class="topbar-dropdown-header">
                                             <em>有新回复消息</em>
                                         </li>
-                                        <!--<li class="inbox-item unread clearfix" ng-repeat="message in tipMessage" ng-if="$index < 5" ng-click="btnViewMessage(message);">-->
-                                        <li class="topbar-dropdown-body inbox-item unread clearfix" ng-click="btnViewMessage(message);">
-                                            <a href="javascript:void(0);" ng-click="getDetail()">
+                                        <!--<li class="inbox-item unread clearfix" ng-repeat="message in tipMessageList" ng-if="$index < 5" ng-click="btnViewMessage(message);">-->
+                                        <li class="topbar-dropdown-body inbox-item unread clearfix" ng-repeat="message in tipMessageList" ng-if="$index < 5" ng-click="btnViewMessage(message.messageNumber);">
+                                            <a href="javascript:void(0);" ng-click="getDetail(message)">
                                                 <div class="media">
                                                     <div class="media-left">
                                                         <i class="fa fa-envelope " style="color: green"></i>
                                                     </div>
                                                     <div class="media-body">
-                                                        <h5 class="media-heading name">客服kkj56</h5>
-                                                        <p class="media-text">您好！</p>
-                                                        <p class="media-text">2017.1.11 3:30</p>
+                                                        <h5 class="media-heading name">客服{{message.operationUserName}}</h5>
+                                                        <p class="media-text" style="height:20px;overflow: hidden">{{message.message}}</p>
+                                                        <p class="media-text">{{message.operationDate | date:'yyyy-MM-dd hh:mm'}}</p>
                                                     </div>
                                                 </div>
                                             </a>
