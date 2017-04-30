@@ -8,6 +8,8 @@ Building with NodeJS,Express,AngularJS + MySQL
 * Download and install mysql work-branch(V6.3) and mysql server community version
 * Pull source code from github
 
+
+
 # Database Installation
 * Go to "database" folder, execute script "01_Database_Creation" to create database "culexpress" in MySQL
 * Under database "culexpress",execute all scripts one by one.
