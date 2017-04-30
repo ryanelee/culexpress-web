@@ -153,7 +153,7 @@
                                     <!--<span class="circle"></span>-->
                                     <ul class="topbar-dropdown  hidden-xs hidden-sm" style="width:200px;left:-80px;z-index:14;padding:0px;background-color: #E7E7E7" ng-show="!isLackProfile">
                                         <li class="topbar-dropdown-header">
-                                            <em>有新回复消息</em>
+                                            <em>有{{tipMessageList.length}}新回复消息</em>
                                         </li>
                                         <!--<li class="inbox-item unread clearfix" ng-repeat="message in tipMessageList" ng-if="$index < 5" ng-click="btnViewMessage(message);">-->
                                         <li class="topbar-dropdown-body inbox-item unread clearfix" ng-repeat="message in tipMessageList" ng-if="$index < 5" ng-click="btnViewMessage(message.messageNumber);">

@@ -13,8 +13,6 @@ angular
             $scope.tipMessageList=[];
             $scope.getMessageOperationlog = function() {
                 Customer.getMessageOperationlog().then(function(data) {
-                    console.log("34567")
-                    console.log(data.data.data);
                     $scope.tipMessageList = data.data.data;
                 })
             }
@@ -22,8 +20,6 @@ angular
 
             $scope.getDetail = function(item) {
                 Customer.updateMessageOperation({ messageNumber: item.messageNumber }).then(function(data) {
-                    console.log("34567")
-                    console.log(data)
                 })
                 $location.path('customer/question/' + item.messageNumber)
 
