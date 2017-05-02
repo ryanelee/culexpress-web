@@ -35,13 +35,17 @@ angular.module('culAdminApp')
           }
 
           $scope.btnResetPassword = function () {
-              userService.resetPassword({
-                  "emailAddress": $scope.data.emailAddress
-              }, function (result) {
-                  if (result.success == true) {
-                      plugMessenger.success("密码重置成功");
-                  }
-              });
+              plugMessenger.confirm("确认要重置密码吗？", function(isOK) {
+                 if (isOK) {
+                    userService.resetPassword({
+                        "emailAddress": $scope.data.emailAddress
+                    }, function (result) {
+                        if (result.success == true) {
+                            plugMessenger.success("密码重置成功");
+                        }
+                    });
+                 }
+              });             
           }
 
           $scope.btnReference = function (action) {

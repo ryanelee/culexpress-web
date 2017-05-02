@@ -184,7 +184,11 @@ angular.module('culAdminApp')
                 var _print = function() {
                     switch (type) {
                         case "order":
-                            $scope.$broadcast("print-order.action", item.orderNumber);
+                            plugMessenger.confirm("订单将变为已打印状态,请确认是否打印？", function(isOK) {
+                                if (isOK) {
+                                    $scope.$broadcast("print-order.action", item.orderNumber);
+                                }
+                            });                           
                             break;
                         case "package":
                             $scope.$broadcast("print-package.action", item.orderNumber);
