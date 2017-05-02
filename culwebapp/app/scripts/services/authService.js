@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('culwebApp')
-    .service('AuthService', function($rootScope, $http) {
+    .service('AuthService', function($rootScope, $http, $window) {
 
         var self = this;
 
@@ -9,10 +9,11 @@ angular.module('culwebApp')
         self.userTypes = ['culwebapp_user', 'culwebapp_admin', 'culwebapp_public'];
 
         self.addStorage = function(obj, isGlobal) {
+            sessionStorage.setItem(self.userInfoKey, JSON.stringify(obj))
             if (isGlobal) {
                 localStorage.setItem(self.userInfoKey, JSON.stringify(obj))
             } else {
-                sessionStorage.setItem(self.userInfoKey, JSON.stringify(obj))
+                // sessionStorage.setItem(self.userInfoKey, JSON.stringify(obj))
             }
         }
 
@@ -64,11 +65,99 @@ angular.module('culwebApp')
         }
 
         self.logout = function(success) {
-            console.log('wewewew')
+
             self.clearStorage();
-            $rootScope.isLogined = false;
+            // localStorage.removeItem('user');
+
             $rootScope.currentUser = null;
             success && success();
         };
+
+
+        self.storage = function() {
+            return {
+                session: {
+                    setObject: function(key, obj) {
+                        sessionStorage.setItem(key, angular.toJson(obj));
+                    },
+                    getObject: function(key) {
+                        return angular.fromJson(sessionStorage.getItem(key));
+                    },
+                    setValue: function(key, value) {
+                        sessionStorage.setItem(key, value);
+                    },
+                    getValue: function(key) {
+                        return sessionStorage.getItem(key);
+                    }
+                },
+                local: {
+                    setObject: function(key, obj) {
+                        localStorage.setItem(key, angular.toJson(obj));
+                    },
+                    getObject: function(key) {
+                        return angular.fromJson(localStorage.getItem(key));
+                    },
+                    setValue: function(key, value) {
+                        localStorage.setItem(key, value);
+                    },
+                    getValue: function(key) {
+                        return localStorage.getItem(key);
+                    },
+                    remove: function(key) {
+                        localStorage.removeItem(key);
+                    }
+                }
+            }
+        }
+
+        self.isLogined = function() {
+            if (sessionStorage.getItem('user_info')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        self.setUser = function(user) {
+            sessionStorage.setItem('user_info', angular.toJson(user));
+        }
+
+        self.getUser = function() {
+            return angular.fromJson(sessionStorage.getItem('user_info'));
+        }
+
+        self.Auth = function() {
+            return {
+                getToken: function() {
+                    return self.storage.session.getValue('jwtToken');
+                },
+                setToken: function(token) {
+                    self.storage.session.setValue('jwtToken', token);
+                },
+                isLogined: function() {
+                    if (self.storage.session.getObject('user_info')) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                getUser: function() {
+                    return self.storage.session.getObject('user_info');
+                },
+                setUser: function(user) {
+                    self.storage.session.setObject('user_info', user);
+                },
+                logout: function() {
+                    self.storage.session.remove('jwtToken');
+                    self.storage.session.remove('user_info');
+                },
+                login: function(obj) {
+
+                }
+            }
+        }
+
+
+
 
     });

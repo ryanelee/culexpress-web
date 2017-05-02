@@ -459,60 +459,60 @@ angular
             $rootScope.$stateParams = $stateParams;
             loadingSvr.show();
 
-            $rootScope.$on('autologin', function() {
-                autologin();
-            });
+            // $rootScope.$on('autologin', function() {
+            //     autologin();
+            // });
 
             $rootScope.goback = function($event) {
                 if ($event && $event.stopPropagation) $event.stopPropagation();
                 $window.history.back();
             }
 
-            var autologin = $rootScope.autologin = function(callback) {
-                var localUserString = AuthService.getStorage(AuthService.userInfoKey),
-                    path = $location.path();
-                if (localUserString) {
-                    var userData = JSON.parse(localUserString);
-                    var loginData = {
-                        emailAddress: userData.emailAddress,
-                        password: userData.password,
-                        rememberMe: false
-                    };
-                    AuthService
-                        .login(loginData)
-                        .then(function(result) {
-                            if (result.data) {
+            // var autologin = $rootScope.autologin = function(callback) {
+            //     var localUserString = AuthService.getStorage(AuthService.userInfoKey),
+            //         path = $location.path();
+            //     if (localUserString) {
+            //         var userData = JSON.parse(localUserString);
+            //         var loginData = {
+            //             emailAddress: userData.emailAddress,
+            //             password: userData.password,
+            //             rememberMe: false
+            //         };
+            //         AuthService
+            //             .login(loginData)
+            //             .then(function(result) {
+            //                 if (result.data) {
 
-                                AuthService.clearStorage();
-                                AuthService.addStorage(angular.extend(result.data, { password: loginData.password }), loginData.rememberMe);
+            //                     AuthService.clearStorage();
+            //                     AuthService.addStorage(angular.extend(result.data, { password: loginData.password }), loginData.rememberMe);
 
-                                if (result.headers('Token')) {
-                                    localStorage.setItem('cul-token', result.headers('Token'));
-                                }
+            //                     if (result.headers('Token')) {
+            //                         localStorage.setItem('cul-token', result.headers('Token'));
+            //                     }
 
-                                $rootScope.currentUser = result.data;
+            //                     $rootScope.currentUser = result.data;
 
-                                var callbackResult = callback && callback(result.data);
-                                if (callbackResult !== false) {
-                                    if (path === '/login' || path === '/' || !path) {
-                                        $state.go('customer.myhome');
-                                        $rootScope.isLackProfile = !result.data.firstName || !result.data.lastName;
-                                    }
-                                }
-                            }
-                        }, function(result) {
-                            if (result.data.message) {
-                                window.console && window.console.error(result.data.message);
-                                window.localStorage.removeItem('cul-token');
-                                window.localStorage.removeItem('user_info');
-                                //SweetAlert.swal('错误', result.data.message, 'error');
-                            }
-                            $location.path('/');
-                        });
-                }
-            }
+            //                     var callbackResult = callback && callback(result.data);
+            //                     if (callbackResult !== false) {
+            //                         if (path === '/login' || path === '/' || !path) {
+            //                             $state.go('customer.myhome');
+            //                             $rootScope.isLackProfile = !result.data.firstName || !result.data.lastName;
+            //                         }
+            //                     }
+            //                 }
+            //             }, function(result) {
+            //                 if (result.data.message) {
+            //                     window.console && window.console.error(result.data.message);
+            //                     window.localStorage.removeItem('cul-token');
+            //                     window.localStorage.removeItem('user_info');
+            //                     //SweetAlert.swal('错误', result.data.message, 'error');
+            //                 }
+            //                 $location.path('/');
+            //             });
+            //     }
+            // }
 
-            autologin();
+            // autologin();
 
             $rootScope.$on('$stateChangeSuccess', function(scope, next, current) {
                 setTimeout(function() {

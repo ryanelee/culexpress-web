@@ -8,7 +8,7 @@ angular
             $scope.loginError = undefined;
             $scope.showLoginError = false;
             // $window.localStorage.removeItem('user')
-            $scope.user = angular.fromJson($window.localStorage.getItem('user'))
+            $scope.user = angular.fromJson(localStorage.getItem('user'))
             if ($scope.user) {
                 $scope.emailAddress = $scope.user.emailAddress
                 if ($scope.user.rememberMe) {
@@ -25,7 +25,6 @@ angular
                     rememberMe: $scope.rememberMe
                 };
 
-                $scope.$root.isLogined = false;
                 AuthService.login(loginData)
                     .then(function(result) {
                             if (result.data && result.data.photoUrl === null) {
@@ -36,11 +35,13 @@ angular
                                     result.data.photoUrl = '/assets/img/culwebapp/customer/profile/no-photo-female.jpg';
                             }
                             AuthService.clearStorage();
-                            AuthService.addStorage(angular.extend(result.data, { password: $scope.password }), loginData.rememberMe);
-
+                            // AuthService.addStorage(angular.extend(result.data, { password: $scope.password }), loginData.rememberMe);
+                            AuthService.setUser(result.data);
+                            console.log("登陆储存获取的数据");
+                            console.log(AuthService.getUser(result.data))
                             if (result.headers('Token')) {
                                 if (loginData.rememberMe) {
-                                    $window.localStorage.setItem('user', angular.toJson(loginData));
+                                    localStorage.setItem('user', angular.toJson(loginData));
                                     localStorage.setItem('cul-token', result.headers('Token'));
                                 }
                                 // else {
@@ -48,7 +49,7 @@ angular
                                 // }
                             }
 
-                            $scope.$root.currentUser = result.data;
+                            // $scope.$root.currentUser = result.data;
 
                             var lackNames = false;
                             if ((result.data.firstName == null || result.data.firstName == undefined) &&
@@ -57,8 +58,7 @@ angular
                             }
 
                             $rootScope.isLackProfile = lackNames;
-                            $rootScope.isLogined = true;
-
+                            $scope.$emit('isLogin');
 
                             if ($scope.$root.isLackProfile) {
                                 $state.go('customer.myaccount', { anchorid: 'profile' });
