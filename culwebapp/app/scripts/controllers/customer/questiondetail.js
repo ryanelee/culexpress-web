@@ -19,6 +19,7 @@ angular.module('culwebApp')
 
           var questionid = $stateParams.questionid;
           $scope.data = {};
+          $scope.data._status = "";
           $scope.questionCatgories = [];
           $scope.questionWarehouses = [];
 
@@ -28,6 +29,16 @@ angular.module('culwebApp')
                  .getQuestionInfo(questionid)
                  .then(function (result) {
                      $scope.data = result.data;
+                     //Processing -- 处理中, Closed -- 已关闭, ForwardWH -- 转交仓库
+                    if ($scope.data.status == "Processing") {
+                        $scope.data._status = "处理中";
+                    }
+                    else if ($scope.data.status == "Closed") {
+                        $scope.data._status = "已关闭";
+                    }
+                    else {
+                        $scope.data._status = "转交仓库";
+                    }
                  });
           }
 

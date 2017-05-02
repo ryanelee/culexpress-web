@@ -4,6 +4,10 @@ angular
     .module('culwebApp')
     .controller('IndexController', ['$rootScope', '$scope', '$location', 'AuthService', '$http', 'Customer',
         function($rootScope, $scope, $location, AuthService, $http, Customer) {
+            if (!$rootScope.currentUser) {
+                $rootScope.currentUser = JSON.parse(AuthService.getStorage(AuthService.userInfoKey));
+            };
+            console.log("客户编号："+$rootScope.currentUser.customerNumber);
             $scope.logout = function() {
                 AuthService.logout(function() {
                     $location.path('/login');
