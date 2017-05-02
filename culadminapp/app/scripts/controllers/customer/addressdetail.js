@@ -34,7 +34,6 @@ angular.module('culAdminApp')
                     if (province) {
                         $scope.provinces.forEach(function(e) {
                             if (province.indexOf(e.name) >= 0) {
-                                console.log("程序问题")
                                 $scope.data.stateOrProvince = e;
                             }
                         })
@@ -87,11 +86,8 @@ angular.module('culAdminApp')
 
 
             $scope.init = function() {
-                console.log("wonderful world");
                 addressService.getDetail($scope.transactionNumber, function(result) {
                     $scope.data = result;
-                    console.log("result");
-                    console.log(result);
                     $scope._province = result.stateOrProvince;
                     $scope._city = result.city;
                     $scope._area = result.area;
@@ -104,15 +100,6 @@ angular.module('culAdminApp')
 
             $scope.init();
 
-
-
-
-
-
-
-
-
-
             var _changeProvince = function() {
                 var _selectedProvince = $.grep($scope.tpl_status.provinceList, function(n) { return n.name == $scope.data.stateOrProvince });
                 if (_selectedProvince.length > 0) $scope.tpl_status.cities = [{ name: "请选择" }].concat(_selectedProvince[0].cities);
@@ -124,8 +111,6 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSave = function() {
-                console.log("保存信息")
-                console.log($scope.data);
                 $scope.data.stateOrProvince = $scope.data.stateOrProvince.name;
                 $scope.data.city = $scope.data.city.name;
                 $scope.data.area = $scope.data.area.name;
@@ -153,7 +138,7 @@ angular.module('culAdminApp')
 
             //----------upload file START----------
             var _buildUpload = function($el, key) {
-                    console.log("key" + key);
+                    //console.log("key" + key);
                     var _$panel = $el.parents(".fileupload-buttonbar:first");
                     $el.fileupload({
                         url: cul.apiPath + '/files/upload',
@@ -167,7 +152,7 @@ angular.module('culAdminApp')
                     }).bind('fileuploaddone', function(e, data) {
                         _$panel.find("#file_btn_text").text("重新上传");
                         $scope.$apply(function() {
-                            console.log("上传结束");
+                            //console.log("上传结束");
                             $scope.data[key] = data.result.url;
                             $scope.data[key + "Url"] = data.result.url;
 

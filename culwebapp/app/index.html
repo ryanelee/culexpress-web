@@ -66,12 +66,31 @@
     <link rel="stylesheet" href="assets/js/plugins/alertifyjs/css/alertify.min.css" />
     <link rel="stylesheet" href="assets/js/plugins/alertifyjs/css/themes/default.min.css" />
     <link rel="stylesheet" href="assets/plugins/social-share.js/dist/css/share.min.css">
+    
 </head>
 
 <body ng-app="culwebApp" ng-controller="IndexController">
     <loading></loading>
     <div class="wrapper">
         <div class="header-v8 header-sticky">
+            <div class="alert alert-warning fade in alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <div>
+                    <h4 class="heading-sm">
+                        <i class="icon-custom rounded-x icon-sm icon-bg-red fa fa-bullhorn"></i>
+                        <span>重要通知:中美速递新版网站上线</span>
+                    </h4>
+                    <p>
+                        为了给大家更好的服务质量, CUL中美速递网站全面升级。新的网站更美观，更简洁。
+                        客户系统操作更简单, 功能覆盖范围更全面,让您的海淘之旅变的更轻松。
+                        新网站将试运行一个月, 如果您是老客户请点击网站左上角的 
+                        <a class="old-version" href="http://site1.culexpress.com" target="_blank">回到旧版</a>
+                        登录旧系统。
+                        旧系统将会在美国西部时间六月一日正式停运。如您有任何问题请联系我们的客服人员。
+                        祝您购物愉快！
+                    </p>
+                </div>
+            </div>
             <!--<div class="top-promo">-->
             <!--<div class="row">
               <div class="top-news col-sm-4">
@@ -96,7 +115,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-5" data-ng-class="{'col-xs-3': isLogined, 'col-xs-9': !isLogined}">
-                            <a class="old-version" href="http://www.culexpress.com" target="_blank">回到旧版</a>
+                            <a class="old-version" href="http://site1.culexpress.com" target="_blank">回到旧版</a>
                             <a class="login-item" data-ng-hide="isLogined" ui-sref="login">请登录</a>
                             <a class="login-item" data-ng-hide="isLogined" ui-sref="register">免费注册</a>
                         </div>
@@ -149,11 +168,14 @@
                                 </li>
                                 <li data-ng-show="isLogined" class="hoverSelector">
                                     <!--<a ui-sref="login" data-ng-click="logout()">注销</a>-->
-                                    <i class="fa fa-envelope"></i><span class="count">{{tipMessageList.length}}</span>
+                                    <i class="fa fa-envelope" ></i><span class="count" ng-if="!tipMessageList">{{tipMessageList.length}}</span>
                                     <!--<span class="circle"></span>-->
-                                    <ul class="topbar-dropdown  hidden-xs hidden-sm" style="width:200px;left:-80px;z-index:14;padding:0px;background-color: #E7E7E7" ng-show="!isLackProfile">
-                                        <li class="topbar-dropdown-header">
-                                            <em>有新回复消息</em>
+                                    <ul class="topbar-dropdown  hidden-xs hidden-sm" style="width:200px;left:-80px;z-index:14;padding:0px;background-color: #98abcc" ng-show="!isLackProfile">
+                                        <li class="topbar-dropdown-header" ng-if="!tipMessageList" >
+                                            <em style="font-size: 10px;">有{{tipMessageList.length}}新回复消息</em>
+                                        </li>
+                                        <li class="topbar-dropdown-header" ng-if="!!tipMessageList">
+                                            <em style="font-size: 10px;">您还没有新回复消息</em>
                                         </li>
                                         <!--<li class="inbox-item unread clearfix" ng-repeat="message in tipMessageList" ng-if="$index < 5" ng-click="btnViewMessage(message);">-->
                                         <li class="topbar-dropdown-body inbox-item unread clearfix" ng-repeat="message in tipMessageList" ng-if="$index < 5" ng-click="btnViewMessage(message.messageNumber);">
@@ -163,7 +185,7 @@
                                                         <i class="fa fa-envelope " style="color: green"></i>
                                                     </div>
                                                     <div class="media-body">
-                                                        <h5 class="media-heading name">客服{{message.operationUserName}}</h5>
+                                                        <h5 class="media-heading name" style="font-size: 10px;">客服{{message.operationUserName}}</h5>
                                                         <p class="media-text" style="height:20px;overflow: hidden">{{message.message}}</p>
                                                         <p class="media-text">{{message.operationDate | date:'yyyy-MM-dd hh:mm'}}</p>
                                                     </div>
@@ -171,7 +193,7 @@
                                             </a>
                                         </li>
                                         <li class="topbar-dropdown-footer">
-                                            <a href="javascript:void(0);" ng-click="btnViewMessageList();" style="color:#333 !important;">查看所有回复消息</a>
+                                            <a href="javascript:void(0);" ng-click="btnViewMessageList();" style="color:#333 !important;font-size: 10px;">查看所有回复消息</a>
                                         </li>
                                     </ul>
                                 </li>

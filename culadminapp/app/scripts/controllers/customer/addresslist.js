@@ -15,8 +15,7 @@ angular.module('culAdminApp')
             'Karma'
         ];
 
-        $scope.api = cul.apiPath
-        console.log($scope.api);
+        $scope.api = cul.apiPath;
 
         $location.search({ trackingNumber: null });
 
@@ -39,7 +38,6 @@ angular.module('culAdminApp')
             }
         }
         $scope.btnPrint = function() {
-            console.log("是否进入打印函数")
             $scope.$broadcast("print-idcard.action", { data: $scope.dataList });
         }
 
@@ -51,7 +49,6 @@ angular.module('culAdminApp')
             _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
             addressService.getList(_options, function(result) {
                 $scope.dataList = result.data;
-                console.log($scope.dataList);
                 $scope.pagination.totalCount = result.pageInfo.totalCount;
                 $rootScope.$emit('changeMenu');
             });

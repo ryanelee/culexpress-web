@@ -183,9 +183,12 @@ angular.module('culAdminApp')
                     case "receipt":
                         if (!!item) $location.search({ receiptNumber: item.receiptNumber });
                         // $location.path("/warehouse/receipt2");
-                        $location.path("/warehouse/receiptedit2");
-
-
+                        if (item._shelfStatus == "已上架") {
+                            $location.path("/warehouse/shelf");
+                        }
+                        if(item._shelfStatus == "未上架") {
+                            $location.path("/warehouse/receiptedit2");
+                        }
                         break;
                     case "shelf":
                         if (!!item) $location.search({ receiptNumber: item.receiptNumber });

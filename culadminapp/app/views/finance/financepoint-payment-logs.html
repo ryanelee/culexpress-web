@@ -81,7 +81,7 @@
                 <td>{{item.rownumber}}</td>
                 <td>{{item.customerNumber}}</td>
                 <td>{{item.point}}</td>
-                <td>{{item.indate}}</td>
+                <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                 <td>{{item.inuserName}}</td>
                 <td>{{item.description || ''}}</td>
             </tr>
