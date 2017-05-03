@@ -48,7 +48,6 @@ angular.module('culAdminApp')
             }
 
             $scope.getPackageDetail = function() {
-                console.log('1234564324543')
                 if (!!$scope.data.trackingNumber && $scope._trackingNumber != $scope.data.trackingNumber) {
                     warehouseService.getInboundPackageDetail($scope.data.trackingNumber, function(result) {
                         if (result == null) {
@@ -64,7 +63,8 @@ angular.module('culAdminApp')
 
                         } else {
                             //修改
-                            console.log("feichang" + JSON.stringify(result));
+                            // console.log("feichang" + JSON.stringify(result));
+                            console.log(result);
                             $scope.data = result;
                             $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
