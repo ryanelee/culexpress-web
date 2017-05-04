@@ -286,6 +286,9 @@ angular.module('culAdminApp')
                         plugMessenger.success("操作成功");
                         $scope.$broadcast("print-inboundPackage.action", $scope.data.trackingNumber);
                         $scope.data = null;
+                        var element = $window.document.getElementById('txtTrackingNumber');
+                        if (element)
+                            element.focus();
                         // $location.path('/warehouse/receiptedit2');
                         // if (item) {
                         // } else {

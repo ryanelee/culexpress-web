@@ -180,7 +180,7 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnPrint = function(item, type) {
+            $scope.btnPrint = function(item, type) {            
                 var _print = function() {
                     switch (type) {
                         case "order":
