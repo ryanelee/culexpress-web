@@ -20,14 +20,12 @@ angular.module('culAdminApp')
             $scope.flag = '0';
             $scope.customerNumberFocus = false;
 
-            // $scope.myKeyup = function (e) {
-            //     $scope.myKeyup = function (e) {
-            //         var keycode = window.event ? e.keyCode : e.which;
-            //         if (keycode == 13) {
-            //             $scope.register();
-            //         }
-            //     };
-            // };
+            $scope.myKeyup_1 = function(e) {
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                    $scope.getPackageDetail();
+                }
+            };
             $scope.isUnusual = $location.search().isUnusual;
 
             $scope.data = {
@@ -51,7 +49,8 @@ angular.module('culAdminApp')
                 if (!!$scope.data.trackingNumber && $scope._trackingNumber != $scope.data.trackingNumber) {
                     warehouseService.getInboundPackageDetail($scope.data.trackingNumber, function(result) {
                         if (result == null) {
-                            trackingNumber.focus();
+                            // trackingNumber.focus();
+                            warehouseNumber.focus();
                             //新增
                             console.log('1234567ui')
                             var _newNumber = angular.copy($scope.data.trackingNumber);
