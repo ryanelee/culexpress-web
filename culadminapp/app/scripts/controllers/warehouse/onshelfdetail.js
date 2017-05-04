@@ -20,7 +20,7 @@ angular.module('culAdminApp')
             $scope.tempReceiptNumber = $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
             $scope.isUnusual = $location.search().isUnusual;
 
-            console.log($scope.tempItemNumber)
+            console.log($scope.tempItemNumber) 
 
             $scope.isExpecial = function() {
                 if ($scope.isUnusual == 1) {
@@ -177,7 +177,6 @@ angular.module('culAdminApp')
                     receiptNumber: $scope.receiptNumber,
                     itemCount: $scope.data.itemCount
                 }
-                // console.log(data);
                 if ($scope._itemType == "S2") {
                     data.receiptNumber = $scope.data.receiptNumber;
                 }
@@ -188,8 +187,7 @@ angular.module('culAdminApp')
                         $scope.data = null;
                         //$window.history.back();
                          // 上架成功后再跳转到上架登记界面继续上架操作
-                        console.log("上架成功后再跳转到上架登记界面继续上架操作");
-                         $location.path("/warehouse/onshelfdetail");
+                         $location.path("/warehouse/onshelfdetail");                         
                     }
                 });
             }

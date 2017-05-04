@@ -175,7 +175,11 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="item in data.inboundPackages">
-                                    <td>{{item.trackingNumber}}</td>
+                                    <td>{{item.trackingNumber}} 
+                                        <span ng-if="data.isFastOrder == 1" title="极速原箱">
+                                            <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                                        </span>
+                                    </td>
                                     <td>{{item.packageWeight}}</td>
                                     <td>{{item.createDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
                                     <td>{{item.inboundDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
