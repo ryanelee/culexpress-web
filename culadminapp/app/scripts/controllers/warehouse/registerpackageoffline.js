@@ -101,8 +101,11 @@ angular.module('culAdminApp')
                   var checkedPackages = $.grep($scope.data.outboundPackages, function (n) { return n.checked == true });
                   var _callback = callback || function () {
                     //   $location.path('/warehouse/package');
-                     //打包完成后继续跳转到打包界面继续打包操作 
-                    $location.path('/warehouse/registerpackageoffline');
+                     //打包完成后停留在打包界面继续打包操作 
+                    // $location.path('/warehouse/registerpackageoffline');
+                    var element = $window.document.getElementById('tempOutboundPackageNumber');
+                    if (element)
+                        element.focus()
                       plugMessenger.success("保存成功");
                       //$window.history.back();
                       _reset();

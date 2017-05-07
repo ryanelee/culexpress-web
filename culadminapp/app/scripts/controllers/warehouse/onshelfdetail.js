@@ -104,7 +104,9 @@ angular.module('culAdminApp')
                                 }
                                 $scope.tempItemNumber = "";
                             });
-
+                            var element = $window.document.getElementById('shelfNumber');
+                                    if (element)
+                                        element.focus();
                             return;
 
                             // inventoryService.getInfo($scope.tempItemNumber, function (result) {
@@ -186,8 +188,11 @@ angular.module('culAdminApp')
                         plugMessenger.success("操作成功");
                         $scope.data = null;
                         //$window.history.back();
-                         // 上架成功后再跳转到上架登记界面继续上架操作
-                         $location.path("/warehouse/onshelfdetail");                         
+                         // 上架成功后停留在上架登记界面继续上架操作
+                        //  $location.path("/warehouse/onshelfdetail"); 
+                        var element = $window.document.getElementById('tempItemNumber');
+                         if (element) element.focus();  
+
                     }
                 });
             }
