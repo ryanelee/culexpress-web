@@ -520,8 +520,8 @@ angular
                     if ($location.path() === '/') {
                         $('#txtTrackingNumber').val('');
                     }
-                    if ($rootScope.currentUser && $rootScope.currentUser.emailAddress) {
-                        ga('set', 'loginusername', $rootScope.currentUser.emailAddress);
+                    if (AuthService.getUser().currentUser && AuthService.getUser().emailAddress) {
+                        ga('set', 'loginusername', AuthService.getUser().emailAddress);
                     }
                     ga("send", "pageview", { page: $location.path() })
                 }, 200);

@@ -18,7 +18,7 @@ angular.module('culwebApp')
             var orderId = $stateParams.id;
 
 
-            AuthService.getCustomerMessage({ customerNumber: $rootScope.currentUser.customerNumber }).then(function(result) {
+            AuthService.getCustomerMessage({ customerNumber: AuthService.getUser().customerNumber }).then(function(result) {
                 $scope.currentUser = result.data
             })
 
@@ -31,7 +31,7 @@ angular.module('culwebApp')
                         loadOrderMessage();
                     });
             }
-            
+
 
             $scope.redirectToTrack = function() {
                 if (orderId) {
@@ -91,7 +91,7 @@ angular.module('culwebApp')
                     });
             }
 
-            $scope.payOrder = function(orderItem) {            
+            $scope.payOrder = function(orderItem) {
                 if (!orderItem) return false;
                 if (!orderItem.totalCount) {
                     alertify.alert('提示', '订单还未计价,不能支付!', 'warning');
@@ -112,7 +112,7 @@ angular.module('culwebApp')
                     function() {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
 
-                        var currentUser = $scope.$root.currentUser;
+                        var currentUser = AuthService.getUser();
 
                         orderSvr.paymentOrder(orderItem.orderNumber)
                             .then(function(result) {
