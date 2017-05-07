@@ -20,14 +20,12 @@ angular.module('culAdminApp')
             $scope.flag = '0';
             $scope.customerNumberFocus = false;
 
-            // $scope.myKeyup = function (e) {
-            //     $scope.myKeyup = function (e) {
-            //         var keycode = window.event ? e.keyCode : e.which;
-            //         if (keycode == 13) {
-            //             $scope.register();
-            //         }
-            //     };
-            // };
+            $scope.myKeyup_1 = function(e) {
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                    $scope.getPackageDetail();
+                }
+            };
             $scope.isUnusual = $location.search().isUnusual;
 
             $scope.data = {
@@ -48,11 +46,11 @@ angular.module('culAdminApp')
             }
 
             $scope.getPackageDetail = function() {
-                console.log('1234564324543')
                 if (!!$scope.data.trackingNumber && $scope._trackingNumber != $scope.data.trackingNumber) {
                     warehouseService.getInboundPackageDetail($scope.data.trackingNumber, function(result) {
                         if (result == null) {
-                            trackingNumber.focus();
+                            // trackingNumber.focus();
+                            warehouseNumber.focus();
                             //新增
                             console.log('1234567ui')
                             var _newNumber = angular.copy($scope.data.trackingNumber);
@@ -64,7 +62,8 @@ angular.module('culAdminApp')
 
                         } else {
                             //修改
-                            console.log("feichang" + JSON.stringify(result));
+                            // console.log("feichang" + JSON.stringify(result));
+                            console.log(result);
                             $scope.data = result;
                             $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
@@ -286,6 +285,9 @@ angular.module('culAdminApp')
                         plugMessenger.success("操作成功");
                         $scope.$broadcast("print-inboundPackage.action", $scope.data.trackingNumber);
                         $scope.data = null;
+                        var element = $window.document.getElementById('txtTrackingNumber');
+                        if (element)
+                            element.focus();
                         // $location.path('/warehouse/receiptedit2');
                         // if (item) {
                         // } else {

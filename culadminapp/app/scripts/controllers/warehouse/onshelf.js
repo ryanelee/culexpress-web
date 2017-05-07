@@ -154,7 +154,6 @@ angular.module('culAdminApp')
                         }
 
                         $scope.dataList = _data;
-                        console.log($scope.dataList)
                         $scope.pagination.totalCount = result.pageInfo.totalCount;
                         $rootScope.$emit("changeMenu");
                     });
@@ -182,10 +181,12 @@ angular.module('culAdminApp')
                 switch (type) {
                     case "receipt":
                         if (!!item) $location.search({ receiptNumber: item.receiptNumber });
-                        // $location.path("/warehouse/receipt2");
-                        $location.path("/warehouse/receiptedit2");
-
-
+                        if (item._shelfStatus == "已上架") {
+                            $location.path("/warehouse/shelf");
+                        }
+                        if(item._shelfStatus == "未上架") {
+                            $location.path("/warehouse/onshelfdetail");
+                        }
                         break;
                     case "shelf":
                         if (!!item) $location.search({ receiptNumber: item.receiptNumber });

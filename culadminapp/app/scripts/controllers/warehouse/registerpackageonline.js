@@ -178,8 +178,10 @@ angular.module('culAdminApp')
                                 plugMessenger.success("保存成功");
                                 //   $window.history.back();
                                 // $location.path('/warehouse/package');
-                                //打包完成后继续跳转到打包界面继续打包操作 
-                                 $location.path('/warehouse/registerpackageonline');
+                                //打包完成后停留在到打包界面继续打包操作 
+                                //  $location.path('/warehouse/registerpackageonline');
+                                var element = $window.document.getElementById('tempInboundPackageNumber');
+                                if (element) element.focus()
                                 _reset();
                             }
                             //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费

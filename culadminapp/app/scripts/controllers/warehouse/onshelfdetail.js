@@ -20,7 +20,7 @@ angular.module('culAdminApp')
             $scope.tempReceiptNumber = $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
             $scope.isUnusual = $location.search().isUnusual;
 
-            console.log($scope.tempItemNumber)
+            console.log($scope.tempItemNumber) 
 
             $scope.isExpecial = function() {
                 if ($scope.isUnusual == 1) {
@@ -104,7 +104,9 @@ angular.module('culAdminApp')
                                 }
                                 $scope.tempItemNumber = "";
                             });
-
+                            var element = $window.document.getElementById('shelfNumber');
+                                    if (element)
+                                        element.focus();
                             return;
 
                             // inventoryService.getInfo($scope.tempItemNumber, function (result) {
@@ -177,7 +179,6 @@ angular.module('culAdminApp')
                     receiptNumber: $scope.receiptNumber,
                     itemCount: $scope.data.itemCount
                 }
-                // console.log(data);
                 if ($scope._itemType == "S2") {
                     data.receiptNumber = $scope.data.receiptNumber;
                 }
@@ -187,9 +188,11 @@ angular.module('culAdminApp')
                         plugMessenger.success("操作成功");
                         $scope.data = null;
                         //$window.history.back();
-                         // 上架成功后再跳转到上架登记界面继续上架操作
-                        console.log("上架成功后再跳转到上架登记界面继续上架操作");
-                         $location.path("/warehouse/onshelfdetail");
+                         // 上架成功后停留在上架登记界面继续上架操作
+                        //  $location.path("/warehouse/onshelfdetail"); 
+                        var element = $window.document.getElementById('tempItemNumber');
+                         if (element) element.focus();  
+
                     }
                 });
             }

@@ -4,12 +4,12 @@ angular
     .module('culwebApp')
     .controller('uploadIDCardCtrl', ['$rootScope', '$location', '$scope', 'AuthService', '$state', 'Customer', "$http", "$window",
         function($rootScope, $location, $scope, AuthService, $state, Customer, $http, $window) {
-            // if ($window.sessionStorage.flag != 1) {
-            //     $window.sessionStorage.flag = 1;
-            //     window.location.reload();
-            // } else {
-            //     $window.sessionStorage.flag++;
-            // }
+            if ($window.sessionStorage.flag != 1) {
+                $window.sessionStorage.flag = 1;
+                window.location.reload();
+            } else {
+                $window.sessionStorage.flag++;
+            }
 
             $scope.data = {};
             $scope.data.urls = [];
@@ -126,9 +126,8 @@ angular
                         console.log(data)
                         if (data.status == 200) {
                             console.log('2345')
-                            console.log($rootScope.isLogined)
                             alertify.alert('提示', data.data.msg);
-                            if (!$rootScope.isLogined) {
+                            if (!AuthService.isLogined()) {
                                 $location.path('/login');
                             }
                         }

@@ -2225,14 +2225,14 @@ select:-webkit-autofill {
 
 .my-dashboard .address-item .short-name {
 	display: inline-block;
-	width: 50px; height: 50px;
-	margin: 20px 0 8px;
+	width: 45px; height: 45px;
+	/*margin: 20px 0 8px;*/
 	background-color: #a5b6d1;
 	color: #fff;
 	border-radius: 50%;
 	font-size: 24px;
 	text-align: center;
-	line-height: 50px;
+	line-height: 45px;
 	vertical-align: middle;
 }
 

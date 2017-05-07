@@ -29,9 +29,21 @@ angular.module('culAdminApp')
                 $scope.$on("print-unshelf.action", function(e, warehouseNumber) {
                     $scope.dataList = [];
                     shelfService.getUnshelfList({ warehouseNumber: warehouseNumber }, function(result) {
-                        $scope.dataList = _.groupBy(result, function(item) { return item.sendType });
-                        console.log(result)
-                            //   debugger;
+                        _.each(result, function(item) {
+                            if (item.sendType == 2 && item.isUnusual == 1) {
+                                item._sendType = 3
+
+                            }
+                            else if (item.sendType == 2 && item.isUnusual == 2) {
+                                item._sendType = 4
+                            }
+                            else {
+                                item._sendType = item.sendType
+                            }
+                        });
+                        $scope.dataList = _.groupBy(result, function(item) { return item._sendType });
+                        console.log("&**************上架清单*********************")
+                        // console.log($scope.dataList)
                         $scope.currentDate = Date.now();
                         _render();
                     });
