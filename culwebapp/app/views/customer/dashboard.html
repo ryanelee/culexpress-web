@@ -85,7 +85,7 @@
                             <a ui-sref="customer.myfinancedetail({tabId:'recharge'})" class="tooltips" data-toggle="tooltip" data-original-title="点击查看充值记录充值"><small>充值记录</small></a>
                         </li>
                         <li>
-                            <a ui-sref="customer.myfinancedetail({tabId:'debit'})" class="tooltips" data-toggle="tooltip" data-original-title="点击查看扣款明细"><small>扣款明细</small></a>
+                            <a ui-sref="customer.myfinancedetail({tabId:'debit'})"><small>扣款明细</small></a>
                         </li>
                     </ul>
                 </div>
@@ -230,9 +230,11 @@
                 </ul>
             </div>
         </div>-->
-        <div class="col-md-12 " ng-repeat="addressItem in model.addressList"><!--col-sm-6-->
-            <div class="address-item" >
-                <div class="address-head" ><!--style="height:210px;" style="height:640px;overflow: auto"-->
+        <div class="col-md-12 " ng-repeat="addressItem in model.addressList">
+            <!--col-sm-6-->
+            <div class="address-item">
+                <div class="address-head">
+                    <!--style="height:210px;" style="height:640px;overflow: auto"-->
                     <!--<span class="short-name">{{addressItem.warehouseShortName}}</span>-->
                     <h3 class="title"><span class="short-name">{{addressItem.warehouseShortName}}</span>{{addressItem.warehouseName}} <span>
                 <span class="remark" ng-if="addressItem.isTaxFree=='1'">免税州收货地址</span>
