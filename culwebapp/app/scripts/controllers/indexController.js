@@ -20,17 +20,22 @@ angular
             $scope.isLogined = AuthService.isLogined();
             $scope.$on('isLogin', function() {
                 $scope.isLogin();
+                $scope.getMessageOperationlog();
             })
 
             $scope.tipMessageList = [];
             $scope.tipMessageLength = 0;
+
             $scope.getMessageOperationlog = function() {
                 Customer.getMessageOperationlog().then(function(data) {
-                    $scope.tipMessageList = data.data.data;  
-                    $scope.tipMessageLength =  data.data.data.length;             
+                    $scope.tipMessageList = data.data.data;
+                    $scope.tipMessageLength = data.data.data.length;
                 })
             }
-            $scope.getMessageOperationlog();
+            if ($scope.isLogined) {
+                $scope.getMessageOperationlog();
+            }
+
 
             // $scope.load = function() {  
             //     $scope.tipMessageLength = $scope.tipMessageList.length;  
