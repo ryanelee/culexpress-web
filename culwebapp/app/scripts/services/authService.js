@@ -41,7 +41,7 @@ angular.module('culwebApp')
                 var str_userInfo = JSON.stringify(result);
                 sessionStorage.setItem(self.userInfoKey, str_userInfo);
                 $rootScope.currentUser = result;
-
+                self.setUser(result);
                 success(result)
             }, function(err) {
                 error(err)

@@ -70,7 +70,7 @@ angular.module('culAdminApp')
                 $location.path('/system/editwarehouse')
             }
             $scope.del = function(warehouseNumber) {
-                    console.log(warehouseNumber);
+                    //console.log(warehouseNumber);
                     // return;
                     plugMessenger.confirm("确认删除该仓库吗?", function(isOk) {
                         if (isOk) {

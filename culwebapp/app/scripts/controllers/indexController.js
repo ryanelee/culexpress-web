@@ -19,7 +19,7 @@ angular
             }
             $scope.isLogined = AuthService.isLogined();
             $scope.$on('isLogin', function() {
-                console.log("真是一个美妙的世界")
+                //console.log("真是一个美妙的世界")
                 $scope.isLogin();
             })
 
@@ -33,7 +33,7 @@ angular
 
             $scope.getDetail = function(item) {
                 Customer.updateMessageOperation({ messageNumber: item.messageNumber }).then(function(data) {
-                    console.log(data)
+                    //console.log(data)
                     $location.path('customer/question/' + item.messageNumber)
 
                 })

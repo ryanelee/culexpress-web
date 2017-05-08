@@ -1,6 +1,6 @@
 ﻿angular.module('culwebApp')
-    .directive('umiMenu', ['$timeout', '$compile', 'menuSerivce',
-        function($timeout, $compile, menuSerivce) {
+    .directive('umiMenu', ['$timeout', '$compile', 'menuSerivce', 'AuthService',
+        function($timeout, $compile, menuSerivce, AuthService) {
             return {
                 restrict: "EA",
                 replace: true,
@@ -12,7 +12,7 @@
                 template: '<ul class="{{cls}}" id="{{key}}"><menu-item ng-if="dataItem.visible !== false" ng-repeat="dataItem in source" ng-model="dataItem" child-name="{{childName}}"></menu-item></ul>',
                 link: function(scope, element, attrs) {
                     var childName = scope.childName = attrs.childName || 'childs',
-                        isVip = scope.$root.currentUser && scope.$root.currentUser.isVip;
+                        isVip = AuthService.getUser() && AuthService.getUser().isVip;
                     if (!scope.source && !attrs.nestedInner) {
                         scope.source = menuSerivce.getPages(isVip);
                     }
@@ -44,16 +44,16 @@
 
                     scope.itemSelect = function($event) {
                         if (!!scope.ngModel.route) {
-                          if (!!scope.ngModel.stateParams) {
-                            $state.go(scope.ngModel.route, scope.ngModel.stateParams);
-                          } else {
-                            $state.go(scope.ngModel.route);
-                          }
-                          // if (scope.ngModel.name === '使用流程') {
-                          //   var url = $state.href(scope.ngModel.route);
-                          //   window.open(url, '_blank');
-                          // } else {
-                          // }
+                            if (!!scope.ngModel.stateParams) {
+                                $state.go(scope.ngModel.route, scope.ngModel.stateParams);
+                            } else {
+                                $state.go(scope.ngModel.route);
+                            }
+                            // if (scope.ngModel.name === '使用流程') {
+                            //   var url = $state.href(scope.ngModel.route);
+                            //   window.open(url, '_blank');
+                            // } else {
+                            // }
                         }
                         menuSerivce.changState(scope.ngModel);
                         if (!scope.ngModel.toggle) {
@@ -183,21 +183,21 @@
                         name: '我的信息',
                         icon: 'fa fa-list-alt',
                         route: 'customer.myaccount',
-                        stateParams: {anchorid:'profile'}
+                        stateParams: { anchorid: 'profile' }
                     }, {
                         leaf: true,
                         key: 'passwordTab',
                         name: '修改密码',
                         icon: 'fa fa-lock',
                         route: 'customer.myaccount',
-                        stateParams: {anchorid:'passwordTab'}
+                        stateParams: { anchorid: 'passwordTab' }
                     }, {
                         leaf: true,
                         key: 'addressbook',
                         name: '收货地址',
                         icon: 'fa fa-map-marker',
                         route: 'customer.myaccount',
-                        stateParams: {anchorid:'addressbook'}
+                        stateParams: { anchorid: 'addressbook' }
                     }]
                 }, {
                     key: 'help',
@@ -205,39 +205,40 @@
                     icon: 'fa fa-question-circle',
                     toggle: true,
                     childs: [{
-                        leaf: true,
-                        key: 'questions',
-                        name: '我的问题',
-                        icon: 'fa fa-clock-o',
-                        route: 'customer.myquestions'
-                    },
-                    // {
-                    //     leaf: true,
-                    //     key: 'charges',
-                    //     name: '资费标准',
-                    //     icon: 'fa fa-yen',
-                    //     route: 'pricing'
-                    // },
-                    {
-                        leaf: true,
-                        key: 'manual',
-                        name: '使用流程',
-                        icon: 'fa fa-graduation-cap',
-                        route: 'howtouse',
-                        target: '_blank'
-                    },{
-                        leaf: true,
-                        key: 'askquestion',
-                        name: '在线咨询',
-                        icon: 'fa fa-comment',
-                        route: 'customer.askquestion'
-                    },{
-                        leaf: true,
-                        key: 'refer-a-friend',
-                        name: '好友邀请',
-                        icon: 'fa fa-gift',
-                        route: 'refer-a-friend'
-                    }]
+                            leaf: true,
+                            key: 'questions',
+                            name: '我的问题',
+                            icon: 'fa fa-clock-o',
+                            route: 'customer.myquestions'
+                        },
+                        // {
+                        //     leaf: true,
+                        //     key: 'charges',
+                        //     name: '资费标准',
+                        //     icon: 'fa fa-yen',
+                        //     route: 'pricing'
+                        // },
+                        {
+                            leaf: true,
+                            key: 'manual',
+                            name: '使用流程',
+                            icon: 'fa fa-graduation-cap',
+                            route: 'howtouse',
+                            target: '_blank'
+                        }, {
+                            leaf: true,
+                            key: 'askquestion',
+                            name: '在线咨询',
+                            icon: 'fa fa-comment',
+                            route: 'customer.askquestion'
+                        }, {
+                            leaf: true,
+                            key: 'refer-a-friend',
+                            name: '好友邀请',
+                            icon: 'fa fa-gift',
+                            route: 'refer-a-friend'
+                        }
+                    ]
                 }];
                 //为了方便实现，这里直接设置数组的第一个元素为默认选中元素
                 prevSelected = data[0];

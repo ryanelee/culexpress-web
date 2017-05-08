@@ -108,7 +108,7 @@ angular.module('culAdminApp')
 
 
             $scope.btnPrint = function (item) {
-                console.log($scope.data.sendType);
+                //console.log($scope.data.sendType);
                 switch ($scope.data.sendType) {
                     case 1: //寄送库存
                         $scope.$broadcast("print-helper.action", "receipt-tag-exception-tag", { exceptionNumber: $scope.data.exceptionNumber });

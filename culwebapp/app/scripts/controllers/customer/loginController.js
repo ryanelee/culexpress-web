@@ -37,8 +37,8 @@ angular
                             AuthService.clearStorage();
                             // AuthService.addStorage(angular.extend(result.data, { password: $scope.password }), loginData.rememberMe);
                             AuthService.setUser(result.data);
-                            console.log("登陆储存获取的数据");
-                            console.log(AuthService.getUser(result.data))
+                            //console.log("登陆储存获取的数据");
+                            //console.log(AuthService.getUser(result.data))
                             if (result.headers('Token')) {
                                 if (loginData.rememberMe) {
                                     localStorage.setItem('user', angular.toJson(loginData));

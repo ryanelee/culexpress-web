@@ -184,11 +184,13 @@ angular.module('culAdminApp')
                 var _print = function() {
                     switch (type) {
                         case "order":
-                            plugMessenger.confirm("订单将变为已打印状态,请确认是否打印？", function(isOK) {
-                                if (isOK) {
-                                    $scope.$broadcast("print-order.action", item.orderNumber);
-                                }
-                            });                           
+                            // plugMessenger.confirm("订单将变为已打印状态,请确认是否打印？", function(isOK) {
+                            //     var orderNumbers = [];
+                            //     orderNumbers.push(item.orderNumber)
+                            //     if (isOK) {
+                            $scope.$broadcast("print-order.action", item.orderNumber);
+                            // }
+                            // });
                             break;
                         case "package":
                             $scope.$broadcast("print-package.action", item.orderNumber);
@@ -208,6 +210,7 @@ angular.module('culAdminApp')
                     _print();
                 } else {
                     switch (type) {
+                        case "order":
                         case "flyingexpress":
                         case "flyingexpress2":
                             plugMessenger.confirm("订单将变为已打印状态,请确认是否打印？", function(isOK) {

@@ -42,7 +42,7 @@ angular.module('culAdminApp')
                             }
                         });
                         $scope.dataList = _.groupBy(result, function(item) { return item._sendType });
-                        console.log("&**************上架清单*********************")
+                        //console.log("&**************上架清单*********************")
                         // console.log($scope.dataList)
                         $scope.currentDate = Date.now();
                         _render();

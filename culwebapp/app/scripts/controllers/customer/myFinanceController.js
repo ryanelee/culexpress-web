@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('MyFinanceController', ['$scope', '$stateParams', '$window', '$location', 'Customer',
-        function($scope, $stateParams, $window, $location, customer) {
+    .controller('MyFinanceController', ['$scope', '$stateParams', '$window', '$location', 'Customer', 'AuthService',
+        function($scope, $stateParams, $window, $location, customer, AuthService) {
             if (App) {
                 App.init();
                 App.initCounter();
@@ -12,7 +12,7 @@ angular
 
             $scope.currentTabId = $stateParams.tabId || 'recharge';
 
-            $scope.currentUser = $scope.$root.currentUser;
+            $scope.currentUser = AuthService.getUser();
 
 
             //$scope.$root.autologin(function (result) {
@@ -36,7 +36,7 @@ angular
             }
 
             $scope.userPay = function() {
-                var customerNumber = $scope.$root.currentUser.customerNumber;
+                var customerNumber = AuthService.getUser();
                 if (!customerNumber) {
                     alertify.alert('提醒', '请先登录.', 'warning');
                     return false;
@@ -61,7 +61,7 @@ angular
             var loadFinanceLog = function(index, callback) {
                 customer.getFinanceLog(index, $scope.currentUser.customerNumber, operationType)
                     .then(function(result) {
-                        console.log(result);
+                        //console.log(result);
                         callback && callback(result);
                     });
             }

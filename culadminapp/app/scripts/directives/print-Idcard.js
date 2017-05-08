@@ -27,8 +27,8 @@ angular.module('culAdminApp')
                 }
 
                 $scope.$on("print-idcard.action", function(e, data) {
-                    console.log("开始")
-                    console.log(data)
+                    //console.log("开始")
+                    //console.log(data)
                     $scope.dataList = data.data;
                     // if ($scope.dataList.length == 1) {
                     //     console.log('这是为什么呢')
@@ -42,7 +42,7 @@ angular.module('culAdminApp')
 
                 var _render = function() {
                     if ($scope.dataList.length == $scope.dataList.length) {
-                        console.log($scope.dataList);
+                        //console.log($scope.dataList);
                         $timeout(function() {
                             $element.children().jqprint();
                         }, 1000);
