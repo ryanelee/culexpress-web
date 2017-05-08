@@ -76,7 +76,7 @@ angular.module('culAdminApp')
             $scope.getData = function() {
                 shelfService.getList(_filterOptions(), function(result) {
                     var _data = result.data;
-                    console.log(_data)
+                    //console.log(_data)
                     _data.forEach(function(e) {
                         if (e.type == "C") {
                             e._type = "异常包裹"
@@ -135,7 +135,7 @@ angular.module('culAdminApp')
                 plugMessenger.confirm("确认删除架位" + item.shelfNumber + "吗?", function(isOK) {
                     if (isOK) {
                         shelfService.deleteShelf(item, function(result) {
-                            console.log(result);
+                            //console.log(result);
                             if (result.code == '000') {
                                 plugMessenger.success("操作成功");
                                 $scope.getData();

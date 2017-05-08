@@ -83,7 +83,7 @@ angular.module('culAdminApp')
 
             $scope.getData = function () {
                 customerService.getWebAnnounce(_filterOptions(), function (result) {
-                    console.log(result);
+                    //console.log(result);
                     $scope.dataList = result.data.data;
                     $scope.pagination.totalCount = result.data.pageInfo.totalCount;
                     $rootScope.$emit("changeMenu");
@@ -92,7 +92,7 @@ angular.module('culAdminApp')
             // $scope.getData();
 
             $scope.btnSearch = function () {
-                console.log('23')
+                //console.log('23')
                 $scope.selectedListCache = [];
                 $scope.dataList = [];
                 $scope.pagination.pageIndex = 1;
@@ -117,7 +117,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSave = function () {
-                console.log('13')
+                //console.log('13')
                 customerService.createWebAnnounce($scope.data, function (result) {
                     if (result.code = '000') {
                         plugMessenger.success("创建成功");
@@ -141,7 +141,7 @@ angular.module('culAdminApp')
 
             //更新
             $scope.updateAnnounce = function () {
-                console.log(123)
+                //console.log(123)
                 customerService.updateWebAnnounce($scope.data, function (result) {
                     if (result.code == '000') {
                         plugMessenger.success("更新成功");
@@ -152,7 +152,7 @@ angular.module('culAdminApp')
 
             // 控制广告禁用启用属性
             $scope.changeOpenAll = function (type) {
-                console.log(type)
+                //console.log(type)
                 if (type == 1 || type == 3) {
                     $scope.data.openAll = 0
                     $scope.disabledFlag = 1
@@ -163,7 +163,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnDelete = function (announce) {
-                console.log(announce);
+                //console.log(announce);
                 plugMessenger.confirm("确认删除吗" + announce.title + "？", function (isOk) {
                     if (isOk) {
                         customerService.deleteWebAnnounce(announce, function (result) {

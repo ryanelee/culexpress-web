@@ -86,12 +86,12 @@ angular
             // });
 
             $('#file').on('fileclear', function(event) {
-                console.log("fileclear");
+                //console.log("fileclear");
                 $scope.data.urls = [];
             });
 
             $('#file').on('filereset', function(event) {
-                console.log("filereset");
+                //console.log("filereset");
             });
 
             $('#file').on('fileuploaded', function(event, data, previewId, index) {
@@ -100,7 +100,7 @@ angular
                     extra = data.extra,
                     response = data.response,
                     reader = data.reader;
-                console.log(response.url);
+                //console.log(response.url);
                 $scope.data.urls.push(response.url)
             });
 
@@ -111,7 +111,7 @@ angular
 
 
             $scope.submit = function() {
-                console.log($scope.data);
+                //console.log($scope.data);
                 if (!$scope.data.trackingNumber && !$scope.data.cellphoneNumber && !$scope.data.receivePersonName) {
                     alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
                     return;
@@ -123,9 +123,9 @@ angular
                     return
                 } else {
                     $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function(data) {
-                        console.log(data)
+                        //console.log(data)
                         if (data.status == 200) {
-                            console.log('2345')
+                            //console.log('2345')
                             alertify.alert('提示', data.data.msg);
                             if (!AuthService.isLogined()) {
                                 $location.path('/login');

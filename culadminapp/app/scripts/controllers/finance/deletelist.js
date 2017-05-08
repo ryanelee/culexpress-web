@@ -118,7 +118,7 @@ angular.module('culAdminApp')
 
             $scope.getData = function() {
                 var _options = _filterOptions();
-                console.log(_options);
+                //console.log(_options);
                 orderService.getList(angular.copy(_options), function(result) {
                     $scope.dataList1 = result.data;
 

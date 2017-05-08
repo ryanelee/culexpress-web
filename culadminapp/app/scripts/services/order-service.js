@@ -191,8 +191,8 @@ angular.module('culAdminApp')
         }
 
         self.deleteOutboundPackage = function(numbers, callback) {
-            console.log("self.deleteOutboundPackage");
-            console.log(numbers);
+            //console.log("self.deleteOutboundPackage");
+            //console.log(numbers);
             // $http.delete(cul.apiPath + "/outboundpackage?number=" + numbers.join(",")).success(function (result) {
             $http.post(cul.apiPath + "/deleteOutboundpackage", numbers).success(function(result) {
                 callback(result);

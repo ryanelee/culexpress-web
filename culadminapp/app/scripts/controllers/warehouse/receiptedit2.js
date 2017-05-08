@@ -19,12 +19,12 @@ angular.module('culAdminApp')
 
 
             $scope.checkReceiveIdentity = function(e) {
-                console.log('2345')
+                //console.log('2345')
                     // $scope.myKeyup = function (e) {
-                console.log(2)
+                //console.log(2)
                 var keycode = window.event ? e.keyCode : e.which;
                 if (keycode == 13) {
-                    console.log('2345')
+                    //console.log('2345')
                     if (!$scope.data.receiveIdentity) {
                         plugMessenger.error("客户标示不能为空");
                         return;
@@ -39,7 +39,7 @@ angular.module('culAdminApp')
                         if (result.data.code == '000') {
                             packageDescription.focus()
                             $scope.data.customerNumber = result.data.data[0].customerNumber
-                            console.log($scope.data.tempCustomerNumber);
+                            //console.log($scope.data.tempCustomerNumber);
                         }
                     })
                 }
@@ -49,7 +49,7 @@ angular.module('culAdminApp')
 
 
             $scope.myKeyup = function(e, item) {
-                console.log(item);
+                //console.log(item);
 
                 $scope.myKeyup = function(e) {
                     var keycode = window.event ? e.keyCode : e.which;
@@ -85,11 +85,11 @@ angular.module('culAdminApp')
 
             $scope.tempReceiptNumber = $location.search().receiptNumber || "";
             $scope.tempInboundStatus = $location.search().inboundStatus || 1;
-            console.log($scope.tempReceiptNumber);
-            console.log($scope.tempInboundStatus);
+            //console.log($scope.tempReceiptNumber);
+            //console.log($scope.tempInboundStatus);
 
             $scope.tempReceipt = $scope.tempReceiptNumber.substring(0, 3);
-            console.log($scope.tempReceipt)
+            //console.log($scope.tempReceipt)
 
             if ($scope.tempReceiptNumber) {
                 if ($scope.tempReceipt == 'ASN') {
@@ -118,7 +118,7 @@ angular.module('culAdminApp')
                         $scope.$apply(function() {
                             if (!!$scope.tempReceiptNumber) {
                                 receiptService.getDetail($scope.tempReceiptNumber, function(result) {
-                                    console.log(result);
+                                    //console.log(result);
                                     $scope.data = null;
                                     if (!result.message) {
                                         $scope.data = result;
@@ -155,7 +155,7 @@ angular.module('culAdminApp')
                     $scope.$apply(function() {
                         if (!!$scope.tempReceiptNumber) {
                             receiptService.getDetail($scope.tempReceiptNumber, function(result) {
-                                console.log(result);
+                                //console.log(result);
                                 $scope.data = null;
                                 if (!result.message) {
                                     $scope.data = result;
@@ -247,7 +247,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrint = function(item) {
-                console.log(item);
+                //console.log(item);
                 switch ($scope.data.sendType) {
                     case 1: //寄送库存
                         $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber });

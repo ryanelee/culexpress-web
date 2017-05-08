@@ -36,7 +36,7 @@ angular.module('culAdminApp')
                                 if (!!result && !!result.data && result.data.length > 0) {
                                     if (!$scope.data) {
                                         $scope.data = result.data[0];
-                                        console.log($scope.data);
+                                        //console.log($scope.data);
                                     }
                                     var _checked = false;
                                     $scope.data.outboundPackages[0].actualWeight = 0;

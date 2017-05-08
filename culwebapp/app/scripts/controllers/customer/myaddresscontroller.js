@@ -339,7 +339,7 @@ angular.module('culwebApp')
                     addAddress();
                 }
             }
-            console.log($stateParams.addressId);
+            //console.log($stateParams.addressId);
             if ($stateParams.addressId) {
                 addressSvr
                     .getAddressInfo($stateParams.addressId)

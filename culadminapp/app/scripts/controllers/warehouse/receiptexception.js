@@ -73,7 +73,7 @@ angular.module('culAdminApp')
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 }
 
-                console.log(_options);
+                //console.log(_options);
                 return angular.copy(_options);
             }
 
@@ -131,7 +131,7 @@ angular.module('culAdminApp')
                             $location.path('/warehouse/receiptstaff');
                             break;
                         case "close":
-                            console.log(item);
+                            //console.log(item);
                             plugMessenger.confirm("请确认是否关闭异常？", function(isOK) {
                                 if (isOK) {
                                     receiptService.exceptionEdit({

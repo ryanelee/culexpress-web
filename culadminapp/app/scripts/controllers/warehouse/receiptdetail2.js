@@ -22,7 +22,7 @@ angular.module('culAdminApp')
               $scope.data = null;
               if (!result.message) {
                   $scope.data = result;
-                 console.log($scope.data);
+                 //console.log($scope.data);
               }
           });
 
