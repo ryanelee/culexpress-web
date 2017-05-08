@@ -306,6 +306,11 @@ angular
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
+            .state('home', {
+                url: '/',
+                templateUrl: 'views/main.html',
+                controller: function() {}
+            })
             .state('/', {
                 url: '/',
                 templateUrl: 'views/main.html',
@@ -520,7 +525,7 @@ angular
                     if ($location.path() === '/') {
                         $('#txtTrackingNumber').val('');
                     }
-                    if (AuthService.getUser().currentUser && AuthService.getUser().emailAddress) {
+                    if (AuthService.getUser() && AuthService.getUser().currentUser && AuthService.getUser().emailAddress) {
                         ga('set', 'loginusername', AuthService.getUser().emailAddress);
                     }
                     ga("send", "pageview", { page: $location.path() })
