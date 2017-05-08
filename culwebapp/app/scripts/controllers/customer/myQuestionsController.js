@@ -73,7 +73,13 @@ angular
                 loadQuestionList(pageIndex);
             }
             $scope.redirectToDetail = function (questionItem) {
-                $state.go('customer.questiondetail', { questionid: questionItem.messageNumber });
+                customer.updateMessageOperation({ messageNumber: questionItem.messageNumber }).then(function(data) {
+                    //console.log(data)
+                    // $location.path('customer/question/' + item.messageNumber)
+                     $state.go('customer.questiondetail', { questionid: questionItem.messageNumber });
+
+                })
+               
             }
 
             $scope.deleteQuestion = function (number) {

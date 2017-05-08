@@ -114,7 +114,7 @@
 
             <div class="blog-topbar">
                 <div class="container">
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-sm-5" data-ng-class="{'col-xs-3': isLogined, 'col-xs-9': !isLogined}">
                             <a class="old-version" href="http://site1.culexpress.com" target="_blank">回到旧版</a>
                             <a class="login-item" data-ng-hide="isLogined" ui-sref="login">请登录</a>
@@ -169,13 +169,13 @@
                                 </li>
                                 <li data-ng-show="isLogined" class="hoverSelector">
                                     <!--<a ui-sref="login" data-ng-click="logout()">注销</a>-->
-                                    <i class="fa fa-envelope" ></i><span class="count" ng-if="!tipMessageList">{{tipMessageList.length}}</span>
+                                    <i class="fa fa-envelope" ></i><span class="count" ng-if="tipMessageLength != 0">{{tipMessageLength}}</span>
                                     <!--<span class="circle"></span>-->
                                     <ul class="topbar-dropdown  hidden-xs hidden-sm" style="width:200px;left:-80px;z-index:14;padding:0px;background-color: #98abcc" ng-show="!isLackProfile">
-                                        <li class="topbar-dropdown-header" ng-if="!tipMessageList" >
-                                            <em style="font-size: 10px;">有{{tipMessageList.length}}新回复消息</em>
+                                        <li class="topbar-dropdown-header" ng-if="tipMessageLength != 0" >
+                                            <em style="font-size: 10px;">有{{tipMessageLength}}条新回复消息</em>
                                         </li>
-                                        <li class="topbar-dropdown-header" ng-if="!!tipMessageList">
+                                        <li class="topbar-dropdown-header" ng-if="tipMessageLength == 0">
                                             <em style="font-size: 10px;">您还没有新回复消息</em>
                                         </li>
                                         <!--<li class="inbox-item unread clearfix" ng-repeat="message in tipMessageList" ng-if="$index < 5" ng-click="btnViewMessage(message);">-->

@@ -19,10 +19,10 @@
                                     <li class="notification-item inbox role" data-role="92">
                                         <div class="btn-group">
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-envelope"></i><span class="count">{{tipMessageLength}}</span>
+                                                <i class="fa fa-envelope"></i><span class="count" ng-if="tipMessageLength != 0">{{tipMessageLength}}</span>
                                                 <span class="circle"></span>
                                             </a>
-                                            <ul class="dropdown-menu" role="menu" style="height:350px;overflow:auto">
+                                            <ul class="dropdown-menu" role="menu" style="max-height: 350px;overflow:auto">
                                                 <li class="notification-header">
                                                     <em>您有 {{tipMessageLength}} 条未处理客户留言</em>
                                                 </li>
@@ -102,7 +102,7 @@
                                                 <span class="circle"></span>
                                             </a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <li class="notification-header">
+                                                <li class="notification-header" ng-if="vipCount != 0">
                                                     <em>您有 {{vipCount}} 条未处理客户申请</em>
                                                 </li>
                                                 <li ng-repeat="vip in vipData">
