@@ -22,7 +22,7 @@ angular.module('culAdminApp')
           },
           link: function postLink($scope, $element, attrs) {
               $scope.$on("bucket-item-selected", function (e, selected,level) {
-                  console.log($scope.type + " " + selected);
+                  //onsole.log($scope.type + " " + selected);
                   switch (level) {
                       case "pallet":
                           $scope.isSelected = $scope.data.name == selected;
@@ -39,7 +39,7 @@ angular.module('culAdminApp')
                           }
                           break;
                   }
-                  console.log($scope.isSelected);
+                  //console.log($scope.isSelected);
               });
           }
       };

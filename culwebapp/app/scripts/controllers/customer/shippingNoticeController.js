@@ -274,7 +274,7 @@ var app = angular
                         shippItemData.orderItems = [{ goodsCategory: '' }];
                         if (shippItemData.checked) {
                             if (!isFastOrder) {
-                                console.log(shippItemData.status);
+                                //console.log(shippItemData.status);
                                 if (shippItemData.status != 'Onshelf') {
                                     //SweetAlert.swal('提醒', '普通订单只能提交已入库的货物信息.', 'warning');
                                     alertify.alert('提醒', '普通订单只能提交已入库的货物信息!');

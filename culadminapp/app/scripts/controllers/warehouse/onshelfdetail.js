@@ -20,12 +20,12 @@ angular.module('culAdminApp')
             $scope.tempReceiptNumber = $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
             $scope.isUnusual = $location.search().isUnusual;
 
-            console.log($scope.tempItemNumber) 
+            //console.log($scope.tempItemNumber) 
 
             $scope.isExpecial = function() {
                 if ($scope.isUnusual == 1) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
-                    console.log(staffFlag);
+                    //console.log(staffFlag);
                     if (staffFlag != 'D') {
                         $scope.data.shelfNumber = "";
                         plugMessenger.error("员工包裹必须以D开头");
@@ -33,7 +33,7 @@ angular.module('culAdminApp')
                 }
                 if ($scope.isUnusual == 2) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
-                    console.log(staffFlag);
+                    //console.log(staffFlag);
                     if (staffFlag != 'C') {
                         $scope.data.shelfNumber = "";
                         plugMessenger.error("异常包裹必须以C开头");

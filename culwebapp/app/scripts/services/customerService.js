@@ -92,7 +92,7 @@ angular.module('culwebApp')
                 return $http.get(cul.apiPath + '/customermessagetype?type=1');
             },
             addQuestion: function(questionItem) {
-                console.log(questionItem);
+                //console.log(questionItem);
                 return $http.post(cul.apiPath + '/customermessage', {
                     customerNumber: questionItem.customerNumber,
                     messageType: questionItem.messageType,

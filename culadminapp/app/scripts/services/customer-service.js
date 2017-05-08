@@ -53,7 +53,7 @@ angular.module('culAdminApp')
                                 break;
                         }
                     });
-                    console.log(result);
+                    //console.log(result);
                     callback(result);
                 });
         }

@@ -52,7 +52,7 @@ angular.module('culAdminApp')
                             // trackingNumber.focus();
                             warehouseNumber.focus();
                             //新增
-                            console.log('1234567ui')
+                            //console.log('1234567ui')
                             var _newNumber = angular.copy($scope.data.trackingNumber);
                             $scope.data = { trackingNumber: _newNumber }
                             $scope._trackingNumber = "";
@@ -63,14 +63,14 @@ angular.module('culAdminApp')
                         } else {
                             //修改
                             // console.log("feichang" + JSON.stringify(result));
-                            console.log(result);
+                            //console.log(result);
                             $scope.data = result;
                             $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
                             $scope.tpl_status.isExist = true;
                             $scope.tpl_status.isExist_p = true;
                             // console.log('2345');
-                            console.log($scope.data.packageWeight);
+                            //console.log($scope.data.packageWeight);
                             if ($scope.data.trackingNumber && $scope.data.inboundStatus < 3) {
                                 // $window.document.getElementById("packageWeight").focus();
                                 packageWeight.focus();
@@ -107,12 +107,12 @@ angular.module('culAdminApp')
             });
 
             $scope.checkReceiveIdentity = function(e) {
-                console.log('2345')
+                //console.log('2345')
                     // $scope.myKeyup = function (e) {
-                console.log(2)
+                //console.log(2)
                 var keycode = window.event ? e.keyCode : e.which;
                 if (keycode == 13) {
-                    console.log('2345')
+                    //console.log('2345')
                     if (!$scope.data.receiveIdentity) {
                         // plugMessenger.error("客户标示不能为空");
                         return;
@@ -127,7 +127,7 @@ angular.module('culAdminApp')
                         if (result.data.code == '000') {
                             customerNumber.focus()
                             $scope.data.tempCustomerNumber = result.data.data[0].customerNumber
-                            console.log($scope.data.tempCustomerNumber);
+                            //console.log($scope.data.tempCustomerNumber);
                         }
                     })
                 }
@@ -302,7 +302,7 @@ angular.module('culAdminApp')
                     "weight": $scope.data.packageWeight,
                     "warehouseNote": $scope.data.warehouseNote
                 }
-                console.log($scope.options);
+                //console.log($scope.options);
 
                 // return;
                 receiptService.saveForOnline($scope.options, _callback);

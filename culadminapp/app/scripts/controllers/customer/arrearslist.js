@@ -52,7 +52,7 @@ culAdminApp.controller('ArrearslistCtrl', ["$scope", "$rootScope", "$location", 
             customerService.getArrearsList(_options, function(result) {
 
                 $scope.dataList = result.data;
-                console.log($scope.dataList)
+                //console.log($scope.dataList)
                 $scope.pagination.totalCount = result.pageInfo.totalCount;
                 $rootScope.$emit('changeMenu');
             });
@@ -153,7 +153,7 @@ culAdminApp.controller('PayDetailCtrl', ["$scope", "$rootScope", "$location", "$
         $scope.back = function() {
             window.history.back()
         }
-        console.log($scope.data);
+        //console.log($scope.data);
         $scope.pay = function() {
 
             $scope.data.memo = "订单编号: " + $scope.data.orderNumber + " 扣款人: " + $rootScope.userInfo.userName + " 备注: "

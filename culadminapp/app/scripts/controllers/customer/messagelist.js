@@ -78,10 +78,10 @@ angular.module('culAdminApp')
 
           $scope.getData = function () {
               var _options = _filterOptions();
-              console.log(_options);
+              //console.log(_options);
               faqService.getList(angular.copy(_options), function (result) {
                   $scope.dataList = result.data;
-                  console.log(result.data)
+                  //console.log(result.data)
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
                   $rootScope.$emit("changeMenu");
 
@@ -159,7 +159,7 @@ angular.module('culAdminApp')
                   $scope.searchBar.warehouseList = result;
                   $scope.searchBar.receivedWarehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
               } else {
-                  console.log(result)
+                  //console.log(result)
                 //   result = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
                   $scope.searchBar.warehouseList = result
                   $scope.searchBar.warehouseList = [{ warehouseNumber: " ", warehouseName: "全部" }].concat(result);
