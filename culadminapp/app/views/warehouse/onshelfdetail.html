@@ -63,7 +63,15 @@
 <script>
      $(function() {
          var tempItemNumber = document.getElementById("tempItemNumber").focus();
+         var shelfNumber = document.getElementById("shelfNumber")
       })
+      tempItemNumber.onkeydown = function(event) {
+        e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        if (e.keyCode == 13) {
+            shelfNumber.focus();
+        }
+    }
     // var shelfNumber = document.getElementById("shelfNumber");
     // shelfNumber.focus();
 </script>

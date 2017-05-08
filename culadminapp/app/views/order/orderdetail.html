@@ -224,24 +224,24 @@
                                     <th width="70px" ng-show="!!_editOrderItems">操作</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="form-edit">
                                 <tr ng-repeat="item in data.orderItems">
                                     <td>{{$index+1}}</td>
                                     <td>
                                         <span ng-show="!_editOrderItems">{{item.itemBrand}}</span>
-                                        <input type="text" class="form-control" ng-model="item.itemBrand" ng-show="!!_editOrderItems" />
+                                        <input type="text" class="form-control " ng-model="item.itemBrand" ng-show="!!_editOrderItems" />
                                     </td>
                                     <td>
                                         <span ng-show="!_editOrderItems">{{item.description}}</span>
-                                        <input type="text" class="form-control" ng-model="item.description" ng-show="!!_editOrderItems" />
+                                        <input type="text" class="form-control " ng-model="item.description" ng-show="!!_editOrderItems" />
                                     </td>
                                     <td>
                                         <span ng-show="!_editOrderItems">{{item.quantity}}</span>
-                                        <input type="text" class="form-control" ng-model="item.quantity" ng-show="!!_editOrderItems" />
+                                        <input type="text" class="form-control " ng-model="item.quantity" ng-show="!!_editOrderItems" />
                                     </td>
                                     <td>
                                         <span ng-show="!_editOrderItems">{{item.unitprice | number:2}}</span>
-                                        <input type="text" class="form-control" ng-model="item.unitprice" ng-show="!!_editOrderItems" />
+                                        <input type="text" class="form-control " ng-model="item.unitprice" ng-show="!!_editOrderItems" />
                                     </td>
                                     <td>
                                         <span ng-show="!_editOrderItems">{{item.property1}}</span>
@@ -410,3 +410,9 @@
         </form>
     </div>
 </div>
+
+<style>
+    .form-edit input:focus {
+        width:200px;
+    }
+</style>
