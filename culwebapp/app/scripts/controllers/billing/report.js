@@ -15,7 +15,7 @@ angular
                         text: '客户关联号'
                     }, {
                         key: 'packageNumber',
-                        text: '包裹跟踪号'
+                        text: 'cul包裹单号'
                     }, {
                         key: 'settlementNumber',
                         text: '结算编号'

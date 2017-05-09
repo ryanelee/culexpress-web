@@ -67,17 +67,13 @@ angular
                 });
             }
 
-
-
             $scope.onPaged = function (pageIndex) {
                 loadQuestionList(pageIndex);
             }
             $scope.redirectToDetail = function (questionItem) {
                 customer.updateMessageOperation({ messageNumber: questionItem.messageNumber }).then(function(data) {
-                    //console.log(data)
                     // $location.path('customer/question/' + item.messageNumber)
-                     $state.go('customer.questiondetail', { questionid: questionItem.messageNumber });
-
+                    $state.go('customer.questiondetail', { questionid: questionItem.messageNumber });                 
                 })
                
             }

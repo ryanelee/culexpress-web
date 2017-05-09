@@ -60,7 +60,7 @@ angular.module('culAdminApp')
 
           $scope.btnSave = function (callback) {
               var _weight = parseFloat($scope.data.packageWeight);
-              if ($scope.data.trackingNumber == null) { plugMessenger.info("请输入快递单号"); return; }
+              if ($scope.data.trackingNumber == null) { plugMessenger.info("请输入入库单号"); return; }
               if ($scope.data.warehouseNumber == null) { plugMessenger.info("请选择收货仓库"); return; }
               if ($scope.data.carrierName == null) { plugMessenger.info("请选择快递公司"); return; }
               if ($scope.data.customerNumber == null) { plugMessenger.info("请输入客户编号"); return; }

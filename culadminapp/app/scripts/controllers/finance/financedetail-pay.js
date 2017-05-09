@@ -76,7 +76,7 @@ angular.module('culAdminApp')
 
           $scope.btnSave = function () {
                 if (!$scope.search.orderNumber ) {
-                  plugMessenger.info("订单号不能为空");
+                  plugMessenger.info("订单编号不能为空");
                   return;
               }
               if ($scope.data.fee <= 0) {
