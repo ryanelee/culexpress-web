@@ -228,7 +228,7 @@ angular.module('culAdminApp')
                 $window.history.back();
             }
 
-            $('#tip_receiptNumber').popover({
+            $('#tip_receiptNumber_receiptedit2').popover({
                 container: 'body',
                 placement: 'top',
                 html: true,

@@ -87,9 +87,6 @@ angular
                             unslider.data('unslider')[fn]();
                         });
                     }
-
-
-
                 });
             }
             $scope.getOpenAnnounce();
