@@ -102,7 +102,7 @@ angular.module('culAdminApp')
             }
 
 
-            $('#tip_receiptNumber').popover({
+            $('#tip_receiptNumber_receip').popover({
                 container: 'body',
                 placement: 'top',
                 html: true,

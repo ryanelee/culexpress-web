@@ -21,7 +21,7 @@ angular
 
             $scope.checkNumber = function() {
                 if (!$scope.data.trackingNumber) {
-                    alertify.alert("提示", "包裹号不能为空");
+                    alertify.alert("提示", "cul包裹单号不能为空");
                     return;
                 }
                 $scope.customNumber = "";

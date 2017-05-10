@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('LoginCtrl', ["$scope", "$rootScope", "$location", "$element", "userService", "plugMessenger",
-        function ($scope, $rootScope, $location, $element, userService, plugMessenger) {
+        function($scope, $rootScope, $location, $element, userService, plugMessenger) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -24,9 +24,9 @@ angular.module('culAdminApp')
                 remember: false
             }
 
-            $scope.btnLogin = function () {
+            $scope.btnLogin = function() {
                 userService.login($scope.model,
-                    function (errorMessage) {
+                    function(errorMessage) {
                         //success message
                         if (!errorMessage && $scope.resetFlag == '0') {
                             plugMessenger.success("登录成功");
@@ -35,7 +35,7 @@ angular.module('culAdminApp')
                         } else if (!errorMessage && $scope.resetFlag == '1') {
                             $scope.search.resetFlag = '1';
                             $scope.search.emailAddress = $rootScope.userInfo.emailAddress;
-                            userService.resetPassword($scope.search, function (result) {
+                            userService.resetPassword($scope.search, function(result) {
                                 if (result.success) {
                                     plugMessenger.success("重置成功");
                                 } else {
@@ -47,11 +47,11 @@ angular.module('culAdminApp')
                     });
             }
 
-            $scope.reset = function () {
+            $scope.reset = function() {
                 $scope.resetFlag = '1'
             }
 
-            $scope.resetPassword = function () {
+            $scope.resetPassword = function() {
                 if (!$scope.search.password) {
                     plugMessenger.error("新密码不能为空");
                 } else if ($scope.search.password != $scope.search.repassword) {
@@ -63,4 +63,5 @@ angular.module('culAdminApp')
 
 
 
-        }]);
+        }
+    ]);

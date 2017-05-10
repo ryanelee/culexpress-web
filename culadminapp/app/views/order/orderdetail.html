@@ -67,7 +67,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th style="width:130px;">包裹号</th>
+                                    <th style="width:130px;">cul包裹单号</th>
                                     <th>收货地址</th>
                                     <th style="width:130px;" ng-show="!!isShow">操作</th>
                                 </tr>
@@ -161,12 +161,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">收货单号：</label>
+                    <label class="col-sm-2 control-label text-right">入库单号：</label>
                     <div class="row col-sm-8">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>单号</th>
+                                    <th>入库单号</th>
                                     <th>重量</th>
                                     <th>创建时间</th>
                                     <th>入库时间</th>
@@ -224,24 +224,24 @@
                                     <th width="70px" ng-show="!!_editOrderItems">操作</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="form-edit">
                                 <tr ng-repeat="item in data.orderItems">
                                     <td>{{$index+1}}</td>
                                     <td>
                                         <span ng-show="!_editOrderItems">{{item.itemBrand}}</span>
-                                        <input type="text" class="form-control" ng-model="item.itemBrand" ng-show="!!_editOrderItems" />
+                                        <input type="text" class="form-control " ng-model="item.itemBrand" ng-show="!!_editOrderItems" />
                                     </td>
                                     <td>
                                         <span ng-show="!_editOrderItems">{{item.description}}</span>
-                                        <input type="text" class="form-control" ng-model="item.description" ng-show="!!_editOrderItems" />
+                                        <input type="text" class="form-control " ng-model="item.description" ng-show="!!_editOrderItems" />
                                     </td>
                                     <td>
                                         <span ng-show="!_editOrderItems">{{item.quantity}}</span>
-                                        <input type="text" class="form-control" ng-model="item.quantity" ng-show="!!_editOrderItems" />
+                                        <input type="text" class="form-control " ng-model="item.quantity" ng-show="!!_editOrderItems" />
                                     </td>
                                     <td>
                                         <span ng-show="!_editOrderItems">{{item.unitprice | number:2}}</span>
-                                        <input type="text" class="form-control" ng-model="item.unitprice" ng-show="!!_editOrderItems" />
+                                        <input type="text" class="form-control " ng-model="item.unitprice" ng-show="!!_editOrderItems" />
                                     </td>
                                     <td>
                                         <span ng-show="!_editOrderItems">{{item.property1}}</span>
@@ -318,7 +318,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>出货跟踪号</th>
+                                    <th>cul包裹单号</th>
                                     <th>实际重量</th>
                                     <th>运费价格</th>
                                 </tr>
@@ -410,3 +410,9 @@
         </form>
     </div>
 </div>
+
+<style>
+    .form-edit input:focus {
+        width:200px;
+    }
+</style>

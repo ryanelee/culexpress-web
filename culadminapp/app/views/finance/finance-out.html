@@ -86,32 +86,16 @@
         <div class="row">
             <div class="col-sm-12">
                 <table class="table table-bordered">
-                    <thead>
-                        <!--<tr>
-                            <th><input type="checkbox" ng-change="btnSelectedItem()" ng-model="searchBar.selectedAll" /></th>-->
+                    <thead>                       
                    <th>序号</th>
                     <th>cul单号</th>
-                    <th>订单号</th>
+                    <th>订单编号</th>
                     <th>客户id</th>
                     <th>仓库位置</th>
                     <th>实际重量</th>
                     <th>收费重量</th>
-                    <th>发货日期</th>
-                          
-<!--                          
-                            <th>序号</th>
-                            <th>订单号</th>
-                            <th>订单类型</th>
-                            <th>客户编号</th>
-                            <th>客户关联号</th>
-                            <th>包裹跟踪号</th>
-                            <th>收货地址</th>
-                            <th>包裹重量（磅）</th>
-                            <th>打包时间</th>
-                            <th>打包人员</th>
-                            <th>导出状态</th>
-                            <th>操作</th>-->
-                        </tr>
+                    <th>发货日期</th>                       
+                     </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in dataList">
@@ -122,26 +106,7 @@
                             <td>{{item.warehouseName}}</td>
                             <td>{{item.actualWeight}}</td>
                             <td>{{item.actualWeight}}</td>
-                            <td>{{item.outdate | date:"yyyy-MM-dd"}}</td>
-                            
-                            
-                            
-                            
-                            <!--<td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
-                            <td>{{item.rownumber}}</td>
-                            <td style="max-width: 200px;"><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a></td>
-                            <td>{{item.orderType == 0 ? '线下订单':'线上订单'}}</td>
-                            <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customerNumber}}</a></td>
-                            <td style="max-width: 200px;">{{item.referenceOrderNumber}}</td>
-                            <td style="max-width: 150px;"><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'trackingNumber')">{{item.trackingNumber}}</a></td>
-                            <td style="max-width: 300px;"><div class="td-row" ng-repeat="ads in item._shipToAddresses">{{ads}}</div></td>
-                            <td>{{item.actualWeight}}</td>
-                            <td>{{item.lastEditDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
-                            <td>{{item.lastEditUserName}}</td>
-                            <td>{{item._exportStatus}}</td>
-                            <td>
-                                <a href="javascript:void(0)" class="role" data-role="73" ng-click="btnPrint(item,'flyingexpress')">打印翔通面单</a>
-                            </td>-->
+                            <td>{{item.outdate | date:"yyyy-MM-dd"}}</td>                                         
                         </tr>
                     </tbody>
                 </table>

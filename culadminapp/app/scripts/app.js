@@ -82,7 +82,7 @@ angular
                 templateUrl: 'views/warehouse/receiptexceptionedit.html',
                 controller: 'ReceiptExceptionEditCtrl'
             })
-              .when('/warehouse/receiptstaff', {
+            .when('/warehouse/receiptstaff', {
                 templateUrl: 'views/warehouse/receiptstaff.html',
                 controller: 'ReceiptStaffCtrl'
             })
@@ -166,8 +166,8 @@ angular
                 templateUrl: 'views/warehouse/package.html',
                 controller: 'WarehousePackageCtrl'
             })
-            
-            .when('/warehouse/editpackage', {
+
+        .when('/warehouse/editpackage', {
                 templateUrl: 'views/warehouse/editpackage.html',
                 controller: 'WarehouseEditpackageCtrl'
             })
@@ -267,6 +267,10 @@ angular
                 templateUrl: 'views/finance/financedetail-pay.html',
                 controller: 'FinanceDetailPayCtrl'
             })
+            .when('/finance/financedetail/recharge', {
+                templateUrl: 'views/finance/financedetail-rechange.html',
+                controller: 'FinanceDetailRechangeCtrl'
+            })
             .when('/finance/arriveCount', { //入库统计
                 templateUrl: 'views/finance/arrivecount.html',
                 controller: 'ArriveCountCtrl'
@@ -287,7 +291,7 @@ angular
                 templateUrl: 'views/finance/deletelist.html',
                 controller: 'DeleteListCtrl'
             })
-             .when('/finance/pointlog', { //调分记录
+            .when('/finance/pointlog', { //调分记录
                 templateUrl: 'views/finance/finance-pointlog.html',
                 controller: 'PointLogCtrl'
             })
@@ -335,15 +339,15 @@ angular
                 templateUrl: 'views/system/edituser.html',
                 controller: 'UserEditCtrl'
             })
-             .when('/web/announce', {
+            .when('/web/announce', {
                 templateUrl: 'views/web/announce.html',
                 controller: 'AnnounceCtrl'
             })
-                .when('/web/newAnnounce', { //新增布告
+            .when('/web/newAnnounce', { //新增布告
                 templateUrl: 'views/web/new-announce.html',
                 controller: 'AnnounceCtrl'
             })
-                .when('/web/updateAnnounce', {  //更新布告
+            .when('/web/updateAnnounce', { //更新布告
                 templateUrl: 'views/web/new-announce.html',
                 controller: 'UpdateAnnounceCtrl'
             })

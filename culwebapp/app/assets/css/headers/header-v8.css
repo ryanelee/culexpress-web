@@ -150,6 +150,7 @@
 }
 .topbar-list .topbar-dropdown .topbar-dropdown-body a:hover {
 	background-color: #f9f9f9;
+	border-top:1px solid #98abcc;
 }
 
 /* Topbar Submenu */

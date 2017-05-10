@@ -19,31 +19,36 @@ angular
             }
             $scope.isLogined = AuthService.isLogined();
             $scope.$on('isLogin', function() {
-                //console.log("真是一个美妙的世界")
                 $scope.isLogin();
+                $scope.getMessageOperationlog();
             })
 
             $scope.tipMessageList = [];
+            $scope.tipMessageLength = 0;
+
             $scope.getMessageOperationlog = function() {
                 Customer.getMessageOperationlog().then(function(data) {
                     $scope.tipMessageList = data.data.data;
+                    $scope.tipMessageLength = data.data.data.length;
                 })
             }
-            $scope.getMessageOperationlog();
+            if ($scope.isLogined) {
+                $scope.getMessageOperationlog();
+            }
 
+
+            // $scope.load = function() {  
+            //     $scope.tipMessageLength = $scope.tipMessageList.length;  
+            // }
             $scope.getDetail = function(item) {
                 Customer.updateMessageOperation({ messageNumber: item.messageNumber }).then(function(data) {
-                    //console.log(data)
                     $location.path('customer/question/' + item.messageNumber)
-
                 })
-
             }
 
             $scope.btnViewMessageList = function() {
                 $location.path('customer/myquestions');
             }
-
 
             // $http.get(cul.apiPath + '/web/reference').then(function (data) {
             //     $scope.References = data;
@@ -55,6 +60,5 @@ angular
                     $('#txtTrackingNumber').val('');
                 }
             });
-
         }
     ]);

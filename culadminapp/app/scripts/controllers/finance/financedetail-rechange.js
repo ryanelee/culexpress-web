@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('FinanceDetailPayCtrl', ["$scope", "$location", "$filter", "$window", "customerService", "warehouseService", "plugMessenger", "orderService",
+    .controller('FinanceDetailRechangeCtrl', ["$scope", "$location", "$filter", "$window", "customerService", "warehouseService", "plugMessenger", "orderService",
         function($scope, $location, $filter, $window, customerService, warehouseService, plugMessenger, orderService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
@@ -82,70 +82,25 @@ angular.module('culAdminApp')
 
 
             $scope.btnSave = function() {
-                if (!$scope.search.orderNumber) {
-                    plugMessenger.info("订单编号不能为空");
-                    return;
-                }
                 if ($scope.data.fee <= 0) {
                     plugMessenger.info("请填写正确的金额（金额必须大于0元）");
-                    return;
-                }
-                if ($scope.data.fee > $scope.maxTotal) {
-                    plugMessenger.info("退款金额不能超过原支付金额" + $scope.maxTotal);
                     return;
                 }
                 if ($scope.data.memo == "") {
                     plugMessenger.info("请填写支付备注信息");
                     return;
                 }
-                switch ($scope.tpl_status.orderType) {
-                    case "offline":
-                        var _options = {
-                            "customerNumber": $scope.tpl_status.customerNumber,
-                            "memo": $scope.data.memo,
-                            "payment": $scope.data.fee, //支付金额
-                            "rechargeChannel": $scope.data.rechargeChannel //4现金,5支票,6转账,7其他
-                        }
-                        if (!!$scope.tpl_status.orderNumber) {
-                            _options["packageNumber"] = $scope.tpl_status.packageNumber; //如果是全部支付，就不传包裹号
-                        }
-                        customerService.paymentByOffline(_options, function(result) {
-                            if (!result.message) {
-                                plugMessenger.success("支付成功");
-                                $scope.btnPrev();
-                            }
-                        });
-                        break;
-                    case "online":
-                        var _options = {
-                            "customerNumber": $scope.tpl_status.customerNumber,
-                            "memo": $scope.data.memo,
-                            "payment": $scope.data.fee //支付金额
-                        }
-                        if (!!$scope.tpl_status.orderNumber) {
-                            _options["orderNumber"] = $scope.tpl_status.orderNumber; //如果是全部支付，就不传包裹号
-                        }
-                        customerService.paymentByOnline(_options, function(result) {
-                            if (!result.message) {
-                                plugMessenger.success("支付成功");
-                                $scope.btnPrev();
-                            }
-                        });
-                        break;
-                    case "refund":
-                        customerService.refundRecharge({
-                            "customerNumber": $scope.tpl_status.customerNumber,
-                            "operationType": "4", //固定不动，4代表退运费
-                            "memo": $scope.data.memo,
-                            "payment": $scope.data.fee //支付金额
-                        }, function(result) {
-                            if (!result.message) {
-                                plugMessenger.success("退款成功");
-                                $scope.btnPrev();
-                            }
-                        });
-                        break;
-                }
+                customerService.refundRecharge({
+                    "customerNumber": $scope.tpl_status.customerNumber,
+                    "operationType": "1", //固定不动，4代表退运费
+                    "memo": $scope.data.memo,
+                    "payment": $scope.data.fee //支付金额
+                }, function(result) {
+                    if (!result.message) {
+                        plugMessenger.success("充值成功");
+                        $scope.btnPrev();
+                    }
+                });
             }
 
             $scope.btnPrev = function() {

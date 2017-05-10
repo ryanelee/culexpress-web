@@ -34,8 +34,11 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="col-sm-4" style="line-height: 90px;">
+                            <div class="col-sm-2" style="line-height: 90px;">
                                 <button type="button" class="btn btn-primary role" data-role="49" ng-click="btnPay('refund')"><i class="fa fa-money"></i>退还运费</button>
+                            </div>
+                            <div class="col-sm-2" style="line-height: 90px;">
+                                <button type="button" class="btn btn-primary role" data-role="49" ng-click="btnPay('recharge')"><i class="fa fa-money"></i>客户充值</button>
                             </div>
                         </div>
                     </div>
@@ -52,11 +55,21 @@
                         <li><a href="javascript:void(0)" role="tab" data-target="#settlement-help" data-toggle="tab">结算说明</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade in active" id="recent-activity"><div ng-include="'views/finance/financedetail-active-summary.html'"></div></div>
-                        <div class="tab-pane fade" id="settlement-download"><div ng-include="'views/finance/financedetail-report-list.html'"></div></div>
-                        <div class="tab-pane fade" id="recharge-logs"><div ng-include="'views/finance/financedetail-recharge-logs.html'"></div></div>
-                        <div class="tab-pane fade" id="payment-history"><div ng-include="'views/finance/financedetail-payment-logs.html'"></div></div>
-                        <div class="tab-pane fade" id="settlement-help"><div ng-include="'views/finance/financedetail-instruction.html'"></div></div>
+                        <div class="tab-pane fade in active" id="recent-activity">
+                            <div ng-include="'views/finance/financedetail-active-summary.html'"></div>
+                        </div>
+                        <div class="tab-pane fade" id="settlement-download">
+                            <div ng-include="'views/finance/financedetail-report-list.html'"></div>
+                        </div>
+                        <div class="tab-pane fade" id="recharge-logs">
+                            <div ng-include="'views/finance/financedetail-recharge-logs.html'"></div>
+                        </div>
+                        <div class="tab-pane fade" id="payment-history">
+                            <div ng-include="'views/finance/financedetail-payment-logs.html'"></div>
+                        </div>
+                        <div class="tab-pane fade" id="settlement-help">
+                            <div ng-include="'views/finance/financedetail-instruction.html'"></div>
+                        </div>
                     </div>
                 </div>
             </fieldset>
