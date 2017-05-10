@@ -133,6 +133,7 @@
                         <select class="form-control search-control" ng-model="searchBar.keywordType">
                             <option value="customerNumber">客户编号</option>
                             <option value="orderNumber">订单编号</option>
+                            <option value="messageNumber">问题编号</option>                          
                         </select>
                         <input type="text"  name="search" id="search"class="form-control search-control" style="margin-left:5px; width:480px;" 
                             placeholder="请输入查询关键字" ng-model="searchBar.keywords"  ng-enter="btnSearch()"/>
@@ -146,6 +147,7 @@
                 <tr>
                     <th>序号</th>
                     <th>客户编号</th>
+                    <th>问题编号</th>
                     <th>问题类型</th>
                     <th>问题状态</th>
                     <th>收货仓库</th>
@@ -160,6 +162,7 @@
                 <tr ng-if="dataList.length > 0" ng-repeat="item in dataList">
                     <td>{{item.rownumber}}</td>
                     <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customerNumber}}</a></td>
+                    <td>{{item.messageNumber}}</td>
                     <td>{{item._messageType}}</td>
                     <td>{{item._status}}</td>
                     <td>{{item._receivedWarehouseName}}</td>
