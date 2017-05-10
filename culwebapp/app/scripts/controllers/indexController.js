@@ -7,6 +7,8 @@ angular
             // if (!$rootScope.currentUser) {
             $rootScope.currentUser = AuthService.getUser();
             // };
+
+
             // console.log("客户编号：" + $rootScope.currentUser.customerNumber);
             $scope.logout = function() {
                 AuthService.logout(function() {
@@ -44,6 +46,22 @@ angular
                 Customer.updateMessageOperation({ messageNumber: item.messageNumber }).then(function(data) {
                     $location.path('customer/question/' + item.messageNumber)
                 })
+            }
+
+            $scope.jobs = function() {
+                if (!$scope.isLogin()) {
+                    $location.path('/login');
+                } else {
+                    $location.path('/jobs');
+
+                }
+            }
+            $scope.terms = function() {
+                if (!$scope.isLogin()) {
+                    $location.path('/login');
+                } else {
+                    $location.path('/terms');
+                }
             }
 
             $scope.btnViewMessageList = function() {

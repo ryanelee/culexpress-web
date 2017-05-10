@@ -10,19 +10,14 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">所属仓库：</label>
                     <div class="col-sm-4">
-                        <select class="form-control search-control"
-                                ng-model="data.warehouseNumber"
-                                ng-options="item.warehouseNumber as item.warehouseName for item in warehouseList"></select>
+                        <select class="form-control search-control" ng-model="data.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in warehouseList"></select>
                     </div>
                 </div>
             </fieldset>
             <fieldset>
                 <legend>Pallet</legend>
                 <div class="pull-left" style="margin:0 12px 12px 0;" ng-repeat="item in data.detail">
-                    <bucket-item type="pallet" ng-data="item"
-                                 ng-fn-check="callback.check(item, data.detail,'pallet')"
-                                 ng-fn-remove="callback.remove(item, 'pallet')"
-                                 ng-disabled="!!tpl_status.readonly"></bucket-item>
+                    <bucket-item type="pallet" ng-data="item" ng-fn-check="callback.check(item, data.detail,'pallet')" ng-fn-remove="callback.remove(item, 'pallet')" ng-disabled="!!tpl_status.readonly"></bucket-item>
                 </div>
                 <div class="pull-left" ng-if="!tpl_status.readonly">
                     <button class="btn btn-danger" ng-click="btnAdd('pallet')"><i class="fa fa-plus"></i>新增Pallet</button>
@@ -31,10 +26,7 @@
             <fieldset ng-show="(data.detail | filter: {_selected:true}).length > 0">
                 <legend>Box(可选)</legend>
                 <div class="pull-left" style="margin:0 12px 12px 0;" ng-repeat="item in (data.detail | filter: {_selected:true})[0].boxes as selected_boxes">
-                    <bucket-item type="box" ng-data="item"
-                                 ng-fn-check="callback.check(item, selected_boxes,'box')"
-                                 ng-fn-remove="callback.remove(item, 'box')"
-                                 ng-disabled="!!tpl_status.readonly"></bucket-item>
+                    <bucket-item type="box" ng-data="item" ng-fn-check="callback.check(item, selected_boxes,'box')" ng-fn-remove="callback.remove(item, 'box')" ng-disabled="!!tpl_status.readonly"></bucket-item>
                 </div>
                 <div class="pull-left" ng-if="!tpl_status.readonly">
                     <button class="btn btn-danger" ng-click="btnAdd('box')"><i class="fa fa-plus"></i>新增Box</button>
@@ -43,10 +35,7 @@
             <fieldset ng-show="(data.detail | filter: {_selected:true}).length > 0 || (selected_boxes | filter: {_selected:true}).length > 0">
                 <legend>Bag</legend>
                 <div class="pull-left" style="margin:0 12px 12px 0;" ng-repeat="item in ((data.detail | filter: {_selected:true})[0].bags || (selected_boxes | filter: {_selected:true})[0].bags) as selected_bags">
-                    <bucket-item type="bag" ng-data="item"
-                                 ng-fn-add="callback.add(item, selected_bags)"
-                                 ng-fn-remove="callback.remove(item, 'bag')"
-                                 ng-disabled="!!tpl_status.readonly"></bucket-item>
+                    <bucket-item type="bag" ng-data="item" ng-fn-add="callback.add(item, selected_bags)" ng-fn-remove="callback.remove(item, 'bag')" ng-disabled="!!tpl_status.readonly"></bucket-item>
                 </div>
                 <div class="pull-left" ng-if="!tpl_status.readonly">
                     <button class="btn btn-danger" ng-click="btnAdd('bag')"><i class="fa fa-plus"></i>新增Bag</button>
@@ -89,7 +78,7 @@
                     <div class="col-sm-12">
                         <div class="contextual-summary-info contextual-background green-bg">
                             <p><i class="pull-left fa fa-check-circle" style="font-size:24px;"></i>
-                               <span class="pull-left" style="font-size:24px;">已装袋的包裹总数： {{selected_packages.length || 0}}，包裹总总重量：{{_totalWeight}}kg</span>
+                                <div class="pull-left" style="font-size:24px;"><span>已装袋的包裹总数： {{selected_packages.length || 0}}</span><span ng-if="tpl_status.readonly">,包裹总总重量：{{bagTotalWeight}}kg</span></div>
                             </p>
                             <div class="clearfix"></div>
                         </div>
@@ -98,10 +87,7 @@
             </fieldset>
             <fieldset>
                 <div class="pull-left" style="margin:0 12px 12px 0;" ng-repeat="item in (selected_bags | filter: {_selected:true})[0].packages as selected_packages">
-                    <bucket-item type="package" ng-data="item"
-                                 ng-fn-check="callback.check(item, selected_packages)"
-                                 ng-fn-remove="callback.remove(item, 'package')"
-                                 ng-disabled="!!tpl_status.readonly"></bucket-item>
+                    <bucket-item type="package" ng-data="item" ng-fn-check="callback.check(item, selected_packages)" ng-fn-remove="callback.remove(item, 'package')" ng-disabled="!!tpl_status.readonly"></bucket-item>
                 </div>
             </fieldset>
             <div class="col-md-12 text-center">

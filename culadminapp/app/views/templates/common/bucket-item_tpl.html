@@ -7,6 +7,8 @@
                 <div><span>{{data.name}}</span></div>
                 <div ng-if="data.boxes.length > 0"><span>Box: {{data.boxes.length}}</span></div>
                 <div ng-if="data.bags.length > 0"><span>Bag: {{data.bags.length}}</span></div>
+                <div ng-if="data.readonly"><span>重量: {{data.totalWeight || 0}}kg</span></div>
+
             </div>
         </div>
         <!-- Box -->
@@ -23,6 +25,7 @@
             <div style="float:left; margin-left:12px;">
                 <div><span>{{data.name}}</span></div>
                 <div><span>包裹: {{data.packages.length || 0}}</span></div>
+                <div ng-if="data.readonly"><span>重量: {{data.totalWeight || 0}}kg</span></div>
             </div>
         </div>
         <!-- Package -->
