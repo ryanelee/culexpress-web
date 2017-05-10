@@ -243,7 +243,7 @@ angular.module('culAdminApp')
                       else _selected_bag.packages.push($scope._selectedPackage.trackingNumber);
                       $scope._selectedPackage = null;
                   } else {
-                      plugMessenger.info("包裹编号" + $scope._selectedPackage.trackingNumber + "无法装袋:出库重量和打包重量不匹配。");
+                      plugMessenger.info("CUL包裹单号" + $scope._selectedPackage.trackingNumber + "无法装袋:出库重量和打包重量不匹配。");
                       return;
                   }
               } else {

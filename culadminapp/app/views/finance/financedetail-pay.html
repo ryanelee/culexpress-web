@@ -10,7 +10,7 @@
                 <legend>未支付费用（截止{{tpl_status.date | date:'MM/dd/yyyy'}}）</legend>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right" ng-show="tpl_status.orderType == 'online'">订单编号：</label>
-                    <label class="col-sm-2 control-label text-right" ng-show="tpl_status.orderType == 'offline'">包裹编号：</label>
+                    <label class="col-sm-2 control-label text-right" ng-show="tpl_status.orderType == 'offline'">CUL包裹单号：</label>
                     <div class="col-sm-4">
                         <label class="control-label" ng-show="tpl_status.orderType == 'online'">{{ tpl_status.orderNumber || '所有未支付海淘订单' }}</label>
                         <label class="control-label" ng-show="tpl_status.orderType == 'offline'">{{ tpl_status.packageNumber || '所有未支付线下包裹' }}</label>
