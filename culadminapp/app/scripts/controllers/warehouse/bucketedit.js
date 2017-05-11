@@ -90,111 +90,142 @@ angular.module('culAdminApp')
             });
 
             $scope.callback = {
-                check: function(item, resource, level) {
-                    if (!item) return;
-                    if (_.isObject(item)) {
-                        //bucket, box, bag
-                        if (!_.findWhere(resource, { name: item.name, _selected: true })) {
-                            var _recursion_clear_selected = function(items) {
-                                _.each(items, function(_item) {
-                                    delete _item._selected;
-                                    for (var key in _item) {
-                                        if (_.isArray(_item[key])) _recursion_clear_selected(_item[key]);
-                                    }
-                                });
-                            };
-                            _recursion_clear_selected(resource);
-                            item._selected = true;
-                            $scope.$broadcast("bucket-item-selected", item.name, level);
-                        }
-                    } else {
-                        //package
-                        $scope._selectedPackage = angular.copy(_.findWhere($scope.data.packageList, { trackingNumber: item }));
-                        $scope.$broadcast("bucket-item-selected", $scope._selectedPackage.trackingNumber);
-                    }
-                },
-                add: function(item, resource) {
-                    if (!item) return;
-                    $scope.callback.check(item, resource);
-                    $scope.tpl_status.actionType = "package";
-                    var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
-                        _box = null,
-                        _bag = null,
-                        _array = [_pallet.name];
-                    if (_.isArray(_pallet.bags) && _pallet.bags.length > 0) {
-                        _bag = _.findWhere(_pallet.bags, { _selected: true });
-                    } else {
-                        _box = _.findWhere(_pallet.boxes, { _selected: true });
-                        _bag = _.findWhere(_box.bags, { _selected: true });
-                    }
-                    console.log('23');
-                    console.log(_bag);
-                    if (!!_bag) {
-                        if (_bag.packages && _bag.packages[0]) {
-                            _bag.packages.forEach((e) => {
-                                if ($scope.data.packageList[0]) {
-                                    $scope.data.packageList.forEach(function(e1) {
-                                        if (e == e1.trackingNumber) {
-                                            $scope.bagTotalWeight += e1.weight || 0;
+                    check: function(item, resource, level) {
+                        if (!item) return;
+                        if (_.isObject(item)) {
+                            //bucket, box, bag
+                            if (!_.findWhere(resource, { name: item.name, _selected: true })) {
+                                var _recursion_clear_selected = function(items) {
+                                    _.each(items, function(_item) {
+                                        delete _item._selected;
+                                        for (var key in _item) {
+                                            if (_.isArray(_item[key])) _recursion_clear_selected(_item[key]);
                                         }
-                                    })
+                                    });
+                                };
+                                _recursion_clear_selected(resource);
+                                item._selected = true;
+                                $scope.$broadcast("bucket-item-selected", item.name, level);
+                            }
+                        } else {
+                            //package
+                            $scope._selectedPackage = angular.copy(_.findWhere($scope.data.packageList, { trackingNumber: item }));
+                            $scope.$broadcast("bucket-item-selected", $scope._selectedPackage.trackingNumber);
+                        }
+                    },
+                    add: function(item, resource) {
+                        if (!item) return;
+                        $scope.callback.check(item, resource);
+                        $scope.tpl_status.actionType = "package";
+                        var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
+                            _box = null,
+                            _bag = null,
+                            _array = [_pallet.name];
+                        if (_.isArray(_pallet.bags) && _pallet.bags.length > 0) {
+                            _bag = _.findWhere(_pallet.bags, { _selected: true });
+                        } else {
+                            _box = _.findWhere(_pallet.boxes, { _selected: true });
+                            _bag = _.findWhere(_box.bags, { _selected: true });
+                        }
+                        console.log('23');
+                        console.log(_bag);
+                        // if (!!_bag) {
+                        //     if (_bag.packages && _bag.packages[0]) {
+                        //         _bag.packages.forEach((e) => {
+                        //             if ($scope.data.packageList[0]) {
+                        //                 $scope.data.packageList.forEach(function(e1) {
+                        //                     if (e == e1.trackingNumber) {
+                        //                         $scope.bagTotalWeight += e1.weight || 0;
+                        //                     }
+                        //                 })
+                        //             }
+                        //         })
+                        //     }
+                        // }
+                        _array.push(_box.name);
+                        if (!!_bag) _array.push(_bag.name);
+
+                        <<
+                        << << < HEAD
+                        $("#package-title").text(_array.join(" > "));
+                    },
+                    remove: function(item, level) {
+                        if (!item) return;
+                        if (!!item.boxes && item.boxes.length > 0) {
+                            plugMessenger.info("该{0}已经装载[{1}]个Box，清空后才能删除。".replace("{0}", level).replace("{1}", item.boxes.length));
+                            return;
+                        }
+                        if (!!item.bags && item.bags.length > 0) {
+                            plugMessenger.info("该{0}已经装载[{1}]个Bag，清空后才能删除。".replace("{0}", level).replace("{1}", item.bags.length));
+                            return;
+                        }
+                        if (!!item.packages && item.packages.length > 0) {
+                            plugMessenger.info("该{0}已经装载[{1}]个包裹，清空后才能删除。".replace("{0}", level).replace("{1}", item.packages.length));
+                            return;
+                        }
+
+                        switch (level) {
+                            case "pallet":
+                                $scope.data.detail = _.filter($scope.data.detail, function(pallet) { return pallet.$$hashKey != item.$$hashKey });
+                                break;
+                            case "box":
+                                var _pallet = _.findWhere($scope.data.detail, { _selected: true });
+                                _pallet.boxes = _.filter(_pallet.boxes, function(box) { return box.$$hashKey != item.$$hashKey });
+                                if (_pallet.boxes.length == 0) _pallet.boxes = null;
+                                break;
+                            case "bag":
+                                var _pallet = _.findWhere($scope.data.detail, { _selected: true });
+                                if (_.isArray(_pallet.bags) && _pallet.bags.length > 0) {
+                                    _pallet.bags = _.filter(_pallet.bags, function(bag) { return bag.$$hashKey != item.$$hashKey });
+                                    if (_pallet.bags.length == 0) _pallet.bags = null;
+                                } else {
+                                    var _box = _.findWhere(_pallet.boxes, { _selected: true });
+                                    _box.bags = _.filter(_box.bags, function(bag) { return bag.$$hashKey != item.$$hashKey });
                                 }
-                            })
+                                break;
+                            case "package":
+                                var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
+                                    _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
+                                    _selected_bag = _.findWhere(_bags, { _selected: true });
+                                //删除box或bag下的当前操作的package
+                                _selected_bag.packages = _.filter(_selected_bag.packages, function(pkg) { return pkg != item });
+                                //删除packageList的当前操作的package
+                                $scope.data.packageList = _.filter($scope.data.packageList, function(pkg) { return pkg.trackingNumber != item });
+                                //如果当前操作的包裹是编辑状态下的包裹，则清除编辑状态。
+                                if (!!$scope._selectedPackage && $scope._selectedPackage.trackingNumber == item) $scope._selectedPackage = null;
+                                break;
                         }
                     }
-                    _array.push(_box.name);
-                    if (!!_bag) _array.push(_bag.name);
-
-                    $("#package-title").text(_array.join(" > "));
-                },
-                remove: function(item, level) {
-                    if (!item) return;
-                    if (!!item.boxes && item.boxes.length > 0) {
-                        plugMessenger.info("该{0}已经装载[{1}]个Box，清空后才能删除。".replace("{0}", level).replace("{1}", item.boxes.length));
-                        return;
-                    }
-                    if (!!item.bags && item.bags.length > 0) {
-                        plugMessenger.info("该{0}已经装载[{1}]个Bag，清空后才能删除。".replace("{0}", level).replace("{1}", item.bags.length));
-                        return;
-                    }
-                    if (!!item.packages && item.packages.length > 0) {
-                        plugMessenger.info("该{0}已经装载[{1}]个包裹，清空后才能删除。".replace("{0}", level).replace("{1}", item.packages.length));
-                        return;
-                    }
-
-                    switch (level) {
-                        case "pallet":
-                            $scope.data.detail = _.filter($scope.data.detail, function(pallet) { return pallet.$$hashKey != item.$$hashKey });
-                            break;
-                        case "box":
-                            var _pallet = _.findWhere($scope.data.detail, { _selected: true });
-                            _pallet.boxes = _.filter(_pallet.boxes, function(box) { return box.$$hashKey != item.$$hashKey });
-                            if (_pallet.boxes.length == 0) _pallet.boxes = null;
-                            break;
-                        case "bag":
-                            var _pallet = _.findWhere($scope.data.detail, { _selected: true });
-                            if (_.isArray(_pallet.bags) && _pallet.bags.length > 0) {
-                                _pallet.bags = _.filter(_pallet.bags, function(bag) { return bag.$$hashKey != item.$$hashKey });
-                                if (_pallet.bags.length == 0) _pallet.bags = null;
-                            } else {
-                                var _box = _.findWhere(_pallet.boxes, { _selected: true });
-                                _box.bags = _.filter(_box.bags, function(bag) { return bag.$$hashKey != item.$$hashKey });
-                            }
-                            break;
-                        case "package":
-                            var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
-                                _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
-                                _selected_bag = _.findWhere(_bags, { _selected: true });
-                            //删除box或bag下的当前操作的package
-                            _selected_bag.packages = _.filter(_selected_bag.packages, function(pkg) { return pkg != item });
-                            //删除packageList的当前操作的package
-                            $scope.data.packageList = _.filter($scope.data.packageList, function(pkg) { return pkg.trackingNumber != item });
-                            //如果当前操作的包裹是编辑状态下的包裹，则清除编辑状态。
-                            if (!!$scope._selectedPackage && $scope._selectedPackage.trackingNumber == item) $scope._selectedPackage = null;
-                            break;
-                    }
+                } ===
+                === =
+                $scope.btnPrev = function() {
+                    $window.history.back();
                 }
-            }
+            $scope.errorFlightNo = "";
+            $scope.flightNo = "";
+            $scope.btnClose = function() {
+                    if ($scope.flightNo == "" && $scope.flightNo.length <= 0) {
+                        $scope.errorFlightNo = "关闭前请输入航班号！"
+                        return;
+                    }
+                    plugMessenger.confirm("确认关闭出库总单吗？", function(isOK) {
+                        if (isOK) {
+                            bucketService.close($scope.tpl_status.bucketNumber, function(result) {
+                                if (!result.message) {
+                                    plugMessenger.success("总单关闭成功");
+                                    $scope.btnPrev();
+                                }
+                            });
+                        }
+                    });
+                    //   bucketService.close($scope.tpl_status.bucketNumber, function (result) {
+                    //       if (!result.message) {
+                    //           plugMessenger.success("总单关闭成功");
+                    //           $scope.btnPrev();
+                    //       }
+                    //   });
+                } >>>
+                >>> > d4b0187c0505dcd8082e25537d100a0c9da49734
 
             $scope.btnAdd = function(type) {
                 var _pallet = _.findWhere($scope.data.detail, { _selected: true }),

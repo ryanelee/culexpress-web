@@ -26,7 +26,8 @@
             <fieldset ng-show="(data.detail | filter: {_selected:true}).length > 0">
                 <legend>Box(可选)</legend>
                 <div class="pull-left" style="margin:0 12px 12px 0;" ng-repeat="item in (data.detail | filter: {_selected:true})[0].boxes as selected_boxes">
-                    <bucket-item type="box" ng-data="item" ng-fn-check="callback.check(item, selected_boxes,'box')" ng-fn-remove="callback.remove(item, 'box')" ng-disabled="!!tpl_status.readonly"></bucket-item>
+                    <bucket-item type="box" ng-data="item" ng-fn-check="callback.check(item, selected_boxes,'box')" ng-fn-remove="callback.remove(item, 'box')" ng-disabled="!!tpl_status.readonly">
+                    </bucket-item>
                 </div>
                 <div class="pull-left" ng-if="!tpl_status.readonly">
                     <button class="btn btn-danger" ng-click="btnAdd('box')"><i class="fa fa-plus"></i>新增Box</button>
@@ -35,12 +36,20 @@
             <fieldset ng-show="(data.detail | filter: {_selected:true}).length > 0 || (selected_boxes | filter: {_selected:true}).length > 0">
                 <legend>Bag</legend>
                 <div class="pull-left" style="margin:0 12px 12px 0;" ng-repeat="item in ((data.detail | filter: {_selected:true})[0].bags || (selected_boxes | filter: {_selected:true})[0].bags) as selected_bags">
-                    <bucket-item type="bag" ng-data="item" ng-fn-add="callback.add(item, selected_bags)" ng-fn-remove="callback.remove(item, 'bag')" ng-disabled="!!tpl_status.readonly"></bucket-item>
+                    <bucket-item type="bag" ng-data="item" ng-fn-add="callback.add(item, selected_bags)" ng-fn-remove="callback.remove(item, 'bag')" ng-disabled="!!tpl_status.readonly">
+                    </bucket-item>
                 </div>
                 <div class="pull-left" ng-if="!tpl_status.readonly">
                     <button class="btn btn-danger" ng-click="btnAdd('bag')"><i class="fa fa-plus"></i>新增Bag</button>
                 </div>
             </fieldset>
+            <div style="width:100%; display: inline-block;">
+                <legend>航班号信息</legend>
+                <div style="width:440px;float: left;">
+                    <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:420px;margin:20px 0px 30px 10px;" placeholder="关闭前请输入航班号" ng-model="flightNo" />
+                </div>
+                <label class="input-error">{{errorFlightNo}}{{flightNo}}</label>
+            </div>
             <div class="form-group">
                 <div class="col-md-6 text-left" ng-if="!!tpl_status.bucketNumber && !tpl_status.readonly">
                     <button type="button" class="btn btn-primary role" data-role="70" ng-click="btnClose()"><i class="fa fa-save"></i>关闭出库总单</button>
