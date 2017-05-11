@@ -15,6 +15,8 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
+            console.log('23456789')
+            console.log($location.search().messageNumber);
             $scope.messageTypeList = [];
             $scope.search = {};
             $scope.tpl_status = {
@@ -23,9 +25,7 @@ angular.module('culAdminApp')
                 warehouseList: []
             }
 
-            //   Customer.updateMessageOperation({ messageNumber: item.messageNumber }).then(function(data) {
 
-            //   });
 
 
             faqService.getMessageType(7, function(result) {
@@ -91,6 +91,9 @@ angular.module('culAdminApp')
                         }, function(result) {
                             $scope.refreshMessage();
                             $scope._message = "";
+                            faqService.updateMessageOperation({ messageNumber: $scope.tpl_status.messageNumber }).then(function(data) {
+                                $scope.$emit("message")
+                            });
                         });
                     }
                 }

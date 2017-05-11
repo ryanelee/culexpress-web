@@ -27,6 +27,9 @@ angular.module('culAdminApp')
                 callback(result);
             });
         }
+        self.updateMessageOperation = function(obj) {
+            return $http.post(cul.apiPath + '/customermessage/updateMessageOperation', obj);
+        }
 
 
 

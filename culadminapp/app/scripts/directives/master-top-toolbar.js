@@ -46,6 +46,9 @@ angular.module('culAdminApp')
                     $scope.btnViewMessage = function(message) {
                         $location.path("/customer/faqdetail").search({ messageNumber: message.messageNumber });
                     }
+                    $scope.$on('message', function(result) {
+                        $rootScope.getmessageList();
+                    })
 
                     $scope.btnViewCustomer = function(vip) {
                         $location.path("/customer/customerdetail").search({ customerNumber: vip.customerNumber });
