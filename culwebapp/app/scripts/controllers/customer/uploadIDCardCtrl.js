@@ -3,10 +3,10 @@
 angular
     .module('culwebApp')
     .controller('uploadIDCardCtrl', ['$rootScope', '$location', '$scope', 'AuthService', '$state', 'Customer', "$http", "$window",
-        function($rootScope, $location, $scope, AuthService, $state, Customer, $http, $window) {
+        function($rootScope, $location, $scope, AuthService, $state, Customer, $http, $window) {       
             if ($window.sessionStorage.flag != 1) {
                 $window.sessionStorage.flag = 1;
-                window.location.reload();
+                //window.location.reload();
             } else {
                 $window.sessionStorage.flag++;
             }
@@ -21,7 +21,7 @@ angular
 
             $scope.checkNumber = function() {
                 if (!$scope.data.trackingNumber) {
-                    alertify.alert("提示", "cul包裹单号不能为空");
+                    alertify.alert("提示", "CUL包裹单号不能为空");
                     return;
                 }
                 $scope.customNumber = "";
@@ -40,16 +40,16 @@ angular
                 })
             }
 
-            $('#datetimepicker').datetimepicker({
-                // language: 'zh',
-                format: 'YYYY-MM-DD',
-                viewMode: 'years'
-            });
-            $('#datetime').datetimepicker({
-                // language: 'zh',
-                format: 'YYYY-MM-DD',
-                viewMode: 'years'
-            });
+            // $('#datetimepicker').datetimepicker({
+            //     // language: 'zh',
+            //     format: 'YYYY-MM-DD',
+            //     viewMode: 'years'
+            // });
+            // $('#datetime').datetimepicker({
+            //     // language: 'zh',
+            //     format: 'YYYY-MM-DD',
+            //     viewMode: 'years'
+            // });
 
 
 
@@ -111,7 +111,6 @@ angular
 
 
             $scope.submit = function() {
-                //console.log($scope.data);
                 if (!$scope.data.trackingNumber && !$scope.data.cellphoneNumber && !$scope.data.receivePersonName) {
                     alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
                     return;
@@ -121,20 +120,27 @@ angular
                 } else if ($scope.data.idForever == 0 && !$scope.data.deadline) {
                     alertify.alert('提示', '<p style="color:red">必须选择永久或则填写身份证有效期.<p>');
                     return
-                } else {
-                    $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function(data) {
-                        //console.log(data)
-                        if (data.status == 200) {
-                            //console.log('2345')
-                            alertify.alert('提示', data.data.msg);
-                            if (!AuthService.isLogined()) {
-                                $location.path('/login');
-                            }
-                        }
+                } else if ($scope.data.idForever == 0 && $scope.data.deadline ){
+                    var idExpired = new Date($scope.data.deadline);
+                    var now = new Date();
 
-                    })
+                    if( idExpired.getTime() < now.getTime()){
+                        alertify.alert('提示', '<p style="color:red">身份证已经过期,请检查身份证有效截止日期是否输入正确.<p>');
+                        return;
+                    }
                 }
+                
+                $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
+                    //console.log(data)
+                    if (data.status == 200) {
+                        //console.log('2345')
+                        alertify.alert('提示', data.data.msg);
+                        // if (!AuthService.isLogined()) {
+                        //     $location.path('/login');
+                        // }
+                    }
 
+                })
             }
 
         }

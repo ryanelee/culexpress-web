@@ -22,6 +22,7 @@ angular
             $scope.isLogined = AuthService.isLogined();
             $scope.$on('isLogin', function() {
                 $scope.isLogin();
+                $rootScope.currentUser = AuthService.getUser();
                 $scope.getMessageOperationlog();
             })
 

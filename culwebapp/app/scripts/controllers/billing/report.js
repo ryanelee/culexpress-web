@@ -15,7 +15,7 @@ angular
                         text: '客户关联号'
                     }, {
                         key: 'packageNumber',
-                        text: 'cul包裹单号'
+                        text: 'CUL包裹单号'
                     }, {
                         key: 'settlementNumber',
                         text: '结算编号'
@@ -95,8 +95,12 @@ angular
                     function() {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
 
-                        var customerNumber = AuthService.getUser();;
-                        window.open('rechargepage.html?vippay=1&ra=' + encodeURIComponent(model.arrears) + '&cn=' + encodeURIComponent(customerNumber));
+                        var currentCustomer = AuthService.getUser();
+                        if (!currentCustomer) {
+                            alertify.alert('提醒', '请先登录.', 'warning');
+                            return false;
+                        }
+                        window.open('rechargepage.html?vippay=1&ra=' + encodeURIComponent(model.arrears) + '&cn=' + encodeURIComponent(currentCustomer.customerNumber));
                     },
                     function() {
                         alertify.error('已取消支付!');

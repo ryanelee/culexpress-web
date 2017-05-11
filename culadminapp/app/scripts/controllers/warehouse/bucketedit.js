@@ -288,6 +288,8 @@ angular.module('culAdminApp')
                     $scope._totalWeight = parseInt(parseInt($scope._totalWeight || 0) + element.weight);
                 }, this);
             }
+
+
             $scope.btnSaveByPackage = function() {
                 var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
                     _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
@@ -308,7 +310,7 @@ angular.module('culAdminApp')
                         else _selected_bag.packages.push($scope._selectedPackage.trackingNumber);
                         $scope._selectedPackage = null;
                     } else {
-                        plugMessenger.info("包裹编号" + $scope._selectedPackage.trackingNumber + "无法装袋:出库重量和打包重量不匹配。");
+                        plugMessenger.info("CUL包裹单号" + $scope._selectedPackage.trackingNumber + "无法装袋:出库重量和打包重量不匹配。");
                         return;
                     }
                 } else {
@@ -318,6 +320,21 @@ angular.module('culAdminApp')
                 $scope._selectedPackage = null;
                 $scope.totalWeight();
             }
+
+            //             if (!_.isArray(_selected_bag.packages)) _selected_bag.packages = [$scope._selectedPackage.trackingNumber];
+            //             else _selected_bag.packages.push($scope._selectedPackage.trackingNumber);
+            //             $scope._selectedPackage = null;
+            //         } else {
+            //             plugMessenger.info("包裹编号" + $scope._selectedPackage.trackingNumber + "无法装袋:出库重量和打包重量不匹配。");
+            //             return;
+            //         }
+            //     } else {
+            //         plugMessenger.info("包裹[" + $scope._selectedPackage.trackingNumber + "]已存在当前总单中，但不存在于正在操作的Bag中。");
+            //         return;
+            //     }
+            //     $scope._selectedPackage = null;
+            //     $scope.totalWeight();
+            // }
 
             $scope.btnPrevByPackage = function() {
                 $scope._selectedPackage = null;

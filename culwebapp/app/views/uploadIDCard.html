@@ -5,7 +5,7 @@
                 <h2>身份证上传</h2>
             </div>
             <div class="form-group ">
-                <label class="label required">cul包裹单号</label>
+                <label class="label required">CUL包裹单号</label>
                 <input type="text" class="form-control" name="required" ng-blur="checkNumber()" ng-model="data.trackingNumber">
             </div>
             <div class="form-group ">
@@ -33,13 +33,17 @@
                     <p>身份证正反面必须同时上传。仅支持.jpg .jpeg .png .bmp .gif，大小不超过2M。</p>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="datepicker">
                 <label class="label">身份证有效截止日期：</label>
-                <div class='input-group date' datetimepicker id="datetimepicker" ng-model="data.deadline">
+                <div class="input-group date">
+                    <input type="text" class="form-control" ng-model="data.deadline"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+
+                <!--<div class='input-group date' datetimepicker id="datetimepicker" ng-model="data.deadline">
                     <input type='text' class="form-control" />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
-                </div>
+                </div>-->
             </div>
 
 
@@ -86,3 +90,15 @@
         </div>
     </div>
 </div>
+ <script>
+    $(document).ready(function(){
+        $('#datepicker .input-group.date').datepicker({
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            // keepOpen: true,
+            language: 'zh-CN',
+            todayBtn: "linked",
+            toggleActive: true
+        });
+    });
+</script>

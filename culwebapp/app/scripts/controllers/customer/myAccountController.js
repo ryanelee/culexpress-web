@@ -7,7 +7,7 @@ angular
 
             if ($window.sessionStorage.flag_1 != 1) {
                 $window.sessionStorage.flag_1 = 1;
-                $window.location.reload();
+                //$window.location.reload();
             } else {
                 $window.sessionStorage.flag_1++;
             }
@@ -172,27 +172,27 @@ angular
 
 
                         if (result.data) {
-                            $(document).off('.datepicker.data-api');
+                            // $(document).off('.datepicker.data-api');
 
-                            $('input.control-date').datepicker({
-                                format: 'yyyy/mm/dd',
-                                todayHighlight: true,
-                                autoclose: true,
-                                language: 'zh-CN'
-                            });
+                            // $('input.control-date').datepicker({
+                            //     format: 'yyyy/mm/dd',
+                            //     todayHighlight: true,
+                            //     autoclose: true,
+                            //     language: 'zh-CN'
+                            // });
 
 
-                            $('input.control-date').on('blur', function() {
-                                var control = this;
-                                setTimeout(function() {
-                                    if (!$(control).val()) {
-                                        $(control).val($scope.model.birthday || $scope.model.oldBirthday);
-                                        if (!$scope.model.birthday) {
-                                            $scope.model.birthday = $scope.model.oldBirthday;
-                                        }
-                                    }
-                                }, 50);
-                            });
+                            // $('input.control-date').on('blur', function() {
+                            //     var control = this;
+                            //     setTimeout(function() {
+                            //         if (!$(control).val()) {
+                            //             $(control).val($scope.model.birthday || $scope.model.oldBirthday);
+                            //             if (!$scope.model.birthday) {
+                            //                 $scope.model.birthday = $scope.model.oldBirthday;
+                            //             }
+                            //         }
+                            //     }, 50);
+                            // });
 
 
 
@@ -263,7 +263,15 @@ angular
 
 
             $scope.saveProfile = function() {
-
+                if ($scope.model.firstName == '') {
+                     alertify.alert('提醒', '名(First Name)不能为空！');
+                }
+                if ($scope.model.lastName == '') {
+                     alertify.alert('提醒', '姓(Last Name)不能为空！');
+                }
+                if ($scope.model.cellphoneNumber == '') {
+                     alertify.alert('提醒', '手机号码不能为空！');
+                }
                 var url = $scope.model.companySite;
                 if (url && !new RegExp('(http[s]{0,1})://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?').test(url)) {
                     alertify.alert('错误', '请填写正确的公司网址,如：http://www.culexpress.com/ 或 https://www.culexpress.com/');

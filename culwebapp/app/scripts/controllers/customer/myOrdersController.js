@@ -48,7 +48,8 @@ var app = angular
                 var pointTotal = $scope.currentUser.myPoint;
 
                 if ($scope.data.usePoint > 30) {
-                    alertify.alert('提示', '一次最多允许使用30个积分!');
+                    //alertify.alert('提示', '一次最多允许使用30个积分!');
+                    $scope.eMsg = "一次最多允许使用30个积分!";
                     $scope.data.usePoint = '';
                     return;
                 }
@@ -57,7 +58,7 @@ var app = angular
                 }
 
                 if (isNaN($scope.data.usePoint) || !angular.isNumber(+$scope.data.usePoint)) {
-                    alertify.alert('提示', '积分必须为数字并且必须大于0!');
+                    // alertify.alert('提示', '积分必须为数字并且必须大于0!');
                     $scope.data.usePoint = '';
                     return;
                 }

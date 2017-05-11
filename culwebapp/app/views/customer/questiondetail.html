@@ -82,7 +82,7 @@
                               <div class="clearfix"></div>
                             </div>
                           </div>
-                          <div class="msg-submit">
+                          <div class="msg-submit" ng-show="data._status != '已关闭'">
                             <input name="message" id="message" ng-model="data.questionMessage" />
                             <button type="button" class="btn-u bg-color-ffb" ng-click="submitMessage();">发表</button>
                           </div>

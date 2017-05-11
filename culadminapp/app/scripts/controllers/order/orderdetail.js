@@ -239,7 +239,8 @@ angular.module('culAdminApp')
                 }, function(result) {
                     if (!result.message) {
                         plugMessenger.success("保存成功");
-                        $scope.btnPrev();
+                        // $scope.btnPrev();
+                        $window.location.reload();
                     }
                 });
             }

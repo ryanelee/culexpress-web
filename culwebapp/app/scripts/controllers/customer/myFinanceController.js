@@ -36,8 +36,8 @@ angular
             }
 
             $scope.userPay = function() {
-                var customerNumber = AuthService.getUser();
-                if (!customerNumber) {
+                var currentCustomer = AuthService.getUser();
+                if (!currentCustomer) {
                     alertify.alert('提醒', '请先登录.', 'warning');
                     return false;
                 }
@@ -49,7 +49,7 @@ angular
                     alertify.alert('提醒', '充值金额不能小于0.1', 'warning');
                     return false;
                 }
-                window.open('rechargepage.html?ra=' + encodeURIComponent(model.payAmount) + '&cn=' + encodeURIComponent(customerNumber));
+                window.open('rechargepage.html?ra=' + encodeURIComponent(model.payAmount) + '&cn=' + encodeURIComponent(currentCustomer.customerNumber));
             }
 
 
