@@ -33,13 +33,23 @@
                     <p>身份证正反面必须同时上传。仅支持.jpg .jpeg .png .bmp .gif，大小不超过2M。</p>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="datepicker">
                 <label class="label">身份证有效截止日期：</label>
-                <div class='input-group date' datetimepicker id="datetimepicker" ng-model="data.deadline">
+                <div class="input-group date">
+                    <input type="text" class="form-control" ng-model="data.deadline"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+
+                <!--<div class='input-group date' datetimepicker id="datetimepicker" ng-model="data.deadline">
                     <input type='text' class="form-control" />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
-                </div>
+                </div>-->
+                <script>
+                    $('#datepicker .input-group.date').datepicker({
+                        format: 'yyyy-mm-dd'
+                        //viewMode: 'years'
+                    });
+                </script>
             </div>
 
 
