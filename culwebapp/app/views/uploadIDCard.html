@@ -36,7 +36,7 @@
             <div class="form-group" id="datepicker">
                 <label class="label">身份证有效截止日期：</label>
                 <div class="input-group date">
-                    <input type="text" class="form-control" ng-model="data.deadline"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    <input type="text" class="form-control" disabled ng-model="data.deadline"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                 </div>
 
                 <!--<div class='input-group date' datetimepicker id="datetimepicker" ng-model="data.deadline">
@@ -48,8 +48,10 @@
                     $('#datepicker .input-group.date').datepicker({
                         format: 'yyyy-mm-dd',
                         todayHighlight: true,
-                        autoclose: true,
-                        language: 'zh-CN'
+                        //autoclose: true,
+                        language: 'zh-CN',
+                        todayBtn: "linked",
+                        toggleActive: true
                     });
                 </script>
             </div>
