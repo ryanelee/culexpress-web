@@ -184,14 +184,29 @@ angular.module('culAdminApp')
           $scope.btnPrev = function () {
               $window.history.back();
           }
-
+          $scope.errorFlightNo = "";
+          $scope.flightNo = "";
           $scope.btnClose = function () {
-              bucketService.close($scope.tpl_status.bucketNumber, function (result) {
-                  if (!result.message) {
-                      plugMessenger.success("总单关闭成功");
-                      $scope.btnPrev();
-                  }
-              });
+             if ($scope.flightNo == "" && $scope.flightNo.length<=0) {
+                 $scope.errorFlightNo = "关闭前请输入航班号！"
+                 return;
+             }
+             plugMessenger.confirm("确认关闭出库总单吗？", function(isOK) {
+                if (isOK) {
+                    bucketService.close($scope.tpl_status.bucketNumber, function (result) {
+                        if (!result.message) {
+                            plugMessenger.success("总单关闭成功");
+                            $scope.btnPrev();
+                        }
+                    });
+                }
+            });
+            //   bucketService.close($scope.tpl_status.bucketNumber, function (result) {
+            //       if (!result.message) {
+            //           plugMessenger.success("总单关闭成功");
+            //           $scope.btnPrev();
+            //       }
+            //   });
           }
 
           var _timeout = null,
