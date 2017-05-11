@@ -43,12 +43,23 @@
                                 </dd>
                                 <hr />
                                 <dt><strong>生日 </strong></dt>
-                                <dd>
-                                    <div class='input-group date' datetimepicker ng-model="model.birthday">
+                                <dd id="datepicker">
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" ng-model="model.birthday"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                    </div>
+                                    <script>
+                                        $('#datepicker .input-group.date').datepicker({
+                                            format: 'yyyy/mm/dd',
+                                            todayHighlight: true,
+                                            autoclose: true,
+                                            language: 'zh-CN'
+                                        });
+                                    </script>
+                                    <!--<div class='input-group date' datetimepicker ng-model="model.birthday">
                                         <input type='text' class="form-control" />
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                                         </span>
-                                    </div>
+                                    </div>-->
                                     <!--<label class="input">  <input class="control-date" type="text" ng-model="model.birthday" placeholder="请输入您的出生年月日" /></label>-->
                                 </dd>
                                 <hr />

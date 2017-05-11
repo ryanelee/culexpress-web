@@ -7,7 +7,7 @@ angular
 
             if ($window.sessionStorage.flag_1 != 1) {
                 $window.sessionStorage.flag_1 = 1;
-                $window.location.reload();
+                //$window.location.reload();
             } else {
                 $window.sessionStorage.flag_1++;
             }
@@ -172,27 +172,27 @@ angular
 
 
                         if (result.data) {
-                            $(document).off('.datepicker.data-api');
+                            // $(document).off('.datepicker.data-api');
 
-                            $('input.control-date').datepicker({
-                                format: 'yyyy/mm/dd',
-                                todayHighlight: true,
-                                autoclose: true,
-                                language: 'zh-CN'
-                            });
+                            // $('input.control-date').datepicker({
+                            //     format: 'yyyy/mm/dd',
+                            //     todayHighlight: true,
+                            //     autoclose: true,
+                            //     language: 'zh-CN'
+                            // });
 
 
-                            $('input.control-date').on('blur', function() {
-                                var control = this;
-                                setTimeout(function() {
-                                    if (!$(control).val()) {
-                                        $(control).val($scope.model.birthday || $scope.model.oldBirthday);
-                                        if (!$scope.model.birthday) {
-                                            $scope.model.birthday = $scope.model.oldBirthday;
-                                        }
-                                    }
-                                }, 50);
-                            });
+                            // $('input.control-date').on('blur', function() {
+                            //     var control = this;
+                            //     setTimeout(function() {
+                            //         if (!$(control).val()) {
+                            //             $(control).val($scope.model.birthday || $scope.model.oldBirthday);
+                            //             if (!$scope.model.birthday) {
+                            //                 $scope.model.birthday = $scope.model.oldBirthday;
+                            //             }
+                            //         }
+                            //     }, 50);
+                            // });
 
 
 
