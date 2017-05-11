@@ -45,18 +45,8 @@
                                 <dt><strong>生日 </strong></dt>
                                 <dd id="datepicker">
                                     <div class="input-group date">
-                                        <input type="text" class="form-control" disabled ng-model="model.birthday"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        <input type="text" class="form-control" ng-model="model.birthday"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
-                                    <script>
-                                        $('#datepicker .input-group.date').datepicker({
-                                            format: 'yyyy/mm/dd',
-                                            todayHighlight: true,
-                                            //autoclose: true,
-                                            language: 'zh-CN',
-                                            todayBtn: "linked",
-                                            toggleActive: true
-                                        });
-                                    </script>
                                     <!--<div class='input-group date' datetimepicker ng-model="model.birthday">
                                         <input type='text' class="form-control" />
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
@@ -384,3 +374,15 @@
     </style>
 
 </div>
+ <script>
+    $(document).ready(function(){
+        $('#datepicker .input-group.date').datepicker({
+            format: 'yyyy/mm/dd',
+            todayHighlight: true,
+            //autoclose: true,
+            language: 'zh-CN',
+            todayBtn: "linked",
+            toggleActive: true
+        });
+    });
+</script>
