@@ -145,8 +145,7 @@ angular.module('culAdminApp')
                         _array.push(_box.name);
                         if (!!_bag) _array.push(_bag.name);
 
-                        <<
-                        << << < HEAD
+                        // <<<<<<< HEAD
                         $("#package-title").text(_array.join(" > "));
                     },
                     remove: function(item, level) {
@@ -196,11 +195,11 @@ angular.module('culAdminApp')
                                 break;
                         }
                     }
-                } ===
-                === =
-                $scope.btnPrev = function() {
-                    $window.history.back();
                 }
+                // =======
+            $scope.btnPrev = function() {
+                $window.history.back();
+            }
             $scope.errorFlightNo = "";
             $scope.flightNo = "";
             $scope.btnClose = function() {
@@ -224,8 +223,8 @@ angular.module('culAdminApp')
                     //           $scope.btnPrev();
                     //       }
                     //   });
-                } >>>
-                >>> > d4b0187c0505dcd8082e25537d100a0c9da49734
+                }
+                // >>>>>>> d4b0187c0505dcd8082e25537d100a0c9da49734
 
             $scope.btnAdd = function(type) {
                 var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
