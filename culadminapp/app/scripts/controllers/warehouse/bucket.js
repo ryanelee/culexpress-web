@@ -66,6 +66,7 @@ angular.module('culAdminApp')
               bucketService.getList(_filterOptions(), function (result) {
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
+                  console.log(result.data);
               });
           }
         //   $scope.getData();
@@ -84,7 +85,7 @@ angular.module('culAdminApp')
                       $location.path("/warehouse/bucketedit");
                       break;
                   case "edit":
-                      if (!!item) $location.search({ bucketNumber: item.bucketNumber });
+                      if (!!item) $location.search({ bucketNumber: item.bucketNumber,trackingNumber: item.trackingNumber });
                       $location.path("/warehouse/bucketedit");
                       break;
                   case "detail":

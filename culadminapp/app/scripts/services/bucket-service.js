@@ -57,8 +57,13 @@ angular.module('culAdminApp')
       }
 
       //关闭总单
-      self.close = function (bucketNumber, callback) {
-          $http.put(cul.apiPath + "/bucket/close?bucketNumber=" + bucketNumber).success(function (result) {
+    //   self.close = function (bucketNumber, callback) {
+    //       $http.put(cul.apiPath + "/bucket/close?bucketNumber=" + bucketNumber).success(function (result) {
+    //           callback(result);
+    //       });
+    //   }
+      self.close = function (bucket, callback) {
+          $http.put(cul.apiPath + "/bucket/close", bucket).success(function (result) {
               callback(result);
           });
       }

@@ -64,6 +64,14 @@ angular.module('culwebApp')
                 payTheWay: '现金支付',
                 eventList: [{
                     show: false,
+                    code: '107',
+                    icon: 'fa-space-shuttle',
+                    title: '已送往机场',
+                    note: '<div class="row"><div class="col-sm-12">' +
+                        '<p class="highlight">航班号:{{orderEventInfo.flightNo}}</p>' +
+                        '</div></div>',
+                },{
+                    show: false,
                     code: '104',
                     icon: 'fa-home',
                     title: '包裹已提货,交由国内物流公司递送',

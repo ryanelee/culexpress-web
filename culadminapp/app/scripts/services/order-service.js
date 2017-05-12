@@ -198,6 +198,12 @@ angular.module('culAdminApp')
                 callback(result);
             });
         }
+        self.getOutboundPackage = function(number, callback) {
+            $http.get(cul.apiPath + "/outboundpackage/" + number).success(function (result) {
+            // $http.get(cul.apiPath + "/deleteOutboundpackage", numbers).success(function(result) {
+                callback(result);
+            });
+        }
 
         //self.settlement = function (orderNumbers, callback) {
         //    $http.put(cul.apiPath + "/order/settlement", orderNumbers).success(function (result) {
