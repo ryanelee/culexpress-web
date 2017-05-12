@@ -50,19 +50,19 @@ angular
             }
 
             $scope.jobs = function() {
-                if (!$scope.isLogin()) {
-                    $location.path('/login');
-                } else {
-                    $location.path('/jobs');
+                // if (!$scope.isLogin()) {
+                //     $location.path('/login');
+                // } else {
+                $location.path('/jobs');
 
-                }
+                // }
             }
             $scope.terms = function() {
-                if (!$scope.isLogin()) {
-                    $location.path('/login');
-                } else {
-                    $location.path('/terms');
-                }
+                // if (!$scope.isLogin()) {
+                //     $location.path('/login');
+                // } else {
+                $location.path('/terms');
+                // }
             }
 
             $scope.btnViewMessageList = function() {
