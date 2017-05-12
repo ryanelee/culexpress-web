@@ -8,59 +8,60 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('WarehouseBucketCtrl', ['$scope', '$location', '$window', 'warehouseService', 'bucketService',
-      function ($scope, $location, $window, warehouseService, bucketService) {
-          this.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-          ];
+    .controller('WarehouseBucketCtrl', ['$scope', '$location', '$window', 'warehouseService', 'bucketService',
+        function($scope, $location, $window, warehouseService, bucketService) {
+            this.awesomeThings = [
+                'HTML5 Boilerplate',
+                'AngularJS',
+                'Karma'
+            ];
 
-          $scope.dataList = [];
+            $scope.dataList = [];
 
-          /*search bar*/
-          $scope.searchBar = {
-              keywordType: "itemNumber",
-              warehouseNumber: "",
+            /*search bar*/
+            $scope.searchBar = {
+                keywordType: "itemNumber",
+                warehouseNumber: "",
 
-              startDate: "",
-              endDate: "",
-              opened: {
-                  startDate: false,
-                  endDate: false
-              }
-          }
+                startDate: "",
+                endDate: "",
+                opened: {
+                    startDate: false,
+                    endDate: false
+                }
+            }
 
-          $scope.pagination = {
-              pageSize: "20",
-              pageIndex: 1,
-              totalCount: 0
-          }
+            $scope.pagination = {
+                pageSize: "20",
+                pageIndex: 1,
+                totalCount: 0
+            }
 
-          warehouseService.getWarehouse(function (result) {
-              if (result.length == 1) {
-                  $scope.searchBar.warehouseList = result;
-                  $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
-              } else {
-                  $scope.searchBar.warehouseList = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
-              }
-          });
+            warehouseService.getWarehouse(function(result) {
+                if (result.length == 1) {
+                    $scope.searchBar.warehouseList = result;
+                    $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
+                } else {
+                    $scope.searchBar.warehouseList = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
+                }
+            });
 
-          var _filterOptions = function () {
-              var _options = {
-                  "pageInfo": $scope.pagination,
-                  "indateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
-                  "indateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : "",
-              }
+            var _filterOptions = function() {
+                var _options = {
+                    "pageInfo": $scope.pagination,
+                    "indateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
+                    "indateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : "",
+                }
 
-              if (!!$scope.searchBar.warehouseNumber) {
-                  _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
-              }
-              if (!!$scope.searchBar.keywords) {
-                  _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
-              }
-              return angular.copy(_options);
-          }
+                if (!!$scope.searchBar.warehouseNumber) {
+                    _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
+                }
+                if (!!$scope.searchBar.keywords) {
+                    _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
+                }
+                return angular.copy(_options);
+            }
+
 
           $scope.getData = function () {
               bucketService.getList(_filterOptions(), function (result) {
@@ -95,4 +96,3 @@ angular.module('culAdminApp')
               }
           }
       }]);
-

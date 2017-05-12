@@ -15,6 +15,7 @@ angular.module('culAdminApp')
                 replace: true,
                 $scope: true,
                 link: function postLink($scope, $element, attrs) {
+                    console.log('2345678');
                     $rootScope.$emit('changeMenu');
                     $scope.btnLogout = function() {
                         userService.logout(function() {
@@ -34,9 +35,10 @@ angular.module('culAdminApp')
                     }
                     $rootScope.getmessageList = function() {
                         // status: 'Processing' 
-                        faqService.getList({ status: 'Processing' }, function(result) {
+                        faqService.getMessageOperationlog({ status: 'Processing' }, function(result) {
+                            console.log(result);
                             $scope.tipMessage = result.data;
-                            $scope.tipMessageLength = result.data.length;                           
+                            $scope.tipMessageLength = result.data.length;
                         })
                     }
                     $scope.getVipAndMsg();
@@ -44,6 +46,9 @@ angular.module('culAdminApp')
                     $scope.btnViewMessage = function(message) {
                         $location.path("/customer/faqdetail").search({ messageNumber: message.messageNumber });
                     }
+                    $scope.$on('message', function(result) {
+                        $rootScope.getmessageList();
+                    })
 
                     $scope.btnViewCustomer = function(vip) {
                         $location.path("/customer/customerdetail").search({ customerNumber: vip.customerNumber });

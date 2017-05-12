@@ -22,6 +22,16 @@ angular.module('culAdminApp')
                 callback(result);
             });
         }
+        self.getMessageOperationlog = function(options, callback) {
+            $http.post(cul.apiPath + "/customermessage/getSysMessageOperationlog", options).success(function(result) {
+                callback(result);
+            });
+        }
+        self.updateMessageOperation = function(obj) {
+            return $http.post(cul.apiPath + '/customermessage/updateMessageOperation', obj);
+        }
+
+
 
         self.getDetail = function(id, callback) {
             $http.get(cul.apiPath + "/customermessage/" + id).success(function(result) {

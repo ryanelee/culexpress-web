@@ -1,5 +1,5 @@
 ﻿'use strict';
- 
+
 /**
  * @ngdoc function
  * @name culAdminApp.controller:FAQDetailCtrl
@@ -15,6 +15,8 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
+            console.log('23456789')
+            console.log($location.search().messageNumber);
             $scope.messageTypeList = [];
             $scope.search = {};
             $scope.tpl_status = {
@@ -22,6 +24,9 @@ angular.module('culAdminApp')
                 messageTypeData: [],
                 warehouseList: []
             }
+
+
+
 
             faqService.getMessageType(7, function(result) {
                 $scope.tpl_status.messageTypeData = [{ "typeID": "", "typeName": "全部" }].concat(result);
@@ -79,25 +84,28 @@ angular.module('culAdminApp')
             }
 
             $scope.btnMessagePush = function() {
-                if (!!$scope._message) {
-                    customerMessageService.push({
-                        "messageNumber": $scope.tpl_status.messageNumber,
-                        "message": $scope._message
-                    }, function(result) {
-                        $scope.refreshMessage();
-                        $scope._message = "";
-                    });
+                    if (!!$scope._message) {
+                        customerMessageService.push({
+                            "messageNumber": $scope.tpl_status.messageNumber,
+                            "message": $scope._message
+                        }, function(result) {
+                            $scope.refreshMessage();
+                            $scope._message = "";
+                            faqService.updateMessageOperation({ messageNumber: $scope.tpl_status.messageNumber }).then(function(data) {
+                                $scope.$emit("message")
+                            });
+                        });
+                    }
                 }
-           }
-           //查看客户信息
-           $scope.btnOpenDetail = function (type, item) {
-              switch (type) {
-                  case "customerDetail":
-                      $location.search({ customerNumber: item.customerNumber });
-                      $location.path("/customer/customerdetail");
-                      break;
-              }
-          }
+                //查看客户信息
+            $scope.btnOpenDetail = function(type, item) {
+                switch (type) {
+                    case "customerDetail":
+                        $location.search({ customerNumber: item.customerNumber });
+                        $location.path("/customer/customerdetail");
+                        break;
+                }
+            }
 
             $scope.btnViewCustomer = function(orderNumber) {
                 return;
@@ -112,8 +120,7 @@ angular.module('culAdminApp')
                 $scope.search.messageNumber = $scope.data.messageNumber;
                 $scope.search.typeId = $scope.search.messageType.typeID;
                 $scope.search.typeName = $scope.search.messageType.typeName;
-                faqService.setMessagelog($scope.search, function(data) {
-                })
+                faqService.setMessagelog($scope.search, function(data) {})
             }
 
             $scope.btnUpdateStatus = function(status) {
