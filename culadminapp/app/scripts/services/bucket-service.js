@@ -62,8 +62,10 @@ angular.module('culAdminApp')
     //           callback(result);
     //       });
     //   }
-      self.close = function (bucket, callback) {
-          $http.put(cul.apiPath + "/bucket/close", bucket).success(function (result) {
+      self.close = function (options, callback) {
+          console.log("bucket_service options:")
+          console.log(options)
+          $http.put(cul.apiPath + "/bucket/close", options).success(function (result) {
               callback(result);
           });
       }

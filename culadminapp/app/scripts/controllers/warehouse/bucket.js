@@ -21,6 +21,7 @@ angular.module('culAdminApp')
             /*search bar*/
             $scope.searchBar = {
                 keywordType: "itemNumber",
+                keywords: "bucketNumber",
                 warehouseNumber: "",
 
                 startDate: "",

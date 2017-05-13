@@ -36,11 +36,12 @@
                     <div class="clearfix"></div>
                     <div class="search-col">
                         <label class="search-label">搜索条目：</label>
-                        <select class="form-control search-control">
+                        <select class="form-control search-control" ng-model="searchBar.keywords">
                             <option value="bucketNumber">出库总单号</option>
+                            <option value="flightNo">航班号</option>
                             <option value="trackingNumber">CUL包裹单号</option>
                         </select>
-                        <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()" />
+                        <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字"  ng-enter="btnSearch()" />
                         <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                     </div>
                 </div>
@@ -52,6 +53,7 @@
                     <thead>
                         <tr>
                             <th>出库总单号</th>
+                            <th>航班号</th>
                             <th>创建时间</th>
                             <th>状态</th>
                             <th>Pallet总数</th>
@@ -66,6 +68,7 @@
                     <tbody>
                         <tr ng-repeat="item in dataList">
                             <td>{{item.bucketNumber}}</td>
+                            <td>{{item.flightNo}}</td>
                             <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                             <td>{{item._status}}</td>
                             <td>{{item.palletCount}}</td>
@@ -76,8 +79,8 @@
                             <td>{{item.inuser}}</td>
                             <td>
                                 <a href="javascript:void(0);" ng-click="btnAction('detail', item)">查看</a>
-                                <a href="javascript:void(0);" class="role" data-role="69" ng-click="btnAction('detail', item)" ng-if="item.status == '1'">编辑</a>
-                                <a href="javascript:void(0);" class="role" data-role="69" ng-click="btnAction('edit', item)" ng-if="item.status == '0'">更新航班号</a>
+                                <a href="javascript:void(0);" class="role" data-role="69" ng-click="btnAction('edit', item)" ng-if="item.status == '1'">编辑</a>
+                                <a href="javascript:void(0);" class="role" data-role="69" ng-click="btnAction('detail', item)" ng-if="item.status == '0'">更新航班号</a>
                             </td>
                         </tr>
                     </tbody>
