@@ -236,7 +236,7 @@ angular.module('culAdminApp')
                                     $scope.packages = result;
                                     console.log("包裹信息")
                                     console.log(result)
-                                    $scope.packages.flightNo = $scope.flightNo;
+                                    // $scope.packages.flightNo = $scope.flightNo;
                                     $scope.packages.status = "Send";
 
                                     orderService.updateOutboundPackage($scope.packages, function(result) {
