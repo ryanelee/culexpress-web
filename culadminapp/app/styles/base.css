@@ -93,4 +93,14 @@ a {
     margin-top: 25px;
     font-size: 16px;
 }
+.flight-label {
+    font-weight: 500;
+    float: left;
+    margin: 26px 0px 30px 0px;
+}
+.flight-input{
+    margin-left:5px; 
+    width:420px;
+    margin:20px 0px 30px 10px;
+}
     

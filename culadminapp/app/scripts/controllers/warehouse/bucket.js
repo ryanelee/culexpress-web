@@ -20,10 +20,9 @@ angular.module('culAdminApp')
 
             /*search bar*/
             $scope.searchBar = {
-                keywordType: "itemNumber",
-                keywords: "bucketNumber",
+                keywordType: "bucketNumber", 
+                keywords: $location.search().bucketNumber || "",           
                 warehouseNumber: "",
-
                 startDate: "",
                 endDate: "",
                 opened: {
@@ -60,11 +59,12 @@ angular.module('culAdminApp')
                 if (!!$scope.searchBar.keywords) {
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 }
+                console.log(_options);
                 return angular.copy(_options);
             }
 
 
-          $scope.getData = function () {
+          $scope.getData = function () {             
               bucketService.getList(_filterOptions(), function (result) {
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
@@ -87,11 +87,15 @@ angular.module('culAdminApp')
                       $location.path("/warehouse/bucketedit");
                       break;
                   case "edit":
-                      if (!!item) $location.search({ bucketNumber: item.bucketNumber,trackingNumber: item.trackingNumber });
+                      if (!!item) $location.search({ bucketNumber: item.bucketNumber});
                       $location.path("/warehouse/bucketedit");
                       break;
                   case "detail":
                       if (!!item) $location.search({ bucketNumber: item.bucketNumber, readonly: 1 });
+                      $location.path("/warehouse/bucketedit");
+                      break;
+                  case "editFlightNo":
+                      if (!!item) $location.search({ bucketNumber: item.bucketNumber, editFlightNo: 1 });
                       $location.path("/warehouse/bucketedit");
                       break;
               }

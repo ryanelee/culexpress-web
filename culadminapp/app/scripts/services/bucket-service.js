@@ -20,7 +20,7 @@ angular.module('culAdminApp')
 
       //修改总单
       self.update = function (options, callback) {
-          $http.PUT(cul.apiPath + "/bucket", options).success(function (result) {
+          $http.put(cul.apiPath + "/bucket", options).success(function (result) {
               callback(result);
           })
       }
@@ -63,8 +63,6 @@ angular.module('culAdminApp')
     //       });
     //   }
       self.close = function (options, callback) {
-          console.log("bucket_service options:")
-          console.log(options)
           $http.put(cul.apiPath + "/bucket/close", options).success(function (result) {
               callback(result);
           });
