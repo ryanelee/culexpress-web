@@ -27,7 +27,8 @@ angular.module('culAdminApp')
                 actionType: "bucket", //bucket; package;
                 bucketNumber: $location.search().bucketNumber || "",             
                 readonly: $location.search().readonly || "",
-                editFlightNo: $location.search().editFlightNo || ""
+                editFlightNo: $location.search().editFlightNo || "",
+                editBucket: $location.search().editBucket || ""
             }
 
             $scope.errorFlightNo = "";
@@ -146,7 +147,7 @@ angular.module('culAdminApp')
                         //         })
                         //     }
                         // }
-                        _array.push(_box.name);
+                        if (!!_box) _array.push(_box.name);
                         if (!!_bag) _array.push(_bag.name);
 
                         // <<<<<<< HEAD
@@ -209,7 +210,7 @@ angular.module('culAdminApp')
           }
          
           $scope.btnClose = function () {
-              console.log("**************："+$scope.flightNo);
+             console.log("**************："+ $scope.flightNo);
              if ($scope.flightNo == "" && $scope.flightNo.length<=0) {
                  $scope.errorFlightNo = "关闭前请输入航班号！"
                  return;

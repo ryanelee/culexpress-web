@@ -43,38 +43,47 @@
                     <button class="btn btn-danger" ng-click="btnAdd('bag')"><i class="fa fa-plus"></i>新增Bag</button>
                 </div>
             </fieldset>
-            <div style="width:100%; display: inline-block;" ng-if="!tpl_status.bucketNumber || tpl_status.readonly">
-                <legend>航班号信息</legend>
-                <label style="font-weight: 500;">航班号：{{data.flightNo}}</label>        
-            </div>
-            <div style="width:100%; display: inline-block;" >
-                <legend>航班号信息</legend>
-                <label ng-if="tpl_status.editFlightNo" style="font-weight: 500;">原航班号：{{data.flightNo}}</label> <br>
-                <label ng-if="tpl_status.editFlightNo" class="flight-label">修改航班号：</label>
-                <div style="width:440px;float: left;" class="flight-input">
-                    <input type="text"  class="form-control search-control"  placeholder="请输入航班号" ng-model="flightNo"/>  
-                </div>  
-                <label class="input-error" ng-if="!tpl_status.editFlightNo && !tpl_status.readonly">{{errorFlightNo}}</label>      
-            </div>
-            <div class="form-group">
-                <div class="col-md-6 text-left" ng-if="!!tpl_status.bucketNumber && !tpl_status.readonly && !tpl_status.editFlightNo">
-                    <button type="button" class="btn btn-primary role" data-role="70" ng-click="btnClose()"><i class="fa fa-save"></i>关闭出库总单</button>
+            <fieldset>
+                <div style="width:100%; display: inline-block;" ng-if="tpl_status.readonly">
+                    <legend>航班号信息</legend>
+                    <label style="font-weight: 500;">航班号：{{data.flightNo}}</label>        
                 </div>
-                <div class="col-md-6 text-left" ng-if="tpl_status.editFlightNo">
-                    <button type="button" class="btn btn-primary role" data-role="70" ng-click="editFlightNo()"><i class="fa fa-save"></i>确认修改航班号</button>
+                <div ng-if="tpl_status.editFlightNo" style="width:100%; display: inline-block;" >
+                    <legend>航班号信息</legend>
+                    <label style="font-weight: 500;">原航班号：{{data.flightNo}}</label> <br>
+                    <label class="flight-label">修改航班号：</label>
+                    <div style="width:440px;float: left;" class="flight-input">
+                        <input type="text"  class="form-control search-control" placeholder="请输入航班号" ng-model="flightNo" />  
+                        <code>{{errorFlightNo}}</code>
+                    </div>       
                 </div>
-                <div class="col-md-6 text-right">
-                    <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-if="!tpl_status.readonly"><i class="fa fa-save"></i>保存</button>
-                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                <div ng-if="tpl_status.editBucket" style="width:100%; display: inline-block;" >
+                    <legend>航班号信息</legend>
+                    <div style="width:440px;float: left;" class="flight-input">
+                        <input type="text" class="form-control" placeholder="请输入航班号" ng-model="flightNo">
+                        <code>{{errorFlightNo}}</code>
+                    </div>                       
                 </div>
-            </div>
+                <div class="form-group">
+                    <div class="col-md-6 text-left" ng-if="!!tpl_status.bucketNumber && !tpl_status.readonly && !tpl_status.editFlightNo">
+                        <button type="button" class="btn btn-primary role" data-role="70" ng-click="btnClose()"><i class="fa fa-save"></i>关闭出库总单</button>
+                    </div>
+                    <div class="col-md-6 text-left" ng-if="tpl_status.editFlightNo">
+                        <button type="button" class="btn btn-primary role" data-role="70" ng-click="editFlightNo()"><i class="fa fa-save"></i>确认修改航班号</button>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-if="!tpl_status.bucketNumber"><i class="fa fa-save"></i>保存</button>
+                        <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                    </div>
+                </div>
+            </fieldset>
         </form>
         <form class="form-horizontal" role="form" ng-show="tpl_status.actionType == 'package'">
             <fieldset>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">CUL包裹单号：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" ng-model="_selectedPackage.trackingNumber" ng-change="checkTrackingNumber()" ng-disabled="!!tpl_status.readonly">
+                        <input type="text" id="key_trackingNumber" class="form-control" ng-model="_selectedPackage.trackingNumber" ng-change="checkTrackingNumber()" ng-disabled="!!tpl_status.readonly">
                     </div>
                     <div class="pull-left red" style="line-height:34px; font-size:14px;" ng-show="!!_selectedPackage.trackingNumber && (selected_packages | filter: _selectedPackage.trackingNumber:true).length > 0">
                         <i class="fa fa-info-circle" style="margin-right:4px;"></i><span>正在修改包裹</span>
@@ -83,7 +92,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">包裹重量（磅）：</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" ng-model="_selectedPackage.weight" ng-disabled="!!tpl_status.readonly">
+                        <input id="key_weight" type="text" class="form-control" ng-model="_selectedPackage.weight" ng-disabled="!!tpl_status.readonly">
                     </div>
                     <div class="col-sm-2" ng-if="!tpl_status.readonly">
                         <button type="button" class="btn btn-primary" ng-click="btnSaveByPackage()"><i class="fa fa-check-square-o"></i>确定</button>
@@ -115,3 +124,13 @@
         </form>
     </div>
 </div>
+
+<script>
+    var key_trackingNumber = document.getElementById('key_trackingNumber');
+    var key_weight = document.getElementById('key_weight');
+    key_trackingNumber.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            key_weight.focus();
+        }
+    });
+</script>

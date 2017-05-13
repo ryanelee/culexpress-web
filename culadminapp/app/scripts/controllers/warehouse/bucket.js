@@ -87,7 +87,7 @@ angular.module('culAdminApp')
                       $location.path("/warehouse/bucketedit");
                       break;
                   case "edit":
-                      if (!!item) $location.search({ bucketNumber: item.bucketNumber});
+                      if (!!item) $location.search({ bucketNumber: item.bucketNumber, editBucket: 1});
                       $location.path("/warehouse/bucketedit");
                       break;
                   case "detail":
