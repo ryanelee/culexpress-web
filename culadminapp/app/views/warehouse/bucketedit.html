@@ -46,21 +46,33 @@
             <fieldset>
                 <div style="width:100%; display: inline-block;" ng-if="tpl_status.readonly">
                     <legend>航班号信息</legend>
-                    <label style="font-weight: 500;">航班号：{{data.flightNo}}</label>        
+                    <label class="col-sm-12 control-label text-left" >航班号: {{data.flightNo}}</label>        
                 </div>
                 <div ng-if="tpl_status.editFlightNo" style="width:100%; display: inline-block;" >
                     <legend>航班号信息</legend>
-                    <label style="font-weight: 500;">原航班号：{{data.flightNo}}</label> <br>
-                    <label class="flight-label">修改航班号：</label>
-                    <div style="width:440px;float: left;" class="flight-input">
-                        <input type="text"  class="form-control search-control" placeholder="请输入航班号" ng-model="flightNo" />  
-                        <code>{{errorFlightNo}}</code>
+                    <div class="form-group">
+                        <div style="padding: 15px 0px;">
+                            <label class="col-sm-2 control-label text-right">原航班号： </label>
+                            <label class="col-sm-10 control-label text-left" style="line-height: 15px;"> {{data.flightNo}}</label> <br>
+                        </div>
+                        <label class="col-sm-2 control-label text-right">修改航班号：</label>
+                        <div class="col-sm-4">
+                            <input type="text"  class="form-control search-control" placeholder="请输入航班号" ng-model="$parent.flightNo" />  
+                            <code>{{errorFlightNo}}</code>
+                        </div>
                     </div>       
                 </div>
                 <div ng-if="tpl_status.editBucket" style="width:100%; display: inline-block;" >
                     <legend>航班号信息</legend>
                     <div style="width:440px;float: left;" class="flight-input">
-                        <input type="text" class="form-control" placeholder="请输入航班号" ng-model="flightNo">
+                        <input type="text" class="form-control" placeholder="请输入航班号" ng-model="$parent.data.flightNo">
+                        <code>{{errorFlightNo}}</code>
+                    </div>                       
+                </div>
+                <div ng-if="tpl_status.createBucket" style="width:100%; display: inline-block;" >
+                    <legend>航班号信息</legend>
+                    <div style="width:440px;float: left;" class="flight-input">
+                        <input type="text" class="form-control" placeholder="请输入航班号" ng-model="$parent.flightNo">
                         <code>{{errorFlightNo}}</code>
                     </div>                       
                 </div>
@@ -69,7 +81,7 @@
                         <button type="button" class="btn btn-primary role" data-role="70" ng-click="btnClose()"><i class="fa fa-save"></i>关闭出库总单</button>
                     </div>
                     <div class="col-md-6 text-left" ng-if="tpl_status.editFlightNo">
-                        <button type="button" class="btn btn-primary role" data-role="70" ng-click="editFlightNo()"><i class="fa fa-save"></i>确认修改航班号</button>
+                        <button type="button" class="btn btn-primary role" data-role="70" ng-click="btnUpdate()"><i class="fa fa-save"></i>确认修改航班号</button>
                     </div>
                     <div class="col-md-6 text-right">
                         <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-if="!tpl_status.bucketNumber"><i class="fa fa-save"></i>保存</button>

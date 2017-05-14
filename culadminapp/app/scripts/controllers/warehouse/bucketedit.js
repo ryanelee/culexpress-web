@@ -28,7 +28,8 @@ angular.module('culAdminApp')
                 bucketNumber: $location.search().bucketNumber || "",             
                 readonly: $location.search().readonly || "",
                 editFlightNo: $location.search().editFlightNo || "",
-                editBucket: $location.search().editBucket || ""
+                editBucket: $location.search().editBucket || "",
+                createBucket: $location.search().createBucket || ""
             }
 
             $scope.errorFlightNo = "";
@@ -205,63 +206,51 @@ angular.module('culAdminApp')
                     }
                 }
                 // =======
-          $scope.btnPrev = function () {
-              $window.history.back();
-          }
-         
-          $scope.btnClose = function () {
-             console.log("**************："+ $scope.flightNo);
-             if ($scope.flightNo == "" && $scope.flightNo.length<=0) {
-                 $scope.errorFlightNo = "关闭前请输入航班号！"
-                 return;
-             }
-             var _callback = function() {
-                plugMessenger.success("总单关闭成功");              
+            $scope.btnPrev = function () {
+                $window.history.back();
             }
-            // $scope.tpl_bucket.bucketNumber = $scope.tpl_status.bucketNumber;
-            // $scope.tpl_bucket.flightNo = $scope.flightNo;
             
-             plugMessenger.confirm("确认关闭出库总单吗？", function(isOK) {
-                if (isOK) {
-                    var _options = {
-                        "bucketNumber": $scope.tpl_status.bucketNumber,
-                        "flightNo": $scope.flightNo
-                    }
-                    // bucketService.close($scope.tpl_status.bucketNumber, function (result) {
-                    bucketService.close(_options, function (result) { 
-                        if (!result.message) {
-                            // plugMessenger.success("总单关闭成功");
-                            // 获取包裹信息
-                            $scope.data.packageList.forEach(function(pkg) {
-                                orderService.getOutboundPackage(pkg.trackingNumber,function(result){                               
-                                    $scope.packages = result;
-                                    console.log("包裹信息")
-                                    console.log(result)
-                                    // $scope.packages.flightNo = $scope.flightNo;
-                                    $scope.packages.status = "Send";
-
-                                    orderService.updateOutboundPackage($scope.packages, function(result) {
-                                        if (!result.message) {                                   
-                                            _callback();  
-                                            $scope.btnPrev();            
-                                        }
-                                    })
-                                });
-                            });                          
-                        }
-                    });
-                    //   bucketService.close($scope.tpl_status.bucketNumber, function (result) {
-                    //       if (!result.message) {
-                    //           plugMessenger.success("总单关闭成功");
-                    //           $scope.btnPrev();
-                    //       }
-                    //   });
+            $scope.btnClose = function () {
+                console.log("**************："+ $scope.data.flightNo);
+                if ($scope.data.flightNo == "" && $scope.data.flightNo.length<=0) {
+                    $scope.errorFlightNo = "关闭前请输入航班号！"
+                    return;
                 }
-// <<<<<<< HEAD
-            });
-          }
-// =======
-                // >>>>>>> d4b0187c0505dcd8082e25537d100a0c9da49734
+                var _callback = function() {
+                    plugMessenger.success("总单关闭成功");              
+                }
+                
+                plugMessenger.confirm("确认关闭出库总单吗？", function(isOK) {
+                    if (isOK) {
+                        var _options = {
+                            "bucketNumber": $scope.tpl_status.bucketNumber,
+                            "flightNo": $scope.data.flightNo
+                        }
+                    
+                        bucketService.close(_options, function (result) { 
+                            if (!result.message) {                           
+                                // 获取包裹信息
+                                $scope.data.packageList.forEach(function(pkg) {
+                                    orderService.getOutboundPackage(pkg.trackingNumber,function(result){                               
+                                        $scope.packages = result;
+                                        console.log("包裹信息")
+                                        console.log(result)
+                                        // $scope.packages.flightNo = $scope.flightNo;
+                                        $scope.packages.status = "Send";
+
+                                        orderService.updateOutboundPackage($scope.packages, function(result) {
+                                            if (!result.message) {                                   
+                                                _callback();  
+                                                $scope.btnPrev();            
+                                            }
+                                        })
+                                    });
+                                });                          
+                            }
+                        });                  
+                    }
+                });
+            }
 
             $scope.btnAdd = function(type) {
                 var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
@@ -305,6 +294,13 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSave = function() {
+                console.log($scope.flightNo);
+                if ($scope.flightNo == "" && $scope.flightNo.length<=0) {
+                    $scope.errorFlightNo = "请输入航班号！"
+                    return;
+                }
+                $scope.data.flightNo = $scope.flightNo;
+                console.log($scope.data);
                 bucketService.create($scope.data, function(result) {
                     if (!result.message) {
                         plugMessenger.success("创建成功");
@@ -312,21 +308,7 @@ angular.module('culAdminApp')
                     }
                 });
             }
-
-            // $scope.btnPrev = function() {
-            //     $window.history.back();
-            // }
-// >>>>>>> 1b69077f8f81ff98da638405431b5bd0bdb0abaa
-
-            // $scope.btnClose = function() {
-            //     bucketService.close($scope.tpl_status.bucketNumber, function(result) {
-            //         if (!result.message) {
-            //             plugMessenger.success("总单关闭成功");
-            //             $scope.btnPrev();
-            //         }
-            //     });
-            // }
-
+        
             var _timeout = null,
                 _cacheCurrentResult = null;
             $scope.checkTrackingNumber = function() {
@@ -388,28 +370,17 @@ angular.module('culAdminApp')
                 $scope._selectedPackage = null;
                 $scope.totalWeight();
             }
-
-            //             if (!_.isArray(_selected_bag.packages)) _selected_bag.packages = [$scope._selectedPackage.trackingNumber];
-            //             else _selected_bag.packages.push($scope._selectedPackage.trackingNumber);
-            //             $scope._selectedPackage = null;
-            //         } else {
-            //             plugMessenger.info("包裹编号" + $scope._selectedPackage.trackingNumber + "无法装袋:出库重量和打包重量不匹配。");
-            //             return;
-            //         }
-            //     } else {
-            //         plugMessenger.info("包裹[" + $scope._selectedPackage.trackingNumber + "]已存在当前总单中，但不存在于正在操作的Bag中。");
-            //         return;
-            //     }
-            //     $scope._selectedPackage = null;
-            //     $scope.totalWeight();
-            // }
-
+           
             $scope.btnPrevByPackage = function() {
                 $scope._selectedPackage = null;
                 $scope.tpl_status.actionType = "bucket";
             }
 
-            $scope.editFlightNo = function() {
+            $scope.btnUpdate = function() {
+                if ($scope.flightNo == "" && $scope.flightNo.length<=0) {
+                    $scope.errorFlightNo = "请输入航班号！"
+                    return;
+                }
                 let _options = {
                     "bucketNumber": $scope.tpl_status.bucketNumber,
                     "flightNo": $scope.flightNo
@@ -418,7 +389,6 @@ angular.module('culAdminApp')
                 bucketService.update(_options, function (result) { 
                     if (!result.message) {
                         plugMessenger.success("修改成功！");
-                        //  $location.path("/warehouse/bucketedit?bucketNumber="+$scope.tpl_status.bucketNumber+"&editFlightNo=1");
                     }
                 });
             }

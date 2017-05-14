@@ -84,6 +84,7 @@ angular.module('culAdminApp')
           $scope.btnAction = function (type, item) {
               switch (type) {
                   case "create":
+                      $location.search({ createBucket: 1});
                       $location.path("/warehouse/bucketedit");
                       break;
                   case "edit":
