@@ -51,7 +51,7 @@ angular.module('culAdminApp')
 
         //库存寄送列表
         self.getTransportList = function(options, callback) {
-            console.log(options);
+            //console.log(options);
             $http.post(cul.apiPath + "/item/transport/list", options).success(function(result) {
                 _.each(result.data, function(item) {
                     switch (item.sendType) {

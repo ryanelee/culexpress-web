@@ -15,8 +15,8 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
-            console.log('23456789')
-            console.log($location.search().messageNumber);
+            //console.log('23456789')
+            //console.log($location.search().messageNumber);
             $scope.messageTypeList = [];
             $scope.search = {};
             $scope.tpl_status = {

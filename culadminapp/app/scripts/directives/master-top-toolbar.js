@@ -15,7 +15,7 @@ angular.module('culAdminApp')
                 replace: true,
                 $scope: true,
                 link: function postLink($scope, $element, attrs) {
-                    console.log('2345678');
+                    //console.log('2345678');
                     $rootScope.$emit('changeMenu');
                     $scope.btnLogout = function() {
                         userService.logout(function() {
@@ -36,7 +36,7 @@ angular.module('culAdminApp')
                     $rootScope.getmessageList = function() {
                         // status: 'Processing' 
                         faqService.getMessageOperationlog({ status: 'Processing' }, function(result) {
-                            console.log(result);
+                            //console.log(result);
                             $scope.tipMessage = result.data;
                             $scope.tipMessageLength = result.data.length;
                         })

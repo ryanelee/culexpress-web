@@ -151,7 +151,7 @@ angular.module('culAdminApp')
             }
 
             faqService.getMessageType(7, function(result) {
-                console.log(result);
+                //console.log(result);
                 $scope.searchBar.messageTypeData = [{ "typeID": "", "typeName": "全部" }].concat(result);
             });
 

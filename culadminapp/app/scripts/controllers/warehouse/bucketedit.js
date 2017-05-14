@@ -38,8 +38,8 @@ angular.module('culAdminApp')
 
             if (!!$scope.tpl_status.bucketNumber) {
                 bucketService.getDetail($scope.tpl_status.bucketNumber, function(result) {
-                    console.log("返回结果");
-                    console.log(result);
+                    //console.log("返回结果");
+                    //console.log(result);
                     $scope.data = result;
                     if ($scope.data.detail[0]) {
                         $scope.data.detail.forEach(function(e) {
@@ -71,7 +71,7 @@ angular.module('culAdminApp')
                             }
                         })
                     }
-                    console.log(result);
+                    //console.log(result);
 
                     // if (!!_bag) {
                     //     if (_bag.packages && _bag.packages[0]) {
@@ -133,8 +133,8 @@ angular.module('culAdminApp')
                             _box = _.findWhere(_pallet.boxes, { _selected: true });
                             _bag = _.findWhere(_box.bags, { _selected: true });
                         }
-                        console.log('23');
-                        console.log(_bag);
+                        //console.log('23');
+                        //console.log(_bag);
                         // if (!!_bag) {
                         //     if (_bag.packages && _bag.packages[0]) {
                         //         _bag.packages.forEach((e) => {
@@ -211,7 +211,7 @@ angular.module('culAdminApp')
             }
             
             $scope.btnClose = function () {
-                console.log("**************："+ $scope.data.flightNo);
+                //console.log("**************："+ $scope.data.flightNo);
                 if ($scope.data.flightNo == "" && $scope.data.flightNo.length<=0) {
                     $scope.errorFlightNo = "关闭前请输入航班号！"
                     return;
@@ -233,8 +233,8 @@ angular.module('culAdminApp')
                                 $scope.data.packageList.forEach(function(pkg) {
                                     orderService.getOutboundPackage(pkg.trackingNumber,function(result){                               
                                         $scope.packages = result;
-                                        console.log("包裹信息")
-                                        console.log(result)
+                                        //console.log("包裹信息")
+                                        //console.log(result)
                                         // $scope.packages.flightNo = $scope.flightNo;
                                         $scope.packages.status = "Send";
 
@@ -294,13 +294,13 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSave = function() {
-                console.log($scope.flightNo);
+                //console.log($scope.flightNo);
                 if ($scope.flightNo == "" && $scope.flightNo.length<=0) {
                     $scope.errorFlightNo = "请输入航班号！"
                     return;
                 }
                 $scope.data.flightNo = $scope.flightNo;
-                console.log($scope.data);
+                //console.log($scope.data);
                 bucketService.create($scope.data, function(result) {
                     if (!result.message) {
                         plugMessenger.success("创建成功");
@@ -381,11 +381,11 @@ angular.module('culAdminApp')
                     $scope.errorFlightNo = "请输入航班号！"
                     return;
                 }
-                let _options = {
+                var _options = {
                     "bucketNumber": $scope.tpl_status.bucketNumber,
                     "flightNo": $scope.flightNo
                 }
-                console.log(_options);
+                //console.log(_options);
                 bucketService.update(_options, function (result) { 
                     if (!result.message) {
                         plugMessenger.success("修改成功！");

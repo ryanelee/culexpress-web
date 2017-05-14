@@ -14,7 +14,7 @@ angular.module('culAdminApp')
             'AngularJS',
             'Karma'
         ];
-        console.log('2345');
+        //console.log('2345');
         $('.content-wrapper').css('min-height', $('.wrapper').outerHeight(true) - $('.top-bar').outerHeight(true));
 
         $scope.userInfo = null;

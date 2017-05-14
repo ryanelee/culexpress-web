@@ -190,7 +190,7 @@ angular.module('culAdminApp')
 
 
             $scope.checkCustomerNumber = function(e) {
-                console.log(e);
+                //console.log(e);
                 if (!$scope.data.customerNumber) {
                     plugMessenger.error("客户编号不能为空");
                     // $scope.customerNumberFocus = true;

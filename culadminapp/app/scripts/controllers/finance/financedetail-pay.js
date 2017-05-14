@@ -39,7 +39,7 @@ angular.module('culAdminApp')
                         return;
                     }
                     if (result.data.code == '000') {
-                        console.log(result.data);
+                        //console.log(result.data);
                         $scope.tmpData = {};
                         $scope.tmpData = result.data.data[0]
                         $scope.data.tempCustomerNumber = result.data.data[0].customerNumber
