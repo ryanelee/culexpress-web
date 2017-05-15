@@ -62,7 +62,7 @@ angular.module('culwebApp')
             $scope.showTrack = false;
             $scope.orderEventInfo = {
                 eventList: [{
-                    code: '107',
+                    code: '109',
                     icon: 'fa-maxcdn'
                 },{
                     code: '105',
@@ -107,7 +107,7 @@ angular.module('culwebApp')
                         var eventObj = result.data,
                             eventList = [],
                             tempEventList = angular.copy($scope.orderEventInfo.eventList);
-                            
+                        console.log(eventObj);
                         if (angular.isArray(eventObj)) {
                             eventObj = eventObj[0];
                         }

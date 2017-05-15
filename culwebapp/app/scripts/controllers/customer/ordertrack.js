@@ -64,7 +64,7 @@ angular.module('culwebApp')
                 payTheWay: '现金支付',
                 eventList: [{
                     show: false,
-                    code: '107',
+                    code: '109',
                     icon: 'fa-space-shuttle',
                     title: '已送往机场',
                     note: '<div class="row"><div class="col-sm-12">' +
@@ -119,7 +119,7 @@ angular.module('culwebApp')
                         }
 
                         eventList = eventObj.eventList;
-
+                        
                         for (var i = 0, ii = eventList.length; i < ii; i++) {
                             var eventItem = eventList[i],
                                 queriedEvent = $filter('filter')(tempEventList, function(queryItem) { return queryItem.code == eventItem.code; });
