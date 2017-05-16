@@ -103,4 +103,13 @@ a {
     width:420px;
     margin:20px 0px 30px 10px;
 }
+.long-cell {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.long-cell:hover {
+    max-width: 300px;
+    white-space: normal;
+}
     
