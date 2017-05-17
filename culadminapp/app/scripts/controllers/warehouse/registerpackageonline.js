@@ -17,7 +17,7 @@ angular.module('culAdminApp')
             ];
             $scope.data = null;
 
-            $scope.tempOutboundPackageNumber = $location.search().trackingNumber || "";
+            $scope.tempInboundPackageNumber = $location.search().trackingNumber || "";
             $scope.isPrint = false;
             $scope.isSplit = false;
             $scope.isDel = false;
@@ -207,7 +207,7 @@ angular.module('culAdminApp')
 
             var _reset = function() {
                 $scope.data = null;
-                $scope.tempOutboundPackageNumber = "";
+                $scope.tempInboundPackageNumber = "";
             }
         }
     ]);

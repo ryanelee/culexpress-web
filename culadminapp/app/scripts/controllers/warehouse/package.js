@@ -88,7 +88,7 @@ angular.module('culAdminApp')
                   }
 
                   $scope.dataList = _data;
-                  //console.log($scope.dataList);
+                //   console.log($scope.dataList);
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
                   $rootScope.$emit("changeMenu");
 
@@ -162,11 +162,16 @@ angular.module('culAdminApp')
                       $location.path("/customer/customerdetail");
                       break;
                   case "trackingNumber":
-                      $location.search({ trackingNumber: item.trackingNumber });
                       if (item.orderType == 0) {
+                          $location.search({ trackingNumber: item.trackingNumber });
                           $location.path("/warehouse/registerpackageoffline");
                       } else if (item.orderType == 1) {
-                          $location.path("/warehouse/registerpackageonline");
+                          orderService.getDetail(item.orderNumber, function(result) {                      
+                             var trackingNumber = result.inboundPackages[0].trackingNumber;
+                             $location.search({ trackingNumber: trackingNumber });
+                             $location.path("/warehouse/registerpackageonline");
+                          })
+                          
                       }
                       break;
               }
