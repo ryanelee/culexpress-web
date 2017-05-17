@@ -22,6 +22,7 @@ angular.module('culAdminApp')
           $scope.customerNumber = $location.search().customerNumber;
           customerService.getDetail($scope.customerNumber, function (result) {
               $scope.data = result;
+              console.log($scope.data)
           });
 
           $scope.btnSave = function () {

@@ -49,6 +49,7 @@ angular.module('culAdminApp')
             _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
             addressService.getList(_options, function(result) {
                 $scope.dataList = result.data;
+                console.log(result.data)
                 $scope.pagination.totalCount = result.pageInfo.totalCount;
                 $rootScope.$emit('changeMenu');
             });

@@ -1,0 +1,170 @@
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name culAdminApp.controller:IdAuthCtrl
+ * @description
+ * # IdAuthCtrl
+ * Controller of the culAdminApp
+ */
+angular.module('culAdminApp')
+    .controller('IdAuthCtrl', ["$scope", "$location", "addressService", "plugMessenger", "$rootScope", "$compile",
+    function($scope, $location, addressService, plugMessenger, $rootScope, $compile) {
+        this.awesomeThings = [
+            'HTML5 Boilerplate',
+            'AngularJS',
+            'Karma'
+        ];
+
+        $scope.api = cul.apiPath;
+
+        $location.search({ trackingNumber: null });
+
+        $scope.dataList = [];
+        $scope.validateType = 1;
+        $scope.pagination = {
+                pageSize: "20",
+                pageIndex: 1,
+                totalCount: 0
+            }
+            /*search bar*/
+        $scope.searchBar = {
+            keywordType: "customerNumber",
+            countryCode: "",
+            accountBalance: "",
+            startDate: "",
+            endDate: "",
+            opened: {
+                startDate: false,
+                endDate: false
+            }
+        }
+        $scope.btnPrint = function() {
+            $scope.$broadcast("print-idcard.action", { data: $scope.dataList });
+        }
+
+
+        $scope.getData = function() {
+            var _options = {
+                "pageInfo": $scope.pagination
+            }
+            _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
+            addressService.getList(_options, function(result) {
+                $scope.dataList = result.data;
+                $scope.dataList.forEach(function(data) {
+                    data._verifyMark = _verifyMark_(data.verifyMark);  
+                })
+                $scope.pagination.totalCount = result.pageInfo.totalCount;
+                $rootScope.$emit('changeMenu');
+            });
+        }
+
+        $scope.btnSearch = function() {
+            $scope.dataList = [];
+            $scope.pagination.pageIndex = 1;
+            $scope.pagination.totalCount = 0;
+            $scope.getData();
+        }
+        $scope.btnSearch()
+
+        $scope.btnOpenDetail = function(type, address) {
+            switch (type) {
+                case "customer":
+                    $location.search({ customerNumber: address.customerNumber });
+                    $location.path("/customer/customerdetail");
+                    break;
+                case "address":
+                    $location.search({ transactionNumber: address.transactionNumber });
+                    $location.path("/customer/addressdetail");
+                    break;
+            }
+        }
+
+        $scope.btnVerification = function(address, index) {
+            $scope._address = angular.copy(address);
+            $scope.index = index;
+            plugMessenger.template($compile($("#tplValidate_approval_form").html())($scope));
+         }
+         $scope.btnVerificationCancle = function(address, index) {
+            var _address = angular.copy(address);
+            index = index;
+            // 状态0： 未验证
+            _address.verifyMark = 0;
+            _address._verifyMark = _verifyMark_(_address.verifyMark);  
+            console.log(_address.verifyMark)
+            console.log(_address._verifyMark);
+            addressService.update(_address, function(result) {
+                if (result.success == true) {
+                    if (_address.verifyMark == 1) plugMessenger.success("取消验证成功");
+                    else plugMessenger.success("验证取消");
+                    $scope.dataList[index] = _address;
+                } else {
+                    plugMessenger.error("取消验证失败： " + result.message);
+                }
+            });    
+         }
+        var _verifyMark_ = function(verifyMark) {
+            console.log("verifyMark:" + verifyMark)
+            switch (verifyMark){
+                case -1:
+                  return "验证失败";
+                  break
+                case 0:
+                  return "未验证";
+                  break
+                case 1:
+                  return "验证通过";
+                  break
+                default:
+                  return
+            }
+        }
+        $scope.btnDelete = function(address) {
+            plugMessenger.confirm("确认删除该地址吗?", function(isOk) {
+                if (isOk) {
+                    addressService.delete(address.transactionNumber, function(result) {
+                        if (result.success == true) {
+                            plugMessenger.success("删除成功");
+                            $scope.getData();
+                        }
+                    })
+                }
+            });
+        }
+
+        $scope.btnApprove = function (event) {
+            // 验证通过
+            if ($scope.validateType == 1) {
+                $scope._address.verifyMark = 1;
+                $scope._address._verifyMark = _verifyMark_($scope._address.verifyMark);             
+                addressService.update($scope._address, function(result) {
+                    if (result.success == true) {      
+                        $scope.dataList[$scope.index] = $scope._address;
+                        plugMessenger.success("验证通过成功");
+                        $(event.currentTarget).parents("#confirm-modal").modal("hide");
+                    } else {
+                        plugMessenger.error("验证失败： " + result.message);
+                    }
+                });
+            } 
+            // 验证失败
+            if ($scope.validateType == 0) {
+                $scope._address.verifyMark = -1;
+                $scope._address._verifyMark = _verifyMark_($scope._address.verifyMark);             
+                addressService.update($scope._address, function(result) {
+                    if (result.success == true) {
+                        $scope.dataList[$scope.index] = $scope._address;
+                        plugMessenger.success("验证失败成功");
+                        $(event.currentTarget).parents("#confirm-modal").modal("hide");
+                    } else {
+                        plugMessenger.error("验证失败： " + result.message);
+                    }
+                });
+            }        
+        }
+        $scope.btnCancel = function (event) {
+            $scope.validateType = 1;
+            $(event.currentTarget).parents("#confirm-modal").modal("hide");
+        }
+
+    }]);

@@ -227,6 +227,10 @@ angular
                 templateUrl: 'views/customer/paydetail.html',
                 controller: 'PayDetailCtrl'
             })
+            .when('/customer/idauth', {
+                templateUrl: 'views/customer/idauth.html',
+                controller: 'IdAuthCtrl'
+            })
             .when('/order/orderlist', {
                 templateUrl: 'views/order/orderlist.html',
                 controller: 'OrderListCtrl'

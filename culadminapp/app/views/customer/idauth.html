@@ -1,0 +1,118 @@
+<div class="widget widget-table">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i> 地址查询 </h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-sm-12 search-bar">
+                <div class="search-col">
+                    <label class="search-label">搜索条目：</label>
+                    <select class="form-control search-control" ng-model="searchBar.keywordType">
+                        <option value="customerNumber">客户编号</option>
+                        <option value="userName">客户ID(注册名)</option>
+                        <!--<option value="name">姓名</option>-->
+                        <option value="emailAddress">注册邮箱</option>
+                        <option value="receiveIdentity">客户标示</option>
+                        <option value="cellphoneNumber">手机号码</option>
+                        <option value="telephoneNumber">电话号码</option>
+                        <option value="idCard">身份证号</option>
+                        <option value="orderNumber">订单编号</option>  
+                        <option value="trackingNumber">CUL包裹单号</option> 
+                        <option value="cnTrackingNumber">国内物流号</option>              
+                        <option value="receivePersonName">收货人姓名</option>
+                    </select>
+                    <textarea type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords"></textarea>
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnPrint()">批量打印</button>
+                    <a class="btn btn-primary" style="margin-left:5px;" href="{{api}}/exportReceiveaddressList?{{searchBar.keywordType}}={{searchBar.keywords}}">导出</a>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>客户编号</th>
+                    <th>收货人姓名</th>
+                    <th>手机号码</th>
+                    <th>身份证号</th>
+                    <th>正面照</th>
+                    <th>反面照</th>
+                    <th>验证状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-if="dataList.length == 0">
+                    <td colspan="13">没有数据，请选择条件进行搜索。</td>
+                </tr>
+
+                <tr ng-if="dataList.length > 0" ng-repeat="item in dataList">
+                    <td>{{item.rownumber}}</td>
+                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail('customer',item)">{{item.customerNumber}}</a></td>
+                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail('address',item)">{{item.receivePersonName}}</a></td>
+                    <td>{{item.cellphoneNumber}}</td>
+                    <td>
+                        <span>{{item.idCard}}</span>
+                    </td>
+                    <td>
+                        <span>{{idCardFront}}</span>
+                        <!--<img src="idCardFrontUrl"/>-->
+                    </td>
+                    <td>
+                        <span>{{idCardBack}}</span>                       
+                        <!--<img src="idCardBackUrl"/>-->
+                    </td>
+                    <td ng-class="{'alert-danger': item.verifyMark == 0}">{{item._verifyMark}}</td>
+                    <td>
+                        <!--<a href="javascript:void(0);" class="role" data-role="29" ng-click="btnVerification(item, $index)">{{item.verifyMark == 0 ? '验证' : "取消验证"}}</a>-->
+                        <a href="javascript:void(0);" class="role" data-role="30" ng-show="item.verifyMark == 0" ng-click="btnVerification(item, $index)">验证</a>
+                        <a href="javascript:void(0);" class="role" data-role="30" ng-show="item.verifyMark == 1" ng-click="btnVerificationCancle(item, $index)">取消验证</a>
+                        <!--<a href="javascript:void(0);" class="role" data-role="30" ng-click="">备注</a>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount" items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页" next-text="下一页"
+                    first-text="首页" last-text="尾页">
+                </uib-pagination>
+                <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<print-idcard></print-idcard>
+
+<script type="text/html" id="tplValidate_approval_form">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <legend>验证</legend>
+                
+                <div class="form-group">
+                    <label class="col-sm-3 control-label text-right">验证方式:</label>
+                    <div class="col-sm-5 text-left">
+                        <label><input type="radio" name="validateType" id="validateType" value=1  ng-model="validateType" >验证通过</label> &nbsp;
+                        <label><input type="radio"  name="validateType" id="validateType" value=0  ng-model="validateType" >验证失败</label>
+                    </div>
+                </div>              
+                <div class="form-group">
+                    <label class="col-sm-3 control-label text-right">备注：</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" ng-model="vipCustomer.memo"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-primary" ng-click="btnApprove($event)">确定</button>
+                <button type="button" class="btn btn-default" ng-click="btnCancel($event)">取消</button>
+            </div>
+        </form>
+    </script>
+
