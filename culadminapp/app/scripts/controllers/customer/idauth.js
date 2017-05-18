@@ -51,7 +51,7 @@ angular.module('culAdminApp')
             _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
             addressService.getList(_options, function(result) {
                 $scope.dataList = result.data;
-                console.log($scope.dataList)
+                // console.log($scope.dataList)
                 $scope.dataList.forEach(function(data) {
                     data._verifyMark = _verifyMark_(data.verifyMark);  
                 })
@@ -82,7 +82,6 @@ angular.module('culAdminApp')
         }
 
         $scope.btnVerification = function(address, index) {
-            console.log(address)
             $scope._address = angular.copy(address);
             $scope.index = index;
             plugMessenger.template($compile($("#tplValidate_approval_form").html())($scope));
@@ -130,7 +129,7 @@ angular.module('culAdminApp')
                 }
             });
         }
-        
+
         $scope.idRemarkError = "";
         $scope.idRemark = "";
         $scope.btnApprove = function (event) {
@@ -151,7 +150,6 @@ angular.module('culAdminApp')
             // 验证失败
             if ($scope.validateType == 0) {
                 $scope._address.idRemark = $scope.idRemark;
-                console.log($scope.idRemark)
                 if ($scope._address.idRemark == ""){
                     $scope.idRemarkError = "请输入备注"
                     return 
