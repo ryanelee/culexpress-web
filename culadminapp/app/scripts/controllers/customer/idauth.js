@@ -51,6 +51,7 @@ angular.module('culAdminApp')
             _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
             addressService.getList(_options, function(result) {
                 $scope.dataList = result.data;
+                console.log($scope.dataList)
                 $scope.dataList.forEach(function(data) {
                     data._verifyMark = _verifyMark_(data.verifyMark);  
                 })
@@ -81,6 +82,7 @@ angular.module('culAdminApp')
         }
 
         $scope.btnVerification = function(address, index) {
+            console.log(address)
             $scope._address = angular.copy(address);
             $scope.index = index;
             plugMessenger.template($compile($("#tplValidate_approval_form").html())($scope));
@@ -91,8 +93,6 @@ angular.module('culAdminApp')
             // 状态0： 未验证
             _address.verifyMark = 0;
             _address._verifyMark = _verifyMark_(_address.verifyMark);  
-            console.log(_address.verifyMark)
-            console.log(_address._verifyMark);
             addressService.update(_address, function(result) {
                 if (result.success == true) {
                     if (_address.verifyMark == 1) plugMessenger.success("取消验证成功");
@@ -104,7 +104,6 @@ angular.module('culAdminApp')
             });    
          }
         var _verifyMark_ = function(verifyMark) {
-            console.log("verifyMark:" + verifyMark)
             switch (verifyMark){
                 case -1:
                   return "验证失败";
@@ -131,7 +130,9 @@ angular.module('culAdminApp')
                 }
             });
         }
-
+        
+        $scope.idRemarkError = "";
+        $scope.idRemark = "";
         $scope.btnApprove = function (event) {
             // 验证通过
             if ($scope.validateType == 1) {
@@ -140,24 +141,30 @@ angular.module('culAdminApp')
                 addressService.update($scope._address, function(result) {
                     if (result.success == true) {      
                         $scope.dataList[$scope.index] = $scope._address;
-                        plugMessenger.success("验证通过成功");
+                        plugMessenger.success("成功");
                         $(event.currentTarget).parents("#confirm-modal").modal("hide");
                     } else {
-                        plugMessenger.error("验证失败： " + result.message);
+                        plugMessenger.error("失败： " + result.message);
                     }
                 });
             } 
             // 验证失败
             if ($scope.validateType == 0) {
+                $scope._address.idRemark = $scope.idRemark;
+                console.log($scope.idRemark)
+                if ($scope._address.idRemark == ""){
+                    $scope.idRemarkError = "请输入备注"
+                    return 
+                }
                 $scope._address.verifyMark = -1;
                 $scope._address._verifyMark = _verifyMark_($scope._address.verifyMark);             
                 addressService.update($scope._address, function(result) {
                     if (result.success == true) {
                         $scope.dataList[$scope.index] = $scope._address;
-                        plugMessenger.success("验证失败成功");
+                        plugMessenger.success("成功");
                         $(event.currentTarget).parents("#confirm-modal").modal("hide");
                     } else {
-                        plugMessenger.error("验证失败： " + result.message);
+                        plugMessenger.error("失败： " + result.message);
                     }
                 });
             }        

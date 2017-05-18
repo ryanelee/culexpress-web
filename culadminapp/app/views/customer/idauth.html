@@ -40,6 +40,7 @@
                     <th>反面照</th>
                     <th>验证状态</th>
                     <th>操作</th>
+                    <th>备注</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,9 +68,10 @@
                     <td>
                         <!--<a href="javascript:void(0);" class="role" data-role="29" ng-click="btnVerification(item, $index)">{{item.verifyMark == 0 ? '验证' : "取消验证"}}</a>-->
                         <a href="javascript:void(0);" class="role" data-role="30" ng-show="item.verifyMark == 0" ng-click="btnVerification(item, $index)">验证</a>
-                        <a href="javascript:void(0);" class="role" data-role="30" ng-show="item.verifyMark == 1" ng-click="btnVerificationCancle(item, $index)">取消验证</a>
+                        <a href="javascript:void(0);" class="role" data-role="30" ng-show="item.verifyMark != 0" ng-click="btnVerificationCancle(item, $index)">取消验证</a> 
                         <!--<a href="javascript:void(0);" class="role" data-role="30" ng-click="">备注</a>-->
                     </td>
+                    <td><span ng-show="item.verifyMark == -1"> {{item.idRemark}}</span></td>
                 </tr>
             </tbody>
         </table>
@@ -102,10 +104,11 @@
                         <label><input type="radio"  name="validateType" id="validateType" value=0  ng-model="validateType" >验证失败</label>
                     </div>
                 </div>              
-                <div class="form-group">
+                <div class="form-group" ng-show="validateType==0">
                     <label class="col-sm-3 control-label text-right">备注：</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" ng-model="vipCustomer.memo"></textarea>
+                        <textarea class="form-control" ng-model="idRemark"></textarea>
+                        <code>{{idRemarkError}}</code>
                     </div>
                 </div>
             </fieldset>

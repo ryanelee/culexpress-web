@@ -285,6 +285,7 @@
                                         <span class="label label-success sp-label" ng-if="addressItem.verifyMark==1">验证通过</span>
                                         <span class="label label-warning sp-label" ng-if="addressItem.verifyMark==0">未验证</span>
                                         <span class="label label-danger sp-label" ng-if="addressItem.verifyMark==-1">验证失败</span>
+                                        <small ng-if="addressItem.verifyMark==-1" style="color:#e74c3c">{{addressItem.idRemark}}</small>
                                     </td>
                                     <td>
                                         <button type="button" class="btn-u btn-u-sm btn-u-dark btn-op" ng-click="deleteAddress(addressItem);"><i class="fa fa-trash-o"></i></button>
