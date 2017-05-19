@@ -39,6 +39,9 @@ angular.module('culAdminApp')
                 endDate: false
             }
         }
+        $scope.idRemarkError = "";
+        $scope.idRemark = "";
+
         $scope.btnPrint = function() {
             $scope.$broadcast("print-idcard.action", { data: $scope.dataList });
         }
@@ -86,9 +89,15 @@ angular.module('culAdminApp')
             }
         }
 
-        $scope.btnVerification = function(address, index) {
+        $scope.btnVerification = function(address, index,flag) {
             $scope._address = angular.copy(address);
             $scope.index = index;
+            if(flag == 0){
+                $scope.validateType = 0;
+                $scope.idRemark = $scope._address.idRemark;
+            } else {
+                $scope.idRemark="";
+            }   
             plugMessenger.template($compile($("#tplValidate_approval_form").html())($scope));
          }
          $scope.btnVerificationCancle = function(address, index) {
@@ -137,13 +146,13 @@ angular.module('culAdminApp')
             });
         }
 
-        $scope.idRemarkError = "";
-        $scope.idRemark = "";
         $scope.btnApprove = function (event) {
             // 验证通过
             if ($scope.validateType == 1) {
                 $scope._address.verifyMark = 1;
-                $scope._address._verifyMark = _verifyMark_($scope._address.verifyMark);             
+                $scope._address._verifyMark = _verifyMark_($scope._address.verifyMark); 
+                $scope._address.idRemark == ""; 
+                $scope.idRemark = "";           
                 addressService.update($scope._address, function(result) {
                     if (result.success == true) {      
                         $scope.dataList[$scope.index] = $scope._address;
@@ -172,6 +181,7 @@ angular.module('culAdminApp')
                         plugMessenger.error("失败： " + result.message);
                     }
                 });
+                $scope.idRemark = ""; 
             }        
         }
         $scope.btnCancel = function (event) {
