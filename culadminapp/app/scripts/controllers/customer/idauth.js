@@ -42,7 +42,12 @@ angular.module('culAdminApp')
         $scope.btnPrint = function() {
             $scope.$broadcast("print-idcard.action", { data: $scope.dataList });
         }
-
+        
+        // 批量下载 （pdf下载后转图片）
+        $scope.btnDownload = function() {
+            console.log("print-idcardImg.action")
+            $scope.$broadcast("print-idcardImg.action", { data: $scope.dataList });
+        }
 
         $scope.getData = function() {
             var _options = {
@@ -91,16 +96,18 @@ angular.module('culAdminApp')
             index = index;
             // 状态0： 未验证
             _address.verifyMark = 0;
-            _address._verifyMark = _verifyMark_(_address.verifyMark);  
-            addressService.update(_address, function(result) {
-                if (result.success == true) {
-                    if (_address.verifyMark == 1) plugMessenger.success("取消验证成功");
-                    else plugMessenger.success("验证取消");
-                    $scope.dataList[index] = _address;
-                } else {
-                    plugMessenger.error("取消验证失败： " + result.message);
-                }
-            });    
+            _address._verifyMark = _verifyMark_(_address.verifyMark); 
+            plugMessenger.confirm("确认取消验证吗?", function(isOk) {
+                addressService.update(_address, function(result) {
+                    if (result.success == true) {
+                        if (_address.verifyMark == 1) plugMessenger.success("取消验证成功");
+                        else plugMessenger.success("验证取消");
+                        $scope.dataList[index] = _address;
+                    } else {
+                        plugMessenger.error("取消验证失败： " + result.message);
+                    }
+                });  
+            })   
          }
         var _verifyMark_ = function(verifyMark) {
             switch (verifyMark){
