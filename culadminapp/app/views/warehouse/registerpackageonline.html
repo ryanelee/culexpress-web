@@ -8,7 +8,8 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">入库单号：</label>
                     <div class="col-sm-4">
-                        <input type="text" id="tempInboundPackageNumber"  class="form-control" ng-model="tempInboundPackageNumber" ng-change="checkInboundPackageNumber()" />
+                        <input type="text" id="tempInboundPackageNumber" class="form-control" ng-model="tempInboundPackageNumber" ng-change="checkInboundPackageNumber()"
+                        />
                     </div>
                 </div>
             </fieldset>
@@ -73,8 +74,9 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th style="width: 30%;">转运包裹编号</th>
-                                <th style="width: 30%;">实际重量（磅）</th>
+                                <th style="width: 20%;">转运包裹编号</th>
+                                <th style="width: 20%;">临时转运包裹号</th>
+                                <th style="width: 20%;">实际重量（磅）</th>
                                 <th style="width: 40%;" class="text-center">操作</th>
                             </tr>
                         </thead>
@@ -82,20 +84,24 @@
                             <tr ng-repeat="item in data.outboundPackages">
                                 <td>{{item.trackingNumber}}</td>
                                 <td>
+                                <input type="text" class="form-control" ng-model="item.tempTrackingNumber" />
+                                </td>
+                                <td>
                                     <input type="text" class="form-control" ng-model="item.actualWeight" />
                                 </td>
                                 <td class="" style="height:65px;">
                                     <div class="btn-tootip-left">
-                                        <span ng-if="!isPrint">&nbsp;&nbsp;&nbsp;&nbsp;</span>                                                              
+                                        <span ng-if="!isPrint">&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                     </div>
                                     <div class="">
                                         <a href="javascript:void(0);" ng-click="btnPrint(item)" ng-mouseover="isPrint = true" ng-mouseleave="isPrint = fasle" style="float: left;"><i class="fa fa-print btn-icon red"></i></a>
-                                        <a href="javascript:void(0);" ng-click="btnSplitPackage(item)" ng-mouseover="isSplit = true" ng-mouseleave="isSplit = fasle" style="float: left;"><i class="fa fa-cubes btn-icon red"></i></a>
+                                        <a href="javascript:void(0);" ng-click="btnSplitPackage(item)" ng-mouseover="isSplit = true" ng-mouseleave="isSplit = fasle"
+                                            style="float: left;"><i class="fa fa-cubes btn-icon red"></i></a>
                                         <a href="javascript:void(0);" ng-click="btnDelPackage(item)" ng-mouseover="isDel = true" ng-mouseleave="isDel = fasle" style="float: left;"><i class="fa fa-delicious btn-icon red"></i></a>
                                     </div>
-                                    <div class="btn-tootip-right">                                                                        
+                                    <div class="btn-tootip-right">
                                     </div>
-                                    <div class="btn-tootip-bom">                                   
+                                    <div class="btn-tootip-bom">
                                         <div style="width:31px;float: left">
                                             <span ng-if="!isPrint">&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             <span ng-if="isPrint">打印</span>
@@ -128,7 +134,8 @@
 </div>
 
 <script>
-     $(function() {
+    $(function () {
         var weight = document.getElementById("tempInboundPackageNumber").focus();
-     })
+    })
+
 </script>

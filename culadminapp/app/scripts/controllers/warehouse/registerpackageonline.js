@@ -118,7 +118,7 @@ angular.module('culAdminApp')
                     });
                 });
             }
-
+ 
             $scope.btnSplitPackage = function(item) {
                 warehouseService.outboundPackageSplit({
                     "trackingNumber": item.trackingNumber,
@@ -170,7 +170,7 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnSave = function() {
+            $scope.btnSave = function() { 
                 if (!!$scope.data && $scope.data.inboundPackages.length > 0) {
                     if ($.grep($scope.data.inboundPackages, function(n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
                         var _count = 0;
