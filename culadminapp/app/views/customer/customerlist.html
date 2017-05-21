@@ -159,8 +159,8 @@
                     <div class="col-sm-5">
                         <select class="form-control search-control" ng-model="vipCustomer.vipStatus">
                             <option value="Approved">同意</option>
-                            <option value="Cancelled">取消</option>
-                            <option value="Rejected">拒绝</option>
+                            <option ng-if="vipCustomer.customer.isVip"  value="Cancelled">取消</option>
+                            <option ng-if="vipCustomer.customer.isVip == false"   value="Rejected">拒绝</option>
                         </select>
                     </div>
                 </div>

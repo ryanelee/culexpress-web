@@ -39,7 +39,7 @@ angular.module('culAdminApp')
         //     //   $window.location.reload();
         //       $window.document.getElementById("search").focus(); 
         //   }
-
+ 
         //   $scope.serchFocus();
           $scope.getData = function () {
               var _options = {
@@ -56,11 +56,12 @@ angular.module('culAdminApp')
               }
               _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
               customerService.getList(_options, function (result) {
+                  console.log(result)
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
                   $rootScope.$emit('changeMenu');
               });
-          }
+          } 
 
           $scope.btnSearch = function () {
               $scope.dataList = [];
@@ -97,6 +98,7 @@ angular.module('culAdminApp')
               warehouseNumber: ""
           }
           $scope.btnApproveVIP = function (customer) {
+              console.log(customer);
               $scope.vipCustomer.customer = customer;
               $scope.vipCustomer.vipStatus = "Approved";
               $scope.vipCustomer.memo = ""; //customer.vipAuditMemo;

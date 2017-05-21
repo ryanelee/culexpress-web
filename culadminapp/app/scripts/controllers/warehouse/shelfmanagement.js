@@ -59,7 +59,7 @@ angular.module('culAdminApp')
 
                 if (!!$scope.searchBar.warehouseNumber) {
                     _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
-                }
+                } 
                 if (!!$scope.searchBar.keywords) {
                     if ($scope.searchBar.keywordType == "customerNumber" &&
                         $scope.customer_ids != undefined &&

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-/**
+/** 
  * @ngdoc function
  * @name culAdminApp.controller:RegisterPackageOnlineCtrl
  * @description
@@ -137,6 +137,7 @@ angular.module('culAdminApp')
                             "number": item.trackingNumber,
                         }, function(result) {
                             // console.log($scope.tempData);
+                            
                             $scope.tempInboundPackageNumber = $scope.tempData;
                             $scope.getData();
 
