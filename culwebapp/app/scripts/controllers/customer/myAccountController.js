@@ -366,7 +366,7 @@ angular
 
             $scope.redirectToEdit = function(addressItem) {
                 $scope.$root.isAddressList = true;
-                $state.go('customer.myaddress', { addressId: addressItem.transactionNumber });
+                $state.go('customer.myaddress', { addressId: addressItem.transactionNumber});
             }
 
             $scope.redirectToAdd = function() {

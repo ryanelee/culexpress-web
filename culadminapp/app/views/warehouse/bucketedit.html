@@ -69,13 +69,13 @@
                         <code>{{errorFlightNo}}</code>
                     </div>                       
                 </div>
-                <div ng-if="tpl_status.createBucket" style="width:100%; display: inline-block;" >
+                <!--<div ng-if="tpl_status.createBucket" style="width:100%; display: inline-block;" >
                     <legend>航班号信息</legend>
                     <div style="width:440px;float: left;" class="flight-input">
                         <input type="text" class="form-control" placeholder="请输入航班号" ng-model="$parent.flightNo">
                         <code>{{errorFlightNo}}</code>
                     </div>                       
-                </div>
+                </div>-->
                 <div class="form-group">
                     <div class="col-md-6 text-left" ng-if="!!tpl_status.bucketNumber && !tpl_status.readonly && !tpl_status.editFlightNo">
                         <button type="button" class="btn btn-primary role" data-role="70" ng-click="btnClose()"><i class="fa fa-save"></i>关闭出库总单</button>

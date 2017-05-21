@@ -65,6 +65,9 @@ angular.module('culwebApp')
                     code: '109',
                     icon: 'fa-maxcdn'
                 },{
+                    code: '107',
+                    icon: 'fa-sort-amount-asc'
+                },{
                     code: '105',
                     icon: 'fa-bullhorn'
                 }, {

@@ -143,12 +143,12 @@
           <div class="form-group left-row">
             <label class="label">身份证正面照</label>
             <div class="shen">
-              <img id="img-idCardFront" ng-src="{{data.idCardFrontUrl}}" src="../../assets/img/dashbard/shen-bg.png" alt="身份证正面照" />
+              <img id="img-idCardFront" ng-src="{{data.idCardFrontUrl}}" src="../../assets/img/dashbard/shen-bg.png" alt="身份证正面照"  />
               <div>
                 证件必须是清晰彩色原件电子版， 可以是扫描件或者数码拍照照片。仅支持.jpg .jpeg .png .bmp .gif，大小不超过2M。
                 <div class="inputfileload">
                   <div class='uploadphoto'>上传照片</div>
-                  <input id="idCardFront" type="file" class="file-input" ng-model="data.idCardFront" accept='image/jpeg,image/jpg,image/png,image/bmp,image/gif'>
+                  <input id="idCardFront" type="file" class="file-input"  ng-model="data.idCardFront"  accept='image/jpeg,image/jpg,image/png,image/bmp,image/gif'>
                 </div>
               </div>
             </div>
@@ -160,7 +160,7 @@
           <div class="form-group right-row">
             <label class="label">身份证反面照</label>
             <div class="shen">
-              <img id="img-idCardBackUrl" ng-src="{{data.idCardBackUrl}}" src="../../assets/img/dashbard/shen-bg.png" alt="身份证正面照" />
+              <img id="img-idCardBackUrl" ng-src="{{data.idCardBackUrl}}" src="../../assets/img/dashbard/shen-bg.png" alt="身份证正面照"  />
               <div>
                 证件必须是清晰彩色原件电子版， 可以是扫描件或者数码拍照照片。仅支持.jpg .jpeg .png .bmp .gif，大小不超过2M。
                 <div class="inputfileload">
@@ -172,6 +172,10 @@
             <p class="text-danger">
                 在需要身份证清关的渠道使用,和收件人姓名对应.<a href="/images/ecard2.jpg" target="_blank">点击参考反面样例</a>
             </p>
+          </div>
+          <div class="form-group" ng-show="adsFlag == '1'">
+              <label class="label">身份证地址</label>
+              <input type="text" class="form-control" ng-model="data.idCardAddress">
           </div>
           <div class="form-group">
               <label class="label">收货地址</label>

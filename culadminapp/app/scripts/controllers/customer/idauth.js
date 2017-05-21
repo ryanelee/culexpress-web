@@ -107,15 +107,17 @@ angular.module('culAdminApp')
             _address.verifyMark = 0;
             _address._verifyMark = _verifyMark_(_address.verifyMark); 
             plugMessenger.confirm("确认取消验证吗?", function(isOk) {
-                addressService.update(_address, function(result) {
-                    if (result.success == true) {
-                        if (_address.verifyMark == 1) plugMessenger.success("取消验证成功");
-                        else plugMessenger.success("验证取消");
-                        $scope.dataList[index] = _address;
-                    } else {
-                        plugMessenger.error("取消验证失败： " + result.message);
-                    }
-                });  
+                if (isOk) {
+                    addressService.update(_address, function(result) {
+                        if (result.success == true) {
+                            if (_address.verifyMark == 1) plugMessenger.success("取消验证成功");
+                            else plugMessenger.success("验证取消");
+                            $scope.dataList[index] = _address;
+                        } else {
+                            plugMessenger.error("取消验证失败： " + result.message);
+                        }
+                    }); 
+                } 
             })   
          }
         var _verifyMark_ = function(verifyMark) {

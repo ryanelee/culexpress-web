@@ -31,7 +31,7 @@
         </div>
         <table class="table table-bordered">
             <thead>
-                <tr>
+                <div>
                     <th>序号</th>
                     <th>客户编号</th>
                     <th>收货人姓名</th>
@@ -59,11 +59,15 @@
                     </td>
                     <td>
                         <!--<span>{{item.idCardFront}}</span>-->
-                        <img class="idCardImage" ng-src="{{item.idCardFrontUrl}}"/>
+                        <div class="image-div" >
+                            <img class="idCardImage" ng-src="{{item.idCardFrontUrl}}"/>
+                        </div>
                     </td>
                     <td>
                         <!--<span>{{item.idCardBack}}</span>                       -->
-                        <img class="idCardImage" ng-src="{{item.idCardBackUrl}}"/>
+                        <div class="image-div" >
+                            <img class="idCardImage" ng-src="{{item.idCardBackUrl}}"/>
+                        </div>
                     </td>
                     <td ng-class="{'alert-danger': item.verifyMark == 0}">{{item._verifyMark}}</td>
                     <td>
@@ -121,5 +125,9 @@
                 <button type="button" class="btn btn-default" ng-click="btnCancel($event)">取消</button>
             </div>
         </form>
+    </script>
+
+    <script type="text/javascript">
+        $('.image-div img').zoomify();
     </script>
 

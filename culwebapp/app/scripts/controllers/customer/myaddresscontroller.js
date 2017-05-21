@@ -7,7 +7,8 @@
  * # MyaddresscontrollerCtrl
  * Controller of the culwebApp
  */
-angular.module('culwebApp')
+var app = angular
+    .module('culwebApp')
     .controller('MyAddressController', ['$rootScope', '$scope', '$state', '$timeout', '$q', '$http', '$filter', 'addressSvr', '$stateParams', '$element', 'Customer', '$window', 'AuthService',
         function($rootScope, $scope, $state, $timeout, $q, $http, $filter, addressSvr, $stateParams, $element, Customer, $window, AuthService) {
             this.awesomeThings = [
@@ -21,6 +22,7 @@ angular.module('culwebApp')
             $scope.provinces = [];
             $scope.citys = [];
             $scope.areas = [];
+
             $scope.getProvince = function(province, city, area) {
                 addressSvr.getDistrict($scope.search).then(function(data) {
                     $scope.provinces = data.data.data;
@@ -138,6 +140,8 @@ angular.module('culwebApp')
             var data = $scope.data = {
                 customerNumber: AuthService.getUser().customerNumber
             };
+            $scope.adsFlag = "0";
+            $scope.data.idCardAddress = "";
 
             var addAddress = function() {
                     // $scope.data.stateOrProvince = $scope.data.stateOrProvince.name;
@@ -164,7 +168,7 @@ angular.module('culwebApp')
                             }
                         });
                 },
-                updateAddress = function() {
+                updateAddress = function() {               
                     // $scope.data.stateOrProvince = $scope.data.stateOrProvince.name;
                     // $scope.data.city = $scope.selectedCity.name;
                     $scope.data.stateOrProvince = $scope.search.province.name;
@@ -188,6 +192,12 @@ angular.module('culwebApp')
                 },
                 precheck = function() {
                     var canSubmit = true;
+                    if ($scope.data.idCardFrontUrl != '' && $scope.data.idCardBackUrl != '' && $scope.data.idCardAddress == ""){
+                        $scope.adsFlag = "1";
+                        alertify.alert('错误', '请填写身份证地址.', 'error');
+                        canSubmit = false;
+                    };
+                
                     $element.find('.required').each(function() {
                         var labelName = $(this).text(),
                             inputDom = $(this).parent().find('input');
@@ -332,12 +342,12 @@ angular.module('culwebApp')
 
             $scope.submitAddress = function() {
                 if (!precheck()) return false;
-
                 if ($stateParams.addressId) {
                     updateAddress();
                 } else {
                     addAddress();
                 }
+                $scope.adsFlag = "0";
             }
             //console.log($stateParams.addressId);
             if ($stateParams.addressId) {

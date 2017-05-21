@@ -287,11 +287,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSave = function() {
-                // if ($scope.flightNo == "" && $scope.flightNo.length<=0) {
-                //     $scope.errorFlightNo = "请输入航班号！"
-                //     return;
-                // }
-                $scope.data.flightNo = $scope.flightNo;
+                // $scope.data.flightNo = $scope.flightNo;
                 bucketService.create($scope.data, function(result) {
                     if (!result.message) {
                         plugMessenger.success("创建成功");

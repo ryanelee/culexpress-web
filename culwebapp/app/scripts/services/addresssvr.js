@@ -32,7 +32,8 @@ angular.module('culwebApp')
                 idCardFront: addresInfo.idCardFront || '',
                 idCardBack: addresInfo.idCardBack || '',
                 idCardFrontUrl: addresInfo.idCardFrontUrl || '',
-                idCardBackUrl: addresInfo.idCardBackUrl || ''
+                idCardBackUrl: addresInfo.idCardBackUrl || '',
+                idCardAddress: addresInfo.idCardAddress || ''
             });
         }
 
