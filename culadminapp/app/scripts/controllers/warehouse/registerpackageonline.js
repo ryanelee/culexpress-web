@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-/**
+/** 
  * @ngdoc function
  * @name culAdminApp.controller:RegisterPackageOnlineCtrl
  * @description
@@ -118,7 +118,7 @@ angular.module('culAdminApp')
                     });
                 });
             }
-
+ 
             $scope.btnSplitPackage = function(item) {
                 warehouseService.outboundPackageSplit({
                     "trackingNumber": item.trackingNumber,
@@ -137,6 +137,7 @@ angular.module('culAdminApp')
                             "number": item.trackingNumber,
                         }, function(result) {
                             // console.log($scope.tempData);
+                            
                             $scope.tempInboundPackageNumber = $scope.tempData;
                             $scope.getData();
 
@@ -169,7 +170,7 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnSave = function() {
+            $scope.btnSave = function() { 
                 if (!!$scope.data && $scope.data.inboundPackages.length > 0) {
                     if ($.grep($scope.data.inboundPackages, function(n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
                         var _count = 0;

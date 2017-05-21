@@ -86,7 +86,7 @@ angular.module('culAdminApp')
                     //         })
                     //     }
                     // }
-                });
+                }); 
                 $("#bucket-title").text("编辑" + $scope.tpl_status.bucketNumber);
             }
 
@@ -121,6 +121,7 @@ angular.module('culAdminApp')
                     },
                     add: function(item, resource) {
                         if (!item) return;
+                       
                         $scope.callback.check(item, resource);
                         $scope.tpl_status.actionType = "package";
                         var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
@@ -152,6 +153,10 @@ angular.module('culAdminApp')
 
                         
                         $("#package-title").text(_array.join(" > "));
+                         console.log("wonderful world");
+                         setTimeout(function(){
+                        $("#key_trackingNumber").focus();
+                         },100)
                     },
                     remove: function(item, level) {
                         if (!item) return;

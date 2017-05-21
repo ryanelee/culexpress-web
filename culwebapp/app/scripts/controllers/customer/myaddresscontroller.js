@@ -151,6 +151,11 @@ var app = angular
                     if ($scope.search.area) {
                         $scope.data.area = $scope.search.area.name;
                     }
+                    if(!$scope.data.stateOrProvince 
+                    || !$scope.data.city 
+                    || !$scope.data.idCard){
+                          alertify.alert('错误', '请填写必填项');
+                    }
                     $scope.data.addressType = 1;
                     addressSvr
                         .submitAddresInfo($scope.data)

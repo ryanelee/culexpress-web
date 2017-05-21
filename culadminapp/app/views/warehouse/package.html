@@ -72,6 +72,7 @@
                             <th>客户编号</th>
                             <th>客户关联号</th>
                             <th>CUL包裹单号</th>
+                            <th>临时CUL包裹单号</th>
                             <th>收货地址</th>
                             <th>包裹重量（磅）</th>
                             <th>打包时间</th>
@@ -93,8 +94,9 @@
                             </td>
                             <!--<td>{{item.orderType == 0 ? '线下订单':'线上订单'}}</td>-->
                             <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customerNumber}}</a></td>
-                            <td style="max-width: 200px;">{{item.referenceOrderNumber}}</td>
+                            <td style="max-width: 200px;" class="td-row">{{item.referenceOrderNumber}}</td>
                             <td style="max-width: 150px;"><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'trackingNumber')">{{item.trackingNumber}}</a></td>
+                            <td style="max-width: 150px;">{{item.tempTrackingNumber}}</td>
                             <td style="max-width: 300px;">
                                 <div class="td-row" ng-repeat="ads in item._shipToAddresses">{{ads}}</div>
                             </td>

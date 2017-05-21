@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-/**
+/**  
  * @ngdoc function
  * @name culAdminApp.controller:WarehousePackageCtrl
  * @description
@@ -80,7 +80,8 @@ angular.module('culAdminApp')
           $scope.getData = function () {
               var _options = _filterOptions();
               warehouseService.getOutboundPackageList($.extend(angular.copy(_options), { hasWeight: true }), function (result) {
-                  var _data = result.data;           
+                  var _data = result.data;  
+                    console.log(_data);                           
                   if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                       _data = _data.filter(function(x){
                           return $scope.customer_ids.split(",").includes(x.customerNumber);
