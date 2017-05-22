@@ -23,9 +23,6 @@ var app = angular
             $scope.citys = [];
             $scope.areas = [];
 
-            console.log(angular.fromJson($stateParams.object));
-            $scope.param =angular.fromJson($stateParams.object);
-
             $scope.getProvince = function(province, city, area) {
                 addressSvr.getDistrict($scope.search).then(function(data) {
                     $scope.provinces = data.data.data;
@@ -207,7 +204,6 @@ var app = angular
                 },
                 precheck = function() {
                     var canSubmit = true;
-                    console.log("$scope.data.idCardAddress"+$scope.data.idCardAddress);
                     if ($scope.adsFlag == "1" && $scope.data.idCardAddress == "" ) {
                         alertify.alert('错误', '请填写身份证地址.', 'error');
                         canSubmit = false;  
@@ -369,7 +365,6 @@ var app = angular
                 }
                 $scope.adsFlag = "0";
             }
-            //console.log($stateParams.addressId);
             if ($stateParams.addressId) {
                 addressSvr
                     .getAddressInfo($stateParams.addressId)

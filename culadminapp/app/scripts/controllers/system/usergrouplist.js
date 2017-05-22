@@ -64,7 +64,7 @@ angular.module('culAdminApp')
           $scope.del = function(id) {
             plugMessenger.confirm("确认删除该部门吗?", function (isOk) {
                 if (isOk) {
-                  ugService.deleteWarehouse(id, function(res) {
+                  ugService.delete(id, function(res) {
                       if (res.success) {
                           plugMessenger.success("删除成功");
                           $scope.getData();
