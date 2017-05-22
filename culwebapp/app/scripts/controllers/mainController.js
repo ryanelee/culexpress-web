@@ -76,6 +76,7 @@ angular
                         var htm3 = ' </ul></div>';
                         htm = htm1 + htm2 + htm3;
 
+                        $("#bana").empty();
                         $("#bana").append(htm);
                         var unslider = $('.info-banner').unslider({
                             nav: false
