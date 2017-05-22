@@ -121,7 +121,7 @@
             收货地址
           </h2>
         </div>
-        <div class="edit-content">
+        <div class="edit-content" >
           <div class="form-group left-row">
               <label class="label">收货公司</label>
               <input type="text" class="form-control" name="required" ng-model="data.receiveCompanyName">
@@ -173,8 +173,8 @@
                 在需要身份证清关的渠道使用,和收件人姓名对应.<a href="/images/ecard2.jpg" target="_blank">点击参考反面样例</a>
             </p>
           </div>
-          <div class="form-group" ng-show="adsFlag == '1'">
-              <label class="label">身份证地址</label>
+          <div class="form-group" ng-show="adsFlag == '1'" style="display:block">
+              <label class="label">身份证地址<span style="color:red;">*</span></label>
               <input type="text" class="form-control" ng-model="data.idCardAddress">
           </div>
           <div class="form-group">

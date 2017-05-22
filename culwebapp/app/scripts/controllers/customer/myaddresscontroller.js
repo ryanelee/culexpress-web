@@ -23,6 +23,9 @@ var app = angular
             $scope.citys = [];
             $scope.areas = [];
 
+            console.log(angular.fromJson($stateParams.object));
+            $scope.param =angular.fromJson($stateParams.object);
+
             $scope.getProvince = function(province, city, area) {
                 addressSvr.getDistrict($scope.search).then(function(data) {
                     $scope.provinces = data.data.data;
@@ -136,12 +139,19 @@ var app = angular
                 // console.log($scope.data.stateOrProvince.cities);
                 // $scope.selectedCity = $scope.data.stateOrProvince.cities[0];
             }
-
+       
             var data = $scope.data = {
                 customerNumber: AuthService.getUser().customerNumber
             };
+            
             $scope.adsFlag = "0";
-            $scope.data.idCardAddress = "";
+            $scope.data.idCardAddress = "";         
+            var isShowCardAds = function() {
+                if ($stateParams.addressId != ''){               
+                   $scope.adsFlag = "1";
+                };
+            }
+            isShowCardAds();
 
             var addAddress = function() {
                     // $scope.data.stateOrProvince = $scope.data.stateOrProvince.name;
@@ -197,12 +207,11 @@ var app = angular
                 },
                 precheck = function() {
                     var canSubmit = true;
-                    if ($scope.data.idCardFrontUrl != '' && $scope.data.idCardBackUrl != '' && $scope.data.idCardAddress == ""){
-                        $scope.adsFlag = "1";
+                    console.log("$scope.data.idCardAddress"+$scope.data.idCardAddress);
+                    if ($scope.adsFlag == "1" && $scope.data.idCardAddress == "" ) {
                         alertify.alert('错误', '请填写身份证地址.', 'error');
-                        canSubmit = false;
-                    };
-                
+                        canSubmit = false;  
+                    }              
                     $element.find('.required').each(function() {
                         var labelName = $(this).text(),
                             inputDom = $(this).parent().find('input');
@@ -328,6 +337,9 @@ var app = angular
                     $scope.state.showCardFront = false;
                     //$('#img-idCardFront').attr('src', obj.url);
                 })
+                if ($scope.data.idCardFrontUrl != ''|| $scope.data.idCardBackUrl != ''){
+                    $scope.adsFlag = "1";
+                };
 
             });
             $('#idCardBack').on('change', function() {
@@ -342,7 +354,10 @@ var app = angular
                     $scope.data.idCardBackUrl = obj.url;
                     $scope.state.showCardBack = false;
                     //$('#img-idCardBack').attr('src', obj.url);
-                });
+                });         
+                if ($scope.data.idCardFrontUrl != '' || $scope.data.idCardBackUrl != ''){
+                    $scope.adsFlag = "1";      
+                };
             });
 
             $scope.submitAddress = function() {

@@ -354,6 +354,7 @@ angular
                         if (result.data) {
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
                             $scope.addressListData = result.data.data;
+                            console.log($scope.addressListData)
                         }
                     });
             }
