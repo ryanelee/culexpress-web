@@ -277,7 +277,7 @@ var app = angular
                                 //console.log(shippItemData.status);
                                 if (shippItemData.status != 'Onshelf') {
                                     //SweetAlert.swal('提醒', '普通订单只能提交已入库的货物信息.', 'warning');
-                                    alertify.alert('提醒', '普通订单只能提交已入库的货物信息!');
+                                    alertify.alert('提醒', '普通订单只能提交已上架的货物信息!');
                                     return false;
                                 }
                             }

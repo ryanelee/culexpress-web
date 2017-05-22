@@ -44,6 +44,7 @@ angular.module('culAdminApp')
                                          n.category == item.category &&
                                          n.description == item.description &&
                                          n.itemBrand == item.itemBrand &&
+                                         n.shipServiceName == item.shipServiceName &&
                                          n.orderNumber == item.orderNumber &&
                                          n.property1 == item.property1 &&
                                          n.property2 == item.property2 &&
@@ -82,6 +83,8 @@ angular.module('culAdminApp')
                           }
 
                       });
+                      console.log("翔通单")
+                      console.log( $scope.dataList )
                       $scope.dataList = result.data;
                       //console.log($scope.dataList);
                       _render();

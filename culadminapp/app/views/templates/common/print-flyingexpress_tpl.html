@@ -4,7 +4,8 @@
             text-align: center;
         }
 
-        #print_FLYINGExpress_Template th, td {
+        #print_FLYINGExpress_Template th,
+        td {
             padding: 2px;
         }
 
@@ -16,8 +17,9 @@
         #print_FLYINGExpress_Template .barcode {
             margin: 0 auto;
         }
-         #print_FLYINGExpress_Template .iamge {
-            width:17%;
+
+        #print_FLYINGExpress_Template .iamge {
+            width: 17%;
         }
     </style>
     <div id="print_FLYINGExpress_Template" ng-repeat="data in dataList">
@@ -29,12 +31,23 @@
             <tr>
                 <td class="title">客户编号</td>
                 <td colspan="4">{{data.customerNumber}}</td>
-                <td><div class="barcode" trackingNumber="{{data.referenceOrderNumber}}"></div></td>
+                <td>
+                    <div class="barcode" trackingNumber="{{data.referenceOrderNumber}}"></div>
+                </td>
             </tr>
+            <tr>
+                <td class="title">发货渠道</td>
+                <td  colspan="5">
+                    <span>{{data.shipServiceName}}</span>
+                    </span>
+                </td>
+            </tr>
+
             <tr>
                 <td class="title">收货地址</td>
                 <td colspan="5">
-                    {{data.address.receivePersonName}}<span ng-show="!!data.address.cellphoneNumber">({{data.address.cellphoneNumber}})</span>{{data.address.address1}}{{data.address.receiveCompanyName}}<span ng-show="!!data.address.zipcode">({{data.address.zipcode}})</span>
+                    {{data.address.receivePersonName}}<span ng-show="!!data.address.cellphoneNumber">({{data.address.cellphoneNumber}})</span>{{data.address.address1}}{{data.address.receiveCompanyName}}
+                    <span ng-show="!!data.address.zipcode">({{data.address.zipcode}})</span>
                 </td>
             </tr>
             <tr>
@@ -56,12 +69,9 @@
                             <td align="center">{{item.itemBrand}}</td>
                             <td align="center" style="max-width: 300px;">
                                 <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:44px;">
-                                    {{item.description}}
-                                    {{ !!item.property1 ? " " + item.property1 : "" }}
-                                    {{ !!item.property2 ? " " + item.property2 : "" }}
-                                    {{ !!item.property3 ? " " + item.property3 : "" }}
-                                    {{ !!item.property4 ? " " + item.property4 : "" }}
-                                    {{ !!item.property5 ? " " + item.property5 : "" }}
+                                    {{item.description}} {{ !!item.property1 ? " " + item.property1 : "" }} {{ !!item.property2 ? " " + item.property2 : "" }}
+                                    {{ !!item.property3 ? " " + item.property3 : "" }} {{ !!item.property4 ? " " + item.property4
+                                    : "" }} {{ !!item.property5 ? " " + item.property5 : "" }}
                                 </div>
                             </td>
                             <td align="center">{{item.quantity}}</td>
@@ -80,7 +90,9 @@
                             <th>发货地</th>
                         </tr>
                         <tr>
-                            <td align="center"><div class="barcode" trackingNumber="{{data.trackingNumber}}"></div></td>
+                            <td align="center">
+                                <div class="barcode" trackingNumber="{{data.trackingNumber}}"></div>
+                            </td>
                             <td align="center">{{data.actualWeight || 0}}</td>
                             <td align="center" style="text-align:center;">{{data.warehouseName}}</td>
                         </tr>

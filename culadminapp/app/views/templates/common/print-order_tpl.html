@@ -3,47 +3,47 @@
         #printTemplate>table {
             margin-bottom: 30px;
         }
-        
+
         #printTemplate th {
             text-align: center;
         }
-        
+
         #printTemplate th,
         td {
             padding: 2px;
         }
-        
+
         #printTemplate td.title {
             width: 100px;
             text-align: center;
         }
-        
+
         #printTemplate .barcode {
             margin: 0 auto;
         }
-        
+
         #printTemplate .image {
             width: 50%;
         }
-        
+
         #printTemplate .float-left {
             float: left;
         }
-        
+
         #printTemplate .print-date {
             float: right;
             margin-top: 10px;
         }
-        
+
         #printTemplate .list {
             margin-top: 40px;
         }
-        
+
         #printTemplate .height-100 {
             height: 100%;
             overflow: hidden;
         }
-        
+
         #printTemplate .packages>tr>td {
             align: center;
         }
@@ -80,14 +80,25 @@
                         <td class="title">生成日期</td>
                         <td>{{data.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                     </tr>
+                    <tr>
+                        <td class="title">发货渠道</td>
+                        <td  colspan="3">
+                            <span>{{data.shipServiceName}}</span>
+                            </span>
+                        </td>
+                    </tr>
                     <tr ng-repeat="item in data.shipToAddresses">
                         <td class="title">收货地址</td>
                         <td ng-if="data.shipServiceId != 9" colspan="3">
-                            <span ng-if="data.shipServiceId != 10">{{item.receivePersonName}}<span ng-show="!!item.cellphoneNumber">({{item.cellphoneNumber}})</span>{{item.address1}}{{item.receiveCompanyName}}<span ng-show="!!item.zipcode">({{item.zipcode}})</span>
+                            <span ng-if="data.shipServiceId != 10">{{item.receivePersonName}}<span ng-show="!!item.cellphoneNumber">({{item.cellphoneNumber}})</span>{{item.address1}}{{item.receiveCompanyName}}
+                            <span ng-show="!!item.zipcode">({{item.zipcode}})</span>
                             </span>
                         </td>
+
+
                         <td ng-if="data.shipServiceId == 9" colspan="3">
-                            <span>{{item.receivePersonName}}<span ng-show="!!item.cellphoneNumber">({{item.cellphoneNumber}})</span>({{item.short}}_{{item.shortCity}}){{item.address1}}{{item.receiveCompanyName}}<span ng-show="!!item.zipcode">({{item.zipcode}})</span>
+                            <span>{{item.receivePersonName}}<span ng-show="!!item.cellphoneNumber">({{item.cellphoneNumber}})</span>({{item.short}}_{{item.shortCity}}){{item.address1}}{{item.receiveCompanyName}}
+                            <span ng-show="!!item.zipcode">({{item.zipcode}})</span>
                             </span>
                         </td>
                     </tr>
@@ -147,8 +158,10 @@
                         <td class="title">商品描述</td>
                         <td colspan="3">
                             <label ng-repeat="item in data.orderItems">
-                                {{item.itemBrand}}<label>&nbsp;</label> {{item.description}} {{ !!item.property1 ? " " + item.property1 : "" }} {{ !!item.property2 ? " " + item.property2 : "" }} {{ !!item.property3 ? " " +
-                            item.property3 : "" }} {{ !!item.property4 ? " " + item.property4 : "" }} {{ !!item.property5 ? " " + item.property5 : "" }}
+                                {{item.itemBrand}}<label>&nbsp;</label> {{item.description}}
+                            {{ !!item.property1 ? " " + item.property1 : "" }} {{ !!item.property2 ? " " + item.property2
+                            : "" }} {{ !!item.property3 ? " " + item.property3 : "" }} {{ !!item.property4 ? " " + item.property4
+                            : "" }} {{ !!item.property5 ? " " + item.property5 : "" }}
                             </label>
                         </td>
                     </tr>

@@ -15,6 +15,7 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
+            console.log('23456')
 
             $scope.dataList = [];
             $scope.warehouseList = [];
@@ -88,6 +89,7 @@ angular.module('culAdminApp')
             var _filterOptions = function() {
                 var _options = {
                     "pageInfo": $scope.pagination,
+                    "unstatus": "Intransit",
                     "inboundDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
                     "inboundDateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : "",
                 }

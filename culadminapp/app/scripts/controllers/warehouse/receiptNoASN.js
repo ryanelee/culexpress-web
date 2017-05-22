@@ -109,6 +109,20 @@ angular.module('culAdminApp')
                 }
             });
 
+            $scope.getReceiveIdentity = function(){
+               $scope.flag = '0'
+                    receiptService.checkReceiveIdentity($scope.data).then(function(result) {
+                        if (result.data.code == '999') {
+                            document.getElementById("receiveIdentity").focus()
+                            plugMessenger.error(result.data.msg);
+                            return;
+                        }
+                        if (result.data.code == '000') {
+                            $scope.data.tempCustomerNumber = result.data.data[0].customerNumber
+                        }
+                    })     
+            }
+
             $scope.checkReceiveIdentity = function(e) {
                 //console.log('2345')
                 // $scope.myKeyup = function (e) {
@@ -167,8 +181,9 @@ angular.module('culAdminApp')
             //         console.log($scope.data.tempCustomerNumber);
             //     }
             // })
-            // }
+            // }  
             $scope.checkReceive = function(e) {
+
                 var keycode = window.event ? e.keyCode : e.which;
                 if (keycode == 13) {
                     if (!$scope.data.customerNumber) {
