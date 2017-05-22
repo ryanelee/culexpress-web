@@ -14,7 +14,6 @@ angular.module('culAdminApp')
             'AngularJS',
             'Karma'
         ];
-
         $scope.api = cul.apiPath;
 
         $location.search({ trackingNumber: null });

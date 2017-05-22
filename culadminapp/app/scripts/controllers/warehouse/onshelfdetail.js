@@ -53,8 +53,10 @@ angular.module('culAdminApp')
                             inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function(result) {
                                 $scope.data = null;
 
+
                                 if (!result.message) {
                                     $scope.data = result;
+                                    console.log($scope.data);
                                     $scope.receiptNumber = $location.search().receiptNumber;
                                     $scope._itemType = $scope.data.itemNumber.substr(0, 2);
                                     $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
@@ -167,7 +169,11 @@ angular.module('culAdminApp')
                 //         plugMessenger.error("异常包裹必须以C开头");
                 //         return
                 //     }
+
+
                 // }
+
+                
                 if (!$scope.data.shelfNumber) {
                     plugMessenger.error("架位号不能为空");
                     return;
@@ -175,6 +181,9 @@ angular.module('culAdminApp')
 
                 var data = {
                     itemNumber: $scope.data.itemNumber,
+                    customerNumber: $scope.data.customerNumber,
+                    receiveIdentity: $scope.data.receiveIdentity,
+                    weight: $scope.data.weight,
                     shelfNumber: $scope.data.shelfNumber,
                     receiptNumber: $scope.receiptNumber,
                     itemCount: $scope.data.itemCount
