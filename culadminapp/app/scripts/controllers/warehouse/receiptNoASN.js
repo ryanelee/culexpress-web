@@ -271,14 +271,14 @@ angular.module('culAdminApp')
             }
 
             $scope.register = function() {
-                if($scope.getReceiveIdentity() == false)
-                    return;
-                if($scope.checkCustomerNumber() == false)
-                    return;
-
                 if ($scope.tpl_status.isExist) {
                     $scope.updateSave();
                 } else {
+                    if ($scope.getReceiveIdentity() == false)
+                        return;
+                    if ($scope.checkCustomerNumber() == false)
+                        return;
+
                     $scope.btnSaveAndPrint();
                 }
             }
