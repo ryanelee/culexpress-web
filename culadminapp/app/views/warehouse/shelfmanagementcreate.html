@@ -45,6 +45,13 @@
                                 ng-options="item.value as item.title for item in shelfOptions.position"></select>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"></label>
+                    <div class="col-sm-4 text-left">          
+                        <input id="isBox" type="checkbox" ng-model="isBox">
+                        <span style="font-size:17px;">  box</span> {{isBox}}                   
+                    </div>
+                </div>
             </fieldset>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

@@ -21,7 +21,7 @@ angular.module('culAdminApp')
                 layer: "1",
                 position: "001"
             };
-
+            $scope.isBox = false;
             $scope.shelfOptions = {
                 area: [{
                     title: "A-海淘客户",
@@ -77,17 +77,19 @@ angular.module('culAdminApp')
             });
 
             var _formatShelfNumber = function() {
-                return "{area}-{row}-{layer}-{position}".replace("{area}", $scope.data.area)
+                    return "{area}-{row}-{layer}-{position}".replace("{area}", $scope.data.area)
                     .replace("{row}", $scope.data.row)
                     .replace("{layer}", $scope.data.layer)
                     .replace("{position}", $scope.data.position);
             }
 
             $scope.btnSave = function() {
+                // console.log(_formatShelfNumber())
                 shelfService.update({
                     shelfNumber: _formatShelfNumber(),
                     type: $scope.data.area,
-                    warehouseNumber: $scope.data.warehouseNumber
+                    warehouseNumber: $scope.data.warehouseNumber,
+                    isBox: $scope.isBox
                 }, function(result) {
                     if (!result.message) {
                         plugMessenger.success("创建成功");
