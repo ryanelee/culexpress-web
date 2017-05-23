@@ -81,18 +81,18 @@
                             <td>
                                 <!--<input id="pack_item{{shippingNoticeItem.rownumber}}" class="pk-checkbox-input" type="checkbox" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)" ng-hide="shippingNoticeItem.status === 'InOrder' || shippingNoticeItem.status === 'Intransit'"
                                 />-->
-                                <input id="pack_item{{shippingNoticeItem.rownumber}}" class="pk-checkbox-input" type="checkbox" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)" ng-show="shippingNoticeItem.status === 'Onshelf'" />
+                                <input id="pack_item{{shippingNoticeItem.rownumber}}" class="pk-checkbox-input" type="checkbox" ng-model="shippingNoticeItem.checked" ng-click="selectItem(shippingNoticeItem)" ng-show="shippingNoticeItem.status === 'Onshelf' || shippingNoticeItem.status === 'Intransit'" />
                                 <!--<label for=" pack_item{{shippingNoticeItem.rownumber}} " ng-hide="shippingNoticeItem.status==='InOrder' || shippingNoticeItem.status==='Intransit' "></label>-->
-                                <label for="pack_item{{shippingNoticeItem.rownumber}} " ng-show="shippingNoticeItem.status==='Onshelf' "></label>
+                                <label for="pack_item{{shippingNoticeItem.rownumber}} " ng-show="shippingNoticeItem.status==='Onshelf' || shippingNoticeItem.status === 'Intransit'"></label>
                                 <!-- <input type="checkbox " style="margin-left:5px " ng-model="shippingNoticeItem.checked " ng-click="selectItem(shippingNoticeItem) "
                                     ng-hide="shippingNoticeItem.status==='InOrder' || shippingNoticeItem.status==='Intransit' " /> -->
                             </td>
-                            <td>{{shippingNoticeItem.rownumber}}</td>
-                            <td>{{ shippingNoticeItem.trackingNumber }}</td>
-                            <td class="hidden-sm " style="width:100px">{{ shippingNoticeItem.packageDescription }}</td>
-                            <td title="{{ shippingNoticeItem.packageNote }} " style="word-break:break-all; width: 150px">{{ shippingNoticeItem.packageNote }}</td>
-                            <td style="width:100px">{{ shippingNoticeItem.warehouseName}}</td>
-                            <td style="width:100px">{{ shippingNoticeItem.createDate|sysdate}}</td>
+                            <td><small>{{shippingNoticeItem.rownumber}}</small></td>
+                            <td><small>{{ shippingNoticeItem.trackingNumber }}</small></td>
+                            <td class="hidden-sm " style="width:100px"><small>{{ shippingNoticeItem.packageDescription }}</small></td>
+                            <td title="{{ shippingNoticeItem.packageNote }} " style="word-break:break-all; width: 150px"><small>{{ shippingNoticeItem.packageNote }}</small></td>
+                            <td style="width:100px"><small>{{ shippingNoticeItem.warehouseName}}</small></td>
+                            <td style="width:100px"><small>{{ shippingNoticeItem.createDate|sysdate}}</small></td>
                             <td style="width:100px">
                                 <span ng-if="shippingNoticeItem.status==='InOrder' " class="label label-success ">已创建订单</span>
                                 <span ng-if="shippingNoticeItem.status==='Inbound' " class="label label-ru ">已入库</span>
@@ -120,10 +120,14 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </table>               
+            </div>
+            <hr style="margin-top:15px;margin-bottom:15px">
+            <div>
+                <small>请选择已上架包裹提交普通订单,选择在途包裹提交极速原箱订单。已入库包裹请等待仓库上架后再提交订单.</small>
             </div>
             <div class="row " style="margin-top:20px; ">
-                <div class="col-sm-6 " style="margin:0;padding:0 10px; ">
+                <div class="col-sm-6 " style="margin:0;padding:0 0; ">
                     <a class="btn-u bg-color-ffb " ui-sref="customer.shippingnotice ">
                         <i class="fa fa-truck "> 货物预报</i>
                     </a>

@@ -273,6 +273,10 @@ var app = angular
                         var shippItemData = shippingList[i];
                         shippItemData.orderItems = [{ goodsCategory: '' }];
                         if (shippItemData.checked) {
+                            if(isFastOrder && shippItemData.status != 'Intransit'){
+                                alertify.alert('提醒', '极速原单只能提交未入库的货物信息!');
+                                return false;
+                            }
                             if (!isFastOrder) {
                                 //console.log(shippItemData.status);
                                 if (shippItemData.status != 'Onshelf') {

@@ -96,7 +96,6 @@ angular.module('culAdminApp')
             });
 
             warehouseService.getWarehouse(function(result) {
-                console.log('世界很美丽');
                 for (var i = 0; i < result.length; i++) {
                     var detail = {}
                     $scope.data.warehouseNumber = result[0].warehouseNumber
@@ -110,15 +109,22 @@ angular.module('culAdminApp')
             });
 
             $scope.getReceiveIdentity = function(){
+               if($scope.data.receiveIdentity == undefined || $scope.data.receiveIdentity.trim() == ''){
+                   plugMessenger.error("客户标识不能为空");
+                   document.getElementById("receiveIdentity").focus()
+                   return false;
+               }
+
                $scope.flag = '0'
                     receiptService.checkReceiveIdentity($scope.data).then(function(result) {
                         if (result.data.code == '999') {
                             document.getElementById("receiveIdentity").focus()
                             plugMessenger.error(result.data.msg);
-                            return;
+                            return false;
                         }
                         if (result.data.code == '000') {
-                            $scope.data.tempCustomerNumber = result.data.data[0].customerNumber
+                            $scope.data.tempCustomerNumber = result.data.data[0].customerNumber;
+                            return true;
                         }
                     })     
             }
@@ -208,18 +214,19 @@ angular.module('culAdminApp')
                 //console.log(e);
                 if (!$scope.data.customerNumber) {
                     plugMessenger.error("客户编号不能为空");
-                    // $scope.customerNumberFocus = true;
-                    // $window.document.getElementById("customerNumber").focus();
-                    return;
+                    //$scope.customerNumberFocus = true;
+                    $window.document.getElementById("customerNumber").focus();
+                    return false;
                 } else if ($scope.data.tempCustomerNumber != $scope.data.customerNumber) {
                     plugMessenger.error("客户标示和客户编号不匹配，请重新输入");
                     $scope.data.customerNumber = "";
 
-                    // $window.document.getElementById("customerNumber").focus();
-                    // $scope.customerNumberFocus = true;
-                    return;
+                    $window.document.getElementById("customerNumber").focus();
+                    //$scope.customerNumberFocus = true;
+                    return false;
                 } else {
                     // $scope.changekey();
+                    return true;
                 }
             }
 
@@ -264,6 +271,11 @@ angular.module('culAdminApp')
             }
 
             $scope.register = function() {
+                if($scope.getReceiveIdentity() == false)
+                    return;
+                if($scope.checkCustomerNumber() == false)
+                    return;
+
                 if ($scope.tpl_status.isExist) {
                     $scope.updateSave();
                 } else {
