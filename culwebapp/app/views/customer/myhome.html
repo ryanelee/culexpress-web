@@ -54,7 +54,7 @@
           <div class="home-info">
             <span>
                 <i class="fa fa-user"></i>客户编号:<span data-ng-bind="currentUser.customerNumber"></span>
-                <a href="javascript:void(0)" ng-click="applyVip()" ng-if="!$root.currentUser.isVip&&currentUser.vipStatus !== 'Applied'"> [成为VIP客户]</a>
+                <a href="javascript:void(0)" ng-click="applyVip()" ng-if="!$root.currentUser.isVip&&currentUser.vipStatus !== 'Applied'"> [申请商家用户]</a>
                 <span ng-if="currentUser.vipStatus === 'Applied' && !$root.currentUser.isVip" style="color: #ffb528;"> [VIP审核中...]</span>
             </span>
             <span style="margin-left: 20px;"><i class="fa fa-chevron-circle-right"></i>收件标示:<span data-ng-bind="currentUser.receiveIdentity"></span></span>
