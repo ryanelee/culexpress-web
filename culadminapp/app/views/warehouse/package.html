@@ -47,6 +47,8 @@
                             <option value="receiveidentity">客户标示</option>
                             <option value="referenceOrderNumber">客户关联号</option>
                             <option value="cnTrackingNumber">国内物流号</option>
+                            <option value="tempTrackingNumber">AU单号</option>
+                            
                         </select>
                         <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()" />
                         <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
@@ -72,7 +74,7 @@
                             <th>客户编号</th>
                             <th>客户关联号</th>
                             <th>CUL包裹单号</th>
-                            <th>临时CUL包裹单号</th>
+                            <th>AU单号</th>
                             <th>收货地址</th>
                             <th>包裹重量（磅）</th>
                             <th>打包时间</th>
