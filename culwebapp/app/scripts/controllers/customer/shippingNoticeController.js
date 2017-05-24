@@ -119,18 +119,18 @@ var app = angular
                     .retrieveShippingNoticeList(index, $.extend({ status: status, customerNumber: customerNumber }, para))
                     .then(function(result) {
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
-                            $scope.shippingNoticeList = result.data.data;
+                            $scope.shippingNoticeList = result.data.data;                          
                         },
                         function(err) {
 
                         });
             };
-            //$scope.initShippingNoticeList();
+            $scope.initShippingNoticeList();
 
             $scope.onPaged = function(pageIndex) {
                 $scope.initShippingNoticeList(pageIndex);
             }
-
+            
             $scope.rangSearch = function(rangeItem) {
 
                 $scope.queryPara = {
@@ -164,10 +164,11 @@ var app = angular
                 }
             }
             var isSafeSelected = function() {
-                var canSelectItems = $filter('filter')($scope.shippingNoticeList, function(item) { return item.status === 'Inbound'; }),
+                // var canSelectItems = $filter('filter')($scope.shippingNoticeList, function(item) { return item.status === 'Inbound'; }),
+                var canSelectItems = $filter('filter')($scope.shippingNoticeList, function(item) { return item.status === 'Onshelf' || item.status === 'Intransit'; }),
                     selectedItems = $filter('filter')(canSelectItems, function(item) { return item.checked === true; }),
                     checkedWarehouseNumber;
-
+                // console.log(selectedItems)
                 if (!selectedItems[0]) return true;
                 if (selectedItems.length <= 0) return 0;
                 if (selectedItems.length > 10) return 1;
@@ -304,6 +305,7 @@ var app = angular
                 }
                 return idArrr.join(',');
             }
+
             orderSvr.selectedShippingItems = [];
             $scope.redirectToSubmitOrder = function() {
                 if (!checkSelected()) return false;
@@ -316,7 +318,7 @@ var app = angular
                     $state.go('customer.submitorder');
                 }
             }
-
+         
             $scope.redirectToFastOrder = function() {
                 if (!checkSelected()) return false;
                 var selected = checkAndGetSelect(true);
