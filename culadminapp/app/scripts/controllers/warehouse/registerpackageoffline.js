@@ -81,7 +81,7 @@ angular.module('culAdminApp')
                         }).jqprint();
                         break;
                 }
-            }
+            } 
 
             $scope.btnDelPackage = function (item) {
                 if ($scope.data.outboundPackages.length <= 1) {
