@@ -33,14 +33,15 @@
                                                         <span class="timestamp">{{message.indate| date:'MM-dd h:mm'}} 前</span>
                                                     </a>
                                                 </li>-->
-                                                <li class="inbox-item unread clearfix" ng-repeat="message in tipMessage" ng-if="$index < 5" ng-click="btnViewMessage(message);">
+                                                <!--<li class="inbox-item unread clearfix" ng-repeat="message in tipMessage" ng-if="$index < 5" ng-click="btnViewMessage(message);">-->
+                                                 <li class="inbox-item unread clearfix" ng-repeat="message in tipMessage" ng-click="btnViewMessage(message);">
                                                     <a href="javascript:void(0);">
                                                         <div class="media">
                                                             <div class="media-left">
                                                                 <i class="fa fa-envelope green-font"></i>
                                                             </div>
                                                             <div class="media-body">
-                                                                <h5 class="media-heading name">客户{{message.customerNumber}}</h5>
+                                                                <h5 class="media-heading name">客户 - {{message.operationUserName}}</h5>
                                                                 <p class="text">{{message.message | cutText:true:30}}</p>
                                                                 <span class="timestamp">{{message.indate| date:'yyyy-MM-dd hh:mm'}}</span>
                                                             </div>

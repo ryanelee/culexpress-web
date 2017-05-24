@@ -120,6 +120,7 @@
             <i class="fa fa-plus-square"></i>
             收货地址
           </h2>
+          <p><small>除提交美国邮政 USPS特快，其他发货渠道请填写中文姓名和地址。身份证渠道必须填写中文姓名和身份证详细地址</small></p>
         </div>
         <div class="edit-content" >
           <div class="form-group left-row">
@@ -178,7 +179,7 @@
               <input type="text" class="form-control" ng-model="data.idCardAddress">
           </div>
           <div class="form-group">
-              <label class="label">收货地址</label><span style="color:red;">*</span><p><small>除提交美国邮政 USPS特快，其他发货渠道请填写中文姓名和地址。身份证渠道必须填写中文姓名和身份证详细地址</small></p>
+              <label class="label">收货地址</label><span style="color:red;">*</span>
               <div class="row">
                   <div class="col-sm-3">
                       <select style="padding: 0 10px;" class="form-control" ng-options="province as province.name for province in provinces" ng-model="search.province"
