@@ -117,6 +117,13 @@
                                     <!--<small class="hex ">是否转仓: <span ng-if="shippingNoticeItem.isTransfer ">是</span><span ng-if="!shippingNoticeItem.isTransfer ">否</span></small><br>-->
                                     <small class="hex ">入库重量:{{ shippingNoticeItem.packageWeight }}磅</small>
                                 </p>
+                                <p ng-if="shippingNoticeItem.status==='Onshelf' ">
+                                    <small class="hex ">
+                                      <!-- <i class="fa fa-clock-o "></i>  -->
+                                      {{ shippingNoticeItem.OnshelfDate|sysdate}}</small>
+                                    <!--<small class="hex ">是否转仓: <span ng-if="shippingNoticeItem.isTransfer ">是</span><span ng-if="!shippingNoticeItem.isTransfer ">否</span></small><br>-->
+                                    <small class="hex ">上架重量:{{ shippingNoticeItem.packageWeight }}磅</small>
+                                </p>
                             </td>
                             <td>
                                 <a href="javascript:void(0); " ng-show="shippingNoticeItem.status==='Intransit' " class="op-btn ">
