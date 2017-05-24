@@ -33,6 +33,7 @@ angular.module('culAdminApp')
                   warehouseService.getOutboundPackageList({
                       "orderNumber": $scope.orderNumbers
                   }, function (result) {
+                      console.log(result.data);
                       var _orderItems = {};
                       $.each(result.data, function (index, row) {
                           if (!_orderItems[row.orderNumber]) {
@@ -44,7 +45,6 @@ angular.module('culAdminApp')
                                          n.category == item.category &&
                                          n.description == item.description &&
                                          n.itemBrand == item.itemBrand &&
-                                         n.shipServiceName == item.shipServiceName &&
                                          n.orderNumber == item.orderNumber &&
                                          n.property1 == item.property1 &&
                                          n.property2 == item.property2 &&
@@ -83,8 +83,7 @@ angular.module('culAdminApp')
                           }
 
                       });
-                      console.log("翔通单")
-                      console.log( $scope.dataList )
+                    
                       $scope.dataList = result.data;
                       //console.log($scope.dataList);
                       _render();
