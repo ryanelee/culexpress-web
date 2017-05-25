@@ -38,12 +38,13 @@ angular.module('culAdminApp')
                             pageIndex: 1
                         },
                         orderNumber: orderNumbers
-                    }
+                    } 
                     orderService.getList(_options, function(result) {
                         $scope.dataList = result.data;
                         console.log(result.data);
                         $.each($scope.dataList, function(i, _data) {
                             _data._shippingFeeTotal = 0;
+                           
                             $.each(_data.outboundPackages, function(i, outboundPackage) {
                                 _data._shippingFeeTotal += outboundPackage.shippingFee;
                             });
@@ -63,6 +64,7 @@ angular.module('culAdminApp')
                                     payDate: $scope.dataList[i].payDate,
                                     tip: $scope.dataList[i].tip,
                                 }
+                                
                                 if (e.shelfNumber) {
                                     detail.sort = e.shelfNumber.substr(0, 1);
                                 } else {
