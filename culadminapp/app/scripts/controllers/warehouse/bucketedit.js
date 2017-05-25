@@ -218,18 +218,15 @@ angular.module('culAdminApp')
 
                         bucketService.close(_options, function (result) {
                             if (!result.message) {
+                                _callback();
                                 // 获取包裹信息
                                 $scope.data.packageList.forEach(function (pkg) {
                                     orderService.getOutboundPackage(pkg.trackingNumber, function (result) {
                                         $scope.packages = result;
-                                        //console.log("包裹信息")
-                                        //console.log(result)
-                                        // $scope.packages.flightNo = $scope.flightNo;
                                         $scope.packages.status = "Send";
 
                                         orderService.updateOutboundPackage($scope.packages, function (result) {
                                             if (!result.message) {
-                                                _callback();
                                                 $scope.btnPrev();
                                             }
                                         })
