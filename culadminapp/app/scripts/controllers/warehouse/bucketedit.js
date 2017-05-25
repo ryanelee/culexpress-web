@@ -49,12 +49,8 @@ angular.module('culAdminApp')
                                             e2.totalWeight = 0;
                                             if (e2.packages && e2.packages[0]) {
                                                 e2.packages.forEach(function (e3) {
-                                                     console.log("完美1");
-                                                     console.log(e3);
                                                     $scope.data.packageList.forEach(function (e4) {
                                                         if (e3 == e4.trackingNumber) {
-                                                            console.log("完美");
-                                                            console.log(e2.readonly = $location.search().readonly);
                                                             e2.readonly = $location.search().readonly || ""
                                                             e.readonly = $location.search().readonly || ""
                                                             e2.totalWeight += e4.weight;
@@ -73,7 +69,6 @@ angular.module('culAdminApp')
                             }
                         })
                     }
-                    console.log($scope.data);
 
                     if (!!$scope.data) {
                         if ($scope.data.packageList[0]) {
@@ -150,7 +145,6 @@ angular.module('culAdminApp')
 
 
                     $("#package-title").text(_array.join(" > "));
-                    console.log("wonderful world");
                     setTimeout(function () {
                         $("#key_trackingNumber").focus();
                     }, 100)
@@ -300,6 +294,15 @@ angular.module('culAdminApp')
 
             var _timeout = null,
                 _cacheCurrentResult = null;
+
+            $scope.keydownTrackingNumber = function(event){
+                switch (event.keyCode) {
+                  case 13:  //enter
+                      $scope.checkTrackingNumber();
+                      break;
+              }
+            };
+
             $scope.checkTrackingNumber = function () {
                 if (!!_timeout) clearTimeout(_timeout);
                 _timeout = setTimeout(function () {
@@ -310,15 +313,19 @@ angular.module('culAdminApp')
                                     plugMessenger.info(result.msg);
                                     $scope._selectedPackage = null;
                                     _cacheCurrentResult = null;
+                                    return false;
                                 } else {
                                     $scope._selectedPackage.trackingNumber = result.trackingNumber;
                                     //$scope._selectedPackage.weight = result.actualWeight;
                                     $scope._selectedPackage.weight = "";
                                     _cacheCurrentResult = result;
+                                    return true;
                                 }
                             });
                         }
-                    })
+
+                        return false;
+                    });
                 }, 1000);
             }
             $scope._totalWeight = 0;
@@ -330,6 +337,11 @@ angular.module('culAdminApp')
 
 
             $scope.btnSaveByPackage = function () {
+                if(_cacheCurrentResult == undefined)
+                    return;
+                // if($scope.checkTrackingNumber() == false )
+                //     return;
+
                 var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
                     _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
                     _selected_bag = _.findWhere(_bags, { _selected: true });

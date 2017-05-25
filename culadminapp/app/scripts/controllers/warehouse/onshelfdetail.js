@@ -29,6 +29,7 @@ angular.module('culAdminApp')
                     if (staffFlag != 'D') {
                         $scope.data.shelfNumber = "";
                         plugMessenger.error("员工包裹必须以D开头");
+                        return false;
                     }
                 }
                 if ($scope.isUnusual == 2) {
@@ -37,18 +38,34 @@ angular.module('culAdminApp')
                     if (staffFlag != 'C') {
                         $scope.data.shelfNumber = "";
                         plugMessenger.error("异常包裹必须以C开头");
+                        return false;
                     }
                 }
+
+                return true;
             }
 
+            $scope.hotKey = function (event) {
+              switch (event.keyCode) {
+                  case 13:  //enter
+                      $scope.isExpecial();
+                      break;
+              }
+            }
 
+            $scope.keydownReceiptNumber = function (event) {
+              switch (event.keyCode) {
+                  case 13:  //enter
+                      $scope.checkItemNumber();
+                      break;
+              }
+            }
 
-
-            var _timeout = null;
+            // var _timeout = null;
             $scope.checkItemNumber = function() {
-                if (!!_timeout) clearTimeout(_timeout);
-                _timeout = setTimeout(function() {
-                    $scope.$apply(function() {
+                // if (!!_timeout) clearTimeout(_timeout);
+                // _timeout = setTimeout(function() {
+                //     $scope.$apply(function() {
                         if ($scope.tempItemNumber == $location.search().receiptNumber) {
                             inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function(result) {
                                 $scope.data = null;
@@ -138,8 +155,8 @@ angular.module('culAdminApp')
                             $scope.tempItemNumber = "";
                         }
                         // $window.document.getElementById("shelfNumber").focus();
-                    })
-                }, 1000);
+                //     })
+                // }, 1000);
             }
 
             $scope.checkItemNumber();
@@ -178,6 +195,9 @@ angular.module('culAdminApp')
                     plugMessenger.error("架位号不能为空");
                     return;
                 }
+
+                if ($scope.isExpecial() == false )
+                    return;
 
                 var data = {
                     itemNumber: $scope.data.itemNumber,
