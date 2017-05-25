@@ -4,12 +4,12 @@
  * @ngdoc function
  * @name culAdminApp.controller:WarehouseInventoryFrozenCtrl
  * @description
- * # WarehouseInventoryFrozenCtrl
+ * # WarehouseInventoryFrozenCtrl 
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
     .controller('WarehouseInventoryFrozenCtrl', ['$scope', '$location', '$window', 'inventoryService', 'plugMessenger',
-        function($scope, $location, $window, inventoryService, plugMessenger) {
+        function ($scope, $location, $window, inventoryService, plugMessenger) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -23,42 +23,77 @@ angular.module('culAdminApp')
                 btnRelieve: true
             }
 
-            var _timeout = null;
-            $scope.checkItemNumber = function() {
-                if (!!_timeout) clearTimeout(_timeout);
-                _timeout = setTimeout(function() {
-                    $scope.$apply(function() {
-                        if (!!$scope.tempItemNumber) {
-                            inventoryService.getDetail($scope.tempItemNumber, function(result) {
-                                $scope.tpl_status.btnRelieve = true;
-                                if (result.length > 0) {
-                                    $scope.data = {
-                                        itemNumber: result[0].itemNumber,
-                                        warehouseNumber: result[0].warehouseNumber,
-                                        inventory_frozen: result[0].inventory_frozen,
-                                        inventory: result[0].inventory,
-                                        reason: result[0].frozenReason || ""
-                                    }
-                                    $scope.inventory = result[0].inventory;
-                                    if (result[0].inventory_frozen == 0) {
-                                        $scope.data.reason = "";
-                                        $scope.tpl_status.btnRelieve = false;
-                                    }
-                                }
-                                $scope.tempItemNumber = "";
-                            });
-                        } else {
-                            $scope.tempItemNumber = "";
-                        }
-                    })
-                }, 1000);
+
+            $scope.keyDown = function (e) {
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                   $scope.checkItemNumber();
+                }
             }
+
+            $scope.checkItemNumber = function () {
+                if (!!$scope.tempItemNumber) {
+                    inventoryService.getDetail($scope.tempItemNumber, function (result) {
+                        $scope.tpl_status.btnRelieve = true;
+                        if (result.length > 0) {
+                            $scope.data = {
+                                itemNumber: result[0].itemNumber,
+                                warehouseNumber: result[0].warehouseNumber,
+                                inventory_frozen: result[0].inventory_frozen,
+                                inventory: result[0].inventory,
+                                reason: result[0].frozenReason || ""
+                            }
+                            $scope.inventory = result[0].inventory;
+                            if (result[0].inventory_frozen == 0) {
+                                $scope.data.reason = "";
+                                $scope.tpl_status.btnRelieve = false;
+                            }
+                        }
+                        $scope.tempItemNumber = "";
+                    });
+                } else {
+                    $scope.tempItemNumber = "";
+                }
+            }
+
+
+            //    var _timeout = null;
+            // $scope.checkItemNumber = function() {
+            //     if (!!_timeout) clearTimeout(_timeout);
+            //     _timeout = setTimeout(function() {
+            //         $scope.$apply(function() {
+            //             if (!!$scope.tempItemNumber) {
+            //                 inventoryService.getDetail($scope.tempItemNumber, function(result) {
+            //                     $scope.tpl_status.btnRelieve = true;
+            //                     if (result.length > 0) {
+            //                         $scope.data = {
+            //                             itemNumber: result[0].itemNumber,
+            //                             warehouseNumber: result[0].warehouseNumber,
+            //                             inventory_frozen: result[0].inventory_frozen,
+            //                             inventory: result[0].inventory,
+            //                             reason: result[0].frozenReason || ""
+            //                         }
+            //                         $scope.inventory = result[0].inventory;
+            //                         if (result[0].inventory_frozen == 0) {
+            //                             $scope.data.reason = "";
+            //                             $scope.tpl_status.btnRelieve = false;
+            //                         }
+            //                     }
+            //                     $scope.tempItemNumber = "";
+            //                 });
+            //             } else {
+            //                 $scope.tempItemNumber = "";
+            //             }
+            //         })
+            //     }, 1000);
+            // }
+
 
             //   incrementInventory_frozen
 
             $scope.checkItemNumber();
 
-            $scope.btnSave = function(type) {
+            $scope.btnSave = function (type) {
                 //console.log($scope.data.inventory_frozen);
                 //console.log($scope.inventory);
                 //console.log($scope.data.incrementInventory_frozen);
@@ -80,7 +115,7 @@ angular.module('culAdminApp')
                 var data = angular.copy($scope.data);
                 data.type = type;
                 $scope.data.inventory_frozen = undefined;
-                inventoryService.frozen(data, function(result) {
+                inventoryService.frozen(data, function (result) {
                     if (result.success) {
                         plugMessenger.success("操作成功");
                         $scope.btnPrev();
@@ -88,7 +123,7 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.btnPrev = function() {
+            $scope.btnPrev = function () {
                 $window.history.back();
             }
 

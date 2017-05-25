@@ -19,45 +19,47 @@ angular.module('culAdminApp')
 
             $scope.tempOutboundPackageNumber = $location.search().trackingNumber || "";
 
-            var _timeout = null;
-            $scope.checkOutboundPackageNumber = function () {
-                if (!!_timeout) clearTimeout(_timeout);
-                _timeout = setTimeout(function () {
-                    $scope.$apply(function () {
-                        if (!!$scope.tempOutboundPackageNumber) {
-                            orderService.getList({
-                                outBoundTrackingNumber: $scope.tempOutboundPackageNumber
-                            }, function (result) {
-                                if (!!result && !!result.data && result.data.length > 0) {
-                                    if (!$scope.data) {
-                                        $scope.data = result.data[0];
-                                    }
-                                    console.log(result);
-                                    var _checked = false; 
-                                    $.each($scope.data.outboundPackages, function (index, item) {
-                                        if (!item.checked) {
-                                            item.checked = item.trackingNumber == $scope.tempOutboundPackageNumber;
-                                            _checked = true;
-                                        }
-                                    });
 
-                                    //todo: 根据 _checked 调用提示音
-                                    if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
-                                        //success
-                                    } else if (_checked == true) {
-                                        //match
-                                    } else {
-                                        //no match
-                                    }
-                                    $scope.weightChanged();
+            $scope.keyDown = function (e) {
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                    $scope.checkOutboundPackageNumber();
+                }
+            }
+
+            $scope.checkOutboundPackageNumber = function () {
+                if (!!$scope.tempOutboundPackageNumber) {
+                    orderService.getList({
+                        outBoundTrackingNumber: $scope.tempOutboundPackageNumber
+                    }, function (result) {
+                        if (!!result && !!result.data && result.data.length > 0) {
+                            if (!$scope.data) {
+                                $scope.data = result.data[0];
+                            }
+                            console.log(result);
+                            var _checked = false;
+                            $.each($scope.data.outboundPackages, function (index, item) {
+                                if (!item.checked) {
+                                    item.checked = item.trackingNumber == $scope.tempOutboundPackageNumber;
+                                    _checked = true;
                                 }
-                                $scope.tempOutboundPackageNumber = "";
                             });
-                        } else {
-                            $scope.tempOutboundPackageNumber = "";
+
+                            //todo: 根据 _checked 调用提示音
+                            if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
+                                //success
+                            } else if (_checked == true) {
+                                //match
+                            } else {
+                                //no match
+                            }
+                            $scope.weightChanged();
                         }
-                    })
-                }, 1000);
+                        $scope.tempOutboundPackageNumber = "";
+                    });
+                } else {
+                    $scope.tempOutboundPackageNumber = "";
+                }
             }
 
             $scope.checkOutboundPackageNumber();
@@ -81,7 +83,7 @@ angular.module('culAdminApp')
                         }).jqprint();
                         break;
                 }
-            } 
+            }
 
             $scope.btnDelPackage = function (item) {
                 if ($scope.data.outboundPackages.length <= 1) {
@@ -93,9 +95,9 @@ angular.module('culAdminApp')
                             "number": item.trackingNumber,
                         }, function (result) {
                             plugMessenger.success("删除成功");
-                           setTimeout(function(){
-                            $window.location.reload();
-                           },300)
+                            setTimeout(function () {
+                                $window.location.reload();
+                            }, 300)
                         });
                     }
                 });

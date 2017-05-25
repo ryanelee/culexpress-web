@@ -4,11 +4,11 @@
     </div>
     <div class="widget-content">
         <form class="form-horizontal" role="form">
-            <fieldset>
+            <fieldset> 
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">收货单据编号：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="tempReceiptNumber" ng-model="tempReceiptNumber" ng-change="checkReceiptNumber()" />
+                        <input type="text" class="form-control" id="tempReceiptNumber" ng-model="tempReceiptNumber" ng-keyup="keyDown($event)" />
                     </div>
                     <div class="col-sm-1 col-padding-clear">
                         <button id="tip_receiptNumber_receip" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>

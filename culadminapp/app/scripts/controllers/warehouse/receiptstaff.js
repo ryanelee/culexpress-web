@@ -37,40 +37,42 @@ angular.module('culAdminApp')
                 }
             }
 
-            var _timeout = null;
-            $scope.checkReceiptNumber = function () {
-                if (!!_timeout) clearTimeout(_timeout);
-                _timeout = setTimeout(function () {
-                    $scope.$apply(function () {
-                        if (!!$scope.tempReceiptNumber) {
-                            receiptService.getDetail($scope.tempReceiptNumber, function (result) {
-                                $scope.data = null;
-                                if (!result.message) {
-                                    $location.search({ "trackingNumber": $scope.tempReceiptNumber, "inboundStatus": $scope.tempInboundStatus, "isUnusual": 1 });
-                                    $location.path("/warehouse/receiptNoASN");
 
-                                    //     $scope.data = {
-                                    //         receiptNumber: result.receiptNumber,
-                                    //         sendType: result.sendType,
-                                    //         customerNumber: result.customerNumber,
-                                    //         warehouseNumber: result.warehouseNumber != null ? result.warehouseNumber : $scope.warehouseList[0].warehouseNumber
-                                    //     }
-                                    //     switch ($scope.data.sendType) {
-                                    //         case 1: //寄送包裹
-                                    //             $scope.data.type = "3";
-                                    //             break;
-                                    //         case 2: //海淘包裹
-                                    //             $scope.data.type = "1";
-                                    //             break;
-                                    //     }
-                                }
-                                $scope.tempReceiptNumber = "";
-                            });
-                        } else {
-                            $scope.tempReceiptNumber = "";
+            $scope.keyDown = function (e) {
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                    $scope.checkReceiptNumber();
+                }
+            }
+
+            $scope.checkReceiptNumber = function () {
+                if (!!$scope.tempReceiptNumber) {
+                    receiptService.getDetail($scope.tempReceiptNumber, function (result) {
+                        $scope.data = null;
+                        if (!result.message) {
+                            $location.search({ "trackingNumber": $scope.tempReceiptNumber, "inboundStatus": $scope.tempInboundStatus, "isUnusual": 1 });
+                            $location.path("/warehouse/receiptNoASN");
+
+                            //     $scope.data = {
+                            //         receiptNumber: result.receiptNumber,
+                            //         sendType: result.sendType,
+                            //         customerNumber: result.customerNumber,
+                            //         warehouseNumber: result.warehouseNumber != null ? result.warehouseNumber : $scope.warehouseList[0].warehouseNumber
+                            //     }
+                            //     switch ($scope.data.sendType) {
+                            //         case 1: //寄送包裹
+                            //             $scope.data.type = "3";
+                            //             break;
+                            //         case 2: //海淘包裹
+                            //             $scope.data.type = "1";
+                            //             break;
+                            //     }
                         }
-                    })
-                }, 1000);
+                        $scope.tempReceiptNumber = "";
+                    });
+                } else {
+                    $scope.tempReceiptNumber = "";
+                }
             }
 
             $scope.checkReceiptNumber();

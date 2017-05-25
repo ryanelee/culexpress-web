@@ -3,13 +3,13 @@
 /**
  * @ngdoc function
  * @name culAdminApp.controller:ReceiptExceptionEditCtrl
- * @description
+ * @description 
  * # ReceiptExceptionEditCtrl
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
     .controller('ReceiptExceptionEditCtrl', ['$scope', '$location', '$window', 'receiptService', 'warehouseService', 'plugMessenger', '$timeout',
-        function($scope, $location, $window, receiptService, warehouseService, plugMessenger, $timeout) {
+        function ($scope, $location, $window, receiptService, warehouseService, plugMessenger, $timeout) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -18,47 +18,52 @@ angular.module('culAdminApp')
             $scope.data = null;
 
             $scope.tempReceiptNumber = $location.search().receiptNumber || "";
-            warehouseService.getWarehouse(function(result) {
+            warehouseService.getWarehouse(function (result) {
                 $scope.warehouseList = result;
             });
 
-            var _timeout = null;
-            $scope.checkReceiptNumber = function() {
-                if (!!_timeout) clearTimeout(_timeout);
-                _timeout = setTimeout(function() {
-                    $scope.$apply(function() {
-                        if (!!$scope.tempReceiptNumber) {
-                            receiptService.getDetail($scope.tempReceiptNumber, function(result) {
-                                $scope.data = null;
-                                if (!result.message) {
-                                    $scope.data = {
-                                        receiptNumber: result.receiptNumber,
-                                        sendType: result.sendType,
-                                        customerNumber: result.customerNumber,
-                                        warehouseName: result.warehouseName,
-                                        warehouseNumber: result.warehouseNumber != null ? result.warehouseNumber : $scope.warehouseList[0].warehouseNumber
-                                    }
-                                    switch ($scope.data.sendType) {
-                                        case 1: //寄送包裹
-                                            $scope.data.type = "3";
-                                            break;
-                                        case 2: //海淘包裹
-                                            $scope.data.type = "1";
-                                            break;
-                                    }
-                                }
-                                $scope.tempReceiptNumber = "";
-                            });
-                        } else {
-                            $scope.tempReceiptNumber = "";
+
+            $scope.keyDown = function (e) {
+                var keycode = window.event ? e.keyCode : e.which;
+                if (keycode == 13) {
+                    $scope.checkReceiptNumber();
+                }
+            }
+
+
+
+
+            $scope.checkReceiptNumber = function () {
+                if (!!$scope.tempReceiptNumber) {
+                    receiptService.getDetail($scope.tempReceiptNumber, function (result) {
+                        $scope.data = null;
+                        if (!result.message) {
+                            $scope.data = {
+                                receiptNumber: result.receiptNumber,
+                                sendType: result.sendType,
+                                customerNumber: result.customerNumber,
+                                warehouseName: result.warehouseName,
+                                warehouseNumber: result.warehouseNumber != null ? result.warehouseNumber : $scope.warehouseList[0].warehouseNumber
+                            }
+                            switch ($scope.data.sendType) {
+                                case 1: //寄送包裹
+                                    $scope.data.type = "3";
+                                    break;
+                                case 2: //海淘包裹
+                                    $scope.data.type = "1";
+                                    break;
+                            }
                         }
-                    })
-                }, 1000);
-            }  
+                        $scope.tempReceiptNumber = "";
+                    });
+                } else {
+                    $scope.tempReceiptNumber = "";
+                }
+            }
 
             $scope.checkReceiptNumber();
 
-            $scope.btnSave = function() {
+            $scope.btnSave = function () {
                 receiptService.exceptionSave({
                     customerNumber: $scope.data.customerNumber,
                     receiptNumber: $scope.data.receiptNumber,
@@ -66,7 +71,7 @@ angular.module('culAdminApp')
                     type: $scope.data.type,
                     sendtype: $scope.data.sendType,
                     memo: $scope.data.memo
-                }, function(result) {               
+                }, function (result) {
                     plugMessenger.success("操作成功");
                     $scope.data.exceptionNumber = result.data[0].exceptionNumber
                     $scope.btnPrint();
@@ -74,7 +79,7 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.btnPrev = function() {
+            $scope.btnPrev = function () {
                 $window.history.back();
             }
 
@@ -90,7 +95,7 @@ angular.module('culAdminApp')
             //}
 
 
-            $scope.btnPrint = function(item) {
+            $scope.btnPrint = function (item) {
                 switch ($scope.data.sendType) {
                     case 1: //寄送库存
                         $scope.$broadcast("print-helper.action", "receipt-tag-exception-tag", { exceptionNumber: $scope.data.exceptionNumber });
