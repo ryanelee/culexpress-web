@@ -140,16 +140,53 @@ var app = angular
             var data = $scope.data = {
                 customerNumber: AuthService.getUser().customerNumber
             };
-            
             $scope.adsFlag = "0";
-            $scope.data.idCardAddress = "";         
+            // $scope.data.idCardAddress = ""; 
+            if ($stateParams.addressId) {
+                addressSvr
+                    .getAddressInfo($stateParams.addressId)
+                    .then(function(result) {
+                        if (result.data) {
+                            $timeout(function() {
+                                $scope.data = result.data;
+                                // console.log($scope.data)
+                                $scope.data.idCardAddress = result.data.idCardAddress
+                                var province = result.data.stateOrProvince;
+                                var city = result.data.city;
+                                var area = result.data.area;
+                                $scope.getProvince(province, city, area);
+
+                                isShowCardAds();
+                                // rebindStateOrProvince($scope.data.stateOrProvince, $scope.data.city);
+                                $scope.$apply(function() {
+                                    if (!!$scope.data.idCardFront) $scope.state.showCardFront = false;
+                                    if (!!$scope.data.idCardBack) $scope.state.showCardBack = false;
+                                })
+                            });
+                        }
+                    }, function(error) {
+                        if (error.data.message) {
+                            console.error(error.data.message)
+                        }
+                    });
+            }
+            if ($stateParams.addressId) {
+                addressSvr
+                    .checkAddress({ addressNumber: $stateParams.addressId })
+                    .then(function(result) {
+                        if (result.data.code == '999') {
+                            alertify.alert('提示', result.data.msg, 'error');
+                            $scope.changeAddress = '0'
+                        }
+                    })
+            }
+
             var isShowCardAds = function() {
-                if ($stateParams.addressId != ''){               
+                // console.log("$scope.data.idCardAddress:"+$scope.data.idCardAddress)
+                if ($stateParams.addressId != '' && $scope.data.idCardAddress != ""){               
                    $scope.adsFlag = "1";
                 };
             }
-            isShowCardAds();
-
             var addAddress = function() {
                     // $scope.data.stateOrProvince = $scope.data.stateOrProvince.name;
                     // $scope.data.city = $scope.selectedCity.name;
@@ -365,45 +402,6 @@ var app = angular
                 }
                 $scope.adsFlag = "0";
             }
-            if ($stateParams.addressId) {
-                addressSvr
-                    .getAddressInfo($stateParams.addressId)
-                    .then(function(result) {
-                        if (result.data) {
-                            $timeout(function() {
-                                $scope.data = result.data;
-
-                                var province = result.data.stateOrProvince;
-                                var city = result.data.city;
-                                var area = result.data.area;
-                                $scope.getProvince(province, city, area);
-
-
-                                // rebindStateOrProvince($scope.data.stateOrProvince, $scope.data.city);
-                                $scope.$apply(function() {
-                                    if (!!$scope.data.idCardFront) $scope.state.showCardFront = false;
-                                    if (!!$scope.data.idCardBack) $scope.state.showCardBack = false;
-                                })
-                            });
-                        }
-                    }, function(error) {
-                        if (error.data.message) {
-                            console.error(error.data.message)
-                        }
-                    });
-            }
-
-            if ($stateParams.addressId) {
-                addressSvr
-                    .checkAddress({ addressNumber: $stateParams.addressId })
-                    .then(function(result) {
-                        if (result.data.code == '999') {
-                            alertify.alert('提示', result.data.msg, 'error');
-                            $scope.changeAddress = '0'
-                        }
-                    })
-            }
-
-
+            
         }
     ]);

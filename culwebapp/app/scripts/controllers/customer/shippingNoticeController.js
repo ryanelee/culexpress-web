@@ -119,11 +119,23 @@ var app = angular
                     .retrieveShippingNoticeList(index, $.extend({ status: status, customerNumber: customerNumber }, para))
                     .then(function(result) {
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
-                            $scope.shippingNoticeList = result.data.data;                          
+                            $scope.shippingNoticeList = result.data.data;  
+                            //  if(status === "Onshelf") {
+                            //     var shippingNoticeListOnshelf = [];
+                            //     $scope.shippingNoticeList.forEach(function(item) {
+                            //         if (item.status === "Onshelf"){
+                            //             shippingNoticeListOnshelf.push(item)
+                            //         } 
+                            //     })
+                            //     $scope.shippingNoticeList = shippingNoticeListOnshelf;
+                            //     // console.log(shippingNoticeListOnshelf)
+                            // }                        
                         },
                         function(err) {
 
                         });
+               
+                
             };
             $scope.initShippingNoticeList();
 
