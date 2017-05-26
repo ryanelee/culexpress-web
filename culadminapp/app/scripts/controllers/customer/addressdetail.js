@@ -87,6 +87,7 @@ angular.module('culAdminApp')
 
             $scope.init = function() {
                 addressService.getDetail($scope.transactionNumber, function(result) {
+                    console.log(result);
                     $scope.data = result;
                     $scope._province = result.stateOrProvince;
                     $scope._city = result.city;
