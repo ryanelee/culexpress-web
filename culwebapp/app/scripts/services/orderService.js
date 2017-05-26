@@ -15,8 +15,11 @@ angular.module('culwebApp')
         }, {
             id: 4,
             name: 'UPS'
-        }, {
+        },{
             id: 5,
+            name: 'USPS'
+        }, {
+            id: 6,
             name: '其他快递'
         }];
         var goodsCategories = [{
