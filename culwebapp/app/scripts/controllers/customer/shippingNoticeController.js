@@ -60,6 +60,7 @@ var app = angular
                         isFastOrder: $scope.shippingNotice.isFastOrder
                     })
                     .then(function(result) {
+                     
                             if (!!result.data.transactionNumber) {
                                 if (!!$scope.shippingNotice.isFastOrder) {
                                     return $scope.submitToFastOrder(result.data.transactionNumber);
@@ -118,6 +119,7 @@ var app = angular
                 orderSvr
                     .retrieveShippingNoticeList(index, $.extend({ status: status, customerNumber: customerNumber }, para))
                     .then(function(result) {
+                           console.log(result);
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
                             $scope.shippingNoticeList = result.data.data;  
                             //  if(status === "Onshelf") {

@@ -36,7 +36,7 @@
                     <th>收货人姓名</th>
                     <th>手机号码</th>
                     <th>收货地址</th>
-                    <th>验证状态</th>
+                    <!--<th>验证状态</th>-->
                     <th>操作</th>
                 </tr>
             </thead>
@@ -60,9 +60,9 @@
                         <span ng-show="!!item.receiveCompanyName">{{item.receiveCompanyName}}</span>
                         <span ng-show="!!item.zipcode">({{item.zipcode}})</span>
                     </td>
-                    <td ng-class="{'alert-danger': item.verifyMark == 0}">{{item._verifyMark}}</td>
+                    <!--<td ng-class="{'alert-danger': item.verifyMark == 0}">{{item._verifyMark}}</td>-->
                     <td>
-                        <a href="javascript:void(0);" class="role" data-role="29" ng-click="btnVerification(item, $index)">{{item.verifyMark == 0 ? '验证' : "取消验证"}}</a>
+                        <!--<a href="javascript:void(0);" class="role" data-role="29" ng-click="btnVerification(item, $index)">{{item.verifyMark == 0 ? '验证' : "取消验证"}}</a>-->
                         <a href="javascript:void(0);" class="role" data-role="30" ng-click="btnDelete(item)">删除</a>
                     </td>
                 </tr>

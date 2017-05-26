@@ -60,6 +60,15 @@ angular.module('culAdminApp')
                       break;
               }
             }
+             $scope.keydownBtnSave = function (event) {
+              switch (event.keyCode) {
+                  case 13:  //enter
+                      $scope.btnSave();
+                      break;
+              }
+            }
+
+            
 
             // var _timeout = null;
             $scope.checkItemNumber = function() {

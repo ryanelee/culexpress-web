@@ -93,11 +93,17 @@
                                     <div class="btn-tootip-left">
                                         <span ng-if="!isPrint">&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                     </div>
+<<<<<<< HEAD
                                     <div class="" ng-show="data.orderStatus != 'Shipped'">
                                         <a href="javascript:void(0);" ng-click="btnPrint(item)" ng-mouseover="isPrint = true" ng-mouseleave="isPrint = fasle" style="float: left;"><i class="fa fa-print btn-icon red"></i></a>
                                         <a href="javascript:void(0);" ng-click="btnSplitPackage(item)" ng-mouseover="isSplit = true" ng-mouseleave="isSplit = fasle"
+=======
+                                    <div class="" ng-if="data.orderStatus != 'Shipped'">
+                                        <a href="javascript:void(0);" ng-click="btnPrint(item)" ng-mouseover="isPrint = true" ng-mouseleave="isPrint = false" style="float: left;"><i class="fa fa-print btn-icon red"></i></a>
+                                        <a href="javascript:void(0);" ng-click="btnSplitPackage(item)" ng-mouseover="isSplit = true" ng-mouseleave="isSplit = false"
+>>>>>>> 162c6d1bc50cc5f439b4fef02988769767db6456
                                             style="float: left;"><i class="fa fa-cubes btn-icon red"></i></a>
-                                        <a href="javascript:void(0);" ng-click="btnDelPackage(item)" ng-mouseover="isDel = true" ng-mouseleave="isDel = fasle" style="float: left;"><i class="fa fa-delicious btn-icon red"></i></a>
+                                        <a href="javascript:void(0);" ng-click="btnDelPackage(item)" ng-mouseover="isDel = true" ng-mouseleave="isDel = false" style="float: left;"><i class="fa fa-delicious btn-icon red"></i></a>
                                     </div>
                                     <div class="btn-tootip-right">
                                     </div>
