@@ -1958,8 +1958,9 @@ select:-webkit-autofill {
 
 .promo-cashback .content {
 	padding-top: 350px;
-	/*padding-left: 150px;*/
-	width: 800px
+	max-width: 800px;
+    padding: 350px 25px 10px 25px;
+
 }
 
 .promo-cashback .content span {
@@ -3555,6 +3556,13 @@ select:-webkit-autofill {
     font-size: 0.75em;
     color: #888888;
 	margin:0px;
+}
+
+.login-remember {
+	margin-top:20px;
+	display: inline-block; 
+	width: 100%;
+	max-width: 430px;
 }
 
 

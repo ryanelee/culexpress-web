@@ -18413,6 +18413,8 @@ ul.main-menu > li > a,
 /* line 469, ../../sass/partials/_main-content.scss */
 .widget .widget-content {
   padding: 20px 10px;
+  min-width: 900px;
+  overflow: scroll;
 }
 /* line 472, ../../sass/partials/_main-content.scss */
 .widget .widget-content h4 {
