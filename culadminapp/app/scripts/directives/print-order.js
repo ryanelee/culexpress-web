@@ -41,7 +41,6 @@ angular.module('culAdminApp')
                     } 
                     orderService.getList(_options, function(result) {
                         $scope.dataList = result.data;
-                        console.log(result.data);
                         $.each($scope.dataList, function(i, _data) {
                             _data._shippingFeeTotal = 0;
                            
@@ -56,26 +55,28 @@ angular.module('culAdminApp')
                         var j = 0;
                         for (var i = 0; i < $scope.dataList.length; i++) {
                             j++;
-                            $scope.dataList[i].inboundPackages.forEach(function(e) {
-                                var detail = {
-                                    customerNumber: $scope.dataList[i].customerNumber,
-                                    orderNumber: $scope.dataList[i].orderNumber,
-                                    cartonCount: $scope.dataList[i].cartonCount,
-                                    payDate: $scope.dataList[i].payDate,
-                                    tip: $scope.dataList[i].tip,
-                                }
-                                
-                                if (e.shelfNumber) {
-                                    detail.sort = e.shelfNumber.substr(0, 1);
-                                } else {
-                                    detail.sort = 'H'
-                                }
-                                detail.trackingNumber = e.trackingNumber;
-                                detail.shelfNumber = e.shelfNumber;
-                                detail.packageWeight = e.packageWeight;
-                                shelf.data.push(detail);
-                            })
-
+                            if($scope.dataList[i].inboundPackages && $scope.dataList[i].inboundPackages.length > 0){
+                                $scope.dataList[i].inboundPackages.forEach(function(e) {
+                                    var detail = {
+                                        customerNumber: $scope.dataList[i].customerNumber,
+                                        orderNumber: $scope.dataList[i].orderNumber,
+                                        cartonCount: $scope.dataList[i].cartonCount,
+                                        payDate: $scope.dataList[i].payDate,
+                                        tip: $scope.dataList[i].tip,
+                                    }
+                                    
+                                    if (e.shelfNumber) {
+                                        detail.sort = e.shelfNumber.substr(0, 1);
+                                    } else {
+                                        detail.sort = 'H'
+                                    }
+                                    detail.trackingNumber = e.trackingNumber;
+                                    detail.shelfNumber = e.shelfNumber;
+                                    detail.packageWeight = e.packageWeight;
+                                    shelf.data.push(detail);
+                                })
+                            }
+                            
                             if (j % 10 == 0 || i == $scope.dataList.length - 1) {
                                 var tempshelf = _.sortBy(shelf.data, function(item) {
                                     return item.sort;
