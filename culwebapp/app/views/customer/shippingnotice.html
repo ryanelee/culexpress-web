@@ -37,7 +37,7 @@
                   <b class="tooltip tooltip-bottom-left">请填写您这个包裹的物品大致名称，例如：手机 ,衣服,维生素</b>
               </label>
             </div>
-            <div class="form-group" ng-show="!!shippingNotice.isFastOrder">
+            <div class="form-group inline-block" ng-show="!!shippingNotice.isFastOrder">
                 <label class="label required">包裹重量</label>
                 <label class="input">
                    <i class="icon-prepend fa fa-question-circle"></i>
@@ -45,7 +45,7 @@
                    <b class="tooltip tooltip-bottom-left">请输入包裹重量，如:10</b>
                 </label>
             </div>
-            <div class="form-group">
+            <div class="form-group inline-block">
                 <label class="label">运单备注信息</label>
                 <label class="textarea">
                   <i class="icon-append fa fa-comment"></i>
@@ -71,7 +71,8 @@
             </div>
             <footer>
                 <div class="row">
-                    <div class="col-xs-6">
+                    <!--<div class="col-xs-6">-->
+                    <div class="left-row">
                         <button class="btn-u bg-color-ffb" ng-click="addShippingNotice();">
                         <span ng-show="!shippingNotice.isFastOrder">提交信息</span>
                         <span ng-show="!!shippingNotice.isFastOrder">下一步</span>
@@ -79,7 +80,8 @@
                         <button class="btn-u btn-u-default" ng-click="reset()"><i class="fa fa-refresh"> 重新填写</i></button>
                         <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
                     </div>
-                    <div class="col-xs-6 text-right">
+                    <!--<div class="col-xs-6 text-right">-->
+                    <div class="right-row text-align-right margin-top">
                         <a ui-sref="customer.shippingnoticelist"><button class="btn-u bg-color-ffb"><i class="fa fa-history"> 预报记录</i></button></a>
                     </div>
                 </div>

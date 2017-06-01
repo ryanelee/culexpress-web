@@ -3564,5 +3564,18 @@ select:-webkit-autofill {
 	width: 100%;
 	max-width: 430px;
 }
+.inline-block {
+	display: inline-block;
+}
 
+@media (min-width:420px) {
+    .text-align-right {
+		text-align: right;
+	}
+}
+@media (max-width:420px) {
+    .margin-top {
+		margin-top: 10px;
+	}
+}
 
