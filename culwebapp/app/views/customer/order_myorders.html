@@ -13,7 +13,7 @@
             <form action="#" id="sky-form" class="sky-form form-inline" novalidate="novalidate">
                 <div class="row">
                     <daterange-search label="预报时间" btn-text="查看历史订单" on-search="rangSearch"></daterange-search>
-                    <div class="form-group" style="margin-left: 50px;">
+                    <div class="form-group">
                         <label>搜索条目：</label>
                         <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
                         <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" ng-enter="searchOrder()" />
