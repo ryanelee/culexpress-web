@@ -218,7 +218,8 @@ var app = angular
                     shippingNoticeItem.checked = checkSelected();
                 }
 
-                var canSelectItems = $filter('filter')($scope.shippingNoticeList, function(item) { return item.status === 'Inbound'; }),
+                // var canSelectItems = $filter('filter')($scope.shippingNoticeList, function(item) { return item.status === 'Inbound'; }),
+                var canSelectItems = $filter('filter')($scope.shippingNoticeList, function(item) { return item.status === 'Onshelf' || item.status === 'Intransit'; }),
                     selectedItems = $filter('filter')(canSelectItems, function(item) { return item.checked === true; });
                 $scope.selectedAll = canSelectItems.length === selectedItems.length;
             }
