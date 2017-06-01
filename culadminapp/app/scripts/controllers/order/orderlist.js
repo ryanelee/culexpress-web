@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderService", "warehouseService", "plugMessenger",
-        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderService, warehouseService, plugMessenger) {
+    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderService", "warehouseService", "plugMessenger", "storage",
+        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderService, warehouseService, plugMessenger, storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -44,13 +44,20 @@ angular.module('culAdminApp')
                 startTime_ss: "",
                 endDate: "",
                 endTime_HH: "0",
-                endTime_mm: "", 
+                endTime_mm: "",
                 endTime_ss: "",
                 opened: {
                     startDate: false,
                     endDate: false
                 }
             }
+            
+
+              $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
             warehouseService.getWarehouse(function (result) {
                 if (result.length == 1) {
@@ -116,6 +123,7 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function () {
+                storage.session.setObject("searchBar", $scope.searchBar);
                 var _options = _filterOptions();
                 orderService.getList(angular.copy(_options), function (result) {
                     $scope.dataList = result.data;
@@ -146,13 +154,13 @@ angular.module('culAdminApp')
             }
 
             $scope.selectedListCache = [];
-      
+
             $scope.btnSelectedItem = function (item) {
                 if (!!item) {
-                    if (!item._selected) {                                    
-                        $scope.searchBar.selectedAll = false;                   
+                    if (!item._selected) {
+                        $scope.searchBar.selectedAll = false;
                     }
-                } else {                        
+                } else {
                     $.each($scope.dataList, function (i, item) {
                         item._selected = $scope.searchBar.selectedAll;
                     });
@@ -160,11 +168,11 @@ angular.module('culAdminApp')
                 //将当前页所有选中的item缓存到$scope.selectedListCache中（并去重）。
                 $.each($scope.dataList, function (i, item) {
                     var isExists = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
-                    if (!!item._selected && isExists == false) {                
+                    if (!!item._selected && isExists == false) {
                         $scope.selectedListCache.push(angular.copy(item));
                     } else if (!item._selected && isExists == true) {
                         $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
-                    }         
+                    }
                 });
                 var _orderNumbers = [];
                 var _options = _filterOptions();
@@ -193,7 +201,7 @@ angular.module('culAdminApp')
             $scope.delSomeOrder = function () {
                 //每次执行批量删除时，将之前的选中记录清理掉。
                 $scope.orderNumberList = [];
-                $scope.dataList.forEach(function (e) {                       
+                $scope.dataList.forEach(function (e) {
                     if (e._selected == true) {
                         $scope.orderNumberList.push(e.orderNumber)
                     }
@@ -214,7 +222,7 @@ angular.module('culAdminApp')
                     $scope.searchOrder.orderNumber = item.orderNumber
                 }
 
-                plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {                  
+                plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
                     if (!!isOK) {
                         orderService.delete($scope.searchOrder, function () {
                             $scope.getData();

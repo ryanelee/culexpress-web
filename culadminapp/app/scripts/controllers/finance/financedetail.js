@@ -65,7 +65,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function() {
-                $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
 
             $("[id='tip_online_order']").popover({

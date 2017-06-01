@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('MessageListCtrl', ["$scope", "$rootScope", "$location", "faqService", "warehouseService", "plugMessenger", "$route",
-        function($scope, $rootScope, $location, faqService, warehouseService, plugMessenger, $route) {
+    .controller('MessageListCtrl', ["$scope", "$rootScope", "$location", "faqService", "warehouseService", "plugMessenger", "$route","storage",
+        function($scope, $rootScope, $location, faqService, warehouseService, plugMessenger, $route,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -45,6 +45,13 @@ angular.module('culAdminApp')
                 }
             }
 
+             $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //   storage.session.setObject("searchBar", $scope.searchBar);
+
+
             var _filterOptions = function() {
                 if (!!$scope.searchBar.startDate) {
                     $scope.searchBar.startDate.setHours($scope.searchBar.startTime_HH !== "" ? $scope.searchBar.startTime_HH : 0);
@@ -77,6 +84,7 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function() {
+                storage.session.setObject("searchBar", $scope.searchBar);
                 var _options = _filterOptions();
                 //console.log(_options);
                 faqService.getList(angular.copy(_options), function(result) {

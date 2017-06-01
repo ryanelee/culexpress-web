@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('UserListCtrl', ["$scope", "$location", "userService", "plugMessenger",
-        function ($scope, $location, userService, plugMessenger) {
+    .controller('UserListCtrl', ["$scope", "$location", "userService", "plugMessenger","storage",
+        function ($scope, $location, userService, plugMessenger,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -27,8 +27,14 @@ angular.module('culAdminApp')
                 active: "",
                 userName: ""
             }
+               $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
             $scope.getData = function () {
+                storage.session.setObject("searchBar", $scope.searchBar);
                 var _options = {
                     "pageInfo": $scope.pagination,
                     'active': $scope.searchBar.active,

@@ -112,14 +112,14 @@ angular.module('culAdminApp')
                   userService.update($scope.form, function(res) {
                       if (res.changedRows) {
                           plugMessenger.success("保存成功");
-                          $window.history.back();
+                          $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
                       }
                   })
               } else {
                   userService.addUser($scope.form, function(res) {
                       if (!res.message) {
                           plugMessenger.success("保存成功");
-                          $window.history.back();
+                          $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
                       }
                   })
               }

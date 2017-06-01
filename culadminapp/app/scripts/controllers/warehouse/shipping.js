@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('WarehouseShippingCtrl', ['$scope', '$location', '$window', 'shippingSvr',
-      function ($scope, $location, $window, shippingSvr) {
+  .controller('WarehouseShippingCtrl', ['$scope', '$location', '$window', 'shippingSvr','storage',
+      function ($scope, $location, $window, shippingSvr,storage) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -26,6 +26,7 @@ angular.module('culAdminApp')
           }
 
           $scope.getData = function () {
+               storage.session.setObject("searchBar", $scope.searchBar);
               var dataResult = shippingSvr.getShippingList({}, $scope.pagination.pageIndex, $scope.pagination.pageSize);
               $scope.dataList = dataResult.list;
               $scope.pagination.total = dataResult.total;
@@ -41,7 +42,11 @@ angular.module('culAdminApp')
                   endDate: false
               }
           }
-
+         $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
           $scope.linkToExpressWebSite = function (receiptItem) {
               var expressCfg = {

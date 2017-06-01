@@ -128,7 +128,7 @@ angular.module('culAdminApp')
                         if (element)
                             element.focus()
                         plugMessenger.success("保存成功");
-                        //$window.history.back();
+                        //$window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
                         _reset();
                     }
                     //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
@@ -158,7 +158,7 @@ angular.module('culAdminApp')
                             warehouseService.outboundPackageShip(outboundPackages, function (result) {
                                 if (result.success == true) {
                                     plugMessenger.success("出库成功");
-                                    //$window.history.back();
+                                    //$window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
                                     _reset();
                                 }
                             });
@@ -170,7 +170,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function () {
-                $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
 
             $('#tip_umipackage').popover({

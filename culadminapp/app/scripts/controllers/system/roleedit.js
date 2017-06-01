@@ -194,14 +194,14 @@ angular.module('culAdminApp')
                   sysroleService.update($scope.form, function(res) {
                       if (res.changedRows) {
                           plugMessenger.success("保存成功");
-                          $window.history.back();
+                          $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
                       }
                   })
               } else {
                   sysroleService.create($scope.form, function(res) {
                       if (!res.message) {
                           plugMessenger.success("保存成功");
-                          $window.history.back();
+                          $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
                       }
                   })
               }
@@ -210,7 +210,7 @@ angular.module('culAdminApp')
           // 返回列表
           $scope.back = function () {
               //$location.path('/system/rolelist');
-              $window.history.back();
+              $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
           }
 
       }]);

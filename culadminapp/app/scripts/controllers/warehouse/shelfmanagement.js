@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('WarehouseShelfManagementCtrl', ['$timeout', '$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService', 'plugMessenger',
-        function($timeout, $window, $rootScope, $scope, $location, warehouseService, shelfService, plugMessenger) {
+    .controller('WarehouseShelfManagementCtrl', ['$timeout', '$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService', 'plugMessenger','storage',
+        function($timeout, $window, $rootScope, $scope, $location, warehouseService, shelfService, plugMessenger,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -31,6 +31,12 @@ angular.module('culAdminApp')
                 keywords: $location.search().receiptNumber || "",
                 warehouseNumber: "",
             }
+            
+               $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
             $scope.pagination = {
                 pageSize: "20",
@@ -74,6 +80,7 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function() {
+                storage.session.setObject("searchBar", $scope.searchBar);
                 shelfService.getList(_filterOptions(), function(result) {
                     var _data = result.data;
                     //console.log(_data)

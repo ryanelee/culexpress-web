@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('MSGListCtrl', ["$scope", "$filter", "faqService", function ($scope, $filter, faqService) {
+  .controller('MSGListCtrl', ["$scope", "$filter", "faqService", "storage",function ($scope, $filter, faqService,storage) {
       this.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -31,12 +31,19 @@ angular.module('culAdminApp')
               endDate: false
           }
       }
+          $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //   storage.session.setObject("searchBar", $scope.searchBar);
+
 
       faqService.getMessageType(7, function (result) {
           $scope.searchBar.messageTypeData = result;
       });
 
       $scope.getData = function () {
+          storage.session.setObject("searchBar", $scope.searchBar);
           var _options = {
               "pageInfo": $scope.pagination,
               "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",

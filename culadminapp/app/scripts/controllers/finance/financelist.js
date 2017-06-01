@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('FinanceListCtrl', ["$timeout", "$window","$scope","$rootScope","$location", "$filter", "customerService", "warehouseService", "plugMessenger",
-      function ($timeout, $window,$scope,$rootScope,$location, $filter, customerService, warehouseService, plugMessenger) {
+  .controller('FinanceListCtrl', ["$timeout", "$window","$scope","$rootScope","$location", "$filter", "customerService", "warehouseService", "plugMessenger","storage",
+      function ($timeout, $window,$scope,$rootScope,$location, $filter, customerService, warehouseService, plugMessenger,storage) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -36,6 +36,12 @@ angular.module('culAdminApp')
               keywordType: "customerNumber",
               warehouseNumber: ""
           }
+              $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //   storage.session.setObject("searchBar", $scope.searchBar);
+
 
           warehouseService.getWarehouse(function (result) {
               if (result.length == 1) {
@@ -60,6 +66,7 @@ angular.module('culAdminApp')
           }
 
           $scope.getData = function () {
+              storage.session.setObject("searchBar", $scope.searchBar);
               var _options = _filterOptions();
               customerService.statisticsList(angular.copy(_options), function (result) {
                   $scope.dataList = result.data;

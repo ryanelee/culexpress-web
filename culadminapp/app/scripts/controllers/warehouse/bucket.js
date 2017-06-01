@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('WarehouseBucketCtrl', ['$scope', '$location', '$window', 'warehouseService', 'bucketService',
-        function($scope, $location, $window, warehouseService, bucketService) {
+    .controller('WarehouseBucketCtrl', ['$scope', '$location', '$window', 'warehouseService', 'bucketService',"storage",
+        function($scope, $location, $window, warehouseService, bucketService,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -30,6 +30,12 @@ angular.module('culAdminApp')
                     endDate: false
                 }
             }
+
+              $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
             $scope.pagination = {
                 pageSize: "20",
@@ -64,7 +70,8 @@ angular.module('culAdminApp')
             }
 
 
-          $scope.getData = function () {             
+          $scope.getData = function () {    
+              storage.session.setObject("searchBar", $scope.searchBar);         
               bucketService.getList(_filterOptions(), function (result) {
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
@@ -80,6 +87,7 @@ angular.module('culAdminApp')
               $scope.pagination.totalCount = 0;
               $scope.getData();
           }
+           
 
           $scope.btnAction = function (type, item) {
               switch (type) {

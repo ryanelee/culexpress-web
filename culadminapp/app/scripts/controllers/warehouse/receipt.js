@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('ReceiptCtrl', ['$rootScope','$scope', '$location', "$filter", '$window', 'warehouseService', "plugMessenger",
-      function ($rootScope,$scope, $location, $filter, $window, warehouseService, plugMessenger) {
+  .controller('ReceiptCtrl', ['$rootScope','$scope', '$location', "$filter", '$window', 'warehouseService', "plugMessenger","storage",
+      function ($rootScope,$scope, $location, $filter, $window, warehouseService, plugMessenger,storage) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -34,8 +34,14 @@ angular.module('culAdminApp')
                   endDate: false
               }
           }
+             $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
           $scope.getData = function () {
+               storage.session.setObject("searchBar", $scope.searchBar);
               var _options = {
                   "pageInfo": $scope.pagination,
                   "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",

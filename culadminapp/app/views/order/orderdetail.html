@@ -61,7 +61,7 @@
                 </div>
             </fieldset>
             <fieldset>
-                <legend>收货地址1</legend>
+                <legend>收货地址</legend>
                 <div class="form-group">
                     <div class="col-sm-8 col-sm-offset-2">
                         <table class="table">
@@ -80,7 +80,7 @@
                                     <td>
                                         <div ng-show="!address._edit">
                                             {{address.receivePersonName}}
-                                            <span ng-if="!!address.cellphoneNumber">({{address.cellphoneNumber}})</span> {{address.address1}}{{address.receiveCompanyName}}
+                                            <span ng-if="!!address.cellphoneNumber">({{address.cellphoneNumber}})</span>                                            {{address.address1}}{{address.receiveCompanyName}}
                                             <span ng-if="!!address.zipcode">({{address.zipcode}})</span>
                                         </div>
                                         <div ng-show="!!address._edit">
@@ -98,12 +98,14 @@
                                                 <label class="col-sm-2 control-label text-right">收货地址</label>
                                                 <div class="row">
                                                     <div class="col-sm-3">
-                                                        <select style="padding: 0 10px;" class="form-control" ng-options="province as province.name for province in provinces" ng-model="address.province" ng-change="getCity(null,null,address);">
+                                                        <select style="padding: 0 10px;" class="form-control" ng-options="province as province.name for province in provinces" ng-model="address.province"
+                                                            ng-change="getCity(null,null,address);">
                           <option>请选择省份</option>
                       </select>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <select style="padding: 0 10px;" class="form-control" ng-options="city as city.name for city in citys" ng-model="address.city" ng-change="getArea(null,address);">
+                                                        <select style="padding: 0 10px;" class="form-control" ng-options="city as city.name for city in citys" ng-model="address.city"
+                                                            ng-change="getArea(null,address);">
                           <option>请选择城市</option>
                       </select>
                                                     </div>
@@ -153,6 +155,43 @@
                 </div>
             </fieldset>
             <fieldset>
+                <legend>费用明细</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">费用明细: </label>
+                    <div class="row col-sm-8">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>包裹重量</th>
+                                    <th>运 &nbsp; &nbsp; &nbsp; 费</th>
+                                    <th>购买保险</th>
+                                    <th>小 &nbsp; &nbsp; &nbsp; 费</th>
+                                    <th>增值服务</th>
+                                    <th>积分抵扣</th>
+                                    <th>运费总计</th>
+                                    <th>支付日期</th>
+                                    <th>实际支付</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{data.actualWeight | number : 2}}磅</td>
+                                    <td>{{data.shippingFee | currency:'¥'}}</td>
+                                    <td>{{data.insuranceFee | currency:'¥'}}</td>
+                                    <td>{{data.tip | currency:'¥'}}</td>
+                                    <td>{{data.valueAddFee | currency:'¥'}}</td>
+                                    <td>{{(data.usedPoint||0) | currency:'￥'}}</td>
+                                    <td>{{data.totalCount | currency:'¥'}}</td>
+                                    <td>{{data.payDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{data.paied | currency:'¥'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset>
                 <legend>订单内容</legend>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">发货渠道：</label>
@@ -160,8 +199,10 @@
                         <label class="control-label">{{ data.shipServiceName }}</label>
                     </div>
                 </div>
+
+
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">入库单号：</label>
+                    <label class="col-sm-2 control-label text-right">入库信息: </label>
                     <div class="row col-sm-8">
                         <table class="table">
                             <thead>
@@ -175,7 +216,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="item in data.inboundPackages">
-                                    <td>{{item.trackingNumber}} 
+                                    <td>{{item.trackingNumber}}
                                         <span ng-if="data.isFastOrder == 1" title="极速原箱">
                                             <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
                                         </span>
@@ -271,10 +312,12 @@
                             </tbody>
                         </table>
                         <div ng-if="!!isShow">
-                            <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('cancel')" ng-show="!!_editOrderItems">
+                            <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('cancel')"
+                                ng-show="!!_editOrderItems">
                                 <i class="fa fa-repeat"></i>取消修改
                         </button>
-                            <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('add')" ng-show="!!_editOrderItems">
+                            <button type="button" class="btn btn-default pull-right" style="margin-left: 10px;" ng-click="btnOrderItems_Oper('add')"
+                                ng-show="!!_editOrderItems">
                             <i class="fa fa-plus"></i>新增
                         </button>
                             <label class="control-label red pull-right" ng-show="!!_editOrderItems">内容修改后，请点击底部“保存”按钮。</label>
@@ -413,6 +456,6 @@
 
 <style>
     .form-edit input:focus {
-        width:200px;
+        width: 200px;
     }
 </style>

@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('ReceiptExceptionCtrl', ['$rootScope', '$scope', '$location', "$filter", '$window', 'warehouseService', 'shelfService', 'receiptService', 'plugMessenger',
-        function($rootScope, $scope, $location, $filter, $window, warehouseService, shelfService, receiptService, plugMessenger) {
+    .controller('ReceiptExceptionCtrl', ['$rootScope', '$scope', '$location', "$filter", '$window', 'warehouseService', 'shelfService', 'receiptService', 'plugMessenger','storage',
+        function($rootScope, $scope, $location, $filter, $window, warehouseService, shelfService, receiptService, plugMessenger,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -37,6 +37,11 @@ angular.module('culAdminApp')
                     endDate: false
                 }
             }
+              $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
             warehouseService.getWarehouse(function(result) {
                 if (result.length == 1) {
@@ -78,6 +83,7 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function() {
+                storage.session.setObject("searchBar", $scope.searchBar);
                 receiptService.getExceptionList(_filterOptions(), function(result) {
                     var _data = result.data;
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
@@ -100,7 +106,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function() {
-                $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
 
             $scope.btnOpenDetail = function(type, item) {
