@@ -28,14 +28,13 @@ angular.module('culAdminApp')
     // keywordType: "receiptNumber",
             /*search bar*/
             $scope.searchBar = {
-                keywordType: "itemNumber",
+                keywordType: "receiptNumber",
                 warehouseNumber: "",
                 inventoryCondition: "",
                 inventoryConditionValue: "0",
                 categoryId: "",
                 categorySubId: "",
                 sendType: "",
-            
                 dateRange: "",
                 startDate: "",
                 endDate: "",
