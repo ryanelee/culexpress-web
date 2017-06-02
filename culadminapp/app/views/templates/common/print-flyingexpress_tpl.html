@@ -45,8 +45,12 @@
 
             <tr>
                 <td class="title">收货地址</td>
-                <td colspan="5">
+                <td colspan="5" ng-if="data.shipServiceId != 9 && data.shipServiceId != 10 ">
                     {{data.address.receivePersonName}}<span ng-show="!!data.address.cellphoneNumber">({{data.address.cellphoneNumber}})</span>{{data.address.address1}}{{data.address.receiveCompanyName}}
+                    <span ng-show="!!data.address.zipcode">({{data.address.zipcode}})</span>
+                </td>
+                 <td colspan="5" ng-if="data.shipServiceId == 9 || data.shipServiceId == 10 ">
+                    {{data.address.receivePersonName}}<span ng-show="!!data.address.cellphoneNumber">({{data.address.cellphoneNumber}})</span>{{data.address.addressPinyin}}{{data.address.address1_before}}{{data.address.receiveCompanyName}}
                     <span ng-show="!!data.address.zipcode">({{data.address.zipcode}})</span>
                 </td>
             </tr>
