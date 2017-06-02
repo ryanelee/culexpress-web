@@ -95,11 +95,11 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">CUL包裹单号：</label>
                     <div class="col-sm-6">
-                        <input type="text" id="key_trackingNumber" class="form-control" ng-model="_selectedPackage.trackingNumber" ng-change="checkTrackingNumber()" ng-disabled="!!tpl_status.readonly">
+                        <input type="text" id="key_trackingNumber" class="form-control" ng-model="_selectedPackage.trackingNumber" ng-keydown="keydownTrackingNumber($event)" ng-disabled="!!tpl_status.readonly">
                     </div>
-                    <div class="pull-left red" style="line-height:34px; font-size:14px;" ng-show="!!_selectedPackage.trackingNumber && (selected_packages | filter: _selectedPackage.trackingNumber:true).length > 0">
+                    <!--<div class="pull-left red" style="line-height:34px; font-size:14px;" ng-show="!!_selectedPackage.trackingNumber && (selected_packages | filter: _selectedPackage.trackingNumber:true).length > 0">
                         <i class="fa fa-info-circle" style="margin-right:4px;"></i><span>正在修改包裹</span>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">包裹重量（磅）：</label>
@@ -117,7 +117,7 @@
                     <div class="col-sm-12">
                         <div class="contextual-summary-info contextual-background green-bg">
                             <p><i class="pull-left fa fa-check-circle" style="font-size:24px;"></i>
-                                <div class="pull-left" style="font-size:24px;"><span>已装袋的包裹总数： {{selected_packages.length || 0}}</span><span ng-if="tpl_status.readonly">,包裹总重量：{{bagTotalWeight}}kg</span></div>
+                                <div class="pull-left" style="font-size:24px;"><span>已装袋的包裹总数： {{selected_packages.length || 0}}</span><span ng-if="tpl_status.readonly">,包裹总重量：{{bagTotalWeight}} lb(s)</span></div>
                             </p>
                             <div class="clearfix"></div>
                         </div>
@@ -126,7 +126,8 @@
             </fieldset>
             <fieldset>
                 <div class="pull-left" style="margin:0 12px 12px 0;" ng-repeat="item in (selected_bags | filter: {_selected:true})[0].packages as selected_packages">
-                    <bucket-item type="package" ng-data="item" ng-fn-check="callback.check(item, selected_packages)" ng-fn-remove="callback.remove(item, 'package')" ng-disabled="!!tpl_status.readonly"></bucket-item>
+                    <!--<bucket-item type="package" ng-data="item" ng-fn-check="callback.check(item, selected_packages)" ng-fn-remove="callback.remove(item, 'package')" ng-disabled="!!tpl_status.readonly"></bucket-item>-->
+                    <bucket-item type="package" ng-data="item" ng-fn-remove="callback.remove(item, 'package')" ng-disabled="!!tpl_status.readonly"></bucket-item>
                 </div>
             </fieldset>
             <div class="col-md-12 text-center">
@@ -137,7 +138,7 @@
     </div>
 </div>
 
-<script>
+<!--<script>
     var key_trackingNumber = document.getElementById('key_trackingNumber');
     var key_weight = document.getElementById('key_weight');
     key_trackingNumber.addEventListener('keypress', function(event) {
@@ -145,4 +146,4 @@
             key_weight.focus();
         }
     });
-</script>
+</script>-->
