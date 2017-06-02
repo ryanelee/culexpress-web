@@ -145,9 +145,9 @@ angular.module('culAdminApp')
 
 
                     $("#package-title").text(_array.join(" > "));
-                    setTimeout(function () {
-                        $("#key_trackingNumber").focus();
-                    }, 100)
+                    // setTimeout(function () {
+                    //     $("#key_trackingNumber").focus();
+                    // }, 100)
                 },
                 remove: function (item, level) {
                     if (!item) return;
@@ -187,7 +187,7 @@ angular.module('culAdminApp')
                                 _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
                                 _selected_bag = _.findWhere(_bags, { _selected: true });
                             //删除box或bag下的当前操作的package
-                            _selected_bag.packages = _.filter(_selected_bag.packages, function (pkg) { return pkg != item });
+                            _selected_bag.packages = _.filter(_selected_bag.packages, function (pkg) { return pkg != item.trackingNumber });
                             //删除packageList的当前操作的package
                             $scope.data.packageList = _.filter($scope.data.packageList, function (pkg) { return pkg.trackingNumber != item.trackingNumber });
                             //如果当前操作的包裹是编辑状态下的包裹，则清除编辑状态。
