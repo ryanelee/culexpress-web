@@ -41,6 +41,7 @@ angular.module('culAdminApp')
                     } 
                     orderService.getList(_options, function(result) {
                         $scope.dataList = result.data;
+                        console.log($scope.dataList);
                         $.each($scope.dataList, function(i, _data) {
                             _data._shippingFeeTotal = 0;
                            

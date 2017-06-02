@@ -93,7 +93,7 @@ angular.module('culAdminApp')
                             _str += address.address1;
                         } else {
                             console.log("世界很美好")
-                            _str = _str + item.addressPinyin + address.address1_before;
+                            _str = _str + address.addressPinyin + address.address1_before;
                         }
                         if (!!address.receiveCompanyName) _str += address.receiveCompanyName;
                         if (!!address.zipcode) _str += "(" + address.zipcode + ")";
