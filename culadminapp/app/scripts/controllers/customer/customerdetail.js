@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('CustomerDetailCtrl', ["$scope", "$location", "customerService", "$window", "plugMessenger", "userService",
-      function ($scope, $location, customerService, $window, plugMessenger, userService) {
+  .controller('CustomerDetailCtrl', ["$scope", "$location", "customerService", "$window", "plugMessenger", "userService","storage",
+      function ($scope, $location, customerService, $window, plugMessenger, userService,storage) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -74,7 +74,8 @@ angular.module('culAdminApp')
           }
 
           $scope.btnPrev = function () {
-              $window.history.back();
+             storage.session.setValue("historyFlag",1);
+              $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
           }
 
           $scope.btnClearReference = function () {

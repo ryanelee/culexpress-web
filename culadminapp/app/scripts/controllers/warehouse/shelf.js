@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('WarehouseShelfCtrl', ['$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService',
-        function($window, $rootScope, $scope, $location, warehouseService, shelfService) {
+    .controller('WarehouseShelfCtrl', ['$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService','storage',
+        function($window, $rootScope, $scope, $location, warehouseService, shelfService,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -31,6 +31,11 @@ angular.module('culAdminApp')
                 keywords: $location.search().receiptNumber || "",
                 warehouseNumber: "",
             }
+              $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
             $scope.pagination = {
                 pageSize: "20",
@@ -71,6 +76,7 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function() {
+                 storage.session.setObject("searchBar", $scope.searchBar);
                     shelfService.getOnshelfList(_filterOptions(), function(result) {
                         //console.log("result")
                         //console.log(result)
@@ -107,7 +113,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function() {
-                $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
 
             $scope.btnPrint = function(warehouseNumber) {

@@ -8,13 +8,14 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('CustomerListCtrl', ["$scope", "$rootScope", "$location", "$filter", "customerService", "warehouseService", "plugMessenger", "$compile", "$http", '$window',
-        function ($scope, $rootScope, $location, $filter, customerService, warehouseService, plugMessenger, $compile, $http, $window) {
+    .controller('CustomerListCtrl', ["$scope", "$rootScope", "$location", "$filter", "customerService", "warehouseService", "plugMessenger", "$compile", "$http", '$window', 'storage',
+        function ($scope, $rootScope, $location, $filter, customerService, warehouseService, plugMessenger, $compile, $http, $window, storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
                 'Karma'
             ];
+
 
             $scope.dataList = [];
             $scope.pagination = {
@@ -35,13 +36,15 @@ angular.module('culAdminApp')
                 }
             }
 
-            //   $scope.serchFocus = function () {
-            //     //   $window.location.reload();
-            //       $window.document.getElementById("search").focus(); 
-            //   }
+            $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            
+            //   storage.session.setObject("searchBar", $scope.searchBar);
 
-            //   $scope.serchFocus();
             $scope.getData = function () {
+                storage.session.setObject("searchBar", $scope.searchBar);
                 var _options = {
                     "pageInfo": $scope.pagination,
                     "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",

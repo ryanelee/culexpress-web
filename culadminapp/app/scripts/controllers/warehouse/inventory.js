@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('WarehouseInventoryCtrl', ['$timeout', '$rootScope', '$scope', '$location', '$window', 'warehouseService', 'inventoryService',
-        function ($timeout, $rootScope, $scope, $location, $window, warehouseService, inventoryService) {
+    .controller('WarehouseInventoryCtrl', ['$timeout', '$rootScope', '$scope', '$location', '$window', 'warehouseService', 'inventoryService',"storage",
+        function ($timeout, $rootScope, $scope, $location, $window, warehouseService, inventoryService,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -25,7 +25,7 @@ angular.module('culAdminApp')
             ]
 
             $scope.dataList = [];
-
+    // keywordType: "receiptNumber",
             /*search bar*/
             $scope.searchBar = {
                 keywordType: "receiptNumber",
@@ -35,7 +35,6 @@ angular.module('culAdminApp')
                 categoryId: "",
                 categorySubId: "",
                 sendType: "",
-                // keywordType: "receiptNumber",
                 dateRange: "",
                 startDate: "",
                 endDate: "",
@@ -44,6 +43,11 @@ angular.module('culAdminApp')
                     endDate: false
                 }
             }
+               $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
             $scope.pagination = {
                 pageSize: "20",
@@ -121,6 +125,7 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function () {
+                 storage.session.setObject("searchBar", $scope.searchBar);
                 inventoryService.getList(_filterOptions(), function (result) {
 
                     var __data = result.data;

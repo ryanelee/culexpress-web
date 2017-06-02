@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('AddressListCtrl', ["$scope", "$location", "addressService", "plugMessenger", "$rootScope", function($scope, $location, addressService, plugMessenger, $rootScope) {
+    .controller('AddressListCtrl', ["$scope", "$location", "addressService", "plugMessenger", "$rootScope","storage", function($scope, $location, addressService, plugMessenger, $rootScope,storage) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -36,12 +36,20 @@ angular.module('culAdminApp')
                 endDate: false
             }
         }
+
+           $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //   storage.session.setObject("searchBar", $scope.searchBar);
+
         $scope.btnPrint = function() {
             $scope.$broadcast("print-idcard.action", { data: $scope.dataList });
         }
 
 
         $scope.getData = function() {
+            storage.session.setObject("searchBar", $scope.searchBar);
             var _options = {
                 "pageInfo": $scope.pagination
             }

@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('WarehouseListCtrl', ['$scope', '$location', '$window', 'sysroleService', 'customerService', 'warehouseService', 'plugMessenger',
-        function($scope, $location, $window, sysroleService, customerService, warehouseService, plugMessenger) {
+    .controller('WarehouseListCtrl', ['$scope', '$location', '$window', 'sysroleService', 'customerService', 'warehouseService', 'plugMessenger',"storage",
+        function($scope, $location, $window, sysroleService, customerService, warehouseService, plugMessenger,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -28,6 +28,11 @@ angular.module('culAdminApp')
                 pageIndex: 1,
                 totalCount: 0
             }
+            $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
             var _filterOptions = function() {
                 var _options = {
@@ -47,6 +52,7 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function() {
+                storage.session.setObject("searchBar", $scope.searchBar);
                 warehouseService.getWarehouseList(_filterOptions(), function(result) {
                     $scope.dataList = result.data.data;
                     $scope.pagination.totalCount = result.data.pageInfo.totalCount;
@@ -89,7 +95,7 @@ angular.module('culAdminApp')
                 // 返回列表
             $scope.back = function() {
                 //$location.path('/system/rolelist');
-                $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
         }
     ]);

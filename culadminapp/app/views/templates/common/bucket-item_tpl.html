@@ -7,7 +7,7 @@
                 <div><span>{{data.name}}</span></div>
                 <div ng-if="data.boxes.length > 0"><span>Box: {{data.boxes.length}}</span></div>
                 <div ng-if="data.bags.length > 0"><span>Bag: {{data.bags.length}}</span></div>
-                <div ng-if="data.readonly"><span>重量: {{data.totalWeight || 0}}kg</span></div>
+                <div ng-if="data.readonly"><span>重量: {{data.totalWeight || 0}} lb(s)</span></div>
 
             </div>
         </div>
@@ -25,20 +25,21 @@
             <div style="float:left; margin-left:12px;">
                 <div><span>{{data.name}}</span></div>
                 <div><span>包裹: {{data.packages.length || 0}}</span></div>
-                <div ng-if="data.readonly"><span>重量: {{data.totalWeight || 0}}kg</span></div>
+                <div ng-if="data.readonly"><span>重量: {{data.totalWeight || 0}} lb(s)</span></div>
             </div>
         </div>
         <!-- Package -->
         <div ng-if="type == 'package'">
             <div style="float:left;"><i class="fa fa-archive" style="font-size:60px;"></i></div>
             <div style="float:left; margin-left:12px;">
-                <div><span>{{data}}</span></div>
+                <div><span>{{data.trackingNumber}}</span></div>
+                <div><span>重量:{{data.weight || 0}} lb(s)</span></div>
             </div>
         </div>
         <div style="float:right" ng-show="isSelected"><i class="fa fa-check green"></i></div>
         <div class="clearfix"></div>
         <div>
-            <button class="btn btn-xs btn-danger" style="padding-top:3px; padding-right:3px;" ng-if="type != 'bag'" ng-click="callback_check()"><i class="fa fa-check-circle-o" style="font-size:16px;"></i></button>
+            <button class="btn btn-xs btn-danger" style="padding-top:3px; padding-right:3px;" ng-if="type != 'bag' && type != 'package'" ng-click="callback_check()"><i class="fa fa-check-circle-o" style="font-size:16px;"></i></button>
             <button class="btn btn-xs btn-danger" style="padding-top:3px; padding-right:3px;" ng-if="type == 'bag'" ng-click="callback_add()"><i class="fa fa-plus-circle" style="font-size:16px;"></i></button>
             <button class="btn btn-xs btn-danger" style="padding-top:3px; padding-right:3px;" ng-click="callback_remove()" ng-if="!disabled"><i class="fa fa-minus-circle" style="font-size:16px;"></i></button>
         </div>

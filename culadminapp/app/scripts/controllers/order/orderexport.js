@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('OrderExportCtrl', ["$scope", "orderService", function ($scope, orderService) {
+  .controller('OrderExportCtrl', ["$scope", "orderService","storage", function ($scope, orderService,storage) {
       this.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -23,6 +23,14 @@ angular.module('culAdminApp')
           channel: "0",
           selectedAll: false
       }
+
+         $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //   storage.session.setObject("searchBar", $scope.searchBar);
+
+
 
       $scope.pagination = {
           pageSize: "20",
@@ -72,6 +80,7 @@ angular.module('culAdminApp')
       }
 
       $scope.getData = function () {
+          storage.session.setObject("searchBar", $scope.searchBar);
           orderService.getList($scope.pagination, function (result) {
               $scope.dataList = result.data;
               $scope.pagination.totalCount = result.totalCount;

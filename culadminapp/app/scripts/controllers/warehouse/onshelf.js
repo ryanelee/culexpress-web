@@ -15,7 +15,6 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
-            console.log('23456')
 
             $scope.dataList = [];
             $scope.warehouseList = [];

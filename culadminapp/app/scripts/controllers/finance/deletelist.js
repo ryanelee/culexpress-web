@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('DeleteListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderService", "warehouseService", "plugMessenger",
-        function($timeout, $window, $scope, $rootScope, $location, $filter, orderService, warehouseService, plugMessenger) {
+    .controller('DeleteListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderService", "warehouseService", "plugMessenger","storage",
+        function($timeout, $window, $scope, $rootScope, $location, $filter, orderService, warehouseService, plugMessenger,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -51,6 +51,11 @@ angular.module('culAdminApp')
                     endDate: false
                 }
             }
+               $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //   storage.session.setObject("searchBar", $scope.searchBar);
 
             warehouseService.getWarehouse(function(result) {
                 if (result.length == 1) {
@@ -117,6 +122,8 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function() {
+                 storage.session.setObject("searchBar", $scope.searchBar);
+
                 var _options = _filterOptions();
                 //console.log(_options);
                 orderService.getList(angular.copy(_options), function(result) {

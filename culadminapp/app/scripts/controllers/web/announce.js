@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('AnnounceCtrl', ['$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService', 'customerService', 'plugMessenger',
-        function ($window, $rootScope, $scope, $location, warehouseService, shelfService, customerService, plugMessenger) {
+    .controller('AnnounceCtrl', ['$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService', 'customerService', 'plugMessenger','storage',
+        function ($window, $rootScope, $scope, $location, warehouseService, shelfService, customerService, plugMessenger,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -43,6 +43,11 @@ angular.module('culAdminApp')
                 pageIndex: 1,
                 totalCount: 0
             }
+              $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
             // warehouseService.getWarehouse(function (result) {
             //     if (result.length == 1) {
@@ -82,6 +87,7 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function () {
+                storage.session.setObject("searchBar", $scope.searchBar);
                 customerService.getWebAnnounce(_filterOptions(), function (result) {
                     //console.log(result);
                     $scope.dataList = result.data.data;
@@ -130,7 +136,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function () {
-                $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
 
             //路由
@@ -191,7 +197,7 @@ angular.module('culAdminApp')
             $scope.data = $location.search().item;
 
             $scope.btnPrev = function () {
-                $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
 
             //更新

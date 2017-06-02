@@ -225,7 +225,7 @@ angular.module('culAdminApp')
                     if (result.success) {
                         plugMessenger.success("操作成功");
                         $scope.data = null;
-                        //$window.history.back();
+                        //$window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
                          // 上架成功后停留在上架登记界面继续上架操作
                         //  $location.path("/warehouse/onshelfdetail"); 
                         var element = $window.document.getElementById('tempItemNumber');
@@ -236,7 +236,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function() {
-                $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
 
             $('#tip_itemNumber').popover({

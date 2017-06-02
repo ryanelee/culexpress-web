@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('WarehouseInventoryLogListCtrl', ['$scope', '$location', '$window', 'warehouseService', 'inventoryService',
-      function ($scope, $location, $window, warehouseService, inventoryService) {
+  .controller('WarehouseInventoryLogListCtrl', ['$scope', '$location', '$window', 'warehouseService', 'inventoryService','storage',
+      function ($scope, $location, $window, warehouseService, inventoryService,storage) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -36,6 +36,11 @@ angular.module('culAdminApp')
                   endDate: false
               }
           }
+           $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
           $scope.pagination = {
               pageSize: "20",
@@ -103,6 +108,7 @@ angular.module('culAdminApp')
           }
 
           $scope.getData = function () {
+              storage.session.setObject("searchBar", $scope.searchBar);
               inventoryService.getLogList(_filterOptions(), function (result) {
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
@@ -119,7 +125,7 @@ angular.module('culAdminApp')
           }
 
           $scope.btnPrev = function () {
-              $window.history.back();
+              $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
           }
       }]);
 

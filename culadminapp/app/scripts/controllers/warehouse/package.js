@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('WarehousePackageCtrl', ['$window','$rootScope','$scope', '$location', 'warehouseService', 'orderService','plugMessenger',
-      function ($window,$rootScope,$scope, $location, warehouseService, orderService, plugMessenger) {
+  .controller('WarehousePackageCtrl', ['$window','$rootScope','$scope', '$location', 'warehouseService', 'orderService','plugMessenger','storage',
+      function ($window,$rootScope,$scope, $location, warehouseService, orderService, plugMessenger,storage) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -39,6 +39,11 @@ angular.module('culAdminApp')
               warehouseNumber: "",
               exportStatus: "UnExported"
           }
+             $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
 
           warehouseService.getWarehouse(function (result) {
               if (result.length == 1) {
@@ -78,10 +83,11 @@ angular.module('culAdminApp')
           }
 
           $scope.getData = function () {
+              storage.session.setObject("searchBar", $scope.searchBar);
               var _options = _filterOptions();
               warehouseService.getOutboundPackageList($.extend(angular.copy(_options), { hasWeight: true }), function (result) {
                   var _data = result.data;  
-                    console.log(_data);                           
+                             
                   if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                       _data = _data.filter(function(x){
                           return $scope.customer_ids.split(",").includes(x.customerNumber);

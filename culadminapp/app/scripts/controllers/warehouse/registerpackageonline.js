@@ -183,7 +183,7 @@ angular.module('culAdminApp')
                         var checkedPackages = $scope.data.outboundPackages;
                         var _callback = function () {
                             plugMessenger.success("保存成功");
-                            //   $window.history.back();
+                            //   $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
                             // $location.path('/warehouse/package');
                             //打包完成后停留在到打包界面继续打包操作 
                             //  $location.path('/warehouse/registerpackageonline');
@@ -209,7 +209,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function () {
-                $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
 
             var _reset = function () {

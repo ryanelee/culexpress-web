@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-  .controller('FAQListCtrl', ["$scope", "$location", "$filter", "faqService", "plugMessenger", function ($scope, $location, $filter, faqService, plugMessenger) {
+  .controller('FAQListCtrl', ["$scope", "$location", "$filter", "faqService", "plugMessenger","storage", function ($scope, $location, $filter, faqService, plugMessenger,storage) {
       this.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
@@ -35,6 +35,11 @@ angular.module('culAdminApp')
           },
           selectedAll: false
       }
+         $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //   storage.session.setObject("searchBar", $scope.searchBar);
 
       faqService.getMessageType(7, function (result) {
           $scope.searchBar.messageTypeData = [{ "typeID": "", "typeName": "全部问题" }].concat(result);
@@ -53,6 +58,7 @@ angular.module('culAdminApp')
       }
 
       $scope.getData = function () {
+           storage.session.setObject("searchBar", $scope.searchBar);
           var _options = {
               "pageInfo": $scope.pagination,
               "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",

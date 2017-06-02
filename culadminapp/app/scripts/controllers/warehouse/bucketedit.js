@@ -145,9 +145,9 @@ angular.module('culAdminApp')
 
 
                     $("#package-title").text(_array.join(" > "));
-                    setTimeout(function () {
-                        $("#key_trackingNumber").focus();
-                    }, 100)
+                    // setTimeout(function () {
+                    //     $("#key_trackingNumber").focus();
+                    // }, 100)
                 },
                 remove: function (item, level) {
                     if (!item) return;
@@ -187,17 +187,17 @@ angular.module('culAdminApp')
                                 _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
                                 _selected_bag = _.findWhere(_bags, { _selected: true });
                             //删除box或bag下的当前操作的package
-                            _selected_bag.packages = _.filter(_selected_bag.packages, function (pkg) { return pkg != item });
+                            _selected_bag.packages = _.filter(_selected_bag.packages, function (pkg) { return pkg != item.trackingNumber });
                             //删除packageList的当前操作的package
-                            $scope.data.packageList = _.filter($scope.data.packageList, function (pkg) { return pkg.trackingNumber != item });
+                            $scope.data.packageList = _.filter($scope.data.packageList, function (pkg) { return pkg.trackingNumber != item.trackingNumber });
                             //如果当前操作的包裹是编辑状态下的包裹，则清除编辑状态。
-                            if (!!$scope._selectedPackage && $scope._selectedPackage.trackingNumber == item) $scope._selectedPackage = null;
+                            if (!!$scope._selectedPackage && $scope._selectedPackage.trackingNumber == item.trackingNumber) $scope._selectedPackage = null;
                             break;
                     }
                 }
             }
             $scope.btnPrev = function () {
-                $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
 
             $scope.btnClose = function () {
@@ -295,36 +295,36 @@ angular.module('culAdminApp')
             $scope.keydownTrackingNumber = function(event){
                 switch (event.keyCode) {
                   case 13:  //enter
-                      $scope.checkTrackingNumber();
+                      document.getElementById('key_weight').focus();
                       break;
               }
             };
 
-            $scope.checkTrackingNumber = function () {
-                if (!!_timeout) clearTimeout(_timeout);
-                _timeout = setTimeout(function () {
-                    $scope.$apply(function () {
-                        if (!!$scope._selectedPackage && !!$scope._selectedPackage.trackingNumber) {
-                            bucketService.checkPackage($scope._selectedPackage.trackingNumber, function (result) {
-                                if (!!result.msg) {
-                                    plugMessenger.info(result.msg);
-                                    $scope._selectedPackage = null;
-                                    _cacheCurrentResult = null;
-                                    return false;
-                                } else {
-                                    $scope._selectedPackage.trackingNumber = result.trackingNumber;
-                                    //$scope._selectedPackage.weight = result.actualWeight;
-                                    $scope._selectedPackage.weight = "";
-                                    _cacheCurrentResult = result;
-                                    return true;
-                                }
-                            });
-                        }
+            // $scope.checkTrackingNumber = function () {
+            //     if (!!_timeout) clearTimeout(_timeout);
+            //     _timeout = setTimeout(function () {
+            //         $scope.$apply(function () {
+            //             if (!!$scope._selectedPackage && !!$scope._selectedPackage.trackingNumber) {
+            //                 bucketService.checkPackage($scope._selectedPackage.trackingNumber, function (result) {
+            //                     if (!!result.msg) {
+            //                         plugMessenger.info(result.msg);
+            //                         $scope._selectedPackage = null;
+            //                         _cacheCurrentResult = null;
+            //                         return false;
+            //                     } else {
+            //                         $scope._selectedPackage.trackingNumber = result.trackingNumber;
+            //                         //$scope._selectedPackage.weight = result.actualWeight;
+            //                         $scope._selectedPackage.weight = "";
+            //                         _cacheCurrentResult = result;
+            //                         return true;
+            //                     }
+            //                 });
+            //             }
 
-                        return false;
-                    });
-                }, 1000);
-            }
+            //             return false;
+            //         });
+            //     }, 1000);
+            // }
             $scope._totalWeight = 0;
             $scope.totalWeight = function () {
                 $scope.data.packageList.forEach(function (element) {
@@ -334,39 +334,73 @@ angular.module('culAdminApp')
 
 
             $scope.btnSaveByPackage = function () {
-                if(_cacheCurrentResult == undefined)
-                    return;
-                // if($scope.checkTrackingNumber() == false )
-                //     return;
-
-                var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
-                    _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
-                    _selected_bag = _.findWhere(_bags, { _selected: true });
-                if (!$scope._selectedPackage) return;
-                //修改当前bag下的package
-                if (!!_.findWhere(_selected_bag.packages, { trackingNumber: $scope._selectedPackage.trackingNumber })) {
-                    var _package = _.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber });
-                    _package.weight = $scope._selectedPackage.weight;
-                } else if (!_.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber })) {
-                    if (_cacheCurrentResult.actualWeight - 1 < $scope._selectedPackage.weight && _cacheCurrentResult.actualWeight + 1 > $scope._selectedPackage.weight) {
-                        $scope.data.packageList.push({
-                            "trackingNumber": $scope._selectedPackage.trackingNumber,
-                            "weight": $scope._selectedPackage.weight
-                        });
-
-                        if (!_.isArray(_selected_bag.packages)) _selected_bag.packages = [$scope._selectedPackage.trackingNumber];
-                        else _selected_bag.packages.push($scope._selectedPackage.trackingNumber);
-                        $scope._selectedPackage = null;
-                    } else {
-                        plugMessenger.info("CUL包裹单号" + $scope._selectedPackage.trackingNumber + "无法装袋:出库重量和打包重量不匹配。");
-                        return;
-                    }
-                } else {
-                    plugMessenger.info("包裹[" + $scope._selectedPackage.trackingNumber + "]已存在当前总单中，但不存在于正在操作的Bag中。");
+                if($scope._selectedPackage.weight <= 0){
+                    plugMessenger.info("包裹重量必须大于0.");
+                    document.getElementById('key_weight').focus();
                     return;
                 }
-                $scope._selectedPackage = null;
-                $scope.totalWeight();
+
+                bucketService.checkPackage($scope._selectedPackage.trackingNumber, function (result) {
+                    if (!!result.msg) {
+                        plugMessenger.info(result.msg);
+                        $scope._selectedPackage = null;
+                        _cacheCurrentResult = null;
+                        document.getElementById('key_trackingNumber').focus();
+                        return;
+                    } else {
+                        $scope._selectedPackage.trackingNumber = result.trackingNumber;
+                        //$scope._selectedPackage.weight = result.actualWeight;
+                        //$scope._selectedPackage.weight = "";
+                        _cacheCurrentResult = result;
+
+                        var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
+                            _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
+                            _selected_bag = _.findWhere(_bags, { _selected: true });
+                        if (!$scope._selectedPackage) return;
+                        //修改当前bag下的package
+                        if (!!_.findWhere(_selected_bag.packages, { trackingNumber: $scope._selectedPackage.trackingNumber })) {
+                            var _package = _.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber });
+                            _package.weight = $scope._selectedPackage.weight;
+                        } else if (!_.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber })) {
+                            if (_cacheCurrentResult.actualWeight <= 0 ){
+                                plugMessenger.info("CUL包裹单号" + $scope._selectedPackage.trackingNumber + "无法装袋:该包裹还未打包称重。");
+                                $scope._selectedPackage = null;
+                                _cacheCurrentResult = null;
+                                document.getElementById('key_trackingNumber').focus();
+                                return;
+                            }
+                            else if(_cacheCurrentResult.actualWeight - 1 < $scope._selectedPackage.weight && _cacheCurrentResult.actualWeight + 1 > $scope._selectedPackage.weight) {
+                                var _successPackage = angular.copy($scope._selectedPackage);
+                                _successPackage.weight = _cacheCurrentResult.actualWeight;
+
+                                $scope.data.packageList.push(_successPackage);
+
+                                if (!_.isArray(_selected_bag.packages)) {
+                                    _selected_bag.packages = [_successPackage];
+                                }
+                                else {
+                                    _selected_bag.packages.push(_successPackage);
+                                }
+                            } else {
+                                plugMessenger.info("CUL包裹单号" + $scope._selectedPackage.trackingNumber + "无法装袋:出库重量和打包重量不匹配。");
+                                $scope._selectedPackage = null;
+                                _cacheCurrentResult = null;
+                                document.getElementById('key_trackingNumber').focus();
+                                return;
+                            }
+                        } else {
+                            plugMessenger.info("包裹[" + $scope._selectedPackage.trackingNumber + "]已存在当前总单中。");
+                            $scope._selectedPackage = null;
+                            _cacheCurrentResult = null;
+                            document.getElementById('key_trackingNumber').focus();
+                            return;
+                        }
+                        _cacheCurrentResult = null;
+                        $scope._selectedPackage = null;
+                        $scope.totalWeight();
+                        document.getElementById('key_trackingNumber').focus();
+                    }
+                });
             }
 
             $scope.btnPrevByPackage = function () {

@@ -5,7 +5,7 @@
  * @name culAdminApp.controller:FinanceDetailPayCtrl
  * @description
  * # FinanceDetailPayCtrl
- * Controller of the culAdminApp
+ * Controller of the culAdminApp 
  */
 angular.module('culAdminApp')
     .controller('FinanceDetailRechangeCtrl', ["$scope", "$location", "$filter", "$window", "customerService", "warehouseService", "plugMessenger", "orderService",
@@ -82,10 +82,10 @@ angular.module('culAdminApp')
 
 
             $scope.btnSave = function() {
-                if ($scope.data.fee <= 0) {
-                    plugMessenger.info("请填写正确的金额（金额必须大于0元）");
-                    return;
-                }
+                // if ($scope.data.fee <= 0) {
+                //     plugMessenger.info("请填写正确的金额（金额必须大于0元）");
+                //     return;
+                // }
                 if ($scope.data.memo == "") {
                     plugMessenger.info("请填写支付备注信息");
                     return;
@@ -104,7 +104,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function() {
-                $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
 
             $("[id='tip_pay_fee']").popover({
