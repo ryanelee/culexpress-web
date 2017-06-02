@@ -349,7 +349,7 @@ angular.module('culAdminApp')
                         return;
                     } else {
                         $scope._selectedPackage.trackingNumber = result.trackingNumber;
-                        $scope._selectedPackage.weight = result.actualWeight;
+                        //$scope._selectedPackage.weight = result.actualWeight;
                         //$scope._selectedPackage.weight = "";
                         _cacheCurrentResult = result;
 
@@ -370,16 +370,16 @@ angular.module('culAdminApp')
                                 return;
                             }
                             else if(_cacheCurrentResult.actualWeight - 1 < $scope._selectedPackage.weight && _cacheCurrentResult.actualWeight + 1 > $scope._selectedPackage.weight) {
-                                $scope.data.packageList.push({
-                                    "trackingNumber": $scope._selectedPackage.trackingNumber,
-                                    "weight": $scope._selectedPackage.weight
-                                });
+                                var _successPackage = angular.copy($scope._selectedPackage);
+                                _successPackage.weight = _cacheCurrentResult.actualWeight;
+
+                                $scope.data.packageList.push(_successPackage);
 
                                 if (!_.isArray(_selected_bag.packages)) {
-                                    _selected_bag.packages = [$scope._selectedPackage];
+                                    _selected_bag.packages = [_successPackage];
                                 }
                                 else {
-                                    _selected_bag.packages.push($scope._selectedPackage);
+                                    _selected_bag.packages.push(_successPackage);
                                 }
                             } else {
                                 plugMessenger.info("CUL包裹单号" + $scope._selectedPackage.trackingNumber + "无法装袋:出库重量和打包重量不匹配。");
