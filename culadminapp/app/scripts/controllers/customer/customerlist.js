@@ -92,7 +92,12 @@ angular.module('culAdminApp')
                     }
                 });
             }
+            /**
+             * 给客户留言
+             */
+            $scope.btnComment = function (customer){
 
+            }
 
             $scope.vipCustomer = {
                 customer: null,

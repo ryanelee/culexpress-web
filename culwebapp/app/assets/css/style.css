@@ -2875,9 +2875,13 @@ select:-webkit-autofill {
 
 .my-home .order-list .list-inline li {
 	background-color: #607eae;
-  padding: 0px 8px;
-  color: #fff;
-  border-radius: 10px;
+	padding: 0px 8px;
+	color: #fff;
+	border-radius: 10px;
+}
+
+.my-home .order-list .list-inline .readed {
+	background-color: #999;
 }
 
 .my-home .order-list .list-inline li a {
