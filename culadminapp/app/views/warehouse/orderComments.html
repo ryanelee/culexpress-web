@@ -1,0 +1,117 @@
+
+<div class="widget widget-table">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i> 收货管理</h3>
+    </div>
+    <div class="widget-content">
+        <form>
+            <div class="row">
+                <!--<div class="col-sm-12" style="padding:0 20px 15px 12px;">
+                    <button type="button" class="btn btn-primary role" data-role="54" style="margin-left:5px;" ng-click="btnAction('inbound')">入库登记</button>
+                    <button type="button" class="btn btn-primary role" data-role="55" style="margin-left:5px;" ng-click="btnAction('exception')">异常管理</button>
+                </div>-->
+                <div class="col-sm-12 search-bar">
+                    <div class="search-col">
+                        <label class="search-label">问题状态：</label>
+                        <select class="form-control search-control" ng-options="questionStatus.key as questionStatus.value for questionStatus in questionStatusList" ng-model="searchBar.sendType">
+                       
+                    </select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">收货仓库：</label>
+                        <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">日期范围: 起</label>
+                        <p class="input-group pull-left">
+                            <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate" 
+                                is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true" />
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                        </p>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">至</label>
+                        <p class="input-group pull-left">
+                            <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate" 
+                            is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true" />
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
+                        </span>
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="search-col">
+                        <label class="search-label">搜索条目：</label>
+                        <select class="form-control search-control" ng-model="searchBar.keywordType">    
+                            <option value="orderNumber">订单编号</option>>
+                            <option value="customerNumber">客户编号</option>>
+                        </select>
+                        <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()" />
+                        <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>订单编号</th>
+                            <th>客户编号</th>
+                            <th>客户ID(注册名)</th>
+                            <th>日期</th>
+                            <th>留言内容</th>
+                            <th>操作（查看/处理、删除）</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in dataList">
+                            <td>{{item.rownumber}}</td>
+                            <td>{{item.warehouseName}}</td>
+                            <td>{{item._sendType}}</td>
+                            <td>{{item.userName}}</td>                                                
+                            <td>{{item.inboundDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                            <td>{{item.inboundUser}}</td>
+                            <td>
+                                <a href="javascript:void(0)" ng-click="btnOpenDetail('receiptDetail', item)" ng-if="item.inboundStatus > 1">查看/处理</a>
+                                <a href="javascript:void(0)" class="role" data-role="56" ng-click="btnAction('delete', item)" ng-if="item.inboundStatus <= 1">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-12 text-right">
+                        <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount" items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页" next-text="下一页"
+                            first-text="首页" last-text="尾页">
+                        </uib-pagination>
+                        <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+<option value="10">10</option>
+<option value="20">20</option>
+<option value="50">50</option>
+<option value="100">100</option>
+</select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+</style>
+
+<script>
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>
