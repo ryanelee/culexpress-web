@@ -195,6 +195,7 @@ angular.module('culAdminApp')
                         if (result.success == true) {
                             $scope.dataList[$scope.index] = $scope._address;
                             plugMessenger.success("成功");
+                             $scope.createMessageLog("身份认证失败: "+ $scope._address.idRemark);
                             $(event.currentTarget).parents("#confirm-modal").modal("hide");
                         } else {
                             plugMessenger.error("失败： " + result.message);
