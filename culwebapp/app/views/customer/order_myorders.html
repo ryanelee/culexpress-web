@@ -82,10 +82,11 @@
                         <thead>
                             <tr>
                                 <th style="max-width:10px">#</th>
-                                <th style="min-width:220px;max-width:220px;width:220px;">订单编号</th>
+                                <th style="min-width:210px;max-width:210px;width:210px;">订单编号</th>
                                 <th style="width:150px">创建日期</th>
                                 <th class="hidden-sm" style="max-width:200px;">订单说明</th>
                                 <th style="width:120px">渠道</th>
+                                <th>查看留言</th>
                                 <th style="min-width:160px">操作</th>
                             </tr>
                         </thead>
@@ -126,6 +127,18 @@
                                     </ul>
                                 </td>
                                 <td><small ng-repeat="orderDetailItemShipChannelItem in allShipChannels" ng-if="orderDetailItemShipChannelItem.shipServiceId===rowItem.shipServiceId">{{orderDetailItemShipChannelItem.shipServiceName}}</small></td>
+                                <td>
+                                    <div class="btn-group" style="margin-top:5px;">
+                                        <ul class="list-inline" style="min-width:80px;font-size:15px;">
+                                            <li ng-click="message(rowItem);">
+                                                <a href="javascript:void(0)" title="未读" data-original-title="未读"><i class="fa fa-stack-exchange"></i></a>
+                                            </li>
+                                            <li ng-click="message(rowItem);" class="readed">
+                                                <a href="javascript:void(0)" title="已读" data-original-title="已读"><i class="fa fa-stack-exchange"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
                                 <td>
                                     <div class="btn-group" style="margin-top:5px;">
                                         <ul class="list-inline" style="min-width:100px;font-size:15px;">

@@ -191,10 +191,10 @@ var app = angular
                 key: 'receiveTrackingNumber',
                 text: '预报快递单号'
             }
-            // , {
-            //     key: 'outBoundTrackingNumber',
-            //     text: '出库包裹编号'
-            // }
+            , {
+                key: 'outBoundTrackingNumber',
+                text: '出库包裹编号'
+            }
             ];
 
             var queryPara = $scope.queryPara = {
