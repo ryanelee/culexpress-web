@@ -18,6 +18,8 @@ angular.module('culAdminApp')
       }
 
       self.push = function (options, callback) {
+          console.log("options")
+          console.log(options)
           $http.post(cul.apiPath + "/customermessage/log", options).success(function (result) {
               callback(result);
           });
