@@ -1,12 +1,5 @@
 ﻿'use strict';
 
-/**
- * @ngdoc function
- * @name culwebApp.controller:OrderdetailCtrl
- * @description
- * # OrderdetailCtrl
- * Controller of the culwebApp
- */
 angular.module('culwebApp')
     .controller('OrderdetailCtrl', ['$scope', '$rootScope', 'OrderSvr', '$stateParams', '$state', '$location', 'AuthService',
         function($scope, $rootScope, orderSvr, $stateParams, $state, $location, AuthService) {
@@ -64,7 +57,6 @@ angular.module('culwebApp')
                     .getOrderInfo(orderId)
                     .then(function(result) {
                         $scope.data = result.data;
-                        // console.log($scope.data)
                         loadOrderMessage();
                     });
             }
@@ -91,7 +83,7 @@ angular.module('culwebApp')
                         messageContent: $scope.data.orderMessage,
                         images: $scope.images
                     }
-                    console.log($scope.data.orderMessageInfo)
+                    // console.log($scope.data.orderMessageInfo)
                     orderSvr
                         .saveMessage($scope.data.orderMessageInfo)
                         .then(function(result) {

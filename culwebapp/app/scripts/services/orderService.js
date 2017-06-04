@@ -225,6 +225,15 @@ angular.module('culwebApp')
             getMessage: function(messageNumber) {
                 return $http.get(cul.apiPath + '/customermessage/' + messageNumber);
             },
+            /**
+             * 更新订单留言消息的状态，从未读变为已读
+             */
+            updateMessageStatus: function(messageNumber) {
+                return $http.put(cul.apiPath + '/customermessage/log', {
+                    messageNumber: messageNumber,
+                    status: 0        // 0-已读
+                });
+            },
             paymentOrder: function(orderNumber) {
                 return $http.put(cul.apiPath + '/order/payment', {
                     orderNumber: orderNumber

@@ -130,10 +130,10 @@
                                 <td>
                                     <div class="btn-group" style="margin-top:5px;">
                                         <ul class="list-inline" style="min-width:80px;font-size:15px;">
-                                            <li ng-click="message(rowItem);">
+                                            <li ng-click="updateMessage(rowItem);" ng-show="rowItem._orderMessageStatus === '1'">
                                                 <a href="javascript:void(0)" title="未读" data-original-title="未读"><i class="fa fa-stack-exchange"></i></a>
                                             </li>
-                                            <li ng-click="message(rowItem);" class="readed">
+                                            <li ng-click="updateMessage(rowItem);" ng-show="rowItem._orderMessageStatus === '0'" class="readed">
                                                 <a href="javascript:void(0)" title="已读" data-original-title="已读"><i class="fa fa-stack-exchange"></i></a>
                                             </li>
                                         </ul>
