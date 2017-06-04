@@ -217,8 +217,57 @@
                         <span class="pull-right"><small>{{orderMessageItem.operationDate|sysdate}}</small></span>
                     </div>
                     <div class="msg-item">
-                        <input class="form-control msg-txt" ng-model="data.orderMessage" />
-                        <button class="btn submit" ng-click="submitMessage();">发表</button>
+                        <!--<input class="form-control msg-txt" ng-model="data.orderMessage" />
+                        <div class="form-group">
+                            <div class="msg-upload">
+                                <img id="img-comments" ng-src="{{data.idCardFrontUrl}}" src="../../assets/img/dashbard/shen-bg.png" alt="留言图片"  />
+                                <div>
+                                    点击上传图片。仅支持.jpg .jpeg .png .bmp .gif，大小不超过2M。
+                                    <div class="inputfileload">
+                                    <div class='uploadphoto'>上传照片</div>
+                                    <input id="idCardFront" type="file" class="file-input"  ng-model="data.idCardFront"  accept='image/jpeg,image/jpg,image/png,image/bmp,image/gif'>
+                                    </div>
+                                </div>
+                            </div>                      
+                        </div>-->
+                       
+                        <!--<button class="btn submit" ng-click="submitMessage();">发表</button>-->
+                        <div class="row">
+                            <form action="#" id="sky-form3" class="sky-form">
+                                <fieldset>
+                                    <section>
+                                        <section>
+                                            <label class="label">照片上传
+                                            </label>
+                                            <div style="height: 50%">
+                                                <form enctype="multipart/form-data" id="addForm">
+                                                    <div class="form-group">
+                                                        <label></label>
+                                                        <input id="file1" type="file" class="file" name="file" multiple="true" ,accept="image/*">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </section>
+
+                                        <section>
+                                            <section>
+                                                <label class="label">回复留言</label>
+                                                <label class="textarea textarea-resizable">
+                                                <i class="icon-append fa fa-comment"></i>
+                                                <textarea rows="4" placeholder="请输入您的回复" name="message" id="message" ng-model="data.orderMessage"></textarea>
+                                            </label>
+                                            </section>
+                                        </section>
+                                </fieldset>
+                                <footer>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <button type="button" class="btn-u bg-color-ffb" ng-click="submitMessage();">发表</button>                                    
+                                        </div>                         
+                                    </div>
+                                </footer>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
