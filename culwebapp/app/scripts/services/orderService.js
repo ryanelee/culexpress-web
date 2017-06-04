@@ -68,7 +68,7 @@ angular.module('culwebApp')
         }, {
             key: 4,
             text: '4'
-        }];
+        }]; 
 
         return {
             addShippingNotice: function(shippingNotice) {
