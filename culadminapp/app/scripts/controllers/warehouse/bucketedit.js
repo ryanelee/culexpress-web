@@ -73,7 +73,7 @@ angular.module('culAdminApp')
                     if (!!$scope.data) {
                         if ($scope.data.packageList[0]) {
                             $scope.data.packageList.forEach(function (e1) {
-                                    $scope.bagTotalWeight += e1.weight || 0;
+                                $scope.bagTotalWeight += e1.weight || 0;
                             })
                         }
                     }
@@ -163,6 +163,8 @@ angular.module('culAdminApp')
                         plugMessenger.info("该{0}已经装载[{1}]个包裹，清空后才能删除。".replace("{0}", level).replace("{1}", item.packages.length));
                         return;
                     }
+                    console.log("2323");
+                    console.log(level);
                     switch (level) {
                         case "pallet":
                             $scope.data.detail = _.filter($scope.data.detail, function (pallet) { return pallet.$$hashKey != item.$$hashKey });
@@ -187,6 +189,7 @@ angular.module('culAdminApp')
                             if ($scope._selectedPackage && $scope._selectedPackage.weight == undefined) {
                                 break;
                             }
+                            console.log('23')
 
                             var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
                                 _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
@@ -197,12 +200,16 @@ angular.module('culAdminApp')
                             $scope.data.packageList = _.filter($scope.data.packageList, function (pkg) { return pkg.trackingNumber != item.trackingNumber });
                             //如果当前操作的包裹是编辑状态下的包裹，则清除编辑状态。
                             if (!!$scope._selectedPackage && $scope._selectedPackage.trackingNumber == item.trackingNumber) $scope._selectedPackage = null;
+                            $scope.btnSave();
                             break;
                     }
                 }
             }
+
+            let x = "wede\"wedwe"
             $scope.btnPrev = function () {
-                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);
+                $window.history.back();
             }
 
             $scope.btnClose = function () {
@@ -288,7 +295,7 @@ angular.module('culAdminApp')
                 // $scope.data.flightNo = $scope.flightNo;
                 //修改总单
                 if (!!$scope.tpl_status.bucketNumber) {
-                    
+
                     bucketService.update($scope.data, function (result) {
                         if (!result.message) {
                             plugMessenger.success("修改成功");
@@ -311,16 +318,16 @@ angular.module('culAdminApp')
             var _timeout = null,
                 _cacheCurrentResult = null;
 
-            $scope.keydownTrackingNumber = function(event){
+            $scope.keydownTrackingNumber = function (event) {
 
-                if(event.keyCode === 13){
+                if (event.keyCode === 13) {
                     var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
                         _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
                         _selected_bag = _.findWhere(_bags, { _selected: true });
-                        //删除box或bag下的当前操作的package
+                    //删除box或bag下的当前操作的package
                     var _duplicatePackage = _.filter(_selected_bag.packages, function (pkg) { return pkg.trackingNumber == $scope._selectedPackage.trackingNumber });
 
-                    if(_duplicatePackage && _duplicatePackage.length > 0){
+                    if (_duplicatePackage && _duplicatePackage.length > 0) {
                         plugMessenger.info("CUL包裹单号[" + $scope._selectedPackage.trackingNumber + "]已经扫描到当前Bag!");
                         document.getElementById('key_trackingNumber').focus();
                         document.getElementById('key_trackingNumber').select();
@@ -365,13 +372,14 @@ angular.module('culAdminApp')
 
 
             $scope.btnSaveByPackage = function () {
-                if($scope._selectedPackage == undefined || $scope._selectedPackage.trackingNumber == undefined){
+                if ($scope._selectedPackage == undefined || $scope._selectedPackage.trackingNumber == undefined) {
                     plugMessenger.info("请输入包裹单号.");
                     document.getElementById('key_trackingNumber').focus();
+
                     return;
                 }
 
-                if(!!$scope._selectedPackage && $scope._selectedPackage.weight <= 0){
+                if (!!$scope._selectedPackage && $scope._selectedPackage.weight <= 0) {
                     plugMessenger.info("包裹重量必须大于0.");
                     document.getElementById('key_weight').focus();
                     return;
@@ -383,6 +391,7 @@ angular.module('culAdminApp')
                         $scope._selectedPackage = null;
                         _cacheCurrentResult = null;
                         document.getElementById('key_trackingNumber').focus();
+                        $scope.btnSave();
                         return;
                     } else {
                         $scope._selectedPackage.trackingNumber = result.trackingNumber;
@@ -399,14 +408,14 @@ angular.module('culAdminApp')
                             var _package = _.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber });
                             _package.weight = $scope._selectedPackage.weight;
                         } else if (!_.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber })) {
-                            if (_cacheCurrentResult.actualWeight <= 0 ){
+                            if (_cacheCurrentResult.actualWeight <= 0) {
                                 plugMessenger.info("CUL包裹单号" + $scope._selectedPackage.trackingNumber + "无法装袋:该包裹还未打包称重。");
                                 $scope._selectedPackage = null;
                                 _cacheCurrentResult = null;
                                 document.getElementById('key_trackingNumber').focus();
                                 return;
                             }
-                            else if(_cacheCurrentResult.actualWeight - 1 < $scope._selectedPackage.weight && _cacheCurrentResult.actualWeight + 1 > $scope._selectedPackage.weight) {
+                            else if (_cacheCurrentResult.actualWeight - 1 < $scope._selectedPackage.weight && _cacheCurrentResult.actualWeight + 1 > $scope._selectedPackage.weight) {
                                 var _successPackage = angular.copy($scope._selectedPackage);
                                 _successPackage.weight = _cacheCurrentResult.actualWeight;
 

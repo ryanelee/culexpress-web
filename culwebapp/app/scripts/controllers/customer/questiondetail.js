@@ -3,7 +3,7 @@
 /**
  * @ngdoc function
  * @name culwebApp.controller:OrderdetailCtrl
- * @description
+ * @description 
  * # OrderdetailCtrl
  * Controller of the culwebApp
  */
@@ -53,9 +53,12 @@ angular.module('culwebApp')
                     });
             }
             $scope.submitMessage = function() {
+                console.log("questionid")
+                console.log(questionid)
+                console.log($scope.data.questionMessage)
                 if ($scope.data.questionMessage) {
                     orderSvr
-                        .saveMessage(questionid, $scope.data.questionMessage)
+                        .saveMessageBack(questionid, $scope.data.questionMessage)
                         .then(function(result) {
                             if (result.data) {
                                 alertify.alert('提示', '留言成功.');

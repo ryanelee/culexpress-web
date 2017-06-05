@@ -204,12 +204,12 @@ angular.module('culwebApp')
             getOrderTrackingList: function(trackingNumber) {
                 return $http.get(cul.apiPath + '/outboundpackage/track/' + trackingNumber);
             },
-            // saveMessage: function(orderMessageNumber, messageContent) {
-            //     return $http.post(cul.apiPath + '/customermessage/log', {
-            //         messageNumber: orderMessageNumber,
-            //         message: messageContent
-            //     });
-            // },
+            saveMessageBack: function(orderMessageNumber, messageContent) {
+                return $http.post(cul.apiPath + '/customermessage/log', {
+                    messageNumber: orderMessageNumber,
+                    message: messageContent
+                });
+            },
             saveMessage: function(orderMessageItem) {
                 return $http.post(cul.apiPath + '/customermessage/log', {
                     messageNumber: orderMessageItem.orderMessageNumber,

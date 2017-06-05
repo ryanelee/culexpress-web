@@ -152,6 +152,9 @@ angular.module('culAdminApp')
 
 
             $scope.createMessageLog = function (message) {
+                if(!$scope._address.messageNumber){
+                    return;
+                }
                 customerMessageService.push({
                     "messageNumber": $scope._address.messageNumber,
                     "message": message
