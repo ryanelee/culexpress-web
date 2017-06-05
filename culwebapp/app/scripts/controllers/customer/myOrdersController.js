@@ -229,6 +229,7 @@ var app = angular
                 $scope.queryPara.orderStatus = $stateParams.status;
             }
             $scope.orderListData = [];
+            $scope.orderListData._orderMessageStatus = '0';
             $scope.queryOrder = function(index, paras) {
                 $scope.pagedOptions.index = index;
                 orderSvr
@@ -239,11 +240,31 @@ var app = angular
                     .then(function(result) {
                         if (result.data) {
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
-                            $scope.orderListData = result.data.data;
+                            $scope.orderListData = result.data.data;                           
+                            getOrderMessageStatus()                       
                         }
                     });
             }
             $scope.queryOrder();
+
+            var getOrderMessageStatus = function() {
+                $scope.orderListData.forEach(function (order) {
+                    orderSvr
+                    .getMessage(order.orderMessageNumber)
+                    .then(function(result) {
+                        if (result.data) {
+                            $scope.orderMessages = result.data.messageLogs;
+                            $scope.orderMessages.forEach(function (e) {
+                                order._orderMessageStatus = e.status                           
+                                if(e.status === '1'){
+                                    return
+                                }
+                            })
+                        }
+                    })
+                })
+            }
+            // getOrderMessageStatus();
 
             $scope.rangSearch = function(rangeItem) {
                 $scope.queryPara = {
@@ -273,6 +294,17 @@ var app = angular
 
             $scope.redirectToDetail = function(orderItem) {
                 $state.go('customer.orderdetail', { id: orderItem.orderNumber });
+            }
+
+            $scope.updateMessage = function(orderItem) {
+                orderSvr
+                    .updateMessageStatus(orderItem.orderMessageNumber)
+                    .then(function(result) {
+                        if (result.data.success) {
+                            // 更新成功
+                        }
+                    })
+                $scope.redirectToDetail(orderItem)
             }
 
             var getShippingPackageCount = function(pageType) {
@@ -586,7 +618,6 @@ var app = angular
             }
 
             $scope.payOrder = function(orderItem) {
-                // console.log(orderItem)
                 if (!orderItem) return false;
                 if (!orderItem.totalCount) {
                     alertify.alert('提示', '订单还未计价,不能支付!');
