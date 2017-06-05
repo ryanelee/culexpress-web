@@ -694,7 +694,7 @@ var app = angular
                         if (addressItem != undefined &&
                             $scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.requireEnglish4Name === 1 &&
-                            !/^[a-z\s0-9]+$/i.test(addressItem.receivePersonName)) {
+                            !/^[a-z\s0-9_,]+$/i.test(addressItem.receivePersonName)) {
                             alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' ' +
                                 addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
                                 '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
@@ -705,7 +705,7 @@ var app = angular
                         if (addressItem != undefined &&
                             $scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.requireEnglish4Address === 1 &&
-                            !/^[a-z\s0-9]+$/i.test(addressItem.address1 + addressItem.zipcode)) {
+                            !/^[a-z\s0-9_,]+$/i.test(addressItem.address1 + addressItem.zipcode)) {
                             alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' ' +
                                 addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
                                 '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
