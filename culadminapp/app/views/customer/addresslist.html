@@ -57,7 +57,8 @@
                         <span>{{item.city}}</span>
                         <span>{{item.area}}</span>
                         <span>{{item.address1}}</span>
-                        <span ng-show="!!item.receiveCompanyName">{{item.receiveCompanyName}}</span>
+                        <!--不默认显示公司名称-->
+                        <!--<span ng-show="!!item.receiveCompanyName">{{item.receiveCompanyName}}</span>-->
                         <span ng-show="!!item.zipcode">({{item.zipcode}})</span>
                     </td>
                     <!--<td ng-class="{'alert-danger': item.verifyMark == 0}">{{item._verifyMark}}</td>-->

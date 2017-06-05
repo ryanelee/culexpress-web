@@ -174,8 +174,8 @@ angular.module('culAdminApp')
                           $location.path("/warehouse/registerpackageoffline");
                       } else if (item.orderType == 1) {
                           orderService.getDetail(item.orderNumber, function(result) {                      
-                             var trackingNumber = result.inboundPackages[0].trackingNumber;
-                             $location.search({ trackingNumber: trackingNumber });
+                             var trackingNumber = result.inboundPackages[0].trackingNumber;                         
+                             $location.search({ trackingNumber: trackingNumber });   
                              $location.path("/warehouse/registerpackageonline");
                           })
                           

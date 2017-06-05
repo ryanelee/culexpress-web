@@ -567,6 +567,8 @@ var app = angular
                 $scope.data.cartonCount = data.shippingPackageCount;
                 $scope.data.message = data.priceAdjustMemo;
                 $scope.data.shipServiceId = data.shipServiceItem.shipServiceId;
+                // console.log("*****last submit***********")
+                // console.log($scope.data)
                 preSubmitToService($scope.data);
             }
 
