@@ -53,7 +53,7 @@ angular.module('culAdminApp')
                             warehouseNumber.focus();
                             //新增
                             //console.log('1234567ui')
-                            var _newNumber = angular.copy($scope.data.trackingNumber);
+                            var _newNumber = angular.copy($scope.data.trackingNumber); 
                             $scope.data = { trackingNumber: _newNumber }
                             $scope.data.warehouseNumber = $scope.warehouseList[0].key || '1';
                             $scope._trackingNumber = "";
@@ -313,6 +313,7 @@ angular.module('culAdminApp')
                 // }
 
             $scope.btnPrev = function() {
+                 $window.sessionStorage.setItem("historyFlag", 1);
                 $location.path('/warehouse/receipt2')
             }
             $scope.print = function() {
