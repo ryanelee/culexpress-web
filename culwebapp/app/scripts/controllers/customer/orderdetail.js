@@ -88,7 +88,7 @@ angular.module('culwebApp')
                         .saveMessage($scope.data.orderMessageInfo)
                         .then(function(result) {
                             if (result.data) {
-                                alertify.alert('提示', '留言成功.');
+                                alertify.alert('提示', '留言成功');
                                 loadOrderMessage();
                             }
                         }, function(result) {
@@ -97,15 +97,21 @@ angular.module('culwebApp')
                             }
                         });
 
+                } else {
+                    alertify.alert('提示', '请输入您的回复');
                 }
             }
             $scope.orderMessages = [];
+            // $scope.orderMessages._images = [];
             var loadOrderMessage = function() {
                 orderSvr
                     .getMessage($scope.data.orderMessageNumber)
                     .then(function(result) {
                         if (result.data) {
                             $scope.orderMessages = result.data.messageLogs;
+                            console.log(result.data.messageLogs)
+                            // $scope.orderMessages._images = $scope.orderMessages.images.split(",");
+                            // console.log($scope.orderMessages._images)
                         }
                     })
 
@@ -198,3 +204,9 @@ angular.module('culwebApp')
 
         }
     ]);
+    // .filter('split', function() { //可以注入依赖
+    //     return function(str) {
+    //         var ary = str.split(",");
+    //         return str.split(",");
+    //     }
+    // });

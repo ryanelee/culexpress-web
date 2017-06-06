@@ -210,11 +210,17 @@
             <div class="panel panel-default" style="margin-top:15px; background-color: #f7f9fb;">
                 <div class="panel-body" style="padding: 0;">
                     <div ng-repeat="orderMessageItem in orderMessages" class="msg-item">
+                       
                         <span>
-                      <i class="fa fa-user"></i> {{orderMessageItem.operationUserName}}
-                  </span>
+                            <i class="fa fa-user"></i> {{orderMessageItem.operationUserName}}
+                        </span>
                         <span style="font-weight:bold;"> {{orderMessageItem.message}}</span>
                         <span class="pull-right"><small>{{orderMessageItem.operationDate|sysdate}}</small></span>
+                        <span class="pull-right" style="padding: 0px 10px;" > 
+                            <img style="width:60px;" ng-src="orderMessageItem.images">
+                        </span>
+                        
+                        
                     </div>
                     <div class="msg-item">
                         <!--<input class="form-control msg-txt" ng-model="data.orderMessage" />
