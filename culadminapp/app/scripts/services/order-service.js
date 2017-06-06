@@ -101,10 +101,15 @@ angular.module('culAdminApp')
                             item._shipToAddresses.push(_str);
                         }
                     });
-
+                    // CUL包裹单号list
                     item._outboundTrackingNumbers = [];
                     $.each(item.outboundPackages, function (i, outboundPackage) {
                         item._outboundTrackingNumbers.push(outboundPackage.trackingNumber);
+                    });
+                    // 入库单号list
+                    item._inboundTrackingNumbers = [];
+                    $.each(item.inboundPackages, function (i, inboundPackage) {
+                        item._inboundTrackingNumbers.push(inboundPackage.trackingNumber);
                     });
                 });
                 callback(result);
