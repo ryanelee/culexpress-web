@@ -48,7 +48,6 @@ angular.module('culAdminApp')
 
             // 批量下载 （pdf下载后转图片）
             $scope.btnDownload = function () {
-                // console.log("print-idcardImg.action")
                 $scope.$broadcast("print-idcardImg.action", { data: $scope.dataList });
             }
 
@@ -59,7 +58,7 @@ angular.module('culAdminApp')
                 _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 addressService.getList(_options, function (result) {
                     $scope.dataList = result.data;
-                    console.log($scope.dataList)
+                    // console.log($scope.dataList)
                     $scope.dataList.forEach(function (data) {
                         data._verifyMark = _verifyMark_(data.verifyMark);
                     })

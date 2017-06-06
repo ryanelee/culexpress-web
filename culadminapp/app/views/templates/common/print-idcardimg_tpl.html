@@ -4,17 +4,20 @@
             width: 90%;
             margin-left:5%;
             margin-right:5%;
-            height: 40%;
-            margin-top: 20px;
+            height: 43%;          
+            margin-top: 10px;
         }
         .image2 {
             width: 90%;
             margin-left:5%;
             margin-right:5%;
-            height: 40%;
-            margin-top: 10px;
+            height: 43%;
+            padding-top: 5px;
         }
-        
+        .image1 img,
+        .image2 img {
+            height:410px;
+        }
         .title {
             text-align: center;
             font-size: 22px;
@@ -30,7 +33,7 @@
             <div style="height:100%;" ng-repeat="data in dataList track by $index">
                 <div>
                     <div>收货人姓名：{{data.receivePersonName}}</div>
-                    <div>身份证号11111：{{data.idCard}}</div>
+                    <div>身份证号：{{data.idCard}}</div>
                     <div>
                         <div class="image1">
                             <img ng-src="{{data.idCardFrontUrl}}" />
