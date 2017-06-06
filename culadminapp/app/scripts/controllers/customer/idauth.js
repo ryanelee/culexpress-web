@@ -54,7 +54,6 @@ angular.module('culAdminApp')
 
             // 批量下载 （pdf下载后转图片）
             $scope.btnDownload = function () {
-                // console.log("print-idcardImg.action")
                 $scope.$broadcast("print-idcardImg.action", { data: $scope.dataList });
             }
 

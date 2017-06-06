@@ -127,7 +127,7 @@ angular.module('culAdminApp')
                 var _options = _filterOptions();
                 orderService.getList(angular.copy(_options), function (result) {
                     $scope.dataList = result.data;
-                    console.log($scope.dataList)
+                    // console.log($scope.dataList)
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
 
                     $.each($scope.dataList, function (i, item) {
