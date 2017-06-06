@@ -58,15 +58,13 @@
                     <td>
                         <span>{{item.idCard}}</span>
                     </td>
-                    <td>{{item.idCard}}</td>
+                    <td>{{item.lastEditDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                     <td>
-                        <!--<span>{{item.idCardFront}}</span>-->
                         <div class="image-div" >
                             <img class="idCardImage" ng-src="{{item.idCardFrontUrl}}"/>
                         </div>
                     </td>
                     <td>
-                        <!--<span>{{item.idCardBack}}</span>                       -->
                         <div class="image-div" >
                             <img class="idCardImage" ng-src="{{item.idCardBackUrl}}"/>
                         </div>
