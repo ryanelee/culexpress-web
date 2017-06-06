@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('IdAuthCtrl', ["$scope", "$location", "addressService", "plugMessenger", "$rootScope", "$compile","customerMessageService",
-        function ($scope, $location, addressService, plugMessenger, $rootScope, $compile,customerMessageService) {
+    .controller('IdAuthCtrl', ["$scope", "$location", "addressService", "plugMessenger", "$rootScope", "$compile","customerMessageService","storage",
+        function ($scope, $location, addressService, plugMessenger, $rootScope, $compile,customerMessageService,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -42,6 +42,12 @@ angular.module('culAdminApp')
             $scope.idRemarkError = "";
             $scope.idRemark = "";
 
+               $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            if ($scope.tempSearchBar) {
+                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            }
+            //  storage.session.setObject("searchBar", $scope.searchBar);
+
             $scope.btnPrint = function () {
                 $scope.$broadcast("print-idcard.action", { data: $scope.dataList });
             }
@@ -53,6 +59,7 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function () {
+                storage.session.setObject("searchBar", $scope.searchBar);
                 var _options = {
                     "pageInfo": $scope.pagination
                 }
