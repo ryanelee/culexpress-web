@@ -60,7 +60,8 @@
                             <td>{{getWarehouseName(item.warehouseNumber)}}</td>
                             <td>{{item._type}}</td>
                             <td>
-                                <a href="javascript:void(0)" ng-click="btnAction('detail', item)">{{item.shelfNumber}}</a>
+                                {{item.shelfNumber}} 
+                                <a href="javascript:void(0)" ng-click="btnAction('detail', item)"><i class="fa fa-eye"></i></a>
                             </td>
                             <td>{{item.itemCount}}</td>
                             <td>
