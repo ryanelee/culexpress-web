@@ -93,7 +93,8 @@
                                     ng-hide="shippingNoticeItem.status==='InOrder' || shippingNoticeItem.status==='Intransit' " /> -->
                             </td>
                             <td><small>{{shippingNoticeItem.rownumber}}</small></td>
-                            <td><small>{{ shippingNoticeItem.trackingNumber }}</small></td>
+                            <td><div style="width:120px;word-wrap:break-word;">{{ shippingNoticeItem.trackingNumber }}</div></td>
+                            <!--<td style="width:140px"><small style="word-wrap:break-word">{{ shippingNoticeItem.trackingNumber }}</small></td>-->
                             <td class="hidden-sm " style="width:100px"><small>{{ shippingNoticeItem.packageDescription }}</small></td>
                             <td title="{{ shippingNoticeItem.packageNote }} " style="word-break:break-all; width: 150px"><small>{{ shippingNoticeItem.packageNote }}</small></td>
                             <td style="width:100px"><small>{{ shippingNoticeItem.warehouseName}}</small></td>

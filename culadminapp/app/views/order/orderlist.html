@@ -191,7 +191,7 @@
                         </span>
                     </td>
                     <td style="max-width: 160px;">
-                        <div ng-repeat="pkg in item._outboundTrackingNumbers">{{pkg}}</div>
+                        <div ng-repeat="pkg in item._outboundTrackingNumbers track by $index">{{pkg}}</div>
                     </td>
                     <td style="max-width: 200px;">
                         <div ng-repeat="pkg in item._inboundTrackingNumbers" style="overflow: hidden;">{{pkg}}</div>
