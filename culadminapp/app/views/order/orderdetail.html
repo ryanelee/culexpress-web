@@ -75,7 +75,7 @@
                             <tbody>
                                 <tr ng-repeat="address in data.shipToAddresses">
                                     <td>
-                                        <div ng-repeat="trackingNumber in address._trackingNumbers">{{trackingNumber}}</div>
+                                        <div ng-repeat="trackingNumber in address._trackingNumbers track by $index">{{trackingNumber}}</div>
                                     </td>
                                     <td>
                                         <div ng-show="!address._edit">
