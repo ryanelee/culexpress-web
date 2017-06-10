@@ -93,7 +93,7 @@
                                     ng-hide="shippingNoticeItem.status==='InOrder' || shippingNoticeItem.status==='Intransit' " /> -->
                             </td>
                             <td><small>{{shippingNoticeItem.rownumber}}</small></td>
-                            <td><div style="width:120px;word-wrap:break-word;">{{ shippingNoticeItem.trackingNumber }}</div></td>
+                            <td><div style="width:120px;word-wrap:break-word;"><small>{{ shippingNoticeItem.trackingNumber }}</small></div></td>
                             <!--<td style="width:140px"><small style="word-wrap:break-word">{{ shippingNoticeItem.trackingNumber }}</small></td>-->
                             <td class="hidden-sm " style="width:100px"><small>{{ shippingNoticeItem.packageDescription }}</small></td>
                             <td title="{{ shippingNoticeItem.packageNote }} " style="word-break:break-all; width: 150px"><small>{{ shippingNoticeItem.packageNote }}</small></td>
@@ -137,7 +137,9 @@
             </div>
             <hr style="margin-top:15px;margin-bottom:15px">
             <div>
-                <small>请选择已上架包裹提交普通订单,选择在途包裹提交极速原箱订单。已入库包裹请等待仓库上架后再提交订单.</small>
+                <i class="fa fa-exclamation-triangle color-ffb"></i>
+                <strong>注意:</strong>
+                <small>请选择已上架包裹提交普通订单,选择在途包裹提交极速原箱订单.已入库包裹请等待仓库上架后再提交订单.</small>
             </div>
             <div class="row " style="margin-top:20px; ">
                 <div class="col-sm-6 " style="margin:0;padding:0 0; ">
