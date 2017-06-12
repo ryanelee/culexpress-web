@@ -49,7 +49,7 @@ angular.module('culAdminApp')
                 keywordType: "receiptNumber",
                 warehouseNumber: "",
                 sendType: "",
-                shelfStatus: "",
+                shelfStatus: "0",
 
 
                 dateRange: "",

@@ -22,7 +22,7 @@
                     <label class="search-label">打印状态：</label>
                     <select class="form-control search-control" ng-model="searchBar.printStatus">
                         <option value="">全部</option>
-                        <option value="UnPrinted">待打印</option>
+                        <option value="UnPrinted">未打印</option>
                         <option value="Printed">已打印</option>
                     </select>
                 </div>
@@ -191,7 +191,7 @@
                         </span>
                     </td>
                     <td style="max-width: 160px;">
-                        <div ng-repeat="pkg in item._outboundTrackingNumbers">{{pkg}}</div>
+                        <div ng-repeat="pkg in item._outboundTrackingNumbers track by $index">{{pkg}}</div>
                     </td>
                     <td style="max-width: 200px;">
                         <div ng-repeat="pkg in item._inboundTrackingNumbers" style="overflow: hidden;">{{pkg}}</div>

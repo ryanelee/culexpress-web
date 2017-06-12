@@ -75,7 +75,7 @@
                             <tbody>
                                 <tr ng-repeat="address in data.shipToAddresses">
                                     <td>
-                                        <div ng-repeat="trackingNumber in address._trackingNumbers">{{trackingNumber}}</div>
+                                        <div ng-repeat="trackingNumber in address._trackingNumbers track by $index">{{trackingNumber}}</div>
                                     </td>
                                     <td>
                                         <div ng-show="!address._edit">
@@ -222,7 +222,7 @@
                                     <td>{{item.packageWeight}}</td>
                                     <td>{{item.createDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
                                     <td>{{item.inboundDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
-                                    <td>{{item.location}}</td>
+                                    <td>{{item.location == undefined ? item.shelfNumber : item.location}}</td>
                                 </tr>
                             </tbody>
                         </table>
