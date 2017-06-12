@@ -222,7 +222,7 @@
                                     <td>{{item.packageWeight}}</td>
                                     <td>{{item.createDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
                                     <td>{{item.inboundDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
-                                    <td>{{item.location}}</td>
+                                    <td>{{item.location == undefined ? item.shelfNumber : item.location}}</td>
                                 </tr>
                             </tbody>
                         </table>
