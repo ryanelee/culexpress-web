@@ -145,18 +145,18 @@
                                             <li ng-click="payOrder(rowItem);" ng-if="rowItem.orderStatus==='Unpaid' || rowItem.orderStatus==='Arrears'" >
                                                 <a href="javascript:void(0)" title="支付订单" data-original-title="支付订单"><i class="fa fa-credit-card"></i></a>
                                             </li>
-                                            <li ng-click="deleteOrder(rowItem.orderNumber)" ng-if="(!rowItem.isFastOrder&&rowItem.orderStatus!=='Paid') || (!!rowItem.isFastOrder&&(rowItem.orderStatus!=='Shipped'||rowItem.orderStatus!=='PartialShipped'))" >
+                                            <li ng-click="deleteOrder(rowItem.orderNumber)" ng-if="rowItem.isFastOrder || rowItem.orderStatus==='Unpaid'" >
                                                 <a href="javascript:void(0)" title="删除订单" data-original-title="删除订单"><i class="fa fa-trash-o"></i></a>
                                             </li>
                                             <li>
-                                                <a href="http://wpa.qq.com/msgrd?v=3&uin=189525378&site=qq&menu=yes" class="tooltips" data-toggle="tooltip" title="联系客服"
-                                                    data-original-title="联系客服" target="_blank">                    
+                                                <a href="http://wpa.qq.com/msgrd?v=3&uin=189525378&site=qq&menu=yes" class="tooltips" data-toggle="tooltip" title="联系客服1"
+                                                    data-original-title="联系客服1" target="_blank">                    
                                                     <i class="fa fa-qq"></i>
                                                 </a>
                                             </li>
                                             <li>       
-                                                <a href="http://wpa.qq.com/msgrd?v=3&uin=189525376&site=qq&menu=yes" class="tooltips" data-toggle="tooltip" title="联系客服"
-                                                                data-original-title="联系客服" target="_blank">
+                                                <a href="http://wpa.qq.com/msgrd?v=3&uin=189525376&site=qq&menu=yes" class="tooltips" data-toggle="tooltip" title="联系客服2"
+                                                                data-original-title="联系客服2" target="_blank">
                                                    <i class="fa fa-qq"></i>
                                                 </a>
                                                 
