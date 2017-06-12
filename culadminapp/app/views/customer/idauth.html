@@ -61,12 +61,14 @@
                     <td>{{item.lastEditDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                     <td>
                         <div class="image-div" >
-                            <img class="idCardImage" ng-src="{{item.idCardFrontUrl}}"/>
+                           <a href="{{item.idCardBackUrl}}" target="_blank"> <img class="idCardImage" ng-src="{{item.idCardFrontUrl}}"/></a>
+                            
+                           
                         </div>
                     </td>
                     <td>
                         <div class="image-div" >
-                            <img class="idCardImage" ng-src="{{item.idCardBackUrl}}"/>
+                           <a href="{{item.idCardBackUrl}}" target="_blank"> <img class="idCardImage" ng-src="{{item.idCardBackUrl}}"/></a>
                         </div>
                     </td>
                     <td ng-class="{'alert-danger': item.verifyMark == 0}">{{item._verifyMark}}</td>

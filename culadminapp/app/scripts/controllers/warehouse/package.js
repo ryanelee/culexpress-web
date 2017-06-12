@@ -87,6 +87,8 @@ angular.module('culAdminApp')
               var _options = _filterOptions();
               warehouseService.getOutboundPackageList($.extend(angular.copy(_options), { hasWeight: true }), function (result) {
                   var _data = result.data;  
+                  console.log("2323")
+                  console.log(result.data);
                              
                   if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                       _data = _data.filter(function(x){

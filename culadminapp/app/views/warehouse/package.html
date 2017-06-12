@@ -1,6 +1,6 @@
 ﻿<div class="widget widget-table">
     <div class="widget-header">
-        <h3><i class="fa fa-table"></i> 打包管理</h3>
+        <h3><i class="fa fa-table"></i> 打包管理</h3> 
     </div>
     <div class="widget-content">
         <form>
@@ -18,9 +18,12 @@
                             <option value="Paid">已支付</option>
                             <option value="Processing">处理中</option>
                             <option value="Arrears">运费不足</option>
+                            <option value="PartialShipped">部分出库</option>
                             <option value="Shipped">已出库</option>
                             <option value="Arrived">已送达</option>                 
                             <option value="Void">已删除</option>    
+
+                            
                         </select>
                     </div>
                     <div class="search-col">
@@ -53,7 +56,7 @@
                         <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()" />
                         <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                     </div>
-                </div>
+                </div> 
                 <div class="col-sm-12 search-bar" ng-show="selectedListCache.length > 0">
                     <div class="search-col" style="margin-bottom: 0px;">
                         <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>

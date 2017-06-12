@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('IdAuthCtrl', ["$scope", "$location", "addressService", "plugMessenger", "$rootScope", "$compile","customerMessageService","storage",
-        function ($scope, $location, addressService, plugMessenger, $rootScope, $compile,customerMessageService,storage) {
+    .controller('IdAuthCtrl', ["$scope", "$location", "addressService", "plugMessenger", "$rootScope", "$compile", "customerMessageService", "storage",
+        function ($scope, $location, addressService, plugMessenger, $rootScope, $compile, customerMessageService, storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -42,7 +42,7 @@ angular.module('culAdminApp')
             $scope.idRemarkError = "";
             $scope.idRemark = "";
 
-               $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            $scope.tempSearchBar = angular.copy(storage.getSearchObject());
             if ($scope.tempSearchBar) {
                 $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
             }
@@ -119,8 +119,8 @@ angular.module('culAdminApp')
                                 if (_address.verifyMark == 1) plugMessenger.success("取消验证成功");
                                 else plugMessenger.success("验证取消");
                                 $scope.dataList[index] = _address;
-                            //  $scope.createMessageLog("身份认证通过");
-                                
+                                //  $scope.createMessageLog("身份认证通过");
+
                             } else {
                                 plugMessenger.error("取消验证失败： " + result.message);
                             }
@@ -132,13 +132,10 @@ angular.module('culAdminApp')
                 switch (verifyMark) {
                     case -1:
                         return "验证失败";
-                        break
                     case 0:
                         return "未验证";
-                        break
                     case 1:
                         return "验证通过";
-                        break
                     default:
                         return
                 }
@@ -158,9 +155,11 @@ angular.module('culAdminApp')
 
 
             $scope.createMessageLog = function (message) {
-                if(!$scope._address.messageNumber){
+                console.log($scope._address);
+                if (!$scope._address.messageNumber) {
                     return;
                 }
+                console.log("can you ")
                 customerMessageService.push({
                     "messageNumber": $scope._address.messageNumber,
                     "message": message
@@ -184,8 +183,8 @@ angular.module('culAdminApp')
                             $scope.dataList[$scope.index] = $scope._address;
                             plugMessenger.success("成功");
                             $(event.currentTarget).parents("#confirm-modal").modal("hide");
-                             $scope.createMessageLog("身份认证通过");
-                            
+                            $scope.createMessageLog("身份认证通过");
+
                         } else {
                             plugMessenger.error("失败： " + result.message);
                         }
@@ -201,15 +200,15 @@ angular.module('culAdminApp')
                     $scope._address.verifyMark = -1;
                     $scope._address._verifyMark = _verifyMark_($scope._address.verifyMark);
                     addressService.update($scope._address, function (result) {
+                            $scope.createMessageLog("身份认证失败: " + $scope._address.idRemark);
                         if (result.success == true) {
                             $scope.dataList[$scope.index] = $scope._address;
                             plugMessenger.success("成功");
-                             $scope.createMessageLog("身份认证失败: "+ $scope._address.idRemark);
                             $(event.currentTarget).parents("#confirm-modal").modal("hide");
                         } else {
                             plugMessenger.error("失败： " + result.message);
                         }
-                    });
+                    }); 
                     $scope.idRemark = "";
                 }
             }
@@ -217,5 +216,8 @@ angular.module('culAdminApp')
                 $scope.validateType = 1;
                 $(event.currentTarget).parents("#confirm-modal").modal("hide");
             }
+
+
+           
 
         }]);
