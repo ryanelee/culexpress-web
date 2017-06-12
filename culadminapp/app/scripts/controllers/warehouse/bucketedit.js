@@ -206,7 +206,6 @@ angular.module('culAdminApp')
                 }
             }
 
-            let x = "wede\"wedwe"
             $scope.btnPrev = function () {
                 $window.sessionStorage.setItem("historyFlag", 1);
                 $window.history.back();
