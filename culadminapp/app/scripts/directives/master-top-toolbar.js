@@ -35,17 +35,34 @@ angular.module('culAdminApp')
                     }
                     $rootScope.getmessageList = function() {
                         // status: 'Processing' 
-                        faqService.getMessageOperationlog({ status: 'Processing' }, function(result) {
+                        faqService.getMessageOperationlog({ status: 'Processing', noMessageType:28}, function(result) {
                             console.log(result);
                             $scope.tipMessage = result.data;
                             $scope.tipMessageLength = result.data.length;
                         })
                     }
+
+                      $rootScope.getIdMessageList = function() {
+                        // status: 'Processing' 
+                        faqService.getMessageOperationlog({ status: 'Processing', messageTypes:28}, function(result) {
+                            console.log(result);
+                            $scope.idMessage = result.data;
+                            $scope.idCardLength = result.data.length;
+                            console.log("身份证长度");
+                            console.log($scope.idCardLength);
+                        })
+                    }
+
                     $scope.getVipAndMsg();
                     $rootScope.getmessageList();
+                     $rootScope.getIdMessageList()
                     $scope.btnViewMessage = function(message) {
                         $location.path("/customer/faqdetail").search({ messageNumber: message.messageNumber });
                     }
+                     $scope.btnViewMessage = function(message) {
+                        $location.path("/customer/addressdetail").search({ transactionNumber: message.addressId });
+                    }
+
                     $scope.$on('message', function(result) {
                         $rootScope.getmessageList();
                     })

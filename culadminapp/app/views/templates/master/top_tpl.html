@@ -1,5 +1,5 @@
 ﻿<div class="top-bar">
-    <div class="container">
+    <div class="container"> 
         <div class="row" style="padding-bottom: 6px; height:30px;">
             <!-- logo -->
             <div style="top:0px" class="col-md-2 logo">
@@ -16,10 +16,46 @@
                             <!-- end responsive menu bar icon -->
                             <div class="notifications">
                                 <ul>
+                                      <li class="notification-item inbox role" data-role="92">
+                                        <div class="btn-group">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                                <!--<i class="fa fa-envelope"></i><span class="count" ng-if="tipMessageLength != 0">{{tipMessageLength}}</span>-->
+                                                <i class="fa fa-credit-card"></i><span class="count" ng-if="tipMessageLength != 0">{{idCardLength}}</span>
+                                                
+                                                <span class="circle"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu" style="max-height: 350px;overflow:auto">
+                                                <li class="notification-header">
+                                                    <em>您有 {{idCardLength}} 条未处理身份证审核</em>
+                                                </li>
+                                             
+                                                 <li class="inbox-item unread clearfix" ng-repeat="message in idMessage" ng-click="btnViewMessage(message);">
+                                                    <a href="javascript:void(0);">
+                                                        <div class="media">
+                                                            <div class="media-left">
+                                                                <i class="fa fa-envelope green-font"></i>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <h5 class="media-heading name">客户 - {{message.customerNumber}}</h5>
+                                                                <p class="text">{{message.message | cutText:true:30}}</p>
+                                                                <span class="timestamp">{{message.indate| date:'yyyy-MM-dd hh:mm'}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                               
+                                                <li class="notification-footer">
+                                                    <a href="javascript:void(0);" ng-click="btnViewMessageList();">查看所有客户留言</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
                                     <li class="notification-item inbox role" data-role="92">
                                         <div class="btn-group">
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                                                 <i class="fa fa-envelope"></i><span class="count" ng-if="tipMessageLength != 0">{{tipMessageLength}}</span>
+                                                <!--<i class="fa fa-credit-card"></i><span class="count" ng-if="tipMessageLength != 0">{{tipMessageLength}}</span>-->
+                                                
                                                 <span class="circle"></span>
                                             </a>
                                             <ul class="dropdown-menu" role="menu" style="max-height: 350px;overflow:auto">
