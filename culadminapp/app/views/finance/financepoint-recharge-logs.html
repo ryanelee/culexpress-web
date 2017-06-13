@@ -71,6 +71,7 @@
             <tr>
                 <th>序号</th>
                 <th>客户编号/操作人</th>
+                <th>订单编号</th>
                 <th>充值类型</th>
                 <th>交易号</th>
                 <th>充值金额</th>
@@ -83,6 +84,7 @@
             <tr ng-repeat="item in dataList">
                 <td>{{item.rownumber}}</td>
                 <td>{{item.customerNumber}}<span ng-show="!!item.inuserName">({{item.inuserName}})</span></td>
+                <td>{{item.orderNumber}}</td>
                 <td>{{item.operationType}}</td>
                 <td>{{item.rechargeNumber || ''}}</td>
                 <td>{{item.payment}}</td>

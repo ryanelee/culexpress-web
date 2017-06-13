@@ -35,22 +35,22 @@
                     <div class="form-group">
                         <label class="pull-left" style="margin-top:5px;">预报状态：</label>
                         <div class="inline-group pull-left">
-                            <label class="radio" style="margin-right: 10px; padding-left: 10px; ">
+                            <label class="radio" style="margin-right: 10px; padding-left: 20px; ">
                                 <a href="javascript:void(0)" ng-click="changeQueryStaus()" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.status" value="" /><i class="rounded-x"></i>所有状态
                                 </a>
                             </label>
-                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                            <label class="radio" style="margin-right:10px;padding-left:20px;">
                                 <a href="javascript:void(0)" ng-click="changeQueryStaus('Intransit')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.status" value="Intransit" /><i class="rounded-x"></i>未入库
                                 </a>
                             </label>
-                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                            <label class="radio" style="margin-right:10px;padding-left:20px;">
                                 <a href="javascript:void(0)" ng-click="changeQueryStaus('Inbound')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.status" value="Inbound" /><i class="rounded-x"></i>已入库
                                 </a>
                             </label>
-                             <label class="radio" style="margin-right:10px;padding-left:10px;">
+                             <label class="radio" style="margin-right:10px;padding-left:20px;">
                                 <a href="javascript:void(0)" ng-click="changeQueryStaus('Onshelf')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.status" value="Onshelf" /><i class="rounded-x"></i>已上架
                                 </a>
@@ -62,7 +62,7 @@
             </form>
 
             <div class="table-responsive">
-                <table class="table table-hover table-bordered" style="margin-bottom:0px">
+                <table class="table table-hover table-bordered table-striped" style="margin-bottom:0px">
                     <thead>
                         <tr>
                             <th style="width:30px; min-width: 30px;">
@@ -93,12 +93,13 @@
                                     ng-hide="shippingNoticeItem.status==='InOrder' || shippingNoticeItem.status==='Intransit' " /> -->
                             </td>
                             <td><small>{{shippingNoticeItem.rownumber}}</small></td>
-                            <td><small>{{ shippingNoticeItem.trackingNumber }}</small></td>
-                            <td class="hidden-sm " style="width:100px"><small>{{ shippingNoticeItem.packageDescription }}</small></td>
-                            <td title="{{ shippingNoticeItem.packageNote }} " style="word-break:break-all; width: 150px"><small>{{ shippingNoticeItem.packageNote }}</small></td>
-                            <td style="width:100px"><small>{{ shippingNoticeItem.warehouseName}}</small></td>
-                            <td style="width:100px"><small>{{ shippingNoticeItem.createDate|sysdate}}</small></td>
-                            <td style="width:100px">
+                            <td class="td-width"><small>{{ shippingNoticeItem.trackingNumber }}</small></div></td>
+                            <!--<td style="width:140px"><small style="word-wrap:break-word">{{ shippingNoticeItem.trackingNumber }}</small></td>-->
+                            <td class="hidden-sm" style="max-width:100px"><small style="word-wrap:break-word">{{ shippingNoticeItem.packageDescription }}</small></td>
+                            <td class="hidden-sm" style="max-width:100px"><small style="word-wrap:break-word">{{ shippingNoticeItem.packageNote }}</small></td>
+                            <td><small>{{ shippingNoticeItem.warehouseName}}</small></td>
+                            <td><small>{{ shippingNoticeItem.createDate|sysdate}}</small></td>
+                            <td>
                                 <span ng-if="shippingNoticeItem.status==='InOrder' " class="label label-success ">已创建订单</span>
                                 <span ng-if="shippingNoticeItem.status==='Inbound' " class="label label-ru ">已入库</span>
                                 <span ng-if="shippingNoticeItem.status==='Intransit' " class="label label-info ">在途中</span>
@@ -136,7 +137,9 @@
             </div>
             <hr style="margin-top:15px;margin-bottom:15px">
             <div>
-                <small>请选择已上架包裹提交普通订单,选择在途包裹提交极速原箱订单。已入库包裹请等待仓库上架后再提交订单.</small>
+                <i class="fa fa-exclamation-triangle color-ffb"></i>
+                <strong>注意:</strong>
+                <small>请选择已上架包裹提交普通订单,选择在途包裹提交极速原箱订单.已入库包裹请等待仓库上架后再提交订单.</small>
             </div>
             <div class="row " style="margin-top:20px; ">
                 <div class="col-sm-6 " style="margin:0;padding:0 0; ">

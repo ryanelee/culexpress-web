@@ -82,10 +82,11 @@
                         <thead>
                             <tr>
                                 <th style="max-width:10px">#</th>
-                                <th style="min-width:220px;max-width:220px;width:220px;">订单编号</th>
+                                <th style="min-width:210px;max-width:210px;width:210px;">订单编号</th>
                                 <th style="width:150px">创建日期</th>
                                 <th class="hidden-sm" style="max-width:200px;">订单说明</th>
                                 <th style="width:120px">渠道</th>
+                                <th>查看留言</th>
                                 <th style="min-width:160px">操作</th>
                             </tr>
                         </thead>
@@ -128,22 +129,34 @@
                                 <td><small ng-repeat="orderDetailItemShipChannelItem in allShipChannels" ng-if="orderDetailItemShipChannelItem.shipServiceId===rowItem.shipServiceId">{{orderDetailItemShipChannelItem.shipServiceName}}</small></td>
                                 <td>
                                     <div class="btn-group" style="margin-top:5px;">
+                                        <ul class="list-inline" style="min-width:80px;font-size:15px;">
+                                            <li ng-click="updateMessage(rowItem);" ng-show="rowItem._orderMessageStatus === '1'">
+                                                <a href="javascript:void(0)" title="未读" data-original-title="未读"><i class="fa fa-stack-exchange"></i></a>
+                                            </li>
+                                            <li ng-click="updateMessage(rowItem);" ng-show="rowItem._orderMessageStatus === '0'" class="readed">
+                                                <a href="javascript:void(0)" title="已读" data-original-title="已读"><i class="fa fa-stack-exchange"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group" style="margin-top:5px;">
                                         <ul class="list-inline" style="min-width:100px;font-size:15px;">
                                             <li ng-click="payOrder(rowItem);" ng-if="rowItem.orderStatus==='Unpaid' || rowItem.orderStatus==='Arrears'" >
                                                 <a href="javascript:void(0)" title="支付订单" data-original-title="支付订单"><i class="fa fa-credit-card"></i></a>
                                             </li>
-                                            <li ng-click="deleteOrder(rowItem.orderNumber)" ng-if="(!rowItem.isFastOrder&&rowItem.orderStatus!=='Paid') || (!!rowItem.isFastOrder&&(rowItem.orderStatus!=='Shipped'||rowItem.orderStatus!=='PartialShipped'))" >
+                                            <li ng-click="deleteOrder(rowItem.orderNumber)" ng-if="rowItem.isFastOrder || rowItem.orderStatus==='Unpaid'" >
                                                 <a href="javascript:void(0)" title="删除订单" data-original-title="删除订单"><i class="fa fa-trash-o"></i></a>
                                             </li>
                                             <li>
-                                                <a href="http://wpa.qq.com/msgrd?v=3&uin=189525378&site=qq&menu=yes" class="tooltips" data-toggle="tooltip" title="联系客服"
-                                                    data-original-title="联系客服" target="_blank">                    
+                                                <a href="http://wpa.qq.com/msgrd?v=3&uin=189525378&site=qq&menu=yes" class="tooltips" data-toggle="tooltip" title="联系客服1"
+                                                    data-original-title="联系客服1" target="_blank">                    
                                                     <i class="fa fa-qq"></i>
                                                 </a>
                                             </li>
                                             <li>       
-                                                <a href="http://wpa.qq.com/msgrd?v=3&uin=189525376&site=qq&menu=yes" class="tooltips" data-toggle="tooltip" title="联系客服"
-                                                                data-original-title="联系客服" target="_blank">
+                                                <a href="http://wpa.qq.com/msgrd?v=3&uin=189525376&site=qq&menu=yes" class="tooltips" data-toggle="tooltip" title="联系客服2"
+                                                                data-original-title="联系客服2" target="_blank">
                                                    <i class="fa fa-qq"></i>
                                                 </a>
                                                 

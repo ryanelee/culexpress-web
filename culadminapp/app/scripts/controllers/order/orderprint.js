@@ -27,7 +27,7 @@ angular.module('culAdminApp')
 
                 keywordType: "customerNumber",
                 orderStatus: "",
-                printStatus: "",
+                printStatus: "UnPrinted",
                 warehouseNumber: "",
                 startDate: "",
                 startTime_HH: "0",

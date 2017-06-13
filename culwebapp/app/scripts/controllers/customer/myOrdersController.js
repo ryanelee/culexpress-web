@@ -191,10 +191,10 @@ var app = angular
                 key: 'receiveTrackingNumber',
                 text: '预报快递单号'
             }
-            // , {
-            //     key: 'outBoundTrackingNumber',
-            //     text: '出库包裹编号'
-            // }
+            , {
+                key: 'outBoundTrackingNumber',
+                text: '出库包裹编号'
+            }
             ];
 
             var queryPara = $scope.queryPara = {
@@ -229,6 +229,7 @@ var app = angular
                 $scope.queryPara.orderStatus = $stateParams.status;
             }
             $scope.orderListData = [];
+            $scope.orderListData._orderMessageStatus = '0';
             $scope.queryOrder = function(index, paras) {
                 $scope.pagedOptions.index = index;
                 orderSvr
@@ -239,11 +240,31 @@ var app = angular
                     .then(function(result) {
                         if (result.data) {
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
-                            $scope.orderListData = result.data.data;
+                            $scope.orderListData = result.data.data;                           
+                            getOrderMessageStatus()                       
                         }
                     });
             }
             $scope.queryOrder();
+
+            var getOrderMessageStatus = function() {
+                $scope.orderListData.forEach(function (order) {
+                    orderSvr
+                    .getMessage(order.orderMessageNumber)
+                    .then(function(result) {
+                        if (result.data) {
+                            $scope.orderMessages = result.data.messageLogs;
+                            $scope.orderMessages.forEach(function (e) {
+                                order._orderMessageStatus = e.status                           
+                                if(e.status === '1'){
+                                    return
+                                }
+                            })
+                        }
+                    })
+                })
+            }
+            // getOrderMessageStatus();
 
             $scope.rangSearch = function(rangeItem) {
                 $scope.queryPara = {
@@ -273,6 +294,17 @@ var app = angular
 
             $scope.redirectToDetail = function(orderItem) {
                 $state.go('customer.orderdetail', { id: orderItem.orderNumber });
+            }
+
+            $scope.updateMessage = function(orderItem) {
+                orderSvr
+                    .updateMessageStatus(orderItem.orderMessageNumber)
+                    .then(function(result) {
+                        if (result.data.success) {
+                            // 更新成功
+                        }
+                    })
+                $scope.redirectToDetail(orderItem)
             }
 
             var getShippingPackageCount = function(pageType) {
@@ -535,6 +567,8 @@ var app = angular
                 $scope.data.cartonCount = data.shippingPackageCount;
                 $scope.data.message = data.priceAdjustMemo;
                 $scope.data.shipServiceId = data.shipServiceItem.shipServiceId;
+                // console.log("*****last submit***********")
+                // console.log($scope.data)
                 preSubmitToService($scope.data);
             }
 
@@ -586,7 +620,6 @@ var app = angular
             }
 
             $scope.payOrder = function(orderItem) {
-                // console.log(orderItem)
                 if (!orderItem) return false;
                 if (!orderItem.totalCount) {
                     alertify.alert('提示', '订单还未计价,不能支付!');
@@ -694,7 +727,7 @@ var app = angular
                         if (addressItem != undefined &&
                             $scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.requireEnglish4Name === 1 &&
-                            !/^[a-z\s0-9]+$/i.test(addressItem.receivePersonName)) {
+                            !/^[^\u4e00-\u9fa5]+$/i.test(addressItem.receivePersonName)) {
                             alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' ' +
                                 addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
                                 '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
@@ -705,7 +738,7 @@ var app = angular
                         if (addressItem != undefined &&
                             $scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.requireEnglish4Address === 1 &&
-                            !/^[a-z\s0-9]+$/i.test(addressItem.address1 + addressItem.zipcode)) {
+                            !/^[^\u4e00-\u9fa5]+$/i.test(addressItem.address1 + addressItem.zipcode)) {
                             alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' ' +
                                 addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
                                 '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +

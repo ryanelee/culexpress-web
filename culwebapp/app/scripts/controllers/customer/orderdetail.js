@@ -1,12 +1,5 @@
 ﻿'use strict';
 
-/**
- * @ngdoc function
- * @name culwebApp.controller:OrderdetailCtrl
- * @description
- * # OrderdetailCtrl
- * Controller of the culwebApp
- */
 angular.module('culwebApp')
     .controller('OrderdetailCtrl', ['$scope', '$rootScope', 'OrderSvr', '$stateParams', '$state', '$location', 'AuthService',
         function($scope, $rootScope, orderSvr, $stateParams, $state, $location, AuthService) {
@@ -15,6 +8,41 @@ angular.module('culwebApp')
                 'AngularJS',
                 'Karma'
             ];
+            $scope.imageArr = [];
+            $scope.images;
+
+            // $scope.$on('$viewContentLoaded', function () {
+            //     loadFileinput();
+            // });
+
+            loadFileinput()
+
+            function loadFileinput() {//初始化 fileinput
+                $("#file1").fileinput({
+                    language: 'zh',//设置语言
+                    //uploadUrl: "report/photo/add",//上传的地址
+                    uploadUrl: cul.apiPath + "/customermessage/uploadImage",//上传的地址
+                    // uploadUrl: cul.apiPath + "/customermessage/uploadImage?customNumber=" + $scope.customNumber,//上传的地址
+                    allowedFileExtensions: ["jpg", "png", "gif", 'jpeg'],//接收的文件后缀
+                    browseOnZoneClick: true,  //是否启用 点击预览区进行【文件浏览/选择】操作。默认为假。
+                    minFileCount: 1,//同一时间上传的最小
+                    maxFileCount: 10,//同一时间上传的最大数量
+                    resizePreference: 'height',
+                    overwriteInitial: false,
+                    uploadLabel: "上传",
+                    browseLabel: "选择图片",
+                    dropZoneTitle: "点击",
+                    dropZoneClickTitle: "选择图片",
+                    browseClass: "btn btn-primary", //按钮样式
+                    //showUpload: false, //是否显示上传按钮
+                    showCaption: false,//是否显示标题
+                    showUploadedThumbs: 'false',
+                    resizeImage: true
+
+                }).on('fileuploaded', function (event, data) {
+                    $scope.imageArr.push(data.response.url);
+                });
+            }
             var orderId = $stateParams.id;
 
 
@@ -23,6 +51,7 @@ angular.module('culwebApp')
             })
 
             $scope.data = {};
+            $scope.data.orderMessageInfo = {};
             if (orderId) {
                 orderSvr
                     .getOrderInfo(orderId)
@@ -32,7 +61,7 @@ angular.module('culwebApp')
                     });
             }
 
-
+            
             $scope.redirectToTrack = function() {
                 if (orderId) {
                     $location.path('/ordertracking/' + orderId);
@@ -40,12 +69,26 @@ angular.module('culwebApp')
             }
 
             $scope.submitMessage = function() {
+                // 处理上传图片
+                $scope.imageArr.forEach(function (e, index) {
+                    if (index == 0) {
+                        $scope.images = e;
+                    } else {
+                        $scope.images = $scope.images + "," + e;
+                    }
+                })
                 if ($scope.data.orderMessage) {
+                    $scope.data.orderMessageInfo = {
+                        orderMessageNumber: $scope.data.orderMessageNumber,
+                        messageContent: $scope.data.orderMessage,
+                        images: $scope.images
+                    }
+                    // console.log($scope.data.orderMessageInfo)
                     orderSvr
-                        .saveMessage($scope.data.orderMessageNumber, $scope.data.orderMessage)
+                        .saveMessage($scope.data.orderMessageInfo)
                         .then(function(result) {
                             if (result.data) {
-                                alertify.alert('提示', '留言成功.');
+                                alertify.alert('提示', '留言成功');
                                 loadOrderMessage();
                             }
                         }, function(result) {
@@ -54,15 +97,21 @@ angular.module('culwebApp')
                             }
                         });
 
+                } else {
+                    alertify.alert('提示', '请输入您的回复');
                 }
             }
             $scope.orderMessages = [];
+            // $scope.orderMessages._images = [];
             var loadOrderMessage = function() {
                 orderSvr
                     .getMessage($scope.data.orderMessageNumber)
                     .then(function(result) {
                         if (result.data) {
                             $scope.orderMessages = result.data.messageLogs;
+                            console.log(result.data.messageLogs)
+                            // $scope.orderMessages._images = $scope.orderMessages.images.split(",");
+                            // console.log($scope.orderMessages._images)
                         }
                     })
 
@@ -155,3 +204,9 @@ angular.module('culwebApp')
 
         }
     ]);
+    // .filter('split', function() { //可以注入依赖
+    //     return function(str) {
+    //         var ary = str.split(",");
+    //         return str.split(",");
+    //     }
+    // });

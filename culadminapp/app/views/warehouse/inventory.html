@@ -148,12 +148,12 @@
                             <td>{{item.receiveIdentity}}</td>
                             <td><a href="javascript:void(0);" ng-click="btnAction('detail', item)">{{item.itemNumber}}</a></td>
 
-                            <td>{{item.description}}</td>
+                            <td class="long-cell">{{item.description}}</td>
                             <td>{{item.shelfNumber}}</td>
                             <td>{{item._sendType}}</td>
                             <td>{{item.receiptNumber}}</td>
-                            <td><a href="javascript:void(0);" ng-click="btnAction('logs', item)">{{item.inventory}}</a></td>
-                            <td><a href="javascript:void(0);" ng-click="btnAction('frozen', item)">{{item.inventory_frozen}}</a></td>
+                            <td>{{item.inventory}} <a href="javascript:void(0);" ng-click="btnAction('logs', item)"><i class="fa fa-eye"></i></a></td>
+                            <td>{{item.inventory_frozen}} <a href="javascript:void(0);" ng-click="btnAction('frozen', item)"><i class="fa fa-lock"></i></a></td>
                             <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                              <td>{{item.inboundUser}}</td>
                             <td><a href="javascript:void(0);" ng-click="btnAction('adjust',item)">纠正库存</a></td>

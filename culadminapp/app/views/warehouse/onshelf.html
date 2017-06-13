@@ -125,6 +125,7 @@
                             <!--<td></td>-->
                             <td>
                                 <a href="javascript:void(0)" ng-hide="{{ item._shelfStatus == '未上架' }}" ng-click="btnAction('shelf', item)">查看</a>
+                                <a href="javascript:void(0)" ng-hide="{{ item._shelfStatus == '未上架' }}" ng-click="btnAction('onshelf', item)">修改架位</a>
                                 <a href="javascript:void(0)" class="role" data-role="60" ng-hide="{{ item._shelfStatus != '未上架' }}" ng-click="btnAction('onshelf', item)">上架登记</a>
                             </td>
                         </tr>

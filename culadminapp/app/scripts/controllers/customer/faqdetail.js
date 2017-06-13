@@ -48,7 +48,6 @@ angular.module('culAdminApp')
             faqService.getDetail($scope.tpl_status.messageNumber, function(result) {
                 if (result && result.images)
                     $scope.images = result.images.split(',');
-
                 $scope.data = result;
                 faqService.getMessagelog({ messageNumber: $scope.tpl_status.messageNumber }, function(logs) {
                     $scope.logs = logs.data;

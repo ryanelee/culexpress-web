@@ -187,6 +187,10 @@ angular
                 templateUrl: 'views/warehouse/editshipping.html',
                 controller: 'WarehouseEditshippingCtrl'
             })
+            .when('/warehouse/orderComments', {
+                templateUrl: 'views/warehouse/orderComments.html',
+                controller: 'OrderCommentsCtrl'
+            })
             .when('/customer/customerdetail', {
                 templateUrl: 'views/customer/customerdetail.html',
                 controller: 'CustomerDetailCtrl'

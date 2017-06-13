@@ -97,7 +97,6 @@ angular.module('culAdminApp')
                 var _options = _filterOptions();
                 customerService.financeLogList(angular.copy(_options), function (result) {
                     $scope.dataList = result.data;
-                   
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
                 });
             }

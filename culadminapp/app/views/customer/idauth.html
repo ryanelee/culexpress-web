@@ -37,6 +37,7 @@
                     <th>收货人姓名</th>
                     <th>手机号码</th>
                     <th>身份证号</th>
+                    <th>上传时间</th>
                     <th>正面照</th>
                     <th>反面照</th>
                     <th>验证状态</th>
@@ -57,16 +58,17 @@
                     <td>
                         <span>{{item.idCard}}</span>
                     </td>
+                    <td>{{item.lastEditDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                     <td>
-                        <!--<span>{{item.idCardFront}}</span>-->
                         <div class="image-div" >
-                            <img class="idCardImage" ng-src="{{item.idCardFrontUrl}}"/>
+                           <a href="{{item.idCardBackUrl}}" target="_blank"> <img class="idCardImage" ng-src="{{item.idCardFrontUrl}}"/></a>
+                            
+                           
                         </div>
                     </td>
                     <td>
-                        <!--<span>{{item.idCardBack}}</span>                       -->
                         <div class="image-div" >
-                            <img class="idCardImage" ng-src="{{item.idCardBackUrl}}"/>
+                           <a href="{{item.idCardBackUrl}}" target="_blank"> <img class="idCardImage" ng-src="{{item.idCardBackUrl}}"/></a>
                         </div>
                     </td>
                     <td ng-class="{'alert-danger': item.verifyMark == 0}">{{item._verifyMark}}</td>

@@ -119,7 +119,7 @@ angular
                         window.localStorage.setItem('cul_data_province', JSON.stringify(data));
                     }, function(error) {
                         if (error.data.message) {
-                            console.error(error.data.message)
+                            // console.error(error.data.message)
                         }
                     });
                 }

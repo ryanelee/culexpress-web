@@ -37,7 +37,9 @@ angular.module('culAdminApp')
               keywordType: "customerNumber",
               orderStatus: "",
               warehouseNumber: "",
-              exportStatus: "UnExported"
+              exportStatus: "UnExported",
+              startDate: "",
+              endDate: ""
           }
              $scope.tempSearchBar = angular.copy(storage.getSearchObject());
             if ($scope.tempSearchBar) {
@@ -56,7 +58,9 @@ angular.module('culAdminApp')
 
           var _filterOptions = function () {
               var _options = {
-                  "pageInfo": $scope.pagination
+                  "pageInfo": $scope.pagination,
+                  "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate : "",
+                  "dateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate: ""
               }
               if (!!$scope.searchBar.orderStatus) {
                   _options["orderStatus"] = $scope.searchBar.orderStatus;
@@ -87,6 +91,8 @@ angular.module('culAdminApp')
               var _options = _filterOptions();
               warehouseService.getOutboundPackageList($.extend(angular.copy(_options), { hasWeight: true }), function (result) {
                   var _data = result.data;  
+                  console.log("2323")
+                  console.log(result.data);
                              
                   if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                       _data = _data.filter(function(x){
@@ -174,8 +180,8 @@ angular.module('culAdminApp')
                           $location.path("/warehouse/registerpackageoffline");
                       } else if (item.orderType == 1) {
                           orderService.getDetail(item.orderNumber, function(result) {                      
-                             var trackingNumber = result.inboundPackages[0].trackingNumber;
-                             $location.search({ trackingNumber: trackingNumber });
+                             var trackingNumber = result.inboundPackages[0].trackingNumber;                         
+                             $location.search({ trackingNumber: trackingNumber });   
                              $location.path("/warehouse/registerpackageonline");
                           })
                           

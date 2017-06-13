@@ -46,7 +46,7 @@ angular.module('culAdminApp')
                             searchBar.startDate = new Date(searchBar.startDate)
                         }
                         if (searchBar.endDate) {
-                            searchBar.endDate = new Date(searchBar.startDate)
+                            searchBar.endDate = new Date(searchBar.endDate)
                         }
                     }
                     this.session.remove("historyFlag");

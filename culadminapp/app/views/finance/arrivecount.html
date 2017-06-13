@@ -22,6 +22,10 @@
                     </select>
                 </div>-->
                 <div class="search-col">
+                    <label class="search-label">发货仓库：</label>
+                    <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                </div>
+                <div class="search-col">
                     <label class="search-label">开始日期：</label>
                     <p class="input-group">
                         <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate"

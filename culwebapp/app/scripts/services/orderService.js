@@ -68,7 +68,7 @@ angular.module('culwebApp')
         }, {
             key: 4,
             text: '4'
-        }];
+        }]; 
 
         return {
             addShippingNotice: function(shippingNotice) {
@@ -204,10 +204,18 @@ angular.module('culwebApp')
             getOrderTrackingList: function(trackingNumber) {
                 return $http.get(cul.apiPath + '/outboundpackage/track/' + trackingNumber);
             },
-            saveMessage: function(orderMessageNumber, messageContent) {
+            saveMessageBack: function(orderMessageNumber, messageContent) {
                 return $http.post(cul.apiPath + '/customermessage/log', {
                     messageNumber: orderMessageNumber,
                     message: messageContent
+                });
+            },
+            saveMessage: function(orderMessageItem) {
+                return $http.post(cul.apiPath + '/customermessage/log', {
+                    messageNumber: orderMessageItem.orderMessageNumber,
+                    message: orderMessageItem.messageContent,
+                    images: orderMessageItem.images,
+                    status: 0
                 });
             },
             deleteOrder: function(orderNumber) {
@@ -216,6 +224,15 @@ angular.module('culwebApp')
 
             getMessage: function(messageNumber) {
                 return $http.get(cul.apiPath + '/customermessage/' + messageNumber);
+            },
+            /**
+             * 更新订单留言消息的状态，从未读变为已读
+             */
+            updateMessageStatus: function(messageNumber) {
+                return $http.put(cul.apiPath + '/customermessage/log', {
+                    messageNumber: messageNumber,
+                    status: 0        // 0-已读
+                });
             },
             paymentOrder: function(orderNumber) {
                 return $http.put(cul.apiPath + '/order/payment', {

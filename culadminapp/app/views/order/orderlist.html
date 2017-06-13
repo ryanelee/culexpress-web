@@ -22,7 +22,7 @@
                     <label class="search-label">打印状态：</label>
                     <select class="form-control search-control" ng-model="searchBar.printStatus">
                         <option value="">全部</option>
-                        <option value="UnPrinted">待打印</option>
+                        <option value="UnPrinted">未打印</option>
                         <option value="Printed">已打印</option>
                     </select>
                 </div>
@@ -160,13 +160,14 @@
                     <th><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="searchBar.selectedAll" /></th>
                     <th>序号</th>
                     <th>订单批号</th>
-                    <th>订单编号</th>
-                    <th>生成日期</th>
                     <th>客户编号</th>
+                    <th>订单编号</th>
+                    <th>CUL包裹单号</th>
+                    <th>入库单号</th>
+                    <th>生成日期</th>
                     <!--<th>客户ID</th>-->
                     <!--<th>标示</th>-->
                     <th>客户关联号</th>
-                    <th>CUL包裹单号</th>
                     <th>发货仓库</th>
                     <th>发货渠道</th>
                     <th>收货地址</th>
@@ -182,18 +183,21 @@
                     <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
                     <td>{{item.rownumber}}</td>
                     <td style="max-width: 150px;">{{item.batchNumber || '-'}}</td>
+                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
                     <td style="max-width: 200px;">
                         <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
                         <span ng-if="item.isFastOrder == 1" title="极速原箱">
                             <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
                         </span>
                     </td>
-                    <td style="max-width: 160px;">{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
-                    <td style="max-width: 200px;">{{item.referenceOrderNumber || '-'}}</td>
-                    <td style="max-width: 150px;">
-                        <div ng-repeat="pkg in item._outboundTrackingNumbers">{{pkg}}</div>
+                    <td style="max-width: 160px;">
+                        <div ng-repeat="pkg in item._outboundTrackingNumbers track by $index">{{pkg}}</div>
                     </td>
+                    <td style="max-width: 200px;">
+                        <div ng-repeat="pkg in item._inboundTrackingNumbers" style="overflow: hidden;">{{pkg}}</div>
+                    </td>
+                    <td style="max-width: 160px;">{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                    <td style="max-width: 200px;">{{item.referenceOrderNumber || '-'}}</td>
                     <td style="max-width:150px;">{{item.warehouseName}}</td>
                     <td style="max-width:150px;">{{item.shipServiceName}}</td>
                     <td >

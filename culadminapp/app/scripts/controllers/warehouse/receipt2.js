@@ -30,7 +30,7 @@ angular.module('culAdminApp')
                 keywords: $location.search().receiptNumber || "",
                 warehouseNumber: "",
                 sendType: "",
-                inboundStatus: "",
+                inboundStatus: "0",
                 startDate: "",
                 endDate: "",
                 opened: {
