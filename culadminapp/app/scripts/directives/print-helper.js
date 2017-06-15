@@ -11,7 +11,7 @@ angular.module('culAdminApp')
       return {
           templateUrl: "views/templates/common/print-helper_tpl.html",
           restrict: 'E',
-          replace: true,
+          replace: true,  
           scope: true,
           link: function postLink($scope, $element, attrs) {
               var barCodeSettings = {

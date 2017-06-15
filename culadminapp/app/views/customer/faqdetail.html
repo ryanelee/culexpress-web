@@ -105,7 +105,9 @@
                         <div style=" margin-bottom:10px;" ng-repeat="item in messageLogs">
                             <div class="col-sm-6 blue">{{item.operationUserName}}</div>
                             <div class="col-sm-6 text-right">{{item.operationDate | date:'MM/dd/yyyy HH:mm:ss'}}</div>
-                            <div class="col-sm-12">{{item.message}}</div>
+                          
+                            <div class="col-sm-10">{{item.message}}</div>
+                            <div class="col-sm-2"><a style="cursor:pointer;" ng-click="delMessageBtn(item)">删除</a></div>
                             <div class="clearfix"></div>
                         </div>
                     </div>

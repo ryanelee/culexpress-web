@@ -12,15 +12,14 @@ angular.module('culAdminApp')
       var self = this;
 
       self.getDetail = function (id, callback) {
-          $http.get(cul.apiPath + "/customermessage/" + id).success(function (result) {
+          $http.get(cul.apiPath + "/customermessage/" + id).then(function (result) {
               callback(result);
           });
       }
 
       self.push = function (options, callback) {
-          console.log("options")
           console.log(options)
-          $http.post(cul.apiPath + "/customermessage/log", options).success(function (result) {
+          $http.post(cul.apiPath + "/customermessage/log", options).then(function (result) {
               callback(result);
           });
       }

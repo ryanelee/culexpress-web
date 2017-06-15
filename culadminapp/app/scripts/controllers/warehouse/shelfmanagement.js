@@ -1,5 +1,4 @@
 ﻿'use strict';
-
 /**
  * @ngdoc function
  * @name culAdminApp.controller:WarehouseShelfManagementCtrl
@@ -127,7 +126,7 @@ angular.module('culAdminApp')
                     case "create":
                         $location.path("/warehouse/shelfmanagementcreate");
                         break;
-                }
+                } 
             }
 
             $scope.btnPrint = function(item) {

@@ -1,6 +1,6 @@
 angular.module('warehourseFilters', []).filter('adviceStatus', function() {
     var adviceStatus = {
-        "1": "待反馈",
+        "1": "待反馈", 
         "2": "已反馈"
     };
     return function(input) {
@@ -78,7 +78,7 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function() {
         "5": "标准邮寄服务A",
         "6": "标准邮寄服务B",
         "7": "标准邮寄服务C",
-        "8": "身份证渠道",
+        "8": "标准邮寄服务",
         "9": "美国邮政 USPS特快",
         "10": "美国邮政USPS PRIORITY MAIL"
     };
