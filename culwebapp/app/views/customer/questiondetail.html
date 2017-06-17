@@ -77,14 +77,49 @@
                                   <small>{{replyMessageItem.operationDate|date:'yyyy/MM/dd HH:mm:ss'}}</small>
                               </h4>
                               <p style="width: 100%; word-wrap: break-word; word-break: break-all;">
-                                  {{replyMessageItem.message}}
+                                  {{replyMessageItem.message}}<br>
+                                 <img style="width:40px;" ng-src="{{replyMessageItem.images}}">
                               </p>
                               <div class="clearfix"></div>
                             </div>
                           </div>
                           <div class="msg-submit" ng-show="data._status != '已关闭'">
-                            <input name="message" id="message" ng-model="data.questionMessage" />
-                            <button type="button" class="btn-u bg-color-ffb" ng-click="submitMessage();">发表</button>
+                            <!--<input name="message" id="message" ng-model="data.questionMessage" />
+                            <button type="button" class="btn-u bg-color-ffb" ng-click="submitMessage();">发表</button>-->
+                            <div class="row">
+                                <form action="#" id="sky-form3" class="sky-form" style="width:100%;">
+                                    <fieldset>
+                                        <section>
+                                            <section>
+                                                <label class="label">照片上传
+                                                </label>
+                                                <div style="height: 50%">
+                                                    <form enctype="multipart/form-data" id="addForm">
+                                                        <div class="form-group">
+                                                            <label></label>
+                                                            <input id="file2" type="file" class="file" name="file" multiple="true" ,accept="image/*">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </section>
+
+                                            <section>
+                                                <section>
+                                                    <label class="label">回复留言</label>
+                                                    <label class="textarea textarea-resizable">
+                                                    <i class="icon-append fa fa-comment"></i>
+                                                    <textarea rows="4" placeholder="请输入您的回复" name="message" id="message" ng-model="data.questionMessage"></textarea>
+                                                </label>
+                                                </section>
+                                            </section>
+                                            <div class="row">
+                                                <div class="" style="margin-right: 15px;">
+                                                    <button type="button" class="btn-u bg-color-ffb" ng-click="submitMessage();">发表</button>                                    
+                                                </div>                         
+                                            </div>
+                                    </fieldset> 
+                                </form>
+                            </div>
                           </div>
                         </div>
                         <div class="pull-right op-row">
