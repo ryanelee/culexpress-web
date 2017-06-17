@@ -50,7 +50,7 @@
                     <td colspan="13">没有数据，请选择条件进行搜索。</td>
                 </tr>
 
-                <tr ng-if="dataList.length > 0" ng-repeat="item in dataList">
+                <tr ng-if="dataList.length > 0" ng-repeat="item in dataList track by $index">
                     <td>{{item.rownumber}}</td>
                     <td><a href="javascript:void(0);" ng-click="btnOpenDetail('customer',item)">{{item.customerNumber}}</a></td>
                     <td><a href="javascript:void(0);" ng-click="btnOpenDetail('address',item)">{{item.receivePersonName}}</a></td>
@@ -60,10 +60,8 @@
                     </td>
                     <td>{{item.lastEditDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                     <td>
-                        <div class="image-div" >
+                        <div class="image-div">
                            <a href="{{item.idCardBackUrl}}" target="_blank"> <img class="idCardImage" ng-src="{{item.idCardFrontUrl}}"/></a>
-                            
-                           
                         </div>
                     </td>
                     <td>
@@ -130,6 +128,5 @@
     </script>
 
     <script type="text/javascript">
-        // $('.image-div img').zoomify();
     </script>
 
