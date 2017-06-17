@@ -40,7 +40,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="search-col">
-                        <label class="search-label">开始日期：</label>
+                        <label class="search-label">打包开始日期：</label>
                         <p class="input-group pull-left">
                             <input type="text" class="form-control search-control" style="width:110px;"
                                 uib-datepicker-popup
@@ -55,7 +55,7 @@
                     </div>
                     <div class="search-col">
                     <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
-                        <label class="search-label">结束日期：</label>
+                        <label class="search-label">打包结束日期：</label>
                         <p class="input-group pull-left">
                             <input type="text" class="form-control search-control" style="width:110px;"
                                 uib-datepicker-popup
@@ -166,7 +166,8 @@
                         <form style="float:left; margin:0 4px;" id="form_export_send" method="post" action="/" target="_blank">
                             <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
                             <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
-
+                            <input id="dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.dateFrom}}" />
+                            <input id="dateTo" name="dateTo" type="hidden" value="{{exportOptions.dateTo}}" />
                             <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
                             <input id="userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
                             <input id="orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />

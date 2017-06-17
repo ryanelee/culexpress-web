@@ -87,6 +87,7 @@ angular.module('culAdminApp')
         }
 
         self.getOutboundPackageList = function (options, callback) {
+            console.log(options);
             $http.post(cul.apiPath + "/outboundPackage/list", options).success(function (result) {          
                 $.each(result.data, function (i, item) {
                     item._orderStatus = _getOrderStatus(item.orderStatus);
