@@ -59,8 +59,8 @@ angular.module('culAdminApp')
           var _filterOptions = function () {
               var _options = {
                   "pageInfo": $scope.pagination,
-                  "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate : "",
-                  "dateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate: ""
+                  "outDateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate : "",
+                  "outDateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate: ""
               }
               if (!!$scope.searchBar.orderStatus) {
                   _options["orderStatus"] = $scope.searchBar.orderStatus;

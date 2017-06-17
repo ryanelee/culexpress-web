@@ -95,11 +95,13 @@ var app = angular
                 orderSvr
                     .getWarehouses()
                     .then(function(result) {
-                        if (!window.sessionStorage.getItem('cache_warehouse')) {
-                            window.sessionStorage.setItem('cache_warehouse', JSON.stringify(result.data));
-                        } else if (!$scope.shippingItems || $scope.shippingItems.length <= 0) {
+                        console.log("result");
+                        console.log(result);
+                        // if (!window.sessionStorage.getItem('cache_warehouse')) {
+                            // window.sessionStorage.setItem('cache_warehouse', JSON.stringify(result.data));
+                        // } else if (!$scope.shippingItems || $scope.shippingItems.length <= 0) {
                             $scope.shippingItems = orderSvr.selectedShippingItems;
-                        }
+                        // }
 
                         $scope.warehouses = result.data;
 
@@ -116,6 +118,8 @@ var app = angular
                                     if (queried.length <= 0) {
                                         $scope.allShipChannels.push(shipServiceList[j]);
                                     }
+                                    console.log('233')
+                                    console.log($scope.allShipChannels);
                                 }
                             }
                         }

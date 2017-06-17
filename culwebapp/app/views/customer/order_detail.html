@@ -214,13 +214,9 @@
                         <span>
                             <i class="fa fa-user"></i> {{orderMessageItem.operationUserName}}
                         </span>
-                        <span style="font-weight:bold;"> {{orderMessageItem.message}}</span>
-                        <span class="pull-right"><small>{{orderMessageItem.operationDate|sysdate}}</small></span>
-                        <span class="pull-right" style="padding: 0px 10px;" > 
-                            <img style="width:60px;" ng-src="{{orderMessageItem.images}}">
-                        </span>
-                        
-                        
+                        <span style="font-weight:bold;"> {{orderMessageItem.message}} <br>
+                             <img style="width:40px;margin-left:30px;" ng-src="{{orderMessageItem.images}}"></span>
+                        <span class="pull-right"><small>{{orderMessageItem.operationDate|sysdate}}</small></span> 
                     </div>
                     <div class="msg-item">
                         <!--<input class="form-control msg-txt" ng-model="data.orderMessage" />
@@ -239,7 +235,7 @@
                        
                         <!--<button class="btn submit" ng-click="submitMessage();">发表</button>-->
                         <div class="row">
-                            <form action="#" id="sky-form3" class="sky-form">
+                            <form action="#" id="sky-form3" class="sky-form" style="width:100%;">
                                 <fieldset>
                                     <section>
                                         <section>

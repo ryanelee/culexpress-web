@@ -52,6 +52,9 @@ angular.module('culAdminApp')
                             console.log($scope.idCardLength);
                         })
                     }
+                    $scope.$on("updateMessageList" ,function(){
+                       $rootScope.getIdMessageList();
+                    })
 
                     $scope.getVipAndMsg();
                     $rootScope.getmessageList();
@@ -59,8 +62,10 @@ angular.module('culAdminApp')
                     $scope.btnViewMessage = function(message) {
                         $location.path("/customer/faqdetail").search({ messageNumber: message.messageNumber });
                     }
-                     $scope.btnViewMessage = function(message) {
+                     $scope.btnViewAddressMessage = function(message) {
+                          faqService.updateMessageOperation({ messageNumber: message.messageNumber }).then(function(data) {
                         $location.path("/customer/addressdetail").search({ transactionNumber: message.addressId });
+                })
                     }
 
                     $scope.$on('message', function(result) {
