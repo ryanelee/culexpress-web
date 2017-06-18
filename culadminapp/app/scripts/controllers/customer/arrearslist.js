@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @ngdoc function
+ * @ngdoc function 
  * @name culAdminApp.controller:ArrearslistCtrl
  * @description
  * # ArrearslistCtrl
