@@ -12,14 +12,14 @@
         }
     </style>
 <div id="printTemplate">
-    <div>
+    <!--<div>-->
         <!--<img src="assets/img/kingadmin-logo.png" />-->
-        <span>CUL 中美速递 www.culexpress.com</span>
-    </div>
+        <!--<span>CUL 中美速递 www.culexpress.com</span>-->
+    <!--</div>-->
     <table cellpadding="2" cellspacing="0" border="1" width="240px" height="118px" ng-repeat="data in dataList">
         <tr>
             <th colspan="3">
-                <label style="font-size:30px;">{{data.receipt}}</label>
+                <label style="font-size:20px;">{{data.receipt}}</label>
             </th>
         </tr>
         <tr>
@@ -29,7 +29,7 @@
         </tr>
 
         <tr>
-            <td style="text-align:center;" olspan="1">
+            <td style="text-align:center;" colspan="1">
                  <!--<img src="/images/fast-ship.png" style="width:30px; height:30px;" ng-if="data.isFastShip == 1" />-->
                  <img src="/images/fast-icon.png" style="width:30px; height:30px;" ng-if="data.isFastShip == 1" />
             </td>

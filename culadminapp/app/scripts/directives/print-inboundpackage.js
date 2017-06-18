@@ -16,11 +16,11 @@ angular.module('culAdminApp')
             link: function postLink($scope, $element, attrs) {
                 var barCodeSettings = {
                     addQuietZone: "1",
-                    barHeight: "25",
+                    barHeight: "50",
                     barWidth: "1",
                     bgColor: "#FFFFFF",
                     color: "#000000",
-                    moduleSize: "5",
+                    moduleSize: "10",
                     output: "css",
                     posX: "10",
                     posY: "20"
@@ -48,7 +48,7 @@ angular.module('culAdminApp')
                             result.receiptNumber = trackingNumber;
                             $scope.dataList.push(result);
                             $scope.dataOne = {};
-                            var _diffBarCodeOptions = { barHeight: "40", fontSize: "16" };
+                            var _diffBarCodeOptions = { barHeight: "50", fontSize: "16" };
                             _render($element.find("#receipt-tag-inbound-tag"), _diffBarCodeOptions);
                             // break;
                             //   _render();
