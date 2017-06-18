@@ -25,9 +25,6 @@ angular.module('culAdminApp')
                 warehouseList: []
             }
 
-
-
-
             faqService.getMessageType(7, function (result) {
                 $scope.tpl_status.messageTypeData = [{ "typeID": "", "typeName": "全部" }].concat(result);
                 result.forEach(function (data) {
@@ -70,7 +67,7 @@ angular.module('culAdminApp')
                     if (_receivedWarehouse.length > 0) $scope.data._receivedWarehouseName = _receivedWarehouse[0].warehouseName;
                     $scope.refreshMessage();
                 })
-
+                _buildUpload($('#uploadImg'), "_images");
             });
 
             $scope.refreshMessage = function () {
@@ -117,8 +114,8 @@ angular.module('culAdminApp')
             }
 
             $scope.btnViewCustomer = function (orderNumber) {
-                return;
                 $location.path("/order/orderdetail").search({ orderNumber: 'JK020OJWV10000049' });
+                return;
             }
 
             $scope.setMessageLog = function () {
@@ -173,6 +170,32 @@ angular.module('culAdminApp')
             $scope.btnPrev = function () {
                 $window.sessionStorage.setItem("historyFlag", 1); $window.history.back();
             }
+
+            //----------upload file START----------
+            var _buildUpload = function ($el, key) {
+                //console.log("key" + key);
+                var _$panel = $el.parents(".fileupload-buttonbar:first");
+                $el.fileupload({
+                    url: cul.apiPath + '/files/upload',
+                    type: "post",
+                    headers: {
+                        token: sessionStorage.getItem("token")
+                    }
+                }).bind('fileuploadprogress', function (e, result) {
+                    var progress = parseInt(result.loaded / result.total * 100, 10);
+                    _$panel.find("#progress").css('width', progress + '%');
+                }).bind('fileuploaddone', function (e, data) {
+                    _$panel.find("#file_btn_text").text("重新上传");
+                    $scope.$apply(function () {
+                        //console.log("上传结束");
+                        $scope.data[key] = data.result.url;
+                        // $scope.data[key + "Url"] = data.result.url;
+                        console.log( $scope.data[key]);
+
+                    });
+                });
+            }
+            //----------upload file END----------
         }
     ]);
 
