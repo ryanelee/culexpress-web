@@ -55,7 +55,7 @@ angular.module('culAdminApp')
                           break;
                       case "shelf-management-tag":
                           $scope.data = { shelfNumber: options.shelfNumber };
-                          _diffBarCodeOptions = { barHeight: "40", fontSize: "16" };
+                          _diffBarCodeOptions = { barHeight: "50", fontSize: "16" };
                           _render($element.find("#" + type), _diffBarCodeOptions);
                           break;
                   }
