@@ -16,14 +16,14 @@
         <!--<img src="assets/img/kingadmin-logo.png" />-->
         <!--<span>CUL 中美速递 www.culexpress.com</span>-->
     <!--</div>-->
-    <table cellpadding="2" cellspacing="0" border="1" width="240px" height="118px" ng-repeat="data in dataList">
+    <table cellpadding="2" cellspacing="0" border="1" width="280px" ng-repeat="data in dataList">
         <tr>
             <th colspan="3">
                 <label style="font-size:20px;">{{data.receipt}}</label>
             </th>
         </tr>
         <tr>
-            <td colspan="3" >
+            <td colspan="3">
                 <div class="barcode" itemNumber="{{data.receiptNumber}}"></div>
             </td>
         </tr>
