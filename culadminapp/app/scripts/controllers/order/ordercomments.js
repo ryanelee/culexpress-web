@@ -78,7 +78,7 @@ angular.module('culAdminApp')
                     "dateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : "",
                 }
                 if (!!$scope.searchBar.warehouseNumber) {
-                    _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
+                    _options["receivedWarehouseNumber"] = $scope.searchBar.warehouseNumber;
                 }
                 if (!!$scope.searchBar.questionStatus) {
                     _options["status"] = $scope.searchBar.questionStatus;
@@ -124,7 +124,7 @@ angular.module('culAdminApp')
                         $location.path("/warehouse/receiptdetail2");
                         break;
                     case "ordercommentsdetail":
-                        // $location.search({ customerNumber: item.customerNumber });
+                        $location.search({ orderMessageNumber: item.messageNumber });
                         $location.path("/order/ordercommentsdetail");
                         break;
                 }

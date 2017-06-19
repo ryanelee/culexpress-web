@@ -77,49 +77,18 @@ angular.module('culAdminApp')
             $scope.isPrintDetail = !!$location.search().print;
 
             $scope.isShow = false;
-            orderService.getDetail($location.search().orderNumber, function(result) {
-                console.log("result")
-                console.log(result)
-                $scope.data = result;
-                $scope.result = result;
-                if ($scope.data.shipToAddresses && $scope.data.shipToAddresses[0]) {
-                    $scope.data.shipToAddresses.forEach(function(e) {
-                        var province = e.stateOrProvince;
-                        var city = e.city;
-                        var area = e.area;
-                        $scope.getProvince(province, city, area, e);
-                    })
-                }
-
-                if (result._printStatus == "未打印") {
-                    $scope.isShow = true;
-                };
-                $.each($scope.data.shipToAddresses, function(i, address) {
-                    address._trackingNumbers = [];
-                    $.each($scope.data.outboundPackages, function(i, outboundPackage) {
-                        if (outboundPackage.address.transactionNumber == address.transactionNumber) {
-                            address._trackingNumbers.push(outboundPackage.trackingNumber);
-                        }
-                    });
-                });
-
-                $scope.data._shippingFeeTotal = 0;
-                $.each($scope.data.outboundPackages, function(i, outboundPackage) {
-                    $scope.data._shippingFeeTotal += outboundPackage.shippingFee;
-                });
-                $scope.data._shippingFeeTotal = $scope.data._shippingFeeTotal.toFixed(2);
-
-                $scope.refreshMessage();
-            });
-
+            $scope.data = [];
             $scope.refreshMessage = function() {
-                customerMessageService.getDetail($scope.data.orderMessageNumber, function(result) {
+                customerMessageService.getDetail($location.search().orderMessageNumber, function(result) {
                     $scope.data.messageLogs = [];
                     if (!!result) {
-                        $scope.data.messageLogs = result.messageLogs;
+                        $scope.data = result.data
+                        $scope.data.messageLogs = result.data.messageLogs;
                     }
+                    _buildUpload($('#uploadImg'), "images");
                 });
             }
+            $scope.refreshMessage();
 
             $scope.btnEditOrderItems = function() {
                 $scope._editOrderItemsData = JSON.parse(JSON.stringify($scope.data.orderItems));
@@ -132,84 +101,14 @@ angular.module('culAdminApp')
 
                 address._edit = true;
             }
-            $scope.btnSaveAddress = function(address) {
-                if (!!address.receivePersonName &&
-                    !!address.cellphoneNumber &&
-                    !!address.address1_before &&
-                    !!address.city &&
-                    !!address.zipcode) {
-                    address.stateOrProvince = address.province.name;
-                    address.city = address.city.name;
-                    address.area = address.area.name;
 
-                    if (address.stateOrProvince.indexOf("区") < 0 && address.stateOrProvince.indexOf("市") < 0) {
-                        if (!address.area) {
-                            plugMessenger.info("收货地址没有填写全，不能提交更改。");
-                            return;
-                        }
-                    } else {
-                        address.area = " ";
-                    }
-                    address.address1 = address.address1_before
-                    address.transactionNumber = address.addressNumber;
-                    // return;
-                    addressService.update(address, function(result) {
-                        if (result.success == true) {
-                            address._edit = false;
-                            $scope.cloneAddress = null;
-                            plugMessenger.success("收货地址保存成功。");
-                            setTimeout(function() {
-                                $window.location.reload();
-                            }, 300)
-                        }
-                    });
-                } else {
-                    plugMessenger.info("收货地址没有填写全，不能提交更改。");
-                }
-            }
-            $scope.btnCancelAddress = function(address) {
-                for (var key in $scope.cloneAddress) {
-                    if (key != "$$hashKey") address[key] = $scope.cloneAddress[key];
-                }
-                address._edit = false;
-                $scope.cloneAddress = null;
-            }
-
-            $scope.btnOrderItems_Oper = function(type, index) {
-                switch (type) {
-                    case "add":
-                        $scope.data.orderItems.push({
-                            "itemBrand": "",
-                            "description": "",
-                            "quantity": "",
-                            "unitprice": ""
-                        });
-                        break;
-                    case "del":
-                        $scope.data.orderItems[index] = null;
-                        $scope.data.orderItems = $.grep($scope.data.orderItems, function(n) { return !!n });
-                        break;
-                    case "repeat":
-                        var _repeatData = $.grep($scope._editOrderItemsData, function(n) { return n.transactionNumber == $scope.data.orderItems[index].transactionNumber });
-                        if (_repeatData.length > 0) _repeatData = _repeatData[0];
-                        for (var key in $scope.data.orderItems[index]) {
-                            if (key != "$$hashKey") {
-                                $scope.data.orderItems[index][key] = _repeatData[key];
-                            }
-                        }
-                        break;
-                    case "cancel":
-                        $scope._editOrderItems = false;
-                        $scope.data.orderItems = $scope._editOrderItemsData;
-                        break;
-                }
-            }
 
             $scope.btnMessagePush = function() {
                 if (!!$scope._message) {
                     customerMessageService.push({
-                        "messageNumber": $scope.data.orderMessageNumber,
-                        "message": $scope._message
+                        "messageNumber": $location.search().orderMessageNumber,
+                        "message": $scope._message,
+                        "images": $scope.data.images
                     }, function(result) {
                         $scope.refreshMessage();
                         $scope._message = "";
@@ -240,5 +139,31 @@ angular.module('culAdminApp')
                 $window.sessionStorage.setItem("historyFlag", 1);                
                 $window.history.back();
             }
+
+            //----------upload file START----------
+            var _buildUpload = function ($el, key) {
+                //console.log("key" + key);
+                var _$panel = $el.parents(".fileupload-buttonbar:first");
+                $el.fileupload({
+                    url: cul.apiPath + '/files/upload',
+                    type: "post",
+                    headers: {
+                        token: sessionStorage.getItem("token")
+                    }
+                }).bind('fileuploadprogress', function (e, result) {
+                    var progress = parseInt(result.loaded / result.total * 100, 10);
+                    _$panel.find("#progress").css('width', progress + '%');
+                }).bind('fileuploaddone', function (e, data) {
+                    _$panel.find("#file_btn_text").text("重新上传");
+                    $scope.$apply(function () {
+                        //console.log("上传结束");
+                        $scope.data[key] = data.result.url;
+                        // $scope.data[key + "Url"] = data.result.url;
+                        console.log( $scope.data[key]);
+
+                    });
+                });
+            }
+            //----------upload file END----------
         }
     ]);

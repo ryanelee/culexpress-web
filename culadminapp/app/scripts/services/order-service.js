@@ -306,8 +306,10 @@ angular.module('culAdminApp')
             return $http.put(cul.apiPath + "/order/adminPayment", obj)
         }
 
-        self.getOrderCommentsList = function (obj) {
-            return $http.post(cul.apiPath + "/customermessage/order/list", obj)
+        self.getOrderCommentsList = function (options, callback) {
+            $http.post(cul.apiPath + "/customermessage/order/list", options).success(function (result){
+                 callback(result);
+            })
         }
 
     }]);

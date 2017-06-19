@@ -3,16 +3,46 @@
         <h3><i class="fa fa-edit"></i> 订单详情</h3>
     </div>
     <div class="widget-content">
+        <fieldset>
+        <legend>客户信息</legend>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">订单编号：</label>
+                <div class="col-sm-4">
+                    <label class="control-label">{{data.orderNumber}}</label>
+                </div>
+                <label class="col-sm-2 control-label text-right">客户ID(注册名)：</label>
+                <div class="col-sm-4">
+                    <label class="control-label">{{data.inuserName}}</label>
+                </div>
+                <label class="col-sm-2 control-label text-right">客户编号：</label>
+                <div class="col-sm-4">
+                    <label class="control-label">{{data.customerNumber}}</label>
+                </div>
+                <label class="col-sm-2 control-label text-right">仓库：</label>
+                <div class="col-sm-4">
+                    <label class="control-label">{{data.receivedWarehouseNumber}}</label>
+                </div>
+                <label class="col-sm-2 control-label text-right">日期：</label>
+                <div class="col-sm-4">
+                    <label class="control-label">{{data.indate | date:'MM/dd/yyyy HH:mm:ss' }}</label>
+                </div>
+                
+            </div>
+        </fieldset>
         <form class="form-horizontal" role="form">
             <fieldset>
                 <legend>订单留言</legend>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">留言记录：</label>
-                    <div class="row col-sm-4">
+                    <div class="row col-sm-6">
                         <div style=" margin-bottom:10px;" ng-repeat="item in data.messageLogs">
                             <div class="col-sm-6 blue">{{item.operationUserName}}</div>
                             <div class="col-sm-6 text-right">{{item.operationDate | date:'MM/dd/yyyy HH:mm:ss'}}</div>
-                            <div class="col-sm-12">{{item.message}}</div>
+                            <div class="col-sm-12">{{item.message}}
+                                <a href="{{item.images}}" target="_blank">
+                                    <img style="width:50px;margin:10px;" ng-src="{{item.images}}">
+                                </a>
+                            </div>
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -23,8 +53,8 @@
                     <div class="col-sm-4">
                         <div class="row fileupload-buttonbar" style="padding-left:15px;">
                             <div class="thumbnail col-sm-12">
-                                <a href="{{data._images}}" target="_blank">
-                                    <img id="uploadImg_show" style="height:100px;margin-top:10px;margin-bottom:8px;" ng-src="{{data._images}}" data-holder-rendered="true">
+                                <a href="{{data.images}}" target="_blank">
+                                    <img id="uploadImg_show" style="height:100px;margin-top:10px;margin-bottom:8px;" ng-src="{{data.images}}" data-holder-rendered="true">
                                 </a>
                                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="10" aria-valuemax="100" aria-valuenow="0">
                                     <div id="progress" class="progress-bar progress-bar-success" style="width:0%;"></div>
@@ -43,13 +73,13 @@
                     <div class="col-sm-4">
                         <textarea class="form-control" ng-model="_message"></textarea>
                     </div>
-                    <button type="button" class="btn btn-default role" data-role="85" ng-click="btnMessagePush()"><i class="fa fa-comment"></i>留言</button>
+                    <button type="button" class="btn btn-default" ng-click="btnMessagePush()"><i class="fa fa-comment"></i>回复</button>
                 </div>
 
             </fieldset>
             <div class="form-group text-center">
                 <!--<button type="button" class="btn btn-primary" ng-if="!isPrintDetail">通过</button>-->
-                <button type="button" class="btn btn-primary" ng-if="!isPrintDetail" ng-click="btnSave()"><i class="fa fa-save"></i>保存</button>
+                <!--<button type="button" class="btn btn-primary" ng-if="!isPrintDetail" ng-click="btnSave()"><i class="fa fa-save"></i>保存</button>-->
 
                 <button type="button" class="btn btn-primary" ng-if="isPrintDetail"><i class="fa fa-print"></i>打印</button>
                 <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>

@@ -101,12 +101,16 @@
                 <legend>问题留言</legend>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">回复记录：</label>
-                    <div class="row col-sm-4">
+                    <div class="row col-sm-6">
                         <div style=" margin-bottom:10px;" ng-repeat="item in messageLogs">
                             <div class="col-sm-6 blue">{{item.operationUserName}}</div>
                             <div class="col-sm-6 text-right">{{item.operationDate | date:'MM/dd/yyyy HH:mm:ss'}}</div>
                           
-                            <div class="col-sm-10">{{item.message}}</div>
+                            <div class="col-sm-10">{{item.message}}
+                                <a href="{{item.images}}" target="_blank">
+                                    <img style="width:50px;margin:10px;" ng-src="{{item.images}}">
+                                </a>                              
+                            </div>
                             <div class="col-sm-2"><a style="cursor:pointer;" ng-click="delMessageBtn(item)">删除</a></div>
                             <div class="clearfix"></div>
                         </div>
@@ -117,8 +121,8 @@
                     <div class="col-sm-4">
                         <div class="row fileupload-buttonbar" style="padding-left:15px;">
                             <div class="thumbnail col-sm-12">
-                                <a href="{{data._images}}" target="_blank">
-                                    <img id="uploadImg_show" style="height:100px;margin-top:10px;margin-bottom:8px;" ng-src="{{data._images}}" data-holder-rendered="true">
+                                <a href="{{data.images}}" target="_blank">
+                                    <img id="uploadImg_show" style="height:100px;margin-top:10px;margin-bottom:8px;" ng-src="{{data.images}}" data-holder-rendered="true">
                                 </a>
                                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="10" aria-valuemax="100" aria-valuenow="0">
                                     <div id="progress" class="progress-bar progress-bar-success" style="width:0%;"></div>

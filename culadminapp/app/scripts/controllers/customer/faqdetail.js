@@ -67,14 +67,14 @@ angular.module('culAdminApp')
                     if (_receivedWarehouse.length > 0) $scope.data._receivedWarehouseName = _receivedWarehouse[0].warehouseName;
                     $scope.refreshMessage();
                 })
-                _buildUpload($('#uploadImg'), "_images");
+                _buildUpload($('#uploadImg'), "images");
             });
 
             $scope.refreshMessage = function () {
                 customerMessageService.getDetail($scope.tpl_status.messageNumber, function (result) {
                     $scope.messageLogs = [];
                     if (!!result) {
-                        $scope.messageLogs = result.messageLogs;
+                        $scope.messageLogs = result.data.messageLogs;
                     }
                 });
             }
@@ -83,7 +83,8 @@ angular.module('culAdminApp')
                 if (!!$scope._message) {
                     customerMessageService.push({
                         "messageNumber": $scope.tpl_status.messageNumber,
-                        "message": $scope._message
+                        "message": $scope._message,
+                        "images": $scope.data.images
                     }, function (result) {
                         $scope.refreshMessage();
                         $scope._message = "";
