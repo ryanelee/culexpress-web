@@ -40,7 +40,7 @@ angular.module('culAdminApp')
             if ($scope.tempSearchBar) {
                 $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
             }
-            
+
             //   storage.session.setObject("searchBar", $scope.searchBar);
 
             $scope.getData = function () {
@@ -95,9 +95,37 @@ angular.module('culAdminApp')
             /**
              * 给客户留言
              */
-            $scope.btnComment = function (customer){
-
+            $scope.btnComment = function (customer) {
+                $scope.message = angular.copy(customer);
+                plugMessenger.template($compile($("#customer_message_form").html())($scope));
             }
+
+
+
+
+
+
+            $scope.btnMessage = function (event) {
+                console.log($scope.message);
+                if (!$scope.message.message) {
+                    plugMessenger.info("请填写留言信息");
+                    return;
+                }
+
+                $scope.message.messageType = 15;
+                customerService.addCustomerMessage($scope.message).then(function (result) {
+                    if (result.status == 200) {
+                        plugMessenger.success("留言成功");
+                        $(event.currentTarget).parents("#confirm-modal").modal("hide");
+                    } else {
+                        plugMessenger.error("留言失败");
+                        $(event.currentTarget).parents("#confirm-modal").modal("hide");
+                    }
+
+                })
+            }
+
+
 
             $scope.vipCustomer = {
                 customer: null,
@@ -139,6 +167,18 @@ angular.module('culAdminApp')
                 $scope.vipCustomer.warehouseNumber = customer.warehouseNumber || "";
                 plugMessenger.template($compile($("#tplVip_approval_form").html())($scope));
             }
+
+
+            $scope.btnApproveVIP = function (customer) {
+                console.log(customer);
+                $scope.vipCustomer.customer = customer;
+                $scope.vipCustomer.vipStatus = "Approved";
+                $scope.vipCustomer.memo = ""; //customer.vipAuditMemo;
+                $scope.vipCustomer.warehouseNumber = customer.warehouseNumber || "";
+                plugMessenger.template($compile($("#tplVip_approval_form").html())($scope));
+            }
+
+
 
             $scope.warehouse = {
                 list: []
