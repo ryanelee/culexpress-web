@@ -151,7 +151,6 @@
                         <form style="float:left;" id="form_export_order" method="post" action="/" target="_blank">
                             <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
                             <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
-
                             <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
                             <input id="userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
                             <input id="orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
@@ -165,6 +164,7 @@
 
                         <form style="float:left; margin:0 4px;" id="form_export_send" method="post" action="/" target="_blank">
                             <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
+                            <input id="exportStatus" name="exportStatus" type="hidden" value="{{exportOptions.exportStatus}}" />
                             <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
                             <input id="dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.dateFrom}}" />
                             <input id="dateTo" name="dateTo" type="hidden" value="{{exportOptions.dateTo}}" />
