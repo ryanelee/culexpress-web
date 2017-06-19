@@ -15,6 +15,7 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
+            console.log("这是测试。。。。。。");
 
 
             $scope.data = {}

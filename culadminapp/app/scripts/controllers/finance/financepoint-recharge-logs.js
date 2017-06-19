@@ -13,7 +13,7 @@ angular.module('culAdminApp')
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
-                'Karma'
+                'Karma' 
             ];
             
             $scope.tpl_status = {
@@ -94,10 +94,14 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function () {
+                console.log("这里有一个bug")
                 var _options = _filterOptions();
                 customerService.financeLogList(angular.copy(_options), function (result) {
                     $scope.allTotal = result.allTotal;
                     $scope.dataList = result.data;
+                    $scope.pageInfo = result.pageInfo;
+                    $scope.pagination.totalCount = $scope.pageInfo.totalCount;
+                    console.log(result)
                     // $scope.pagination.totalCount = result.pageInfo.totalCount;
                 });
             }
