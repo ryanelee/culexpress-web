@@ -187,10 +187,6 @@ angular
                 templateUrl: 'views/warehouse/editshipping.html',
                 controller: 'WarehouseEditshippingCtrl'
             })
-            .when('/warehouse/orderComments', {
-                templateUrl: 'views/warehouse/orderComments.html',
-                controller: 'OrderCommentsCtrl'
-            })
             .when('/customer/customerdetail', {
                 templateUrl: 'views/customer/customerdetail.html',
                 controller: 'CustomerDetailCtrl'
@@ -262,6 +258,14 @@ angular
             .when('/order/ordertrackbatchupdate', {
                 templateUrl: 'views/order/ordertrackbatchupdate.html',
                 controller: 'OrderTrackBatchUpdateCtrl'
+            })
+            .when('/order/ordercomments', {
+                templateUrl: 'views/order/ordercomments.html',
+                controller: 'OrderCommentsCtrl'
+            })
+            .when('/order/ordercommentsdetail', {
+                templateUrl: 'views/order/ordercommentsdetail.html',
+                controller: 'OrderCommentsDetailCtrl'
             })
             .when('/finance/financelist', {
                 templateUrl: 'views/finance/financelist.html',

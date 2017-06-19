@@ -18,12 +18,13 @@ angular.module('culAdminApp')
                     addQuietZone: "1",
                     barHeight: "50",
                     barWidth: "1",
+                    showHRI: "false",
                     bgColor: "#FFFFFF",
                     color: "#000000",
                     moduleSize: "10",
                     output: "css",
-                    posX: "10",
-                    posY: "20"
+                    posX: "0",
+                    posY: "0"
                 }
 
                 $scope.$on("print-inboundPackage.action", function (e, trackingNumbers) {
