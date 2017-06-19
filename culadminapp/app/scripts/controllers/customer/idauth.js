@@ -60,8 +60,14 @@ angular.module('culAdminApp')
             $scope.getData = function () {
                 storage.session.setObject("searchBar", $scope.searchBar);
                 var _options = {
-                    "pageInfo": $scope.pagination
+                    "pageInfo": $scope.pagination,
+                    "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
+                    "dateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : "",
+
                 }
+                 if (!!$scope.searchBar.verifyMark) {
+                _options["verifyMark"] = $scope.searchBar.verifyMark;
+            }
                 _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 addressService.getList(_options, function (result) {
                     $scope.dataList = result.data;
@@ -200,7 +206,7 @@ angular.module('culAdminApp')
                     $scope._address.verifyMark = -1;
                     $scope._address._verifyMark = _verifyMark_($scope._address.verifyMark);
                     addressService.update($scope._address, function (result) {
-                            $scope.createMessageLog("身份认证失败: " + $scope._address.idRemark);
+                        $scope.createMessageLog("身份认证失败: " + $scope._address.idRemark);
                         if (result.success == true) {
                             $scope.dataList[$scope.index] = $scope._address;
                             plugMessenger.success("成功");
@@ -208,7 +214,7 @@ angular.module('culAdminApp')
                         } else {
                             plugMessenger.error("失败： " + result.message);
                         }
-                    }); 
+                    });
                     $scope.idRemark = "";
                 }
             }
@@ -218,6 +224,6 @@ angular.module('culAdminApp')
             }
 
 
-           
+
 
         }]);
