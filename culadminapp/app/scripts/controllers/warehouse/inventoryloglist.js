@@ -127,5 +127,9 @@ angular.module('culAdminApp')
           $scope.btnPrev = function () {
               $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
           }
+
+          if(!!$scope.searchBar.keywords && $scope.searchBar.keywords.length > 0){
+              $scope.btnSearch();
+          }
       }]);
 
