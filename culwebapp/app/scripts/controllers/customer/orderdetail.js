@@ -25,7 +25,7 @@ angular.module('culwebApp')
                     // uploadUrl: cul.apiPath + "/customermessage/uploadImage?customNumber=" + $scope.customNumber,//上传的地址
                     allowedFileExtensions: ["jpg", "png", "gif", 'jpeg'],//接收的文件后缀
                     browseOnZoneClick: true,  //是否启用 点击预览区进行【文件浏览/选择】操作。默认为假。
-                    minFileCount: 4,//同一时间上传的最小
+                    minFileCount: 1,//同一时间上传的最小
                     maxFileCount: 4,//同一时间上传的最大数量
                     resizePreference: 'height',
                     overwriteInitial: false,
@@ -106,9 +106,13 @@ angular.module('culwebApp')
                 orderSvr
                     .getMessage($scope.data.orderMessageNumber)
                     .then(function(result) {
-                        if (result.data) {
+                        if (result.data.messageLogs) {
                             $scope.orderMessages = result.data.messageLogs;
-                            // console.log(result.data.messageLogs)
+                            $scope.orderMessages.forEach(function (e, index) {
+                                if (e.images != null && e.images != '') {
+                                    $scope.orderMessages[index].images = e.images.split(',');
+                                }
+                            })
                         }
                     })
 

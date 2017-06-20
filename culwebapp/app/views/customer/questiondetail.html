@@ -63,7 +63,7 @@
                           <p>{{data.message}}</p>
                         </div>
                         <div class="messages">
-                          <div class="msg-item" ng-repeat="replyMessageItem in data.messageLogs">
+                          <div class="msg-item" ng-repeat="replyMessageItem in messageLogs">
                             <div class="header-icon">
                               <img ng-if="replyMessageItem.operationUserName && replyMessageItem.operationUserName!=currentUser.userName" src="../../assets/img/dashbard/icon-admin.png" />
                               <img ng-if="replyMessageItem.operationUserName==currentUser.userName || !replyMessageItem.operationUserName" src="../../assets/img/dashbard/icon-user.png" />
@@ -78,18 +78,14 @@
                               </h4>
                               <p style="width: 100%; word-wrap: break-word; word-break: break-all;">
                                   {{replyMessageItem.message}}<br>
-                                <a href="{{replyMessageItem.images | split:',':0}}" target="_blank">
+                                <!--<a href="{{replyMessageItem.images | split:',':0}}" target="_blank">
                                     <img style="width:40px;margin-left:30px;" ng-src="{{replyMessageItem.images | split:',':0}}"></span>
-                                </a>
-                                <a href="{{replyMessageItem.images | split:',':1}}" target="_blank">
-                                    <img style="width:40px;margin-left:30px;" ng-src="{{replyMessageItem.images | split:',':1}}"></span>
-                                </a>
-                                <a href="{{replyMessageItem.images | split:',':2}}" target="_blank">
-                                    <img style="width:40px;margin-left:30px;" ng-src="{{replyMessageItem.images | split:',':2}}"></span>
-                                </a>
-                                <a href="{{replyMessageItem.images | split:',':3}}" target="_blank">
-                                    <img style="width:40px;margin-left:30px;" ng-src="{{replyMessageItem.images | split:',':3}}"></span>
-                                </a>
+                                </a>-->
+                                <span ng-repeat="image in replyMessageItem.images">
+                                    <a href="{{image}}" target="_blank">
+                                        <img style="width:40px;margin-left:30px;" ng-src="{{image}}"></span>
+                                    </a>
+                                </span> 
                               </p>
                               <div class="clearfix"></div>
                             </div>
