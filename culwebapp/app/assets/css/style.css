@@ -3582,4 +3582,7 @@ select:-webkit-autofill {
 		margin-top: 10px;
 	}
 }
+.file-upload .file-drop-zone-title{
+	padding: 40px 10px !important;
+}
 
