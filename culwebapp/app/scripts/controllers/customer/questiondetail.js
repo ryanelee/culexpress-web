@@ -41,8 +41,8 @@ angular.module('culwebApp')
                     // uploadUrl: cul.apiPath + "/customermessage/uploadImage?customNumber=" + $scope.customNumber,//上传的地址
                     allowedFileExtensions: ["jpg", "png", "gif", 'jpeg'],//接收的文件后缀
                     browseOnZoneClick: true,  //是否启用 点击预览区进行【文件浏览/选择】操作。默认为假。
-                    minFileCount: 1,//同一时间上传的最小
-                    maxFileCount: 1,//同一时间上传的最大数量
+                    minFileCount: 4,//同一时间上传的最小
+                    maxFileCount: 4,//同一时间上传的最大数量
                     resizePreference: 'height',
                     overwriteInitial: false,
                     uploadLabel: "上传",
@@ -65,7 +65,7 @@ angular.module('culwebApp')
                     .getQuestionInfo(questionid)
                     .then(function(result) {
                         $scope.data = result.data;
-                        console.log($scope.data)
+                        // console.log($scope.data)
                         //Processing -- 处理中, Closed -- 已关闭, ForwardWH -- 转交仓库
                         if ($scope.data.status == "Processing") {
                             $scope.data._status = "处理中";
@@ -98,7 +98,6 @@ angular.module('culwebApp')
                         $scope.images = $scope.images + "," + e;
                     }
                 })
-                console.log("questionid")
                 if ($scope.data.questionMessage) {
                     $scope.data.questionMessageInfo = {
                         orderMessageNumber: questionid,

@@ -38,6 +38,19 @@ angular
             return $filter('date')(inputText, 'yyyy/MM/dd HH:mm')
         }
     }])
+    .filter('split', function() {
+        return function(input, splitChar, splitIndex) {
+            // do some bounds checking here to ensure it has that index
+            if(input == null || input == '') {
+                return ''
+            }
+            else if(input.split(splitChar).length > splitIndex) {
+                return input.split(splitChar)[splitIndex];
+            } else {
+                return ''
+            }  
+        }
+    })
     .factory('loadingSvr', ['$timeout', function($timeout) {
         return {
             hide: function(delay) {

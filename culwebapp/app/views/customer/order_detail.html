@@ -215,7 +215,21 @@
                             <i class="fa fa-user"></i> {{orderMessageItem.operationUserName}}
                         </span>
                         <span style="font-weight:bold;"> {{orderMessageItem.message}} <br>
-                             <img style="width:40px;margin-left:30px;" ng-src="{{orderMessageItem.images}}"></span>
+                           <a href="{{orderMessageItem.images | split:',':0}}" target="_blank">
+                             <img style="width:40px;margin-left:30px;" ng-src="{{orderMessageItem.images | split:',':0}}"></span>
+                           </a>
+                           <a href="{{orderMessageItem.images | split:',':1}}" target="_blank">
+                             <img style="width:40px;margin-left:30px;" ng-src="{{orderMessageItem.images | split:',':1}}"></span>
+                           </a>
+                           <a href="{{orderMessageItem.images | split:',':2}}" target="_blank">
+                             <img style="width:40px;margin-left:30px;" ng-src="{{orderMessageItem.images | split:',':2}}"></span>
+                           </a>
+                           <a href="{{orderMessageItem.images | split:',':3}}" target="_blank">
+                             <img style="width:40px;margin-left:30px;" ng-src="{{orderMessageItem.images | split:',':3}}"></span>
+                           </a>
+                           <!--<a href="{{orderMessageItem.images | split:',':4}}" target="_blank">
+                             <img style="width:40px;margin-left:30px;" ng-src="{{orderMessageItem.images | split:',':4}}"></span>
+                           <a>-->
                         <span class="pull-right"><small>{{orderMessageItem.operationDate|sysdate}}</small></span> 
                     </div>
                     <div class="msg-item">
