@@ -48,7 +48,7 @@ angular.module('culAdminApp')
                             }
                             result.receiptNumber = trackingNumber;
                             $scope.dataList.push(result);
-                            $scope.dataOne = {};
+                            $scope.dataOne = result;
                             var _diffBarCodeOptions = { barHeight: "50", fontSize: "16" };
                             _render($element.find("#receipt-tag-inbound-tag"), _diffBarCodeOptions);
                             // break;
