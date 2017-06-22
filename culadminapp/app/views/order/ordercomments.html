@@ -135,7 +135,7 @@
                     <tbody>
                         <tr ng-repeat="item in dataList">
                             <td>{{item.rownumber}}</td>
-                            <td>{{item.orderNumber}}</td>
+                            <td><a ng-click="btnOpenDetail('orderdetail',item)">{{item.orderNumber}}</a></td>
                             <td>{{item.customerNumber}}</td>
                             <td>{{item.inuserName}}</td>                                                
                             <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>

@@ -29,7 +29,7 @@ angular.module('culAdminApp')
                 keywordType: "orderNumber",
                 keywords: $location.search().orderNumber || "",
                 questionStatus: "",
-                warehouseNumber: "",          
+                warehouseNumber: "",
                 startDate: "",
                 startTime_HH: "0",
                 startTime_mm: "",
@@ -101,8 +101,8 @@ angular.module('culAdminApp')
                     $scope.dataList = result.data;
                     // console.log($scope.dataList)
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
-                    $scope.dataList.forEach(function(e) {
-                        e._massage = e.messageLogs[e.messageLogs.length-1].message
+                    $scope.dataList.forEach(function (e) {
+                        e._massage = e.messageLogs[e.messageLogs.length - 1].message
                     });
                 });
             }
@@ -115,6 +115,8 @@ angular.module('culAdminApp')
                 $scope.pagination.totalCount = 0;
                 $scope.getData();
             }
+
+         
             /**
              * 查看详情
              */
@@ -128,36 +130,40 @@ angular.module('culAdminApp')
                         $location.search({ orderMessageNumber: item.messageNumber });
                         $location.path("/order/ordercommentsdetail");
                         break;
+                    case "orderdetail":
+                        $location.search({ orderNumber: item.orderNumber });
+                        $location.path("/order/orderdetail");
+                        break;
                 }
             }
 
             $scope.btnAction = function (type, item) {
-            switch (type) {
-                case "exception":
-                    $location.path('/warehouse/receiptexception');
-                    break;
-                case "inbound":
-                    if (!!item) $location.search({ receiptNumber: item.receiptNumber, inboundStatus: item.inboundStatus });
-                    $location.path('/warehouse/receiptedit2');
-                    break;
-                case "check":
-                    if (!!item) $location.search({ receiptNumber: item.receiptNumber });
-                    $location.path('/warehouse/receiptcheck2');
-                    break;
-                case "delete":
-                    plugMessenger.confirm("请确认是否删除该记录？", function (isOK) {
-                        if (isOK) {
-                            // receiptService.delete({
-                            //     "receiptNumber": [item.receiptNumber]
-                            // }, function (result) {
-                            //     if (result.success == true) {
-                            //         plugMessenger.success("删除成功");
-                            //         $scope.getData();
-                            //     }
-                            // });
-                        }
-                    });
-                    break;
+                switch (type) {
+                    case "exception":
+                        $location.path('/warehouse/receiptexception');
+                        break;
+                    case "inbound":
+                        if (!!item) $location.search({ receiptNumber: item.receiptNumber, inboundStatus: item.inboundStatus });
+                        $location.path('/warehouse/receiptedit2');
+                        break;
+                    case "check":
+                        if (!!item) $location.search({ receiptNumber: item.receiptNumber });
+                        $location.path('/warehouse/receiptcheck2');
+                        break;
+                    case "delete":
+                        plugMessenger.confirm("请确认是否删除该记录？", function (isOK) {
+                            if (isOK) {
+                                // receiptService.delete({
+                                //     "receiptNumber": [item.receiptNumber]
+                                // }, function (result) {
+                                //     if (result.success == true) {
+                                //         plugMessenger.success("删除成功");
+                                //         $scope.getData();
+                                //     }
+                                // });
+                            }
+                        });
+                        break;
                 }
             }
         }
