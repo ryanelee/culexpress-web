@@ -107,8 +107,8 @@
                             <div class="col-sm-6 text-right">{{item.operationDate | date:'MM/dd/yyyy HH:mm:ss'}}</div>
                           
                             <div class="col-sm-10">{{item.message}}
-                                <a href="{{item.images}}" target="_blank">
-                                    <img style="width:50px;margin:10px;" ng-src="{{item.images}}">
+                                <a ng-repeat="image in item.images track by $index" href="{{image}}" target="_blank">
+                                    <img style="width:50px;margin:10px;" ng-src="{{image}}">
                                 </a>                              
                             </div>
                             <div class="col-sm-2"><a style="cursor:pointer;" ng-click="delMessageBtn(item)">删除</a></div>
@@ -149,7 +149,7 @@
                         <select type="text" class="form-control" ng-change="getProduct()" ng-model="search.messageType" ng-options="messageType as messageType.typeName for messageType in messageTypeList">
                        <option></option>
                         </select>
-                    </div>
+                    </div> 
                     <button type="button" class="btn btn-default" ng-click="setMessageLog()"><i class="fa fa-comment"></i>转交问题</button>
                 </div>
 

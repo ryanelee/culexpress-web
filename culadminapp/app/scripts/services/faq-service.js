@@ -31,6 +31,10 @@ angular.module('culAdminApp')
             return $http.post(cul.apiPath + '/customermessage/updateMessageOperation', obj);
         }
 
+           self.deleteMessageOperation = function (obj) {
+            return $http.post(cul.apiPath + '/customermessage/deleteMessageOperation', obj);
+        }
+
 
 
         self.getDetail = function (id, callback) {
