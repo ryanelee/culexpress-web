@@ -112,7 +112,7 @@ angular.module('culAdminApp')
                     return;
                 }
 
-                $scope.message.messageType = 15;
+                $scope.message.messageType = 29;
                 customerService.addCustomerMessage($scope.message).then(function (result) {
                     if (result.status == 200) {
                         plugMessenger.success("留言成功");
