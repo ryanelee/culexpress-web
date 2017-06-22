@@ -75,6 +75,7 @@ angular.module('culAdminApp')
                     $scope.messageLogs = [];
                     if (!!result) {
                         $scope.messageLogs = result.data.messageLogs;
+                        console.log($scope.messageLogs)
                     }
                 });
             }
@@ -88,6 +89,8 @@ angular.module('culAdminApp')
                     }, function (result) {
                         $scope.refreshMessage();
                         $scope._message = "";
+                        $scope.data.images = "";
+                        $("#uploadImg_show").attr('src',''); 
                         faqService.updateMessageOperation({ messageNumber: $scope.tpl_status.messageNumber }).then(function (data) {
                             $scope.$emit("message")
                         });
@@ -99,7 +102,7 @@ angular.module('culAdminApp')
                 plugMessenger.confirm("确定要删除该留言吗？", function (isOK) {
                     if (isOK) {
                         console.log(item);
-
+                        $scope.refreshMessage();
                     }
                 })
             }

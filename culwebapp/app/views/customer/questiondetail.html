@@ -78,9 +78,6 @@
                               </h4>
                               <p style="width: 100%; word-wrap: break-word; word-break: break-all;">
                                   {{replyMessageItem.message}}<br>
-                                <!--<a href="{{replyMessageItem.images | split:',':0}}" target="_blank">
-                                    <img style="width:40px;margin-left:30px;" ng-src="{{replyMessageItem.images | split:',':0}}"></span>
-                                </a>-->
                                 <span ng-repeat="image in replyMessageItem.images">
                                     <a href="{{image}}" target="_blank">
                                         <img style="width:40px;margin-left:30px;" ng-src="{{image}}"></span>

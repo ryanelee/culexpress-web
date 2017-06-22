@@ -112,6 +112,8 @@ angular.module('culAdminApp')
                     }, function(result) {
                         $scope.refreshMessage();
                         $scope._message = "";
+                        $scope.data.images = "";
+                        $("#uploadImg_show").attr('src',''); 
                     });
                 }
             }
