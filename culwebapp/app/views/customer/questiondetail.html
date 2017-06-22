@@ -63,7 +63,7 @@
                           <p>{{data.message}}</p>
                         </div>
                         <div class="messages">
-                          <div class="msg-item" ng-repeat="replyMessageItem in messageLogs">
+                          <div class="msg-item" ng-repeat="replyMessageItem in orderMessages">
                             <div class="header-icon">
                               <img ng-if="replyMessageItem.operationUserName && replyMessageItem.operationUserName!=currentUser.userName" src="../../assets/img/dashbard/icon-admin.png" />
                               <img ng-if="replyMessageItem.operationUserName==currentUser.userName || !replyMessageItem.operationUserName" src="../../assets/img/dashbard/icon-user.png" />
