@@ -97,12 +97,13 @@ angular.module('culAdminApp')
 
             $scope.getData = function () {
                 var _options = _filterOptions();
-                console.log(_options)
                 orderService.getOrderCommentsList(angular.copy(_options), function (result) {
                     $scope.dataList = result.data;
-                    console.log("$scope.dataList")
-                    console.log($scope.dataList)
+                    // console.log($scope.dataList)
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
+                    $scope.dataList.forEach(function(e) {
+                        e._massage = e.messageLogs[e.messageLogs.length-1].message
+                    });
                 });
             }
 

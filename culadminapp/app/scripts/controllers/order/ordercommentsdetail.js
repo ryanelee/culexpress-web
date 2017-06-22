@@ -142,6 +142,19 @@ angular.module('culAdminApp')
                 $window.history.back();
             }
 
+            $scope.btnOpenDetail = function (item, type) {
+                switch (type) {
+                    case "orderdetail":
+                        $location.search({ orderNumber: item.orderNumber });
+                        $location.path("/order/orderdetail");
+                        break;
+                    case "customerdetail":
+                        $location.search({ customerNumber: item.customer.customerNumber });
+                        $location.path("/customer/customerdetail");
+                        break;
+                }
+            }
+
             //----------upload file START----------
             var _buildUpload = function ($el, key) {
                 //console.log("key" + key);
