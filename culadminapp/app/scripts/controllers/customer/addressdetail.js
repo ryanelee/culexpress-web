@@ -91,7 +91,7 @@ angular.module('culAdminApp')
                     console.log("result");
                     console.log(result);
                     $scope.data = result;
-                    $scope.tempVerifyMark = $scope.data.verifyMark;
+                    $scope.tempVerifyMark = $scope.data.verifyMark == null ? 0 : $scope.data.verifyMark ;
                     $scope._province = result.stateOrProvince;
                     $scope._city = result.city;
                     $scope._area = result.area;
