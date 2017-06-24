@@ -38,7 +38,25 @@ angular.module('culAdminApp')
                     callback(result);
                 });
         }
+         self.getListTw = function(options, callback) {
+            $http.post(cul.apiPath + "/receiveaddress/listTw", options)
+                .success(function(result) {
+                    $.each(result.data, function(index, item) {
+                        switch (item.verifyMark) {
+                            case 0:
+                                item._verifyMark = "未验证";
+                                break;
+                            case 1:
+                                item._verifyMark = "已验证";
+                                break;
+                        }
+                    });
+                    callback(result);
+                });
+        }
 
+
+        
         self.update = function(data, callback) {
             $http.put(cul.apiPath + "/receiveaddress", data)
                 .success(function(result) {
