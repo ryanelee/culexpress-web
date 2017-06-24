@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('uploadIDCardCtrl', ['$rootScope', '$location', '$scope', 'AuthService', '$state', 'Customer', "$http", "$window",
-        function($rootScope, $location, $scope, AuthService, $state, Customer, $http, $window) {       
+    .controller('uploadIDCardCtrl', ['$rootScope', '$location', '$scope', 'AuthService', '$state', 'Customer', "$http", "$window", "addressSvr",
+        function ($rootScope, $location, $scope, AuthService, $state, Customer, $http, $window, addressSvr) {
             if ($window.sessionStorage.flag != 1) {
                 $window.sessionStorage.flag = 1;
                 //window.location.reload();
@@ -19,14 +19,14 @@ angular
 
 
 
-            $scope.checkNumber = function() {
+            $scope.checkNumber = function () {
                 if (!$scope.data.trackingNumber) {
                     alertify.alert("提示", "CUL包裹单号不能为空");
                     return;
                 }
                 $scope.customNumber = "";
                 $scope.flag = '0'
-                Customer.checkTrackingNumber($scope.data).then(function(data) {
+                Customer.checkTrackingNumber($scope.data).then(function (data) {
                     if (data.data.code == '999') {
                         alertify.alert("提示", data.data.msg)
                         return
@@ -85,16 +85,16 @@ angular
             //     console.log("fileselect");
             // });
 
-            $('#file').on('fileclear', function(event) {
+            $('#file').on('fileclear', function (event) {
                 //console.log("fileclear");
                 $scope.data.urls = [];
             });
 
-            $('#file').on('filereset', function(event) {
+            $('#file').on('filereset', function (event) {
                 //console.log("filereset");
             });
 
-            $('#file').on('fileuploaded', function(event, data, previewId, index) {
+            $('#file').on('fileuploaded', function (event, data, previewId, index) {
                 var form = data.form,
                     files = data.files,
                     extra = data.extra,
@@ -104,7 +104,7 @@ angular
                 $scope.data.urls.push(response.url)
             });
 
-            $('#file').on('filesuccessremove', function(event, id) {
+            $('#file').on('filesuccessremove', function (event, id) {
                 $('#file').fileinput('clear');
                 $scope.data.urls = [];
             });
@@ -112,7 +112,7 @@ angular
             /**
              * cul客户
              */
-            $scope.submit = function() {
+            $scope.submit = function () {
                 if (!$scope.data.trackingNumber && !$scope.data.cellphoneNumber && !$scope.data.receivePersonName) {
                     alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
                     return;
@@ -122,16 +122,16 @@ angular
                 } else if ($scope.data.idForever == 0 && !$scope.data.deadline) {
                     alertify.alert('提示', '<p style="color:red">必须选择永久或则填写身份证有效期.<p>');
                     return
-                } else if ($scope.data.idForever == 0 && $scope.data.deadline ){
+                } else if ($scope.data.idForever == 0 && $scope.data.deadline) {
                     var idExpired = new Date($scope.data.deadline);
                     var now = new Date();
 
-                    if( idExpired.getTime() < now.getTime()){
+                    if (idExpired.getTime() < now.getTime()) {
                         alertify.alert('提示', '<p style="color:red">身份证已经过期,请检查身份证有效截止日期是否输入正确.<p>');
                         return;
                     }
                 }
-                // authType:1
+                $scope.data.authType = 1
                 $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
                     //console.log(data)
                     if (data.status == 200) {
@@ -148,7 +148,8 @@ angular
             /**
              * 淘宝微信客户
              */
-            $scope.submitTw = function() {
+
+            $scope.submitTw = function () {
                 if (!$scope.data.cellphoneNumber && !$scope.data.receivePersonName) {
                     alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
                     return;
@@ -158,15 +159,21 @@ angular
                 } else if ($scope.data.idForever == 0 && !$scope.data.deadline) {
                     alertify.alert('提示', '<p style="color:red">必须选择永久或则填写身份证有效期.<p>');
                     return
-                } else if ($scope.data.idForever == 0 && $scope.data.deadline ){
+                } else if ($scope.data.idForever == 0 && $scope.data.deadline) {
                     var idExpired = new Date($scope.data.deadline);
                     var now = new Date();
 
-                    if( idExpired.getTime() < now.getTime()){
+                    if (idExpired.getTime() < now.getTime()) {
                         alertify.alert('提示', '<p style="color:red">身份证已经过期,请检查身份证有效截止日期是否输入正确.<p>');
                         return;
                     }
                 }
+                $scope.data.authType = 2;
+                addressSvr.addReceiveAddressTw($scope.data).then(function (data) {
+                    if (data.status == 200) {
+                        alertify.alert('提示', data.data.msg);
+                    }
+                })
                 // authType:2
                 // $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
                 //     if (data.status == 200) {

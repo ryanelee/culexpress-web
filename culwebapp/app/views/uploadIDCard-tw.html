@@ -2,7 +2,7 @@
 <div class="container content" ng-controller="uploadIDCardCtrl">
     <div class="row">
         <div class="sky-form upload-id">
-            <div class="headline">
+            <div class="headline"> 
                 <h2>身份证上传</h2>
             </div>
             <div class="form-group ">
@@ -18,7 +18,7 @@
                 <input type="text" class="form-control" name="required" ng-model="data.idCard">
                 <p class="remark"><i class="fa fa-warning"></i>请填写真实的身份证号码，身份证号码是15或18位数字。<span class="text-danger">在需要身份证清关的渠道使用，请确保身份证号码持有人与收货人姓名对应。</span></p>
             </div>
-            <div class="form-group" ng-show="flag == '1'">
+            <div class="form-group" >
                 <label class="label required">身份证件上传</label>
                 <div style="height: 50%">
                     <form enctype="multipart/form-data" id="addForm">

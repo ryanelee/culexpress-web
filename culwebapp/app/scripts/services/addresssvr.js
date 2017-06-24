@@ -37,6 +37,13 @@ angular.module('culwebApp')
             });
         }
 
+        self.addReceiveAddressTw = function (addresInfo) {
+            return $http.post(cul.apiPath + '/addReceiveAddressTw', addresInfo)
+        }
+
+
+
+
         self.getAddressList = function (index, querPara) {
             return $http.post(cul.apiPath + '/receiveaddress/list', {
                 pageInfo: {
