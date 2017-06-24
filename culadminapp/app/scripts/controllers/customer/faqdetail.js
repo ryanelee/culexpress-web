@@ -71,11 +71,23 @@ angular.module('culAdminApp')
             });
 
             $scope.refreshMessage = function () {
+                console.log(32)
                 customerMessageService.getDetail($scope.tpl_status.messageNumber, function (result) {
                     $scope.messageLogs = [];
                     if (!!result) {
+                        console.log('123456')
                         $scope.messageLogs = result.data.messageLogs;
                         console.log($scope.messageLogs)
+
+                        $scope.messageLogs.forEach(function (e) {
+                            if (e.images && e.images.indexOf(",") >= 0) {
+                                e.images = e.images.split(',');
+                            } else {
+                                e.images = [e.images];
+                            }
+                            console.log("12333", $scope.messageLogs)
+                        })
+
                     }
                 });
             }
@@ -90,7 +102,7 @@ angular.module('culAdminApp')
                         $scope.refreshMessage();
                         $scope._message = "";
                         $scope.data.images = "";
-                        $("#uploadImg_show").attr('src',''); 
+                        $("#uploadImg_show").attr('src', '');
                         faqService.updateMessageOperation({ messageNumber: $scope.tpl_status.messageNumber }).then(function (data) {
                             $scope.$emit("message")
                         });
@@ -99,10 +111,13 @@ angular.module('culAdminApp')
             }
             $scope.delMessageBtn = function (item) {
                 console.log("准备删除的mesage");
+                console.log(item);
                 plugMessenger.confirm("确定要删除该留言吗？", function (isOK) {
                     if (isOK) {
                         console.log(item);
-                        $scope.refreshMessage();
+                        faqService.deleteMessageOperation({ transactionNumber: item.transactionNumber }).then(function (data) {
+                            $scope.refreshMessage();
+                        });
                     }
                 })
             }
@@ -194,7 +209,7 @@ angular.module('culAdminApp')
                         //console.log("上传结束");
                         $scope.data[key] = data.result.url;
                         // $scope.data[key + "Url"] = data.result.url;
-                        console.log( $scope.data[key]);
+                        console.log($scope.data[key]);
 
                     });
                 });
