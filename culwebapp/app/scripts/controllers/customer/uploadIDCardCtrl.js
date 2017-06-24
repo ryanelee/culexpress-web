@@ -17,7 +17,7 @@ angular
             $scope.customNumber = ""
             $scope.flag = '0'
 
-
+            loadFileinputTw();
 
             $scope.checkNumber = function () {
                 if (!$scope.data.trackingNumber) {
@@ -109,6 +109,52 @@ angular
                 $scope.data.urls = [];
             });
 
+            function loadFileinputTw() { //初始化 fileinput
+                $("#fileTw").fileinput({
+                    language: 'zh', //设置语言
+                    //uploadUrl: "report/photo/add",//上传的地址
+                    uploadUrl: cul.apiPath + "/customermessage/uploadImage?customNumber=" + $scope.customNumber, //上传的地址
+                    allowedFileExtensions: ["jpg", "png", "gif", 'jpeg'], //接收的文件后缀
+                    browseOnZoneClick: true, //是否启用 点击预览区进行【文件浏览/选择】操作。默认为假。
+                    minFileCount: 2, //同一时间上传的最小
+                    maxFileCount: 2, //同一时间上传的最大数量
+                    resizePreference: 'height',
+                    overwriteInitial: false,
+                    uploadLabel: "上传",
+                    browseLabel: "选择图片",
+                    dropZoneTitle: "点击",
+                    dropZoneClickTitle: "选择图片",
+                    browseClass: "btn btn-primary", //按钮样式
+                    //showUpload: false, //是否显示上传按钮
+                    showCaption: false, //是否显示标题
+                    showUploadedThumbs: 'false',
+                    resizeImage: true
+
+                });
+            }
+
+             $('#fileTw').on('fileclear', function (event) {
+                //console.log("fileclear");
+                $scope.data.urls = [];
+            });
+
+            $('#fileTw').on('filereset', function (event) {
+                //console.log("filereset");
+            });
+
+            $('#fileTw').on('fileuploaded', function (event, data, previewId, index) {
+                var form = data.form,
+                    files = data.files,
+                    extra = data.extra,
+                    response = data.response,
+                    reader = data.reader;
+                $scope.data.urls.push(response.url)
+            });
+
+            $('#fileTw').on('filesuccessremove', function (event, id) {
+                $('#fileTw').fileinput('clear');
+                $scope.data.urls = [];
+            });
             /**
              * cul客户
              */
@@ -133,9 +179,7 @@ angular
                 }
                 $scope.data.authType = 1
                 $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
-                    //console.log(data)
                     if (data.status == 200) {
-                        //console.log('2345')
                         alertify.alert('提示', data.data.msg);
                         // if (!AuthService.isLogined()) {
                         //     $location.path('/login');
@@ -175,12 +219,13 @@ angular
                     }
                 })
                 // authType:2
-                // $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
-                //     if (data.status == 200) {
-                //         alertify.alert('提示', data.data.msg);
-                //     }
+                $scope.data.authType = 2;
+                $http.post(cul.apiPath + '/addReceiveAddressTw', $scope.data).then(function (data) {
+                    if (data.status == 200) {
+                        alertify.alert('提示', data.data.msg);
+                    }
 
-                // })
+                })
             }
         }
     ]);

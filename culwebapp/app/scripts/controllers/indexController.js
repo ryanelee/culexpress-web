@@ -90,8 +90,6 @@ angular
                     $scope.authTypeSref = "uploadIDCardtw"
                     $state.go("uploadIDCardtw");
                  }
-                 console.log('change')
-                 console.log($scope.authTypeSref)
              }
         }
     ]);
