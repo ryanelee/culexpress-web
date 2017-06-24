@@ -34,6 +34,7 @@ angular.module('culAdminApp')
                 accountBalance: "",
                 startDate: "",
                 endDate: "",
+                verifyMark: "",
                 opened: {
                     startDate: false,
                     endDate: false
