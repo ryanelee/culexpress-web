@@ -1,0 +1,96 @@
+<!--微信淘宝用户（散客）身份认证提交-->
+<div class="container content" ng-controller="uploadIDCardCtrl">
+    <div class="row">
+        <div class="sky-form upload-id">
+            <div class="headline">
+                <h2>身份证上传</h2>
+            </div>
+            <div class="form-group ">
+                <label class="label required">淘宝订单号</label>
+                <input type="text" class="form-control" name="required" ng-model="data.twOrder" placeholder="淘宝用户可填">
+            </div>
+            <div class="form-group ">
+                <label class="label required">收货人</label>
+                <input type="text" class="form-control" name="required" ng-model="data.receivePersonName">
+            </div>
+            <div class="form-group">
+                <label class="label">身份证号码</label>
+                <input type="text" class="form-control" name="required" ng-model="data.idCard">
+                <p class="remark"><i class="fa fa-warning"></i>请填写真实的身份证号码，身份证号码是15或18位数字。<span class="text-danger">在需要身份证清关的渠道使用，请确保身份证号码持有人与收货人姓名对应。</span></p>
+            </div>
+            <div class="form-group" ng-show="flag == '1'">
+                <label class="label required">身份证件上传</label>
+                <div style="height: 50%">
+                    <form enctype="multipart/form-data" id="addForm">
+                        <div class="form-group">
+                            <label></label>
+                            <input id="file" type="file" class="file" name="file" multiple="true" accept="image/jpg,image/jpeg,image/png,image/gif">
+                        </div>
+                    </form>
+                    <p><i class="fa fa-warning"></i> 注意:证件必须是清晰彩色原件电子版， 可以是扫描件或者数码拍照照片，正面照位于<span style="color:red;font-size:14px;">第一张</span>，
+                        <a href="/images/ecard1.jpg" target="_blank">点击参考正面样例图</a>。反面照位于第二张，
+                        <a href="/images/ecard2.jpg" target="_blank">点击参考反面样例图</a>。
+                    </p>
+                    <p>身份证正反面必须同时上传。仅支持.jpg .jpeg .png .gif，大小不超过2M。</p>
+                </div>
+            </div>
+            <div class="form-group" id="datepicker">
+                <label class="label">身份证有效截止日期：</label>
+                <div class="input-group date">
+                    <input type="text" class="form-control" ng-model="data.deadline"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+            </div>
+            <div class="form-group" ng-show="openFlag != 1">
+                <label class="label ">是否永久：</label>
+                <div class="col-sm-2 text-left">
+                    <label>
+                    <input type="radio"  name="idForever" id="status3" value=1  ng-model="data.idForever" >
+                    是
+                  </label> &nbsp;
+                    <label>
+                    <input type="radio"  name="idForever" id="status4" value=0 ng-checked="true"  ng-model="data.idForever">
+                    否
+                  </label>
+                </div>
+            </div>
+            <br/>
+
+            <div class="form-group">
+                <label class="label required">手机号码</label>
+                <input type="text" class="form-control" ng-model="data.cellphoneNumber">
+            </div>
+            <div class="form-group">
+                <label class="label">备用号码</label>
+                <input type="text" class="form-control" ng-model="data.telephoneNumber">
+            </div>
+            <div class="form-group">
+                <label class="label">电子邮箱</label>
+                <input type="text" class="form-control email" name="required" ng-model="data.emailAddress">
+            </div>
+            <div class="form-group">
+                <label class="label">备注信息</label>
+                <textarea class="form-control" rows="5" ng-model="data.note"></textarea>
+            </div>
+            <div class="form-group">
+                <a class="btn-u bg-color-ffb" href="javascript:void(0)" ng-click="submit()">
+                    <i class="fa fa-save"></i> 提交
+                </a>
+                <a class="btn-u btn-u-default" href="javascript:void(0)" ng-click="goback()">
+                    <i class="fa fa-reply"></i> 返回
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+ <script>
+    $(document).ready(function(){
+        $('#datepicker .input-group.date').datepicker({
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            // keepOpen: true,
+            language: 'zh-CN',
+            todayBtn: "linked",
+            toggleActive: true
+        });
+    });
+</script>

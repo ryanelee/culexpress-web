@@ -250,10 +250,18 @@
                     </div>
                     <div class="collapse navbar-collapse navbar-responsive-collapse">
                         <div class="res-container">
-                            <a class="id-card" ui-sref="uploadIDCard">
+                            <!--<a class="id-card" ui-sref="uploadIDCard">
                                 <span>提交身份证</span>
                                 <img src="./assets/img/icon-head.png" />
-                            </a>
+                            </a>-->
+                            <div class="id-card">
+                                <select class="form-control search-control id-card-select" ng-model="authType" ng-change="authTypeChange(authType)">
+                                    <option value=""> 提交身份证</option>
+                                    <option value="1">cul客户</option>
+                                    <option value="2">淘宝微信客户</option>
+                                </select>
+                                <img src="./assets/img/icon-head.png"/>
+                            </div>
                             <ul class="nav navbar-nav">
                                 <li ng-class="{active: $state.includes('/')}">
                                     <a ui-sref="/">

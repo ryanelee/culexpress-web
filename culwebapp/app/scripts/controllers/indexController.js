@@ -2,8 +2,8 @@
 
 angular
     .module('culwebApp')
-    .controller('IndexController', ['$rootScope', '$scope', '$location', 'AuthService', '$http', 'Customer',
-        function($rootScope, $scope, $location, AuthService, $http, Customer) {
+    .controller('IndexController', ['$rootScope', '$scope', '$location', 'AuthService', '$http', 'Customer','$state',
+        function($rootScope, $scope, $location, AuthService, $http, Customer, $state) {
             // if (!$rootScope.currentUser) {
             $rootScope.currentUser = AuthService.getUser();
             // };
@@ -28,6 +28,8 @@ angular
 
             $scope.tipMessageList = [];
             $scope.tipMessageLength = 0;
+            $scope.authType = "";
+            $scope.authTypeSref = "";
 
             $scope.getMessageOperationlog = function() {
                 Customer.getMessageOperationlog().then(function(data) {
@@ -79,5 +81,17 @@ angular
                     $('#txtTrackingNumber').val('');
                 }
             });
+
+             $scope.authTypeChange = function (authType) {
+                 if (authType == "1") {
+                    $scope.authTypeSref = "uploadIDCard"
+                    $state.go("uploadIDCard");
+                 } else {
+                    $scope.authTypeSref = "uploadIDCardtw"
+                    $state.go("uploadIDCardtw");
+                 }
+                 console.log('change')
+                 console.log($scope.authTypeSref)
+             }
         }
     ]);

@@ -379,6 +379,15 @@
 
 .id-card>img {
 	vertical-align: middle;
+	float: left;
+	margin-top: 7px;
+}
+.id-card-select {
+	float: left;
+    width: 100px;
+    border: 0px;
+    background-color: #ff515b;
+    color: #fff;
 }
 /*Containers
 ------------------------------------*/
