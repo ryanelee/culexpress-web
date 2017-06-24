@@ -109,7 +109,9 @@ angular
                 $scope.data.urls = [];
             });
 
-
+            /**
+             * cul客户
+             */
             $scope.submit = function() {
                 if (!$scope.data.trackingNumber && !$scope.data.cellphoneNumber && !$scope.data.receivePersonName) {
                     alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
@@ -129,7 +131,7 @@ angular
                         return;
                     }
                 }
-                
+                // authType:1
                 $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
                     //console.log(data)
                     if (data.status == 200) {
@@ -143,5 +145,35 @@ angular
                 })
             }
 
+            /**
+             * 淘宝微信客户
+             */
+            $scope.submitTw = function() {
+                if (!$scope.data.cellphoneNumber && !$scope.data.receivePersonName) {
+                    alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
+                    return;
+                } else if (!$scope.data.urls[0]) {
+                    alertify.alert('提示', '<p style="color:red">请上传身份证正反面.<p>');
+                    return
+                } else if ($scope.data.idForever == 0 && !$scope.data.deadline) {
+                    alertify.alert('提示', '<p style="color:red">必须选择永久或则填写身份证有效期.<p>');
+                    return
+                } else if ($scope.data.idForever == 0 && $scope.data.deadline ){
+                    var idExpired = new Date($scope.data.deadline);
+                    var now = new Date();
+
+                    if( idExpired.getTime() < now.getTime()){
+                        alertify.alert('提示', '<p style="color:red">身份证已经过期,请检查身份证有效截止日期是否输入正确.<p>');
+                        return;
+                    }
+                }
+                // authType:2
+                // $http.post(cul.apiPath + '/customermessage/uploadIdCard', $scope.data).then(function (data) {
+                //     if (data.status == 200) {
+                //         alertify.alert('提示', data.data.msg);
+                //     }
+
+                // })
+            }
         }
     ]);
