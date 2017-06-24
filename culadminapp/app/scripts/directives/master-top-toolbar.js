@@ -15,7 +15,6 @@ angular.module('culAdminApp')
                 replace: true,
                 $scope: true,
                 link: function postLink($scope, $element, attrs) {
-                    //console.log('2345678');
                     $rootScope.$emit('changeMenu');
                     $scope.btnLogout = function() {
                         userService.logout(function() {
@@ -45,10 +44,10 @@ angular.module('culAdminApp')
                       $rootScope.getIdMessageList = function() {
                         // status: 'Processing' 
                         faqService.getMessageOperationlog({ status: 'Processing', messageTypes:28}, function(result) {
+                            console.log('ID');
                             console.log(result);
                             $scope.idMessage = result.data;
                             $scope.idCardLength = result.data.length;
-                            console.log("身份证长度");
                             console.log($scope.idCardLength);
                         })
                     }
@@ -62,10 +61,10 @@ angular.module('culAdminApp')
                     $scope.btnViewMessage = function(message) {
                         $location.path("/customer/faqdetail").search({ messageNumber: message.messageNumber });
                     }
-                     $scope.btnViewAddressMessage = function(message) {
-                          faqService.updateMessageOperation({ messageNumber: message.messageNumber }).then(function(data) {
-                        $location.path("/customer/addressdetail").search({ transactionNumber: message.addressId });
-                })
+                    $scope.btnViewAddressMessage = function(message) {
+                        faqService.updateMessageOperation({ messageNumber: message.messageNumber }).then(function(data) {
+                            $location.path("/customer/addressdetail").search({ transactionNumber: message.addressId });
+                        })
                     }
 
                     $scope.$on('message', function(result) {

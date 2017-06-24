@@ -31,7 +31,7 @@ angular.module('culAdminApp')
             return $http.post(cul.apiPath + '/customermessage/updateMessageOperation', obj);
         }
 
-           self.deleteMessageOperation = function (obj) {
+        self.deleteMessageOperation = function (obj) {
             return $http.post(cul.apiPath + '/customermessage/deleteMessageOperation', obj);
         }
 
@@ -65,7 +65,7 @@ angular.module('culAdminApp')
                 callback(result);
             });
         }
-        self.updateMessageOperation = function (obj) {
-            return $http.post(cul.apiPath + '/customermessage/updateMessageOperation', obj);
-        };
+        // self.updateMessageOperation = function (obj) {
+        //     return $http.post(cul.apiPath + '/customermessage/updateMessageOperation', obj);
+        // };
     }]);
