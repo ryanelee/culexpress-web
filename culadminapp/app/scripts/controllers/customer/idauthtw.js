@@ -29,9 +29,7 @@ angular.module('culAdminApp')
             }
             /*search bar*/
             $scope.searchBar = {
-                keywordType: "customerNumber",
-                countryCode: "",
-                accountBalance: "",
+                keywordType: "userName",
                 startDate: "",
                 endDate: "",
                 verifyMark: "",
