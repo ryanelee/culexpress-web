@@ -39,7 +39,7 @@ angular.module('culAdminApp')
                 });
         }
         
-         self.getListTw = function(options, callback) {
+        self.getListTw = function(options, callback) {
             $http.post(cul.apiPath + "/receiveaddress/listTw", options)
                 .success(function(result) {
                     $.each(result.data, function(index, item) {
