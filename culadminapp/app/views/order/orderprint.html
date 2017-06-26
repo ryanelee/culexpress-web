@@ -28,6 +28,7 @@
                         <option value="Unpaid">待支付</option>
                         <option value="Paid">已支付</option>
                         <option value="Processing">处理中</option>
+                         <option value="WaybillUpdated">运单更新</option>
                         <option value="Arrears">运费不足</option>
                         <option value="Shipped">已出库</option>
                         <option value="Void">已删除</option>
@@ -147,13 +148,15 @@
                 <div class="search-col">
                     <label class="search-label">搜索条目：</label>
                     <select class="form-control search-control" ng-model="searchBar.keywordType">
-                        <option value="orderNumber">订单编号</option>
                         <option value="customerNumber">客户编号</option>
-                        <option value="userName">客户ID</option>
-                        <option value="outBoundTrackingNumber">包裹单号</option>
-                        <option value="receiveidentity">客户标示</option>
-                        <option value="referenceOrderNumber">客户关联号</option>
-                        <option value="cnTrackingNumber">国内物流号</option>
+                        <option value="orderNumber">订单编号</option>
+                        <option value="receiveTrackingNumber">入库单号</option>
+                        <option value="outBoundTrackingNumber">CUL包裹单号</option>                       
+                        <option value="referenceOrderNumber">客户关联订单号</option>
+                        <option value="cnTrackingNumber">国内物流号</option>                        
+                        <option value="userName">客户ID</option>                        
+                        <option value="receiveIdentity">客户标示</option>
+                        <option value="referenceOrderNumber">客户关联号</option>  
                     </select>
                     <textarea type="text" class="form-control search-control" style="margin-left:5px; width:480px;" 
                     placeholder="请输入查询关键字" ng-model="searchBar.keywords" ></textarea>

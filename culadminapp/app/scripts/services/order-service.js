@@ -26,11 +26,14 @@ angular.module('culAdminApp')
                 case "Processing":
                     statusTitle = "处理中";
                     break;
+                case "WaybillUpdated":
+                    statusTitle = "运单更新";
+                    break;
                 case "Checkout":
                     statusTitle = "签出";
                     break;
                 case "Arrears":
-                    statusTitle = "欠费";
+                    statusTitle = "运费不足";
                     break;
                 case "Shipped":
                     statusTitle = "已出库";

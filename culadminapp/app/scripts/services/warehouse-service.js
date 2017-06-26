@@ -18,8 +18,9 @@ angular.module('culAdminApp')
                 case "Unpaid": statusTitle = "未支付"; break;
                 case "Paid": statusTitle = "已支付"; break;
                 case "Processing": statusTitle = "处理中"; break;
+                case "WaybillUpdated": statusTitle = "运单更新";break;
                 case "Checkout": statusTitle = "签出"; break;
-                case "Arrears": statusTitle = "欠费"; break;
+                case "Arrears": statusTitle = "运费不足"; break;
                 case "Shipped": statusTitle = "已出库"; break;
                 case "Arrived": statusTitle = "已送达"; break;
                 case "Void": statusTitle = "已删除"; break;

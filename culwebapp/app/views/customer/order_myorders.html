@@ -40,8 +40,18 @@
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Arrears')" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="Arrears" /><i class="rounded-x"></i>运费不足
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
                                 <a href="javascript:void(0)" ng-click="changeQueryStaus('Processing')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="Processing" /><i class="rounded-x"></i>处理中
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('WaybillUpdated')" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="WaybillUpdated" /><i class="rounded-x"></i>运单更新
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
@@ -54,12 +64,7 @@
                                 <a href="javascript:void(0)" ng-click="changeQueryStaus('Paid')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="Paid" /><i class="rounded-x"></i>已支付
                                 </a>
-                            </label>
-                            <label class="radio" style="margin-right:10px;padding-left:10px;">
-                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Arrears')" class="rbx-txt">
-                                    <input type="radio" ng-model="queryPara.orderStatus" value="Arrears" /><i class="rounded-x"></i>运费不足
-                                </a>
-                            </label>
+                            </label>                            
                             <label class="radio" style="margin-right:10px;padding-left:10px;">
                                 <a href="javascript:void(0)" ng-click="changeQueryStaus('Arrived')" class="rbx-txt">
                                     <input type="radio" ng-model="queryPara.orderStatus" value="Arrived" /><i class="rounded-x"></i>已送达
@@ -98,6 +103,7 @@
                                         <span class="label label-success" ng-if="rowItem.orderStatus==='Shipped'">已出库</span>
                                         <span class="label label-warning" ng-if="rowItem.orderStatus==='Unpaid'">待支付</span>
                                         <span class="label label-info" ng-if="rowItem.orderStatus==='Processing'">处理中</span>
+                                        <span class="label label-info" ng-if="rowItem.orderStatus==='WaybillUpdated'">运单更新</span>
                                         <span class="label label-info" ng-if="rowItem.orderStatus==='Void'">已取消</span>
                                         <span class="label label-success" ng-if="rowItem.orderStatus==='Paid'">已支付</span>
                                         <span class="label label-danger" ng-if="rowItem.orderStatus==='Arrears'">运费不足</span>

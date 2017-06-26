@@ -57,6 +57,13 @@ angular.module('culwebApp')
                     .getOrderInfo(orderId)
                     .then(function(result) {
                         $scope.data = result.data;
+
+                        if($scope.data.actualWeight == 0 
+                            && $scope.data.inboundPackages && $scope.data.inboundPackages.length > 0){
+                                $scope.data.inboundPackages.forEach(function(i){
+                                    $scope.data.actualWeight += i.packageWeight;
+                                });
+                        };
                         loadOrderMessage();
                     });
             }
