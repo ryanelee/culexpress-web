@@ -213,19 +213,12 @@ angular
                     }
                 }
                 $scope.data.authType = 2;
+                console.log($scope.data)
                 addressSvr.addReceiveAddressTw($scope.data).then(function (data) {
                     if (data.status == 200) {
                         alertify.alert('提示', "提交成功");
                     }
                 })
-                // authType:2
-                // $scope.data.authType = 2;
-                // $http.post(cul.apiPath + '/addReceiveAddressTw', $scope.data).then(function (data) {
-                //     if (data.status == 200) {
-                //         alertify.alert('提示', data.data.msg);
-                //     }
-
-                // })
             }
         }
     ]);

@@ -43,7 +43,7 @@
                     <label class="search-label">搜索条目：</label>
                     <select class="form-control search-control" ng-model="searchBar.keywordType">
                         <!--<option value="customerNumber">客户编号</option>-->
-                        <option value="userName">客户ID(注册名)</option>
+                        <option value="userName">收货人姓名</option>
                         <option value="cellphoneNumber">手机号码</option>
                         <option value="idCard">身份证号</option>
                         <option value="twOrder">淘宝订单号</option>  
@@ -59,7 +59,7 @@
             <thead>
                 <div>
                     <th>序号</th>
-                    <th>客户编号</th>
+                    <!--<th>客户编号</th>-->
                     <th>收货人姓名</th>
                     <th>淘宝订单号</th>
                     <th>手机号码</th>
@@ -68,8 +68,8 @@
                     <th>正面照</th>
                     <th>反面照</th>
                     <th>验证状态</th>
-                    <th>操作</th>
-                    <th>备注</th>
+                    <!--<th>操作</th>-->
+                    <!--<th>备注</th>-->
                     </tr>
             </thead>
             <tbody>
@@ -79,8 +79,8 @@
 
                 <tr ng-if="dataList.length > 0" ng-repeat="item in dataList track by $index">
                     <td>{{item.rownumber}}</td>
-                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail('customer',item)">{{item.customerNumber}}</a></td>
-                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail('address',item)">{{item.receivePersonName}}</a></td>
+                    <!--<td><a href="javascript:void(0);" ng-click="btnOpenDetail('customer',item)">{{item.customerNumber}}</a></td>-->
+                    <td>{{item.receivePersonName}}</td>
                     <td>{{item.twOrder}}</td>
                     <td>{{item.cellphoneNumber}}</td>
                     <td>
@@ -98,13 +98,11 @@
                         </div>
                     </td>
                     <td ng-class="{'alert-danger': item.verifyMark == 0}">{{item._verifyMark}}</td>
-                    <td>
-                        <!--<a href="javascript:void(0);" class="role" data-role="29" ng-click="btnVerification(item, $index)">{{item.verifyMark == 0 ? '验证' : "取消验证"}}</a>-->
+                    <!--<td>   
                         <a href="javascript:void(0);" class="role" data-role="30" ng-show="item.verifyMark == 0" ng-click="btnVerification(item, $index,1)">验证</a>
                         <a href="javascript:void(0);" class="role" data-role="30" ng-show="item.verifyMark != 0" ng-click="btnVerificationCancle(item, $index)">取消验证</a>
-                        <!--<a href="javascript:void(0);" class="role" data-role="30" ng-click="">备注</a>-->
-                    </td>
-                    <td><a ng-show="item.verifyMark == -1" ng-click="btnVerification(item, $index,0)"> {{item.idRemark}}</a></td>
+                    </td>-->
+                    <!--<td><a ng-show="item.verifyMark == -1" ng-click="btnVerification(item, $index,0)"> {{item.idRemark}}</a></td>-->
                 </tr>
             </tbody>
         </table>
