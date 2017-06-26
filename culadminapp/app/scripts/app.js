@@ -231,6 +231,14 @@ angular
                 templateUrl: 'views/customer/idauth.html',
                 controller: 'IdAuthCtrl'
             })
+            .when('/customer/idauthcul', {
+                templateUrl: 'views/customer/idauth-cul.html',
+                controller: 'IdAuthCulCtrl'
+            })
+            .when('/customer/idauthtw', {
+                templateUrl: 'views/customer/idauth-tw.html',
+                controller: 'IdAuthTwCtrl'
+            })
             .when('/order/orderlist', {
                 templateUrl: 'views/order/orderlist.html',
                 controller: 'OrderListCtrl'
