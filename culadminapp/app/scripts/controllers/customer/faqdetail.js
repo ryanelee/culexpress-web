@@ -15,8 +15,7 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
-            //console.log('23456789')
-            //console.log($location.search().messageNumber);
+
             $scope.messageTypeList = [];
             $scope.search = {};
             $scope.tpl_status = {
@@ -67,25 +66,20 @@ angular.module('culAdminApp')
                     if (_receivedWarehouse.length > 0) $scope.data._receivedWarehouseName = _receivedWarehouse[0].warehouseName;
                     $scope.refreshMessage();
                 })
-                _buildUpload($('#uploadImg'), "images");
+                _buildUpload($('#uploadImg'), "_images");
             });
 
             $scope.refreshMessage = function () {
-                console.log(32)
                 customerMessageService.getDetail($scope.tpl_status.messageNumber, function (result) {
                     $scope.messageLogs = [];
                     if (!!result) {
-                        console.log('123456')
                         $scope.messageLogs = result.data.messageLogs;
-                        console.log($scope.messageLogs)
-
                         $scope.messageLogs.forEach(function (e) {
                             if (e.images && e.images.indexOf(",") >= 0) {
                                 e.images = e.images.split(',');
                             } else {
                                 e.images = [e.images];
                             }
-                            console.log("12333", $scope.messageLogs)
                         })
 
                     }
@@ -97,11 +91,11 @@ angular.module('culAdminApp')
                     customerMessageService.push({
                         "messageNumber": $scope.tpl_status.messageNumber,
                         "message": $scope._message,
-                        "images": $scope.data.images
+                        "images": $scope.data._images
                     }, function (result) {
                         $scope.refreshMessage();
                         $scope._message = "";
-                        $scope.data.images = "";
+                        $scope.data._images = "";
                         $("#uploadImg_show").attr('src', '');
                         faqService.updateMessageOperation({ messageNumber: $scope.tpl_status.messageNumber }).then(function (data) {
                             $scope.$emit("message")
@@ -110,11 +104,8 @@ angular.module('culAdminApp')
                 }
             }
             $scope.delMessageBtn = function (item) {
-                console.log("准备删除的mesage");
-                console.log(item);
                 plugMessenger.confirm("确定要删除该留言吗？", function (isOK) {
                     if (isOK) {
-                        console.log(item);
                         faqService.deleteMessageOperation({ transactionNumber: item.transactionNumber }).then(function (data) {
                             $scope.refreshMessage();
                         });
@@ -192,7 +183,6 @@ angular.module('culAdminApp')
 
             //----------upload file START----------
             var _buildUpload = function ($el, key) {
-                //console.log("key" + key);
                 var _$panel = $el.parents(".fileupload-buttonbar:first");
                 $el.fileupload({
                     url: cul.apiPath + '/files/upload',
@@ -206,11 +196,7 @@ angular.module('culAdminApp')
                 }).bind('fileuploaddone', function (e, data) {
                     _$panel.find("#file_btn_text").text("重新上传");
                     $scope.$apply(function () {
-                        //console.log("上传结束");
                         $scope.data[key] = data.result.url;
-                        // $scope.data[key + "Url"] = data.result.url;
-                        console.log($scope.data[key]);
-
                     });
                 });
             }
