@@ -159,7 +159,7 @@ angular
              * cul客户
              */
             $scope.submit = function () {
-                if (!$scope.data.trackingNumber && !$scope.data.cellphoneNumber && !$scope.data.receivePersonName) {
+                if (!$scope.data.trackingNumber && !$scope.data.cellphoneNumber && !$scope.data.receivePersonName && !$scope.data.emailAddress) {
                     alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
                     return;
                 } else if (!$scope.data.urls[0]) {
@@ -194,7 +194,7 @@ angular
              */
 
             $scope.submitTw = function () {
-                if (!$scope.data.cellphoneNumber && !$scope.data.receivePersonName) {
+                if (!$scope.data.cellphoneNumber && !$scope.data.receivePersonName && !$scope.data.emailAddress) {
                     alertify.alert('提示', '<p style="color:red">请填写所有必填项.<p>');
                     return;
                 } else if (!$scope.data.urls[0]) {

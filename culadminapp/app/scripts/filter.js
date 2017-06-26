@@ -61,6 +61,7 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function() {
         "Unpaid": "未支付",
         "Paid": "已支付",
         "Processing": "处理中",
+        "WaybillUpdated":"运单更新",
         "Arrears": "运费不足",
         "Shipped": "已出库",
         "Arrived": "已送达",

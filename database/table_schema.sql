@@ -99,7 +99,7 @@ CREATE TABLE `cul_order` (
   `transactionNumber` int(11) NOT NULL AUTO_INCREMENT,
   `customerNumber` varchar(10) NOT NULL,
   `orderNumber` varchar(20) NOT NULL COMMENT 'customerNumber + receiveIdentity + transactionNumber',
-  `orderStatus` varchar(20) DEFAULT 'Unpaid' COMMENT 'Canceled - 取消, Unpaid - 未支付, Paid - 已支付, Processing - 处理中, Arrears - 运费不足, Shipped - 已出库, Arrived - 已送达',
+  `orderStatus` varchar(20) DEFAULT 'Unpaid' COMMENT 'Canceled - 取消, Unpaid - 未支付, Paid - 已支付, Processing - 处理中, WaybillUpdated - 运单更新,Arrears - 运费不足, Shipped - 已出库, Arrived - 已送达',
   `orderDate` datetime DEFAULT CURRENT_TIMESTAMP,
   `payDate` datetime DEFAULT NULL,
   `shipServiceId` int(11) NOT NULL COMMENT '对应表cul_shipchannel的shipchannelId字段',

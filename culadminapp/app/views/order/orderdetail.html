@@ -40,9 +40,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">订单状态：</label>
+                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">订单状态：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data._orderStatus}}</label>
+                        <label class="control-label" style="font-weight:bold">{{data._orderStatus}}</label>
                     </div>
                     <label class="col-sm-2 control-label text-right">生成日期：</label>
                     <div class="col-sm-4">
@@ -219,7 +219,7 @@
                                             <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
                                         </span>
                                     </td>
-                                    <td>{{item.packageWeight}}</td>
+                                    <td>{{item.packageWeight | number : 2}}磅</td>
                                     <td>{{item.createDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
                                     <td>{{item.inboundDate | date:'MM/dd/yyyy HH:mm:ss' }}</td>
                                     <td>{{item.location == undefined ? item.shelfNumber : item.location}}</td>
@@ -377,19 +377,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">包裹件数：</label>
-                    <div class="col-sm-4">
-                        <label class="control-label">{{data.outboundPackages.length}}</label>
-                    </div>
                     <label class="col-sm-2 control-label text-right">发货仓库：</label>
                     <div class="col-sm-4">
                         <label class="control-label">{{data.warehouseName}}</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">合计({{data.orderType == 0 && data.customer.isVip == true ? '$' : '￥'}})：</label>
-                    <div class="col-sm-4">
-                        <label class="control-label">{{data._shippingFeeTotal || 0}}</label>
                     </div>
                     <label class="col-sm-2 control-label text-right">打包人员：</label>
                     <div class="col-sm-4">
@@ -397,15 +387,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">计费总重量：</label>
+                    <label class="col-sm-2 control-label text-right">包裹件数：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.actualWeight | number : 2}}磅</label>
-                    </div>
-                    <label class="col-sm-2 control-label text-right">运 &nbsp; &nbsp; &nbsp; 费：</label>
-                    <div class="col-sm-4">
-                        <label class="control-label">{{data.shippingFee | currency:'¥'}}</label>
+                        <label class="control-label">{{data.outboundPackages.length}}</label>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">打包总重量：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label" style="font-weight:bold">{{data.actualWeight | number : 2}}磅</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">打包运费合计({{data.orderType == 0 && data.customer.isVip == true ? '$' : '￥'}})：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label" style="font-weight:bold">{{data._shippingFeeTotal || 0}}</label>
+                    </div>
+                </div>
+                <hr class="inner-separator">        
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">购买保险：</label>
                     <div class="col-sm-4">
@@ -427,19 +424,25 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">运费总计：</label>
+                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">运费总计：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.totalCount | currency:'¥'}}</label>
-                    </div>
-                    <label class="col-sm-2 control-label text-right">支付日期：</label>
-                    <div class="col-sm-4">
-                        <label class="control-label">{{data.payDate | date:'yyyy-MM-dd HH:mm:ss'}}</label>
+                        <label class="control-label" style="font-weight:bold">{{(data.totalCount - data.shippingFeeAdjust) | currency:'¥'}}</label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">实际支付：</label>
+                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">实际支付：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.paied | currency:'¥'}}</label>
+                        <label class="control-label" style="font-weight:bold">{{data.paied | currency:'¥'}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">支付日期：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label" style="font-weight:bold">{{data.payDate | date:'yyyy-MM-dd HH:mm:ss'}}</label>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.shippingFeeAdjust && data.shippingFeeAdjust < 0">
+                    <label class="col-sm-2 control-label text-right" style="font-weight:bold;color:red">拖欠运费：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label" style="font-weight:bold;color:red">{{data.shippingFeeAdjust | currency:'¥'}}</label>
                     </div>
                 </div>
             </fieldset>
@@ -447,20 +450,20 @@
                 <legend>附加服务：</legend>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">附加服务：</label>
-                    <div class="col-sm-2" ng-show="result.pack_takeoutInvoice == 1">
-                        <label class="control-label">取出发票</label>
+                    <div class="col-sm-1" ng-show="result.pack_takeoutInvoice == 1">
+                        <i class="fa fa-check-circle"></i><label class="control-label">取出发票</label>
                     </div>
-                    <div class="col-sm-2" ng-show="result.pack_urgentProcess == 1">
-                        <label class="control-label">加急处理</label>
+                    <div class="col-sm-1" ng-show="result.pack_urgentProcess == 1">
+                        <i class="fa fa-check-circle"></i><label class="control-label">加急处理</label>
                     </div>
-                    <div class="col-sm-2" ng-show="result.pack_steadyInner == 1">
-                        <label class="control-label">内件加固</label>
+                    <div class="col-sm-1" ng-show="result.pack_steadyInner == 1">
+                        <i class="fa fa-check-circle"></i><label class="control-label">内件加固</label>
                     </div>
-                    <div class="col-sm-2" ng-show="result.pack_replaceCarton == 1">
-                        <label class="control-label">更换外箱</label>
+                    <div class="col-sm-1" ng-show="result.pack_replaceCarton == 1">
+                        <i class="fa fa-check-circle"></i><label class="control-label">更换外箱</label>
                     </div>
-                    <div class="col-sm-2" ng-show="result.pack_removeInner == 1">
-                        <label class="control-label">去除内件</label>
+                    <div class="col-sm-1" ng-show="result.pack_removeInner == 1">
+                        <i class="fa fa-check-circle"></i><label class="control-label">去除内件</label>
                     </div>
                 </div>
 
