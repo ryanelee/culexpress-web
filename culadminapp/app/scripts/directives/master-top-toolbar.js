@@ -62,8 +62,15 @@ angular.module('culAdminApp')
                         $location.path("/customer/faqdetail").search({ messageNumber: message.messageNumber });
                     }
                     $scope.btnViewAddressMessage = function(message) {
+                        console.log(message);
                         faqService.updateMessageOperation({ messageNumber: message.messageNumber }).then(function(data) {
+                        
+                           if(message.authType == 2){
+                            $location.path("/customer/idauth").search({ authType:2 });
+                           }else{
                             $location.path("/customer/addressdetail").search({ transactionNumber: message.addressId });
+                               
+                           }
                         })
                     }
 

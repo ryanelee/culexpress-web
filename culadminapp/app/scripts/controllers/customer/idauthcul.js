@@ -62,6 +62,7 @@ angular.module('culAdminApp')
                 storage.session.setObject("searchBar", $scope.searchBar);
                 var _options = {
                     "pageInfo": $scope.pagination,
+                    "noAuthType": 2,
                     "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
                     "dateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : "",
 
@@ -86,7 +87,7 @@ angular.module('culAdminApp')
                 $scope.pagination.totalCount = 0;
                 $scope.getData();
             }
-            $scope.btnSearch()
+            // $scope.btnSearch()
 
             $scope.btnOpenDetail = function (type, address) {
                 switch (type) {
