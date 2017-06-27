@@ -84,8 +84,17 @@ angular.module('culAdminApp')
                     if (!!result) {
                         $scope.data = result.data
                         $scope.data.messageLogs = result.data.messageLogs;
+                        $scope.data.messageLogs.forEach(function (e) {
+                            if (e.images && e.images.indexOf(",") >= 0) {
+                                e.images = e.images.split(',');
+                            } else {
+                                e.images = [e.images];
+                            }
+                        })
+                        console.log('refreshMessage')
+                        console.log($scope.data)
                     }
-                    _buildUpload($('#uploadImg'), "images");
+                    _buildUpload($('#uploadImg'), "_images");
                 });
             }
             $scope.refreshMessage();
@@ -108,11 +117,11 @@ angular.module('culAdminApp')
                     customerMessageService.push({
                         "messageNumber": $location.search().orderMessageNumber,
                         "message": $scope._message,
-                        "images": $scope.data.images
+                        "images": $scope.data._images
                     }, function(result) {
                         $scope.refreshMessage();
                         $scope._message = "";
-                        $scope.data.images = "";
+                        $scope.data._images = "";
                         $("#uploadImg_show").attr('src',''); 
                     });
                 }
