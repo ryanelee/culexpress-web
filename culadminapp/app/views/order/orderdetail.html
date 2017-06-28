@@ -477,6 +477,9 @@
                             <div class="col-sm-6 blue">{{item.operationUserName}}</div>
                             <div class="col-sm-6 text-right">{{item.operationDate | date:'MM/dd/yyyy HH:mm:ss'}}</div>
                             <div class="col-sm-12">{{item.message}}</div>
+                            <a ng-repeat="image in item.images track by $index" href="{{image}}" target="_blank">
+                                <img style="width:50px;margin:10px;" ng-src="{{image}}">
+                            </a> 
                             <div class="clearfix"></div>
                         </div>
                     </div>
