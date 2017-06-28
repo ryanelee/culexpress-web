@@ -193,14 +193,14 @@
                     <td style="max-width: 160px;">
                         <div ng-repeat="pkg in item._outboundTrackingNumbers track by $index">{{pkg}}</div>
                     </td>
-                    <td style="max-width: 200px;">
+                    <td class="long-cell">
                         <div ng-repeat="pkg in item._inboundTrackingNumbers" style="overflow: hidden;">{{pkg}}</div>
                     </td>
                     <td style="max-width: 160px;">{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                     <td style="max-width: 200px;">{{item.referenceOrderNumber || '-'}}</td>
                     <td style="max-width:150px;">{{item.warehouseName}}</td>
                     <td style="max-width:150px;">{{item.shipServiceName}}</td>
-                    <td >
+                    <td class="long-cell">
                         <p ng-repeat="ads in item._shipToAddresses track by $index">
                             {{ads}}
                         </p>
