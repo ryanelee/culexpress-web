@@ -6,11 +6,11 @@
             </div>
             <div class="form-group ">
                 <label class="label required">CUL包裹单号</label>
-                <input type="text" class="form-control" name="required" ng-blur="checkNumber()" ng-model="data.trackingNumber">
+                <input type="text" class="form-control" name="required" ng-blur="checkNumber()"   ng-model="data.trackingNumber" id="trackingNumber">
             </div>
             <div class="form-group ">
                 <label class="label required">收货人</label>
-                <input type="text" class="form-control" name="required" ng-model="data.receivePersonName">
+                <input type="text" class="form-control" name="required" ng-model="data.receivePersonName" id="receivePersonName">
             </div>
             <div class="form-group">
                 <label class="label">身份证号码</label>
@@ -99,6 +99,14 @@
             language: 'zh-CN',
             todayBtn: "linked",
             toggleActive: true
+        });
+        var trackingNumber = document.getElementById('trackingNumber');
+        var receivePersonName = document.getElementById('receivePersonName');
+        // trackingNumber.focus();
+        trackingNumber.addEventListener('keypress', function(event) {
+            if (event.keyCode == 13) {
+                receivePersonName.focus();
+            }
         });
     });
 </script>
