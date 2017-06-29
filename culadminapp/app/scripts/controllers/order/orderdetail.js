@@ -87,8 +87,6 @@ angular.module('culAdminApp')
 
             $scope.isShow = false;
             orderService.getDetail($location.search().orderNumber, function(result) {
-                console.log("result")
-                console.log(result)
                 $scope.data = result;
                 $scope.result = result;
                 if ($scope.data.shipToAddresses && $scope.data.shipToAddresses[0]) {

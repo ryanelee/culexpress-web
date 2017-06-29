@@ -258,12 +258,14 @@ var app = angular
                     .then(function(result) {
                         if (result.data) {
                             $scope.orderMessages = result.data.messageLogs;
-                            $scope.orderMessages.forEach(function (e) {
-                                order._orderMessageStatus = e.status                           
-                                if(e.status === '1'){
-                                    return
-                                }
-                            })
+                            if($scope.orderMessages) {
+                                $scope.orderMessages.forEach(function (e) {
+                                    order._orderMessageStatus = e.status                           
+                                    if(e.status === '1'){
+                                        return
+                                    }
+                                })
+                            }
                         }
                     })
                 })

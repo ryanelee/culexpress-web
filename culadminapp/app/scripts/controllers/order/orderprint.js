@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('OrderPrintCtrl', ["$timeout", "$window", "$scope", "$rootScope", "orderService", "warehouseService", "$location", "plugMessenger",
-        function($timeout, $window, $scope, $rootScope, orderService, warehouseService, $location, plugMessenger) {
+    .controller('OrderPrintCtrl', ["$timeout", "$window", "$scope", "$rootScope", "orderService", "warehouseService", "$location", "plugMessenger", "customerMessageService",
+        function($timeout, $window, $scope, $rootScope, orderService, warehouseService, $location, plugMessenger, customerMessageService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -146,13 +146,14 @@ angular.module('culAdminApp')
             $scope.getData = function() {
                 orderService.getList(_filterOptions(), function(result) {
                     $scope.dataList = result.data;
-                    console.log($scope.dataList)
+                    // console.log($scope.dataList)
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
 
                     $.each($scope.dataList, function(i, item) {
                         item._selected = $.grep($scope.selectedListCache, function(n) { return n.orderNumber == item.orderNumber }).length > 0;
                     });
                     $scope.searchBar.selectedAll = $.grep($scope.dataList, function(n) { return n._selected == true }).length == $scope.dataList.length;
+
                 });
             }
 

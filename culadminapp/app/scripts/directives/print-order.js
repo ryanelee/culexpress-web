@@ -7,7 +7,7 @@
  * # printOrder
  */
 angular.module('culAdminApp')
-    .directive('printOrder', ["$timeout", "orderService", function($timeout, orderService) {
+    .directive('printOrder', ["$timeout", "orderService", "customerMessageService", function($timeout, orderService, customerMessageService) {
         return {
             templateUrl: "views/templates/common/print-order_tpl.html",
             restrict: 'E',
@@ -41,7 +41,7 @@ angular.module('culAdminApp')
                     } 
                     orderService.getList(_options, function(result) {
                         $scope.dataList = result.data;
-                        console.log($scope.dataList);
+                        getOrderMessage();
                         $.each($scope.dataList, function(i, _data) {
                             _data._shippingFeeTotal = 0;
                            
@@ -50,7 +50,6 @@ angular.module('culAdminApp')
                             });
                             _data._shippingFeeTotal = _data._shippingFeeTotal.toFixed(2);
                         });
-
 
                         var shelf = { flag: "shelf", data: [] }
                         var j = 0;
@@ -89,13 +88,10 @@ angular.module('culAdminApp')
 
                             }
                         }
+                        console.log('$scope.dataList');
+                        console.log($scope.dataList);
                         _render();
                     });
-
-
-
-
-
 
                     //$.each($scope.orderNumbers, function (index, ordeNumber) {
                     //    orderService.getDetail(ordeNumber, function (result) {
@@ -105,6 +101,19 @@ angular.module('culAdminApp')
                     //});
                 });
 
+                var getOrderMessage = function() {
+                    $scope.dataList.forEach(function (order) {
+                        customerMessageService.getDetail(order.orderMessageNumber, function(result) {
+                            $scope.dataList.messageLogs = [];
+                            if (result.data) {
+                                $scope.dataList.messageLogs = result.data.messageLogs;
+                                if($scope.dataList.messageLogs) {                              
+                                    order._orderMessage = $scope.dataList.messageLogs[0].message                                                           
+                                }
+                            }
+                        });
+                    })
+                }
                 var _render = function() {
                     if ($scope.dataList.length == $scope.dataList.length) {
                         $timeout(function() {

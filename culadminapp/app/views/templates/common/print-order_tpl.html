@@ -179,7 +179,7 @@
                                     <td align="center">{{item.trackingNumber}}</td>
                                     <td align="center">{{item.packageWeight || 0}}</td>
                                     <td align="center">{{item.shelfNumber}}</td>
-                                    <td align="center">{{item.packageNote || 0}}</td>
+                                    <td align="center">{{item.packageNote || ''}}</td>
                                 </tr>
                             </table>
                         </td>
@@ -198,7 +198,7 @@
                     </tr>
                     <tr>
                         <td class="title">备注</td>
-                        <td colspan="3">{{data.remark}}</td>
+                        <td colspan="3">{{data._orderMessage || ''}}</td>
                     </tr>
                 </table>
             </div>
@@ -228,36 +228,6 @@
                     </table>
                 </table>
             </div>
-            <!--<div ng-if="($index+1) == dataList.length && ($index+1) % 10 != 0" class="height-100">
-                <table cellpadding="2" cellspacing="0" border="0" width="100%" class="list">
-                    <tr style="border-bottom:#6f6b6b solid 1px">
-                        <th width="10%">入库单号(后6位)</th>
-                        <th width="15%">架位</th>
-                        <th width="10%">客户编号</th>
-                        <th width="26%">订单编号</th>
-                        <th width="8%">重量（磅）</th>
-                        <th width="6%">件数</th>
-                        <th width="17%">生成日期</th>
-                        <th width="8%">小费</th>
-                    </tr>
-                    <tr ng-repeat="data in dataList | listInfo: $index | orderBy:data.inboundPackages.shelfNumber">
-                        <td colspan="8" width="100%">
-                            <table cellpadding="2" cellspacing="0" border="0" width="100%" class="packages">
-                                <tr ng-repeat="item in data.inboundPackages track by $index" style="border-bottom:#6f6b6b solid 1px">
-                                    <td width="10%">{{item.trackingNumber | intercept}}</td>
-                                    <td width="15%">{{item.shelfNumber}}</td>
-                                    <td width="10%">{{data.customerNumber}}</td>
-                                    <td width="26%">{{data.orderNumber}}</td>
-                                    <td width="8%" align="center">{{data.packageWeight || 0}}</td>
-                                    <td width="10%" align="center">{{data.cartonCount + '-1' || 0}}</td>
-                                    <td width="13%">{{data.payDate | date:'MM/dd/yyyy'}}</td>
-                                    <td width="8%" align="center">{{data.tip || 0}}</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </div>-->
         </div>
     </div>
 </div>
