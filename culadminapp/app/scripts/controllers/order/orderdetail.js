@@ -87,6 +87,7 @@ angular.module('culAdminApp')
 
             $scope.isShow = false;
             orderService.getDetail($location.search().orderNumber, function(result) {
+                // console.log(result)
                 $scope.data = result;
                 $scope.result = result;
                 if ($scope.data.shipToAddresses && $scope.data.shipToAddresses[0]) {
@@ -125,14 +126,15 @@ angular.module('culAdminApp')
                     $scope.data.messageLogs = [];
                     if (!!result) {
                         $scope.data.messageLogs = result.data.messageLogs;
-                        // console.log($scope.data.messageLogs)
-                        $scope.data.messageLogs.forEach(function (e) {
+                        if($scope.data.messageLogs) {
+                            $scope.data.messageLogs.forEach(function (e) {
                             if (e.images && e.images.indexOf(",") >= 0) {
                                 e.images = e.images.split(',');
                             } else {
                                 e.images = [e.images];
                             }
                         })
+                        }                      
                     }
                 });
             }

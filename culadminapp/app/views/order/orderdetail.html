@@ -365,6 +365,7 @@
                                     <th>打包数量</th>
                                     <th>计费重量</th>
                                     <th>运费合计</th>
+                                    <!--<th>打包人员</th>-->
                                 </tr>
                             </thead>
                             <tbody>
@@ -375,6 +376,7 @@
                                     <td>{{item.subGoodNumber}}</td>
                                     <td>{{item.billingWeight | number : 2}}磅</td>
                                     <td>{{item.shippingFee | currency:'¥'}}</td>
+                                    <!--<td>{{item.lastEditUserName}}</td>-->
                                 </tr>
                             </tbody>
                         </table>
@@ -387,7 +389,7 @@
                     </div>
                     <label class="col-sm-2 control-label text-right">打包人员：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.inuserName}}</label>
+                        <label class="control-label">{{data.outboundPackages[0].lastEditUserName}}</label>
                     </div>
                 </div>
                 <div class="form-group">
