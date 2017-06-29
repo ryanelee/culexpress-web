@@ -361,6 +361,8 @@
                                 <tr>
                                     <th>CUL包裹单号</th>
                                     <th>打包重量</th>
+                                    <th>打包品名</th>
+                                    <th>打包数量</th>
                                     <th>计费重量</th>
                                     <th>运费合计</th>
                                 </tr>
@@ -369,6 +371,8 @@
                                 <tr ng-repeat="item in data.outboundPackages">
                                     <td>{{item.trackingNumber}}</td>
                                     <td>{{item.actualWeight | number : 2}}磅</td>
+                                    <td>{{item.subDeclareGoodsName}}</td>
+                                    <td>{{item.subGoodNumber}}</td>
                                     <td>{{item.billingWeight | number : 2}}磅</td>
                                     <td>{{item.shippingFee | currency:'¥'}}</td>
                                 </tr>

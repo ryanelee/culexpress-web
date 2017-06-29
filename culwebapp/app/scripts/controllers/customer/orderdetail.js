@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('culwebApp')
+angular.module('culwebApp') 
     .controller('OrderdetailCtrl', ['$scope', '$rootScope', 'OrderSvr', '$stateParams', '$state', '$location', 'AuthService',
         function($scope, $rootScope, orderSvr, $stateParams, $state, $location, AuthService) {
             this.awesomeThings = [
@@ -57,6 +57,8 @@ angular.module('culwebApp')
                     .getOrderInfo(orderId)
                     .then(function(result) {
                         $scope.data = result.data;
+                        console.log('data.outboundPackages')
+                        console.log($scope.data.outboundPackages)
 
                         if($scope.data.actualWeight == 0 
                             && $scope.data.inboundPackages && $scope.data.inboundPackages.length > 0){

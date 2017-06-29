@@ -117,7 +117,9 @@ angular.module('culAdminApp')
             $scope.btnSave = function () {
                 $scope.data.stateOrProvince = $scope.data.stateOrProvince.name;
                 $scope.data.city = $scope.data.city.name;
+                if($scope.data.area){
                 $scope.data.area = $scope.data.area.name;
+                }
                 if ($scope.data.city == "") {
                     plugMessenger.info("收货地址没有填写完整");
                     return;
