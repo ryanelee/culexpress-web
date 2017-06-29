@@ -695,7 +695,8 @@ var app = angular
                     var orderItems = getOrders();
                     for (var i = 0, ii = orderItems.length; i < ii; i++) {
                         var orderItem = orderItems[i];
-                        if (!orderItem.itemBrand || !orderItem.description || !orderItem.quantity || !orderItem.unitprice) {
+                        // 允许orderItem.unitprice值为0
+                        if (!orderItem.itemBrand || !orderItem.description || !orderItem.quantity || orderItem.unitprice == undefined || orderItem.unitprice == null) {
                             alertify.alert('提示', '必须填写转运包裹申报商品信息，包括商品品牌、商品描述、数量和单价!');
                             return false;
                         }

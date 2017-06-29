@@ -127,8 +127,14 @@ angular.module('culAdminApp')
                     $scope.data.messageLogs = [];
                     if (!!result) {
                         $scope.data.messageLogs = result.data.messageLogs;
-                        console.log($scope.data.orderMessageNumber)
-                        console.log($scope.data.messageLogs)
+                        // console.log($scope.data.messageLogs)
+                        $scope.data.messageLogs.forEach(function (e) {
+                            if (e.images && e.images.indexOf(",") >= 0) {
+                                e.images = e.images.split(',');
+                            } else {
+                                e.images = [e.images];
+                            }
+                        })
                     }
                 });
             }

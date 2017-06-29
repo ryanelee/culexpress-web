@@ -167,6 +167,10 @@
                                         </div>
                                       </div>
                                       <div class="s-title" style="margin-top: 25px;">转运包裹信息</div>
+                                        <div class="alert alert-warning fade in alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <strong>温馨提示:</strong>USPS渠道请提交填写内容为英文的地址，其他渠道请提交中文地址，避免造成发货延迟                                                                             
+                                        </div>
                                           <div ng-repeat="outboundPackageItem in outboundPackages" style="margin-bottom: 15px; padding:20px 30px; background-color: #fff;">
                                             <select class="form-control" ng-model="outboundPackageItem.addressNumber"
                                               ng-options="addressItem.transactionNumber as (addressItem.stateOrProvince+' '+addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName) for addressItem in addressListData"
