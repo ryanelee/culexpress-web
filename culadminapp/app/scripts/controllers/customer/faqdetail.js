@@ -45,6 +45,7 @@ angular.module('culAdminApp')
                 if (result && result.images)
                     $scope.images = result.images.split(',');
                 $scope.data = result;
+                console.log(result)
                 faqService.getMessagelog({ messageNumber: $scope.tpl_status.messageNumber }, function (logs) {
                     $scope.logs = logs.data;
                     var _messageType = $.grep($scope.tpl_status.messageTypeData, function (n) { return n.typeID == $scope.data.messageType });
@@ -74,14 +75,15 @@ angular.module('culAdminApp')
                     $scope.messageLogs = [];
                     if (!!result) {
                         $scope.messageLogs = result.data.messageLogs;
-                        $scope.messageLogs.forEach(function (e) {
-                            if (e.images && e.images.indexOf(",") >= 0) {
-                                e.images = e.images.split(',');
-                            } else {
-                                e.images = [e.images];
-                            }
-                        })
-
+                        if ($scope.messageLogs) {
+                            $scope.messageLogs.forEach(function (e) {
+                                if (e.images && e.images.indexOf(",") >= 0) {
+                                    e.images = e.images.split(',');
+                                } else {
+                                    e.images = [e.images];
+                                }
+                            })
+                        }
                     }
                 });
             }
@@ -124,7 +126,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnViewCustomer = function (orderNumber) {
-                $location.path("/order/orderdetail").search({ orderNumber: 'JK020OJWV10000049' });
+                $location.path("/order/orderdetail").search({ orderNumber: orderNumber });
                 return;
             }
 

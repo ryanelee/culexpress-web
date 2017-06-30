@@ -29,7 +29,7 @@ angular.module('culAdminApp')
             }
             /*search bar*/
             $scope.searchBar = {
-                keywordType: "userName",
+                keywordType: "receivePersonName",
                 startDate: "",
                 endDate: "",
                 verifyMark: "",
