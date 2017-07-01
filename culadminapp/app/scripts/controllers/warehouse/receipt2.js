@@ -112,7 +112,7 @@ angular.module('culAdminApp')
                     $scope.searchBar.sendType = 2;
                 }
                 shelfService.getTransportList(_filterOptions(), function (result) {
-                    //console.log(result);
+                    console.log(result);
                     var _data = result.data;
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function (x) {
@@ -179,6 +179,9 @@ angular.module('culAdminApp')
                 }
             }
 
+            $scope.deleteLog = function () {
+                $location.path('/warehouse/deleteReceiptLog');
+            }
             $scope.btnAction = function (type, item) {
                 switch (type) {
                     case "exception":
@@ -195,9 +198,7 @@ angular.module('culAdminApp')
                     case "delete":
                         plugMessenger.confirm("请确认是否删除该记录？", function (isOK) {
                             if (isOK) {
-                                receiptService.delete({
-                                    "receiptNumber": [item.receiptNumber]
-                                }, function (result) {
+                                receiptService.delete(item, function (result) {
                                     if (result.success == true) {
                                         plugMessenger.success("删除成功");
                                         $scope.getData();

@@ -110,6 +110,7 @@ angular.module('culAdminApp')
           $scope.getData = function () {
               storage.session.setObject("searchBar", $scope.searchBar);
               inventoryService.getLogList(_filterOptions(), function (result) {
+                  console.log(result);
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
               });

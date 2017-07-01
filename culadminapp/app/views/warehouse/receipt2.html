@@ -8,13 +8,14 @@
                 <div class="col-sm-12" style="padding:0 20px 15px 12px;">
                     <button type="button" class="btn btn-primary role" data-role="54" style="margin-left:5px;" ng-click="btnAction('inbound')">入库登记</button>
                     <button type="button" class="btn btn-primary role" data-role="55" style="margin-left:5px;" ng-click="btnAction('exception')">异常管理</button>
+                    <button type="button" class="btn btn-primary role" data-role="55" style="margin-left:5px;" ng-click="deleteLog()">删货记录</button>
                 </div>
                 <div class="col-sm-12 search-bar">
                     <div class="search-col">
                         <label class="search-label">入库类型：</label>
                         <select class="form-control search-control" ng-options="sendType.key as sendType.value for sendType in sendTypes" ng-model="searchBar.sendType">
                        
-                    </select>
+                    </select> 
                     </div>
                     <div class="search-col">
                         <label class="search-label">入库状态：</label>
@@ -94,6 +95,7 @@
                             <th>登记时间</th>
                             <th>登记人</th>
                             <th>入库状态</th>
+                            <th>上架状态</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -138,6 +140,7 @@
                             <td>{{item.inboundDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                             <td>{{item.inboundUser}}</td>
                             <td>{{item._inboundStatus}}</td>
+                            <td>{{item._shelfStatus}}</td>
                             <td>
                                 <a href="javascript:void(0)" class="role" data-role="54" ng-click="btnAction('inbound', item)" ng-if="item.inboundStatus <= 1">登记入库</a>
                                 <a href="javascript:void(0)" ng-click="btnOpenDetail('receiptDetail', item)" ng-if="item.inboundStatus > 1">查看</a>

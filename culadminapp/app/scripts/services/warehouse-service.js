@@ -81,7 +81,15 @@ angular.module('culAdminApp')
             $http.post(cul.apiPath + "/outboundpackage/split", options).success(function (result) {
                 callback(result);
             });
+            
         }
+         self.getDeleteReceiptLog = function (options, callback) {
+            $http.post(cul.apiPath + "/getDeleteReceiptLog", options).success(function (result) {
+                callback(result);
+            });
+            
+        }
+        
 
         self.inboundpackage = function (options) {
             return $http.post(cul.apiPath + "/inboundpackage", options)
