@@ -61,7 +61,7 @@ angular
             var loadFinanceLog = function(index, callback) {
                 customer.getFinanceLog(index, $scope.currentUser.customerNumber, operationType)
                     .then(function(result) {
-                        //console.log(result);
+                        console.log(result);
                         callback && callback(result);
                     });
             }
