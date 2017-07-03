@@ -30,24 +30,24 @@
         <!--<img src="assets/img/kingadmin-logo.png" />-->
         <!--<span>CUL 中美速递 www.culexpress.com</span>-->
     <!--</div>-->
-    <div class="row" style="font-size:20px">
-        {{dataOne.receipt}}
+    <div class="row">
+        <span style="font-size:36px;">{{dataOne.receipt}}</span>
         <i class="fa fa-bolt" ng-if="data.isFastShip == 1"></i>
         <!--<img src="/images/fast-icon.png" style="width:20px; height:10px;" ng-if="data.isFastShip == 1"/>-->
     </div>
     <!--<hr>-->
     <div class="row">
-        <div class="barcode" itemNumber="{{dataOne.receiptNumber}}"></div>
+        <div class="barcode" itemNumber="{{dataOne.receiptNumber}}" style="font-size:40px;"></div>
     </div>
     <!--<hr>-->
     <div class="row">
-        <div class="col-xs-4" style="text-align:right;font-size:8px"><small>{{dataOne.receiveIdentity}}</small></div>
-        <div class="col-xs-8" style="text-align:left;font-size:8px"><small>{{dataOne.customerNumber}}</small></div>
+        <div class="col-xs-4" style="text-align:right;font-size:16px"><small>{{dataOne.receiveIdentity}}</small></div>
+        <div class="col-xs-8" style="text-align:left;font-size:16px"><small>{{dataOne.customerNumber}}</small></div>
     </div>
     <!--<hr>-->
     <div class="row">
-        <div class="col-xs-4" style="text-align:right;font-size:8px">{{dataOne.packageWeight}}</div>
-        <div class="col-xs-8" style="text-align:left;font-size:8px">{{dataOne.createDate | date:'yyyy-MM-dd HH:mm'}}</div>
+        <div class="col-xs-4" style="text-align:right;font-size:16px">{{dataOne.packageWeight}}</div>
+        <div class="col-xs-8" style="text-align:left;font-size:16px">{{dataOne.createDate | date:'yyyy-MM-dd HH:mm'}}</div>
     </div>
     <!--<hr>-->
 
