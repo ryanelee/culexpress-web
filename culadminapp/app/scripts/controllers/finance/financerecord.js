@@ -25,7 +25,7 @@ angular.module('culAdminApp')
           });
 
 
-        
+         
 
           customerService.getUnpaid({
               customerNumber: $scope.customerNumber
