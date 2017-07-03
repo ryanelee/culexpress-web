@@ -93,7 +93,7 @@ angular.module('culAdminApp')
                 if (!!$scope.searchBar.keywords) {
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 }
-                return angular.copy(_options);
+                return angular.copy(_options); 
             }
 
             $scope.getData = function () {

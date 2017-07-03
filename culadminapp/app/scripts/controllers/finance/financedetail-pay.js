@@ -135,6 +135,7 @@ angular.module('culAdminApp')
                     case "refund":
                         customerService.refundRecharge({
                             "customerNumber": $scope.tpl_status.customerNumber,
+                            "orderNumber": $scope.search.orderNumber,
                             "operationType": "4", //固定不动，4代表退运费
                             "memo": $scope.data.memo,
                             "payment": $scope.data.fee //支付金额
