@@ -70,7 +70,7 @@ a {
 
 /*user-defined*/
 .btn-tootip-left {
-  width: 80px;
+  width: 40px;
   float: left;
   margin-top: 5px;
 }
@@ -80,10 +80,10 @@ a {
   margin-top: 5px; 
 }
 .btn-tootip-bom{
-    width: 93px;
+    width: 200px;
     float: left;
     margin-top: 5px;
-    margin-left: 90px;
+    margin-left: 45px;
 }
 .btn-icon {
   padding:0px 5px 0px 5px;
