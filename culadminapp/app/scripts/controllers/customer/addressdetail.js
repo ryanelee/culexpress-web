@@ -117,7 +117,9 @@ angular.module('culAdminApp')
             $scope.btnSave = function () {
                 $scope.data.stateOrProvince = $scope.data.stateOrProvince.name;
                 $scope.data.city = $scope.data.city.name;
-                $scope.data.area = $scope.data.area.name;
+                if ($scope.data.area) {
+                    $scope.data.area = $scope.data.area.name;
+                }
                 if ($scope.data.city == "") {
                     plugMessenger.info("收货地址没有填写完整");
                     return;
@@ -129,8 +131,8 @@ angular.module('culAdminApp')
                 addressService.update($scope.data, function (result) {
                     if (!result.message) {
                         plugMessenger.success("保存成功");
-                        console.log($scope.tempVerifyMark)
-                        console.log($scope.data.verifyMark)
+                        // console.log($scope.tempVerifyMark)
+                        // console.log($scope.data.verifyMark)
                         if ($scope.tempVerifyMark != $scope.data.verifyMark) {
                             if ($scope.data.verifyMark == 1) {
                                 $scope.createMessageLog("身份认证通过");

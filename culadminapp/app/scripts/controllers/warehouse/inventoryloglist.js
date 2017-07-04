@@ -111,6 +111,7 @@ angular.module('culAdminApp')
               storage.session.setObject("searchBar", $scope.searchBar);
               inventoryService.getLogList(_filterOptions(), function (result) {
                   $scope.dataList = result.data;
+                  console.log($scope.dataList)
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
               });
           }
