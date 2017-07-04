@@ -51,7 +51,7 @@
                     <div class="search-col">
                         <label class="search-label">搜索条目：</label>
                         <select class="form-control search-control" ng-model="searchBar.keywordType">
-                            <!--<option value="orderNumber">订单编号</option>-->
+                            <option value="orderNumber">订单编号</option>
                             <option value="customerNumber">客户编号</option>
                             <!--<option value="inuserName">客户ID</option>-->
                         </select>
@@ -73,6 +73,7 @@
                 <th>客户编号/操作人</th>
                 <th>充值类型</th>
                 <th>交易号</th>
+                <th>订单号</th>
                 <th>充值金额</th>
                 <th>充值状态</th>
                 <th>充值日期</th>
@@ -85,6 +86,7 @@
                 <td>{{item.customerNumber}}<span ng-show="!!item.inuserName">({{item.inuserName}})</span></td>
                 <td>{{item.operationType}}</td>
                 <td>{{item.rechargeNumber || ''}}</td>
+                <td>{{item.orderNumber}}</td>
                 <td>{{item.payment}}</td>
                 <td>{{item.status == 1 ? "充值成功" : "充值失败"}}</td>
                 <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>

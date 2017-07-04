@@ -9,12 +9,13 @@
  */
 angular.module('culAdminApp')
     .controller('WarehouseOnShelfDetailCtrl', ['$scope', '$location', '$window', 'shelfService', 'inventoryService', 'plugMessenger', '$timeout',
-        function($scope, $location, $window, shelfService, inventoryService, plugMessenger, $timeout) {
+        function ($scope, $location, $window, shelfService, inventoryService, plugMessenger, $timeout) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
                 'Karma'
             ];
+
             $scope.data = null;
             $scope.receiptNumber = null;
             $scope.tempReceiptNumber = $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
@@ -22,7 +23,7 @@ angular.module('culAdminApp')
 
             //console.log($scope.tempItemNumber) 
 
-            $scope.isExpecial = function() {
+            $scope.isExpecial = function () {
                 if ($scope.isUnusual == 1) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
                     //console.log(staffFlag);
@@ -46,131 +47,131 @@ angular.module('culAdminApp')
             }
 
             $scope.hotKey = function (event) {
-              switch (event.keyCode) {
-                  case 13:  //enter
-                      $scope.isExpecial();
-                      break;
-              }
+                switch (event.keyCode) {
+                    case 13:  //enter
+                        $scope.isExpecial();
+                        break;
+                }
             }
 
             $scope.keydownReceiptNumber = function (event) {
-              switch (event.keyCode) {
-                  case 13:  //enter
-                      $scope.checkItemNumber();
-                      break;
-              }
+                switch (event.keyCode) {
+                    case 13:  //enter
+                        $scope.checkItemNumber();
+                        break;
+                }
             }
-             $scope.keydownBtnSave = function (event) {
-              switch (event.keyCode) {
-                  case 13:  //enter
-                      $scope.btnSave();
-                      break;
-              }
+            $scope.keydownBtnSave = function (event) {
+                switch (event.keyCode) {
+                    case 13:  //enter
+                        $scope.btnSave();
+                        break;
+                }
             }
 
-            
+
 
             // var _timeout = null;
-            $scope.checkItemNumber = function() {
+            $scope.checkItemNumber = function () {
                 // if (!!_timeout) clearTimeout(_timeout);
                 // _timeout = setTimeout(function() {
                 //     $scope.$apply(function() {
-                        if ($scope.tempItemNumber == $location.search().receiptNumber) {
-                            inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function(result) {
-                                $scope.data = null;
+                if ($scope.tempItemNumber == $location.search().receiptNumber) {
+                    inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
+                        $scope.data = null;
 
 
-                                if (!result.message) {
-                                    $scope.data = result;
-                                    console.log($scope.data);
-                                    $scope.receiptNumber = $location.search().receiptNumber;
-                                    $scope._itemType = $scope.data.itemNumber.substr(0, 2);
-                                    $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
+                        if (!result.message) {
+                            $scope.data = result;
+                            console.log($scope.data);
+                            $scope.receiptNumber = $location.search().receiptNumber;
+                            $scope._itemType = $scope.data.itemNumber.substr(0, 2);
+                            $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
 
-                                    $timeout(function() {
-                                        $('#tip_ASNNumber').popover({
-                                            container: 'body',
-                                            placement: 'top',
-                                            html: true,
-                                            trigger: 'hover',
-                                            title: '',
-                                            content: "请扫描ASN开头寄送库存单据编号。"
-                                        });
-                                    });
-                                }
-                                var element = $window.document.getElementById('shelfNumber');
-                                    if (element)
-                                        element.focus();
-                                $scope.tempItemNumber = "";
+                            $timeout(function () {
+                                $('#tip_ASNNumber').popover({
+                                    container: 'body',
+                                    placement: 'top',
+                                    html: true,
+                                    trigger: 'hover',
+                                    title: '',
+                                    content: "请扫描ASN开头寄送库存单据编号。"
+                                });
                             });
-
-                            return;
                         }
+                        var element = $window.document.getElementById('shelfNumber');
+                        if (element)
+                            element.focus();
+                        $scope.tempItemNumber = "";
+                    });
 
-                        if (!!$scope.tempItemNumber) {
-                            $scope.receiptNumber = $scope.tempItemNumber;
-                            $scope.tempReceiptNumber = $scope.tempItemNumber
-                            inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function(result) {
-                                $scope.data = null;
+                    return;
+                }
 
-                                if (!result.message) {
-                                    $scope.data = result;
-                                    // $scope.receiptNumber = $location.search().receiptNumber;
-                                    $scope._itemType = $scope.data.itemNumber.substr(0, 2);
-                                    $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
+                if (!!$scope.tempItemNumber) {
+                    $scope.receiptNumber = $scope.tempItemNumber;
+                    $scope.tempReceiptNumber = $scope.tempItemNumber
+                    inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
+                        $scope.data = null;
 
-                                    $timeout(function() {
-                                        $('#tip_ASNNumber').popover({
-                                            container: 'body',
-                                            placement: 'top',
-                                            html: true,
-                                            trigger: 'hover',
-                                            title: '',
-                                            content: "请扫描ASN开头寄送库存单据编号。"
-                                        });
-                                    });
-                                }
-                                $scope.tempItemNumber = "";
+                        if (!result.message) {
+                            $scope.data = result;
+                            // $scope.receiptNumber = $location.search().receiptNumber;
+                            $scope._itemType = $scope.data.itemNumber.substr(0, 2);
+                            $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
+
+                            $timeout(function () {
+                                $('#tip_ASNNumber').popover({
+                                    container: 'body',
+                                    placement: 'top',
+                                    html: true,
+                                    trigger: 'hover',
+                                    title: '',
+                                    content: "请扫描ASN开头寄送库存单据编号。"
+                                });
                             });
-                            var element = $window.document.getElementById('shelfNumber');
-                                    if (element)
-                                        element.focus();
-                            return;
-
-                            // inventoryService.getInfo($scope.tempItemNumber, function (result) {
-                            //     $scope.data = null;
-                            //     if (!result.message) {
-                            //         $scope.data = result;
-                            //         $scope._itemType = $scope.data.itemNumber.substr(0, 2);
-                            //         $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
-
-                            //         $timeout(function () {
-                            //             $('#tip_ASNNumber').popover({
-                            //                 container: 'body',
-                            //                 placement: 'top',
-                            //                 html: true,
-                            //                 trigger: 'hover',
-                            //                 title: '',
-                            //                 content: "请扫描ASN开头寄送库存单据编号。"
-                            //             });
-                            //         });
-                            //     }
-                            //     $scope.tempItemNumber = "";
-                            // });
-
-
-
-                        } else {
-                            $scope.tempItemNumber = "";
                         }
-                        // $window.document.getElementById("shelfNumber").focus();
+                        $scope.tempItemNumber = "";
+                    });
+                    var element = $window.document.getElementById('shelfNumber');
+                    if (element)
+                        element.focus();
+                    return;
+
+                    // inventoryService.getInfo($scope.tempItemNumber, function (result) {
+                    //     $scope.data = null;
+                    //     if (!result.message) {
+                    //         $scope.data = result;
+                    //         $scope._itemType = $scope.data.itemNumber.substr(0, 2);
+                    //         $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
+
+                    //         $timeout(function () {
+                    //             $('#tip_ASNNumber').popover({
+                    //                 container: 'body',
+                    //                 placement: 'top',
+                    //                 html: true,
+                    //                 trigger: 'hover',
+                    //                 title: '',
+                    //                 content: "请扫描ASN开头寄送库存单据编号。"
+                    //             });
+                    //         });
+                    //     }
+                    //     $scope.tempItemNumber = "";
+                    // });
+
+
+
+                } else {
+                    $scope.tempItemNumber = "";
+                }
+                // $window.document.getElementById("shelfNumber").focus();
                 //     })
                 // }, 1000);
             }
 
             $scope.checkItemNumber();
 
-            $scope.btnSave = function(type) {
+            $scope.btnSave = function (type) {
                 // console.log($scope.receiptNumber);
                 // return;
                 //if (!$scope.data.inventory_frozen) {
@@ -199,13 +200,13 @@ angular.module('culAdminApp')
 
                 // }
 
-                
+
                 if (!$scope.data.shelfNumber) {
                     plugMessenger.error("架位号不能为空");
                     return;
                 }
 
-                if ($scope.isExpecial() == false )
+                if ($scope.isExpecial() == false)
                     return;
 
                 var data = {
@@ -221,22 +222,29 @@ angular.module('culAdminApp')
                     data.receiptNumber = $scope.data.receiptNumber;
                 }
                 // return;
-                shelfService.onshelfForInbound(data, function(result) {
+                shelfService.onshelfForInbound(data, function (result) {
                     if (result.success) {
-                        plugMessenger.success("操作成功");
+                        // $("#myAlert").alert();
+                        // plugMessenger.success("操作成功");
+                        // plugMessenger.succ("操作成功");
+                        console.log('234567')
+                        plugMessenger.succ("操作成功", function () { });
+
                         $scope.data = null;
                         //$window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
-                         // 上架成功后停留在上架登记界面继续上架操作
+                        // 上架成功后停留在上架登记界面继续上架操作
                         //  $location.path("/warehouse/onshelfdetail"); 
                         var element = $window.document.getElementById('tempItemNumber');
-                         if (element) element.focus();  
+                        if (element) element.focus();
 
+                    } else {
+                        // plugMessenger.error("操作失败");
                     }
                 });
             }
 
-            $scope.btnPrev = function() {
-                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+            $scope.btnPrev = function () {
+                $window.sessionStorage.setItem("historyFlag", 1); $window.history.back();
             }
 
             $('#tip_itemNumber').popover({
