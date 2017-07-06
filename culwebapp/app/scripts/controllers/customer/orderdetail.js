@@ -163,7 +163,7 @@ angular.module('culwebApp')
                 }
 
                 if ($scope.currentUser.accountBalance < orderItem.totalCount) {
-                    alertify.alert('提示', '您需要支付' + orderItem.totalCount + '元，但您的余额已不足，为' + $scope.$root.currentUser.accountBalance + ',请先充值!', 'warning');
+                    alertify.alert('提示', '您需要支付' + orderItem.totalCount + '元，但您的余额已不足，为' + $scope.currentUser.accountBalane + ',请先充值!', 'warning');
                     return false;
                 }
 

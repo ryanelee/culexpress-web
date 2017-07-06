@@ -78,10 +78,12 @@
                     <div class="clearfix"></div>
                     <div class="search-col">
                         <label class="search-label">搜索条目：</label>
-                        <select class="form-control search-control">
+                        <select class="form-control search-control"ng-model="searchBar.keywordType" >
                             <option value="itemNumber">商品编号</option>
                             <option value="upccode">UPC</option>
-                            <option value="customerNumber">客户编号</option>
+                            <option value="receiptNumber">入库编号</option>
+                            <!--<option value="customerNumber">客户编号</option>-->
+                            
                         </select>
                         <input type="text" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
                         <button type="button" id="submit"  class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>

@@ -112,6 +112,7 @@ angular.module('culAdminApp')
               inventoryService.getLogList(_filterOptions(), function (result) {
                   console.log(result);
                   $scope.dataList = result.data;
+                  console.log($scope.dataList)
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
               });
           }
