@@ -64,7 +64,7 @@ angular.module('culAdminApp')
                         } else {
                             //修改
                             // console.log("feichang" + JSON.stringify(result));
-                            //console.log(result);
+                            console.log(result);
                             $scope.data = result;
                             $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
