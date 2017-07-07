@@ -1,0 +1,26 @@
+<div style="display:none;">
+    <style>
+        #print_TrackingNumber_Template th {
+            text-align: center;
+        }
+
+        #print_TrackingNumber_Template th, td {
+            padding: 2px;
+        }
+
+        #print_TrackingNumber_Template td.title {
+            width: 100px;
+            text-align: center;
+        }
+
+        #print_TrackingNumber_Template .barcode {
+            margin: 0 auto;
+        }
+    </style>
+    <div id="print_TrackingNumber_Template" ng-repeat="data in dataList">
+        <div style="display:inline-block;">
+            <label style="float:left;"><div class="barcode" trackingNumber="{{data.trackingNumber}}"></div></label>
+            <label style="float:left;font-size:30px;"><i class="fa fa-bolt" ng-if="data._isFastOrder == 1"></i></label>
+        </div>
+    </div>
+</div>

@@ -204,7 +204,8 @@ angular.module('culAdminApp')
                             $scope.$broadcast("print-flying-express2.action", item.orderNumber);
                             break;
                         case "trackingNumber":
-                            _printTrackingNumbers(item);
+                            //  _printTrackingNumbers(item);
+                            $scope.$broadcast("print-tracking-number.action", item);
                             break;
                     }
                 }
@@ -251,7 +252,8 @@ angular.module('culAdminApp')
                                 $scope.$broadcast("print-flying-express2.action", orderNumbers);
                                 break;
                             case "trackingNumber":
-                                _printTrackingNumbers(selectedList);
+                                // _printTrackingNumbers(selectedList);
+                                $scope.$broadcast("print-tracking-number.action", selectedList);
                                 break;
                         }
                     }
