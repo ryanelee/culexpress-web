@@ -31,8 +31,6 @@ angular.module('culAdminApp')
                 }
             }
 
-
-
             $scope.checkInboundPackageNumber = function () {
                 $scope.tempData = $scope.tempInboundPackageNumber
 
@@ -51,13 +49,14 @@ angular.module('culAdminApp')
                                 if (!item.checked) {
                                     item.checked = item.trackingNumber == $scope.tempInboundPackageNumber;
                                     _checked = true;
-                                    // $each($scope.data.outboundPackages, function(i, t) {
-                                    //     t.actualWeight = item.packageWeight
-                                    // })
                                 }
                                 if (item.checked) {
                                     $scope.data.outboundPackages[0].actualWeight += item.packageWeight;
                                 }
+                            });
+                            $scope.data._quantityCount = 0;
+                            $.each($scope.data.orderItems, function (index, item) {
+                                $scope.data._quantityCount += item.quantity
                             });
 
                             //todo: 根据 _checked 调用提示音
@@ -166,7 +165,6 @@ angular.module('culAdminApp')
                                     _checked = true;
                                 }
                             });
-                            $scope.data.outboundPackages
                         }
                         $scope.tempInboundPackageNumber = "";
                     });

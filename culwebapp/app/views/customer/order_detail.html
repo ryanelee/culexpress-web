@@ -150,7 +150,7 @@
                                 <th class="text-center">商品详细品牌</th>
                                 <th class="text-center">数量</th>
                                 <th class="text-center">申报价值</th>
-                                <th class="text-center">合计</th>
+                                <th class="text-center" >合计</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -161,15 +161,15 @@
                                     <a class="btn-u bg-color-ffb" style="padding: 1px 5px; color: #fff; margin-top: 5px;" ui-sref="ordertracking({trackingNumber:'{{packageItem.trackingNumber}}'})">
                                         <i class="fa fa-truck"></i> 查看包裹轨迹</a>
                                 </th>
-                                <td colspan="5" style="padding: 0;">
+                                <td colspan="6" style="padding: 0;">
                                     <table class="table" style="margin-bottom: 0;">
                                         <tr ng-repeat="orderItem in packageItem.items">
-                                            <td style="width: 20%;">{{orderItem.itemBrand}}</td>
-                                            <td style="width: 20%;">{{orderItem.description}}</td>
-                                            <td style="width: 20%;">{{packageItem.subDeclareGoodsName}}</td>
-                                            <td style="width: 20%;">{{orderItem.quantity}}</td>
-                                            <td style="width: 20%;">{{orderItem.unitprice|currency}}</td>
-                                            <td style="width: 20%;">{{(orderItem.quantity*orderItem.unitprice)|currency}}</td>
+                                            <td style="width: 16%;">{{orderItem.itemBrand}}</td>
+                                            <td style="width: 16%;">{{orderItem.description}}</td>
+                                            <td style="width: 16%;">{{packageItem.subDeclareGoodsName}}</td>
+                                            <td style="width: 16%;">{{orderItem.quantity}}</td>
+                                            <td style="width: 16%;">{{orderItem.unitprice|currency}}</td>
+                                            <td style="width: 10%;">{{(orderItem.quantity*orderItem.unitprice)|currency}}</td>
                                         </tr>
                                         <tr style="border-bottom: 0;">
                                             <td colspan="5" style="text-align: left;">

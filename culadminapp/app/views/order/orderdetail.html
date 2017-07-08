@@ -399,11 +399,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">打包总重量：</label>
+                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">总重量：</label>
                     <div class="col-sm-4">
                         <label class="control-label" style="font-weight:bold">{{data.actualWeight | number : 2}}磅</label>
                     </div>
-                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">打包运费合计({{data.orderType == 0 && data.customer.isVip == true ? '$' : '￥'}})：</label>
+                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">运费合计({{data.orderType == 0 && data.customer.isVip == true ? '$' : '￥'}})：</label>
                     <div class="col-sm-4">
                         <label class="control-label" style="font-weight:bold">{{data._shippingFeeTotal || 0}}</label>
                     </div>

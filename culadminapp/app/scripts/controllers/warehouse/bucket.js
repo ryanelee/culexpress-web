@@ -18,6 +18,11 @@ angular.module('culAdminApp')
 
             $scope.dataList = [];
 
+            //新导出逻辑
+            var _token = sessionStorage.getItem("token");
+            _token = !!_token ? encodeURIComponent(_token) : null
+            $("#form_export_order").attr("action", cul.apiPath + "/outboundorderlist/list/export?Token=" + _token);
+
             /*search bar*/
             $scope.searchBar = {
                 keywordType: "bucketNumber", 
@@ -70,12 +75,24 @@ angular.module('culAdminApp')
             }
 
 
-          $scope.getData = function () {    
+          $scope.getData = function () {  
+              var _options = _filterOptions();  
               storage.session.setObject("searchBar", $scope.searchBar);         
               bucketService.getList(_filterOptions(), function (result) {
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
-                  //console.log(result.data);
+                //   console.log(result.data);
+                  var _trackingNumbers = [];
+                  $.each($scope.dataList, function (i, item) {
+                      if (item.packageList.length > 0){
+                        $.each(item.packageList, function (i, pkg) {
+                            _trackingNumbers.push(pkg.trackingNumber);
+                        })
+                      }
+                  });
+                  if (_trackingNumbers.length > 0) _options.trackingNumber = _trackingNumbers.join(",");
+                  //新导出逻辑
+                  $scope.exportOptions = $.extend({ token: _token }, _options);
               });
           }
         //   $scope.getData();
