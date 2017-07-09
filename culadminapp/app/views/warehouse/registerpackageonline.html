@@ -100,7 +100,7 @@
                                     <input type="text" class="form-control" ng-model="item.subDeclareGoodsName" />
                                 </td>
                                 <td>
-                                    <input type="number" class="form-control" ng-model="item.subGoodNumber" />
+                                    <input type="number" class="form-control" ng-blur="checkNum(item)" ng-model="item.subGoodNumber" />
                                 </td>
                                 <td class="" style="height:65px;width:300px;">
                                     <div class="btn-tootip-left">

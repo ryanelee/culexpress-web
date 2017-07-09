@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('FinanceDetailPayCtrl', ["$scope", "$location", "$filter", "$window", "customerService", "warehouseService", "plugMessenger", "orderService",
-        function($scope, $location, $filter, $window, customerService, warehouseService, plugMessenger, orderService) {
+        function ($scope, $location, $filter, $window, customerService, warehouseService, plugMessenger, orderService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -24,7 +24,7 @@ angular.module('culAdminApp')
             $scope.search = {};
             $scope.maxTotal
 
-            $scope.checkOrderNumber = function() {
+            $scope.checkOrderNumber = function () {
                 $scope.maxTotal = 0;
                 $scope.search.customerNumber = $scope.data.customer.customerNumber;
                 if (!$scope.search.orderNumber) {
@@ -32,7 +32,7 @@ angular.module('culAdminApp')
                     return;
                 }
                 $scope.flag = '0'
-                orderService.checkOrderNumber($scope.search).then(function(result) {
+                orderService.checkOrderNumber($scope.search).then(function (result) {
                     if (result.data.code == '999') {
                         $scope.search.orderNumber = "";
                         plugMessenger.error(result.data.msg);
@@ -54,11 +54,11 @@ angular.module('culAdminApp')
                 orderNumber: $location.search().orderNumber,
                 packageNumber: $location.search().packageNumber,
                 orderType: $location.search().orderType,
-                fee: $location.search().paid,
+                fee: Number($location.search().paid),
                 date: Date.now()
             }
 
-            $scope.reloadPaymentDetail = function() {
+            $scope.reloadPaymentDetail = function () {
                 $scope.data.fee = $scope.tpl_status.fee;
             }
 
@@ -76,24 +76,17 @@ angular.module('culAdminApp')
                     break;
             }
 
-            customerService.getDetail($scope.tpl_status.customerNumber, function(result) {
+            customerService.getDetail($scope.tpl_status.customerNumber, function (result) {
                 $scope.data.customer = result;
             });
 
 
-            $scope.btnSave = function() {
-                if (!$scope.search.orderNumber) {
-                    plugMessenger.info("订单编号不能为空");
-                    return;
-                }
+            $scope.btnSave = function () {
                 if ($scope.data.fee <= 0) {
                     plugMessenger.info("请填写正确的金额（金额必须大于0元）");
                     return;
                 }
-                if ($scope.data.fee > $scope.maxTotal) {
-                    plugMessenger.info("退款金额不能超过原支付金额" + $scope.maxTotal);
-                    return;
-                }
+
                 if ($scope.data.memo == "") {
                     plugMessenger.info("请填写支付备注信息");
                     return;
@@ -109,7 +102,7 @@ angular.module('culAdminApp')
                         if (!!$scope.tpl_status.orderNumber) {
                             _options["packageNumber"] = $scope.tpl_status.packageNumber; //如果是全部支付，就不传包裹号
                         }
-                        customerService.paymentByOffline(_options, function(result) {
+                        customerService.paymentByOffline(_options, function (result) {
                             if (!result.message) {
                                 plugMessenger.success("支付成功");
                                 $scope.btnPrev();
@@ -125,7 +118,7 @@ angular.module('culAdminApp')
                         if (!!$scope.tpl_status.orderNumber) {
                             _options["orderNumber"] = $scope.tpl_status.orderNumber; //如果是全部支付，就不传包裹号
                         }
-                        customerService.paymentByOnline(_options, function(result) {
+                        customerService.paymentByOnline(_options, function (result) {
                             if (!result.message) {
                                 plugMessenger.success("支付成功");
                                 $scope.btnPrev();
@@ -133,13 +126,21 @@ angular.module('culAdminApp')
                         });
                         break;
                     case "refund":
+                        if (!$scope.search.orderNumber) {
+                            plugMessenger.info("订单编号不能为空");
+                            return;
+                        }
+                        if ($scope.data.fee > $scope.maxTotal) {
+                            plugMessenger.info("退款金额不能超过原支付金额" + $scope.maxTotal);
+                            return;
+                        }
                         customerService.refundRecharge({
                             "customerNumber": $scope.tpl_status.customerNumber,
                             "orderNumber": $scope.search.orderNumber,
                             "operationType": "4", //固定不动，4代表退运费
                             "memo": $scope.data.memo,
                             "payment": $scope.data.fee //支付金额
-                        }, function(result) {
+                        }, function (result) {
                             if (!result.message) {
                                 plugMessenger.success("退款成功");
                                 $scope.btnPrev();
@@ -149,9 +150,9 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnPrev = function() {
+            $scope.btnPrev = function () {
                 $window.sessionStorage.setItem("historyFlag", 1);
-                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1); $window.history.back();
             }
 
             $("[id='tip_pay_fee']").popover({
