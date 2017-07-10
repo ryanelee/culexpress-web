@@ -20,6 +20,7 @@
     <div id="print_TrackingNumber_Template" ng-repeat="data in dataList">
         <div style="display:inline-block;">
             <label style="float:left;"><div class="barcode" trackingNumber="{{data.trackingNumber}}"></div></label>
+            <label style="float:left;font-size:30px;"  ng-if="data._shipServiceId == 9">USPS</label>
             <label style="float:left;font-size:30px;"><i class="fa fa-bolt" ng-if="data._isFastOrder == 1"></i></label>
         </div>
     </div>

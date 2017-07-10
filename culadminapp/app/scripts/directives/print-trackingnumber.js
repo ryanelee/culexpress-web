@@ -31,9 +31,11 @@ angular.module('culAdminApp')
                   if (!data) return;
                     if (!angular.isArray(data)) data = [data];
                     $.each(data, function(i, item) {
-                        var  _isFastOrder = item.isFastOrder;
+                        var _isFastOrder = item.isFastOrder;
+                        var _shipServiceId = item.shipServiceId;
                         $.each(item.outboundPackages, function(i,pkg) {
                             pkg._isFastOrder = _isFastOrder;
+                            pkg._shipServiceId = _shipServiceId;
                             $scope.dataList.push(pkg);
                         });
                     });
