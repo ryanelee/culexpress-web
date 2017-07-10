@@ -27,7 +27,8 @@ angular.module('culAdminApp')
 
                 keywordType: "customerNumber",
                 orderStatus: "",
-                printStatus: "UnPrinted",
+                printStatus: "",
+                // printStatus: "UnPrinted",
                 warehouseNumber: "",
                 startDate: "",
                 startTime_HH: "0",
@@ -179,7 +180,7 @@ angular.module('culAdminApp')
                         $location.search({ customerNumber: item.customer.customerNumber });
                         $location.path("/customer/customerdetail");
                         break;
-                }
+                } 
             }
 
             $scope.btnPrint = function(item, type) {            

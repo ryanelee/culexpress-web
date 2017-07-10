@@ -64,9 +64,9 @@ angular.module('culAdminApp')
                                         payDate: $scope.dataList[i].payDate,
                                         tip: $scope.dataList[i].tip,
                                     }
-                                    
+                                    console.log(e.shelfNumber);
                                     if (e.shelfNumber) {
-                                        detail.sort = e.shelfNumber.substr(0, 1);
+                                        detail.sort = e.shelfNumber
                                     } else {
                                         detail.sort = 'H'
                                     }
@@ -75,10 +75,11 @@ angular.module('culAdminApp')
                                     detail.packageWeight = e.packageWeight;
                                     shelf.data.push(detail);
                                 })
-                            }
+                            } 
                             
                             if (j % 10 == 0 || i == $scope.dataList.length - 1) {
                                 var tempshelf = _.sortBy(shelf.data, function(item) {
+                                    console.log("12",item);
                                     return item.sort;
                                 });
                                 shelf.data = tempshelf;

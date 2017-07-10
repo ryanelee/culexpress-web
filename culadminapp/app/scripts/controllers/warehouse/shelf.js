@@ -102,6 +102,7 @@ angular.module('culAdminApp')
                 $scope.pagination.totalCount = 0;
                 $scope.getData();
             }
+             $scope.btnSearch();
 
             $scope.btnAction = function(type, item) {
                 switch (type) {

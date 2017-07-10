@@ -172,6 +172,13 @@ angular.module('culAdminApp')
                     $scope.tempInboundPackageNumber = "";
                 }
             }
+            $scope.checkNum = function(item){
+                if(item.subGoodNumber && item.subGoodNumber<1){
+                    item.subGoodNumber = "";
+                     plugMessenger.info("填写的数字不能小于1");
+                }
+
+            }
 
             $scope.btnSave = function () {
                 if (!!$scope.data && $scope.data.inboundPackages.length > 0) {
