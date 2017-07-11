@@ -68,7 +68,7 @@
                     <th>正面照</th>
                     <th>反面照</th>
                     <th>验证状态</th>
-                    <!--<th>操作</th>-->
+                    <th>操作</th>
                     <!--<th>备注</th>-->
                     </tr>
             </thead>
@@ -98,10 +98,10 @@
                         </div>
                     </td>
                     <td ng-class="{'alert-danger': item.verifyMark == 0}">{{item._verifyMark}}</td>
-                    <!--<td>   
-                        <a href="javascript:void(0);" class="role" data-role="30" ng-show="item.verifyMark == 0" ng-click="btnVerification(item, $index,1)">验证</a>
-                        <a href="javascript:void(0);" class="role" data-role="30" ng-show="item.verifyMark != 0" ng-click="btnVerificationCancle(item, $index)">取消验证</a>
-                    </td>-->
+                    <td>   
+                        <a href="javascript:void(0);" class="role" data-role="30"  ng-click="btnOpenDetail('address',item)">修改</a>
+                        <!--<a href="javascript:void(0);" class="role" data-role="30" ng-show="item.verifyMark != 0" ng-click="btnVerificationCancle(item, $index)">取消验证</a>-->
+                    </td>
                     <!--<td><a ng-show="item.verifyMark == -1" ng-click="btnVerification(item, $index,0)"> {{item.idRemark}}</a></td>-->
                 </tr>
             </tbody>

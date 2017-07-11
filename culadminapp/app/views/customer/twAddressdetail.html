@@ -1,0 +1,175 @@
+﻿<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 地址详情</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <legend>个人信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货公司：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.receiveCompanyName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货人：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.receivePersonName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">电子邮箱：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.emailAddress">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">身份证号码：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.idCard">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">身份证有效期：</label>
+                    <div ng-if=" !data.idForever || data.idForever==0 " class="col-sm-4">
+                        <input type="text" class="form-control" value="{{data.deadline | date:'yyyy-MM-dd'}}">
+                    </div>
+                    <div ng-if="data.idForever==1" class="col-sm-4">
+                        <input type="text" class="form-control" value="永久">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">身份证地址：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.idCardAddress">
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label text-right">身份证正反面：</label>
+                    <div class="col-sm-4">
+                        <div class="thumbnail">
+                            <a href="{{data.idCardFrontUrl}}" target="_blank"><img src="{{data.idCardFrontUrl}}" alt="身份证正面照片" /></a>
+                        </div>
+                       <div class="thumbnail">
+                          <a href="{{data.idCardBackUrl}}" target="_blank"><img src="{{data.idCardBackUrl}}" alt="身份证反面照片"/></a>
+                       </div>
+                    </div>
+                </div>-->
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">身份证照片：</label>
+                    <div class="col-sm-2">
+                        <div class="row fileupload-buttonbar" style="padding-left:15px;">
+                            <div class="thumbnail col-sm-12">
+                                <a href="{{data.idCardFrontUrl}}" target="_blank">
+                                    <img id="idcardfront_show" style="height:100px;margin-top:10px;margin-bottom:8px;" ng-src="{{data.idCardFrontUrl}}" data-holder-rendered="true">
+                                </a>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="10" aria-valuemax="100" aria-valuenow="0">
+                                    <div id="progress" class="progress-bar progress-bar-success" style="width:0%;"></div>
+                                </div>
+                                <div class="caption" align="center">
+                                    <span id="idcardfront_upload" class="btn btn-primary fileinput-button">
+                                        <span id="file_btn_text">上传</span>
+                                    <input type="file" id="fileupload_front" name="idcardfront_image">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="row fileupload-buttonbar" style="padding-left:15px;">
+                            <div class="thumbnail col-sm-12">
+                                <a href="{{data.idCardBackUrl}}" target="_blank">
+                                    <img id="idcardback_show" style="height:100px;margin-top:10px;margin-bottom:8px;" ng-src="{{data.idCardBackUrl}}" data-holder-rendered="true">
+                                </a>
+                                <div class="progress progress-striped active" role="progressbar">
+                                    <div id="progress" class="progress-bar progress-bar-success" style="width:0%;"></div>
+                                </div>
+                                <div class="caption" align="center">
+                                    <span id="idcardback_upload" class="btn btn-primary fileinput-button">
+                                        <span id="file_btn_text">上传</span>
+                                    <input type="file" id="fileupload_back" name="idcardback_image">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button ng-click="btnPrint()" class="btn btn-primary">身份证打印</button>
+
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>地址信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货地址：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-options="province as province.name for province in provinces" ng-model="data.stateOrProvince" ng-change="getCity()"></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-options="city as city.name for city in citys" ng-model="data.city" ng-change="getArea()"></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-options="area as area.name for area in areas" ng-model="data.area"></select>
+                    </div>
+                </div>
+
+
+
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label text-right">收货地址：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-options="item.name as item.name for item in tpl_status.provinceList" ng-model="data.stateOrProvince" ng-change="changeProvince()"></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control"
+                                ng-options="item.name as item.name for item in tpl_status.cities" ng-model="data.city"></select>
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">详细地址：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.address1">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">邮政编码：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.zipcode">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">手机号码：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.cellphoneNumber">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">备用号码：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.telephoneNumber">
+                    </div>
+                </div>
+                 
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">备注信息：</label>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" ng-model="data.note"></textarea>
+                    </div>
+                </div>
+               
+                
+
+
+            </fieldset>
+            <div class="form-group text-center">
+                <!--<button type="button" class="btn btn-primary" ng-show="data.verifyMark == 0" ng-click="btnVerification(flag)">验证</button>
+                <button type="button" class="btn btn-primary" ng-show="data.verifyMark == 1" ng-click="btnSave()">取消验证</button>-->
+                <button type="button" class="btn btn-primary" ng-click="btnSave()">保存</button>
+                <button type="button" class="btn btn-default" ng-click="btnPrev()">返回</button>
+            </div>
+        </form>
+    </div>
+</div>

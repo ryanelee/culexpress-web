@@ -211,6 +211,10 @@ angular
                 templateUrl: 'views/customer/addressdetail.html',
                 controller: 'AddressDetailCtrl'
             })
+               .when('/customer/twAddressdetail', {
+                templateUrl: 'views/customer/twAddressdetail.html',
+                controller: 'TwAddressDetailCtrl'
+            })
             .when('/customer/faqmanagement', {
                 templateUrl: 'views/customer/faqmanagement.html',
                 controller: 'FAQManagementCtrl'
