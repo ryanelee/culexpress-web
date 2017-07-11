@@ -23,43 +23,44 @@ angular.module('culAdminApp')
             customerService.getDetail($scope.customerNumber, function (result) {
                 $scope.data.customer = result;
             });
+            $scope.flag = 0;
 
             customerService.getUnpaid({
                 customerNumber: $scope.customerNumber
             }, function (result) {
+                $scope.flag = 1;
                 $scope.data.unpaid = result;
             });
 
 
             $scope.btnPay = function (action) {
-                if (!$scope.data.unpaid) {
-                    customerService.getUnpaid({
-                        customerNumber: $scope.customerNumber
-                    }, function (result) {
-                        $scope.data.unpaid = result;
-                        switch (action) {
-                            case "offline":
-                                console.log("123", $scope.data.unpaid);
-                                $location.search({ customerNumber: $location.search().customerNumber, orderType: "offline", paid: $scope.data.unpaid.offLineCount });
-                                $location.path("/finance/financedetail/pay");
-                                break;
-                            case "online":
-                                $location.search({ customerNumber: $location.search().customerNumber, orderType: "online", paid: $scope.data.unpaid.onLineCount });
-                                $location.path("/finance/financedetail/pay");
-                                break;
-                            case "refund":
-                                $location.search({ customerNumber: $location.search().customerNumber, orderType: "refund" });
-                                $location.path("/finance/financedetail/pay");
-                                break;
-                            case "recharge":
-                                $location.search({ customerNumber: $location.search().customerNumber, orderType: "refund" });
-                                $location.path("/finance/financedetail/recharge");
-                                break;
-                        }
-                    });
-                }
 
+                switch (action) {
+                    case "offline":
+                        if (!$scope.data.unpaid) {
+                            plugMessenger.info("准备中，请稍后几秒尝试");
+                        }
+                        $location.search({ customerNumber: $location.search().customerNumber, orderType: "offline", paid: $scope.data.unpaid.offLineCount });
+                        $location.path("/finance/financedetail/pay");
+                        break;
+                    case "online":
+                        if (!$scope.data.unpaid) {
+                            plugMessenger.info("准备中，请稍后几秒尝试");
+                        }
+                        $location.search({ customerNumber: $location.search().customerNumber, orderType: "online", paid: $scope.data.unpaid.onLineCount });
+                        $location.path("/finance/financedetail/pay");
+                        break;
+                    case "refund":
+                        $location.search({ customerNumber: $location.search().customerNumber, orderType: "refund" });
+                        $location.path("/finance/financedetail/pay");
+                        break;
+                    case "recharge":
+                        $location.search({ customerNumber: $location.search().customerNumber, orderType: "refund" });
+                        $location.path("/finance/financedetail/recharge");
+                        break;
+                }
             }
+
 
             $scope.btnOpenDetail = function (item, type) {
                 switch (type) {
