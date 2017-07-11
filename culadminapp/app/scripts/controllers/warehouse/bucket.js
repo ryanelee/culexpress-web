@@ -70,7 +70,6 @@ angular.module('culAdminApp')
                 if (!!$scope.searchBar.keywords) {
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 }
-                //console.log(_options);
                 return angular.copy(_options);
             }
 
@@ -81,7 +80,6 @@ angular.module('culAdminApp')
               bucketService.getList(_filterOptions(), function (result) {
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
-                //   console.log(result.data);
                   var _trackingNumbers = [];
                   $.each($scope.dataList, function (i, item) {
                       if (item.packageList.length > 0){
