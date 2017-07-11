@@ -91,8 +91,6 @@ angular.module('culAdminApp')
                                 e.images = [e.images];
                             }
                         })
-                        console.log('refreshMessage')
-                        console.log($scope.data)
                     }
                     _buildUpload($('#uploadImg'), "_images");
                 });
