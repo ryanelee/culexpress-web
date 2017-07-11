@@ -95,9 +95,13 @@ angular.module('culAdminApp')
             /**
              * 给客户留言
              */
+            // $scope.btnComment = function (customer) {
+            //     $scope.message = angular.copy(customer);
+            //     plugMessenger.template($compile($("#customer_message_form").html())($scope));
+            // }
             $scope.btnComment = function (customer) {
-                $scope.message = angular.copy(customer);
-                plugMessenger.template($compile($("#customer_message_form").html())($scope));
+                $location.search({ customerNumber: customer.customerNumber });
+                $location.path("/customer/customermessage");
             }
 
 

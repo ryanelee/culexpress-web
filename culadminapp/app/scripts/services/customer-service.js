@@ -114,17 +114,17 @@ angular.module('culAdminApp')
 
          self.addCustomerMessage = function (questionItem, callback) {
             return $http.post(cul.apiPath + '/customermessage', {
-                    customerNumber: questionItem.customerNumber,
-                    messageType: questionItem.messageType,
-                    receivedWarehouseNumber: questionItem.receivedWarehouseNumber,
-                    receiveTrackingNumber: questionItem.receiveTrackingNumber,
-                    orderNumber: questionItem.orderNumber,
-                    deliveryTrackingNumber: questionItem.deliveryTrackingNumber,
-                    images: questionItem.images || null,
-                    message: questionItem.message,
-                    userName: questionItem.userName,
-                    status: 0
-                });
+                customerNumber: questionItem.customerNumber,
+                messageType: questionItem.messageType,
+                receivedWarehouseNumber: questionItem.receivedWarehouseNumber,
+                receiveTrackingNumber: questionItem.receiveTrackingNumber,
+                orderNumber: questionItem.orderNumber,
+                deliveryTrackingNumber: questionItem.deliveryTrackingNumber,
+                images: questionItem.images || null,
+                message: questionItem.message,
+                userName: questionItem.userName,
+                status: 0
+            });
         }
 
         self.getVipAndMsg = function (options, callback) {
