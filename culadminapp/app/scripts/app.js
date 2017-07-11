@@ -195,6 +195,10 @@ angular
                 templateUrl: 'views/customer/customerdetail.html',
                 controller: 'CustomerDetailCtrl'
             })
+            .when('/customer/customermessage', {
+                templateUrl: 'views/customer/customermessage.html',
+                controller: 'CustomerMessageCtrl'
+            })
             .when('/customer/customerlist', {
                 templateUrl: 'views/customer/customerlist.html',
                 controller: 'CustomerListCtrl'

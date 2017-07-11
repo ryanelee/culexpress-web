@@ -1,0 +1,142 @@
+<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 客户留言</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <legend>个人信息</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">姓  名：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.lastName}} {{data.firstName}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">性　别：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.gender == "F" ? "女" : "男"}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">地  址：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.stateOrProvince}} {{data.city}} {{data.area}} {{data.address1}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">邮政编码：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.zipcode}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">公司名：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.companyName}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">公司地址：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.companyAddress}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">公司网址：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.companySite}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">身份证号：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.idCard}}</label>
+                    </div>
+                    <label class="col-sm-2 control-label text-right">邮箱地址：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label">{{data.emailAddress}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">固定电话：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.telephoneNumber" ng-disabled="true">
+                    </div>
+                    <label class="col-sm-2 control-label text-right">移动电话：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.cellphoneNumber" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">QQ号：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.QQ" ng-disabled="true">
+                    </div>
+                    <label class="col-sm-2 control-label text-right">MSN：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.MSN" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">淘宝旺旺：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.taobaoWangwang" ng-disabled="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">备注信息：</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ng-model="data.note" ng-disabled="true"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>客户留言</legend>
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label text-right">留言记录：</label>
+                    <div class="row col-sm-6">
+                        <div style=" margin-bottom:10px;" ng-repeat="item in data.messageLogs">
+                            <div class="col-sm-6 blue">{{item.operationUserName}}</div>
+                            <div class="col-sm-6 text-right">{{item.operationDate | date:'MM/dd/yyyy HH:mm:ss'}}</div>
+                            <div class="col-sm-12">{{item.message}}
+                                <a ng-repeat="image in item.images track by $index" href="{{image}}" target="_blank">
+                                    <img style="width:50px;margin:10px;" ng-src="{{image}}">
+                                </a> 
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>-->
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">您的留言：</label>
+                    <div class="col-sm-4">
+                        <div class="row fileupload-buttonbar" style="padding-left:15px;margin-right:0px">
+                            <div class="thumbnail col-sm-12">
+                                <a href="{{data.images}}" target="_blank">
+                                    <img id="uploadImg_show" style="height:70px;margin-top:10px;margin-bottom:8px;" ng-src="{{data.images}}" data-holder-rendered="true">
+                                </a>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="10" aria-valuemax="100" aria-valuenow="0" style="height:10px;margin-bottom:0px">
+                                    <div id="progress" class="progress-bar progress-bar-success" style="width:0%;"></div>
+                                </div>
+                                <div class="caption" align="center">
+                                    <span id="uploadImg_upload" class="btn btn-primary fileinput-button">
+                                        <span id="file_btn_text">上传</span>
+                                    <input type="file" id="uploadImg" name="uploadImg_image">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <label class="col-sm-2 control-label text-right"></label>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" ng-model="message.message"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-default" ng-click="btnMessagePush()"><i class="fa fa-comment"></i></button>
+                </div>
+
+            </fieldset>
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-primary" ng-click="btnMessagePush()"> 留言</button>
+                <button type="button" class="btn btn-default" ng-click="btnPrev()">返回</button>
+            </div>
+        </form>
+    </div>
+</div>
