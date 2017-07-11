@@ -81,23 +81,6 @@
                                 <a href="javascript:void(0);" ng-click="btnAction('detail', item)">查看</a>
                                 <a href="javascript:void(0);" class="role" data-role="69" ng-click="btnAction('edit', item)" ng-if="item.status == '1'">编辑</a>
                                 <a href="javascript:void(0);" class="role" data-role="69" ng-click="btnAction('editFlightNo', item)" ng-if="item.status == '0'">更新航班号</a>
-                                <form style="float:left;" id="form_export_order" method="post" action="/" target="_blank">
-                                    <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
-                                    <input id="exportStatus" name="exportStatus" type="hidden" value="{{exportOptions.exportStatus}}" />
-                                    <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
-                                    <input id="dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.outDateFrom}}" />
-                                    <input id="dateTo" name="dateTo" type="hidden" value="{{exportOptions.outDateTo}}" />
-                                    <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
-                                    <input id="userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
-                                    <input id="orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
-                                    <input id="trackingNumber" name="trackingNumber" type="hidden" value="{{exportOptions.trackingNumber}}" />
-                                    <input id="receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
-                                    <input id="referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}" />
-                                    <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
-                                    <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
-                                    <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                                    <button type="submit" class="btn btn-primary role" data-role="74">导出订单列表</button>
-                                </form>
                             </td>
                         </tr>
                     </tbody>
