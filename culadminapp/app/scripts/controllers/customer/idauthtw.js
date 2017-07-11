@@ -5,7 +5,7 @@
  * @name culAdminApp.controller:IdAuthCtrl
  * @description
  * # IdAuthCtrl
- * Controller of the culAdminApp
+ * Controller of the culAdminApp 
  */
 angular.module('culAdminApp')
     .controller('IdAuthTwCtrl', ["$scope", "$location", "addressService", "plugMessenger", "$rootScope", "$compile", "customerMessageService", "storage",
@@ -95,7 +95,7 @@ angular.module('culAdminApp')
                         break;
                     case "address":
                         $location.search({ transactionNumber: address.transactionNumber });
-                        $location.path("/customer/addressdetail");
+                        $location.path("/customer/twAddressdetail");
                         break;
                 }
             }

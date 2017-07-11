@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('AddressDetailCtrl', ["$scope", "$location", "addressService", "plugMessenger", "$window","customerMessageService",
+    .controller('TwAddressDetailCtrl', ["$scope", "$location", "addressService", "plugMessenger", "$window","customerMessageService",
         function ($scope, $location, addressService, plugMessenger, $window,customerMessageService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
@@ -113,7 +113,7 @@ angular.module('culAdminApp')
                 $scope.data.city = "请选择";
                 _changeProvince()
             }
- 
+
             $scope.btnSave = function () {
                 $scope.data.stateOrProvince = $scope.data.stateOrProvince.name;
                 $scope.data.city = $scope.data.city.name;
