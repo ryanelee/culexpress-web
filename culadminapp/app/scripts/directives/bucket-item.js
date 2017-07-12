@@ -41,6 +41,19 @@ angular.module('culAdminApp')
                   }
                   //console.log($scope.isSelected);
               });
+              /**
+             * 打印翔通面单
+             */
+            $scope.btnPrint = function(item, type) {
+                console.log(item)            
+                var _print = function() {
+                    switch (type) {
+                        case "flyingexpress":
+                            $scope.$broadcast("print-flying-express.action", item.orderNumber);
+                            break;
+                    }
+                }
+            }
           }
       };
   }]);

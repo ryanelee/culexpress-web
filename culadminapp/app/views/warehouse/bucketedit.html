@@ -125,34 +125,31 @@
         <form class="form-horizontal" role="form" ng-show="tpl_status.actionType == 'package'">
             <fieldset>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">CUL包裹单号：</label>
+                    <label class="col-sm-3 control-label text-right">CUL包裹单号：</label>
                     <div class="col-sm-6">
-                        <input type="text" id="key_trackingNumber" class="form-control" ng-model="_selectedPackage.trackingNumber" ng-keydown="keydownTrackingNumber($event)" ng-disabled="!!tpl_status.readonly">
-                    </div>
-                    <!--<div class="pull-left red" style="line-height:34px; font-size:14px;" ng-show="!!_selectedPackage.trackingNumber && (selected_packages | filter: _selectedPackage.trackingNumber:true).length > 0">
-                        <i class="fa fa-info-circle" style="margin-right:4px;"></i><span>正在修改包裹</span>
-                    </div>-->
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">包裹重量（磅）：</label>
-                    <div class="col-sm-2">
-                        <input id="key_weight" type="text" class="form-control" ng-model="_selectedPackage.weight" ng-disabled="!!tpl_status.readonly">
+                        <input type="text" id="key_trackingNumber" class="form-control" ng-change="btnSaveByPackage()" ng-model="_selectedPackage.trackingNumber" ng-keydown="keydownTrackingNumber($event)" ng-disabled="!!tpl_status.readonly">
                     </div>
                     <div class="col-sm-2" ng-if="!tpl_status.readonly">
                         <button type="button" class="btn btn-primary" ng-click="btnSaveByPackage()"><i class="fa fa-check-square-o"></i>确定</button>
                     </div>
                 </div>
-                <!--<div class="form-group">
-                    <i class="fa fa-warning"></i><span>CUL包裹单号[]无法装袋，出库重量和打包重量不匹配！</span>
-                </div>-->
                 <div class="form-group">
                     <div class="col-sm-12">
                         <div class="contextual-summary-info contextual-background green-bg">
                             <p><i class="pull-left fa fa-check-circle" style="font-size:24px;"></i>
-                                <div class="pull-left" style="font-size:24px;"><span>已装袋的包裹总数： {{selected_packages.length || 0}}</span><span ng-if="tpl_status.readonly">,包裹总重量：{{bagTotalWeight}} lb(s)</span></div>
+                                <div class="pull-left" style="font-size:24px;"><span>已装袋的包裹总数： {{selected_packages.length || 0}}</span></div>
                             </p>
                             <div class="clearfix"></div>
                         </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label text-right"> 已装袋的包裹重量（磅）：</label>
+                    <div class="col-sm-6">
+                        <input id="key_weight" type="text" class="form-control" ng-model="_selectedPackage.totalWeight" ng-disabled="!!tpl_status.readonly">
+                    </div>
+                    <div class="col-sm-2" ng-if="!tpl_status.readonly">
+                        <button type="button" class="btn btn-primary" ng-click="btnValidWeight()"><i class="fa fa-check-square-o"></i>校验</button>
                     </div>
                 </div>
             </fieldset>
@@ -163,19 +160,9 @@
                 </div>
             </fieldset>
             <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-default" ng-click="btnPrevByPackage('package')"><i class="fa fa-reply"></i>返回</button>
+                <button type="button" class"btn btn-default" ng-click="btnPrevByPackage('package')"><i class="fa fa-reply"></i>返回</button>
             </div>
             <div class="clearfix"></div>
         </form>
     </div>
 </div>
-
-<!--<script>
-    var key_trackingNumber = document.getElementById('key_trackingNumber');
-    var key_weight = document.getElementById('key_weight');
-    key_trackingNumber.addEventListener('keypress', function(event) {
-        if (event.keyCode == 13) {
-            key_weight.focus();
-        }
-    });
-</script>-->
