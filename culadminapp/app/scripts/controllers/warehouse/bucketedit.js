@@ -86,6 +86,18 @@ angular.module('culAdminApp')
                 $scope.warehouseList = result;
                 $scope.data.warehouseNumber = $scope.warehouseList[0].warehouseNumber;
             });
+            /**
+             * 发货渠道
+             */
+            warehouseService.getShippingChannelList(function (result) {
+                if (result.length == 1) {
+                    $scope.shippingChannelList = result;
+                    $scope.data.shipServiceId = $scope.shippingChannelList[0].shipServiceId;
+                } else {
+                    $scope.shippingChannelList = [{ shipServiceId: 0, shipServiceName: "全部" }].concat(result);
+                    $scope.data.shipServiceId = $scope.shippingChannelList[0].shipServiceId;
+                }
+            });
 
             $scope.callback = {
                 check: function (item, resource, level) {

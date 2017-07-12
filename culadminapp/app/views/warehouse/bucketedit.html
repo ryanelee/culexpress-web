@@ -13,6 +13,38 @@
                         <select class="form-control search-control" ng-model="data.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in warehouseList"></select>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">发货渠道：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control search-control" ng-model="data.shipServiceId" ng-options="item.shipServiceId as item.shipServiceName for item in shippingChannelList"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="contextual-summary-info contextual-background yellow-bg">
+                            <p><i class="pull-left fa fa-check-circle" style="font-size:24px;"></i>
+                                <div class="pull-left" style="font-size:24px;color:#ffffff;">
+                                    <span >渠道包裹总数：[<span class="red-font">{{selected_packages.length || 0}}</span>]</span>
+                                    <span >,渠道包裹总重量：[<span class="red-font">{{bagTotalWeight | number: 2}}</span>] 磅</span>
+                                </div>
+                            </p>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="contextual-summary-info contextual-background green-bg">
+                            <p><i class="pull-left fa fa-check-circle" style="font-size:24px;"></i>
+                                <div class="pull-left" style="font-size:24px;color:#ffffff;">
+                                    <span>已扫描包裹总数： [<span class="red-font">{{selected_packages.length || 0}}</span>]</span>
+                                    <span>,已扫描包裹总重量：[<span class="red-font">{{bagTotalWeight  | number: 2}}</span>] 磅</span>
+                                </div>
+                            </p>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
             </fieldset>
             <fieldset>
                 <legend>Pallet</legend>
