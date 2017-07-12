@@ -139,7 +139,7 @@
                             <td>{{item.customerNumber}}</td>
                             <td>{{item.inuserName}}</td>                                                
                             <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                            <td>{{item._massage}}</td>
+                            <td class="long-cell">{{item._massage}}</td>
                             <td>
                                 <a href="javascript:void(0)" ng-click="btnOpenDetail('ordercommentsdetail', item)" ng-if="item.status == 'Processing' ">查看/处理</a>
                                 <a href="javascript:void(0)" class="role" data-role="56" ng-click="btnAction('delete', item)" ng-if="item.status == 'Closed'">删除</a>
