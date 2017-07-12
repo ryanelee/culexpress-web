@@ -99,10 +99,9 @@ angular.module('culAdminApp')
                                 });
                             });
                         }
-                        var element = $window.document.getElementById('shelfNumber');
-                        if (element)
-                            element.focus();
+  
                         $scope.tempItemNumber = "";
+                        $("#shelfNumber").focus();
                     });
 
                     return;
@@ -133,9 +132,8 @@ angular.module('culAdminApp')
                         }
                         $scope.tempItemNumber = "";
                     });
-                    var element = $window.document.getElementById('shelfNumber');
-                    if (element)
-                        element.focus();
+
+                    $("#shelfNumber").focus();
                     return;
 
                     // inventoryService.getInfo($scope.tempItemNumber, function (result) {
@@ -225,22 +223,22 @@ angular.module('culAdminApp')
                 shelfService.onshelfForInbound(data, function (result) {
                     if (result.success) {
                         // $("#myAlert").alert();
-                        // plugMessenger.success("操作成功");
-                        // plugMessenger.succ("操作成功");
-                        console.log('234567')
-                        plugMessenger.succ("操作成功", function () { });
-
+                        plugMessenger.success("操作成功");
                         $scope.data = null;
                         //$window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
                         // 上架成功后停留在上架登记界面继续上架操作
                         //  $location.path("/warehouse/onshelfdetail"); 
-                        var element = $window.document.getElementById('tempItemNumber');
-                        if (element) element.focus();
 
+                        $timeout(function(){
+                            $window.document.getElementById('tempItemNumber').focus();
+                        },1000);
                     } else {
                         // plugMessenger.error("操作失败");
+                        $window.document.getElementById('shelfNumber').select();
+                        $window.document.getElementById('shelfNumber').focus();
                     }
                 });
+
             }
 
             $scope.btnPrev = function () {

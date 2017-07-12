@@ -47,7 +47,7 @@ angular.module('culAdminApp')
                             $scope.data.outboundPackages[0].actualWeight = 0;
                             $.each($scope.data.inboundPackages, function (index, item) {
                                 if (!item.checked) {
-                                    item.checked = item.trackingNumber == $scope.tempInboundPackageNumber;
+                                    item.checked = item.trackingNumber.toUpperCase() == $scope.tempInboundPackageNumber.toUpperCase();
                                     _checked = true;
                                 }
                                 if (item.checked) {
@@ -101,17 +101,32 @@ angular.module('culAdminApp')
             $scope.checkInboundPackageNumber();
 
             $scope.btnPrint = function (item) {
-                $("<div></div>").barcode(item.trackingNumber, "code128", {
-                    addQuietZone: "1",
-                    barHeight: "50",
-                    barWidth: "1",
-                    bgColor: "#FFFFFF",
-                    color: "#000000",
-                    moduleSize: "5",
-                    output: "css",
-                    posX: "10",
-                    posY: "20"
-                }).jqprint();
+                if($scope.data && $scope.data.shipServiceName && $scope.data.shipServiceName.toUpperCase().indexOf("USPS") > -1){
+                    $("USPS<div></div>").barcode(item.trackingNumber, "code128", {
+                        addQuietZone: "1",
+                        barHeight: "50",
+                        barWidth: "1",
+                        bgColor: "#FFFFFF",
+                        color: "#000000",
+                        moduleSize: "5",
+                        output: "css",
+                        posX: "10",
+                        posY: "20"
+                    }).jqprint();
+                }
+                else {
+                    $("<div></div>").barcode(item.trackingNumber, "code128", {
+                        addQuietZone: "1",
+                        barHeight: "50",
+                        barWidth: "1",
+                        bgColor: "#FFFFFF",
+                        color: "#000000",
+                        moduleSize: "5",
+                        output: "css",
+                        posX: "10",
+                        posY: "20"
+                    }).jqprint();
+                }  
             }
 
             $scope.btnEditAddPackage = function () {
@@ -161,7 +176,7 @@ angular.module('culAdminApp')
                             var _checked = false;
                             $.each($scope.data.inboundPackages, function (index, item) {
                                 if (!item.checked) {
-                                    item.checked = item.trackingNumber == $scope.tempInboundPackageNumber;
+                                    item.checked = item.trackingNumber.toUpperCase() == $scope.tempInboundPackageNumber.toUpperCase();
                                     _checked = true;
                                 }
                             });
