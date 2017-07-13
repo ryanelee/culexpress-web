@@ -39,6 +39,7 @@ angular.module('culAdminApp')
             if (!!$scope.tpl_status.bucketNumber) {
                 bucketService.getDetail($scope.tpl_status.bucketNumber, function (result) {
                     $scope.data = result;
+                    console.log("result", result);
                     if ($scope.data.detail[0]) {
                         $scope.data.detail.forEach(function (e) {
                             e.totalWeight = 0;
@@ -238,23 +239,26 @@ angular.module('culAdminApp')
                             "bucketNumber": $scope.tpl_status.bucketNumber,
                             "flightNo": $scope.data.flightNo
                         }
-
                         bucketService.close(_options, function (result) {
-                            if (!result.message) {
-                                _callback();
-                                // 获取包裹信息
-                                $scope.data.packageList.forEach(function (pkg) {
-                                    orderService.getOutboundPackage(pkg.trackingNumber, function (result) {
-                                        $scope.packages = result;
-                                        $scope.packages.status = "Send";
+                            console.log("result", result);
 
-                                        orderService.updateOutboundPackage($scope.packages, function (result) {
-                                            if (!result.message) {
-                                                $scope.btnPrev();
-                                            }
-                                        })
-                                    });
-                                });
+                            if (!result.message) {
+                                bucketService.updateculBucket($scope.data.packageList, function (result) {
+                                    _callback();
+                                })
+                                // 获取包裹信息
+                                // $scope.data.packageList.forEach(function (pkg) {
+                                //     orderService.getOutboundPackage(pkg.trackingNumber, function (result) {
+                                //         $scope.packages = result;
+                                //         $scope.packages.status = "Shipped";
+
+                                //         orderService.updateOutboundPackage($scope.packages, function (result) {
+                                //             if (!result.message) {
+                                //                 $scope.btnPrev();
+                                //             }
+                                //         })
+                                //     });
+                                // });
                             }
                         });
                     }
@@ -474,13 +478,13 @@ angular.module('culAdminApp')
             /**
              * 总重量校验
              */
-            $scope.btnCheckWeight  = function () {
+            $scope.btnCheckWeight = function () {
                 console.log($scope.data.packageList)
-                if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined){
+                if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined) {
                     if ($scope._totalWeight - 1 <= $scope._selectedPackage.totalWeight && $scope._totalWeight + 1 >= $scope._selectedPackage.totalWeight) {
                         plugMessenger.info("校验成功！");
                     } else {
-                        plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量["+ $scope._totalWeight +"]!");
+                        plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量[" + $scope._totalWeight + "]!");
                         document.getElementById('key_trackingNumber').focus();
                         return;
                     }
@@ -490,7 +494,7 @@ angular.module('culAdminApp')
                     return;
                 }
             }
-            
+
             $scope.btnPrevByPackage = function () {
                 $scope._selectedPackage = null;
                 $scope.tpl_status.actionType = "bucket";
@@ -514,10 +518,15 @@ angular.module('culAdminApp')
             /**
              * 查询仓库和发货渠道对应的已打包包裹的数量和总重量
              */
+            // console.log('123456234567')
+            //  bucketService.getSummaryInboundPackage({}, function (result) {
+            //         console.log(result)
+            //     })
             $scope.getSummaryInboundPackage = function () {
+                console.log('123456')
                 console.log($scope.data)
                 bucketService.getSummaryInboundPackage($scope.data, function (result) {
-                    // console.log(result)
+                    console.log(result)
                 })
             }
         }

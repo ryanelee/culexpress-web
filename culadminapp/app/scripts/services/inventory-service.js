@@ -89,6 +89,7 @@ angular.module('culAdminApp')
               case 4: _typeVal ="库存冻结"; break;
               case 5: _typeVal ="库存解冻"; break;
               case 6: _typeVal ="纠正库存"; break;
+              case 7: _typeVal ="关闭总单"; break;
           }
           return _typeVal;
       }

@@ -67,6 +67,11 @@ angular.module('culAdminApp')
               callback(result);
           });
       }
+        self.updateculBucket = function (options, callback) {
+          $http.put(cul.apiPath + "/outboundpackage/updateculBucket", options).success(function (result) {
+              callback(result);
+          });
+      }
 
       //查询仓库和发货渠道对应的已打包包裹的数量和总重量
       self.getSummaryInboundPackage = function (options, callback) {
