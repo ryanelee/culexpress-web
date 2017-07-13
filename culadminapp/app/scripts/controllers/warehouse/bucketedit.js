@@ -21,7 +21,7 @@ angular.module('culAdminApp')
                 detail: [],
                 packageList: []
             };
-            $scope.bagTotalWeight = 0;
+            $scope.pkgTotalWeight = 0;
 
             $scope.tpl_status = {
                 actionType: "bucket", //bucket; package;
@@ -73,7 +73,7 @@ angular.module('culAdminApp')
                     if (!!$scope.data) {
                         if ($scope.data.packageList[0]) {
                             $scope.data.packageList.forEach(function (e1) {
-                                $scope.bagTotalWeight += e1.weight || 0;
+                                $scope.pkgTotalWeight += e1.weight || 0;
                             })
                         }
                     }
@@ -85,19 +85,23 @@ angular.module('culAdminApp')
             warehouseService.getWarehouse(function (result) {
                 $scope.warehouseList = result;
                 $scope.data.warehouseNumber = $scope.warehouseList[0].warehouseNumber;
+                $scope.getShippingChannelList()
             });
             /**
              * 发货渠道
              */
-            warehouseService.getShippingChannelList(function (result) {
-                if (result.length == 1) {
-                    $scope.shippingChannelList = result;
-                    $scope.data.shipServiceId = $scope.shippingChannelList[0].shipServiceId;
-                } else {
-                    $scope.shippingChannelList = [{ shipServiceId: 0, shipServiceName: "全部" }].concat(result);
-                    $scope.data.shipServiceId = $scope.shippingChannelList[0].shipServiceId;
-                }
-            });
+            $scope.getShippingChannelList = function () {
+                warehouseService.getShippingChannelList(function (result) {
+                    if (result.length == 1) {
+                        $scope.shippingChannelList = result;
+                        $scope.data.shipServiceId = $scope.shippingChannelList[0].shipServiceId;
+                    } else {
+                        $scope.shippingChannelList = [{ shipServiceId: 0, shipServiceName: "全部" }].concat(result);
+                        $scope.data.shipServiceId = $scope.shippingChannelList[0].shipServiceId;
+                    }
+                });
+                $scope.getSummaryInboundPackage();
+            }
 
             $scope.callback = {
                 check: function (item, resource, level) {
@@ -145,7 +149,7 @@ angular.module('culAdminApp')
                     //             if ($scope.data.packageList[0]) {
                     //                 $scope.data.packageList.forEach(function(e1) {
                     //                     if (e == e1.trackingNumber) {
-                    //                         $scope.bagTotalWeight += e1.weight || 0;
+                    //                         $scope.pkgTotalWeight += e1.weight || 0;
                     //                     }
                     //                 })
                     //             }
@@ -374,10 +378,10 @@ angular.module('culAdminApp')
             //         });
             //     }, 1000);
             // }
-            $scope._totalWeight = 0;
+            // $scope.pkgTotalWeight = 0;
             $scope.totalWeight = function () {
                 $scope.data.packageList.forEach(function (element) {
-                    $scope._totalWeight = parseInt(parseInt($scope._totalWeight || 0) + element.weight);
+                    $scope.pkgTotalWeight = parseInt(parseInt($scope.pkgTotalWeight || 0) + element.weight);
                 }, this);
             }
 
@@ -416,7 +420,6 @@ angular.module('culAdminApp')
                         //修改当前bag下的package
                         if (!!_.findWhere(_selected_bag.packages, { trackingNumber: $scope._selectedPackage.trackingNumber })) {
                             var _package = _.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber });
-                            // _package.weight = $scope._selectedPackage.weight;
                         } else if (!_.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber })) {
                             if (_cacheCurrentResult.actualWeight <= 0) {
                                 plugMessenger.info("CUL包裹单号" + $scope._selectedPackage.trackingNumber + "无法装袋:该包裹还未打包称重。");
@@ -476,12 +479,12 @@ angular.module('culAdminApp')
              */
             $scope.btnCheckWeight  = function () {
                 console.log($scope.data.packageList)
-                let allowDevision = parseInt(parseInt(cul.bagWeight || 0) + 1);
+                let allowDevision = parseFloat(parseFloat(cul.bagWeight || 0) + 1);
                 if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined){
-                    if ($scope._totalWeight - 1 <= $scope._selectedPackage.totalWeight && $scope._totalWeight + 1 >= $scope._selectedPackage.totalWeight) {
+                    if ($scope.pkgTotalWeight - allowDevision <= $scope._selectedPackage.totalWeight && $scope.pkgTotalWeight + allowDevision >= $scope._selectedPackage.totalWeight) {
                         plugMessenger.info("校验成功！");
                     } else {
-                        plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量["+ $scope._totalWeight +"]!");
+                        plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量["+ $scope.pkgTotalWeight +"]!");
                         document.getElementById('key_trackingNumber').focus();
                         return;
                     }
@@ -515,10 +518,18 @@ angular.module('culAdminApp')
             /**
              * 查询仓库和发货渠道对应的已打包包裹的数量和总重量
              */
+            $scope.pkgCount = [];
             $scope.getSummaryInboundPackage = function () {
-                console.log($scope.data)
                 bucketService.getSummaryInboundPackage($scope.data, function (result) {
-                    // console.log(result)
+                    $scope.pkgCount = result.data.data
+                    $scope.pkgCount.PackageCount = 0;
+                    $scope.pkgCount.PackageTotalWeight = 0;
+                    if (!!$scope.pkgCount) {
+                        $scope.pkgCount.forEach(function(element) {
+                            $scope.pkgCount.PackageCount = $scope.pkgCount.PackageCount + element.PackageCount
+                            $scope.pkgCount.PackageTotalWeight = $scope.pkgCount.PackageTotalWeight + element.PackageTotalWeight
+                        }); 
+                    }
                 })
             }
         }

@@ -71,7 +71,6 @@ angular.module('culAdminApp')
       //查询仓库和发货渠道对应的已打包包裹的数量和总重量
       self.getSummaryInboundPackage = function (options, callback) {
           $http.post(cul.apiPath + "/summaryInboundPackage", options).success(function (result) {
-              console.log(result)
               callback(result);
           })
       }
