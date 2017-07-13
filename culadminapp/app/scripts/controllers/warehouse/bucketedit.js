@@ -476,6 +476,7 @@ angular.module('culAdminApp')
              */
             $scope.btnCheckWeight  = function () {
                 console.log($scope.data.packageList)
+                let allowDevision = parseInt(parseInt(cul.bagWeight || 0) + 1);
                 if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined){
                     if ($scope._totalWeight - 1 <= $scope._selectedPackage.totalWeight && $scope._totalWeight + 1 >= $scope._selectedPackage.totalWeight) {
                         plugMessenger.info("校验成功！");
