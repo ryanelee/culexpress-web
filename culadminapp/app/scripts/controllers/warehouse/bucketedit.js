@@ -427,6 +427,7 @@ angular.module('culAdminApp')
                             } else {
                                 var _successPackage = angular.copy($scope._selectedPackage);
                                 _successPackage.weight = _cacheCurrentResult.actualWeight;
+                                _successPackage.orderNumber = _cacheCurrentResult.orderNumber
 
                                 $scope.data.packageList.push(_successPackage);
 
@@ -513,6 +514,15 @@ angular.module('culAdminApp')
                         plugMessenger.success("修改成功！");
                     }
                 });
+            }
+            /**
+             * 查询仓库和发货渠道对应的已打包包裹的数量和总重量
+             */
+            $scope.getSummaryInboundPackage = function () {
+                console.log($scope.data)
+                bucketService.getSummaryInboundPackage($scope.data, function (result) {
+                    // console.log(result)
+                })
             }
         }
     ]);

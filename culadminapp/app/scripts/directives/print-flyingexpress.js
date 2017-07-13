@@ -85,7 +85,6 @@ angular.module('culAdminApp')
                       });
                     
                       $scope.dataList = result.data;
-                      //console.log($scope.dataList);
                       _render();
                   });
               });

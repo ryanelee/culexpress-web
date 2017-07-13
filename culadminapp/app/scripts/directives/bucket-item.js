@@ -32,27 +32,18 @@ angular.module('culAdminApp')
                               $scope.isSelected = $scope.data.name == selected;
                           }
                           break;
-                      //case "bag":
                       case "package":
                           if ($scope.type != "pallet" && $scope.type != "box" && $scope.type != "bag") {
                               $scope.isSelected = $scope.data.name == selected;
                           }
                           break;
                   }
-                  //console.log($scope.isSelected);
               });
-              /**
+            /**
              * 打印翔通面单
              */
-            $scope.btnPrint = function(item, type) {
-                console.log(item)            
-                var _print = function() {
-                    switch (type) {
-                        case "flyingexpress":
-                            $scope.$broadcast("print-flying-express.action", item.orderNumber);
-                            break;
-                    }
-                }
+            $scope.btnPrint = function(item) {               
+                $scope.$broadcast("print-flying-express.action", item.orderNumber);
             }
           }
       };

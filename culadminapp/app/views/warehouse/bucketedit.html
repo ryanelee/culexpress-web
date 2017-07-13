@@ -10,13 +10,15 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">所属仓库：</label>
                     <div class="col-sm-4">
-                        <select class="form-control search-control" ng-model="data.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in warehouseList"></select>
+                        <select class="form-control search-control" ng-change="getSummaryInboundPackage()" ng-model="data.warehouseNumber" 
+                        ng-options="item.warehouseNumber as item.warehouseName for item in warehouseList"></select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">发货渠道：</label>
                     <div class="col-sm-4">
-                        <select class="form-control search-control" ng-model="data.shipServiceId" ng-options="item.shipServiceId as item.shipServiceName for item in shippingChannelList"></select>
+                        <select class="form-control search-control" ng-change="getSummaryInboundPackage()" ng-model="data.shipServiceId" 
+                        ng-options="item.shipServiceId as item.shipServiceName for item in shippingChannelList"></select>
                     </div>
                 </div>
                 <div class="form-group">
