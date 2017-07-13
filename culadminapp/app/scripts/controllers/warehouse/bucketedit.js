@@ -474,17 +474,13 @@ angular.module('culAdminApp')
             /**
              * 总重量校验
              */
-            $scope.btnValidWeight  = function () {
+            $scope.btnCheckWeight  = function () {
                 console.log($scope.data.packageList)
                 if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined){
-                    var totalActualWeight = 0
-                    $scope.data.packageList.forEach(function(pkg) {
-                        totalActualWeight = totalActualWeight + pkg.actualWeight
-                    });
-                    if (totalActualWeight - 1 < $scope._selectedPackage.totalWeight && totalActualWeight + 1 > $scope._selectedPackage.totalWeight) {
+                    if ($scope._totalWeight - 1 <= $scope._selectedPackage.totalWeight && $scope._totalWeight + 1 >= $scope._selectedPackage.totalWeight) {
                         plugMessenger.info("校验成功！");
                     } else {
-                        plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量["+ totalActualWeight +"]!");
+                        plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量["+ $scope._totalWeight +"]!");
                         document.getElementById('key_trackingNumber').focus();
                         return;
                     }
