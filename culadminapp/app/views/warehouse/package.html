@@ -131,7 +131,8 @@
                             <!--<td>{{item.orderType == 0 ? '线下订单':'线上订单'}}</td>-->
                             <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customerNumber}}</a></td>
                             <td style="max-width: 200px" >{{item.referenceOrderNumber}}</td>
-                            <td style="max-width: 150px;"><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'trackingNumber')" ng-if="item.orderStatus!='Arrears'">{{item.trackingNumber}}</a></td>
+                            <td style="max-width: 150px;"><a href="javascript:void(0);" 
+                            ng-click="btnOpenDetail(item,'trackingNumber')">{{item.trackingNumber}}</a></td>
                             <!--<td style="max-width: 150px;"><span ng-if="item.orderStatus=='Arrears'">{{item.trackingNumber}}</span></td>-->
                             <td style="max-width: 150px;">{{item.tempTrackingNumber}}</td>
                             <td>
