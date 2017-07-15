@@ -40,6 +40,7 @@ angular.module('culAdminApp')
             if (!!$scope.tpl_status.bucketNumber) {
                 bucketService.getDetail($scope.tpl_status.bucketNumber, function (result) {
                     $scope.data = result;
+                    console.log("result", result);
                     if ($scope.data.detail[0]) {
                         $scope.data.detail.forEach(function (e) {
                             e.totalWeight = 0;
@@ -239,23 +240,26 @@ angular.module('culAdminApp')
                             "bucketNumber": $scope.tpl_status.bucketNumber,
                             "flightNo": $scope.data.flightNo
                         }
-
                         bucketService.close(_options, function (result) {
-                            if (!result.message) {
-                                _callback();
-                                // 获取包裹信息
-                                $scope.data.packageList.forEach(function (pkg) {
-                                    orderService.getOutboundPackage(pkg.trackingNumber, function (result) {
-                                        $scope.packages = result;
-                                        $scope.packages.status = "Send";
+                            console.log("result", result);
 
-                                        orderService.updateOutboundPackage($scope.packages, function (result) {
-                                            if (!result.message) {
-                                                $scope.btnPrev();
-                                            }
-                                        })
-                                    });
-                                });
+                            if (!result.message) {
+                                bucketService.updateculBucket($scope.data.packageList, function (result) {
+                                    _callback();
+                                })
+                                // 获取包裹信息
+                                // $scope.data.packageList.forEach(function (pkg) {
+                                //     orderService.getOutboundPackage(pkg.trackingNumber, function (result) {
+                                //         $scope.packages = result;
+                                //         $scope.packages.status = "Shipped";
+
+                                //         orderService.updateOutboundPackage($scope.packages, function (result) {
+                                //             if (!result.message) {
+                                //                 $scope.btnPrev();
+                                //             }
+                                //         })
+                                //     });
+                                // });
                             }
                         });
                     }
@@ -483,7 +487,7 @@ angular.module('culAdminApp')
                     return;
                 }
             }
-            
+
             $scope.btnPrevByPackage = function () {
                 $scope._selectedPackage = null;
                 $scope.tpl_status.actionType = "bucket";
