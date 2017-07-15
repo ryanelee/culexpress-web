@@ -164,7 +164,6 @@ angular.module('culAdminApp')
 
             //----------upload file START----------
             var _buildUpload = function ($el, key) {
-                //console.log("key" + key);
                 var _$panel = $el.parents(".fileupload-buttonbar:first");
                 $el.fileupload({
                     url: cul.apiPath + '/files/upload',
@@ -178,11 +177,7 @@ angular.module('culAdminApp')
                 }).bind('fileuploaddone', function (e, data) {
                     _$panel.find("#file_btn_text").text("重新上传");
                     $scope.$apply(function () {
-                        //console.log("上传结束");
                         $scope.data[key] = data.result.url;
-                        // $scope.data[key + "Url"] = data.result.url;
-                        console.log( $scope.data[key]);
-
                     });
                 });
             }

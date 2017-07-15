@@ -125,6 +125,7 @@ angular.module('culAdminApp')
                 customerMessageService.getDetail($scope.data.orderMessageNumber, function(result) {
                     $scope.data.messageLogs = [];
                     if (!!result) {
+                        console.log(result)
                         $scope.data.messageLogs = result.data.messageLogs;
                         if($scope.data.messageLogs) {
                             $scope.data.messageLogs.forEach(function (e) {
@@ -136,6 +137,7 @@ angular.module('culAdminApp')
                         })
                         }                      
                     }
+                    _buildUpload($('#uploadImg'), "_images");
                 });
             }
 
@@ -227,10 +229,13 @@ angular.module('culAdminApp')
                 if (!!$scope._message) {
                     customerMessageService.push({
                         "messageNumber": $scope.data.orderMessageNumber,
-                        "message": $scope._message
+                        "message": $scope._message,
+                        "images": $scope.data._images
                     }, function(result) {
                         $scope.refreshMessage();
                         $scope._message = "";
+                        $scope.data._images = "";
+                        $("#uploadImg_show").attr('src',''); 
                     });
                 }
             }
@@ -257,5 +262,25 @@ angular.module('culAdminApp')
             $scope.btnPrev = function() {
                 $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
             }
+           //----------upload file START----------
+            var _buildUpload = function ($el, key) {
+                var _$panel = $el.parents(".fileupload-buttonbar:first");
+                $el.fileupload({
+                    url: cul.apiPath + '/files/upload',
+                    type: "post",
+                    headers: {
+                        token: sessionStorage.getItem("token")
+                    }
+                }).bind('fileuploadprogress', function (e, result) {
+                    var progress = parseInt(result.loaded / result.total * 100, 10);
+                    _$panel.find("#progress").css('width', progress + '%');
+                }).bind('fileuploaddone', function (e, data) {
+                    _$panel.find("#file_btn_text").text("重新上传");
+                    $scope.$apply(function () {
+                        $scope.data[key] = data.result.url;
+                    });
+                });
+            }
+            //----------upload file END----------
         }
     ]);

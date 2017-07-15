@@ -50,12 +50,8 @@ angular.module('culAdminApp')
             if ($scope.tempSearchBar) {
                 $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
             }
-            //   storage.session.setObject("searchBar", $scope.searchBar);
-
-
 
             var _filterOptions = function () {
-
                 var _options = {
                     "pageInfo": $scope.pagination,
                     "dateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate : "",
@@ -75,13 +71,10 @@ angular.module('culAdminApp')
 
             $scope.getData = function () {
                 storage.session.setObject("searchBar", $scope.searchBar);
-
                 var _options = _filterOptions();
-                //console.log(_options);
                 warehouseService.getDeleteReceiptLog(angular.copy(_options), function (result) {
-                      $scope.dataList = result.data.data;
+                    $scope.dataList = result.data.data;
                     $scope.pagination.totalCount = result.data.count;
-
                 })
             }
 
