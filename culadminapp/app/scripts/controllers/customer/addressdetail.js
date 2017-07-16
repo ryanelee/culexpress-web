@@ -88,8 +88,8 @@ angular.module('culAdminApp')
 
             $scope.init = function () {
                 addressService.getDetail($scope.transactionNumber, function (result) {
-                    console.log("result");
-                    console.log(result);
+                    // console.log("result");
+                    // console.log(result);
                     $scope.data = result;
                     $scope.tempVerifyMark = $scope.data.verifyMark == null ? 0 : $scope.data.verifyMark ;
                     $scope._province = result.stateOrProvince;
