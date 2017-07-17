@@ -353,6 +353,13 @@ angular.module('culAdminApp')
                     // document.getElementById('key_weight').focus();
                 }
             };
+
+
+              $scope.checkWeight = function (event) {
+                if (event.keyCode === 13) {
+                    $scope.btnCheckWeight();
+                }
+            };
             $scope.totalWeight = function () {
                 $scope.selectPkgTotalWeight = 0;
                 $scope.data.packageList.forEach(function (element) {
@@ -385,7 +392,7 @@ angular.module('culAdminApp')
                             _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
                             _selected_bag = _.findWhere(_bags, { _selected: true });
                         if (!$scope._selectedPackage) return;
-                        //修改当前bag下的package
+                        //修改当前bag下的package 
                         if (!!_.findWhere(_selected_bag.packages, { trackingNumber: $scope._selectedPackage.trackingNumber })) {
                             var _package = _.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber });
                         } else if (!_.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber })) {
