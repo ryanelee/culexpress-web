@@ -8,7 +8,6 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-
     .controller('WarehouseBucketEditCtrl', ['$scope', '$location', '$window', 'warehouseService', 'bucketService', 'plugMessenger', 'orderService',
         function ($scope, $location, $window, warehouseService, bucketService, plugMessenger, orderService) {
             this.awesomeThings = [
@@ -16,6 +15,7 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
+            console.log(21212)
 
             $scope.data = {
                 detail: [],
@@ -400,7 +400,7 @@ angular.module('culAdminApp')
                                 _successPackage.weight = _cacheCurrentResult.actualWeight;
                                 _successPackage.orderNumber = _cacheCurrentResult.orderNumber
 
-                                $scope.data.packageList.push(_successPackage);)
+                                $scope.data.packageList.push(_successPackage);
 
                                 if (!_.isArray(_selected_bag.packages)) {
                                     _selected_bag.packages = [_successPackage];
