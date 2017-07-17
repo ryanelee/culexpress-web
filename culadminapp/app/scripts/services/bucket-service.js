@@ -68,7 +68,7 @@ angular.module('culAdminApp')
           });
       }
         self.updateculBucket = function (options, callback) {
-          $http.put(cul.apiPath + "/outboundpackage/updateculBucket", options).success(function (result) {
+          $http.post(cul.apiPath + "/outboundpackage/updateculBucket", options).success(function (result) {
               callback(result);
           });
       }

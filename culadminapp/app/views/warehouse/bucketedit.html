@@ -151,7 +151,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label text-right"> 已装袋的包裹重量（磅）：</label>
                     <div class="col-sm-6">
-                        <input id="key_weight" type="text" class="form-control" ng-model="_selectedPackage.totalWeight" ng-disabled="!!tpl_status.readonly">
+                        <input id="key_weight" type="text" class="form-control" ng-model="_selectedPackage.totalWeight"  ng-keydown="checkWeight($event)"  ng-disabled="!!tpl_status.readonly">
                     </div>
                     <div class="col-sm-2" ng-if="!tpl_status.readonly">
                         <button type="button" class="btn btn-primary" ng-click="btnCheckWeight()"><i class="fa fa-check-square-o"></i>校验</button>

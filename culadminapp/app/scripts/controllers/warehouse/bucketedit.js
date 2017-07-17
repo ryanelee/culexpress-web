@@ -8,7 +8,6 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-
     .controller('WarehouseBucketEditCtrl', ['$scope', '$location', '$window', 'warehouseService', 'bucketService', 'plugMessenger', 'orderService',
         function ($scope, $location, $window, warehouseService, bucketService, plugMessenger, orderService) {
             this.awesomeThings = [
@@ -16,6 +15,7 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
+            console.log(21212)
 
             $scope.data = {
                 detail: [],
@@ -353,6 +353,13 @@ angular.module('culAdminApp')
                     // document.getElementById('key_weight').focus();
                 }
             };
+
+
+            $scope.checkWeight = function (event) {
+                if (event.keyCode === 13) {
+                    $scope.btnCheckWeight();
+                }
+            };
             $scope.totalWeight = function () {
                 $scope.selectPkgTotalWeight = 0;
                 $scope.data.packageList.forEach(function (element) {
@@ -385,7 +392,7 @@ angular.module('culAdminApp')
                             _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
                             _selected_bag = _.findWhere(_bags, { _selected: true });
                         if (!$scope._selectedPackage) return;
-                        //修改当前bag下的package
+                        //修改当前bag下的package 
                         if (!!_.findWhere(_selected_bag.packages, { trackingNumber: $scope._selectedPackage.trackingNumber })) {
                             var _package = _.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber });
                         } else if (!_.findWhere($scope.data.packageList, { trackingNumber: $scope._selectedPackage.trackingNumber })) {
@@ -445,13 +452,21 @@ angular.module('culAdminApp')
             /**
              * 总重量校验
              */
-            $scope.btnCheckWeight  = function () {
+            $scope.btnCheckWeight = function () {
+                console.log($scope.data.packageList);
+                var sumWeight = _.reduce($scope.data.packageList, function (m, n) {
+                    return m + n.weight;
+                }, 0)
+                console.log('sumWeight', sumWeight);
+                console.log("cul.bagWeight", cul.bagWeight)
+                console.log($scope._selectedPackage.totalWeight);
                 let allowDevision = parseFloat(parseFloat(cul.bagWeight || 0) + 1);
-                if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined){
-                    if ($scope.selectPkgTotalWeight - allowDevision <= $scope._selectedPackage.totalWeight && $scope.selectPkgTotalWeight + allowDevision >= $scope._selectedPackage.totalWeight) {
+                if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined) {
+                    if (sumWeight + cul.bagWeight - $scope._selectedPackage.totalWeight < 1 ||  $scope._selectedPackage.totalWeight - (sumWeight + cul.bagWeight)>1) {
+                        // if ($scope.selectPkgTotalWeight - allowDevision <= $scope._selectedPackage.totalWeight && $scope.selectPkgTotalWeight + allowDevision >= $scope._selectedPackage.totalWeight) {
                         plugMessenger.info("校验成功！");
                     } else {
-                        plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量["+ $scope.selectPkgTotalWeight +"]!");
+                        plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不满足包裹重量[" + $scope.selectPkgTotalWeight + "]加袋子重量的误差小于1!");
                         document.getElementById('key_trackingNumber').focus();
                         return;
                     }
@@ -492,10 +507,10 @@ angular.module('culAdminApp')
                     $scope.pkgCount.PackageCount = 0;
                     $scope.pkgCount.PackageTotalWeight = 0;
                     if (!!$scope.pkgCount) {
-                        $scope.pkgCount.forEach(function(element) {
+                        $scope.pkgCount.forEach(function (element) {
                             $scope.pkgCount.PackageCount = $scope.pkgCount.PackageCount + element.PackageCount
                             $scope.pkgCount.PackageTotalWeight = $scope.pkgCount.PackageTotalWeight + element.PackageTotalWeight
-                        }); 
+                        });
                     }
                 })
             }

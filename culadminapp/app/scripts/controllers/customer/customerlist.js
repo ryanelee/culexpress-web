@@ -30,6 +30,9 @@ angular.module('culAdminApp')
                 accountBalance: "",
                 startDate: "",
                 endDate: "",
+                pagination:{
+                    pageIndex:1
+                },
                 opened: {
                     startDate: false,
                     endDate: false
@@ -91,7 +94,7 @@ angular.module('culAdminApp')
                         })
                     }
                 });
-            }
+            } 
             /**
              * 给客户留言
              */
