@@ -17,7 +17,6 @@ angular.module('culAdminApp')
             ];
             $scope.data = {
                 rechargeChannel: "4",
-                fee: 0,
                 memo: ""
             }
 

@@ -15,7 +15,7 @@ angular.module('culAdminApp')
             $http.get(cul.apiPath + "/customermessagetype?type=" + type).success(function (result) {
                 callback(result);
             });
-        }
+        } 
 
         self.getList = function (options, callback) {
             $http.post(cul.apiPath + "/customermessage/list", options).success(function (result) {

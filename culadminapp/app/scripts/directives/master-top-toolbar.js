@@ -7,8 +7,8 @@
  * # masterTopToolbar
  */
 angular.module('culAdminApp')
-    .directive('masterTopToolbar', ["$rootScope", "$http", "userService", "$location", "customerService", "faqService",
-        function($rootScope, $http, userService, $location, customerService, faqService) {
+    .directive('masterTopToolbar', ["$rootScope", "$http", "userService", "$location", "customerService", "faqService", "plugMessenger",
+        function ($rootScope, $http, userService, $location, customerService, faqService, plugMessenger) {
             return {
                 templateUrl: "views/templates/master/top_tpl.html",
                 restrict: 'E',
@@ -16,34 +16,34 @@ angular.module('culAdminApp')
                 $scope: true,
                 link: function postLink($scope, $element, attrs) {
                     $rootScope.$emit('changeMenu');
-                    $scope.btnLogout = function() {
-                        userService.logout(function() {
+                    $scope.btnLogout = function () {
+                        userService.logout(function () {
                             $scope.$root.userInfo = null;
                         });
                     };
 
-                    $scope.btnViewMessageList = function() {
+                    $scope.btnViewMessageList = function () {
                         $location.path("/customer/messagelist");
                     }
 
-                    $scope.getVipAndMsg = function() {
-                        customerService.getVipAndMsg({}, function(result) {
+                    $scope.getVipAndMsg = function () {
+                        customerService.getVipAndMsg({}, function (result) {
                             $scope.vipCount = result.data.count;
                             $scope.vipData = result.data.data;
                         })
                     }
-                    $rootScope.getmessageList = function() {
+                    $rootScope.getmessageList = function () {
                         // status: 'Processing' 
-                        faqService.getMessageOperationlog({ status: 'Processing', noMessageType:28}, function(result) {
+                        faqService.getMessageOperationlog({ status: 'Processing', noMessageType: 28 }, function (result) {
                             console.log(result);
                             $scope.tipMessage = result.data;
                             $scope.tipMessageLength = result.data.length;
                         })
                     }
 
-                      $rootScope.getIdMessageList = function() {
+                    $rootScope.getIdMessageList = function () {
                         // status: 'Processing' 
-                        faqService.getMessageOperationlog({ status: 'Processing', messageTypes:28}, function(result) {
+                        faqService.getMessageOperationlog({ status: 'Processing', messageTypes: 28 }, function (result) {
                             console.log('ID');
                             console.log(result);
                             $scope.idMessage = result.data;
@@ -51,38 +51,47 @@ angular.module('culAdminApp')
                             console.log($scope.idCardLength);
                         })
                     }
-                    $scope.$on("updateMessageList" ,function(){
-                       $rootScope.getIdMessageList();
+                    $scope.$on("updateMessageList", function () {
+                        $rootScope.getIdMessageList();
                     })
 
                     $scope.getVipAndMsg();
                     $rootScope.getmessageList();
-                     $rootScope.getIdMessageList()
-                    $scope.btnViewMessage = function(message) {
+                    $rootScope.getIdMessageList();
+                    $scope.updateAllIdMessageOperate = function () {
+                        plugMessenger.confirm(" 确定标记所有身份证申请为已读", function (isOk) {
+                            if (isOk) {
+                                faqService.updateMessageOperation({ idAll: true }).then(function (data) {
+                                    $rootScope.getIdMessageList();
+                                })
+                            }
+                        })
+
+                    }
+                    $scope.btnViewMessage = function (message) {
                         $location.path("/customer/faqdetail").search({ messageNumber: message.messageNumber });
                     }
-                    $scope.btnViewAddressMessage = function(message) {
+                    $scope.btnViewAddressMessage = function (message) {
                         console.log(message);
-                        faqService.updateMessageOperation({ messageNumber: message.messageNumber }).then(function(data) {
-                        
-                           if(message.authType == 2){
-                            $location.path("/customer/idauth").search({ authType:2 });
-                           }else{
-                            $location.path("/customer/addressdetail").search({ transactionNumber: message.addressId });
-                               
-                           }
+                        faqService.updateMessageOperation({ messageNumber: message.messageNumber }).then(function (data) {
+                            if (message.authType == 2) {
+                                $location.path("/customer/idauth").search({ authType: 2 });
+                            } else {
+                                $location.path("/customer/addressdetail").search({ transactionNumber: message.addressId });
+
+                            }
                         })
                     }
 
-                    $scope.$on('message', function(result) {
+                    $scope.$on('message', function (result) {
                         $rootScope.getmessageList();
                     })
 
-                    $scope.btnViewCustomer = function(vip) {
+                    $scope.btnViewCustomer = function (vip) {
                         $location.path("/customer/customerdetail").search({ customerNumber: vip.customerNumber });
                     }
 
-                    $scope.btnViewCustomerList = function() {
+                    $scope.btnViewCustomerList = function () {
                         $location.path("/customer/customerlist");
                     }
                 }
