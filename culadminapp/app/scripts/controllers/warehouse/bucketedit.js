@@ -337,48 +337,23 @@ angular.module('culAdminApp')
             $scope.keydownTrackingNumber = function (event) {
 
                 if (event.keyCode === 13) {
-                    var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
-                        _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
-                        _selected_bag = _.findWhere(_bags, { _selected: true });
-                    //删除box或bag下的当前操作的package
-                    var _duplicatePackage = _.filter(_selected_bag.packages, function (pkg) { return pkg.trackingNumber == $scope._selectedPackage.trackingNumber });
+                    // var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
+                    //     _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
+                    //     _selected_bag = _.findWhere(_bags, { _selected: true });
+                    // //删除box或bag下的当前操作的package
+                    // var _duplicatePackage = _.filter(_selected_bag.packages, function (pkg) { return pkg.trackingNumber == $scope._selectedPackage.trackingNumber });
 
-                    if (_duplicatePackage && _duplicatePackage.length > 0) {
-                        plugMessenger.info("CUL包裹单号[" + $scope._selectedPackage.trackingNumber + "]已经扫描到当前Bag!");
-                        document.getElementById('key_trackingNumber').focus();
-                        document.getElementById('key_trackingNumber').select();
-                        return;
-                    };
+                    // if (_duplicatePackage && _duplicatePackage.length > 0) {
+                    //     plugMessenger.info("CUL包裹单号[" + $scope._selectedPackage.trackingNumber + "]已经扫描到当前Bag!");
+                    //     document.getElementById('key_trackingNumber').focus();
+                    //     document.getElementById('key_trackingNumber').select();
+                    //     return;
+                    // };
+                    $scope.btnSaveByPackage();
 
-                    document.getElementById('key_weight').focus();
+                    // document.getElementById('key_weight').focus();
                 }
             };
-
-            // $scope.checkTrackingNumber = function () {
-            //     if (!!_timeout) clearTimeout(_timeout);
-            //     _timeout = setTimeout(function () {
-            //         $scope.$apply(function () {
-            //             if (!!$scope._selectedPackage && !!$scope._selectedPackage.trackingNumber) {
-            //                 bucketService.checkPackage($scope._selectedPackage.trackingNumber, function (result) {
-            //                     if (!!result.msg) {
-            //                         plugMessenger.info(result.msg);
-            //                         $scope._selectedPackage = null;
-            //                         _cacheCurrentResult = null;
-            //                         return false;
-            //                     } else {
-            //                         $scope._selectedPackage.trackingNumber = result.trackingNumber;
-            //                         //$scope._selectedPackage.weight = result.actualWeight;
-            //                         $scope._selectedPackage.weight = "";
-            //                         _cacheCurrentResult = result;
-            //                         return true;
-            //                     }
-            //                 });
-            //             }
-
-            //             return false;
-            //         });
-            //     }, 1000);
-            // }
             $scope.totalWeight = function () {
                 $scope.selectPkgTotalWeight = 0;
                 $scope.data.packageList.forEach(function (element) {

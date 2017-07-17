@@ -129,7 +129,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label text-right">CUL包裹单号：</label>
                     <div class="col-sm-6">
-                        <input type="text" id="key_trackingNumber" class="form-control" ng-change="btnSaveByPackage()" ng-model="_selectedPackage.trackingNumber" ng-keydown="keydownTrackingNumber($event)" ng-disabled="!!tpl_status.readonly">
+                        <input type="text" id="key_trackingNumber" class="form-control"  ng-enter="btnSaveByPackage()" ng-model="_selectedPackage.trackingNumber" ng-keydown="keydownTrackingNumber($event)" ng-disabled="!!tpl_status.readonly">
                     </div>
                     <div class="col-sm-2" ng-if="!tpl_status.readonly">
                         <button type="button" class="btn btn-primary" ng-click="btnSaveByPackage()"><i class="fa fa-check-square-o"></i>确定</button>
