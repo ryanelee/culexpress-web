@@ -311,7 +311,6 @@ angular.module('culAdminApp')
                 // $scope.data.flightNo = $scope.flightNo;
                 //修改总单
                 if (!!$scope.tpl_status.bucketNumber) {
-
                     bucketService.update($scope.data, function (result) {
                         if (!result.message) {
                             plugMessenger.success("修改成功");
@@ -401,7 +400,7 @@ angular.module('culAdminApp')
                                 _successPackage.weight = _cacheCurrentResult.actualWeight;
                                 _successPackage.orderNumber = _cacheCurrentResult.orderNumber
 
-                                $scope.data.packageList.push(_successPackage);
+                                $scope.data.packageList.push(_successPackage);)
 
                                 if (!_.isArray(_selected_bag.packages)) {
                                     _selected_bag.packages = [_successPackage];
