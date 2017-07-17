@@ -400,7 +400,7 @@ angular.module('culAdminApp')
                                 _successPackage.weight = _cacheCurrentResult.actualWeight;
                                 _successPackage.orderNumber = _cacheCurrentResult.orderNumber
 
-                                $scope.data.packageList.push(_successPackage);)
+                                $scope.data.packageList.push(_successPackage);
 
                                 if (!_.isArray(_selected_bag.packages)) {
                                     _selected_bag.packages = [_successPackage];
