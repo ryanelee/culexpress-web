@@ -408,6 +408,7 @@ angular.module('culAdminApp')
                                 _successPackage.orderNumber = _cacheCurrentResult.orderNumber
 
                                 $scope.data.packageList.push(_successPackage);
+                                console.log($scope.data.packageList)
 
                                 if (!_.isArray(_selected_bag.packages)) {
                                     _selected_bag.packages = [_successPackage];
@@ -462,8 +463,8 @@ angular.module('culAdminApp')
                 console.log($scope._selectedPackage.totalWeight);
                 let allowDevision = parseFloat(parseFloat(cul.bagWeight || 0) + 1);
                 if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined) {
-                    if (sumWeight + cul.bagWeight - $scope._selectedPackage.totalWeight < 1 ||  $scope._selectedPackage.totalWeight - (sumWeight + cul.bagWeight)>1) {
-                        // if ($scope.selectPkgTotalWeight - allowDevision <= $scope._selectedPackage.totalWeight && $scope.selectPkgTotalWeight + allowDevision >= $scope._selectedPackage.totalWeight) {
+                    // if (sumWeight + cul.bagWeight - $scope._selectedPackage.totalWeight < 1 ||  $scope._selectedPackage.totalWeight - (sumWeight + cul.bagWeight)>1) {
+                    if ($scope.selectPkgTotalWeight - allowDevision <= $scope._selectedPackage.totalWeight && $scope.selectPkgTotalWeight + allowDevision >= $scope._selectedPackage.totalWeight) {
                         plugMessenger.info("校验成功！");
                     } else {
                         plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不满足包裹重量[" + $scope.selectPkgTotalWeight + "]加袋子重量的误差小于1!");
