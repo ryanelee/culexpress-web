@@ -16,7 +16,8 @@ angular.module('culAdminApp')
                 'Karma'
             ];
             console.log(21212)
-
+             $scope.cul = {};
+            $scope.cul.bagWeight = cul.bagWeight;
             $scope.data = {
                 detail: [],
                 packageList: []
@@ -456,22 +457,24 @@ angular.module('culAdminApp')
             /**
              * 总重量校验
              */
+
             $scope.btnCheckWeight = function () {
                 console.log($scope.data.packageList);
                 var sumWeight = _.reduce($scope.data.packageList, function (m, n) {
                     return m + n.weight;
                 }, 0)
+                $scope.cul.bagWeight = cul.bagWeight;
                 console.log('sumWeight', sumWeight);
                 console.log("cul.bagWeight", cul.bagWeight)
                 console.log($scope._selectedPackage.totalWeight);
                 let allowDevision = parseFloat(parseFloat(cul.bagWeight || 0) + 1);
                 if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined) {
-                    // if (sumWeight + cul.bagWeight - $scope._selectedPackage.totalWeight < 1 ||  $scope._selectedPackage.totalWeight - (sumWeight + cul.bagWeight)>1) {
-                    if ($scope.selectPkgTotalWeight - allowDevision <= $scope._selectedPackage.totalWeight && $scope.selectPkgTotalWeight + allowDevision >= $scope._selectedPackage.totalWeight) {
+                    if (sumWeight + $scope.cul.bagWeight - $scope._selectedPackage.totalWeight < 1 && sumWeight + $scope.cul.bagWeight - $scope._selectedPackage.totalWeight > -1) {
+                        // if ($scope.selectPkgTotalWeight - allowDevision <= $scope._selectedPackage.totalWeight && $scope.selectPkgTotalWeight + allowDevision >= $scope._selectedPackage.totalWeight) {
                         plugMessenger.info("校验成功！");
                     } else {
-                        plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量[" + $scope.selectPkgTotalWeight + "]!")
-                        // plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不满足包裹重量[" + $scope.selectPkgTotalWeight + "]加袋子重量的误差小于1!");
+                        // plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量[" + $scope.selectPkgTotalWeight + "]!")
+                        plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不满足包裹重量[" + $scope.selectPkgTotalWeight + "]加袋子重量的误差小于1!");
                         document.getElementById('key_trackingNumber').focus();
                         return;
                     }
