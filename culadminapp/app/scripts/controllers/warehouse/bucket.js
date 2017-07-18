@@ -79,6 +79,7 @@ angular.module('culAdminApp')
               storage.session.setObject("searchBar", $scope.searchBar);         
               bucketService.getList(_filterOptions(), function (result) {
                   $scope.dataList = result.data;
+                //   console.log(result)
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
                   var _trackingNumbers = [];
                   $.each($scope.dataList, function (i, item) {
@@ -87,6 +88,28 @@ angular.module('culAdminApp')
                             _trackingNumbers.push(pkg.trackingNumber);
                         })
                       }
+                      item.totalWeight = 0;
+                      item.detail.forEach(function (e) {
+                            e.totalWeight = 0;
+                            if (e.boxes && e.boxes[0]) {
+                                e.boxes.forEach(function (e1) {
+                                    if (e1.bags && e1.bags[0]) {
+                                        e1.bags.forEach(function (e2) {
+                                            e2.totalWeight = 0;
+                                            if (e2.packages && e2.packages[0]) {
+                                                e2.packages.forEach(function (e3) {
+                                                    item.totalWeight += e3.weight;                                              
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                                // if(e.bags && e.bags[0]){
+                                //     e.bags
+                                //     e.bags.packages
+                                // }
+                            }
+                        })
                   });
                   if (_trackingNumbers.length > 0) _options.trackingNumber = _trackingNumbers.join(",");
                   //新导出逻辑
