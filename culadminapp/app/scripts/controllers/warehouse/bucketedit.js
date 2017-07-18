@@ -383,7 +383,7 @@ angular.module('culAdminApp')
                         $scope._selectedPackage = null;
                         _cacheCurrentResult = null;
                         document.getElementById('key_trackingNumber').focus();
-                        $scope.btnSave();
+                        // $scope.btnSave();
                         return;
                     } else {
                         $scope._selectedPackage.trackingNumber = result.trackingNumber;
@@ -460,10 +460,10 @@ angular.module('culAdminApp')
                 var sumWeight = _.reduce($scope.data.packageList, function (m, n) {
                     return m + n.weight;
                 }, 0)
-                $scope.cul.bagWeight = cul.bagWeight;
                 console.log('sumWeight', sumWeight);
                 console.log("cul.bagWeight", cul.bagWeight)
                 console.log($scope._selectedPackage.totalWeight);
+                console.log($scope.selectPkgTotalWeight);
                 let allowDevision = parseFloat(parseFloat(cul.bagWeight || 0) + 1);
                 if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined) {
                     if (sumWeight + $scope.cul.bagWeight - $scope._selectedPackage.totalWeight < 1 && sumWeight + $scope.cul.bagWeight - $scope._selectedPackage.totalWeight > -1) {
@@ -471,7 +471,7 @@ angular.module('culAdminApp')
                         plugMessenger.info("校验成功！");
                     } else {
                         // plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量[" + $scope.selectPkgTotalWeight + "]!")
-                        plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不满足包裹重量[" + $scope.selectPkgTotalWeight + "]加袋子重量的误差小于1!");
+                        plugMessenger.error("称重重量[" + $scope._selectedPackage.totalWeight + "]不满足包裹重量[" + $scope.selectPkgTotalWeight + "]加袋子重量的误差小于1!");
                         document.getElementById('key_trackingNumber').focus();
                         return;
                     }
