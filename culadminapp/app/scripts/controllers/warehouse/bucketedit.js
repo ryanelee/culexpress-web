@@ -210,8 +210,10 @@ angular.module('culAdminApp')
                                 _selected_bag = _.findWhere(_bags, { _selected: true });
                             //删除box或bag下的当前操作的package
                             _selected_bag.packages = _.filter(_selected_bag.packages, function (pkg) { return pkg.trackingNumber != item.trackingNumber });
+                            console.log(_selected_bag.packages)
                             //删除packageList的当前操作的package
                             $scope.data.packageList = _.filter($scope.data.packageList, function (pkg) { return pkg.trackingNumber != item.trackingNumber });
+                            console.log($scope.data.packageList)
                             //如果当前操作的包裹是编辑状态下的包裹，则清除编辑状态。
                             if (!!$scope._selectedPackage && $scope._selectedPackage.trackingNumber == item.trackingNumber) $scope._selectedPackage = null;
                             $scope.btnSave();
@@ -308,8 +310,9 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSave = function () {
-                // $scope.data.flightNo = $scope.flightNo;
                 //修改总单
+                console.log($scope.tpl_status.bucketNumber)
+                console.log($scope.data)
                 if (!!$scope.tpl_status.bucketNumber) {
                     bucketService.update($scope.data, function (result) {
                         if (!result.message) {
@@ -382,7 +385,7 @@ angular.module('culAdminApp')
                         $scope._selectedPackage = null;
                         _cacheCurrentResult = null;
                         document.getElementById('key_trackingNumber').focus();
-                        $scope.btnSave();
+                        //$scope.btnSave();
                         return;
                     } else {
                         $scope._selectedPackage.trackingNumber = result.trackingNumber;
@@ -406,16 +409,16 @@ angular.module('culAdminApp')
                                 var _successPackage = angular.copy($scope._selectedPackage);
                                 _successPackage.weight = _cacheCurrentResult.actualWeight;
                                 _successPackage.orderNumber = _cacheCurrentResult.orderNumber
-
-                                $scope.data.packageList.push(_successPackage);
-                                console.log($scope.data.packageList)
-
+                         
                                 if (!_.isArray(_selected_bag.packages)) {
                                     _selected_bag.packages = [_successPackage];
+                                    $scope.data.packageList= [_successPackage];
                                 }
                                 else {
                                     _selected_bag.packages.push(_successPackage);
+                                    $scope.data.packageList.push(_successPackage);
                                 }
+                                console.log($scope.data.packageList)
                             }
                             // else if (_cacheCurrentResult.actualWeight - 1 < $scope._selectedPackage.weight && _cacheCurrentResult.actualWeight + 1 > $scope._selectedPackage.weight) {
                             //     var _successPackage = angular.copy($scope._selectedPackage);
