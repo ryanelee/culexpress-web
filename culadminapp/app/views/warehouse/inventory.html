@@ -125,6 +125,7 @@
                             <th>入库单号</th>
                             <th>库存</th>
                             <th>冻结库存</th>
+                            <th>重量</th>
                             <th>创建日期</th>
                             <th>入库人员</th>
                             <th>操作</th>
@@ -154,8 +155,9 @@
                             <td>{{item.receiptNumber}}</td>
                             <td>{{item.inventory}} <a href="javascript:void(0);" ng-click="btnAction('logs', item)"><i class="fa fa-eye"></i></a></td>
                             <td>{{item.inventory_frozen}} <a href="javascript:void(0);" ng-click="btnAction('frozen', item)"><i class="fa fa-lock"></i></a></td>
+                            <td>{{item.weight | number:2}}</td>
                             <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                             <td>{{item.inboundUser}}</td>
+                            <td>{{item.inboundUser}}</td>
                             <td><a href="javascript:void(0);" ng-click="btnAction('adjust',item)">纠正库存</a></td>
                            
                            
