@@ -45,6 +45,8 @@ angular.module('culAdminApp')
                 isExist: false
             }
 
+            $scope.isWarehouseRight = false;
+
             $scope.getPackageDetail = function() {
                 if (!!$scope.data.trackingNumber && $scope._trackingNumber != $scope.data.trackingNumber) {
                     warehouseService.getInboundPackageDetail($scope.data.trackingNumber, function(result) {
@@ -52,7 +54,6 @@ angular.module('culAdminApp')
                             // trackingNumber.focus();
                             warehouseNumber.focus();
                             //新增
-                            //console.log('1234567ui')
                             var _newNumber = angular.copy($scope.data.trackingNumber); 
                             $scope.data = { trackingNumber: _newNumber }
                             $scope.data.warehouseNumber = $scope.warehouseList[0].key || '1';
@@ -62,21 +63,26 @@ angular.module('culAdminApp')
                             // $window.document.getElementById("txtTrackingNumber").focus();
 
                         } else {
-                            //修改
-                            // console.log("feichang" + JSON.stringify(result));
-                            console.log(result);
+                            // console.log(result);
                             $scope.data = result;
                             $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
                             $scope.tpl_status.isExist = true;
                             $scope.tpl_status.isExist_p = true;
-                            // console.log('2345');
-                            //console.log($scope.data.packageWeight);
+
                             if ($scope.data.trackingNumber && $scope.data.inboundStatus < 3) {
                                 // $window.document.getElementById("packageWeight").focus();
                                 packageWeight.focus();
                                 $scope.tpl_status.isExist_p = false;
-
+                            }
+                            
+                            $scope.warehouseList.forEach(function(element) {
+                                if ($scope.data.warehouseNumber == element.warehouseNumber) {
+                                    $scope.isWarehouseRight = true;
+                                }
+                            });
+                            if ($scope.isWarehouseRight == false) {
+                                plugMessenger.error("收货仓库跟入库信息不符，请修改入库信息重新登记入库");
                             }
                         }
                     });
@@ -130,12 +136,9 @@ angular.module('culAdminApp')
             }
 
             $scope.checkReceiveIdentity = function(e) {
-                //console.log('2345')
-                // $scope.myKeyup = function (e) {
-                //console.log(2)
+                // $scope.myKeyup = function (e) {)
                 var keycode = window.event ? e.keyCode : e.which;
                 if (keycode == 13) {
-                    //console.log('2345')
                     if (!$scope.data.receiveIdentity) {
                         // plugMessenger.error("客户标示不能为空");
                         return;
@@ -211,7 +214,6 @@ angular.module('culAdminApp')
 
 
             $scope.checkCustomerNumber = function(e) {
-                //console.log(e);
                 if (!$scope.data.customerNumber) {
                     plugMessenger.error("客户编号不能为空");
                     //$scope.customerNumberFocus = true;
@@ -271,6 +273,10 @@ angular.module('culAdminApp')
             }
 
             $scope.register = function() {
+                if ($scope.isWarehouseRight == false) {
+                    plugMessenger.error("收货仓库跟入库信息不符，请修改入库信息重新登记入库");
+                    return;
+                }
                 if ($scope.tpl_status.isExist) {
                     $scope.updateSave();
                 } else {
