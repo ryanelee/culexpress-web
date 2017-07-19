@@ -79,7 +79,7 @@ angular.module('culAdminApp')
               storage.session.setObject("searchBar", $scope.searchBar);         
               bucketService.getList(_filterOptions(), function (result) {
                   $scope.dataList = result.data;
-                //   console.log(result)
+                  console.log(result)
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
                   var _trackingNumbers = [];
                   $.each($scope.dataList, function (i, item) {

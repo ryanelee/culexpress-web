@@ -53,6 +53,7 @@ angular.module('culAdminApp')
                                             if (e2.packages && e2.packages[0]) {
                                                 e2.packages.forEach(function (e3) {
                                                     $scope.selectPkgTotalWeight += e3.weight;
+                                                    console.log('$scope.selectPkgTotalWeight',$scope.selectPkgTotalWeight)
                                                     $scope.data.packageList.forEach(function (e4) {
                                                         if (e3 == e4.trackingNumber) {
                                                             e2.readonly = $location.search().readonly || ""
@@ -218,12 +219,21 @@ angular.module('culAdminApp')
                             console.log($scope.data.packageList)
                             //如果当前操作的包裹是编辑状态下的包裹，则清除编辑状态。
                             if (!!$scope._selectedPackage && $scope._selectedPackage.trackingNumber == item.trackingNumber) $scope._selectedPackage = null;
-                            $scope.btnSave();
+                            $scope.refesh();
                             break;
                     }
                 }
             }
-
+            $scope.refesh = function () {
+                if (!!$scope.tpl_status.bucketNumber) {
+                    bucketService.update($scope.data, function (result) {
+                        if (!result.message) {
+                            plugMessenger.success("修改成功");
+                        }
+                    });
+                    return;
+                }
+            }
             $scope.btnPrev = function () {
                 $window.sessionStorage.setItem("historyFlag", 1);
                 $window.history.back();
@@ -236,6 +246,7 @@ angular.module('culAdminApp')
                 }
                 var _callback = function () {
                     plugMessenger.success("总单关闭成功");
+                    $scope.btnPrev();
                 }
 
                 plugMessenger.confirm("确认关闭出库总单吗？", function (isOK) {
@@ -334,7 +345,7 @@ angular.module('culAdminApp')
                     }
                 });
             }
-
+            
             var _timeout = null,
                 _cacheCurrentResult = null;
 
@@ -422,8 +433,9 @@ angular.module('culAdminApp')
                                     _selected_bag.packages.push(_successPackage);
                                     // $scope.data.packageList.push(_successPackage);
                                 }
-                                console.log($scope.data.packageList) 
+                                 
                                 $scope.data.packageList = _selected_bag.packages;
+                                console.log('chackage',$scope.data.packageList)
                             }
                             // else if (_cacheCurrentResult.actualWeight - 1 < $scope._selectedPackage.weight && _cacheCurrentResult.actualWeight + 1 > $scope._selectedPackage.weight) {
                             //     var _successPackage = angular.copy($scope._selectedPackage);
@@ -506,6 +518,7 @@ angular.module('culAdminApp')
                 bucketService.update(_options, function (result) {
                     if (!result.message) {
                         plugMessenger.success("修改成功！");
+                        $scope.btnPrev();
                     }
                 });
             }
