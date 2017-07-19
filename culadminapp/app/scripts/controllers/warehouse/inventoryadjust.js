@@ -36,6 +36,7 @@ angular.module('culAdminApp')
                                 itemNumber: result[0].itemNumber,
                                 warehouseNumber: result[0].warehouseNumber,
                                 inventory: result[0].inventory,
+                                weight: result[0].weight,
                                 reason: ""
                             }
                         }
