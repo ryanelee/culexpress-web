@@ -76,15 +76,10 @@ angular.module('culAdminApp')
                     }
                 })
             }
-
-
             // $scope.getProvince();
             // $scope.change = function() {
             //     console.log($scope.data.stateOrProvince)
             // }
-
-
-
 
             $scope.init = function () {
                 addressService.getDetail($scope.transactionNumber, function (result) {
@@ -131,8 +126,8 @@ angular.module('culAdminApp')
                 addressService.update($scope.data, function (result) {
                     if (!result.message) {
                         plugMessenger.success("保存成功");
-                        // console.log($scope.tempVerifyMark)
-                        // console.log($scope.data.verifyMark)
+                        $scope.search.parentid = 0;
+                        $scope.getProvince($scope.data.stateOrProvince, $scope.data.city, $scope.data.area)
                         if ($scope.tempVerifyMark != $scope.data.verifyMark) {
                             if ($scope.data.verifyMark == 1) {
                                 $scope.createMessageLog("身份认证通过");
@@ -149,13 +144,10 @@ angular.module('culAdminApp')
                 });
             }
 
-
-
             $scope.createMessageLog = function (message) {
                 if (!$scope.data.messageNumber) {
                     return;
                 }
-                console.log("can you " +  $scope.data.messageNumber)
                 customerMessageService.push({
                     "messageNumber": $scope.data.messageNumber,
                     "message": message
@@ -163,9 +155,6 @@ angular.module('culAdminApp')
 
                 })
             }
-
-
-
 
             $scope.btnPrev = function () {
 
@@ -175,8 +164,6 @@ angular.module('culAdminApp')
             $scope.btnPrint = function () {
                 $scope.$broadcast("print-idcard.action", { data: [$scope.data] });
             }
-
-
 
             //----------upload file START----------
             var _buildUpload = function ($el, key) {
