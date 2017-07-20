@@ -133,15 +133,14 @@ angular.module('culAdminApp')
                 if ($window.sessionStorage.getItem('role')) {
                     role = JSON.parse($window.sessionStorage.getItem('role'));
                 }
+                console.log("role",role);
 
                 if (role && role.length > 0) {
                     role.forEach(function (item) {
                         warehouse_ids = $.extend(warehouse_ids, item.warehouse_ids.toString().split(","));
                     })
                 }
-
                 var _data = result;
-
                 //filter by role
                 if (warehouse_ids) {
                     _data = result.filter(function (x) {
@@ -223,6 +222,13 @@ angular.module('culAdminApp')
         //更新仓库
         self.updateWarehouse = function (options, callback) {
             $http.post(cul.apiPath + "/updateWarehouse", options).success(function (result) {
+                callback(result);
+            });
+        }
+
+         //更新仓库
+        self.updateWareInboundpackage = function (options, callback) {
+            $http.post(cul.apiPath + "/updateWareInboundpackage", options).success(function (result) {
                 callback(result);
             });
         }
