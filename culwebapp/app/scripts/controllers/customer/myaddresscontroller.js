@@ -226,6 +226,9 @@ var app = angular
                         $scope.data.area = $scope.search.area.name;
                     }
                     $scope.data.addressType = 1;
+                    if ($scope.data.verifyMark == -1) {
+                        $scope.data.verifyMark = 0
+                    }
                     addressSvr
                         .updateAddressInfo($scope.data)
                         .then(function(result) {
