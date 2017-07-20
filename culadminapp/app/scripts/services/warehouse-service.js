@@ -18,7 +18,7 @@ angular.module('culAdminApp')
                 case "Unpaid": statusTitle = "未支付"; break;
                 case "Paid": statusTitle = "已支付"; break;
                 case "Processing": statusTitle = "处理中"; break;
-                case "WaybillUpdated": statusTitle = "运单更新";break;
+                case "WaybillUpdated": statusTitle = "运单更新"; break;
                 case "Checkout": statusTitle = "签出"; break;
                 case "Arrears": statusTitle = "运费不足"; break;
                 case "Shipped": statusTitle = "已出库"; break;
@@ -81,15 +81,15 @@ angular.module('culAdminApp')
             $http.post(cul.apiPath + "/outboundpackage/split", options).success(function (result) {
                 callback(result);
             });
-            
+
         }
-         self.getDeleteReceiptLog = function (options, callback) {
+        self.getDeleteReceiptLog = function (options, callback) {
             $http.post(cul.apiPath + "/getDeleteReceiptLog", options).success(function (result) {
                 callback(result);
             });
-            
+
         }
-        
+
 
         self.inboundpackage = function (options) {
             return $http.post(cul.apiPath + "/inboundpackage", options)
@@ -97,7 +97,7 @@ angular.module('culAdminApp')
 
         self.getOutboundPackageList = function (options, callback) {
             console.log(options);
-            $http.post(cul.apiPath + "/outboundPackage/list", options).success(function (result) {          
+            $http.post(cul.apiPath + "/outboundPackage/list", options).success(function (result) {
                 $.each(result.data, function (i, item) {
                     item._orderStatus = _getOrderStatus(item.orderStatus);
                     if (!!item.address) {
@@ -127,29 +127,37 @@ angular.module('culAdminApp')
         }
 
         self.getWarehouse = function (callback) {
-            $http.get(cul.apiPath + "/warehouse").success(function (result) {
+            var warehouse  = $window.sessionStorage.getItem("warehouse");
+            console.log("warehouse",warehouse);
 
-                var role = [], warehouse_ids = [];
-                if ($window.sessionStorage.getItem('role')) {
-                    role = JSON.parse($window.sessionStorage.getItem('role'));
-                }
-                console.log("role",role);
+            if (!warehouse || warehouse == 'undefined' ) {
+                $http.get(cul.apiPath + "/warehouse").success(function (result) {
+                    var role = [], warehouse_ids = [];
+                    if ($window.sessionStorage.getItem('role')) {
+                        role = JSON.parse($window.sessionStorage.getItem('role'));
+                    }
+                    console.log("role", role);
 
-                if (role && role.length > 0) {
-                    role.forEach(function (item) {
-                        warehouse_ids = $.extend(warehouse_ids, item.warehouse_ids.toString().split(","));
-                    })
-                }
-                var _data = result;
-                //filter by role
-                if (warehouse_ids) {
-                    _data = result.filter(function (x) {
-                        return warehouse_ids.includes('' + x.warehouseNumber);
-                    });
-                };
+                    if (role && role.length > 0) {
+                        role.forEach(function (item) {
+                            warehouse_ids = $.extend(warehouse_ids, item.warehouse_ids.toString().split(","));
+                        })
+                    }
+                    var _data = result;
+                    //filter by role
+                    if (warehouse_ids) {
+                        _data = result.filter(function (x) {
+                            return warehouse_ids.includes('' + x.warehouseNumber);
+                        });
+                    };
+                    $window.sessionStorage.setItem("warehouse",JSON.stringify(_data));
+                    callback(_data);
+                })
+            }else{
+                callback(JSON.parse(warehouse));
+            }
 
-                callback(_data);
-            })
+
         }
 
         self.registerOutboundPackages = function (count, callback) {
@@ -226,7 +234,7 @@ angular.module('culAdminApp')
             });
         }
 
-         //更新仓库
+        //更新仓库
         self.updateWareInboundpackage = function (options, callback) {
             $http.post(cul.apiPath + "/updateWareInboundpackage", options).success(function (result) {
                 callback(result);

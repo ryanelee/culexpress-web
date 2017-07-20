@@ -64,7 +64,7 @@ angular.module('culAdminApp')
                             // $window.document.getElementById("txtTrackingNumber").focus();
 
                         } else {
-                            // console.log(result);
+                            // console.log(result); 
                             $scope.data = result;
                             $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
@@ -72,14 +72,13 @@ angular.module('culAdminApp')
                             $scope.tpl_status.isExist_p = true;
 
                             if ($scope.data.trackingNumber && $scope.data.inboundStatus < 3) {
+                                console.log(123456)
                                 // $window.document.getElementById("packageWeight").focus();
                                 packageWeight.focus();
                                 $scope.tpl_status.isExist_p = false;
                             }
 
                             $scope.warehouseList.forEach(function (element) {
-                                console.log("$scope.data.warehouseNumber", $scope.data.warehouseNumber);
-                                console.log("element.warehouseNumber", element.warehouseNumber)
                                 if ($scope.data.warehouseNumber == element.key) {
                                     $scope.isWarehouseRight = true;
                                 }
@@ -105,7 +104,6 @@ angular.module('culAdminApp')
             // });
 
             warehouseService.getWarehouse(function (result) {
-                console.log("Wresult",result)
                 $scope.tpl_status.warehouseList = result;
                 for (var i = 0; i < result.length; i++) {
                     var detail = {}
