@@ -296,6 +296,10 @@ angular.module('culAdminApp')
                 if ($scope.isUnusual) {
                     $scope.data.isUnusual = $scope.isUnusual;
                 }
+                if ($scope.isWarehouseRight == false) {
+                    plugMessenger.error("收货仓库跟入库信息不符，请修改入库信息重新登记入库");
+                    return;
+                }
                 // $scope.data.isUnusual = 0;
                 // $("input[name='pro']:checked").each(function (index, e) {
                 //     $scope.isStaffFlag = $(this).attr("value");
