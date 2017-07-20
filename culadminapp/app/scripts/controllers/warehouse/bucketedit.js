@@ -16,7 +16,7 @@ angular.module('culAdminApp')
                 'Karma'
             ];
             console.log(21212)
-             $scope.cul = {};
+            $scope.cul = {};
             $scope.cul.bagWeight = cul.bagWeight;
             $scope.data = {
                 detail: [],
@@ -53,7 +53,7 @@ angular.module('culAdminApp')
                                             if (e2.packages && e2.packages[0]) {
                                                 e2.packages.forEach(function (e3) {
                                                     $scope.selectPkgTotalWeight += e3.weight;
-                                                    console.log('$scope.selectPkgTotalWeight',$scope.selectPkgTotalWeight)
+                                                    console.log('$scope.selectPkgTotalWeight', $scope.selectPkgTotalWeight)
                                                     $scope.data.packageList.forEach(function (e4) {
                                                         if (e3 == e4.trackingNumber) {
                                                             e2.readonly = $location.search().readonly || ""
@@ -61,7 +61,7 @@ angular.module('culAdminApp')
                                                             e2.totalWeight += e4.weight;
                                                             e.totalWeight += e4.weight;
                                                         }
-                                                    })                                                
+                                                    })
                                                 })
                                             }
                                         })
@@ -86,15 +86,6 @@ angular.module('culAdminApp')
 
                 $("#bucket-title").text("编辑" + $scope.tpl_status.bucketNumber);
             }
-
-            warehouseService.getWarehouse(function (result) {
-                $scope.warehouseList = result;
-                $scope.data.warehouseNumber = $scope.warehouseList[0].warehouseNumber;
-                $scope.getShippingChannelList()
-            });
-            /**
-             * 发货渠道
-             */
             $scope.getShippingChannelList = function () {
                 warehouseService.getShippingChannelList(function (result) {
                     if (result.length == 1) {
@@ -107,6 +98,25 @@ angular.module('culAdminApp')
                 });
                 $scope.getSummaryInboundPackage();
             }
+
+
+            $scope.$on('$viewContentLoaded', function () {
+                $scope.getWarehouse();
+            });
+            
+            $scope.getWarehouse = function () {
+                warehouseService.getWarehouse(function (result) {
+                    $scope.warehouseList = result;
+                    $scope.data.warehouseNumber = $scope.warehouseList[0].warehouseNumber;
+                    $scope.getShippingChannelList()
+                });
+            }
+
+
+            /**
+             * 发货渠道
+             */
+
 
             $scope.callback = {
                 check: function (item, resource, level) {
@@ -345,7 +355,7 @@ angular.module('culAdminApp')
                     }
                 });
             }
-            
+
             var _timeout = null,
                 _cacheCurrentResult = null;
 
@@ -379,7 +389,7 @@ angular.module('culAdminApp')
             $scope.totalWeight = function () {
                 $scope.selectPkgTotalWeight = 0;
                 $scope.data.packageList.forEach(function (element) {
-                // dataList.forEach(function (element) {
+                    // dataList.forEach(function (element) {
                     console.log(element)
                     $scope.selectPkgTotalWeight = parseFloat(parseFloat($scope.selectPkgTotalWeight || 0) + element.weight);
                 }, this);
@@ -424,7 +434,7 @@ angular.module('culAdminApp')
                                 var _successPackage = angular.copy($scope._selectedPackage);
                                 _successPackage.weight = _cacheCurrentResult.actualWeight;
                                 _successPackage.orderNumber = _cacheCurrentResult.orderNumber
-                         
+
                                 if (!_.isArray(_selected_bag.packages)) {
                                     _selected_bag.packages = [_successPackage];
                                     // $scope.data.packageList= [_successPackage];
@@ -433,9 +443,9 @@ angular.module('culAdminApp')
                                     _selected_bag.packages.push(_successPackage);
                                     // $scope.data.packageList.push(_successPackage);
                                 }
-                                 
+
                                 $scope.data.packageList = _selected_bag.packages;
-                                console.log('chackage',$scope.data.packageList)
+                                console.log('chackage', $scope.data.packageList)
                             }
                             // else if (_cacheCurrentResult.actualWeight - 1 < $scope._selectedPackage.weight && _cacheCurrentResult.actualWeight + 1 > $scope._selectedPackage.weight) {
                             //     var _successPackage = angular.copy($scope._selectedPackage);
