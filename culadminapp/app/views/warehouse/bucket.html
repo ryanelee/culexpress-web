@@ -16,6 +16,14 @@
                         <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
                     </div>
                     <div class="search-col">
+                        <label class="search-label">状态：</label>
+                        <select class="form-control search-control" ng-model="searchBar.status">
+                            <option value="">全部</option>
+                            <option value="1">开启</option>
+                            <option value="0">关闭</option>
+                        </select>
+                    </div>
+                    <div class="search-col">
                         <label class="search-label">开始日期：</label>
                         <p class="input-group pull-left">
                             <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate" is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true" />

@@ -53,6 +53,7 @@ angular.module('culAdminApp')
                                             if (e2.packages && e2.packages[0]) {
                                                 e2.packages.forEach(function (e3) {
                                                     $scope.selectPkgTotalWeight += e3.weight;
+                                                    $scope.selectPkgTotalCount ++;
                                                     console.log('$scope.selectPkgTotalWeight', $scope.selectPkgTotalWeight)
                                                     $scope.data.packageList.forEach(function (e4) {
                                                         if (e3 == e4.trackingNumber) {
@@ -173,7 +174,7 @@ angular.module('culAdminApp')
                     if (!!_box) _array.push(_box.name);
                     if (!!_bag) _array.push(_bag.name);
 
-
+                    $scope.totalWeight()
                     $("#package-title").text(_array.join(" > "));
                     setTimeout(function () {
                         $("#key_trackingNumber").focus();
@@ -223,12 +224,11 @@ angular.module('culAdminApp')
                                 _selected_bag = _.findWhere(_bags, { _selected: true });
                             //删除box或bag下的当前操作的package
                             _selected_bag.packages = _.filter(_selected_bag.packages, function (pkg) { return pkg.trackingNumber != item.trackingNumber });
-                            console.log(_selected_bag.packages)
                             //删除packageList的当前操作的package
                             $scope.data.packageList = _.filter($scope.data.packageList, function (pkg) { return pkg.trackingNumber != item.trackingNumber });
-                            console.log($scope.data.packageList)
                             //如果当前操作的包裹是编辑状态下的包裹，则清除编辑状态。
                             if (!!$scope._selectedPackage && $scope._selectedPackage.trackingNumber == item.trackingNumber) $scope._selectedPackage = null;
+                            $scope.totalWeight()
                             $scope.refesh();
                             break;
                     }
@@ -388,9 +388,9 @@ angular.module('culAdminApp')
             };
             $scope.totalWeight = function () {
                 $scope.selectPkgTotalWeight = 0;
+                $scope.selectPkgTotalCount = 0;
                 $scope.data.packageList.forEach(function (element) {
-                    // dataList.forEach(function (element) {
-                    console.log(element)
+                    $scope.selectPkgTotalCount ++;
                     $scope.selectPkgTotalWeight = parseFloat(parseFloat($scope.selectPkgTotalWeight || 0) + element.weight);
                 }, this);
             }
@@ -488,11 +488,7 @@ angular.module('culAdminApp')
                 console.log($scope.data.packageList);
                 var sumWeight = _.reduce($scope.data.packageList, function (m, n) {
                     return m + n.weight;
-                }, 0)
-                console.log('sumWeight', sumWeight);
-                console.log("cul.bagWeight", cul.bagWeight)
-                console.log($scope._selectedPackage.totalWeight);
-                console.log($scope.selectPkgTotalWeight);
+                }, 0);
                 let allowDevision = parseFloat(parseFloat(cul.bagWeight || 0) + 1);
                 if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined) {
                     if (sumWeight + $scope.cul.bagWeight - $scope._selectedPackage.totalWeight < 1 && sumWeight + $scope.cul.bagWeight - $scope._selectedPackage.totalWeight > -1) {

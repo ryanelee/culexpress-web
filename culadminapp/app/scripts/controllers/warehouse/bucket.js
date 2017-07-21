@@ -28,6 +28,7 @@ angular.module('culAdminApp')
                 keywordType: "bucketNumber", 
                 keywords: $location.search().bucketNumber || "",           
                 warehouseNumber: "",
+                status: "",
                 startDate: "",
                 endDate: "",
                 opened: {
@@ -66,6 +67,9 @@ angular.module('culAdminApp')
 
                 if (!!$scope.searchBar.warehouseNumber) {
                     _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
+                }
+                if (!!$scope.searchBar.status) {
+                    _options["status"] = $scope.searchBar.status;
                 }
                 if (!!$scope.searchBar.keywords) {
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
