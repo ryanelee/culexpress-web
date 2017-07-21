@@ -87,7 +87,7 @@ angular.module('culwebApp')
             deleteShippingNotice: function(transactionNumber) {
                 return $http.delete(cul.apiPath + '/inboundpackage?number=' + transactionNumber);
             },
-            retrieveShippingNoticeList: function(index, paras) {
+            retrieveShippingNoticeList: function(index, pageSize, paras) {
                 if (!paras) paras = {};
 
                 paras.status = paras.status ? [paras.status] : ["Intransit", "Inbound", "Onshelf"]
@@ -95,7 +95,7 @@ angular.module('culwebApp')
 
                 return $http.post(cul.apiPath + '/inboundpackage/list', $.extend({
                     pageInfo: {
-                        pageSize: 10,
+                        pageSize: pageSize,
                         pageIndex: index || 1
                     },
                     customerNumber: paras.customerNumber,

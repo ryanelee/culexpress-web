@@ -179,7 +179,7 @@ angular.module('culAdminApp')
                 html: true,
                 trigger: 'hover',
                 title: '',
-                content: "请扫描UMI包裹编号，比如UMI100000001"
+                content: "请扫描CUL包裹编号，比如CUL100000001"
             });
 
             $('#tip_outbound').popover({

@@ -97,7 +97,7 @@ var app = angular
                 total: 0,
                 size: 10
             }
-
+            $scope.pageSize = 10;
 
             $scope.searchKeyItems = [{
                 key: 'trackingNumber',
@@ -116,13 +116,13 @@ var app = angular
                     customerNumber = $rootScope.currentUser.customerNumber;
 
                 $scope.pagedOptions.index = index;
+                var pageSize = $scope.pageSize;
                 orderSvr
-                    .retrieveShippingNoticeList(index, $.extend({ status: status, customerNumber: customerNumber }, para))
+                    .retrieveShippingNoticeList(index, pageSize, $.extend({ status: status, customerNumber: customerNumber }, para))
                     .then(function(result) {
-                           //console.log(result);
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
                             $scope.shippingNoticeList = result.data.data;  
-                            console.log($scope.shippingNoticeList)
+                            // console.log($scope.shippingNoticeList)
                             //  if(status === "Onshelf") {
                             //     var shippingNoticeListOnshelf = [];
                             //     $scope.shippingNoticeList.forEach(function(item) {
