@@ -14,8 +14,7 @@ angular.module('culAdminApp')
                 'HTML5 Boilerplate',
                 'AngularJS',
                 'Karma'
-            ];
-            console.log(21212)
+            ];)
             $scope.cul = {};
             $scope.cul.bagWeight = cul.bagWeight;
             $scope.data = {
@@ -41,7 +40,7 @@ angular.module('culAdminApp')
             if (!!$scope.tpl_status.bucketNumber) {
                 bucketService.getDetail($scope.tpl_status.bucketNumber, function (result) {
                     $scope.data = result;
-                    console.log("result", result);
+                    // console.log("result", result);
                     if ($scope.data.detail[0]) {
                         $scope.data.detail.forEach(function (e) {
                             e.totalWeight = 0;
@@ -54,7 +53,6 @@ angular.module('culAdminApp')
                                                 e2.packages.forEach(function (e3) {
                                                     $scope.selectPkgTotalWeight += e3.weight;
                                                     $scope.selectPkgTotalCount ++;
-                                                    console.log('$scope.selectPkgTotalWeight', $scope.selectPkgTotalWeight)
                                                     $scope.data.packageList.forEach(function (e4) {
                                                         if (e3 == e4.trackingNumber) {
                                                             e2.readonly = $location.search().readonly || ""
@@ -266,7 +264,7 @@ angular.module('culAdminApp')
                             "flightNo": $scope.data.flightNo
                         }
                         bucketService.close(_options, function (result) {
-                            console.log("result", result);
+                            // console.log("result", result);
 
                             if (!result.message) {
                                 bucketService.updateculBucket($scope.data.packageList, function (result) {
@@ -485,7 +483,6 @@ angular.module('culAdminApp')
              */
 
             $scope.btnCheckWeight = function () {
-                console.log($scope.data.packageList);
                 var sumWeight = _.reduce($scope.data.packageList, function (m, n) {
                     return m + n.weight;
                 }, 0);
