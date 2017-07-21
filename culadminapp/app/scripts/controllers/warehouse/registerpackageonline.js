@@ -23,6 +23,14 @@ angular.module('culAdminApp')
             $scope.isDel = false;
             var _timeout = null;
 
+            $scope.getCompatibleInboundTrackingNumber = function (trackingNumber){
+                //USPS: 420+5 zip code + 21/22 #s
+                if(typeof trackingNumber == "string" && /^420\d{5}\d{21,22}$/.test(trackingNumber)){
+                    trackingNumber = trackingNumber.substr(8);
+                }
+
+                return trackingNumber;
+            };
 
             $scope.keyDown = function (e) {
                 var keycode = window.event ? e.keyCode : e.which;
@@ -47,7 +55,7 @@ angular.module('culAdminApp')
                             $scope.data.outboundPackages[0].actualWeight = 0;
                             $.each($scope.data.inboundPackages, function (index, item) {
                                 if (!item.checked) {
-                                    item.checked = item.trackingNumber.toUpperCase() == $scope.tempInboundPackageNumber.toUpperCase();
+                                    item.checked = $scope.getCompatibleInboundTrackingNumber(item.trackingNumber).toUpperCase() == $scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber).toUpperCase();
                                     _checked = true;
                                 }
                                 if (item.checked) {
@@ -176,7 +184,7 @@ angular.module('culAdminApp')
                             var _checked = false;
                             $.each($scope.data.inboundPackages, function (index, item) {
                                 if (!item.checked) {
-                                    item.checked = item.trackingNumber.toUpperCase() == $scope.tempInboundPackageNumber.toUpperCase();
+                                    item.checked = $scope.getCompatibleInboundTrackingNumber(item.trackingNumber).toUpperCase() == $scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber).toUpperCase();
                                     _checked = true;
                                 }
                             });
