@@ -45,7 +45,9 @@
                 <div class="search-col">
                     <label class="search-label">开始日期：</label>
                     <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate" is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true" />
+                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate"
+                            is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true"
+                        />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true"><i class="fa fa-calendar"></i></button>
                         </span>
@@ -79,16 +81,20 @@
                             <option value="23">23</option>
                         </select>
                         <label class="search-label">时</label>
-                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.startTime_mm" />
+                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.startTime_mm"
+                        />
                         <label class="search-label">分</label>
-                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.startTime_ss" />
+                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.startTime_ss"
+                        />
                         <label class="search-label">秒</label>
                     </div>
                 </div>
                 <div class="search-col">
                     <label class="search-label">结束日期：</label>
                     <p class="input-group pull-left">
-                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate" is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true" />
+                        <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate"
+                            is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true"
+                        />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true"><i class="fa fa-calendar"></i></button>
                         </span>
@@ -123,9 +129,11 @@
                             <option value="23">23</option>
                         </select>
                         <label class="search-label">时</label>
-                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.endTime_mm" />
+                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.endTime_mm"
+                        />
                         <label class="search-label">分</label>
-                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.endTime_ss" />
+                        <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.endTime_ss"
+                        />
                         <label class="search-label">秒</label>
                     </div>
                 </div>
@@ -143,7 +151,8 @@
                         <option value="receiveIdentity">客户标示</option>
                         <option value="referenceOrderNumber">客户关联号</option>        
                     </select>
-                    <textarea type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"></textarea>
+                    <textarea type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords"
+                        ng-enter="btnSearch()"></textarea>
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                 </div>
             </div>
@@ -216,7 +225,7 @@
                     <td>{{item._orderStatus}}</td>
                     <!--<td>{{item.processStatus}}</td>-->
                     <td>{{item._printStatus}}</td>
-                    <td><a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDelete(item)">删除</a></td>
+                    <td><a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)">删除</a></td>
                 </tr>
             </tbody>
         </table>
@@ -233,9 +242,11 @@
                     <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
                     <input id="userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
                     <input id="orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
-                    <input id="outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}" />
+                    <input id="outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}"
+                    />
                     <input id="receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
-                    <input id="referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}" />
+                    <input id="referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}"
+                    />
                     <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                     <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
                     <button type="submit" class="btn btn-primary role" data-role="33">将结果导出Excel文件</button>
@@ -252,9 +263,11 @@
                     <input id="USPS_customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
                     <input id="USPS_userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
                     <input id="USPS_orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
-                    <input id="USPS_outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}" />
+                    <input id="USPS_outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}"
+                    />
                     <input id="USPS_receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
-                    <input id="USPS_referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}" />
+                    <input id="USPS_referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}"
+                    />
                     <input id="USPS_cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                     <input id="USPS_token" name="token" type="hidden" value="{{exportOptions.token}}" />
                     <button type="submit" class="btn btn-primary" data-role="34"><i class="fa fa-file-excel-o" aria-hidden="true"></i> 将结果导出USPS文件</button>
@@ -266,8 +279,9 @@
             </div>
         </div>
         <div class="col-sm-9 text-right pull-right">
-            <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount" items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页" next-text="下一页"
-                first-text="首页" last-text="尾页">
+            <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount"
+                items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页"
+                next-text="下一页" first-text="首页" last-text="尾页">
             </uib-pagination>
             <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
                     <option value="10">10</option>
@@ -279,3 +293,22 @@
     </div>
 </div>
 </div>
+
+<script type="text/html" id="delete_approval_form">
+    <form class="form-horizontal" role="form">
+        <fieldset>
+            <legend>删除</legend>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-right">删除原因:</label>
+                <div class="col-sm-5 text-left">
+                    <textarea type="input" class="form-control"   ng-model="deleteMessage"></textarea>
+                </div>
+
+        </fieldset>
+        <div class="form-group text-center">
+            <button type="button" class="btn btn-primary" ng-click="btnDelete(item)">确定</button>
+            <button type="button" class="btn btn-default" ng-click="btnCancel($event)">取消</button>
+        </div>
+    </form>
+</script>

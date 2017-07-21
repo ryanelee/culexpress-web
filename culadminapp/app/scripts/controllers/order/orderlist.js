@@ -4,12 +4,12 @@
  * @ngdoc function
  * @name culAdminApp.controller:OrderListCtrl
  * @description
- * # OrderListCtrl
+ * # OrderListCtrl 
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderService", "warehouseService", "plugMessenger", "storage",
-        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderService, warehouseService, plugMessenger, storage) {
+    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderService", "warehouseService", "plugMessenger", "storage", "$compile",
+        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderService, warehouseService, plugMessenger, storage, $compile) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -51,9 +51,9 @@ angular.module('culAdminApp')
                     endDate: false
                 }
             }
-            
 
-              $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+
+            $scope.tempSearchBar = angular.copy(storage.getSearchObject());
             if ($scope.tempSearchBar) {
                 $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
             }
@@ -214,23 +214,40 @@ angular.module('culAdminApp')
                 }
             }
 
+            $scope.btnDeleteApproval = function (item) {
+                $scope.item = item;
+                plugMessenger.template($compile($("#delete_approval_form").html())($scope));
+            }
+
             $scope.btnDelete = function (item) {
+                console.log('item', item);
+                console.log("deleteMessage", $scope.deleteMessage);
+                if (!$scope.deleteMessage) {
+                    return plugMessenger.info("删除原因不能为空")
+                }
+                item.deleteMessage = $scope.deleteMessage;
                 $scope.searchOrder = {};
                 if (item instanceof Array) {
                     $scope.searchOrder.orderNumberList = item;
                 } else {
                     $scope.searchOrder.orderNumber = item.orderNumber
                 }
-
+                $scope.searchOrder.deleteMessage = $scope.deleteMessage;
                 plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
                     if (!!isOK) {
+                        $("#confirm-modal").modal("hide");
+                        item.deleteMessage = "";
                         orderService.delete($scope.searchOrder, function () {
+                            plugMessenger.info("删除成功");
                             $scope.getData();
                             $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
                         });
                     }
                 });
             }
+
+            // /* 1:00:37 AM lz cul */ ALTER TABLE `cul_order` ADD `deleteMessage` VARCHAR(150)  NULL  DEFAULT NULL  COMMENT '删除理由'  AFTER `remark`;
+
 
             $scope.btnClearSelectedListCache = function () {
                 $scope.selectedListCache = [];
@@ -246,5 +263,10 @@ angular.module('culAdminApp')
             $timeout(function () {
                 $scope.getData();
             }, 500);
+
+            $scope.btnCancel = function (event) {
+                $(event.currentTarget).parents("#confirm-modal").modal("hide");
+            }
+
 
         }]);
