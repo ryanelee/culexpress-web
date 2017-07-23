@@ -150,6 +150,7 @@
                     <!--<th>收货地址</th>-->
                     <th>价格</th>
                     <th>订单状态</th>
+                    <th>删除原因</th>
                     <th>删除时间</th>
                     <th>操作人</th>
                     <!--<th>通过状态</th>-->
@@ -190,6 +191,7 @@
                         </span> {{item.totalCount}}
                     </td>
                     <td>{{item._orderStatus}}</td>
+                    <td>{{item.deleteMessage}}</td>
                     <td>{{item.deleteTime | date:"yyyy-MM-dd"}}</td>
                     <td>{{item.deleteMan}}</td>
                     <!--<td>{{item._printStatus}}</td>-->

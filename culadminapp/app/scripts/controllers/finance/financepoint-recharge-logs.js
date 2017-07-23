@@ -5,7 +5,7 @@
  * @name culAdminApp.controller:FinanceRecordRechargeLogsCtrl
  * @description
  * # FinanceDetailRechargeLogsCtrl
- * Controller of the culAdminApp
+ * Controller of the culAdminApp 
  */
 angular.module('culAdminApp')
     .controller('FinancePointRechargeLogsCtrl', ["$scope", "$location", "$filter", "customerService", "settlementService", "plugMessenger",
@@ -36,7 +36,7 @@ angular.module('culAdminApp')
 
                 customerNumber: $location.search().customerNumber,
                 selectedAll: false,
-                rechargeType: "3,4",
+                rechargeType: "1,3,4",
                 keywordType: "customerNumber",
                 dateRange: "",
                 startDate: "",
@@ -94,7 +94,6 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function () {
-                console.log("这里有一个bug")
                 var _options = _filterOptions();
                 customerService.financeLogList(angular.copy(_options), function (result) {
                     $scope.allTotal = result.allTotal;

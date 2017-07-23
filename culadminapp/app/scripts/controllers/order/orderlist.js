@@ -246,7 +246,6 @@ angular.module('culAdminApp')
                 });
             }
 
-            // /* 1:00:37 AM lz cul */ ALTER TABLE `cul_order` ADD `deleteMessage` VARCHAR(150)  NULL  DEFAULT NULL  COMMENT '删除理由'  AFTER `remark`;
 
 
             $scope.btnClearSelectedListCache = function () {
