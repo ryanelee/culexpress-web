@@ -65,11 +65,27 @@ angular.module('culAdminApp')
                                             }
                                         })
                                     }
-                                })
-                                // if(e.bags && e.bags[0]){
-                                //     e.bags
-                                //     e.bags.packages
-                                // }
+                                })              
+                            } else {
+                                if (e.bags && e.bags[0]) {
+                                    e.bags.forEach(function (e2) {
+                                        e2.totalWeight = 0;
+                                        if (e2.packages && e2.packages[0]) {
+                                            e2.packages.forEach(function (e3) {
+                                                $scope.selectPkgTotalWeight += e3.weight;
+                                                $scope.selectPkgTotalCount ++;
+                                                $scope.data.packageList.forEach(function (e4) {
+                                                    if (e3 == e4.trackingNumber) {
+                                                        e2.readonly = $location.search().readonly || ""
+                                                        e.readonly = $location.search().readonly || ""
+                                                        e2.totalWeight += e4.weight;
+                                                        e.totalWeight += e4.weight;
+                                                    }
+                                                })
+                                            })
+                                        }
+                                    })
+                                }
                             }
                         })
                     }
