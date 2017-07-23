@@ -15,9 +15,6 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
-            console.log("这是测试。。。。。。");
-
-
             $scope.data = {}
             $scope.customerNumber = $location.search().customerNumber;
             $scope.tpl_status = { date: Date.now() }

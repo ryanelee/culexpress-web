@@ -88,8 +88,6 @@ angular.module('culAdminApp')
 
             $scope.init = function () {
                 addressService.getDetail($scope.transactionNumber, function (result) {
-                    console.log("result");
-                    console.log(result);
                     $scope.data = result;
                     $scope.tempVerifyMark = $scope.data.verifyMark == null ? 0 : $scope.data.verifyMark ;
                     $scope._province = result.stateOrProvince;
@@ -155,7 +153,6 @@ angular.module('culAdminApp')
                 if (!$scope.data.messageNumber) {
                     return;
                 }
-                console.log("can you " +  $scope.data.messageNumber)
                 customerMessageService.push({
                     "messageNumber": $scope.data.messageNumber,
                     "message": message

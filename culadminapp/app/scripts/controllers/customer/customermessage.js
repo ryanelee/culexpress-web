@@ -39,7 +39,6 @@ angular.module('culAdminApp')
             $scope.message.messageType = 29;
             $scope.message.images = $scope.data.images;
             $scope.message.customerNumber = $scope.customerNumber;
-            // console.log($scope.message);
             customerService.addCustomerMessage($scope.message).then(function (result) {
                 //$scope.refreshMessage();
                 $scope.message.message = "";
@@ -64,7 +63,6 @@ angular.module('culAdminApp')
                     _$panel.find("#file_btn_text").text("重新上传");
                     $scope.$apply(function () {
                         $scope.data[key] = data.result.url;
-                        console.log( $scope.data[key]);
                     });
                 });
             }

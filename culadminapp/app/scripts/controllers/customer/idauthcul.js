@@ -73,7 +73,6 @@ angular.module('culAdminApp')
                 _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 addressService.getList(_options, function (result) {
                     $scope.dataList = result.data;
-                    console.log("$scope.dataList",result)
                     $scope.dataList.forEach(function (data) {
                         data._verifyMark = _verifyMark_(data.verifyMark);
                     })

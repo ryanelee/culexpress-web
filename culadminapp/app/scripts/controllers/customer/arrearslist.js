@@ -59,7 +59,6 @@ culAdminApp.controller('ArrearslistCtrl', ["$scope", "$rootScope", "$location", 
             customerService.getArrearsList(_options, function (result) {
 
                 $scope.dataList = result.data;
-                //console.log($scope.dataList)
                 $scope.pagination.totalCount = result.pageInfo.totalCount;
                 $rootScope.$emit('changeMenu');
             });

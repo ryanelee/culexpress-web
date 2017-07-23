@@ -89,9 +89,14 @@ angular.module('culAdminApp')
                     plugMessenger.info("请填写支付备注信息");
                     return;
                 }
+
+                var operationType = "3";//金额大于0视为赠送
+                if($scope.data.fee < 0)
+                    operationType = "1";//金额小于
+
                 customerService.refundRecharge({
                     "customerNumber": $scope.tpl_status.customerNumber,
-                    "operationType": "1", //固定不动，4代表退运费
+                    "operationType": operationType, //固定不动，4代表退运费
                     "memo": $scope.data.memo,
                     "payment": $scope.data.fee //支付金额
                 }, function(result) {

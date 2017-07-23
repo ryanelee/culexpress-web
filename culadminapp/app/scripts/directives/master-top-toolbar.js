@@ -35,7 +35,6 @@ angular.module('culAdminApp')
                     $rootScope.getmessageList = function () {
                         // status: 'Processing' 
                         faqService.getMessageOperationlog({ status: 'Processing', noMessageType: 28 }, function (result) {
-                            console.log(result);
                             $scope.tipMessage = result.data;
                             $scope.tipMessageLength = result.data.length;
                         })
@@ -44,11 +43,8 @@ angular.module('culAdminApp')
                     $rootScope.getIdMessageList = function () {
                         // status: 'Processing' 
                         faqService.getMessageOperationlog({ status: 'Processing', messageTypes: 28 }, function (result) {
-                            console.log('ID');
-                            console.log(result);
                             $scope.idMessage = result.data;
                             $scope.idCardLength = result.data.length;
-                            console.log($scope.idCardLength);
                         })
                     }
                     $scope.$on("updateMessageList", function () {
@@ -72,7 +68,6 @@ angular.module('culAdminApp')
                         $location.path("/customer/faqdetail").search({ messageNumber: message.messageNumber });
                     }
                     $scope.btnViewAddressMessage = function (message) {
-                        console.log(message);
                         faqService.updateMessageOperation({ messageNumber: message.messageNumber }).then(function (data) {
                             if (message.authType == 2) {
                                 $location.path("/customer/idauth").search({ authType: 2 });

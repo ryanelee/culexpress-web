@@ -62,7 +62,6 @@ angular.module('culAdminApp')
                 }
                 _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 customerService.getList(_options, function (result) {
-                    console.log(result)
                     $scope.dataList = result.data;
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
                     $rootScope.$emit('changeMenu');
@@ -113,7 +112,6 @@ angular.module('culAdminApp')
 
 
             $scope.btnMessage = function (event) {
-                console.log($scope.message);
                 if (!$scope.message.message) {
                     plugMessenger.info("请填写留言信息");
                     return;
@@ -167,7 +165,6 @@ angular.module('culAdminApp')
 
 
             $scope.btnApproveVIP = function (customer) {
-                console.log(customer);
                 $scope.vipCustomer.customer = customer;
                 $scope.vipCustomer.vipStatus = "Approved";
                 $scope.vipCustomer.memo = ""; //customer.vipAuditMemo;
@@ -177,7 +174,6 @@ angular.module('culAdminApp')
 
 
             $scope.btnApproveVIP = function (customer) {
-                console.log(customer);
                 $scope.vipCustomer.customer = customer;
                 $scope.vipCustomer.vipStatus = "Approved";
                 $scope.vipCustomer.memo = ""; //customer.vipAuditMemo;

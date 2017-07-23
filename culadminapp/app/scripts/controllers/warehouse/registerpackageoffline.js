@@ -36,7 +36,6 @@ angular.module('culAdminApp')
                             if (!$scope.data) {
                                 $scope.data = result.data[0];
                             }
-                            console.log(result);
                             var _checked = false;
                             $.each($scope.data.outboundPackages, function (index, item) {
                                 if (!item.checked) {

@@ -27,7 +27,6 @@ angular.module('culAdminApp')
                 }
 
                 $scope.$on("print-idcardImg.action", function(e, data) {
-                    console.log('hahahahah ')
                     $scope.dataList = data.data;
                     _render();
                 });

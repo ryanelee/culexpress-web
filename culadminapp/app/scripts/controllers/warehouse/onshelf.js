@@ -120,7 +120,6 @@ angular.module('culAdminApp')
 
             $scope.getData = function() {
                     shelfService.getTransportList(_filterOptions(), function(result) {
-                        console.log("result",result);
                         var __data = result.data;
                         var _data = [];
 
@@ -156,7 +155,6 @@ angular.module('culAdminApp')
                         }
 
                         $scope.dataList = _data;
-                        console.log($scope.dataList)
                         $scope.pagination.totalCount = result.pageInfo.totalCount;
                         $rootScope.$emit("changeMenu");
                     });

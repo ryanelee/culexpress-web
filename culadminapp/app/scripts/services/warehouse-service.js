@@ -96,7 +96,6 @@ angular.module('culAdminApp')
         }
 
         self.getOutboundPackageList = function (options, callback) {
-            console.log(options);
             $http.post(cul.apiPath + "/outboundPackage/list", options).success(function (result) {
                 $.each(result.data, function (i, item) {
                     item._orderStatus = _getOrderStatus(item.orderStatus);
@@ -136,7 +135,6 @@ angular.module('culAdminApp')
                     if ($window.sessionStorage.getItem('role')) {
                         role = JSON.parse($window.sessionStorage.getItem('role'));
                     }
-                    console.log("role", role);
 
                     if (role && role.length > 0) {
                         role.forEach(function (item) {

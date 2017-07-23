@@ -83,7 +83,6 @@ angular.module('culAdminApp')
 
                         if (!result.message) {
                             $scope.data = result;
-                            console.log($scope.data);
                             $scope.receiptNumber = $location.search().receiptNumber;
                             $scope._itemType = $scope.data.itemNumber.substr(0, 2);
                             $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";

@@ -93,7 +93,6 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function () {
-                console.log("are you coming")
                 var _options = _filterOptions();
                 customerService.financeLogList(angular.copy(_options), function (result) {
                     $scope.dataList = result.data;

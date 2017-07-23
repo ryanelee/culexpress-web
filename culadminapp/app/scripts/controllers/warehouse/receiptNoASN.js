@@ -50,7 +50,6 @@ angular.module('culAdminApp')
             $scope.getPackageDetail = function () {
                 if (!!$scope.data.trackingNumber && $scope._trackingNumber != $scope.data.trackingNumber) {
                     warehouseService.getInboundPackageDetail($scope.data.trackingNumber, function (result) {
-                        console.log("result", result);
                         if (result == null) {
                             // trackingNumber.focus();
                             warehouseNumber.focus();
@@ -72,7 +71,6 @@ angular.module('culAdminApp')
                             $scope.tpl_status.isExist_p = true;
 
                             if ($scope.data.trackingNumber && $scope.data.inboundStatus < 3) {
-                                console.log(123456)
                                 // $window.document.getElementById("packageWeight").focus();
                                 packageWeight.focus();
                                 $scope.tpl_status.isExist_p = false;
@@ -111,7 +109,6 @@ angular.module('culAdminApp')
                     detail['key'] = result[i].warehouseNumber
                     detail['value'] = result[i].warehouseName;
                     $scope.warehouseList.push(detail);
-                    console.log($scope.warehouseList);
                     $scope.getPackageDetail();
 
                 }

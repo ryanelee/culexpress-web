@@ -54,8 +54,6 @@ angular.module('culAdminApp')
                     warehouseName: $scope.data.warehouseName,
                     moveItemCount: $scope.data.moveItemCount
                 }
-                console.log("*********************")
-                console.log(data)
                 shelfService.onshelfForMove(data, function(result) {
                     if (!result.message) {
                         plugMessenger.success("操作成功");

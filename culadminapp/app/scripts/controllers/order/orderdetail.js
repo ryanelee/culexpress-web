@@ -125,7 +125,6 @@ angular.module('culAdminApp')
                 customerMessageService.getDetail($scope.data.orderMessageNumber, function(result) {
                     $scope.data.messageLogs = [];
                     if (!!result) {
-                        console.log(result)
                         $scope.data.messageLogs = result.data.messageLogs;
                         if($scope.data.messageLogs) {
                             $scope.data.messageLogs.forEach(function (e) {

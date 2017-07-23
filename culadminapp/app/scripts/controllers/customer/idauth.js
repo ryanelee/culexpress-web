@@ -15,6 +15,5 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
-            console.log(1234567)  
             console.log($location.search().authType);
         }]);

@@ -64,7 +64,6 @@ angular.module('culAdminApp')
                                         payDate: $scope.dataList[i].payDate,
                                         tip: $scope.dataList[i].tip,
                                     }
-                                    console.log(e.shelfNumber);
                                     if (e.shelfNumber) {
                                         detail.sort = e.shelfNumber
                                     } else {
@@ -79,7 +78,6 @@ angular.module('culAdminApp')
                             
                             if (j % 10 == 0 || i == $scope.dataList.length - 1) {
                                 var tempshelf = _.sortBy(shelf.data, function(item) {
-                                    console.log("12",item);
                                     return item.sort;
                                 });
                                 shelf.data = tempshelf;
@@ -89,8 +87,6 @@ angular.module('culAdminApp')
 
                             }
                         }
-                        console.log('$scope.dataList');
-                        console.log($scope.dataList);
                         _render();
                     });
 

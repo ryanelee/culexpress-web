@@ -18,7 +18,8 @@ angular.module('culAdminApp')
             
             $scope.tpl_status = {
                 "rechargeType": [
-                    { "title": "全部", "value": "3,4" },
+                    { "title": "全部", "value": "1,3,4" },
+                    { "title": "支付宝人民币充值", "value": "1" },
                     { "title": "赠送", "value": "3" },
                     { "title": "退款", "value": "4" },
                 ]
@@ -94,14 +95,12 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function () {
-                console.log("这里有一个bug")
                 var _options = _filterOptions();
                 customerService.financeLogList(angular.copy(_options), function (result) {
                     $scope.allTotal = result.allTotal;
                     $scope.dataList = result.data;
                     $scope.pageInfo = result.pageInfo;
                     $scope.pagination.totalCount = $scope.pageInfo.totalCount;
-                    console.log(result)
                     // $scope.pagination.totalCount = result.pageInfo.totalCount;
                 });
             }

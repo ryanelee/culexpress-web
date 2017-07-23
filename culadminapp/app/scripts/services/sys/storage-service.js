@@ -37,8 +37,6 @@ angular.module('culAdminApp')
             },
             getSearchObject: function () {
                 var searchBar = "";
-                console.log('12');
-                console.log(this.session.getValue("historyFlag"));
                 if (this.session.getValue("historyFlag") == 1) {
                     if (this.session.getObject("searchBar")) {
                         searchBar = this.session.getObject("searchBar");

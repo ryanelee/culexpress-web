@@ -33,7 +33,6 @@ angular.module('culAdminApp')
                   warehouseService.getOutboundPackageList({
                       "orderNumber": $scope.orderNumbers
                   }, function (result) {
-                      console.log(result.data);
                       var _orderItems = {};
                       $.each(result.data, function (index, row) {
                           if (!_orderItems[row.orderNumber]) {

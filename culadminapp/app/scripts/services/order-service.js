@@ -95,7 +95,6 @@ angular.module('culAdminApp')
                         if (item.shipServiceId != 9 && address.item != 10) {
                             _str += address.address1;
                         } else {
-                            console.log("世界很美好")
                             _str = _str + address.addressPinyin + address.address1_before;
                         }
                         if (!!address.receiveCompanyName) _str += address.receiveCompanyName;
@@ -111,9 +110,12 @@ angular.module('culAdminApp')
                     });
                     // 入库单号list
                     item._inboundTrackingNumbers = [];
-                    $.each(item.inboundPackages, function (i, inboundPackage) {
-                        item._inboundTrackingNumbers.push(inboundPackage.trackingNumber);
-                    });
+
+                    if(item.inboundPackages && item.inboundPackages.length > 0){
+                        $.each(item.inboundPackages, function (i, inboundPackage) {
+                            item._inboundTrackingNumbers.push(inboundPackage.trackingNumber);
+                        });
+                    }                    
                 });
                 callback(result);
             });

@@ -45,7 +45,6 @@ angular.module('culAdminApp')
                 if (result && result.images)
                     $scope.images = result.images.split(',');
                 $scope.data = result;
-                console.log(result)
                 faqService.getMessagelog({ messageNumber: $scope.tpl_status.messageNumber }, function (logs) {
                     $scope.logs = logs.data;
                     var _messageType = $.grep($scope.tpl_status.messageTypeData, function (n) { return n.typeID == $scope.data.messageType });
