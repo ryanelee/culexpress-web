@@ -5,7 +5,7 @@
  * @name culAdminApp.controller:FinanceRecordRechargeLogsCtrl
  * @description
  * # FinanceDetailRechargeLogsCtrl
- * Controller of the culAdminApp
+ * Controller of the culAdminApp 
  */
 angular.module('culAdminApp')
     .controller('FinancePointRechargeLogsCtrl', ["$scope", "$location", "$filter", "customerService", "settlementService", "plugMessenger",
@@ -37,7 +37,7 @@ angular.module('culAdminApp')
 
                 customerNumber: $location.search().customerNumber,
                 selectedAll: false,
-                rechargeType: "3,4",
+                rechargeType: "1,3,4",
                 keywordType: "customerNumber",
                 dateRange: "",
                 startDate: "",

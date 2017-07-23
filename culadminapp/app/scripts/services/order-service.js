@@ -158,7 +158,7 @@ angular.module('culAdminApp')
         }
 
         self.delete = function (searchOrder, callback) {
-            $http.delete(cul.apiPath + "/order?number=" + searchOrder.orderNumber + "&orderNumberList=" + searchOrder.orderNumberList).success(function (result) {
+            $http.delete(cul.apiPath + "/order?number=" + searchOrder.orderNumber + "&orderNumberList=" + searchOrder.orderNumberList+"&deleteMessage="+searchOrder.deleteMessage).success(function (result) {
                 callback(result);
             });
         }
