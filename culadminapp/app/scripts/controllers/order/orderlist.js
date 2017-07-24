@@ -220,27 +220,29 @@ angular.module('culAdminApp')
             }
 
             $scope.btnDelete = function (item) {
-                console.log('item', item);
-                console.log("deleteMessage", $scope.deleteMessage);
                 if (!$scope.deleteMessage) {
-                    return plugMessenger.info("删除原因不能为空")
+                    return plugMessenger.info("删除原因不能为空");
                 }
                 item.deleteMessage = $scope.deleteMessage;
                 $scope.searchOrder = {};
                 if (item instanceof Array) {
                     $scope.searchOrder.orderNumberList = item;
                 } else {
-                    $scope.searchOrder.orderNumber = item.orderNumber
+                    $scope.searchOrder.orderNumber = item.orderNumber;
                 }
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
                 plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
                     if (!!isOK) {
                         $("#confirm-modal").modal("hide");
-                        item.deleteMessage = "";
-                        orderService.delete($scope.searchOrder, function () {
-                            plugMessenger.info("删除成功");
-                            $scope.getData();
-                            $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
+                        console.log($scope.searchOrder);   
+                        orderService.delete($scope.searchOrder, function (err) {
+                            if(!err){
+                                plugMessenger.info("删除成功");
+                                item.deleteMessage = "";
+                                $scope.deleteMessage = "";
+                                $scope.getData();
+                                $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
+                            }
                         });
                     }
                 });

@@ -173,7 +173,7 @@
                     <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
                     <!--<td style="max-width: 200px;">{{item.referenceOrderNumber || '-'}}</td>-->
                     <td style="max-width: 150px;">
-                        <div ng-repeat="pkg in item._outboundTrackingNumbers">{{pkg}}</div>
+                        <div ng-repeat="pkg in item._outboundTrackingNumbers track by $index">{{pkg}}</div>
                     </td>
                     <td style="max-width:150px;">{{item.warehouseName}}</td>
                     <td style="max-width:150px;">{{item.shipServiceName}}</td>

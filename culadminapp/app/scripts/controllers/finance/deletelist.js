@@ -136,8 +136,7 @@ angular.module('culAdminApp')
                             $scope.dataList.push(e);
                         } 
                     })
-                     console.log(" $scope.dataList", $scope.dataList);
-                     $scope.pagination.totalCount =  $scope.dataList.length;
+                    $scope.pagination.totalCount =  $scope.dataList.length;
 
                     $.each($scope.dataList, function(i, item) {
                         item._selected = $.grep($scope.selectedListCache, function(n) { return n.orderNumber == item.orderNumber }).length > 0;
