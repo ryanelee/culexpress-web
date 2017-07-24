@@ -35,7 +35,8 @@ angular.module('culAdminApp')
                             $scope.data = {
                                 itemNumber: result[0].itemNumber,
                                 warehouseNumber: result[0].warehouseNumber,
-                                inventory: result[0].inventory,
+                                // inventory: result[0].inventory,
+                                inventory: 0,
                                 weight: result[0].weight,
                                 reason: ""
                             }

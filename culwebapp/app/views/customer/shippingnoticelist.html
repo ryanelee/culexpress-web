@@ -56,16 +56,6 @@
                                 </a>
                             </label>
                         </div>
-                        <div style="float:right">
-                        <label>每页显示</label>
-                        <select class="form-control" ng-model="pageSize">
-                            <option :value="10">10</option>
-                            <option :value="20">20</option>
-                            <option :value="50">50</option>
-                            <option :value="100">100</option>
-                        </select>
-                        <label>页</label>
-                        </div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -164,7 +154,17 @@
                     </a>
                     <button type="button " class="btn-u btn-u-default " ng-click="goback() ">返回</button>
                 </div>
-                <div class="col-sm-6 text-right " style="margin:0;padding:0 10px; ">
+                <div class="col-sm-2 text-right " style="margin:0;padding:0 10px; ">
+                    <label style="float:right">条</label>
+                    <select style="width:40px;float:right" class="form-control" ng-model="pageSize" ng-change="onPaged">
+                        <option :value="10">10</option>
+                        <option :value="20">20</option>
+                        <option :value="50">50</option>
+                        <option :value="100">100</option>
+                    </select>
+                    <label style="float:right">每页</label>
+                </div>
+                <div class="col-sm-4 text-right " style="margin:0;padding:0 10px; ">
                     <pagination options="pagedOptions " on-page="onPaged "></pagination>
                 </div>
             </div>
