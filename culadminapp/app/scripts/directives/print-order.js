@@ -41,7 +41,6 @@ angular.module('culAdminApp')
                     } 
                     orderService.getList(_options, function(result) {
                         $scope.dataList = result.data;
-                        getOrderMessage();
                         $.each($scope.dataList, function(i, _data) {
                             _data._shippingFeeTotal = 0;
                            
@@ -85,11 +84,21 @@ angular.module('culAdminApp')
                                 shelf = { flag: "shelf", data: [] }
                                 i++;
 
-                            }
-                        }
-                        _render();
+                            }                         
+                        } 
+                        $.each($scope.dataList, function(i, _data) {
+                            customerMessageService.getDetail(_data.orderMessageNumber, function(result) {
+                                if (result.data) {;
+                                    if(result.data.messageLogs) {                              
+                                        _data._orderMessage = result.data.messageLogs[0].message                                                          
+                                    }
+                                }
+                                if (i == ($scope.dataList.length - 1)){
+                                    _render()
+                                }
+                            });
+                        }); 
                     });
-
                     //$.each($scope.orderNumbers, function (index, ordeNumber) {
                     //    orderService.getDetail(ordeNumber, function (result) {
                     //        $scope.dataList.push(result);
@@ -97,20 +106,6 @@ angular.module('culAdminApp')
                     //    });
                     //});
                 });
-
-                var getOrderMessage = function() {
-                    $scope.dataList.forEach(function (order) {
-                        customerMessageService.getDetail(order.orderMessageNumber, function(result) {
-                            $scope.dataList.messageLogs = [];
-                            if (result.data) {
-                                $scope.dataList.messageLogs = result.data.messageLogs;
-                                if($scope.dataList.messageLogs) {                              
-                                    order._orderMessage = $scope.dataList.messageLogs[0].message                                                           
-                                }
-                            }
-                        });
-                    })
-                }
                 var _render = function() {
                     if ($scope.dataList.length == $scope.dataList.length) {
                         $timeout(function() {
