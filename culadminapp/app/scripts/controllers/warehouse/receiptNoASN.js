@@ -52,6 +52,7 @@ angular.module('culAdminApp')
                     warehouseService.getInboundPackageDetail($scope.data.trackingNumber, function (result) {
                         if (result == null) {
                             // trackingNumber.focus();
+                            $scope.isWarehouseRight = true;
                             warehouseNumber.focus();
                             //新增
                             var _newNumber = angular.copy($scope.data.trackingNumber);
@@ -383,7 +384,8 @@ angular.module('culAdminApp')
             $scope.updateWarehouse = function (warehouseNumber) {
                 warehouseService.updateWareInboundpackage($scope.data, function (result) {
                     if (result.code == '000') {
-                        plugMessenger.success("更新成功")
+                        $scope.isWarehouseRight = true;
+                        plugMessenger.success("更新成功");
                     }
                 })
             }
