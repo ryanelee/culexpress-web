@@ -67,6 +67,7 @@ angular
                     minFileCount: 2, //同一时间上传的最小
                     maxFileCount: 2, //同一时间上传的最大数量
                     resizePreference: 'height',
+                    maxFileSize: 5000,
                     overwriteInitial: false,
                     uploadLabel: "上传",
                     browseLabel: "选择图片",
@@ -133,7 +134,7 @@ angular
                 });
             }
 
-             $('#fileTw').on('fileclear', function (event) {
+            $('#fileTw').on('fileclear', function (event) {
                 //console.log("fileclear");
                 $scope.data.urls = [];
             });
