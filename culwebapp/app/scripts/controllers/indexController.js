@@ -33,6 +33,7 @@ angular
 
             $scope.getMessageOperationlog = function() {
                 Customer.getMessageOperationlog().then(function(data) {
+                    console.log("data-->",data)
                     $scope.tipMessageList = data.data.data;
                     $scope.tipMessageLength = data.data.data.length;
                 })
@@ -40,7 +41,7 @@ angular
             if ($scope.isLogined) {
                 $scope.getMessageOperationlog();
             }
-
+ 
 
             // $scope.load = function() {  
             //     $scope.tipMessageLength = $scope.tipMessageList.length;  

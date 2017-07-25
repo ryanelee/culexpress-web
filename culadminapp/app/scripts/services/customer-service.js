@@ -113,6 +113,7 @@ angular.module('culAdminApp')
         }
 
          self.addCustomerMessage = function (questionItem, callback) {
+            console.log("questionItem",questionItem);
             return $http.post(cul.apiPath + '/customermessage', {
                 customerNumber: questionItem.customerNumber,
                 messageType: questionItem.messageType,

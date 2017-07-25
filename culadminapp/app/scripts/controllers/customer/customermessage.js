@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * @ngdoc function
+ * @ngdoc function 
  * @name culAdminApp.controller:CustomerMessageCtrl
  * @description
  * # CustomerMessageCtrl
@@ -21,6 +21,7 @@ angular.module('culAdminApp')
 
           $scope.customerNumber = $location.search().customerNumber;
           customerService.getDetail($scope.customerNumber, function (result) {
+              console.log(" $scope.data", result);
               $scope.data = result;
               _buildUpload($('#uploadImg'), "images");
           });
@@ -39,6 +40,7 @@ angular.module('culAdminApp')
             $scope.message.messageType = 29;
             $scope.message.images = $scope.data.images;
             $scope.message.customerNumber = $scope.customerNumber;
+            $scope.message.userName = $scope.data.userName;
             customerService.addCustomerMessage($scope.message).then(function (result) {
                 //$scope.refreshMessage();
                 $scope.message.message = "";

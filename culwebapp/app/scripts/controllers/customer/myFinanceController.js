@@ -3,7 +3,7 @@
 angular
     .module('culwebApp')
     .controller('MyFinanceController', ['$scope', '$stateParams', '$window', '$location', 'Customer', 'AuthService',
-        function($scope, $stateParams, $window, $location, customer, AuthService) {
+        function ($scope, $stateParams, $window, $location, customer, AuthService) {
             if (App) {
                 App.init();
                 App.initCounter();
@@ -21,21 +21,22 @@ angular
             //});
 
             customer.getCustomerInfo($scope.currentUser.customerNumber)
-                .then(function(result) {
+                .then(function (result) {
                     $scope.currentUser.accountBalance = result.data.accountBalance;
+                    AuthService.setUser($scope.currentUser);
                 });
 
 
             var model = $scope.model = {
 
-                },
+            },
                 operationType = 1;
 
             if ($scope.currentTabId === 'debit') {
                 operationType = 2;
             }
 
-            $scope.userPay = function() {
+            $scope.userPay = function () {
                 var currentCustomer = AuthService.getUser();
                 if (!currentCustomer) {
                     alertify.alert('提醒', '请先登录.', 'warning');
@@ -58,17 +59,17 @@ angular
                 total: 0,
                 size: 10
             }
-            var loadFinanceLog = function(index, callback) {
+            var loadFinanceLog = function (index, callback) {
                 customer.getFinanceLog(index, $scope.currentUser.customerNumber, operationType)
-                    .then(function(result) {
+                    .then(function (result) {
                         console.log(result);
                         callback && callback(result);
                     });
             }
 
 
-            $scope.onPaged = function(pageIndex) {
-                loadFinanceLog(pageIndex, function() {
+            $scope.onPaged = function (pageIndex) {
+                loadFinanceLog(pageIndex, function () {
                     $scope.myfinanceListData = result.data.data;
                     $scope.pagedOptions.total = result.data.pageInfo.totalCount;
                 });
@@ -78,14 +79,14 @@ angular
             $scope.myDebitListData = []
 
 
-            $scope.onDebitPaged = function(pageIndex) {
-                loadFinanceLog(pageIndex, function(result) {
+            $scope.onDebitPaged = function (pageIndex) {
+                loadFinanceLog(pageIndex, function (result) {
                     $scope.myDebitListData = result.data.data;
                     $scope.pagedDebitOptions.total = result.data.pageInfo.totalCount;
                 });
             }
             if ($location.path() === '/customer/myfinancedetail/recharge' || $location.path() === '/customer/myfinancedetail/debit') {
-                loadFinanceLog(1, function(result) {
+                loadFinanceLog(1, function (result) {
                     if (operationType === 1) {
                         $scope.myfinanceListData = result.data.data;
                         $scope.pagedOptions.total = result.data.pageInfo.totalCount;
