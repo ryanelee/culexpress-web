@@ -222,7 +222,13 @@ angular.module('culAdminApp')
                 $(event.currentTarget).parents("#confirm-modal").modal("hide");
             }
 
-
-
+            $('#idauth_cul').popover({
+                container: 'body',
+                placement: 'top',
+                html: true,
+                trigger: 'hover',
+                title: '',
+                content: "批量下载图片较慢，<br/>请耐心等待，尽量不要全导出，<br/>那样需要等待很长时间。"
+            });
 
         }]);
