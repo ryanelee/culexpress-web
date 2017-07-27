@@ -40,7 +40,7 @@ angular.module('culAdminApp')
             if (!!$scope.tpl_status.bucketNumber) {
                 bucketService.getDetail($scope.tpl_status.bucketNumber, function (result) {
                     $scope.data = result;
-                    // console.log("result", result);
+                    console.log("result", result);
                     if ($scope.data.detail[0]) {
                         $scope.data.detail.forEach(function (e) {
                             e.totalWeight = 0;
@@ -185,6 +185,14 @@ angular.module('culAdminApp')
                     //         })
                     //     } 
                     // }
+                    if (!!_bag) {
+                        if (_bag.packages && _bag.packages[0]) {
+                            $scope.data.packageList = [];
+                            _bag.packages.forEach((e) => {
+                                $scope.data.packageList.push(e)
+                            })
+                        } 
+                    }
                     if (!!_box) _array.push(_box.name);
                     if (!!_bag) _array.push(_bag.name);
 
@@ -363,6 +371,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSave = function () {
+                console.log($scope.data)
                 //修改总单
                 if (!!$scope.tpl_status.bucketNumber) {
                     bucketService.update($scope.data, function (result) {
@@ -374,7 +383,6 @@ angular.module('culAdminApp')
 
                     return;
                 }
-
                 //新建
                 bucketService.create($scope.data, function (result) {
                     if (!result.message) {
@@ -510,7 +518,6 @@ angular.module('culAdminApp')
             /**
              * 总重量校验
              */
-
             $scope.btnCheckWeight = function () {
                 if(!$scope._selectedPackage || !$scope._selectedPackage.totalWeight || $scope._selectedPackage.totalWeight < 0){
                     plugMessenger.info("称重重量无效!")
@@ -520,11 +527,16 @@ angular.module('culAdminApp')
                 var sumWeight = _.reduce($scope.data.packageList, function (m, n) {
                     return m + n.weight;
                 }, 0);
+
+                var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
+                    _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
+                    _selected_bag = _.findWhere(_bags, { _selected: true });
                 // let allowDevision = parseFloat(parseFloat($scope.cul.bagWeight || 0) + 1);
                 if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined) {
                     var compareWeight = parseFloat(sumWeight) + parseFloat($scope.cul.bagWeight);
                     if ((compareWeight - parseFloat($scope._selectedPackage.totalWeight)) < 1 && (compareWeight - parseFloat($scope._selectedPackage.totalWeight)) > -1) {
                         // if ($scope.selectPkgTotalWeight - allowDevision <= $scope._selectedPackage.totalWeight && $scope.selectPkgTotalWeight + allowDevision >= $scope._selectedPackage.totalWeight) {
+                        _selected_bag.isCheckWeight = true
                         plugMessenger.info("校验成功！");
                     } else {
                         // plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量[" + $scope.selectPkgTotalWeight + "]!")

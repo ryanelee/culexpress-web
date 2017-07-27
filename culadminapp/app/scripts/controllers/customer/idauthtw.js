@@ -104,7 +104,7 @@ angular.module('culAdminApp')
                 $scope.index = index;
                 if (flag == 0) {
                     $scope.validateType = 0;
-                    $scope.idRemark = $scope._address.idRemark;
+                    // $scope.idRemark = $scope._address.idRemark;
                 } else {
                     $scope.idRemark = "";
                 }
@@ -215,4 +215,13 @@ angular.module('culAdminApp')
                 $scope.validateType = 1;
                 $(event.currentTarget).parents("#confirm-modal").modal("hide");
             }
+
+            $('#idauth_tw').popover({
+                container: 'body',
+                placement: 'top',
+                html: true,
+                trigger: 'hover',
+                title: '',
+                content: "批量下载图片较慢，<br/>请耐心等待，尽量不要全导出，<br/>那样需要等待很长时间。"
+            });
         }]);

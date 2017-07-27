@@ -59,7 +59,8 @@
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                     <!--<button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnPrint()">批量打印</button>-->
                     <a class="btn btn-primary" style="margin-left:5px;" href="{{api}}/exportReceiveaddressList?{{searchBar.keywordType}}={{searchBar.keywords}}">导出</a>
-                    <a  class="btn btn-primary"   style="margin-left:5px;" href="{{api}}/downIdImage?{{searchBar.keywordType}}={{searchBar.keywords}}" >批量下载图片</a><small>批量下载图片较慢，请耐心等待，尽量不要全导出，那样需要等待很长时间</small>
+                    <a  class="btn btn-primary"   style="margin-left:5px;" href="{{api}}/downIdImage?{{searchBar.keywordType}}={{searchBar.keywords}}" >批量下载图片</a>
+                    <button id="idauth_cul" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
                     <!--<button type="button" class="btn btn-primary"  style="margin-left:5px;" ng-click="btnDownload()">批量下载图片</button>-->
                 </div>
             </div>
