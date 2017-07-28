@@ -130,6 +130,7 @@ angular.module('culAdminApp')
                     $scope.dataList = result.data;
                     //console.log($scope.dataList)
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
+                    $rootScope.$emit('changeMenu');
 
                     $.each($scope.dataList, function (i, item) {
                         item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
@@ -143,6 +144,7 @@ angular.module('culAdminApp')
                 if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
                 //新导出逻辑
                 $scope.exportOptions = $.extend({ token: _token }, _options);
+                
             }
 
             $scope.btnSearch = function () {

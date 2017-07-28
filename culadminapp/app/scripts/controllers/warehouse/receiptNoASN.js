@@ -52,6 +52,7 @@ angular.module('culAdminApp')
                     warehouseService.getInboundPackageDetail($scope.data.trackingNumber, function (result) {
                         if (result == null) {
                             // trackingNumber.focus();
+                            $scope.isWarehouseRight = true;
                             warehouseNumber.focus();
                             //新增
                             var _newNumber = angular.copy($scope.data.trackingNumber);

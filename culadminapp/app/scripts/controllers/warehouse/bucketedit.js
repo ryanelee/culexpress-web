@@ -272,10 +272,38 @@ angular.module('culAdminApp')
             }
 
             $scope.btnClose = function () {
-
+                var isCheckWeight = true
                 if (!$scope.data.packageList || $scope.data.packageList.length == 0) {
                     plugMessenger.info("该总单没有扫描任何包裹不能关闭!");
                     return;
+                }
+
+                if ($scope.data.detail) {
+                    $scope.data.detail.forEach(function (e) {
+                        if (e.boxes && e.boxes[0]) {
+                            e.boxes.forEach(function (e1) {
+                                if (e1.bags && e1.bags[0]) {
+                                    e1.bags.forEach(function (e2) {
+                                        if (e2.isCheckWeight == false || e2.isCheckWeight == undefined) {
+                                            plugMessenger.info("该总单还有包裹未校验或者校验不成功，不能关闭!");
+                                            isCheckWeight = false;
+                                            return;
+                                        }
+                                    })
+                                }
+                            })              
+                        } else {
+                            if (e.bags && e.bags[0]) {
+                                e.bags.forEach(function (e2) {
+                                    if (e2.isCheckWeight == false || e2.isCheckWeight == undefined) {
+                                        plugMessenger.info("该总单还有包裹未校验或者校验不成功，不能关闭!");
+                                        isCheckWeight = false;
+                                        return;
+                                    }
+                                })
+                            }
+                        }
+                    })
                 }
 
                 if ($scope.data.flightNo == "" && $scope.data.flightNo.length <= 0) {
@@ -286,47 +314,49 @@ angular.module('culAdminApp')
                     plugMessenger.success("总单关闭成功");
                     $scope.btnPrev();
                 }
-
-                plugMessenger.confirm("所有已扫描包裹将变为已出库状态,确认关闭出库总单吗？", function (isOK) {
-                    if (isOK) {
-                        var _options = {
-                            "bucketNumber": $scope.tpl_status.bucketNumber,
-                            "flightNo": $scope.data.flightNo
-                        }
-                        bucketService.close(_options, function (result) {
-                            // console.log("result", result);
-
-                            if (!result.message) {
-                                var trackingNumbers = [];
-                                $.each($scope.data.packageList, function (i, item) {
-                                    trackingNumbers.push(item.trackingNumber);
-                                });
-
-                                warehouseService.outboundPackageShip(trackingNumbers, function (result) {
-                                    if (result.success == true) {
-                                       _callback();
-                                    }
-                                });
-                                // bucketService.updateculBucket($scope.data.packageList, function (result) {
-                                //     _callback();
-                                // })
-                                // 获取包裹信息
-                                // $scope.data.packageList.forEach(function (pkg) {
-                                //     orderService.getOutboundPackage(pkg.trackingNumber, function (result) {
-                                //         $scope.packages = result;
-                                //         $scope.packages.status = "Shipped";
-
-                                //         orderService.updateOutboundPackage($scope.packages, function (result) {
-                                //             if (!result.message) {
-                                //                 $scope.btnPrev();
-                                //             }
-                                //         })
-                                //     });
-                                // });
+                if (isCheckWeight != false) {
+                    plugMessenger.confirm("所有已扫描包裹将变为已出库状态,确认关闭出库总单吗？", function (isOK) {
+                        if (isOK) {
+                            var _options = {
+                                "bucketNumber": $scope.tpl_status.bucketNumber,
+                                "flightNo": $scope.data.flightNo
                             }
-                        });
-                    }
-                });
+                            bucketService.close(_options, function (result) {
+                                // console.log("result", result);
+
+                                if (!result.message) {
+                                    var trackingNumbers = [];
+                                    $.each($scope.data.packageList, function (i, item) {
+                                        trackingNumbers.push(item.trackingNumber);
+                                    });
+
+                                    warehouseService.outboundPackageShip(trackingNumbers, function (result) {
+                                        if (result.success == true) {
+                                        _callback();
+                                        }
+                                    });
+                                    // bucketService.updateculBucket($scope.data.packageList, function (result) {
+                                    //     _callback();
+                                    // })
+                                    // 获取包裹信息
+                                    // $scope.data.packageList.forEach(function (pkg) {
+                                    //     orderService.getOutboundPackage(pkg.trackingNumber, function (result) {
+                                    //         $scope.packages = result;
+                                    //         $scope.packages.status = "Shipped";
+
+                                    //         orderService.updateOutboundPackage($scope.packages, function (result) {
+                                    //             if (!result.message) {
+                                    //                 $scope.btnPrev();
+                                    //             }
+                                    //         })
+                                    //     });
+                                    // });
+                                }
+                            });
+                        }
+                    });
+                }
+                
             }
 
             $scope.btnAdd = function (type) {
@@ -371,7 +401,6 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSave = function () {
-                console.log($scope.data)
                 //修改总单
                 if (!!$scope.tpl_status.bucketNumber) {
                     bucketService.update($scope.data, function (result) {
@@ -536,7 +565,7 @@ angular.module('culAdminApp')
                     var compareWeight = parseFloat(sumWeight) + parseFloat($scope.cul.bagWeight);
                     if ((compareWeight - parseFloat($scope._selectedPackage.totalWeight)) < 1 && (compareWeight - parseFloat($scope._selectedPackage.totalWeight)) > -1) {
                         // if ($scope.selectPkgTotalWeight - allowDevision <= $scope._selectedPackage.totalWeight && $scope.selectPkgTotalWeight + allowDevision >= $scope._selectedPackage.totalWeight) {
-                        _selected_bag.isCheckWeight = true
+                        _selected_bag.isCheckWeight = true;
                         plugMessenger.info("校验成功！");
                     } else {
                         // plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量[" + $scope.selectPkgTotalWeight + "]!")
