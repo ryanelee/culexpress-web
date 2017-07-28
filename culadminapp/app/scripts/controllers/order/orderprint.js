@@ -148,6 +148,7 @@ angular.module('culAdminApp')
                 orderService.getList(_filterOptions(), function(result) {
                     $scope.dataList = result.data;
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
+                    $rootScope.$emit('changeMenu');
 
                     $.each($scope.dataList, function(i, item) {
                         item._selected = $.grep($scope.selectedListCache, function(n) { return n.orderNumber == item.orderNumber }).length > 0;

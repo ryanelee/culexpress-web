@@ -6,7 +6,7 @@
  * @description
  * # OrderListCtrl 
  * Controller of the culAdminApp
- */
+ */ 
 angular.module('culAdminApp')
     .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderService", "warehouseService", "plugMessenger", "storage", "$compile",
         function ($timeout, $window, $scope, $rootScope, $location, $filter, orderService, warehouseService, plugMessenger, storage, $compile) {
@@ -15,6 +15,7 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
+            console.log(23,$window.sessionStorage.getItem("role"))
 
             $scope.dataList = [];
             $scope.orderNumberList = [];
@@ -129,6 +130,7 @@ angular.module('culAdminApp')
                     $scope.dataList = result.data;
                     //console.log($scope.dataList)
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
+                    $rootScope.$emit('changeMenu');
 
                     $.each($scope.dataList, function (i, item) {
                         item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
@@ -142,6 +144,7 @@ angular.module('culAdminApp')
                 if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
                 //新导出逻辑
                 $scope.exportOptions = $.extend({ token: _token }, _options);
+                
             }
 
             $scope.btnSearch = function () {
@@ -233,15 +236,18 @@ angular.module('culAdminApp')
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
                 plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
                     if (!!isOK) {
+                        console.log("are you ok");
                         $("#confirm-modal").modal("hide");
-                        console.log($scope.searchOrder);   
-                        orderService.delete($scope.searchOrder, function (err) {
-                            if(!err){
+                        console.log($scope.searchOrder);
+                        orderService.delete($scope.searchOrder, function (result) {
+                            if (!result.success == true) {
                                 plugMessenger.info("删除成功");
                                 item.deleteMessage = "";
                                 $scope.deleteMessage = "";
                                 $scope.getData();
                                 $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
+                            } else {
+                                plugMessenger.info(result);
                             }
                         });
                     }

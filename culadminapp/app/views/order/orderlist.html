@@ -225,12 +225,17 @@
                     <td>{{item._orderStatus}}</td>
                     <!--<td>{{item.processStatus}}</td>-->
                     <td>{{item._printStatus}}</td>
-                    <td><a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)">删除</a></td>
+                    <td>
+                        <!-- 删除已支付和未支付订单 -->
+                        <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus == '未支付' || item._orderStatus == '已支付'">删除</a>
+                        <!-- 删除其他状态订单 -->
+                        <a href="javascript:void(0);" class="role" data-role="107" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus != '未支付' && item._orderStatus != '已支付'">删除</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
         <div class="row">
-            <div class="col-sm-1 text-left pull-left ">
+            <div class="text-left pull-left " style="margin-left:20px">
                 <!--<a class="btn btn-primary" target="_blank" ng-href="{{exportUrl}}">将结果导出Excel文件</a>-->
                 <form id="form_export" method="post" action="/" target="_blank">
                     <input id="dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.dateFrom}}" />
@@ -252,7 +257,7 @@
                     <button type="submit" class="btn btn-primary role" data-role="33">将结果导出Excel文件</button>
                 </form>
             </div>
-            <div class="col-sm-2 text-right pull-left" style="margin-left:75px">
+            <div class="text-right pull-left" style="margin-left:10px">
                 <form id="form_exportUSPS" method="post" action="/" target="_blank">
                     <input id="USPS_dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.dateFrom}}" />
                     <input id="USPS_dateTo" name="dateTo" type="hidden" value="{{exportOptions.dateTo}}" />
@@ -274,7 +279,7 @@
 
                 </form>
             </div>
-            <div class="col-sm-2 text-right pull-left" style="margin-left:75px">
+            <div class="text-right pull-left" style="margin-left:10px">
                 <button type="button" class="btn btn-primary" ng-click="delSomeOrder()" data-role="34"> 批量删除</button>
             </div>
         </div>

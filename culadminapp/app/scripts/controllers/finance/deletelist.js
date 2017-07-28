@@ -129,8 +129,13 @@ angular.module('culAdminApp')
                 orderService.getList(angular.copy(_options), function(result) {
                     $scope.dataList1 = result.data;
 
+
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
                     $scope.dataList = [];
+                  $scope.dataList1 =   _.sortBy($scope.dataList1,function(e){
+                        return  e.deleteTime;
+                    })
+                    $scope.dataList1.reverse()
                     $scope.dataList1.forEach(function(e) {
                         if (e.deleteMan) {
                             $scope.dataList.push(e);
