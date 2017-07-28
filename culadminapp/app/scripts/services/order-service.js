@@ -111,11 +111,11 @@ angular.module('culAdminApp')
                     // 入库单号list
                     item._inboundTrackingNumbers = [];
 
-                    if(item.inboundPackages && item.inboundPackages.length > 0){
+                    if (item.inboundPackages && item.inboundPackages.length > 0) {
                         $.each(item.inboundPackages, function (i, inboundPackage) {
                             item._inboundTrackingNumbers.push(inboundPackage.trackingNumber);
                         });
-                    }                    
+                    }
                 });
                 callback(result);
             });
@@ -158,7 +158,8 @@ angular.module('culAdminApp')
         }
 
         self.delete = function (searchOrder, callback) {
-            $http.delete(cul.apiPath + "/order?number=" + searchOrder.orderNumber + "&orderNumberList=" + searchOrder.orderNumberList+"&deleteMessage="+searchOrder.deleteMessage).success(function (result) {
+            $http.delete(cul.apiPath + "/order?number=" + searchOrder.orderNumber + "&orderNumberList=" + searchOrder.orderNumberList + "&deleteMessage=" + searchOrder.deleteMessage).success(function (result) {
+                console.log("result", result)
                 callback(result);
             });
         }
@@ -312,8 +313,8 @@ angular.module('culAdminApp')
         }
 
         self.getOrderCommentsList = function (options, callback) {
-            $http.post(cul.apiPath + "/customermessage/order/list", options).success(function (result){
-                 callback(result);
+            $http.post(cul.apiPath + "/customermessage/order/list", options).success(function (result) {
+                callback(result);
             })
         }
 
