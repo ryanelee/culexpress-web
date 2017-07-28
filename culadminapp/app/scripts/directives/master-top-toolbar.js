@@ -26,6 +26,10 @@ angular.module('culAdminApp')
                         $location.path("/customer/messagelist");
                     }
 
+                    $scope.btnVieIdauthList = function () {
+                        $location.path("/customer/idauth");
+                    }
+
                     $scope.getVipAndMsg = function () {
                         customerService.getVipAndMsg({}, function (result) {
                             $scope.vipCount = result.data.count;
