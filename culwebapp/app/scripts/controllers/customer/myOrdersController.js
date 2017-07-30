@@ -622,7 +622,7 @@ var app = angular
                         if (result.data.message) {
                             alertify.alert('错误', result.data.message);
                         }
-                    });
+                    }); 
             }
 
             $scope.payOrder = function(orderItem) {
@@ -637,7 +637,7 @@ var app = angular
                     // orderItem.totalCount = orderItem.shippingFee
                 }
 
-                if ($scope.$root.currentUser.accountBalance < orderItem.totalCount) {
+                if (AuthService.getUser().accountBalance < orderItem.totalCount) {
                     alertify.alert('提示', '您需要支付' + orderItem.totalCount + '元，而您的账户余额为' + $scope.$root.currentUser.accountBalance + '元,请充值后再进行支付!');
                     return false;
                 }

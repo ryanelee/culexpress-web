@@ -175,7 +175,7 @@ angular.module('culAdminApp')
                         $scope.selectedListCache.push(angular.copy(item));
                     } else if (!item._selected && isExists == true) {
                         $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
-                    }
+                    } 
                 });
                 var _orderNumbers = [];
                 var _options = _filterOptions();
@@ -214,7 +214,7 @@ angular.module('culAdminApp')
                     return;
                 } else {
                     $scope.btnDelete($scope.orderNumberList)
-                }
+                } 
             }
 
             $scope.btnDeleteApproval = function (item) {
@@ -240,14 +240,15 @@ angular.module('culAdminApp')
                         $("#confirm-modal").modal("hide");
                         console.log($scope.searchOrder);
                         orderService.delete($scope.searchOrder, function (result) {
-                            if (!result.success == true) {
+                            console.log("result",result);
+                            if (result.success == true) {
                                 plugMessenger.info("删除成功");
                                 item.deleteMessage = "";
                                 $scope.deleteMessage = "";
                                 $scope.getData();
                                 $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
                             } else {
-                                plugMessenger.info(result);
+                                // plugMessenger.info(result);
                             }
                         });
                     }
