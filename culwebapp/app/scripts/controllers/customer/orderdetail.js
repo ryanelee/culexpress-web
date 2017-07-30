@@ -46,9 +46,12 @@ angular.module('culwebApp')
             var orderId = $stateParams.id;
 
 
-            AuthService.getCustomerMessage({ customerNumber: AuthService.getUser().customerNumber }).then(function(result) {
-                $scope.currentUser = result.data
-            })
+            // AuthService.getCustomerMessage({ customerNumber: AuthService.getUser().customerNumber }).then(function(result) {
+            //     $scope.currentUser = result.data 
+            //     console.log("123", $scope.currentUser );
+            // })
+            $scope.currentUser = AuthService.getUser();
+            console.log("123", $scope.currentUser );
 
             $scope.data = {};
             $scope.data.orderMessageInfo = {};
@@ -163,7 +166,7 @@ angular.module('culwebApp')
                 }
 
                 if ($scope.currentUser.accountBalance < orderItem.totalCount) {
-                    alertify.alert('提示', '您需要支付' + orderItem.totalCount + '元，但您的余额已不足，为' + $scope.currentUser.accountBalane + ',请先充值!', 'warning');
+                    alertify.alert('提示', '您需要支付' + orderItem.totalCount + '元，但您的余额已不足，为' + $scope.currentUser.accountBalance + ',请先充值!', 'warning');
                     return false;
                 }
 
