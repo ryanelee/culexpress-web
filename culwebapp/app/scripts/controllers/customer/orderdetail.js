@@ -1,8 +1,8 @@
 ﻿'use strict';
 
-angular.module('culwebApp') 
-    .controller('OrderdetailCtrl', ['$scope', '$rootScope', 'OrderSvr', '$stateParams', '$state', '$location', 'AuthService',
-        function($scope, $rootScope, orderSvr, $stateParams, $state, $location, AuthService) {
+angular.module('culwebApp')
+    .controller('OrderdetailCtrl', ['$scope', '$rootScope', 'OrderSvr', '$stateParams', '$state', '$location', 'AuthService','Customer',
+        function ($scope, $rootScope, orderSvr, $stateParams, $state, $location, AuthService,customer) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -45,42 +45,53 @@ angular.module('culwebApp')
             }
             var orderId = $stateParams.id;
 
+            customer.getCustomerInfo($scope.currentUser.customerNumber)
+                .then(function (result) {
+                    $scope.currentUser.accountBalance = result.data.accountBalance;
+                    AuthService.setUser($scope.currentUser);
+                });
+
 
             // AuthService.getCustomerMessage({ customerNumber: AuthService.getUser().customerNumber }).then(function(result) {
             //     $scope.currentUser = result.data 
             //     console.log("123", $scope.currentUser );
             // })
             $scope.currentUser = AuthService.getUser();
-            console.log("123", $scope.currentUser );
+            console.log("123", $scope.currentUser);
+            customer.getCustomerInfo($scope.currentUser.customerNumber)
+                .then(function (result) {
+                    $scope.currentUser.accountBalance = result.data.accountBalance;
+                    AuthService.setUser($scope.currentUser);
+                });
 
             $scope.data = {};
             $scope.data.orderMessageInfo = {};
             if (orderId) {
                 orderSvr
                     .getOrderInfo(orderId)
-                    .then(function(result) {
+                    .then(function (result) {
                         $scope.data = result.data;
                         console.log('data.outboundPackages')
                         console.log($scope.data.outboundPackages)
 
-                        if($scope.data.actualWeight == 0 
-                            && $scope.data.inboundPackages && $scope.data.inboundPackages.length > 0){
-                                $scope.data.inboundPackages.forEach(function(i){
-                                    $scope.data.actualWeight += i.packageWeight;
-                                });
+                        if ($scope.data.actualWeight == 0
+                            && $scope.data.inboundPackages && $scope.data.inboundPackages.length > 0) {
+                            $scope.data.inboundPackages.forEach(function (i) {
+                                $scope.data.actualWeight += i.packageWeight;
+                            });
                         };
                         loadOrderMessage();
                     });
             }
 
-            
-            $scope.redirectToTrack = function() {
+
+            $scope.redirectToTrack = function () {
                 if (orderId) {
                     $location.path('/ordertracking/' + orderId);
                 }
             }
 
-            $scope.submitMessage = function() {
+            $scope.submitMessage = function () {
                 // 处理上传图片
                 $scope.imageArr.forEach(function (e, index) {
                     if (index == 0) {
@@ -97,12 +108,12 @@ angular.module('culwebApp')
                     }
                     orderSvr
                         .saveMessage($scope.data.orderMessageInfo)
-                        .then(function(result) {
+                        .then(function (result) {
                             if (result.data) {
                                 alertify.alert('提示', '留言成功');
                                 loadOrderMessage();
                             }
-                        }, function(result) {
+                        }, function (result) {
                             if (result.data && result.data.message) {
                                 alertify.alert('错误', result.data.message, 'error');
                             }
@@ -114,10 +125,10 @@ angular.module('culwebApp')
             }
             $scope.orderMessages = [];
             // $scope.orderMessages._images = [];
-            var loadOrderMessage = function() {
+            var loadOrderMessage = function () {
                 orderSvr
                     .getMessage($scope.data.orderMessageNumber)
-                    .then(function(result) {
+                    .then(function (result) {
                         if (result.data.messageLogs) {
                             $scope.orderMessages = result.data.messageLogs;
                             $scope.orderMessages.forEach(function (e, index) {
@@ -130,30 +141,30 @@ angular.module('culwebApp')
 
             }
 
-            $scope.deleteOrder = function(number) {
+            $scope.deleteOrder = function (number) {
                 if (!number) return false;
 
                 alertify.confirm('确认', '确定要取消订单[' + number + ']?',
-                    function() {
+                    function () {
                         orderSvr.deleteOrder(number)
-                            .then(function(result) {
+                            .then(function (result) {
                                 if (result.data.success) {
                                     alertify.success('取消订单成功.');
                                     returnToOrderList();
                                 }
-                            }, function(result) {
+                            }, function (result) {
                                 if (result.data.message) {
                                     alertify.alert('错误', result.data.message, 'error');
                                     returnToOrderList();
                                 }
                             });
                     },
-                    function() {
+                    function () {
                         alertify.error('已放弃取消订单!');
                     });
             }
 
-            $scope.payOrder = function(orderItem) {
+            $scope.payOrder = function (orderItem) {
                 if (!orderItem) return false;
                 if (!orderItem.totalCount) {
                     alertify.alert('提示', '订单还未计价,不能支付!', 'warning');
@@ -171,18 +182,18 @@ angular.module('culwebApp')
                 }
 
                 alertify.confirm('确认', '您将被扣款' + orderItem.totalCount + '元，确定支付订单?',
-                    function() {
+                    function () {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
 
                         var currentUser = AuthService.getUser();
 
                         orderSvr.paymentOrder(orderItem.orderNumber)
-                            .then(function(result) {
+                            .then(function (result) {
                                 if (result.data.success) {
                                     alertify.success('支付成功.');
 
                                     //支付之后刷新一下全局余额
-                                    $scope.$root.autologin(function(result) {
+                                    $scope.$root.autologin(function (result) {
                                         if (currentUser) {
                                             currentUser.accountBalance = result.accountBalance;
                                         }
@@ -193,25 +204,25 @@ angular.module('culwebApp')
                                     returnToOrderList();
                                 }
 
-                            }, function(result) {
+                            }, function (result) {
                                 if (result.data.message) {
                                     alertify.alert('错误', result.data.message, 'error');
                                 }
                             });
                     },
-                    function() {
+                    function () {
                         alertify.error('已取消支付订单!');
                     });
             }
 
 
-            var returnToOrderList = function() {
+            var returnToOrderList = function () {
                 $state.go('customer.myorders');
             }
 
 
 
-            $scope.redirectToAddressInfo = function(addressItem) {
+            $scope.redirectToAddressInfo = function (addressItem) {
                 $state.go('customer.myaddress', { addressId: addressItem.addressNumber });
             }
 

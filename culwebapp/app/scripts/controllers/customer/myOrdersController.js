@@ -2,22 +2,22 @@
 
 var app = angular
     .module('culwebApp')
-    .controller('MyOrdersController', ['$rootScope', '$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter', '$window', 'AuthService',
-        function($rootScope, $scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter, $window, AuthService) {
+    .controller('MyOrdersController', ['$rootScope', '$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter', '$window', 'AuthService','Customer',
+        function ($rootScope, $scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter, $window, AuthService,customer) {
             if (!$scope.$root.orderOptions) $scope.$root.orderOptions = {};
             $scope.orderItems = [];
-            $scope.addOrderItem = function($event, shippingItem) {
+            $scope.addOrderItem = function ($event, shippingItem) {
                 var orderItem = {
-                        id: shippingItem.orderItems.length + 1,
-                        packageNumber: shippingItem.trackingNumber,
-                        itemBrand: '',
-                        description: '',
-                        quantity: '',
-                        unitprice: ''
-                    },
+                    id: shippingItem.orderItems.length + 1,
+                    packageNumber: shippingItem.trackingNumber,
+                    itemBrand: '',
+                    description: '',
+                    quantity: '',
+                    unitprice: ''
+                },
                     items = shippingItem.orderItems;
 
-                $timeout(function() {
+                $timeout(function () {
                     if (!items) items = [];
                     items.push(orderItem);
 
@@ -28,12 +28,21 @@ var app = angular
             }
 
 
-            AuthService.getCustomerMessage({ customerNumber: $rootScope.currentUser.customerNumber }).then(function(result) {
+            AuthService.getCustomerMessage({ customerNumber: $rootScope.currentUser.customerNumber }).then(function (result) {
                 $scope.currentUser = result.data
             })
 
+            $scope.currentUser = AuthService.getUser();
+            customer.getCustomerInfo($scope.currentUser.customerNumber)
+                .then(function (result) {
+                    $scope.currentUser.accountBalance = result.data.accountBalance;
+                    console.log("2323",$scope.currentUser);
+                    // AuthService.setUser($scope.currentUser);
+                });
 
-            $scope.removeOrderItem = function($event, itemIndex, shippingItem) {
+
+
+            $scope.removeOrderItem = function ($event, itemIndex, shippingItem) {
                 if (shippingItem.orderItems.length > 1) {
                     $event.stopPropagation && $event.stopPropagation();
                     shippingItem.orderItems.splice(itemIndex, 1);
@@ -44,7 +53,7 @@ var app = angular
             }
 
 
-            $scope.usePointChanged = function() {
+            $scope.usePointChanged = function () {
                 var pointTotal = $scope.currentUser.myPoint;
 
                 if ($scope.data.usePoint > 30) {
@@ -65,7 +74,7 @@ var app = angular
             }
 
 
-            $scope.selectedChannel = function() {
+            $scope.selectedChannel = function () {
                 $scope.$root.orderOptions.shipServiceItem = $scope.data.shipServiceItem;
                 if (!!$scope.data.shipServiceItem) {
                     //var categoryItem = $filter('filter')($scope.warehouses, function (item) { return item.warehouseNumber === getWorkhouseNumber(); });
@@ -85,7 +94,7 @@ var app = angular
                 shippingPackageCount: ''
             }
 
-            var getWorkhouseNumber = function() {
+            var getWorkhouseNumber = function () {
                 if (!$scope.shippingItems || !$scope.shippingItems.length) return '';
                 return $scope.shippingItems[0].warehouseNumber;
             }
@@ -94,13 +103,13 @@ var app = angular
                 $scope.allShipChannels = [];
                 orderSvr
                     .getWarehouses()
-                    .then(function(result) {
+                    .then(function (result) {
                         console.log("result");
                         console.log(result);
                         // if (!window.sessionStorage.getItem('cache_warehouse')) {
-                            // window.sessionStorage.setItem('cache_warehouse', JSON.stringify(result.data));
+                        // window.sessionStorage.setItem('cache_warehouse', JSON.stringify(result.data));
                         // } else if (!$scope.shippingItems || $scope.shippingItems.length <= 0) {
-                            $scope.shippingItems = orderSvr.selectedShippingItems;
+                        $scope.shippingItems = orderSvr.selectedShippingItems;
                         // }
 
                         $scope.warehouses = result.data;
@@ -112,7 +121,7 @@ var app = angular
                             if ($state.current.name === 'customer.myorders' || $scope.warehouses[i].warehouseNumber == getWorkhouseNumber()) {
                                 var shipServiceList = $scope.warehouses[i].shipServiceList;
                                 for (var j = 0, jj = shipServiceList.length; j < jj; j++) {
-                                    var queried = $filter('filter')($scope.allShipChannels, function(channelItem) {
+                                    var queried = $filter('filter')($scope.allShipChannels, function (channelItem) {
                                         return channelItem.shipServiceId === shipServiceList[j].shipServiceId;
                                     });
                                     if (queried.length <= 0) {
@@ -131,7 +140,7 @@ var app = angular
                     if ($state.current.name === 'customer.myorders' || $scope.warehouses[m].warehouseNumber == getWorkhouseNumber()) {
                         var shipServiceList = $scope.warehouses[m].shipServiceList;
                         for (var n = 0, nn = shipServiceList.length; n < nn; n++) {
-                            var queried = $filter('filter')($scope.allShipChannels, function(channelItem) {
+                            var queried = $filter('filter')($scope.allShipChannels, function (channelItem) {
                                 return channelItem.shipServiceId === shipServiceList[n].shipServiceId;
                             });
                             if (queried.length <= 0) {
@@ -169,12 +178,12 @@ var app = angular
 
             $scope.addressListData = [];
             addressSvr.getAddressList(1, {
-                    userName: $scope.$root.currentUser.userName,
-                    emailAddress: $scope.$root.currentUser.emailAddress,
-                    customerNumber: $scope.$root.currentUser.customerNumber,
-                    verifyMark: 1
-                })
-                .then(function(result) {
+                userName: $scope.$root.currentUser.userName,
+                emailAddress: $scope.$root.currentUser.emailAddress,
+                customerNumber: $scope.$root.currentUser.customerNumber,
+                verifyMark: 1
+            })
+                .then(function (result) {
                     if (result.data) {
                         $scope.addressListData = result.data.data;
                     }
@@ -195,7 +204,7 @@ var app = angular
                 key: 'receiveTrackingNumber',
                 text: '预报快递单号'
             }
-            , {
+                , {
                 key: 'outBoundTrackingNumber',
                 text: '出库包裹编号'
             }
@@ -207,7 +216,7 @@ var app = angular
                 orderStatus: 'Unpaid',
 
             };
-            var initQueryParaData = function() {
+            var initQueryParaData = function () {
                 $scope.rangeItems = [{
                     key: 'last6Months',
                     text: '最近6个月'
@@ -234,45 +243,45 @@ var app = angular
             }
             $scope.orderListData = [];
             $scope.orderListData._orderMessageStatus = '0';
-            $scope.queryOrder = function(index, paras) {
+            $scope.queryOrder = function (index, paras) {
                 $scope.pagedOptions.index = index;
                 orderSvr
                     .getOrderList(index, angular.extend({
                         customerNumber: $scope.$root.currentUser.customerNumber,
                         orderStatus: $scope.queryPara.orderStatus
                     }, paras || {}))
-                    .then(function(result) {
+                    .then(function (result) {
                         if (result.data) {
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
-                            $scope.orderListData = result.data.data;                           
-                            getOrderMessageStatus()                       
+                            $scope.orderListData = result.data.data;
+                            getOrderMessageStatus()
                         }
                     });
             }
             $scope.queryOrder();
 
-            var getOrderMessageStatus = function() {
+            var getOrderMessageStatus = function () {
                 $scope.orderListData.forEach(function (order) {
                     orderSvr
-                    .getMessage(order.orderMessageNumber)
-                    .then(function(result) {
-                        if (result.data) {
-                            $scope.orderMessages = result.data.messageLogs;
-                            if($scope.orderMessages) {
-                                $scope.orderMessages.forEach(function (e) {
-                                    order._orderMessageStatus = e.status                           
-                                    if(e.status === '1'){
-                                        return
-                                    }
-                                })
+                        .getMessage(order.orderMessageNumber)
+                        .then(function (result) {
+                            if (result.data) {
+                                $scope.orderMessages = result.data.messageLogs;
+                                if ($scope.orderMessages) {
+                                    $scope.orderMessages.forEach(function (e) {
+                                        order._orderMessageStatus = e.status
+                                        if (e.status === '1') {
+                                            return
+                                        }
+                                    })
+                                }
                             }
-                        }
-                    })
+                        })
                 })
             }
             // getOrderMessageStatus();
 
-            $scope.rangSearch = function(rangeItem) {
+            $scope.rangSearch = function (rangeItem) {
                 $scope.queryPara = {
                     searchKeyName: 'orderNumber',
                     dateRange: 'last6Months',
@@ -284,28 +293,28 @@ var app = angular
                     dateTo: rangeItem.end
                 }));
             }
-            $scope.searchOrder = function() {
+            $scope.searchOrder = function () {
                 $scope.queryOrder(1, $scope.queryPara);
             }
 
 
-            $scope.onPaged = function(pageIndex) {
+            $scope.onPaged = function (pageIndex) {
                 $scope.queryOrder(pageIndex);
             }
 
-            $scope.changeQueryStaus = function(status) {
+            $scope.changeQueryStaus = function (status) {
                 $scope.queryPara.orderStatus = status || '';
                 $scope.queryOrder(1, $scope.queryPara);
             }
 
-            $scope.redirectToDetail = function(orderItem) {
+            $scope.redirectToDetail = function (orderItem) {
                 $state.go('customer.orderdetail', { id: orderItem.orderNumber });
             }
 
-            $scope.updateMessage = function(orderItem) {
+            $scope.updateMessage = function (orderItem) {
                 orderSvr
                     .updateMessageStatus(orderItem.orderMessageNumber)
-                    .then(function(result) {
+                    .then(function (result) {
                         if (result.data.success) {
                             // 更新成功
                         }
@@ -313,7 +322,7 @@ var app = angular
                 $scope.redirectToDetail(orderItem)
             }
 
-            var getShippingPackageCount = function(pageType) {
+            var getShippingPackageCount = function (pageType) {
                 var packageArr = [];
                 if (data.shippingPackageCount) {
                     for (var i = 0, ii = data.shippingPackageCount * 1; i < ii; i++) {
@@ -325,12 +334,12 @@ var app = angular
                 return packageArr;
             }
 
-            var getShippingAddressNumber = function() {
+            var getShippingAddressNumber = function () {
                 var addressArr = [];
                 var packageItems = getOutboundPackage('CUL');
                 for (var j = 0, jj = packageItems.length; j < jj; j++) {
                     var packageItem = packageItems[j],
-                        requied = $filter('filter')(addressArr, function(addressItem) {
+                        requied = $filter('filter')(addressArr, function (addressItem) {
                             return addressItem.addressNumber === packageItem.addressNumber;
                         });
                     if (!requied || !requied.length) {
@@ -344,13 +353,13 @@ var app = angular
             }
 
 
-            var getInboundPackages = function() {
+            var getInboundPackages = function () {
                 var packageArr = [];
                 if ($scope.shippingItems && $scope.shippingItems.length) {
                     for (var i = 0, ii = $scope.shippingItems.length; i < ii; i++) {
-                        var requied = $filter('filter')(packageArr, function(packageItem) {
-                                return packageItem.receiveTrackingNumber === $scope.shippingItems[i].trackingNumber;
-                            }),
+                        var requied = $filter('filter')(packageArr, function (packageItem) {
+                            return packageItem.receiveTrackingNumber === $scope.shippingItems[i].trackingNumber;
+                        }),
                             isFastOrder = $scope.shippingItems[0].isFastOrder;
                         if (!requied || !requied.length) {
                             packageArr.push($.extend({
@@ -364,7 +373,7 @@ var app = angular
                 return packageArr;
             }
 
-            var getOutboundPackage = function(pageType) {
+            var getOutboundPackage = function (pageType) {
                 var packageArr = [];
                 if ($scope.outboundPackages && $scope.outboundPackages.length) {
                     for (var i = 0, ii = $scope.outboundPackages.length; i < ii; i++) {
@@ -387,7 +396,7 @@ var app = angular
                 return packageArr;
             }
 
-            var getOrders = function() {
+            var getOrders = function () {
                 //if ($scope.orderItems.length > 0) return $scope.orderItems;
                 var orders = [];
                 $scope.data.declareGoodsValue = 0;
@@ -414,7 +423,7 @@ var app = angular
 
 
 
-            var getGoodsCategory = function() {
+            var getGoodsCategory = function () {
                 if (angular.isObject(data.goodsCategory)) {
                     return data.goodsCategory.goodsCategory;
                 } else {
@@ -425,7 +434,7 @@ var app = angular
                 orderItems: [{}]
             }];
 
-            $scope.orderBinning = function(binningItem) {
+            $scope.orderBinning = function (binningItem) {
                 var allItems = [],
                     newOutboundItem = angular.copy(binningItem),
                     packages = $.extend(true, [], $scope.outboundPackages);
@@ -443,13 +452,13 @@ var app = angular
                 $scope.outboundPackages = packages;
 
             }
-            $scope.selectedCategory = function(packageItem, propName, val) {
+            $scope.selectedCategory = function (packageItem, propName, val) {
                 packageItem[propName] = val;
                 if (propName == "currentCategory") {
                     packageItem.subCategories = [];
                     packageItem.goodsCategory = "";
                     if (!!val) {
-                        var subcategoryItems = $filter('filter')($scope.categories, function(categoryItem) { return categoryItem.parentid === val });
+                        var subcategoryItems = $filter('filter')($scope.categories, function (categoryItem) { return categoryItem.parentid === val });
                         if (!!subcategoryItems) {
                             packageItem.subCategories = subcategoryItems;
                             packageItem.goodsCategory = packageItem.subCategories[0].cateid;
@@ -460,7 +469,7 @@ var app = angular
 
 
 
-            $scope.removePackage = function(packageItem) {
+            $scope.removePackage = function (packageItem) {
                 if ($scope.outboundPackages.length > 1) {
                     var index = $scope.outboundPackages.indexOf(packageItem);
                     $scope.outboundPackages.splice(index, 1);
@@ -471,18 +480,18 @@ var app = angular
             }
 
 
-            $scope.redirectToAddressInfo = function(addressItem) {
+            $scope.redirectToAddressInfo = function (addressItem) {
                 $state.go('customer.myaddress', { addressId: addressItem.transactionNumber });
             }
 
 
-            var preSubmitToService = function(data) {
+            var preSubmitToService = function (data) {
                 var text = '';
                 if (!data.isFastOrder) {
                     text = "确定提交订单?";
                 } else {
-                    if ($scope.$root.currentUser.accountBalance < $scope.countFee.totalCount) {
-                        alertify.alert('提示', '您需要支付' + $scope.countFee.totalCount + '元，而您的账户余额为' + $scope.$root.currentUser.accountBalance + '元,请充值后再进行支付!');
+                    if ($scope.currentUser.accountBalance < $scope.countFee.totalCount) {
+                        alertify.alert('提示', '您需要支付' + $scope.countFee.totalCount + '元，而您的账户余额为' + $scope.currentUser.accountBalance + '元,请充值后再进行支付!');
                         return false;
                     }
                     //parseFloat($scope.shippingItems[0].packageWeight + 0.5) //显示重量原来的写法
@@ -496,54 +505,54 @@ var app = angular
                 }
 
                 alertify.confirm('确认', text,
-                        function() {
-                            $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
-                            orderSvr
-                                .submitOrder(data)
-                                .then(function(result) {
-                                    if (result.data.orderNumber) {
-                                        alertify.success('订单提交成功!');
-                                        $scope.$root.currentUser.myPoint = $scope.$root.currentUser.myPoint - $scope.data.usePoint;
-                                        $state.go('customer.myorders');
-                                    }
-                                }, function(result) {
-                                    if (result.data.message) {
-                                        alertify.alert('错误', result.data.message);
-                                    }
-                                });
-                        },
-                        function() {
-                            alertify.error('已取消提交订单!');
-                        })
-                    // SweetAlert.swal({
-                    //     title: '确认',
-                    //     text: text,
-                    //     type: "warning",
-                    //     showCancelButton: true,
-                    //     confirmButtonColor: "#DD6B55",
-                    //     confirmButtonText: "确定",
-                    //     cancelButtonText: "取消",
-                    //     closeOnConfirm: false
-                    // }, function (isConfirm) {
-                    //     if (isConfirm) {
-                    //         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
-                    //         orderSvr
-                    //             .submitOrder(data)
-                    //             .then(function (result) {
-                    //                 if (result.data.orderNumber) {
-                    //                     SweetAlert.swal('提示', '提交成功.', 'success');
-                    //                     $state.go('customer.myorders');
-                    //                 }
-                    //             }, function (result) {
-                    //                 if (result.data.message) {
-                    //                     SweetAlert.swal('错误', result.data.message, 'error');
-                    //                 }
-                    //             });
-                    //     }
-                    // });
+                    function () {
+                        $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
+                        orderSvr
+                            .submitOrder(data)
+                            .then(function (result) {
+                                if (result.data.orderNumber) {
+                                    alertify.success('订单提交成功!');
+                                    $scope.$root.currentUser.myPoint = $scope.$root.currentUser.myPoint - $scope.data.usePoint;
+                                    $state.go('customer.myorders');
+                                }
+                            }, function (result) {
+                                if (result.data.message) {
+                                    alertify.alert('错误', result.data.message);
+                                }
+                            });
+                    },
+                    function () {
+                        alertify.error('已取消提交订单!');
+                    })
+                // SweetAlert.swal({
+                //     title: '确认',
+                //     text: text,
+                //     type: "warning",
+                //     showCancelButton: true,
+                //     confirmButtonColor: "#DD6B55",
+                //     confirmButtonText: "确定",
+                //     cancelButtonText: "取消",
+                //     closeOnConfirm: false
+                // }, function (isConfirm) {
+                //     if (isConfirm) {
+                //         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
+                //         orderSvr
+                //             .submitOrder(data)
+                //             .then(function (result) {
+                //                 if (result.data.orderNumber) {
+                //                     SweetAlert.swal('提示', '提交成功.', 'success');
+                //                     $state.go('customer.myorders');
+                //                 }
+                //             }, function (result) {
+                //                 if (result.data.message) {
+                //                     SweetAlert.swal('错误', result.data.message, 'error');
+                //                 }
+                //             });
+                //     }
+                // });
             }
 
-            $scope.submitOrder = function() {
+            $scope.submitOrder = function () {
                 if (!$scope.data.submit_agreeterms || $scope.data.submit_agreeterms != true) {
                     alertify.alert('提示', '提交订单之前,请勾选我已阅读并同意CULEXPRESS免责赔偿条款!');
                     return;
@@ -578,70 +587,70 @@ var app = angular
                 preSubmitToService($scope.data);
             }
 
-            $scope.deleteOrder = function(number) {
+            $scope.deleteOrder = function (number) {
                 if (!number) return false;
                 alertify.confirm('确定要删除订单[' + number + ']?',
-                    function() {
+                    function () {
                         orderSvr.deleteOrder(number)
-                            .then(function(result) {
+                            .then(function (result) {
                                 if (result.data.success) {
                                     alertify.success('订单删除成功.');
                                     $scope.queryOrder();
                                 }
-                            }, function(result) {
+                            }, function (result) {
                                 if (result.data.message) {
                                     alertify.alert('错误', result.data.message);
                                 }
                             });
                     },
-                    function() {
+                    function () {
                         alertify.error('已取消删除!');
                     })
             };
 
-            var payOrderServie = function(orderItem, callback) {
+            var payOrderServie = function (orderItem, callback) {
                 orderSvr.paymentOrder(orderItem.orderNumber)
-                    .then(function(result) {
+                    .then(function (result) {
                         if (result.data.success) {
                             callback && callback();
                             orderItem.totalCount = orderItem.totalCount - $scope.$root.currentUser.accountBalance
                             alertify.alert("支付成功");
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 $window.location.reload()
                             }, 1000);
 
                             //支付之后刷新一下全局余额
-                            $scope.$root.autologin(function(result) {
+                            $scope.$root.autologin(function (result) {
                                 $scope.$root.currentUser.accountBalance = result.accountBalance;
 
                                 return false;
                             });
                         }
 
-                    }, function(result) {
+                    }, function (result) {
                         if (result.data.message) {
                             alertify.alert('错误', result.data.message);
                         }
-                    }); 
+                    });
             }
 
-            $scope.payOrder = function(orderItem) {
+            $scope.payOrder = function (orderItem) {
                 if (!orderItem) return false;
                 if (!orderItem.totalCount) {
                     alertify.alert('提示', '订单还未计价,不能支付!');
                     return false;
                 }
-                 //运费不足状态下支付，扣除所欠费用即可
+                //运费不足状态下支付，扣除所欠费用即可
                 if (orderItem.orderStatus == "Arrears") {
                     orderItem.totalCount = Math.abs(orderItem.shippingFeeAdjust)
                     // orderItem.totalCount = orderItem.shippingFee
                 }
 
-                if (AuthService.getUser().accountBalance < orderItem.totalCount) {
-                    alertify.alert('提示', '您需要支付' + orderItem.totalCount + '元，而您的账户余额为' + $scope.$root.currentUser.accountBalance + '元,请充值后再进行支付!');
+                if ($scope.accountBalance < orderItem.totalCount) {
+                    alertify.alert('提示', '您需要支付' + orderItem.totalCount + '元，而您的账户余额为' + $scope.currentUser.accountBalance + '元,请充值后再进行支付!');
                     return false;
                 }
-               
+
                 // if ( orderItem.orderStatus == "Arrears") {
                 //    alertify.confirm('确认', '您将被扣款' + orderItem.shippingFeeAdjust + '元，确定支付订单?',
                 //     function() {
@@ -653,11 +662,11 @@ var app = angular
                 //     });
                 // } else {
                 alertify.confirm('确认', '您将被扣款' + orderItem.totalCount + '元，确定支付订单?',
-                    function() {
+                    function () {
                         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
                         payOrderServie(orderItem);
                     },
-                    function() {
+                    function () {
                         alertify.error('已取消支付!');
                     });
                 //  }
@@ -671,14 +680,14 @@ var app = angular
                 prevText: '上一步',
                 submitText: '提交'
             }
-            $scope.wizardValid = function(index, step) {
+            $scope.wizardValid = function (index, step) {
                 if (!!$scope.showWeight) {
                     if (!$scope.data.packageWeight) {
                         alertify.alert('提示', '请输入包裹重量!');
                         return false;
                     } else {
-                        $timeout(function() {
-                            $scope.$apply(function() {
+                        $timeout(function () {
+                            $scope.$apply(function () {
                                 $scope.shippingItems[0].packageWeight = parseFloat($scope.data.packageWeight);
                             });
                         })
@@ -715,7 +724,7 @@ var app = angular
 
                         //身份证渠道需要验证选择的收货地址是否通过验证
                         var addressItem =
-                            $scope.addressListData.filter(function(value) {
+                            $scope.addressListData.filter(function (value) {
                                 return value.transactionNumber == packageItem.addressNumber;
                             })[0];
 
@@ -764,7 +773,7 @@ var app = angular
                     //    return false;
                     //}
 
-                    $timeout(function() {
+                    $timeout(function () {
                         $scope.calculateFee();
                     })
                 }
@@ -772,12 +781,12 @@ var app = angular
 
             $scope.countFee = {};
 
-            $scope.calculateFee = function(category, ctrlType) {
+            $scope.calculateFee = function (category, ctrlType) {
                 var pointTotal = $scope.currentUser.myPoint;
                 if ($scope.data.usePoint > pointTotal) {
                     $scope.data.usePoint = pointTotal;
                 }
-                var getPackageFirstWeight = function(shipService) {
+                var getPackageFirstWeight = function (shipService) {
                     var packageWeight = 0,
                         outboundItems = $scope.shippingItems;
                     for (var i = 0, ii = outboundItems.length; i < ii; i++) {
@@ -786,28 +795,28 @@ var app = angular
                     var carton = Math.ceil(packageWeight / shipService.maxWeight);
                     return Math.max(carton, $scope.outboundPackages.length);
                 }
-                var getPackageWeight = function(shipService, roundup) {
-                        var packageWeight = 0,
-                            outboundItems = $scope.shippingItems;
-                        for (var i = 0, ii = outboundItems.length; i < ii; i++) {
-                            packageWeight += (outboundItems[i].packageWeight * 1);
-                            if (outboundItems[i].isFastOrder) {
-                                packageWeight += 0.5; //极速原单的重量要多加0.5
-                            }
+                var getPackageWeight = function (shipService, roundup) {
+                    var packageWeight = 0,
+                        outboundItems = $scope.shippingItems;
+                    for (var i = 0, ii = outboundItems.length; i < ii; i++) {
+                        packageWeight += (outboundItems[i].packageWeight * 1);
+                        if (outboundItems[i].isFastOrder) {
+                            packageWeight += 0.5; //极速原单的重量要多加0.5
                         }
-                        var carton = getPackageFirstWeight(shipService);
-                        packageWeight += (carton - 1) * shipService.incr_weight_per_split;
-                        if (parseFloat((packageWeight - parseInt(packageWeight)).toFixed(2)) >= roundup)
-                            packageWeight = Math.ceil(packageWeight);
-                        return packageWeight;
-                    },
-                    getShippingFee = function(packageWeight, firstWeight, continuedWeight, shipService) {
+                    }
+                    var carton = getPackageFirstWeight(shipService);
+                    packageWeight += (carton - 1) * shipService.incr_weight_per_split;
+                    if (parseFloat((packageWeight - parseInt(packageWeight)).toFixed(2)) >= roundup)
+                        packageWeight = Math.ceil(packageWeight);
+                    return packageWeight;
+                },
+                    getShippingFee = function (packageWeight, firstWeight, continuedWeight, shipService) {
                         if (packageWeight < 1) packageWeight = 1;
                         var carton = getPackageFirstWeight(shipService)
 
                         return firstWeight * carton + (packageWeight - carton) * continuedWeight;
                     },
-                    setInsuranceFee = function(calculData, shipService) {
+                    setInsuranceFee = function (calculData, shipService) {
                         if (!shipService) shipService = data.shipServiceItem;
 
                         if (!calculData) calculData = {};
@@ -820,7 +829,7 @@ var app = angular
                             calculData.insuranceFee = 0;
                         }
                     },
-                    calculate = function(result) {
+                    calculate = function (result) {
                         var shipService = data.shipServiceItem,
                             packages = getOutboundPackage('CUL'),
                             packageItem = packages[0],
@@ -830,9 +839,9 @@ var app = angular
                                 tip: ($scope.data.tip * 1) || 0,
                                 usePoint: ($scope.data.usePoint * -1) || 0
                             },
-                            calRule = $filter('filter')(result.fee, function(ruleItem) { return ruleItem.category === packageItem.goodsCategory; })[0];
-                        if (!calRule) calRule = $filter('filter')(result.fee, function(ruleItem) { return ruleItem.category === 0; })[0];
-                        var ruleDetail = $.grep(calRule.detail, function(n) { return n.currency == "RMB" })[0];
+                            calRule = $filter('filter')(result.fee, function (ruleItem) { return ruleItem.category === packageItem.goodsCategory; })[0];
+                        if (!calRule) calRule = $filter('filter')(result.fee, function (ruleItem) { return ruleItem.category === 0; })[0];
+                        var ruleDetail = $.grep(calRule.detail, function (n) { return n.currency == "RMB" })[0];
 
                         calculData.packageWeight = getPackageWeight(shipService, result.roundup);
 
@@ -842,7 +851,7 @@ var app = angular
 
                         calculData.totalCount = (calculData.insuranceFee || 0) + (calculData.shippingFee || 0) + (calculData.tip || 0) + (calculData.usePoint || 0);
 
-                        $timeout(function() {
+                        $timeout(function () {
                             $scope.countFee = calculData;
                         })
                     };
@@ -872,7 +881,7 @@ var app = angular
                         warehouseNumber: getWorkhouseNumber(),
                         shipServiceId: $scope.data.shipServiceItem.shipServiceId
                     })
-                    .then(function(result) {
+                    .then(function (result) {
                         if (result) {
                             calculate(result.data);
                         }
@@ -890,17 +899,17 @@ var app = angular
 
 
 
-            $scope.wizardSubmit = function() {
+            $scope.wizardSubmit = function () {
                 $scope.submitOrder();
             }
 
         }
     ]);
-app.directive('ngEnter', function() {
-    return function(scope, element, attrs) {
-        element.bind("keydown keypress", function(event) {
+app.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
             if (event.which === 13) {
-                scope.$apply(function() {
+                scope.$apply(function () {
                     scope.$eval(attrs.ngEnter);
                 });
                 event.preventDefault();
