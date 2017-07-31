@@ -133,7 +133,7 @@ angular
                 });
             }
 
-             $('#fileTw').on('fileclear', function (event) {
+            $('#fileTw').on('fileclear', function (event) {
                 //console.log("fileclear");
                 $scope.data.urls = [];
             });

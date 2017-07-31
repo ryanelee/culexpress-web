@@ -22,7 +22,7 @@ angular.module('culAdminApp')
             $scope.isSplit = false;
             $scope.isDel = false;
             var _timeout = null;
-
+ 
             $scope.getCompatibleInboundTrackingNumber = function (trackingNumber){
                 //USPS: 420+5 zip code + 21/22 #s
                 if(typeof trackingNumber == "string" && /^420\d{5}\d{21,22}$/.test(trackingNumber)){
@@ -151,6 +151,8 @@ angular.module('culAdminApp')
                     "trackingNumber": item.trackingNumber,
                 }, function (result) {
                     result.checked = true
+                    console.log("result",result);
+                    result.actualWeight = item.actualWeight;
                     $scope.data.outboundPackages.push(result);
                 });
             }

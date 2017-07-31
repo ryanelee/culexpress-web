@@ -314,7 +314,7 @@ angular.module('culAdminApp')
                     plugMessenger.success("总单关闭成功");
                     $scope.btnPrev();
                 }
-                if (isCheckWeight != false) {
+                if (isCheckWeight == true) {
                     plugMessenger.confirm("所有已扫描包裹将变为已出库状态,确认关闭出库总单吗？", function (isOK) {
                         if (isOK) {
                             var _options = {
@@ -322,7 +322,7 @@ angular.module('culAdminApp')
                                 "flightNo": $scope.data.flightNo
                             }
                             bucketService.close(_options, function (result) {
-                                // console.log("result", result);
+                                console.log("result", result);
 
                                 if (!result.message) {
                                     var trackingNumbers = [];
@@ -409,7 +409,6 @@ angular.module('culAdminApp')
                             $scope.btnPrev();
                         }
                     });
-
                     return;
                 }
                 //新建
@@ -566,7 +565,7 @@ angular.module('culAdminApp')
                     if ((compareWeight - parseFloat($scope._selectedPackage.totalWeight)) < 1 && (compareWeight - parseFloat($scope._selectedPackage.totalWeight)) > -1) {
                         // if ($scope.selectPkgTotalWeight - allowDevision <= $scope._selectedPackage.totalWeight && $scope.selectPkgTotalWeight + allowDevision >= $scope._selectedPackage.totalWeight) {
                         _selected_bag.isCheckWeight = true;
-                        plugMessenger.info("校验成功！");
+                        plugMessenger.info("校验成功，点保存后生效！");
                     } else {
                         // plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量[" + $scope.selectPkgTotalWeight + "]!")
                         plugMessenger.error("重量校验失败![称重重量" + $scope._selectedPackage.totalWeight + "磅]和[包裹加袋子重量"+ compareWeight +"磅]的误差必须小于正负1磅!");
