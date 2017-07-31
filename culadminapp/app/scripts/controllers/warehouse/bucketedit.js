@@ -40,7 +40,7 @@ angular.module('culAdminApp')
             if (!!$scope.tpl_status.bucketNumber) {
                 bucketService.getDetail($scope.tpl_status.bucketNumber, function (result) {
                     $scope.data = result;
-                    console.log("result", result);
+                    // console.log("result", result);
                     if ($scope.data.detail[0]) {
                         $scope.data.detail.forEach(function (e) {
                             e.totalWeight = 0;
@@ -322,7 +322,7 @@ angular.module('culAdminApp')
                                 "flightNo": $scope.data.flightNo
                             }
                             bucketService.close(_options, function (result) {
-                                console.log("result", result);
+                                // console.log("result", result);
 
                                 if (!result.message) {
                                     var trackingNumbers = [];
@@ -416,6 +416,25 @@ angular.module('culAdminApp')
                     if (!result.message) {
                         plugMessenger.success("创建成功");
                         $scope.btnPrev();
+                    }
+                });
+            }
+             
+            // 用于包裹重量校验后保存
+            $scope.btnSavePkg = function () {
+                //修改总单
+                if (!!$scope.tpl_status.bucketNumber) {
+                    bucketService.update($scope.data, function (result) {
+                        if (!result.message) {
+                            plugMessenger.success("保存成功");
+                        }
+                    });
+                    return;
+                }
+                //新建
+                bucketService.create($scope.data, function (result) {
+                    if (!result.message) {
+                        plugMessenger.success("保存成功");
                     }
                 });
             }
@@ -568,6 +587,7 @@ angular.module('culAdminApp')
                         plugMessenger.info("校验成功，点保存后生效！");
                     } else {
                         // plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量[" + $scope.selectPkgTotalWeight + "]!")
+                        _selected_bag.isCheckWeight = false;
                         plugMessenger.error("重量校验失败![称重重量" + $scope._selectedPackage.totalWeight + "磅]和[包裹加袋子重量"+ compareWeight +"磅]的误差必须小于正负1磅!");
                         document.getElementById('key_trackingNumber').focus();
                         return;

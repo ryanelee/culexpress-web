@@ -27,6 +27,9 @@
                 <div><span>{{data.name}}</span></div>
                 <div><span>包裹: {{data.packages.length || 0}}</span></div>
                 <div ng-if="data.readonly"><span>重量: {{data.totalWeight || 0}} lb(s)</span></div>
+                <div><span style="color:#3E9C1A;" ng-if="data.isCheckWeight">校验成功</span></div>
+                <div><span style="color:#d02a25;" ng-if="data.isCheckWeight == false">校验失败</span></div>
+                <div><span style="color:#d02a25;" ng-if="data.isCheckWeight == undefined">待校验</span></div>
             </div>
         </div>
         <!-- Package -->
@@ -35,7 +38,6 @@
             <div style="float:left; margin-left:12px;">
                 <div><span>{{data.trackingNumber}}</span></div>
                 <div><span>重量:{{data.weight || 0}} lb(s)</span></div>
-                <div><span ng-if="data.isCheckWeight == true">校验成功</span></div>
                 <div><button type="button" class="btn btn-primary" style="padding:0px;" ng-click="btnPrint(data)">打印翔通面单</button></div>
             </div>
         </div>
