@@ -18,7 +18,7 @@ angular.module('culAdminApp')
             $scope.tpl_status = {
                 editPoint: false
             }
-
+        
             $scope.customerNumber = $location.search().customerNumber;
             customerService.getDetail($scope.customerNumber, function (result) {
                 $scope.data = result;
@@ -58,7 +58,10 @@ angular.module('culAdminApp')
             }
 
             $scope.btnEditPoint = function () {
-                if ($scope.data.pointNote) {
+                if ($scope.data.changePoint == undefined || $scope.data.changePoint == "") {
+                    return plugMessenger.info("请填写输入的数值为增加或者减少的积分");
+                }
+                if ($scope.data.pointNote == undefined || $scope.data.pointNote == "") {
                     return plugMessenger.info("请填写积分调整理由");
                 }
                 customerService.updatePoint({
