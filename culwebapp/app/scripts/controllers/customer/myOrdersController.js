@@ -149,7 +149,6 @@ var app = angular
                 }
             }
             if (!!$scope.$root.orderOptions.shipServiceItem) $scope.data.shipServiceItem = $scope.$root.orderOptions.shipServiceItem;
-
             if (!$scope.$root.orderOptions.shippingItems || $scope.$root.orderOptions.shippingItems.length <= 0) {
                 $scope.$root.orderOptions.shippingItems = $scope.shippingItems = orderSvr.selectedShippingItems || [];
             } else {
@@ -712,6 +711,11 @@ var app = angular
                         var pattern = /^[A-Za-z0-9]+$/
                         if (!pattern.test(orderItem.itemBrand)){
                             alertify.alert('提示', ' 请填写正确的商品品牌的英文名！');
+                            return false;
+                        }
+                        var pattern = /[^x00-xff]/
+                        if (!pattern.test(orderItem.description)){
+                            alertify.alert('提示', ' 请填写中文商品描述！');
                             return false;
                         }
 
