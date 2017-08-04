@@ -12,7 +12,7 @@ var app = angular
                     packageNumber: shippingItem.trackingNumber,
                     itemBrand: '',
                     description: '',
-                    quantity: '',
+                    quantity: '', 
                     unitprice: ''
                 },
                     items = shippingItem.orderItems;

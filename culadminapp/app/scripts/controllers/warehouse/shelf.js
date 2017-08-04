@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 /**
- * @ngdoc function
+ * @ngdoc function 
  * @name culAdminApp.controller:WarehouseShelfCtrl
  * @description
  * # WarehouseShelfCtrl
@@ -85,7 +85,7 @@ angular.module('culAdminApp')
                             return $scope.customer_ids.split(",").includes(x.customerNumber);
                         });
                     }
-
+ 
                     $scope.dataList = _data;
                     //console.log($scope.dataList);
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
