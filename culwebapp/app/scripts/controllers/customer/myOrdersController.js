@@ -36,7 +36,7 @@ var app = angular
             customer.getCustomerInfo($scope.currentUser.customerNumber)
                 .then(function (result) {
                     $scope.currentUser.accountBalance = result.data.accountBalance;
-                    console.log("2323",$scope.currentUser);
+                    // console.log("2323",$scope.currentUser);
                     // AuthService.setUser($scope.currentUser);
                 });
 
@@ -104,7 +104,6 @@ var app = angular
                 orderSvr
                     .getWarehouses()
                     .then(function (result) {
-                        console.log("result");
                         console.log(result);
                         // if (!window.sessionStorage.getItem('cache_warehouse')) {
                         // window.sessionStorage.setItem('cache_warehouse', JSON.stringify(result.data));
@@ -127,8 +126,7 @@ var app = angular
                                     if (queried.length <= 0) {
                                         $scope.allShipChannels.push(shipServiceList[j]);
                                     }
-                                    console.log('233')
-                                    console.log($scope.allShipChannels);
+                                    // console.log($scope.allShipChannels);
                                 }
                             }
                         }
@@ -151,7 +149,6 @@ var app = angular
                 }
             }
             if (!!$scope.$root.orderOptions.shipServiceItem) $scope.data.shipServiceItem = $scope.$root.orderOptions.shipServiceItem;
-
             if (!$scope.$root.orderOptions.shippingItems || $scope.$root.orderOptions.shippingItems.length <= 0) {
                 $scope.$root.orderOptions.shippingItems = $scope.shippingItems = orderSvr.selectedShippingItems || [];
             } else {
@@ -709,6 +706,16 @@ var app = angular
                         // 允许orderItem.unitprice值为0
                         if (!orderItem.itemBrand || !orderItem.description || !orderItem.quantity || orderItem.unitprice == undefined || orderItem.unitprice == null) {
                             alertify.alert('提示', '必须填写转运包裹申报商品信息，包括商品品牌、商品描述、数量和单价!');
+                            return false;
+                        }
+                        var pattern = /^[A-Za-z0-9]+$/
+                        if (!pattern.test(orderItem.itemBrand)){
+                            alertify.alert('提示', ' 请填写正确的商品品牌的英文名！');
+                            return false;
+                        }
+                        var pattern = /[^x00-xff]/
+                        if (!pattern.test(orderItem.description)){
+                            alertify.alert('提示', ' 请填写中文商品描述！');
                             return false;
                         }
 

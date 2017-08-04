@@ -7,6 +7,12 @@
             <fieldset>
                 <legend>个人信息</legend>
                 <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">淘宝订单号：</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="data.twOrder">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-2 control-label text-right">收货公司：</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" ng-model="data.receiveCompanyName">
@@ -161,8 +167,6 @@
                 </div>
                
                 
-
-
             </fieldset>
             <div class="form-group text-center">
                 <!--<button type="button" class="btn btn-primary" ng-show="data.verifyMark == 0" ng-click="btnVerification(flag)">验证</button>
