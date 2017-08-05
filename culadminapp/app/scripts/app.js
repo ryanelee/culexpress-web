@@ -97,7 +97,7 @@ angular
             .when('/warehouse/editreceipt', {
                 templateUrl: 'views/warehouse/editreceipt.html',
                 controller: 'EditReceiptCtrl'
-            })
+            }) 
             .when('/warehouse/shelf', {
                 templateUrl: 'views/warehouse/shelf.html',
                 controller: 'WarehouseShelfCtrl'

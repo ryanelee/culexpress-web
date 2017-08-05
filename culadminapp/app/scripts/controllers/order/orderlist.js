@@ -104,7 +104,7 @@ angular.module('culAdminApp')
                 }
                 if (!!$scope.searchBar.warehouseNumber) {
                     _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
-                }
+                } 
                 if (!!$scope.searchBar.shipServiceId) {
                     _options["shipServiceId"] = $scope.searchBar.shipServiceId;
                 }

@@ -225,11 +225,12 @@
                     <td>{{item._orderStatus}}</td>
                     <!--<td>{{item.processStatus}}</td>-->
                     <td>{{item._printStatus}}</td>
-                    <td>
+                    <td> 
                         <!-- 删除已支付和未支付订单 -->
-                        <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus == '未支付' || item._orderStatus == '已支付'">删除</a>
+                         <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus == '未支付' || item._orderStatus == '已支付'">删除</a> 
+                        <!-- <a href="javascript:void(0);" class="role" data-role="107" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus == '未支付' || item._orderStatus == '已支付'">删除</a> -->
                         <!-- 删除其他状态订单 -->
-                        <a href="javascript:void(0);" class="role" data-role="107" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus != '未支付' && item._orderStatus != '已支付'">删除</a>
+                         <a href="javascript:void(0);" class="role" data-role="107" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus != '未支付' && item._orderStatus != '已支付'">删除</a> 
                     </td>
                 </tr>
             </tbody>

@@ -186,7 +186,7 @@ angular.module('culAdminApp')
                 switch (type) {
                     case "exception":
                         $location.path('/warehouse/receiptexception');
-                        break;
+                        break; 
                     case "inbound":
                         if (!!item) $location.search({ receiptNumber: item.receiptNumber, inboundStatus: item.inboundStatus });
                         $location.path('/warehouse/receiptedit2');
