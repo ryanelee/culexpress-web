@@ -104,20 +104,19 @@ var app = angular
                 orderSvr
                     .getWarehouses()
                     .then(function (result) {
-                        console.log(result);
                         // if (!window.sessionStorage.getItem('cache_warehouse')) {
                         // window.sessionStorage.setItem('cache_warehouse', JSON.stringify(result.data));
                         // } else if (!$scope.shippingItems || $scope.shippingItems.length <= 0) {
                         $scope.shippingItems = orderSvr.selectedShippingItems;
                         // }
 
-                        $scope.warehouses = result.data;
+                        $scope.warehouses = result.data;                        
 
                         // if ($scope.$root && $scope.$root.orderOptions) {
                         //     $scope.$root.orderOptions.warehouses = $scope.warehouses;
                         // }
                         for (var i = 0, ii = $scope.warehouses.length; i < ii; i++) {
-                            if ($state.current.name === 'customer.myorders' || $scope.warehouses[i].warehouseNumber == getWorkhouseNumber()) {
+                            if ($scope.warehouses[i].warehouseNumber == getWorkhouseNumber()) {
                                 var shipServiceList = $scope.warehouses[i].shipServiceList;
                                 for (var j = 0, jj = shipServiceList.length; j < jj; j++) {
                                     var queried = $filter('filter')($scope.allShipChannels, function (channelItem) {
@@ -126,7 +125,6 @@ var app = angular
                                     if (queried.length <= 0) {
                                         $scope.allShipChannels.push(shipServiceList[j]);
                                     }
-                                    // console.log($scope.allShipChannels);
                                 }
                             }
                         }
@@ -135,7 +133,7 @@ var app = angular
                 $scope.allShipChannels = [];
                 $scope.warehouses = $scope.$root.orderOptions.warehouses;
                 for (var m = 0, mm = $scope.warehouses.length; m < mm; m++) {
-                    if ($state.current.name === 'customer.myorders' || $scope.warehouses[m].warehouseNumber == getWorkhouseNumber()) {
+                    if ($scope.warehouses[m].warehouseNumber == getWorkhouseNumber()) {
                         var shipServiceList = $scope.warehouses[m].shipServiceList;
                         for (var n = 0, nn = shipServiceList.length; n < nn; n++) {
                             var queried = $filter('filter')($scope.allShipChannels, function (channelItem) {

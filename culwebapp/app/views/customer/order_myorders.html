@@ -132,7 +132,8 @@
                                         </li>
                                     </ul>
                                 </td>
-                                <td><small ng-repeat="orderDetailItemShipChannelItem in allShipChannels" ng-if="orderDetailItemShipChannelItem.shipServiceId===rowItem.shipServiceId">{{orderDetailItemShipChannelItem.shipServiceName}}</small></td>
+                                <td>{{rowItem.shipServiceName}}</td>
+                                <!-- <td><small ng-repeat="orderDetailItemShipChannelItem in allShipChannels" ng-if="orderDetailItemShipChannelItem.shipServiceId===rowItem.shipServiceId">{{orderDetailItemShipChannelItem.shipServiceName}}</small></td> -->
                                 <td>
                                     <div class="btn-group" style="margin-top:5px;">
                                         <ul class="list-inline" style="min-width:80px;font-size:15px;">

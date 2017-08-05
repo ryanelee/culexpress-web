@@ -57,7 +57,6 @@ angular.module('culwebApp')
             //     console.log("123", $scope.currentUser );
             // })
             $scope.currentUser = AuthService.getUser();
-            console.log("123", $scope.currentUser);
             customer.getCustomerInfo($scope.currentUser.customerNumber)
                 .then(function (result) {
                     $scope.currentUser.accountBalance = result.data.accountBalance;
@@ -71,8 +70,6 @@ angular.module('culwebApp')
                     .getOrderInfo(orderId)
                     .then(function (result) {
                         $scope.data = result.data;
-                        console.log('data.outboundPackages')
-                        console.log($scope.data.outboundPackages)
 
                         if ($scope.data.actualWeight == 0
                             && $scope.data.inboundPackages && $scope.data.inboundPackages.length > 0) {
