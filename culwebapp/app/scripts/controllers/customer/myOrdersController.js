@@ -233,21 +233,26 @@ var app = angular
                 size: 10
             }
 
+            $scope.pageSize = 10;
+
             if (!!$stateParams.status) {
                 $scope.queryPara.orderStatus = $stateParams.status;
             }
             $scope.orderListData = [];
             $scope.orderListData._orderMessageStatus = '0';
             $scope.queryOrder = function (index, paras) {
+                var pageSize = $scope.pageSize;
                 $scope.pagedOptions.index = index;
+                $scope.pagedOptions.size = pageSize;
+                
                 orderSvr
                     .getOrderList(index, angular.extend({
                         customerNumber: $scope.$root.currentUser.customerNumber,
-                        orderStatus: $scope.queryPara.orderStatus
-                    }, paras || {}))
+                        orderStatus: $scope.queryPara.orderStatus}, paras || {}
+                    ),pageSize)
                     .then(function (result) {
                         if (result.data) {
-                            $scope.pagedOptions.total = result.data.pageInfo.totalCount;
+                            $scope.pagedOptions.total = result.data.pageInfo.totalPageCount;
                             $scope.orderListData = result.data.data;
                             getOrderMessageStatus()
                         }

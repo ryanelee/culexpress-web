@@ -118,10 +118,10 @@ angular.module('culwebApp')
             getShipChannelItems: function() {
                 return $http.post(cul.apiPath + '/shipservice/list');
             },
-            getOrderList: function(index, queryPara) {
+            getOrderList: function(index, queryPara, pageSize) {
                 var paras = {
                     pageInfo: {
-                        pageSize: 10,
+                        pageSize: pageSize || 10,
                         pageIndex: index || 1
                     },
                     customerNumber: queryPara.customerNumber,
