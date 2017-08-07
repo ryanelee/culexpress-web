@@ -13,7 +13,8 @@ angular.module('culAdminApp')
 
         self.getDetail = function (customerNumber, callback) {
             $http.get(cul.apiPath + "/customer/" + customerNumber)
-                .success(function (result) {
+              .then(function (result) {
+                  var result = result.data;
                     switch (result && result.vipStatus) {
                         case "Applied":
                             result._vipStatus = "申请";
@@ -36,7 +37,8 @@ angular.module('culAdminApp')
 
         self.getList = function (options, callback) {
             $http.post(cul.apiPath + "/customer/list", options)
-                .success(function (result) {
+                .then(function (result) {
+                    var result = result.data
                     $.each(result.data, function (i, item) {
                         switch (item.vipStatus) {
                             case "Applied":
@@ -62,8 +64,8 @@ angular.module('culAdminApp')
 
         self.getPointLog = function (options, callback) {
             $http.post(cul.apiPath + "/customer/getPointLog", options)
-                .success(function (result) {
-                    callback(result);
+                .then(function (result) {
+                    callback(result.data);
                 });
         }
 
@@ -71,7 +73,8 @@ angular.module('culAdminApp')
 
         self.getArrearsList = function (options, callback) {
             $http.post(cul.apiPath + "/customer/arrearslist", options)
-                .success(function (result) {
+                .then(function (result) {
+                    var result = result.data
                     $.each(result.data, function (i, item) {
                         switch (item.vipStatus) {
                             case "Applied":
@@ -94,21 +97,21 @@ angular.module('culAdminApp')
 
         self.delete = function (ids, callback) {
             $http.delete(cul.apiPath + "/customer?number=" + ids)
-                .success(function (result) {
-                    callback(result);
+                .then(function (result) {
+                    callback(result.data);
                 });
         }
 
         self.update = function (data, callback) {
             $http.put(cul.apiPath + "/customer/profile", data)
-                .success(function (result) {
-                    callback(result);
+                .then(function (result) {
+                    callback(result.data);
                 });
         }
 
         self.vipApprove = function (options, callback) {
-            $http.put(cul.apiPath + "/customer/vip/audit", options).success(function (result) {
-                callback(result);
+            $http.put(cul.apiPath + "/customer/vip/audit", options).then(function (result) {
+                callback(result.data);
             });
         }
 
@@ -128,20 +131,20 @@ angular.module('culAdminApp')
         }
 
         self.getVipAndMsg = function (options, callback) {
-            $http.post(cul.apiPath + "/customer/getVipAndMsg", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/customer/getVipAndMsg", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.updatePoint = function (options, callback) {
-            $http.put(cul.apiPath + "/customer/mypoint", options).success(function (result) {
-                callback(result);
+            $http.put(cul.apiPath + "/customer/mypoint", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.clearReference = function (customerNumber, callback) {
-            $http.put(cul.apiPath + "/customer/cancelReference/" + customerNumber).success(function (result) {
-                callback(result);
+            $http.put(cul.apiPath + "/customer/cancelReference/" + customerNumber).then(function (result) {
+                callback(result.data);
             });
         }
 
@@ -164,71 +167,71 @@ angular.module('culAdminApp')
                     options["customerNumber"] = customer_ids;
             };
 
-            $http.post(cul.apiPath + "/customer/statistics/list", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/customer/statistics/list", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.getUnpaid = function (options, callback) {
-            $http.post(cul.apiPath + "/customer/unpaid", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/customer/unpaid", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.financeLogList = function (options, callback) {
-            $http.post(cul.apiPath + "/customer/financeLog/list", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/customer/financeLog/list", options).then(function (result) {
+                callback(result.data);
             });
         }
 
 
         self.refundRecharge = function (options, callback) {
-            $http.post(cul.apiPath + "/customer/recharge", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/customer/recharge", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.paymentByOffline = function (options, callback) {
-            $http.post(cul.apiPath + "/customer/manual/offline/payment", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/customer/manual/offline/payment", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.paymentByOnline = function (options, callback) {
-            $http.post(cul.apiPath + "/customer/manual/online/payment", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/customer/manual/online/payment", options).then(function (result) {
+                callback(result.data);
             });
         }
         self.getVipAndMsg = function (options, callback) {
-            $http.post(cul.apiPath + "/customer/getVipAndMsg", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/customer/getVipAndMsg", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         //获取系统公告
         self.getWebAnnounce = function (options, callback) {
-            $http.post(cul.apiPath + "/web/getWebAnnounce", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/web/getWebAnnounce", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         //创建公告
         self.createWebAnnounce = function (options, callback) {
-            $http.post(cul.apiPath + "/web/createWebAnnounce", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/web/createWebAnnounce", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         //删除公告
         self.deleteWebAnnounce = function (options, callback) {
-            $http.post(cul.apiPath + "/web/deleteWebAnnounce", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/web/deleteWebAnnounce", options).then(function (result) {
+                callback(result.data);
             });
         }
         //更新公告
         self.updateWebAnnounce = function (options, callback) {
-            $http.post(cul.apiPath + "/web/updateWebAnnounce", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/web/updateWebAnnounce", options).then(function (result) {
+                callback(result.data);
             });
         }
 

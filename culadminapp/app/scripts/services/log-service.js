@@ -12,7 +12,8 @@ angular.module('culAdminApp')
       var self = this;
 
       self.getOperationList = function (options, callback) {
-          $http.post(cul.apiPath + "/operationLog/list", options).success(function (result) {
+          $http.post(cul.apiPath + "/operationLog/list", options).then(function (result) {
+              var result = result.data;
               $.each(result.data, function (index, item) {
                   switch (item.operationType) {
                       case 0: item._operationType = "修改密码"; break;
@@ -28,7 +29,8 @@ angular.module('culAdminApp')
       }
 
       self.getLoginList = function (options, callback) {
-          $http.post(cul.apiPath + "/user/loginlog/list", options).success(function (result) {
+          $http.post(cul.apiPath + "/user/loginlog/list", options).then(function (result) {
+              var result = result.data;
               $.each(result.data, function (index, item) {
                   switch (item.result) {
                       case "success": item._result = "登录成功"; break;

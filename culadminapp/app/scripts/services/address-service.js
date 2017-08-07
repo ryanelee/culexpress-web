@@ -60,22 +60,22 @@ angular.module('culAdminApp')
         
         self.update = function(data, callback) {
             $http.put(cul.apiPath + "/receiveaddress", data)
-                .success(function(result) {
-                    callback(result);
-                });
+               .then(function (result) {
+              callback(result.data);
+          })
         }
 
         self.delete = function(ids, callback) {
             $http.delete(cul.apiPath + "/receiveaddress?number=" + ids)
-                .success(function(result) {
-                    callback(result);
-                });
+              .then(function (result) {
+              callback(result.data);
+          })
         }
 
         self.getProvinceList = function(callback) {
-            $http.get(cul.apiPath + '/province').success(function(data) {
-                callback(data);
-            });
+            $http.get(cul.apiPath + '/province').then(function (result) {
+              callback(result.data);
+          })
         }
 
         self.getDistrict = function(obj) {

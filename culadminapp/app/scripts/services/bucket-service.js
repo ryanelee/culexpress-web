@@ -13,21 +13,22 @@ angular.module('culAdminApp')
 
       //创建总单
       self.create = function (options, callback) {
-          $http.post(cul.apiPath + "/bucket", options).success(function (result) {
-              callback(result);
+          $http.post(cul.apiPath + "/bucket", options).then(function (result) {
+              callback(result.data);
           })
       }
 
       //修改总单
       self.update = function (options, callback) {
-          $http.put(cul.apiPath + "/bucket", options).success(function (result) {
-              callback(result);
+          $http.put(cul.apiPath + "/bucket", options).then(function (result) {
+              callback(result.data);
           })
       }
 
       //查询总单列表
       self.getList = function (options, callback) {
-          $http.post(cul.apiPath + "/bucket/list", options).success(function (result) {
+          $http.post(cul.apiPath + "/bucket/list", options).then(function (result) {
+            var result = result.data
               _.each(result.data, function (item) {
                   switch (item.status) {
                       case "0":
@@ -44,16 +45,16 @@ angular.module('culAdminApp')
 
       //查询总单详情
       self.getDetail = function (bucketNumber, callback) {
-          $http.get(cul.apiPath + "/bucket?bucketNumber=" + bucketNumber).success(function (result) {
-              callback(result);
+          $http.get(cul.apiPath + "/bucket?bucketNumber=" + bucketNumber).then(function (result) {
+              callback(result.data);
           })
       }
 
       //检查包裹是否存在
       self.checkPackage = function (trackingNumber, callback) {
-          $http.get(cul.apiPath + "/bucket/checkpackage?trackingNumber=" + trackingNumber).success(function (result) {
-              callback(result);
-          });
+          $http.get(cul.apiPath + "/bucket/checkpackage?trackingNumber=" + trackingNumber).then(function (result) {
+              callback(result.data);
+          })
       }
 
       //关闭总单
@@ -63,20 +64,20 @@ angular.module('culAdminApp')
     //       });
     //   }
       self.close = function (options, callback) {
-          $http.put(cul.apiPath + "/bucket/close", options).success(function (result) {
-              callback(result);
-          });
+          $http.put(cul.apiPath + "/bucket/close", options).then(function (result) {
+              callback(result.data);
+          })
       }
         self.updateculBucket = function (options, callback) {
-          $http.post(cul.apiPath + "/outboundpackage/updateculBucket", options).success(function (result) {
-              callback(result);
-          });
+          $http.post(cul.apiPath + "/outboundpackage/updateculBucket", options).then(function (result) {
+              callback(result.data);
+          })
       }
 
       //查询仓库和发货渠道对应的已打包包裹的数量和总重量
       self.getSummaryInboundPackage = function (options, callback) {
-          $http.post(cul.apiPath + "/summaryInboundPackage", options).success(function (result) {
-              callback(result);
+          $http.post(cul.apiPath + "/summaryInboundPackage", options).then(function (result) {
+              callback(result.data);
           })
       }
   }]);

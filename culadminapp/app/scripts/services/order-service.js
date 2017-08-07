@@ -83,7 +83,8 @@ angular.module('culAdminApp')
                     options["customerNumber"] = customer_ids;
             };
 
-            $http.post(cul.apiPath + "/order/list", options).success(function (result) {
+            $http.post(cul.apiPath + "/order/list", options).then(function (result) {
+                var result = result.data;
                 $.each(result.data, function (index, item) {
 
                     item._orderStatus = _getOrderStatus(item.orderStatus);
@@ -134,7 +135,8 @@ angular.module('culAdminApp')
         }
 
         self.getDetail = function (orderNumber, callback) {
-            $http.get(cul.apiPath + "/order/" + orderNumber).success(function (result) {
+            $http.get(cul.apiPath + "/order/" + orderNumber).then(function (result) {
+                var result = result.data
                 result._orderStatus = _getOrderStatus(result.orderStatus);
                 result._printStatus = _getPrintStatus(result.printStatus);
                 callback(result);
@@ -142,14 +144,14 @@ angular.module('culAdminApp')
         }
 
         self.create = function (order, callback) {
-            $http.post(cul.apiPath + "/order", order).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/order", order).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.update = function (order, callback) {
-            $http.put(cul.apiPath + "/order", order).success(function (result) {
-                callback(result);
+            $http.put(cul.apiPath + "/order", order).then(function (result) {
+                callback(result.data);
             });
         }
 
@@ -158,8 +160,8 @@ angular.module('culAdminApp')
         }
 
         self.delete = function (searchOrder, callback) {
-            $http.delete(cul.apiPath + "/order?number=" + searchOrder.orderNumber + "&orderNumberList=" + searchOrder.orderNumberList+"&deleteMessage="+searchOrder.deleteMessage).success(function (result) {
-                callback(result);
+            $http.delete(cul.apiPath + "/order?number=" + searchOrder.orderNumber + "&orderNumberList=" + searchOrder.orderNumberList+"&deleteMessage="+searchOrder.deleteMessage).then(function (result) {
+                callback(result.data);
             });
         }
 
@@ -174,7 +176,8 @@ angular.module('culAdminApp')
         self.offlineOrderCreateExcel = function (fileId, callback) {
             $http.post(cul.apiPath + "/order/offlineOrderCreateExcel", {
                 fileId: fileId
-            }).success(function (result) {
+            }).then(function (result) {
+                var result = result.data
                 warehouseService.getWarehouse(function (warehouseList) {
                     $.each(result, function (i, order) {
                         var _warehouse = $.grep(warehouseList, function (n) { return n.warehouseNumber == order.warehouseNumber });
@@ -186,22 +189,23 @@ angular.module('culAdminApp')
         }
 
         self.generatePackageNumber = function (model, callback) {
-            $http.post(cul.apiPath + "/outboundpackage/generate", model).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/outboundpackage/generate", model).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.orderPackageUpdateByExcel = function (fileId, callback) {
             $http.post(cul.apiPath + "/order/batchUpdateOutboundPackageByExcel", {
                 fileId: fileId
-            }).success(function (result) {
+            }).then(function (result) {
+                var result = result.data;
                 callback(result == "import successfully" ? true : result.message);
             });
         }
 
         self.updateOutboundPackage = function (model, callback) {
-            $http.put(cul.apiPath + "/outboundpackage", model).success(function (result) {
-                callback(result);
+            $http.put(cul.apiPath + "/outboundpackage", model).then(function (result) {
+                callback(result.data);
             });
         }
 
@@ -209,14 +213,13 @@ angular.module('culAdminApp')
             //console.log("self.deleteOutboundPackage");
             //console.log(numbers);
             // $http.delete(cul.apiPath + "/outboundpackage?number=" + numbers.join(",")).success(function (result) {
-            $http.post(cul.apiPath + "/deleteOutboundpackage", numbers).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/deleteOutboundpackage", numbers).then(function (result) {
+                callback(result.data);
             });
         }
         self.getOutboundPackage = function (number, callback) {
-            $http.get(cul.apiPath + "/outboundpackage/" + number).success(function (result) {
-                // $http.get(cul.apiPath + "/deleteOutboundpackage", numbers).success(function(result) {
-                callback(result);
+            $http.get(cul.apiPath + "/outboundpackage/" + number).then(function (result) {
+                callback(result.data);
             });
         }
 
@@ -227,53 +230,54 @@ angular.module('culAdminApp')
         //}
 
         self.settlementForOffline = function (batchNumber, callback) {
-            $http.get(cul.apiPath + "/order/settlement/offline/" + batchNumber).success(function (result) {
-                callback(result);
+            $http.get(cul.apiPath + "/order/settlement/offline/" + batchNumber).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.outbound = function (model, callback) {
-            $http.post(cul.apiPath + "/order/ship/offline", model).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/order/ship/offline", model).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.outbound_vip = function (model, callback) {
-            $http.post(cul.apiPath + "/order/ship/vip/" + model.orderNumber, model).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/order/ship/vip/" + model.orderNumber, model).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.batchOutboundPackage_vip = function (orderNumbers, callback) {
             $http.post(cul.apiPath + "/order/ship/vip", {
                 orderNumber: orderNumber
-            }).success(function (result) {
-                callback(result);
+            }).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.updateOutboundPackageAndMessage = function (model, callback) {
-            $http.put(cul.apiPath + "/order/message_package/offline", model).success(function (result) {
-                callback(result);
+            $http.put(cul.apiPath + "/order/message_package/offline", model).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.settlementForOnline = function (orderNumber, callback) {
-            $http.get(cul.apiPath + "/order/settlement/online/" + orderNumber).success(function (result) {
-                callback(result);
+            $http.get(cul.apiPath + "/order/settlement/online/" + orderNumber).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.batchUpdate = function (orderArray, callback) {
-            $http.post(cul.apiPath + "/order/batchUpdate", orderArray).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/order/batchUpdate", orderArray).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.orderTrackUpdateByExcel = function (fileId, callback) {
             $http.post(cul.apiPath + "/order/batchUpdateOrderStepByExcel", {
                 fileId: fileId
-            }).success(function (result) {
+            }).then(function (result) {
+                var result = result.data;
                 callback(result == "import successfully" ? true : result.message);
             });
         }
@@ -281,8 +285,8 @@ angular.module('culAdminApp')
         self.printOrder = function (orderNumbers, callback) {
             $http.put(cul.apiPath + "/order/print", {
                 orderNumber: orderNumbers
-            }).success(function (result) {
-                callback(result);
+            }).then(function (result) {
+                callback(result.data);
             });
         }
 
@@ -290,15 +294,16 @@ angular.module('culAdminApp')
 
         //财务按渠道统计
         self.financeTotal = function (options, callback) {
-            $http.post(cul.apiPath + "/order/financeTotal", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/order/financeTotal", options).then(function (result) {
+                callback(result.data);
             });
         }
 
 
 
         self.activitiesList = function (options, callback) {
-            $http.post(cul.apiPath + "/order/activities", options).success(function (result) {
+            $http.post(cul.apiPath + "/order/activities", options).then(function (result) {
+               var result = result.data;
                 $.each(result.data, function (index, item) {
                     item._orderStatus = _getOrderStatus(item.orderStatus);
                     item._printStatus = _getPrintStatus(item.printStatus);
@@ -312,9 +317,9 @@ angular.module('culAdminApp')
         }
 
         self.getOrderCommentsList = function (options, callback) {
-            $http.post(cul.apiPath + "/customermessage/order/list", options).success(function (result){
-                 callback(result);
-            })
+            $http.post(cul.apiPath + "/customermessage/order/list", options).then(function (result) {
+                callback(result.data);
+            });
         }
 
     }]);

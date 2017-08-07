@@ -13,20 +13,21 @@ angular.module('culAdminApp')
 
         //获取架位
         self.getDetail = function(options, callback) {
-                $http.get(cul.apiPath + "/warehouse/shelf?shelfNumber=" + options.shelfNumber + "&warehouseNumber=" + options.warehouseNumber).success(function(result) {
-                    callback(result);
-                })
+                $http.get(cul.apiPath + "/warehouse/shelf?shelfNumber=" + options.shelfNumber + "&warehouseNumber=" + options.warehouseNumber).then(function (result) {
+                callback(result.data);
+            });
             }
             //删除架位
         self.deleteShelf = function(item, callback) {
-            $http.post(cul.apiPath + "/warehouse/deleteshelf/", item).success(function(result) {
-                callback(result);
-            })
+            $http.post(cul.apiPath + "/warehouse/deleteshelf/", item).then(function (result) {
+                callback(result.data);
+            });
         }
 
         //获取架位列表
         self.getList = function(options, callback) {
-            $http.post(cul.apiPath + "/warehouse/shelf/list", options).success(function(result) {
+            $http.post(cul.apiPath + "/warehouse/shelf/list", options).then(function(result) {
+                var result = result.data;
                 _.each(result.data, function(item) {
                     switch (item.type) {
                         case "A":
@@ -49,22 +50,23 @@ angular.module('culAdminApp')
 
         //修改架位
         self.update = function(options, callback) {
-            $http.post(cul.apiPath + "/warehouse/shelf", options).success(function(result) {
-                callback(result);
-            })
+            $http.post(cul.apiPath + "/warehouse/shelf", options).then(function (result) {
+                callback(result.data);
+            });
         }
 
         //获取单个寄送库存
         self.getTransportDetail = function(receiptNumber, callback) {
-            $http.get(cul.apiPath + "/item/transport?receiptNumber=" + receiptNumber).success(function(result) {
-                callback(result);
+            $http.get(cul.apiPath + "/item/transport?receiptNumber=" + receiptNumber).then(function (result) {
+                callback(result.data);
             });
         }
 
         //库存寄送列表
         self.getTransportList = function(options, callback) {
             //console.log(options);
-            $http.post(cul.apiPath + "/item/transport/list", options).success(function(result) {
+            $http.post(cul.apiPath + "/item/transport/list", options).then(function(result) {
+                var result = result.data;
                 _.each(result.data, function(item) {
                     switch (item.sendType) {
                         case 1:
@@ -109,28 +111,29 @@ angular.module('culAdminApp')
 
         //商品上架
         self.onshelfForInbound = function(options, callback) {
-            $http.post(cul.apiPath + "/item/onshelf", options).success(function(result) {
-                callback(result);
+            $http.post(cul.apiPath + "/item/onshelf", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         //货架商品移动
         self.onshelfForMove = function(options, callback) {
-            $http.put(cul.apiPath + "/item/onshelf", options).success(function(result) {
-                callback(result);
+            $http.put(cul.apiPath + "/item/onshelf", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         //获取上架清单
         self.getUnshelfList = function(options, callback) {
-            $http.post(cul.apiPath + "/item/unshelf/list", options).success(function(result) {
-                callback(result);
+            $http.post(cul.apiPath + "/item/unshelf/list", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         //上架商品列表
         self.getOnshelfList = function(options, callback) {
-            $http.post(cul.apiPath + "/item/onshelf/list", options).success(function(result) {
+            $http.post(cul.apiPath + "/item/onshelf/list", options).then(function(result) {
+                var result = result.data;
                 _.each(result.data, function(item) {
                     switch (item.sendType) {
                         case 1:

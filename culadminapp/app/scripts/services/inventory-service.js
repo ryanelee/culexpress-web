@@ -12,21 +12,21 @@ angular.module('culAdminApp')
       var self = this;
 
       self.getDetail = function (itemNumber, callback) {
-          $http.get(cul.apiPath + "/item/inventory?itemNumber=" + itemNumber).success(function (result) {
-              callback(result);
-          })
+          $http.get(cul.apiPath + "/item/inventory?itemNumber=" + itemNumber).then(function (result) {
+                callback(result.data);
+            });
       }
 
       self.getInfo = function (itemNumber, callback) {
-          $http.get(cul.apiPath + "/item/info?itemNumber=" + itemNumber).success(function (result) {
-              callback(result);
-          })
+          $http.get(cul.apiPath + "/item/info?itemNumber=" + itemNumber).then(function (result) {
+                callback(result.data);
+            });
       }
 
       self.getInfoByReceiptNumber = function (receiptNumber, callback) {
-          $http.get(cul.apiPath + "/item/info?receiptNumber=" + receiptNumber).success(function (result) {
-              callback(result);
-          })
+          $http.get(cul.apiPath + "/item/info?receiptNumber=" + receiptNumber).then(function (result) {
+                callback(result.data);
+            });
       }
 
       self.getList = function (options, callback) {
@@ -48,13 +48,14 @@ angular.module('culAdminApp')
                 options["customerNumber"] = customer_ids;
         };
 
-          $http.post(cul.apiPath + "/item/inventory/list", options).success(function (result) {
-              callback(result);
-          })
+          $http.post(cul.apiPath + "/item/inventory/list", options).then(function (result) {
+                callback(result.data);
+            });
       }
 
       self.getLogList = function (options, callback) {
-          $http.post(cul.apiPath + "/item/inventory/log/list", options).success(function (result) {
+          $http.post(cul.apiPath + "/item/inventory/log/list", options).then(function (result) {
+              var result = result.data
               _.each(result.data, function (item) {
                   item._type = _logType(item.type);
               });
@@ -63,21 +64,21 @@ angular.module('culAdminApp')
       }
 
       self.getCategoryList = function (callback) {
-          $http.get(cul.apiPath + "/item/category/list").success(function (result) {
-              callback(result);
-          })
+          $http.get(cul.apiPath + "/item/category/list").then(function (result) {
+                callback(result.data);
+            });
       }
 
       self.frozen = function (options, callback) {
-          $http.put(cul.apiPath + "/item/inventory/frozen", options).success(function (result) {
-              callback(result);
-          })
+          $http.put(cul.apiPath + "/item/inventory/frozen", options).then(function (result) {
+                callback(result.data);
+            });
       }
 
       self.adjust = function (options, callback) {
-          $http.put(cul.apiPath + "/item/inventory/adjust", options).success(function (result) {
-              callback(result);
-          })
+          $http.put(cul.apiPath + "/item/inventory/adjust", options).then(function (result) {
+                callback(result.data);
+            });
       }
 
       var _logType = function (type) {

@@ -13,7 +13,8 @@ angular.module('culAdminApp')
 
         //寄送库存海淘入库登记
         self.getDetail = function (receiptNumber, callback) {
-            $http.get(cul.apiPath + "/item/transport?receiptNumber=" + receiptNumber).success(function (result) {
+            $http.get(cul.apiPath + "/item/transport?receiptNumber=" + receiptNumber).then(function (result) {
+                var result = result.data;
                 if (result)
                     result._inboundStatus = "";
                 switch (result.inboundStatus) {
@@ -39,40 +40,41 @@ angular.module('culAdminApp')
 
         //寄送库存海淘入库登记
         self.saveForOnline = function (options, callback) {
-            $http.post(cul.apiPath + "/item/transport/Inbound/online", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/item/transport/Inbound/online", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         //寄送库存大客户入库登记
         self.saveForOffline = function (options, callback) {
-            $http.post(cul.apiPath + "/item/transport/Inbound/offline", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/item/transport/Inbound/offline", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.checkForOffline = function (options, callback) {
-            $http.post(cul.apiPath + "/item/transport/check/offline", options).success(function (result, status) {
-                callback(result, status);
+            $http.post(cul.apiPath + "/item/transport/check/offline", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         //删除入库登记数据
         self.delete = function (options, callback) {
-            $http.post(cul.apiPath + "/item/transport/delete", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/item/transport/delete", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.checkItem = function (code, callback) {
-            $http.get(cul.apiPath + "/item/upc?numberOrUpc=" + code).success(function (result, status) {
-                callback(result, status);
+            $http.get(cul.apiPath + "/item/upc?numberOrUpc=" + code).then(function (result) {
+                callback(result.data);
             });
         }
 
         //入库异常列表
         self.getExceptionList = function (options, callback) {
-            $http.post(cul.apiPath + "/inbound/exception/list", options).success(function (result) {
+            $http.post(cul.apiPath + "/inbound/exception/list", options).then(function (result) {
+            var result = result.data;
                 _.each(result.data, function (item) {
                     item._sendtype = self.mapping.sendType(item.sendtype);
                     item._type = self.mapping.type(item.type);

@@ -30,7 +30,8 @@ angular.module('culAdminApp')
         }
 
         self.getInboundPackageList = function (options, callback) {
-            $http.post(cul.apiPath + "/inboundPackage/list", options).success(function (result) {
+            $http.post(cul.apiPath + "/inboundPackage/list", options).then(function (result) {
+                var result = result.data;
                 $.each(result.data, function (index, item) {
                     item._status = _statusConvert(item.status);
                 });
@@ -39,20 +40,20 @@ angular.module('culAdminApp')
         }
 
         self.getInboundPackageDetail = function (id, callback) {
-            $http.get(cul.apiPath + "/inboundPackage/" + id).success(function (result) {
-                callback(result);
+            $http.get(cul.apiPath + "/inboundPackage/" + id).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.updateInboundPackageDetail = function (model, callback) {
-            $http.put(cul.apiPath + "/inboundPackage/inbound", model).success(function (result) {
-                callback(result);
+            $http.put(cul.apiPath + "/inboundPackage/inbound", model).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.deleteInboundPackageDetail = function (id, callback) {
-            $http.delete(cul.apiPath + "/inboundPackage?number=" + id).success(function (result) {
-                callback(result);
+            $http.delete(cul.apiPath + "/inboundPackage?number=" + id).then(function (result) {
+                callback(result.data);
             });
         }
 
@@ -60,8 +61,8 @@ angular.module('culAdminApp')
             //$http.get(cul.apiPath + "/outboundpackage/order/" + ids.join(",")).success(function (result) {
             $http.post(cul.apiPath + "/outboundpackage/order", {
                 orderNumber: ids
-            }).success(function (result) {
-                callback(result);
+            }).then(function (result) {
+                callback(result.data);
             });
         }
 
@@ -72,20 +73,20 @@ angular.module('culAdminApp')
                     "trackingNumber": trackingNumber
                 });
             })
-            $http.post(cul.apiPath + "/outboundpackage/ship", _data).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/outboundpackage/ship", _data).then(function (result) {
+                callback(result.data);
             });
         }
 
         self.outboundPackageSplit = function (options, callback) {
-            $http.post(cul.apiPath + "/outboundpackage/split", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/outboundpackage/split", options).then(function (result) {
+                callback(result.data);
             });
 
         }
         self.getDeleteReceiptLog = function (options, callback) {
-            $http.post(cul.apiPath + "/getDeleteReceiptLog", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/getDeleteReceiptLog", options).then(function (result) {
+                callback(result.data);
             });
 
         }
@@ -96,7 +97,8 @@ angular.module('culAdminApp')
         }
 
         self.getOutboundPackageList = function (options, callback) {
-            $http.post(cul.apiPath + "/outboundPackage/list", options).success(function (result) {
+            $http.post(cul.apiPath + "/outboundPackage/list", options).then(function (result) {
+              var result = result.data;
                 $.each(result.data, function (i, item) {
                     item._orderStatus = _getOrderStatus(item.orderStatus);
                     if (!!item.address) {
@@ -130,7 +132,8 @@ angular.module('culAdminApp')
             // console.log("warehouse",warehouse);
 
             if (!warehouse || warehouse == 'undefined' ) {
-                $http.get(cul.apiPath + "/warehouse").success(function (result) {
+                $http.get(cul.apiPath + "/warehouse").then(function (result) {
+                    var result = result.data;
                     var role = [], warehouse_ids = [];
                     if ($window.sessionStorage.getItem('role')) {
                         role = JSON.parse($window.sessionStorage.getItem('role'));
@@ -161,8 +164,8 @@ angular.module('culAdminApp')
         self.registerOutboundPackages = function (count, callback) {
             $http.post(cul.apiPath + "/outboundpackage/mark", {
                 count: count
-            }).success(function (result) {
-                callback(result);
+            }).then(function (result) {
+                callback(result.data);
             });
         }
 
@@ -187,16 +190,16 @@ angular.module('culAdminApp')
         }
 
         self.getCategory = function (callback) {
-            $http.get(cul.apiPath + "/item/category/list").success(function (result) {
-                callback(result);
-            })
+            $http.get(cul.apiPath + "/item/category/list").then(function (result) {
+                callback(result.data);
+            });
         }
 
         //Shipping channel lsit
         self.getShippingChannelList = function (callback) {
-            $http.post(cul.apiPath + "/shipservice/list", { "pageInfo": { "pageSize": 20, "pageIndex": 1 } }).success(function (result) {
+            $http.post(cul.apiPath + "/shipservice/list", { "pageInfo": { "pageSize": 20, "pageIndex": 1 } }).then(function (result) {
                 callback(result.data);
-            })
+            });
         }
 
         // //获取系统公告
@@ -208,34 +211,34 @@ angular.module('culAdminApp')
 
         //创建仓库
         self.createWarehouse = function (options, callback) {
-            $http.post(cul.apiPath + "/warehouse", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/warehouse", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         //搜索仓库
         self.getWarehouseList = function (options, callback) {
-            $http.post(cul.apiPath + "/getWarehouse", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/getWarehouse", options).then(function (result) {
+                callback(result.data);
             });
         }
         //删除仓库
         self.deleteWarehouse = function (options, callback) {
-            $http.post(cul.apiPath + "/deleteWarehouse", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/deleteWarehouse", options).then(function (result) {
+                callback(result.data);
             });
         }
         //更新仓库
         self.updateWarehouse = function (options, callback) {
-            $http.post(cul.apiPath + "/updateWarehouse", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/updateWarehouse", options).then(function (result) {
+                callback(result.data);
             });
         }
 
         //更新仓库
         self.updateWareInboundpackage = function (options, callback) {
-            $http.post(cul.apiPath + "/updateWareInboundpackage", options).success(function (result) {
-                callback(result);
+            $http.post(cul.apiPath + "/updateWareInboundpackage", options).then(function (result) {
+                callback(result.data);
             });
         }
     }]);
