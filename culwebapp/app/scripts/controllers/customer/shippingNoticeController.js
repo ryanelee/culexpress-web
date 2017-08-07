@@ -121,7 +121,7 @@ var app = angular
                 orderSvr
                     .retrieveShippingNoticeList(index, pageSize, $.extend({ status: status, customerNumber: customerNumber }, para))
                     .then(function(result) {
-                            $scope.pagedOptions.total = result.data.pageInfo.totalCount;
+                            $scope.pagedOptions.total = result.data.pageInfo.totalPageCount;
                             $scope.shippingNoticeList = result.data.data;  
                             // console.log($scope.shippingNoticeList)
                             //  if(status === "Onshelf") {
@@ -141,7 +141,7 @@ var app = angular
                
                 
             };
-            $scope.initShippingNoticeList();
+            // $scope.initShippingNoticeList();
 
             $scope.onPaged = function(pageIndex) {
                 $scope.initShippingNoticeList(pageIndex);

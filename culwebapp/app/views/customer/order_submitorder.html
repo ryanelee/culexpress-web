@@ -169,13 +169,27 @@
                                       <div class="s-title" style="margin-top: 25px;">转运包裹信息</div>
                                         <div class="alert alert-warning fade in alert-dismissable">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            <strong>温馨提示:</strong>USPS渠道请提交填写内容为英文的地址，其他渠道请提交中文地址，避免造成发货延迟                                                                             
+                                            <strong>温馨提示:</strong>USPS渠道请提交填写内容为英文的地址，其他渠道请提交中文地址，避免造成发货延迟
+                                            <div ng-if="data.shipServiceItem.needIDCard === 1">
+                                                <i class="fa fa-exclamation-triangle color-ffb"></i>
+                                                <strong>注意:</strong>您当前选择的渠道[<span style="color:red">{{data.shipServiceItem.shipServiceName}}</span>]需要提供收货人身份证信息并需要通过验证,请选择已经通过身份证验证的收货地址.                                                                           
+                                            </div>
                                         </div>
                                           <div ng-repeat="outboundPackageItem in outboundPackages" style="margin-bottom: 15px; padding:20px 30px; background-color: #fff;">
-                                            <select class="form-control" ng-model="outboundPackageItem.addressNumber"
+                                            <!-- <select class="form-control" ng-model="outboundPackageItem.addressNumber"
                                               ng-options="addressItem.transactionNumber as (addressItem.stateOrProvince+' '+addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName) for addressItem in addressListData"
                                               style="width: 40%; float: left; margin-top: 5px; margin-right:20px;">
-                                                <option value="">请选择收货地址</option>
+                                                <option disabled selected value="">请选择收货地址</option>
+                                            </select> -->
+                                            <select class="form-control" ng-model="outboundPackageItem.addressNumber"
+                                              style="width: 40%; float: left; margin-top: 5px; margin-right:20px;">
+                                                <option disabled selected value="">请选择收货地址</option>
+                                                <option ng-repeat="addressItem in addressListData"
+                                                    value="{{addressItem.transactionNumber}}" ng-disabled="data.shipServiceItem.needIDCard === 1 && addressItem.verifyMark !== 1">
+                                                    <!-- 选择的渠道如果需要身份证,在地址前面显示验证通过或者未验证, 并且不能选择未验证的地址 -->
+                                                    {{ data.shipServiceItem.needIDCard === 1 ? (addressItem.verifyMark === 1 ? '[验证通过] ' : '[未验证] ') : ''}}
+                                                    {{addressItem.stateOrProvince+' '+addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName}}
+                                                </option>
                                             </select>
                                             <select class="form-control" ng-model="outboundPackageItem.currentCategory" style="margin-top:5px; width:30%;float:left;"
                                                     ng-change="selectedCategory(outboundPackageItem,'currentCategory',outboundPackageItem.currentCategory)"

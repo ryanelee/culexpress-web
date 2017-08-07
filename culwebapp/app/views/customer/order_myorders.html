@@ -132,7 +132,8 @@
                                         </li>
                                     </ul>
                                 </td>
-                                <td><small ng-repeat="orderDetailItemShipChannelItem in allShipChannels" ng-if="orderDetailItemShipChannelItem.shipServiceId===rowItem.shipServiceId">{{orderDetailItemShipChannelItem.shipServiceName}}</small></td>
+                                <td>{{rowItem.shipServiceName}}</td>
+                                <!-- <td><small ng-repeat="orderDetailItemShipChannelItem in allShipChannels" ng-if="orderDetailItemShipChannelItem.shipServiceId===rowItem.shipServiceId">{{orderDetailItemShipChannelItem.shipServiceName}}</small></td> -->
                                 <td>
                                     <div class="btn-group" style="margin-top:5px;">
                                         <ul class="list-inline" style="min-width:80px;font-size:15px;">
@@ -173,17 +174,27 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div style="margin-top:10px">
+                        <label class="pull-left">每页显示
+                            <select style="width:50px;float:right" class="form-control" ng-model="pageSize" ng-change="onPaged(1)">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </label>
+                        <div class="text-right pull-right">
+                            <pagination options="pagedOptions" on-page="onPaged"></pagination>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row" style="margin-top:20px;">
-                    <div class="col-sm-3">
+                    <div>
                         <a ui-sref="customer.shippingnoticelist" class="btn-u bg-color-ffb">
                             <i class="fa fa-shopping-cart"> 提交订单</i>
                         </a>
                         <button type="button" class="btn-u btn-u-default" ng-click="goback()">返回</button>
-                    </div>
-                    <div class="col-sm-9 text-right">
-                        <pagination options="pagedOptions" on-page="onPaged"></pagination>
                     </div>
                 </div>
             </div>
