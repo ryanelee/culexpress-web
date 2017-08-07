@@ -92,7 +92,7 @@ angular.module('culwebApp')
 
                 paras.status = paras.status ? [paras.status] : ["Intransit", "Inbound", "Onshelf"]
                 paras.excludeInOrderPackage = true;//Doesn't show packages with order submitted.
-
+                
                 return $http.post(cul.apiPath + '/inboundpackage/list', $.extend({
                     pageInfo: {
                         pageSize: pageSize,
