@@ -20,6 +20,8 @@ angular.module('culAdminApp')
             $scope.receiptNumber = null;
             $scope.tempReceiptNumber = $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
             $scope.isUnusual = $location.search().isUnusual;
+            $scope.isModifyShelf = false;
+            $scope.originShelfNumber = null;
 
             //console.log($scope.tempItemNumber) 
 
@@ -76,6 +78,7 @@ angular.module('culAdminApp')
                 // if (!!_timeout) clearTimeout(_timeout);
                 // _timeout = setTimeout(function() {
                 //     $scope.$apply(function() {
+                $scope.isModifyShelf = false;
                 if ($scope.tempItemNumber == $location.search().receiptNumber) {
                     inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
                         $scope.data = null;
@@ -98,7 +101,7 @@ angular.module('culAdminApp')
                                 });
                             });
                         }
-  
+
                         $scope.tempItemNumber = "";
                         $("#shelfNumber").focus();
                     });
@@ -114,9 +117,17 @@ angular.module('culAdminApp')
 
                         if (!result.message) {
                             $scope.data = result;
+
                             // $scope.receiptNumber = $location.search().receiptNumber;
                             $scope._itemType = $scope.data.itemNumber.substr(0, 2);
                             $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
+                            //display shelf # if have been on shelf.
+                            if (result && result.inventoryList && result.inventoryList.length > 0 && result.inventoryList[0].shelfNumber && $scope._itemType == "S1") {
+                                console.log(result);
+                                $scope.data.shelfNumber = result.inventoryList[0].shelfNumber;
+                                $scope.isModifyShelf = true;
+                                $scope.originShelfNumber = result.inventoryList[0].shelfNumber;
+                            }
 
                             $timeout(function () {
                                 $('#tip_ASNNumber').popover({
@@ -206,6 +217,37 @@ angular.module('culAdminApp')
                 if ($scope.isExpecial() == false)
                     return;
 
+                if ($scope.isModifyShelf) {
+                    if($scope.originShelfNumber == $scope.data.shelfNumber){                        
+                        return;
+                    }
+
+                    var modifyData = {
+                        itemNumber: $scope.data.itemNumber,
+                        originShelfNumber: $scope.originShelfNumber,
+                        targetShelfNumber: $scope.data.shelfNumber,
+                        moveItemCount: $scope.data.itemCount
+                    }
+
+                    shelfService.onshelfForMove(modifyData, function (result) {
+                        if (result.success) {
+                            plugMessenger.success("修改架位成功");
+                            $scope.data = null;
+                            $scope.isModifyShelf = false;
+                            $scope.originShelfNumber = null;
+
+                            $timeout(function () {
+                                $window.document.getElementById('tempItemNumber').focus();
+                            }, 1000);
+                        } else {
+                            $window.document.getElementById('shelfNumber').select();
+                            $window.document.getElementById('shelfNumber').focus();
+                        }
+                    });
+
+                    return;
+                }
+
                 var data = {
                     itemNumber: $scope.data.itemNumber,
                     customerNumber: $scope.data.customerNumber,
@@ -218,6 +260,7 @@ angular.module('culAdminApp')
                 if ($scope._itemType == "S2") {
                     data.receiptNumber = $scope.data.receiptNumber;
                 }
+
                 // return;
                 shelfService.onshelfForInbound(data, function (result) {
                     if (result.success) {
@@ -228,9 +271,9 @@ angular.module('culAdminApp')
                         // 上架成功后停留在上架登记界面继续上架操作
                         //  $location.path("/warehouse/onshelfdetail"); 
 
-                        $timeout(function(){
+                        $timeout(function () {
                             $window.document.getElementById('tempItemNumber').focus();
-                        },1000);
+                        }, 1000);
                     } else {
                         // plugMessenger.error("操作失败");
                         $window.document.getElementById('shelfNumber').select();
