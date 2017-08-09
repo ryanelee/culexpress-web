@@ -123,7 +123,6 @@ angular.module('culAdminApp')
                             $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
                             //display shelf # if have been on shelf.
                             if (result && result.inventoryList && result.inventoryList.length > 0 && result.inventoryList[0].shelfNumber && $scope._itemType == "S1") {
-                                console.log(result);
                                 $scope.data.shelfNumber = result.inventoryList[0].shelfNumber;
                                 $scope.isModifyShelf = true;
                                 $scope.originShelfNumber = result.inventoryList[0].shelfNumber;
