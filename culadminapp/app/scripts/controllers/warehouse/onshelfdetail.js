@@ -86,7 +86,7 @@ angular.module('culAdminApp')
                             $scope.receiptNumber = $location.search().receiptNumber;
                             $scope._itemType = $scope.data.itemNumber.substr(0, 2);
                             $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
-
+ 
                             $timeout(function () {
                                 $('#tip_ASNNumber').popover({
                                     container: 'body',
