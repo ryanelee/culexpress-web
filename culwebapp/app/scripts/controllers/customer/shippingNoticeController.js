@@ -93,11 +93,11 @@ var app = angular
                 $scope.shippingNotice.isFastOrder = false;
             };
 
+            $scope.pageSize = 10;
             $scope.pagedOptions = {
                 total: 0,
                 size: 10
             }
-            $scope.pageSize = 10;
 
             $scope.searchKeyItems = [{
                 key: 'trackingNumber',
@@ -115,12 +115,13 @@ var app = angular
                 var status = $scope.queryPara.status,
                     customerNumber = $rootScope.currentUser.customerNumber;
 
-                $scope.pagedOptions.index = index;
                 var pageSize = $scope.pageSize;
+                $scope.pagedOptions.index = index;
+                $scope.pagedOptions.size = pageSize;
                 orderSvr
                     .retrieveShippingNoticeList(index, pageSize, $.extend({ status: status, customerNumber: customerNumber }, para))
                     .then(function(result) {
-                            $scope.pagedOptions.total = result.data.pageInfo.totalCount;
+                            $scope.pagedOptions.total = result.data.pageInfo.totalPageCount;
                             $scope.shippingNoticeList = result.data.data;  
                             // console.log($scope.shippingNoticeList)
                             //  if(status === "Onshelf") {
@@ -140,7 +141,7 @@ var app = angular
                
                 
             };
-            $scope.initShippingNoticeList();
+            // $scope.initShippingNoticeList();
 
             $scope.onPaged = function(pageIndex) {
                 $scope.initShippingNoticeList(pageIndex);

@@ -56,22 +56,27 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label text-right">申报品名：</label>
-                    <div class="col-sm-4">
-                        <label class="control-label">{{data.declareGoodsName}}</label>
+                    <label class="col-sm-2 control-label text-right"></label>
+                    <div class="col-sm-6">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%;">申报品名</th>
+                                    <th style="width: 30%;">商品描述</th>
+                                    <th style="width: 40%;">申报数量</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in data.orderItems">
+                                    <td>{{item.itemBrand}}</td>
+                                    <td>{{item.description}}</td>
+                                    <td>{{item.quantity}}</td> 
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <label class="col-sm-2 control-label text-right">申报数量：</label>
-                    <div class="col-sm-4">
-                        <label class="control-label">{{data._quantityCount}}</label>
-                    </div>
-                    
                 </div>
-                <!--<div class="form-group">
-                    <label class="col-sm-2 control-label text-right">增值服务：</label>
-                    <div class="col-sm-4">
-                        <label class="control-label">{{'取出发票'}}</label>
-                    </div>
-                </div>-->
+                
             </fieldset>
             <fieldset ng-show="!!data">
                 <legend>打包明细</legend>
