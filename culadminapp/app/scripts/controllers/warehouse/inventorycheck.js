@@ -94,6 +94,19 @@ angular.module('culAdminApp')
                 });
             }
 
+            $scope.btnPrint = function (item) {
+                console.log(item)
+                switch (item.sendType) {
+                  case 1:   //寄送库存
+                      $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber });
+                      break;
+                  case 2:   //海淘包裹
+                    //   $scope.$root.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: item.receiptNumber, number: 1 });
+                    $scope.$broadcast("print-inboundPackage.action", item.receiptNumber);
+                      break;
+                }
+            }
+
             $scope.btnPrev = function () {
                 $window.sessionStorage.setItem("historyFlag", 1); $window.history.back();
             }
