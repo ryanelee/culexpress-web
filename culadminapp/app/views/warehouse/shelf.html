@@ -39,6 +39,7 @@
                         <tr>
                             <th>序号</th>
                             <th>所在仓库</th>
+                            <th>入库单号</th>
                             <th>架位编号</th>
                             <th>商品类型</th>
                             <th>商品编号</th>
@@ -52,6 +53,7 @@
                         <tr ng-repeat="item in dataList">
                             <td>{{item.rownumber}}</td>
                             <td>{{getWarehouseName(item.warehouseNumber)}}</td>
+                            <td>{{item.receiptNumber}}</td>
                             <td>{{item.shelfNumber}}</td>
                             <td>{{item._sendType}}</td>
                             <td>{{item.itemNumber}}</td>

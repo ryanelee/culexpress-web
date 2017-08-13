@@ -49,7 +49,7 @@ angular.module('culAdminApp')
                 keywordType: "receiptNumber",
                 warehouseNumber: "",
                 sendType: "",
-                shelfStatus: "0",
+                shelfStatus: "",
 
 
                 dateRange: "",
@@ -197,6 +197,10 @@ angular.module('culAdminApp')
                     case "onshelf":
                         if (!!item && item.sendType == 2) $location.search({ receiptNumber: item.receiptNumber, isUnusual: item.isUnusual });
                         $location.path("/warehouse/onshelfdetail");
+                        break;
+                    case "edit":
+                        if (!!item) $location.search({ receiptNumber: item.receiptNumber });
+                        $location.path("/warehouse/shelfdetail");
                         break;
                 }
             }
