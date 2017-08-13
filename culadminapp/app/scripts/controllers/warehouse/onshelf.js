@@ -104,7 +104,7 @@ angular.module('culAdminApp')
                 }
                 if (!!$scope.searchBar.warehouseNumber) {
                     _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
-                }
+                }  
                 if (!!$scope.searchBar.keywords) {
                     if ($scope.searchBar.keywordType == "customerNumber" &&
                         $scope.customer_ids != undefined &&
@@ -155,6 +155,7 @@ angular.module('culAdminApp')
                         }
 
                         $scope.dataList = _data;
+                        console.log("2323", $scope.dataList);
                         $scope.pagination.totalCount = result.pageInfo.totalCount;
                         $rootScope.$emit("changeMenu");
                     });

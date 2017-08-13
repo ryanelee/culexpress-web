@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="form-group" ng-show="_itemType == 'S1'">
-                    <label class="col-sm-2 control-label text-right">入库单号</label>
+                    <label class="col-sm-2 control-label text-right">入库单号:</label>
                     <div class="col-sm-4 text-left">
                         <label class="control-label">{{ tempReceiptNumber }}</label>
                     </div>
@@ -43,6 +43,9 @@
                     <label class="col-sm-2 control-label text-right">仓库架位：</label>
                     <div class="col-sm-4 text-left">
                         <input type="text" id="shelfNumber" class="form-control" ng-keydown="keydownBtnSave($event)" placeholder="仓库架位" ng-model="data.shelfNumber">
+                    </div>
+                    <div class="col-sm-6 text-left red" ng-if="!!isModifyShelf">
+                        <i class="fa fa-warning"><small>该商品已上架,输入不同架位编号将完成修改架位操作</small></i>
                     </div>
                 </div>
                 <div class="form-group">
