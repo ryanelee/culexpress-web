@@ -80,6 +80,15 @@ angular.module('culAdminApp')
           })
       }
 
+
+      self.check = function (options, callback) {
+        $http.post(cul.apiPath + "/getInboundPackage", options).success(function (result) {
+            callback(result);
+        })
+    }
+
+      
+
       var _logType = function (type) {
           var _typeVal = "";
           switch (type) {

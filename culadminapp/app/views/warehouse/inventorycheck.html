@@ -1,0 +1,96 @@
+<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i> 盘点库存</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">入库单号：</label>
+                    <div class="col-sm-4">
+                        <input type="text" id="tempTrackingNumber" class="form-control" ng-model="tempTrackingNumber" ng-keyup="keyDown($event)"
+                        />
+                    </div>
+                    <div class="col-sm-1 col-padding-clear">
+                        <button id="tip_itemNumber" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset ng-if="!!data">
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label text-right green">已扫描商品：</label>
+                    <div class="col-sm-4 text-left">
+                        <label class="control-label"><a href="">{{data.itemNumber}}</a></label>
+                    </div>
+                </div>
+                <div class="form-group green">
+                    <label class="col-sm-2 control-label text-right">入库单号:</label>
+                    <div class="col-sm-4 text-left">
+                        <label class="control-label">{{data.trackingNumber}}</label>
+                    </div>
+                </div>
+                <div class="form-group  green">
+                    <label class="col-sm-2 control-label text-right ">包裹状态：</label>
+                    <div class="col-sm-4 text-left">
+                        <label class="control-label">{{data.status | _packageStatus}}</label>
+                    </div>
+                </div>
+                <div class="form-group green ">
+                    <label class="col-sm-2 control-label text-right ">架位编号：</label>
+                    <div class="col-sm-4 text-left">
+                        <label class="control-label">{{data.shelfNumber}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right ">所在仓库：</label>
+                    <div class="col-sm-4 text-left">
+                        <label class="control-label">{{data.warehouseName}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 text-left">
+                    </div>
+                    <div class="col-sm-8 text-left">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>货物区域</th>
+                                    <th>货架排</th>
+                                    <th>货架层</th>
+                                    <th>架位</th>
+                                    <th>Box</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td ng-repeat="shelf in shelfs">{{shelf}}</td>
+                                    <td>{{}}</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-2 text-right">
+
+                    </div>
+                </div>
+
+
+            </fieldset>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <!-- <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-if="!!data"><i class="fa fa-save"></i>确定</button> -->
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()"><i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var weight = document.getElementById("tempTrackingNumber").focus();
+    })
+
+</script>
