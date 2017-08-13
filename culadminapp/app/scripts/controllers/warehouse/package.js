@@ -219,6 +219,10 @@ angular.module('culAdminApp')
 
             }
 
+            $scope.bucketManage = function () {
+                $location.path('/warehouse/bucket');
+            }
+            
             $scope.btnPrint = function (item, type) {
                 var _print = function () {
                     switch (type) {

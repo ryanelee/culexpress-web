@@ -31,10 +31,10 @@ angular.module('culAdminApp')
                 keywords: $location.search().receiptNumber || "",
                 warehouseNumber: "",
             }
-              $scope.tempSearchBar = angular.copy(storage.getSearchObject());
-            if ($scope.tempSearchBar) {
-                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
-            }
+            // $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            // if ($scope.tempSearchBar) {
+            //     $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            // }
             //  storage.session.setObject("searchBar", $scope.searchBar);
 
             $scope.pagination = {
@@ -76,9 +76,8 @@ angular.module('culAdminApp')
             }
 
             $scope.getData = function() {
-                storage.session.setObject("searchBar", $scope.searchBar);
+                // storage.session.setObject("searchBar", $scope.searchBar);
                 shelfService.getOnshelfList(_filterOptions(), function(result) {
-                    // console.log(result)
                     var _data = result.data;
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function(x) {
@@ -87,7 +86,6 @@ angular.module('culAdminApp')
                     }
  
                     $scope.dataList = _data;
-                    //console.log($scope.dataList);
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
                     $rootScope.$emit("changeMenu");
                 });
@@ -105,14 +103,15 @@ angular.module('culAdminApp')
             $scope.btnAction = function(type, item) {
                 switch (type) {
                     case "edit":
-                        if (!!item) $location.search({ shelfNumber: item.shelfNumber, itemNumber: item.itemNumber, warehouseName: item.warehouseName });
+                        if (!!item) $location.search({ receiptNumber: item.receiptNumber });
                         $location.path("/warehouse/shelfdetail");
                         break;
                 }
             }
 
             $scope.btnPrev = function() {
-                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 
+                $window.history.back();
             }
 
             $scope.btnPrint = function(warehouseNumber) {

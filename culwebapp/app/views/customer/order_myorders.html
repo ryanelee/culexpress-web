@@ -174,18 +174,18 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div style="margin-top:10px">
-                        <label class="pull-left">每页显示
-                            <select style="width:50px;float:right" class="form-control" ng-model="pageSize" ng-change="onPaged(1)">
+                    <div  class="row" style="margin-top:10px">
+                        <div class="text-right pull-right">
+                            <pagination options="pagedOptions" on-page="onPaged"></pagination>
+                        </div>
+                        <label class="pull-right">
+                            <select style="width:50px;" class="form-control" ng-model="pageSize" ng-change="onPaged(1)">
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
                             </select>
                         </label>
-                        <div class="text-right pull-right">
-                            <pagination options="pagedOptions" on-page="onPaged"></pagination>
-                        </div>
                     </div>
                 </div>
 
