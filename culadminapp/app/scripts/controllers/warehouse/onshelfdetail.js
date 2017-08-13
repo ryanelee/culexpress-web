@@ -82,8 +82,8 @@ angular.module('culAdminApp')
                 if ($scope.tempItemNumber == $location.search().receiptNumber) {
                     inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
                         $scope.data = null;
-
-
+                    
+                        console.log("23",result);
                         if (!result.message) {
                             $scope.data = result;
                             $scope.receiptNumber = $location.search().receiptNumber;
@@ -203,7 +203,7 @@ angular.module('culAdminApp')
                 //         plugMessenger.error("异常包裹必须以C开头");
                 //         return
                 //     }
-
+ 
 
                 // }
 
@@ -254,7 +254,8 @@ angular.module('culAdminApp')
                     weight: $scope.data.weight,
                     shelfNumber: $scope.data.shelfNumber,
                     receiptNumber: $scope.receiptNumber,
-                    itemCount: $scope.data.itemCount
+                    itemCount: $scope.data.itemCount,
+                    emailAddress:$scope.data.emailAddress
                 }
                 if ($scope._itemType == "S2") {
                     data.receiptNumber = $scope.data.receiptNumber;

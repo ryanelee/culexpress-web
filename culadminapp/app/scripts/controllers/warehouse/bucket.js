@@ -63,7 +63,7 @@ angular.module('culAdminApp')
                     "pageInfo": $scope.pagination,
                     "indateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
                     "indateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : "",
-                }
+                }  
 
                 if (!!$scope.searchBar.warehouseNumber) {
                     _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;

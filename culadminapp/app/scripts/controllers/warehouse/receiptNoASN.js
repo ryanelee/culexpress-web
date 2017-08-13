@@ -354,7 +354,7 @@ angular.module('culAdminApp')
                         var element = $window.document.getElementById('txtTrackingNumber');
                         if (element)
                             element.focus();
-                        // $location.path('/warehouse/receiptedit2');
+                        // $location.path('/warehouse/receiptedit2'); 
                         // if (item) {
                         // } else {
                         //     // $scope.data = null;
