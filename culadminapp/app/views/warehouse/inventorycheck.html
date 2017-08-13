@@ -24,9 +24,10 @@
                     </div>
                 </div>
                 <div class="form-group green">
-                    <label class="col-sm-2 control-label text-right">入库单号:</label>
+                    <label class="col-sm-2 control-label text-right">入库单号：</label>
                     <div class="col-sm-4 text-left">
                         <label class="control-label">{{data.trackingNumber}}</label>
+                        <a href="javascript:void(0)" ng-click="btnPrint(data)">打印入库标签</a>
                     </div>
                 </div>
                 <div class="form-group  green">
@@ -86,7 +87,10 @@
             </div>
         </form>
     </div>
+    <print-helper></print-helper>
+    <print-inbound-package></print-inbound-package>
 </div>
+
 
 <script>
     $(function () {
