@@ -213,16 +213,15 @@ angular.module('culAdminApp')
                         plugMessenger.error("请填写实际包裹重量！");
                         return;
                     }
-                    var flag = 0;
+                    var flag = 1;
                     if ($scope.data.orderStatus == "Paid" && $scope.data.printStatus == "UnPrinted") {
                         plugMessenger.confirm("该订单[" + $scope.data.orderNumber + "]未打印,确认打包处理?", function (isOk) {
-                            if (isOk) {
-                                flag = 1;
+                            if (!isOk) {
+                                flag = 0;
                             }
                         })
                     };
                     if (flag) {
-
                         if ($.grep($scope.data.inboundPackages, function (n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
                             var _count = 0;
                             var checkedPackages = $scope.data.outboundPackages;
