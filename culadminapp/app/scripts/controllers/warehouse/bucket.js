@@ -63,7 +63,7 @@ angular.module('culAdminApp')
                     "pageInfo": $scope.pagination,
                     "indateFrom": !!$scope.searchBar.startDate ? $scope.searchBar.startDate.toISOString() : "",
                     "indateTo": !!$scope.searchBar.endDate ? $scope.searchBar.endDate.toISOString() : "",
-                }
+                }  
 
                 if (!!$scope.searchBar.warehouseNumber) {
                     _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
@@ -78,84 +78,87 @@ angular.module('culAdminApp')
             }
 
 
-          $scope.getData = function () {  
-              var _options = _filterOptions();  
-              storage.session.setObject("searchBar", $scope.searchBar);         
-              bucketService.getList(_filterOptions(), function (result) {
-                  $scope.dataList = result.data;
-                //   console.log(result)
-                  $scope.pagination.totalCount = result.pageInfo.totalCount;
-                  var _trackingNumbers = [];
-                  $.each($scope.dataList, function (i, item) {
-                      if (item.packageList.length > 0){
-                        $.each(item.packageList, function (i, pkg) {
-                            _trackingNumbers.push(pkg.trackingNumber);
-                        })
-                      }
-                      item.totalWeight = 0;
-                      item.detail.forEach(function (e) {
-                        e.totalWeight = 0;
-                        if (e.boxes && e.boxes[0]) {
-                            e.boxes.forEach(function (e1) {
-                                if (e1.bags && e1.bags[0]) {
-                                    e1.bags.forEach(function (e2) {
+            $scope.getData = function () {  
+                var _options = _filterOptions();  
+                storage.session.setObject("searchBar", $scope.searchBar);         
+                bucketService.getList(_filterOptions(), function (result) {
+                    $scope.dataList = result.data;
+                    //   console.log(result)
+                    $scope.pagination.totalCount = result.pageInfo.totalCount;
+                    var _trackingNumbers = [];
+                    $.each($scope.dataList, function (i, item) {
+                        if (item.packageList.length > 0){
+                            $.each(item.packageList, function (i, pkg) {
+                                _trackingNumbers.push(pkg.trackingNumber);
+                            })
+                        }
+                        item.totalWeight = 0;
+                        item.detail.forEach(function (e) {
+                            e.totalWeight = 0;
+                            if (e.boxes && e.boxes[0]) {
+                                e.boxes.forEach(function (e1) {
+                                    if (e1.bags && e1.bags[0]) {
+                                        e1.bags.forEach(function (e2) {
+                                            e2.totalWeight = 0;
+                                            if (e2.packages && e2.packages[0]) {
+                                                e2.packages.forEach(function (e3) {
+                                                    item.totalWeight += e3.weight;                                              
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            } else {
+                                if (e.bags && e.bags[0]) {
+                                    e.bags.forEach(function (e2) {
                                         e2.totalWeight = 0;
                                         if (e2.packages && e2.packages[0]) {
                                             e2.packages.forEach(function (e3) {
-                                                item.totalWeight += e3.weight;                                              
+                                                item.totalWeight += e3.weight;
                                             })
                                         }
                                     })
                                 }
-                            })
-                        } else {
-                            if (e.bags && e.bags[0]) {
-                                e.bags.forEach(function (e2) {
-                                    e2.totalWeight = 0;
-                                    if (e2.packages && e2.packages[0]) {
-                                        e2.packages.forEach(function (e3) {
-                                            item.totalWeight += e3.weight;
-                                        })
-                                    }
-                                })
                             }
-                        }
-                    })
-                  });
-                  if (_trackingNumbers.length > 0) _options.trackingNumber = _trackingNumbers.join(",");
-                  //新导出逻辑
-                  $scope.exportOptions = $.extend({ token: _token }, _options);
-              });
-          }
-        //   $scope.getData();
+                        })
+                    });
+                    if (_trackingNumbers.length > 0) _options.trackingNumber = _trackingNumbers.join(",");
+                    //新导出逻辑
+                    $scope.exportOptions = $.extend({ token: _token }, _options);
+                });
+            }
 
-          $scope.btnSearch = function () {
-              $scope.selectedListCache = [];
-              $scope.dataList = [];
-              $scope.pagination.pageIndex = 1;
-              $scope.pagination.totalCount = 0;
-              $scope.getData();
-          }
+            $scope.btnSearch = function () {
+                $scope.selectedListCache = [];
+                $scope.dataList = [];
+                $scope.pagination.pageIndex = 1;
+                $scope.pagination.totalCount = 0;
+                $scope.getData();
+            }
            
+            $scope.btnAction = function (type, item) {
+                switch (type) {
+                    case "create":
+                        $location.search({ createBucket: 1});
+                        $location.path("/warehouse/bucketedit");
+                        break;
+                    case "edit":
+                        if (!!item) $location.search({ bucketNumber: item.bucketNumber, editBucket: 1});
+                        $location.path("/warehouse/bucketedit");
+                        break;
+                    case "detail":
+                        if (!!item) $location.search({ bucketNumber: item.bucketNumber, readonly: 1 });
+                        $location.path("/warehouse/bucketedit");
+                        break;
+                    case "editFlightNo":
+                        if (!!item) $location.search({ bucketNumber: item.bucketNumber, editFlightNo: 1 });
+                        $location.path("/warehouse/bucketedit");
+                        break;
+                }
+            }
 
-          $scope.btnAction = function (type, item) {
-              switch (type) {
-                  case "create":
-                      $location.search({ createBucket: 1});
-                      $location.path("/warehouse/bucketedit");
-                      break;
-                  case "edit":
-                      if (!!item) $location.search({ bucketNumber: item.bucketNumber, editBucket: 1});
-                      $location.path("/warehouse/bucketedit");
-                      break;
-                  case "detail":
-                      if (!!item) $location.search({ bucketNumber: item.bucketNumber, readonly: 1 });
-                      $location.path("/warehouse/bucketedit");
-                      break;
-                  case "editFlightNo":
-                      if (!!item) $location.search({ bucketNumber: item.bucketNumber, editFlightNo: 1 });
-                      $location.path("/warehouse/bucketedit");
-                      break;
-              }
-          }
+            $scope.btnPrev = function () {
+                $window.sessionStorage.setItem("historyFlag", 1);                 
+                $window.history.back();
+            }
       }]);

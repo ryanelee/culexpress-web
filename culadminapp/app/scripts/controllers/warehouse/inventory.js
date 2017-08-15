@@ -120,7 +120,7 @@ angular.module('culAdminApp')
                 }
                 if (!!$scope.searchBar.keywords) {
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
-                }
+                }  
                 return angular.copy(_options);
             }
 
@@ -207,6 +207,9 @@ angular.module('culAdminApp')
                         break;
                     case "detail":
                         $location.path("/warehouse/inventorydetail");
+                        break;
+                        case "check":
+                        $location.path("/warehouse/inventorycheck");
                         break;
                 }
             }

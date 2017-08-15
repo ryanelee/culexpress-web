@@ -94,6 +94,11 @@ angular.module('culAdminApp')
         self.inboundpackage = function (options) {
             return $http.post(cul.apiPath + "/inboundpackage", options)
         }
+        self.getInboundPackage = function (options) {
+            return $http.post(cul.apiPath + "/getInboundPackage", options)
+        }
+
+        
 
         self.getOutboundPackageList = function (options, callback) {
             $http.post(cul.apiPath + "/outboundPackage/list", options).success(function (result) {

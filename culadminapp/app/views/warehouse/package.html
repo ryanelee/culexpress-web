@@ -8,6 +8,7 @@
                 <div class="col-sm-12" style="padding:0 20px 15px 12px;">
                     <button type="button" class="btn btn-primary role" data-role="71" style="margin-left:5px;" ng-click="addPackage('online');">打包登记(线上订单)</button>
                     <button type="button" class="btn btn-primary role" data-role="72" style="margin-left:5px;" ng-click="addPackage('offline');">打包登记(线下订单)</button>
+                    <button type="button" class="btn btn-primary role" data-role="72" style="margin-left:5px;" ng-click="bucketManage();">出库管理</button>
                 </div>
                 <div class="col-sm-12 search-bar">
                     <div class="search-col">
@@ -185,7 +186,7 @@
                             <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
                             <button type="submit" class="btn btn-primary role" data-role="75">导出发货清单</button>
                         </form> 
-                        <button style="float:left" type="button" class="btn btn-primary" ng-click="btnBatchOutBound()">批量出库</button>
+                        <!-- <button style="float:left" type="button" class="btn btn-primary" ng-click="btnBatchOutBound()">批量出库</button> -->
                         <button style="float:left" id="tip_batchOutbound" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
                     </div>
                     <div class="col-sm-6 text-right pull-right">

@@ -96,7 +96,7 @@ angular.module('culAdminApp')
                     //             $scope.selectPkgTotalWeight += e1.weight || 0;
                     //         })
                     //     }
-                    // }
+                    // } 
                 });
 
                 $("#bucket-title").text("编辑" + $scope.tpl_status.bucketNumber);

@@ -76,6 +76,7 @@ var app = angular
 
             $scope.selectedChannel = function () {
                 $scope.$root.orderOptions.shipServiceItem = $scope.data.shipServiceItem;
+                console.log($scope.data.shipServiceItem)
                 if (!!$scope.data.shipServiceItem) {
                     //var categoryItem = $filter('filter')($scope.warehouses, function (item) { return item.warehouseNumber === getWorkhouseNumber(); });
                     $scope.goodsCategories = $scope.data.shipServiceItem.itemTypeList;
