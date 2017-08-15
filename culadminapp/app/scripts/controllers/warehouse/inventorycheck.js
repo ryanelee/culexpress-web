@@ -97,13 +97,13 @@ angular.module('culAdminApp')
             $scope.btnPrint = function (item) {
                 console.log(item)
                 switch (item.sendType) {
-                  case 1:   //寄送库存
-                      $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber });
-                      break;
-                  case 2:   //海淘包裹
-                    //   $scope.$root.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: item.receiptNumber, number: 1 });
-                    $scope.$broadcast("print-inboundPackage.action", item.receiptNumber);
-                      break;
+                    case 1:   //寄送库存
+                        $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber });
+                        break;
+                    case 2:   //海淘包裹
+                        //   $scope.$root.$broadcast("print-helper.action", "receipt-tag-inbound-tag", { receiptNumber: item.receiptNumber, number: 1 });
+                        $scope.$broadcast("print-inboundPackage.action", item.receiptNumber);
+                        break;
                 }
             }
 
@@ -119,4 +119,15 @@ angular.module('culAdminApp')
                 title: '',
                 content: "请扫描商品编号<br/>S1开头为海淘包裹<br/>S2开头为VIP客户寄送库存商品"
             });
+
+
+
+            $scope.btnAction = function (type, item) {
+                if (!!item) $location.search({ itemNumber: item.itemNumber });
+                switch (type) {
+                    case "detail":
+                        $location.path("/warehouse/inventorydetail");
+                        break;
+                }
+            }
         }]);
