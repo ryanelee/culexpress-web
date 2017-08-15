@@ -29,7 +29,6 @@ angular.module('culAdminApp')
                                 if (!!result) {
                                     $scope.data = result;
                                     // console.log($scope.data.inventoryList);
-
                                     if ($scope.data.inventoryList[0]) {
                                         $scope.data.inventoryList.forEach(function (e1) {
                                             if (e1.shelfList && e1.shelfList[0]) {
@@ -51,8 +50,6 @@ angular.module('culAdminApp')
 
                                         })
                                     }
-
-
                                 }
                                 $scope.tempItemNumber = "";
                             });
@@ -75,6 +72,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function () {
-                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1);                 
+                $window.history.back();
             }
         }]);

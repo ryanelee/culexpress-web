@@ -19,14 +19,12 @@ angular.module('culAdminApp')
 
             $scope.tempItemNumber = $location.search().itemNumber || "";
 
-
             $scope.keyDown = function (e) {
                 var keycode = window.event ? e.keyCode : e.which;
                 if (keycode == 13) {
                     $scope.checkItemNumber();
                 }
             }
-
 
             $scope.checkItemNumber = function () {
                 if (!!$scope.tempItemNumber) {
@@ -36,7 +34,7 @@ angular.module('culAdminApp')
                                 itemNumber: result[0].itemNumber,
                                 warehouseNumber: result[0].warehouseNumber,
                                 // inventory: result[0].inventory,
-                                inventory: 0,
+                                inventory: "0",
                                 weight: result[0].weight,
                                 reason: ""
                             }
