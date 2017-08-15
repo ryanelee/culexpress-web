@@ -216,12 +216,37 @@ angular.module('culAdminApp')
                     var flag = 1;
                     if ($scope.data.orderStatus == "Paid" && $scope.data.printStatus == "UnPrinted") {
                         plugMessenger.confirm("该订单[" + $scope.data.orderNumber + "]未打印,确认打包处理?", function (isOk) {
-                            if (!isOk) {
-                                flag = 0;
+                            if (isOk) {
+                                if ($.grep($scope.data.inboundPackages, function (n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
+                                    var _count = 0;
+                                    var checkedPackages = $scope.data.outboundPackages;
+                                    var _callback = function () {
+                                        plugMessenger.success("保存成功");
+                                        //   $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+                                        // $location.path('/warehouse/package');
+                                        //打包完成后停留在到打包界面继续打包操作 
+                                        //  $location.path('/warehouse/registerpackageonline');
+                                        var element = $window.document.getElementById('tempInboundPackageNumber');
+                                        if (element) element.focus()
+                                        _reset();
+                                    }
+                                    //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
+                                    $.each(checkedPackages, function (i, pkg) {
+                                        orderService.updateOutboundPackage(pkg, function (result) {
+                                            if (!result.message) {
+                                                _count++;
+                                                if (_count == checkedPackages.length) {
+                                                    _callback();
+                                                }
+                                            }
+                                        })
+                                    });
+                                } else {
+                                    plugMessenger.info("订单包裹尚未完成扫描");
+                                }
                             }
                         })
-                    };
-                    if (flag) {
+                    } else {
                         if ($.grep($scope.data.inboundPackages, function (n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
                             var _count = 0;
                             var checkedPackages = $scope.data.outboundPackages;
@@ -249,8 +274,8 @@ angular.module('culAdminApp')
                         } else {
                             plugMessenger.info("订单包裹尚未完成扫描");
                         }
-
                     }
+
 
 
                 }
