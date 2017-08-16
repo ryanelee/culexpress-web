@@ -89,8 +89,8 @@ angular.module('culAdminApp')
                 var _options = {
                     "pageInfo": $scope.pagination,
                     "unstatus": "Intransit",
-                    "inboundDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
-                    "inboundDateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : "",
+                    "onshelfDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
+                    "onshelfDateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : "",
                 }
 
                 if (!!$scope.searchBar.sendType) {

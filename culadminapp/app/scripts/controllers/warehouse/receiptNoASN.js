@@ -385,7 +385,12 @@ angular.module('culAdminApp')
                 warehouseService.updateWareInboundpackage($scope.data, function (result) {
                     if (result.code == '000') {
                         plugMessenger.success("更新成功")
-                        $scope.getPackageDetail(); 
+                        // $scope.getPackageDetail(); 
+                        $scope.warehouseList.forEach(function (element) {
+                            if ($scope.data.warehouseNumber == element.key) {
+                                $scope.isWarehouseRight = true;
+                            }
+                        });
                     }
                 })
             }
