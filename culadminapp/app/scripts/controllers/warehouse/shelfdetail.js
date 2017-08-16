@@ -29,7 +29,7 @@ angular.module('culAdminApp')
                 pageSize: "20",
                 pageIndex: 1,
                 totalCount: 0
-            }
+            }  
 
             /*search bar*/
             $scope.searchBar = {

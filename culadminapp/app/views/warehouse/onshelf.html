@@ -109,7 +109,7 @@
                     <tbody>
                         <tr ng-repeat="item in dataList">
                             <td>{{item.rownumber}}</td>
-                            <td>{{getWarehouseName(item.warehouseNumber)}}</td>
+                            <td>{{getWarehouseName(item.warehouseNumber)}}</td> 
                             <td>{{item._sendType}}</td>
                             <td><a href="javascript:void(0);" ng-click="btnAction('receipt', item)">{{item.receiptNumber}}</a></td>
                             <td>{{item.customerNumber}}</td>
@@ -118,7 +118,7 @@
                             <td>{{item.receiptCount}}</td>
                             <td>{{item.onShelfCount}}</td>
                             <td>{{item._shelfStatus}}</td>
-                            <td>{{item.shelfTime | date:"yyyy-MM-hh"}}</td>
+                            <td>{{item.shelfTime | date:"MM/dd/yyyy HH:mm:ss"}}</td>
                             <td>
                                 <a href="javascript:void(0)" ng-hide="{{ item._shelfStatus == '未上架' }}" ng-click="btnAction('shelf', item)">查看</a>
                                 <a href="javascript:void(0)" ng-hide="{{ item._shelfStatus == '未上架' }}" ng-click="btnAction('edit', item)">修改架位</a>

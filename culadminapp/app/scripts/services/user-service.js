@@ -8,7 +8,7 @@
  * Service in the culAdminApp.
  */
 angular.module('culAdminApp')
-  .service('userService', ["$http", "$rootScope", "$location", function ($http, $rootScope, $location) {
+  .service('userService', ["$http", "$rootScope", "$location", "$window",function ($http, $rootScope, $location,$window) {
       var self = this,
           userInfoKey = "user-info";
 
@@ -78,6 +78,7 @@ angular.module('culAdminApp')
           sessionStorage.removeItem("group");
           sessionStorage.removeItem("role");
           sessionStorage.removeItem("token");
+          $window.sessionStorage.removeItem("warehouse");
           $rootScope.userInfo = null;
           if (!!callback) callback();
       }

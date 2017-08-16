@@ -110,7 +110,7 @@ angular.module('culAdminApp')
                         $scope.shippingChannelList = [{ shipServiceId: 0, shipServiceName: "全部" }].concat(result);
                         $scope.data.shipServiceId = $scope.shippingChannelList[0].shipServiceId;
                     }
-                });
+                });  
                 $scope.getSummaryInboundPackage();
             }
 

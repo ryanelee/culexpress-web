@@ -129,7 +129,8 @@ angular.module('culAdminApp')
         }
 
         //上架商品列表
-        self.getOnshelfList = function(options, callback) {
+        self.getOnshelfList = function(options, callback) { 
+            console.log("dwwe",options);
             $http.post(cul.apiPath + "/item/onshelf/list", options).success(function(result) {
                 _.each(result.data, function(item) {
                     switch (item.sendType) {
