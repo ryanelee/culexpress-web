@@ -22,7 +22,7 @@ angular.module('culAdminApp')
             $scope.checkTrackingNumber = function () {
                 if (!!$scope.tempTrackingNumber) {
                     inventoryService.check({ trackingNumber: $scope.tempTrackingNumber }, function (result) {
-                        console.log(":result", result);
+                        // console.log(":result", result);
                         // if (result.length > 0) {
                         //     $scope.data = {
                         //         itemNumber: result[0].itemNumber,
@@ -33,10 +33,6 @@ angular.module('culAdminApp')
                         //         reason: ""
                         //     }
                         // }  
-
-
-
-
 
                         if (result.code == '000') {
                             $scope.data = result.data
@@ -55,9 +51,8 @@ angular.module('culAdminApp')
 
                             if ($scope.data.shelfNumber) {
                                 $scope.shelfs = $scope.data.shelfNumber.split('-');
-                                console.log("2323", $scope.data._sendType, "w23", $scope.data.sendType);
                                 $scope.shelfs[0] = $scope.shelfs[0] + "-" + $scope.data._sendType;
-                                console.log("::::=>", $scope.shelfs);
+                                // console.log("::::=>", $scope.shelfs);
                             }
                         } else {
                             plugMessenger.error(result.msg);
@@ -76,9 +71,6 @@ angular.module('culAdminApp')
                 }
             }
 
-
-
-
             $scope.checkTrackingNumber();
 
             $scope.btnSave = function (type) {
@@ -95,7 +87,6 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrint = function (item) {
-                console.log(item)
                 switch (item.sendType) {
                     case 1:   //寄送库存
                         $scope.$broadcast("print-helper.action", "receipt-tag-check-tag", { receiptNumber: item.receiptNumber });
@@ -111,16 +102,14 @@ angular.module('culAdminApp')
                 $window.sessionStorage.setItem("historyFlag", 1); $window.history.back();
             }
 
-            $('#tip_itemNumber').popover({
-                container: 'body',
-                placement: 'top',
-                html: true,
-                trigger: 'hover',
-                title: '',
-                content: "请扫描商品编号<br/>S1开头为海淘包裹<br/>S2开头为VIP客户寄送库存商品"
-            });
-
-
+            // $('#tip_itemNumber').popover({
+            //     container: 'body',
+            //     placement: 'top',
+            //     html: true,
+            //     trigger: 'hover',
+            //     title: '',
+            //     content: "请扫描商品编号<br/>S1开头为海淘包裹<br/>S2开头为VIP客户寄送库存商品"
+            // });
 
             $scope.btnAction = function (type, item) {
                 if (!!item) $location.search({ itemNumber: item.itemNumber });
