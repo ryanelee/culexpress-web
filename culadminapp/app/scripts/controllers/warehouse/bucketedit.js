@@ -188,7 +188,7 @@ angular.module('culAdminApp')
                     if (!!_bag) {
                         if (_bag.packages && _bag.packages[0]) {
                             $scope.data.packageList = [];
-                            _bag.packages.forEach((e) => {
+                            _bag.packages.forEach(function(e){
                                 $scope.data.packageList.push(e)
                             })
                         } 
