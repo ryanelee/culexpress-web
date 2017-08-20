@@ -150,7 +150,7 @@
                     </tbody>
                 </table>
                 <div class="row">
-                    <div class="col-sm-6 text-left pull-left">
+                    <div class="col-sm-8 text-left pull-left">
                         <form style="float:left;" id="form_export_order" method="post" action="/" target="_blank">
                            <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
                             <input id="exportStatus" name="exportStatus" type="hidden" value="{{exportOptions.exportStatus}}" />
@@ -166,7 +166,7 @@
                             <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                             <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
                             <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                            <button type="submit" class="btn btn-primary role" data-role="74">导出订单列表</button>
+                            <button type="submit" class="btn btn-primary role" data-role="74">导出订单列表(线上订单)</button>
                         </form>
 
                         <form style="float:left; margin:0 4px;" id="form_export_send" method="post" action="/" target="_blank">
@@ -184,12 +184,51 @@
                             <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                             <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
                             <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                            <button type="submit" class="btn btn-primary role" data-role="75">导出发货清单</button>
+                            <button type="submit" class="btn btn-primary role" data-role="75">导出发货清单(线上订单)</button>
                         </form> 
                         <!-- <button style="float:left" type="button" class="btn btn-primary" ng-click="btnBatchOutBound()">批量出库</button> -->
-                        <button style="float:left" id="tip_batchOutbound" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                        <!-- <button style="float:left" id="tip_batchOutbound" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button> -->
+                        <form style="float:left;" id="form_export_order_offline" method="post" action="/" target="_blank">
+                           <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
+                            <input id="exportStatus" name="exportStatus" type="hidden" value="{{exportOptions.exportStatus}}" />
+                            <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
+                            <input id="dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.outDateFrom}}" />
+                            <input id="dateTo" name="dateTo" type="hidden" value="{{exportOptions.outDateTo}}" />
+                            <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
+                            <input id="userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
+                            <input id="orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
+                            <input id="trackingNumber" name="trackingNumber" type="hidden" value="{{exportOptions.trackingNumber}}" />
+                            <input id="receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
+                            <input id="referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}" />
+                            <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
+                            <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
+                            <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
+                            <input id="action" name="action" type="hidden" value="offline" />
+                            <button type="submit" class="btn btn-primary role" data-role="74">导出订单列表(线下订单)</button>
+                        </form>
+
+                        <form style="float:left; margin:0 4px;" id="form_export_send_offline" method="post" action="/" target="_blank">
+                            <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
+                            <input id="exportStatus" name="exportStatus" type="hidden" value="{{exportOptions.exportStatus}}" />
+                            <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
+                            <input id="dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.outDateFrom}}" />
+                            <input id="dateTo" name="dateTo" type="hidden" value="{{exportOptions.outDateTo}}" />
+                            <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
+                            <input id="userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
+                            <input id="orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
+                            <input id="trackingNumber" name="trackingNumber" type="hidden" value="{{exportOptions.trackingNumber}}" />
+                            <input id="receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
+                            <input id="referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}" />
+                            <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
+                            <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
+                            <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
+                            <input id="action" name="action" type="hidden" value="offline" />
+                            <button type="submit" class="btn btn-primary role" data-role="75">导出发货清单(线下订单)</button>
+                        </form> 
+                        <!-- <button style="float:left" type="button" class="btn btn-primary" ng-click="btnBatchOutBound()">批量出库</button> -->
+                        <!-- <button style="float:left" id="tip_batchOutbound" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button> -->
                     </div>
-                    <div class="col-sm-6 text-right pull-right">
+                    <div class="col-sm-4 text-right pull-right">
                         <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount" items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页" next-text="下一页"
                             first-text="首页" last-text="尾页">
                         </uib-pagination>
