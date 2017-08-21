@@ -178,7 +178,7 @@ angular
                 controller: 'WarehousePackageCtrl'
             })
 
-        .when('/warehouse/editpackage', {
+            .when('/warehouse/editpackage', {
                 templateUrl: 'views/warehouse/editpackage.html',
                 controller: 'WarehouseEditpackageCtrl'
             })
@@ -377,6 +377,14 @@ angular
             .when('/system/edituser', {
                 templateUrl: 'views/system/edituser.html',
                 controller: 'UserEditCtrl'
+            })
+            .when('/system/channelist', {
+                templateUrl: 'views/system/channelist.html',
+                controller: 'ChannelCtrl'
+            })
+            .when('/system/editchannel', {
+                templateUrl: 'views/system/editchannel.html',
+                controller: 'ChannelEditCtrl'
             })
             .when('/web/announce', {
                 templateUrl: 'views/web/announce.html',
