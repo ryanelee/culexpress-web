@@ -1,0 +1,82 @@
+
+<div class="widget widget-table" style="overflow: initial">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i> 商品种类管理</h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-sm-12 search-bar">
+                <div class="col-sm-12 search-bar">
+                    <div class="search-col" style="margin-bottom: 0px;">
+                        <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="addChannel()">新建商品种类</button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="search-col">
+                    <label class="search-label">搜索条目：</label>
+                    <select class="form-control search-control" ng-model="searchBar.keywordType">
+                        <option value="channelName">主类别名称</option>
+                        <option value="channelName">子类别名称</option>
+                    </select>
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>主类别</th>
+                            <th>子类别</th>
+                            <th>显示顺序</th>
+                            <th>最后修改用户</th>
+                            <th>最后修改时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in dataList track by $index">
+                            <td>{{$index + 1}}</td>
+                            <td>{{item.channelNumber}}</td>
+                            <td>{{item.status | warehourseStatus}}</td>
+                            <td>{{item.clearAddress}}</td>
+                            <td>{{item.channelDesc}}</td>
+                            <td>{{item.lastEditUserName}}</td>
+                            <td>{{item.lastEditdate}}
+                            <td>
+                                <a href="javascript:void(0);" ng-click="detail(item)">查看</a> &nbsp;
+                                <a href="javascript:void(0);" ng-click="edit(item)">修改</a> &nbsp;
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 text-right pull-right">
+                <uib-pagination class="pagination pagination-rewrite pull-right"
+                                boundary-links="true"
+                                max-size="5"
+                                total-items="pagination.totalCount"
+                                items-per-page="pagination.pageSize"
+                                ng-model="pagination.pageIndex"
+                                ng-change="getData()"
+                                previous-text="上一页"
+                                next-text="下一页"
+                                first-text="首页"
+                                last-text="尾页">
+                </uib-pagination>
+                <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<print-helper></print-helper>

@@ -378,6 +378,10 @@ angular
                 templateUrl: 'views/system/edituser.html',
                 controller: 'UserEditCtrl'
             })
+            .when('/system/categerylist', {
+                templateUrl: 'views/system/categerylist.html',
+                controller: 'CategerylistCtrl'
+            })
             .when('/system/channelist', {
                 templateUrl: 'views/system/channelist.html',
                 controller: 'ChannelCtrl'
