@@ -185,7 +185,7 @@
                                               style="width: 40%; float: left; margin-top: 5px; margin-right:20px;">
                                                 <option disabled selected value="">请选择收货地址</option>
                                                 <option ng-repeat="addressItem in addressListData"
-                                                    value="{{addressItem.transactionNumber}}" ng-disabled="data.shipServiceItem.needIDCard === 1 && addressItem.verifyMark !== 1">
+                                                    value="{{addressItem.transactionNumber}}" ng-disabled="data.shipServiceItem.needIDCard === 1 && addressItem.verifyMark !== 1 && data.shipServiceItem.shipServiceId !== 9">
                                                     <!-- 选择的渠道如果需要身份证,在地址前面显示验证通过或者未验证, 并且不能选择未验证的地址 -->
                                                     {{ data.shipServiceItem.needIDCard === 1 ? (addressItem.verifyMark === 1 ? '[验证通过] ' : '[未验证] ') : ''}}
                                                     {{addressItem.stateOrProvince+' '+addressItem.address1+' '+addressItem.zipcode+' '+addressItem.receivePersonName}}
