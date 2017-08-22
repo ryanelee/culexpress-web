@@ -115,32 +115,81 @@ angular.module('culAdminApp')
                 $scope.outboundEnable = $.grep($scope.data.outboundPackages, function (n) { return !!n.actualWeight && n.checked == true }).length == $scope.data.outboundPackages.length;
             }
 
-            $scope.btnSave = function (callback) {
+            // $scope.btnSave = function (callback) {
+            //     if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
+            //         if ($scope.data.outboundPackages[0].actualWeight <= 0) {
+            //             plugMessenger.error("请填写实际包裹重量！");
+            //             return;
+            //         }
+
+            //         var _count = 0;
+            //         var checkedPackages = $.grep($scope.data.outboundPackages, function (n) { return n.checked == true });
+            //         var _callback = callback || function () {
+            //             //   $location.path('/warehouse/package');
+            //             //打包完成后停留在打包界面继续打包操作 
+            //             // $location.path('/warehouse/registerpackageoffline');
+            //             var element = $window.document.getElementById('tempOutboundPackageNumber');
+            //             if (element)
+            //                 element.focus()
+            //             plugMessenger.success("保存成功");
+            //             //$window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+            //             _reset();
+            //         }
+            //         //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
+            //         $.each(checkedPackages, function (i, pkg) {
+            //             orderService.updateOutboundPackage(pkg, function (result) {
+            //                 if (!result.message) {
+            //                     _count++;
+            //                     if (_count == checkedPackages.length) {
+            //                         _callback();
+            //                     }
+            //                 }
+            //             })
+            //         });
+            //     }
+            // }
+
+            $scope.btnSave = function () {
                 if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
-                    var _count = 0;
-                    var checkedPackages = $.grep($scope.data.outboundPackages, function (n) { return n.checked == true });
-                    var _callback = callback || function () {
-                        //   $location.path('/warehouse/package');
-                        //打包完成后停留在打包界面继续打包操作 
-                        // $location.path('/warehouse/registerpackageoffline');
-                        var element = $window.document.getElementById('tempOutboundPackageNumber');
-                        if (element)
-                            element.focus()
-                        plugMessenger.success("保存成功");
-                        //$window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
-                        _reset();
+                    if ($scope.data.outboundPackages[0].actualWeight <= 0) {
+                        plugMessenger.error("请填写实际包裹重量！");
+                        return;
                     }
-                    //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
-                    $.each(checkedPackages, function (i, pkg) {
-                        orderService.updateOutboundPackage(pkg, function (result) {
-                            if (!result.message) {
-                                _count++;
-                                if (_count == checkedPackages.length) {
-                                    _callback();
+                    var flag = 1;
+                    if ($scope.data.printStatus == "UnPrinted") {
+                        plugMessenger.confirm("该订单[" + $scope.data.orderNumber + "]未打印,确认打包处理?", function (isOk) {
+                            if (!isOk) return;
+                        });
+                    }                                
+
+                    if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
+                        var _count = 0;
+                        var checkedPackages = $scope.data.outboundPackages;
+                        var _callback = function () {
+                            plugMessenger.success("保存成功");
+                            //   $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+                            // $location.path('/warehouse/package');
+                            //打包完成后停留在到打包界面继续打包操作 
+                            //  $location.path('/warehouse/registerpackageonline');
+                            var element = $window.document.getElementById('tempInboundPackageNumber');
+                            if (element) element.focus()
+                            _reset();
+                        }
+                        //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
+                        $.each(checkedPackages, function (i, pkg) {
+                            orderService.updateOutboundPackage(pkg, function (result) {
+                                if (!result.message) {
+                                    _count++;
+                                    if (_count == checkedPackages.length) {
+                                        _callback();
+                                    }
                                 }
-                            }
-                        })
-                    });
+                            })
+                        });
+                    } else {
+                        plugMessenger.info("订单包裹尚未完成扫描");
+                    }
+
                 }
             }
 
