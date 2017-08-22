@@ -207,7 +207,6 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSave = function () {
-                console.log('23')
                 if (!!$scope.data && $scope.data.inboundPackages.length > 0) {
                     if ($scope.data.outboundPackages[0].actualWeight <= 0) {
                         plugMessenger.error("请填写实际包裹重量！");
