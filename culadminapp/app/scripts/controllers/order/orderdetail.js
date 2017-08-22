@@ -99,8 +99,11 @@ angular.module('culAdminApp')
                     })
                 }
 
-
-                if (result._printStatus == "未打印") {
+                console.log(result)
+                // if (result._printStatus == "未打印") {
+                //     $scope.isShow = true;
+                // };
+                if (result.printStatus != "Printed" && result.orderStatus != "WaybillUpdated" && result.orderStatus != "Shipped") {
                     $scope.isShow = true;
                 };
                 $.each($scope.data.shipToAddresses, function(i, address) {
