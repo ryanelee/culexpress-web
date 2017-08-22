@@ -159,9 +159,7 @@ angular.module('culAdminApp')
                     var flag = 1;
                     if ($scope.data.printStatus == "UnPrinted") {
                         plugMessenger.confirm("该订单[" + $scope.data.orderNumber + "]未打印,确认打包处理?", function (isOk) {
-                            if (!isOk) return;
-                        });
-                    }
+                            if (isOk) {
 
                     if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
                         var _count = 0;
@@ -195,6 +193,10 @@ angular.module('culAdminApp')
                     } else {
                         plugMessenger.info("订单包裹尚未完成扫描");
                     }
+                            };
+                        });
+                    }
+
 
                 }
             }
