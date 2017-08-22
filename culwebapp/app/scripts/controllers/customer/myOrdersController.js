@@ -712,16 +712,36 @@ var app = angular
                             alertify.alert('提示', '必须填写转运包裹申报商品信息，包括商品品牌、商品描述、数量和单价!');
                             return false;
                         }
-                        var pattern = /^[A-Za-z0-9]+$/
-                        if (!pattern.test(orderItem.itemBrand)){
-                            alertify.alert('提示', ' 请填写正确的商品品牌的英文名！');
+
+                        
+                        if($scope.data.shipServiceItem != undefined &&
+                            $scope.data.shipServiceItem.requireEnglish4Name === 1 &&
+                            !/^[^\u4e00-\u9fa5]+$/i.test(orderItem.itemBrand)) {
+                            alertify.alert('提示', '商品品牌:[<small style="color:red">' + orderItem.itemBrand +
+                                '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                '</small>]要求商品品牌必须为英文,请填写正确的英文商品品牌.');
                             return false;
                         }
-                        var pattern = /[^x00-xff]/
-                        if (!pattern.test(orderItem.description)){
-                            alertify.alert('提示', ' 请填写中文商品描述！');
+
+                        if($scope.data.shipServiceItem != undefined &&
+                            $scope.data.shipServiceItem.requireEnglish4Name === 1 &&
+                            !/^[^\u4e00-\u9fa5]+$/i.test(orderItem.description)) {
+                            alertify.alert('提示', '商品描述:[<small style="color:red">' + orderItem.description +
+                                '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                '</small>]要求商品描述必须为英文,请填写正确的英文商品描述.');
                             return false;
                         }
+
+                        // var pattern = /^[A-Za-z0-9]+$/
+                        // if (!pattern.test(orderItem.itemBrand)){
+                        //     alertify.alert('提示', ' 请填写正确的商品品牌的英文名！');
+                        //     return false;
+                        // }
+                        // var pattern = /[^x00-xff]/
+                        // if (!pattern.test(orderItem.description)){
+                        //     alertify.alert('提示', ' 请填写中文商品描述！');
+                        //     return false;
+                        // }
 
                     }
 
