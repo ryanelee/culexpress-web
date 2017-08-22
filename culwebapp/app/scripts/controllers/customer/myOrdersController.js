@@ -712,17 +712,26 @@ var app = angular
                             alertify.alert('提示', '必须填写转运包裹申报商品信息，包括商品品牌、商品描述、数量和单价!');
                             return false;
                         }
-                        var pattern = /^[A-Za-z0-9]+$/
-                        if (!pattern.test(orderItem.itemBrand)){
+                        
+                        var patternEng = /^[A-Za-z0-9]+$/
+                        var patternChn = /[^x00-xff]/
+
+                        if (!patternEng.test(orderItem.itemBrand)){
                             alertify.alert('提示', ' 请填写正确的商品品牌的英文名！');
                             return false;
                         }
-                        var pattern = /[^x00-xff]/
-                        if (!pattern.test(orderItem.description)){
-                            alertify.alert('提示', ' 请填写中文商品描述！');
-                            return false;
+                        
+                        if ($scope.data.shipServiceItem.shipServiceId == '9') {
+                            if (!patternEng.test(orderItem.description)){
+                                alertify.alert('提示', ' 请填写英文商品描述！');
+                                return false;
+                            }
+                        } else {
+                            if (!patternChn.test(orderItem.description)){
+                                alertify.alert('提示', ' 请填写中文商品描述！');
+                                return false;
+                            }
                         }
-
                     }
 
                     var packageItems = getOutboundPackage('CUL');
