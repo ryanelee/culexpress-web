@@ -221,10 +221,18 @@ angular.module('culAdminApp')
                             plugMessenger.confirm("订单将变为已打印状态,请确认是否打印？", function(isOK) {
                                 if (isOK) {
                                     orderService.printOrder(item.orderNumber, function(result) {
-                                        var order = {
-                                            orderNumber:item.orderNumber,
-                                            orderStatus:"Processing",
+                                        if (item.orderNumber === "WaybillUpdated"){
+                                            var order = {
+                                                orderNumber:item.orderNumber,
+                                                orderStatus:"WaybillUpdated",
+                                            }
+                                        } else {
+                                            var order = {
+                                                orderNumber:item.orderNumber,
+                                                orderStatus:"Processing",
+                                            }
                                         }
+                                        
                                         orderService.update(order, function(result) {
                                             _print();
                                         });
