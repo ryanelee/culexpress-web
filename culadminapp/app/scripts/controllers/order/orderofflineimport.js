@@ -325,7 +325,7 @@ angular.module('culAdminApp')
               posY: "20"
           }).jqprint();
       }
-
+ 
       $scope.btnSplitPackage = function (item) {
           warehouseService.outboundPackageSplit({
               "trackingNumber": item.trackingNumber,
