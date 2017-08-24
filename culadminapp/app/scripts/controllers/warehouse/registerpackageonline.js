@@ -41,47 +41,7 @@ angular.module('culAdminApp')
 
             $scope.checkInboundPackageNumber = function () {
                 $scope.tempData = $scope.tempInboundPackageNumber
-
-                if (!!$scope.tempInboundPackageNumber) {
-                    orderService.getList({
-                        receiveTrackingNumber: $scope.tempInboundPackageNumber
-                    }, function (result) {
-                        if (!!result && !!result.data && result.data.length > 0) {
-                            if (!$scope.data) {
-                                $scope.data = result.data[0];
-                            }
-                            console.log("$scope.data", $scope.data);
-                            var _checked = false;
-                            // $scope.data.outboundPackages[0].actualWeight = 0;
-                            // console.log($scope.data)
-                            $.each($scope.data.inboundPackages, function (index, item) {
-                                if (!item.checked) {
-                                    item.checked = $scope.getCompatibleInboundTrackingNumber(item.trackingNumber).toUpperCase() == $scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber).toUpperCase();
-                                    _checked = true;
-                                }
-                                // if (item.checked) {
-                                //     $scope.data.outboundPackages[0].actualWeight += item.packageWeight;
-                                // }
-                            });
-                            $scope.data._quantityCount = 0;
-                            $.each($scope.data.orderItems, function (index, item) {
-                                $scope.data._quantityCount += item.quantity
-                            });
-
-                            //todo: 根据 _checked 调用提示音
-                            if ($.grep($scope.data.inboundPackages, function (n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
-                                //success
-                            } else if (_checked == true) {
-                                //match
-                            } else {
-                                //no match
-                            }
-                        }
-                        $scope.tempInboundPackageNumber = "";
-                    });
-                } else {
-                    $scope.tempInboundPackageNumber = "";
-                }
+                $scope.getData();
             }
 
             //   $scope.btnSplitPackage = function (item) {
@@ -107,8 +67,7 @@ angular.module('culAdminApp')
             //         });       
             //   }
 
-            $scope.checkInboundPackageNumber();
-
+            
             $scope.btnPrint = function (item) {
                 if ($scope.data && $scope.data.shipServiceName && $scope.data.shipServiceName.toUpperCase().indexOf("USPS") > -1) {
                     $("USPS<div></div>").barcode(item.trackingNumber, "code128", {
@@ -151,8 +110,7 @@ angular.module('culAdminApp')
                 warehouseService.outboundPackageSplit({
                     "trackingNumber": item.trackingNumber,
                 }, function (result) {
-                    result.checked = true
-                    console.log("result", result);
+                    result.checked = true);
                     result.actualWeight = item.actualWeight;
                     $scope.data.outboundPackages.push(result);
                 });
@@ -166,8 +124,6 @@ angular.module('culAdminApp')
                         orderService.deleteOutboundPackage({
                             "number": item.trackingNumber,
                         }, function (result) {
-                            // console.log($scope.tempData);
-
                             $scope.tempInboundPackageNumber = $scope.tempData;
                             $scope.getData();
 
@@ -181,9 +137,10 @@ angular.module('culAdminApp')
                     orderService.getList({
                         receiveTrackingNumber: $scope.tempInboundPackageNumber
                     }, function (result) {
-                        // console.log(result);
                         if (!!result && !!result.data && result.data.length > 0) {
-                            $scope.data = result.data[0];
+                            if (!$scope.data) {
+                                $scope.data = result.data[0];
+                            }
                             var _checked = false;
                             $.each($scope.data.inboundPackages, function (index, item) {
                                 if (!item.checked) {
@@ -191,6 +148,19 @@ angular.module('culAdminApp')
                                     _checked = true;
                                 }
                             });
+                            $scope.data._quantityCount = 0;
+                            $.each($scope.data.orderItems, function (index, item) {
+                                $scope.data._quantityCount += item.quantity
+                            });
+
+                            //todo: 根据 _checked 调用提示音
+                            if ($.grep($scope.data.inboundPackages, function (n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
+                                //success
+                            } else if (_checked == true) {
+                                //match
+                            } else {
+                                //no match
+                            }
                         }
                         $scope.tempInboundPackageNumber = "";
                     });
@@ -198,12 +168,14 @@ angular.module('culAdminApp')
                     $scope.tempInboundPackageNumber = "";
                 }
             }
+
+            $scope.checkInboundPackageNumber();
+            
             $scope.checkNum = function (item) {
                 if (item.subGoodNumber && item.subGoodNumber < 1) {
                     item.subGoodNumber = "";
                     plugMessenger.info("填写的数字不能小于1");
                 }
-
             }
 
             $scope.btnSave = function () {
@@ -274,9 +246,6 @@ angular.module('culAdminApp')
                             plugMessenger.info("订单包裹尚未完成扫描");
                         }
                     }
-
-
-
                 }
             }
 

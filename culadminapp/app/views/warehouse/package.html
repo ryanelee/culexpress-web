@@ -186,9 +186,10 @@
                             <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
                             <button type="submit" class="btn btn-primary role" data-role="75">导出发货清单(线上订单)</button>
                         </form> 
+                        <div class="clearfix"></div>
                         <!-- <button style="float:left" type="button" class="btn btn-primary" ng-click="btnBatchOutBound()">批量出库</button> -->
                         <!-- <button style="float:left" id="tip_batchOutbound" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button> -->
-                        <form style="float:left;" id="form_export_order_offline" method="post" action="/" target="_blank">
+                        <form style="float:left;margin:10px 4px 0px 0px;" id="form_export_order_offline" method="post" action="/" target="_blank">
                            <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
                             <input id="exportStatus" name="exportStatus" type="hidden" value="{{exportOptions.exportStatus}}" />
                             <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
@@ -207,7 +208,7 @@
                             <button type="submit" class="btn btn-primary role" data-role="74">导出订单列表(线下订单)</button>
                         </form>
 
-                        <form style="float:left; margin:10px 8px 0px 0px;" id="form_export_send_offline" method="post" action="/" target="_blank">
+                        <form style="float:left; margin:10px 4px 0px 0px;" id="form_export_send_offline" method="post" action="/" target="_blank">
                             <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
                             <input id="exportStatus" name="exportStatus" type="hidden" value="{{exportOptions.exportStatus}}" />
                             <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />

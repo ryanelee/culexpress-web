@@ -77,21 +77,15 @@ angular.module('culAdminApp')
                 return angular.copy(_options);
             }
 
-
             $scope.getData = function () {  
                 var _options = _filterOptions();  
                 storage.session.setObject("searchBar", $scope.searchBar);         
                 bucketService.getList(_filterOptions(), function (result) {
                     $scope.dataList = result.data;
-                    console.log(result)
+                    // console.log(result)
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
                     var _trackingNumbers = [];
                     $.each($scope.dataList, function (i, item) {
-                        if (item.packageList.length > 0){
-                            $.each(item.packageList, function (i, pkg) {
-                                _trackingNumbers.push(pkg.trackingNumber);
-                            })
-                        }
                         item.totalWeight = 0;
                         item.detail.forEach(function (e) {
                             e.totalWeight = 0;
@@ -102,7 +96,8 @@ angular.module('culAdminApp')
                                             e2.totalWeight = 0;
                                             if (e2.packages && e2.packages[0]) {
                                                 e2.packages.forEach(function (e3) {
-                                                    item.totalWeight += e3.weight;                                              
+                                                    item.totalWeight += e3.weight;   
+                                                    _trackingNumbers.push(e3.trackingNumber);                                           
                                                 })
                                             }
                                         })
@@ -115,6 +110,7 @@ angular.module('culAdminApp')
                                         if (e2.packages && e2.packages[0]) {
                                             e2.packages.forEach(function (e3) {
                                                 item.totalWeight += e3.weight;
+                                                _trackingNumbers.push(e3.trackingNumber);                                    
                                             })
                                         }
                                     })
