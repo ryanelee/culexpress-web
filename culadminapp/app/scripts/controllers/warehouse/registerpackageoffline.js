@@ -166,9 +166,9 @@ angular.module('culAdminApp')
                 var _callback = function () {
                     orderService.update({ orderNumber: $scope.data.orderNumber, orderStatus: orderStatus }, function (result) {
                         plugMessenger.success("保存成功");
-                        var element = $window.document.getElementById('tempInboundPackageNumber');
-                        if (element) element.focus()
                         _reset();
+                        var element = $window.document.getElementById('tempOutboundPackageNumber');
+                        if (element) element.focus()
                     })
                 }
                 //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
@@ -220,39 +220,15 @@ angular.module('culAdminApp')
                                     // });
                                 } else {
                                     $scope.dealUpdate("PartialShipped");
-                                    plugMessenger.info("订单包裹尚未完成扫描");
+                                    // plugMessenger.info("订单包裹尚未完成扫描");
                                 }
                             };
                         });
                     } else {
                         if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
-                            var _count = 0;
-                            var checkedPackages = $scope.data.outboundPackages;
-                            var _callback = function () {
-                                orderService.update({ orderNumber: $scope.data.orderNumber, orderStatus: "WaybillUpdated" }, function (result) {
-                                    plugMessenger.success("保存成功");
-                                    //   $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
-                                    // $location.path('/warehouse/package');
-                                    //打包完成后停留在到打包界面继续打包操作 
-                                    //  $location.path('/warehouse/registerpackageonline');
-                                    var element = $window.document.getElementById('tempInboundPackageNumber');
-                                    if (element) element.focus()
-                                    _reset();
-                                })
-                            }
-                            //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
-                            $.each(checkedPackages, function (i, pkg) {
-                                orderService.updateOutboundPackage(pkg, function (result) {
-                                    if (!result.message) {
-                                        _count++;
-                                        if (_count == checkedPackages.length) {
-                                            _callback();
-                                        }
-                                    }
-                                })
-                            });
+                            $scope.dealUpdate("WaybillUpdated");
                         } else {
-                            plugMessenger.info("订单包裹尚未完成扫描");
+                            $scope.dealUpdate("PartialShipped");
                         }
                     }
                 }
@@ -262,10 +238,6 @@ angular.module('culAdminApp')
                 if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
                     //当订单中所有包裹都完成称重后
                     if ($.grep($scope.data.outboundPackages, function (n) { return !!n.actualWeight }).length == $scope.data.outboundPackages.length) {
-
-
-
-
                         console.log("number", $scope.data.orderNumber)
                         if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
                             if ($scope.data.outboundPackages[0].actualWeight <= 0) {
@@ -276,7 +248,6 @@ angular.module('culAdminApp')
                             if ($scope.data.printStatus == "UnPrinted") {
                                 plugMessenger.confirm("该订单[" + $scope.data.orderNumber + "]未打印,确认打包处理?", function (isOk) {
                                     if (isOk) {
-
                                         if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
                                             var _count = 0;
                                             var checkedPackages = $scope.data.outboundPackages;
@@ -289,15 +260,12 @@ angular.module('culAdminApp')
                                                     warehouseService.outboundPackageShip(outboundPackages, function (result) {
                                                         if (result.success == true) {
                                                             plugMessenger.success("出库成功");
-                                                            var element = $window.document.getElementById('tempInboundPackageNumber');
+                                                            var element = $window.document.getElementById('tempOutboundPackageNumber');
                                                             if (element) element.focus()
                                                             _reset();
                                                         }
                                                     });
                                                 })
-
-
-
                                             }
                                             //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
                                             $.each(checkedPackages, function (i, pkg) {
@@ -328,17 +296,12 @@ angular.module('culAdminApp')
                                             warehouseService.outboundPackageShip(outboundPackages, function (result) {
                                                 if (result.success == true) {
                                                     plugMessenger.success("出库成功");
-                                                    var element = $window.document.getElementById('tempInboundPackageNumber');
+                                                    var element = $window.document.getElementById('tempOutboundPackageNumber');
                                                     if (element) element.focus()
                                                     _reset();
                                                 }
                                             });
-
-
                                         })
-
-
-
                                     }
                                     //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
                                     $.each(checkedPackages, function (i, pkg) {
@@ -355,30 +318,10 @@ angular.module('culAdminApp')
                                     plugMessenger.info("订单包裹尚未完成扫描");
                                 }
                             }
-
-
                         }
-
-
-
-
-
-                        // $scope.btnSave(function () {
-                        //     //修改订单状态为已出库，同时在前台轨迹跟踪页面可以看到"完成出库操作,发往机场"的信息
-                        //     var outboundPackages = [];
-                        //     $.each($scope.data.outboundPackages, function (i, pkg) {
-                        //         outboundPackages.push(pkg.trackingNumber);
-                        //     });
-                        //     warehouseService.outboundPackageShip(outboundPackages, function (result) {
-                        //         if (result.success == true) {
-                        //             plugMessenger.success("出库成功");
-                        //             //$window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
-                        //             _reset();
-                        //         }
-                        //     });
-                        // });
                     } else {
-                        plugMessenger.info("订单还有包裹没有称重");
+                        $scope.dealUpdate("PartialShipped");
+                        // plugMessenger.info("订单还有包裹没有称重");
                     }
                 }
             }
