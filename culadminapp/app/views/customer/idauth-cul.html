@@ -1,7 +1,7 @@
 
 <div class="widget widget-table" ng-controller="IdAuthCulCtrl">
     <div class="widget-header"> 
-        <h3><i class="fa fa-table"></i> 身份认证 </h3>
+        <h3><i class="fa fa-table"></i> 身份认证 </h3>  
     </div>
     <div class="widget-content">
         <div class="row">
@@ -49,7 +49,7 @@
                         <option value="receiveIdentity">客户标示</option>
                         <option value="cellphoneNumber">手机号码</option>
                         <option value="telephoneNumber">电话号码</option>
-                        <option value="idCard">身份证号</option>
+                        <option value="idCard">身份证号</option> 
                         <option value="orderNumber">订单编号</option>  
                         <option value="trackingNumber">CUL包裹单号</option> 
                         <option value="cnTrackingNumber">国内物流号</option>              
@@ -58,8 +58,8 @@
                     <textarea type="text" class="form-control search-control" style="margin-left:5px; width:430px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords"></textarea>
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                     <!--<button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnPrint()">批量打印</button>-->
-                    <a class="btn btn-primary" style="margin-left:5px;" href="{{api}}/exportReceiveaddressList?{{searchBar.keywordType}}={{searchBar.keywords}}">导出</a>
-                    <a  class="btn btn-primary"   style="margin-left:5px;" href="{{api}}/downIdImage?{{searchBar.keywordType}}={{searchBar.keywords}}" >批量下载图片</a>
+                    <a class="btn btn-primary" style="margin-left:5px;" href="{{api}}/exportReceiveaddressList?{{searchBar.keywordType}}={{searchBar.keywords}}&dateFrom={{searchBar.startDate}}&dateTo={{searchBar.endDate}}">导出</a>
+                    <a  class="btn btn-primary"   style="margin-left:5px;" href="{{api}}/downIdImage?{{searchBar.keywordType}}={{searchBar.keywords}}&dateFrom={{searchBar.startDate}}&dateTo={{searchBar.endDate}}" >批量下载图片</a>
                     <button id="idauth_cul" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
                     <!--<button type="button" class="btn btn-primary"  style="margin-left:5px;" ng-click="btnDownload()">批量下载图片</button>-->
                 </div>

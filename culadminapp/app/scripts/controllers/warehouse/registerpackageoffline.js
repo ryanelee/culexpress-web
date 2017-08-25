@@ -224,7 +224,7 @@ angular.module('culAdminApp')
                                 }
                             };
                         });
-                    }else{
+                    } else {
                         if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
                             var _count = 0;
                             var checkedPackages = $scope.data.outboundPackages;
@@ -262,20 +262,121 @@ angular.module('culAdminApp')
                 if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
                     //当订单中所有包裹都完成称重后
                     if ($.grep($scope.data.outboundPackages, function (n) { return !!n.actualWeight }).length == $scope.data.outboundPackages.length) {
-                        $scope.btnSave(function () {
-                            //修改订单状态为已出库，同时在前台轨迹跟踪页面可以看到"完成出库操作,发往机场"的信息
-                            var outboundPackages = [];
-                            $.each($scope.data.outboundPackages, function (i, pkg) {
-                                outboundPackages.push(pkg.trackingNumber);
-                            });
-                            warehouseService.outboundPackageShip(outboundPackages, function (result) {
-                                if (result.success == true) {
-                                    plugMessenger.success("出库成功");
-                                    //$window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
-                                    _reset();
+
+
+
+
+                        console.log("number", $scope.data.orderNumber)
+                        if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
+                            if ($scope.data.outboundPackages[0].actualWeight <= 0) {
+                                plugMessenger.error("请填写实际包裹重量！");
+                                return;
+                            }
+                            var flag = 1;
+                            if ($scope.data.printStatus == "UnPrinted") {
+                                plugMessenger.confirm("该订单[" + $scope.data.orderNumber + "]未打印,确认打包处理?", function (isOk) {
+                                    if (isOk) {
+
+                                        if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
+                                            var _count = 0;
+                                            var checkedPackages = $scope.data.outboundPackages;
+                                            var _callback = function () {
+                                                orderService.update({ orderNumber: $scope.data.orderNumber, orderStatus: "WaybillUpdated" }, function (result) {
+                                                    var outboundPackages = [];
+                                                    $.each($scope.data.outboundPackages, function (i, pkg) {
+                                                        outboundPackages.push(pkg.trackingNumber);
+                                                    });
+                                                    warehouseService.outboundPackageShip(outboundPackages, function (result) {
+                                                        if (result.success == true) {
+                                                            plugMessenger.success("出库成功");
+                                                            var element = $window.document.getElementById('tempInboundPackageNumber');
+                                                            if (element) element.focus()
+                                                            _reset();
+                                                        }
+                                                    });
+                                                })
+
+
+
+                                            }
+                                            //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
+                                            $.each(checkedPackages, function (i, pkg) {
+                                                orderService.updateOutboundPackage(pkg, function (result) {
+                                                    if (!result.message) {
+                                                        _count++;
+                                                        if (_count == checkedPackages.length) {
+                                                            _callback();
+                                                        }
+                                                    }
+                                                })
+                                            });
+                                        } else {
+                                            plugMessenger.info("订单包裹尚未完成扫描");
+                                        }
+                                    };
+                                });
+                            } else {
+                                if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
+                                    var _count = 0;
+                                    var checkedPackages = $scope.data.outboundPackages;
+                                    var _callback = function () {
+                                        orderService.update({ orderNumber: $scope.data.orderNumber, orderStatus: "WaybillUpdated" }, function (result) {
+                                            var outboundPackages = [];
+                                            $.each($scope.data.outboundPackages, function (i, pkg) {
+                                                outboundPackages.push(pkg.trackingNumber);
+                                            });
+                                            warehouseService.outboundPackageShip(outboundPackages, function (result) {
+                                                if (result.success == true) {
+                                                    plugMessenger.success("出库成功");
+                                                    var element = $window.document.getElementById('tempInboundPackageNumber');
+                                                    if (element) element.focus()
+                                                    _reset();
+                                                }
+                                            });
+
+
+                                        })
+
+
+
+                                    }
+                                    //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
+                                    $.each(checkedPackages, function (i, pkg) {
+                                        orderService.updateOutboundPackage(pkg, function (result) {
+                                            if (!result.message) {
+                                                _count++;
+                                                if (_count == checkedPackages.length) {
+                                                    _callback();
+                                                }
+                                            }
+                                        })
+                                    });
+                                } else {
+                                    plugMessenger.info("订单包裹尚未完成扫描");
                                 }
-                            });
-                        });
+                            }
+
+
+                        }
+
+
+
+
+
+                        // $scope.btnSave(function () {
+                        //     //修改订单状态为已出库，同时在前台轨迹跟踪页面可以看到"完成出库操作,发往机场"的信息
+                        //     var outboundPackages = [];
+                        //     $.each($scope.data.outboundPackages, function (i, pkg) {
+                        //         outboundPackages.push(pkg.trackingNumber);
+                        //     });
+                        //     warehouseService.outboundPackageShip(outboundPackages, function (result) {
+                        //         if (result.success == true) {
+                        //             plugMessenger.success("出库成功");
+                        //             //$window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+                        //             _reset();
+                        //         }
+                        //     });
+                        // });
                     } else {
                         plugMessenger.info("订单还有包裹没有称重");
                     }
