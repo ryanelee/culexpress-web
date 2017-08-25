@@ -110,7 +110,7 @@ angular.module('culAdminApp')
                 warehouseService.outboundPackageSplit({
                     "trackingNumber": item.trackingNumber,
                 }, function (result) {
-                    result.checked = true);
+                    result.checked = true;
                     result.actualWeight = item.actualWeight;
                     $scope.data.outboundPackages.push(result);
                 });
