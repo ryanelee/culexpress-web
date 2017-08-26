@@ -80,15 +80,32 @@ angular.module('culAdminApp')
                         outBoundTrackingNumber: $scope.tempOutboundPackageNumber
                     }, function (result) {
                         if (!!result && !!result.data && result.data.length > 0) {
-                            console.log($scope.tempOutboundPackageNumber)
+                            console.log(result)
                             // if (!$scope.data) {
                                 $scope.data = result.data[0];
                             // }
                             var _checked = false;
                             $.each($scope.data.outboundPackages, function (index, item) {
-                                if (!item.checked) {
-                                    item.checked = item.trackingNumber == $scope.tempOutboundPackageNumber;
+                                // if (!item.checked) {
+                                //     item.checked = item.trackingNumber == $scope.tempOutboundPackageNumber;
+                                //     _checked = true;
+                                // }
+                                if (item.scanStatus == "scan") {
+                                    item.checked = true;
+                                } else {
+                                    item.checked = false; 
+                                }
+                                if (item.trackingNumber == $scope.tempOutboundPackageNumber) {
+                                    item.checked = true;
                                     _checked = true;
+                                    // 如果状态为未扫描，则将扫描状态更新到数据库
+                                    if (item.scanStatus != "scan") {
+                                        item.scanStatus = "scan";
+                                        console.log(item);
+                                        orderService.updateOutboundPackage(item, function (result) {
+                                            console.log(result);
+                                        }) 
+                                    }
                                 }
                             });
 
@@ -115,15 +132,14 @@ angular.module('culAdminApp')
                 warehouseService.outboundPackageSplit({
                     "trackingNumber": item.trackingNumber,
                 }, function (result) {
-                    result.checked = true
+                    result.checked = true;
+                    result.scanStatus = "scan";
                     $scope.data.outboundPackages.push(result);
                 });
             }
 
             $scope.weightChanged = function () {
-                console.log($scope.data.outboundPackages);
                 $scope.outboundEnable = $.grep($scope.data.outboundPackages, function (n) { return !!n.actualWeight && n.checked == true }).length == $scope.data.outboundPackages.length;
-                console.log($scope.outboundEnable);
             }
 
             // $scope.btnSave = function (callback) {
@@ -184,6 +200,38 @@ angular.module('culAdminApp')
                 });
             }
 
+            $scope.delOutBoundUpdate = function(orderStatus) {
+                var _count = 0;
+                var checkedPackages = $scope.data.outboundPackages;
+                var _callback = function () {
+                    orderService.update({ orderNumber: $scope.data.orderNumber, orderStatus: orderStatus }, function (result) {
+                        var outboundPackages = [];
+                        $.each($scope.data.outboundPackages, function (i, pkg) {
+                            outboundPackages.push(pkg.trackingNumber);
+                        });
+                        warehouseService.outboundPackageShip(outboundPackages, function (result) {
+                            if (result.success == true) {
+                                plugMessenger.success("出库成功");
+                                var element = $window.document.getElementById('tempOutboundPackageNumber');
+                                if (element) element.focus()
+                                _reset();
+                            }
+                        });
+                    })
+                }
+                //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
+                $.each(checkedPackages, function (i, pkg) {
+                    console.log(checkedPackages)
+                    orderService.updateOutboundPackage(pkg, function (result) {
+                        if (!result.message) {
+                            _count++;
+                            if (_count == checkedPackages.length) {
+                                _callback();
+                            }
+                        }
+                    })
+                });
+            }
             $scope.btnSave = function () {
                 console.log("number", $scope.data.orderNumber)
                 if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
@@ -249,79 +297,53 @@ angular.module('culAdminApp')
                                 plugMessenger.confirm("该订单[" + $scope.data.orderNumber + "]未打印,确认打包处理?", function (isOk) {
                                     if (isOk) {
                                         if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
-                                            var _count = 0;
-                                            var checkedPackages = $scope.data.outboundPackages;
-                                            var _callback = function () {
-                                                orderService.update({ orderNumber: $scope.data.orderNumber, orderStatus: "WaybillUpdated" }, function (result) {
-                                                    var outboundPackages = [];
-                                                    $.each($scope.data.outboundPackages, function (i, pkg) {
-                                                        outboundPackages.push(pkg.trackingNumber);
-                                                    });
-                                                    warehouseService.outboundPackageShip(outboundPackages, function (result) {
-                                                        if (result.success == true) {
-                                                            plugMessenger.success("出库成功");
-                                                            var element = $window.document.getElementById('tempOutboundPackageNumber');
-                                                            if (element) element.focus()
-                                                            _reset();
-                                                        }
-                                                    });
-                                                })
-                                            }
-                                            //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
-                                            $.each(checkedPackages, function (i, pkg) {
-                                                orderService.updateOutboundPackage(pkg, function (result) {
-                                                    if (!result.message) {
-                                                        _count++;
-                                                        if (_count == checkedPackages.length) {
-                                                            _callback();
-                                                        }
-                                                    }
-                                                })
-                                            });
+                                            $scope.delOutBoundUpdate("WaybillUpdated");
+                                            // var _count = 0;
+                                            // var checkedPackages = $scope.data.outboundPackages;
+                                            // var _callback = function () {
+                                            //     orderService.update({ orderNumber: $scope.data.orderNumber, orderStatus: "WaybillUpdated" }, function (result) {
+                                            //         var outboundPackages = [];
+                                            //         $.each($scope.data.outboundPackages, function (i, pkg) {
+                                            //             outboundPackages.push(pkg.trackingNumber);
+                                            //         });
+                                            //         warehouseService.outboundPackageShip(outboundPackages, function (result) {
+                                            //             if (result.success == true) {
+                                            //                 plugMessenger.success("出库成功");
+                                            //                 var element = $window.document.getElementById('tempOutboundPackageNumber');
+                                            //                 if (element) element.focus()
+                                            //                 _reset();
+                                            //             }
+                                            //         });
+                                            //     })
+                                            // }
+                                            // //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
+                                            // $.each(checkedPackages, function (i, pkg) {
+                                            //     orderService.updateOutboundPackage(pkg, function (result) {
+                                            //         if (!result.message) {
+                                            //             _count++;
+                                            //             if (_count == checkedPackages.length) {
+                                            //                 _callback();
+                                            //             }
+                                            //         }
+                                            //     })
+                                            // });
                                         } else {
-                                            plugMessenger.info("订单包裹尚未完成扫描");
+                                            $scope.delOutBoundUpdate("PartialShipped");
+                                            // plugMessenger.info("订单包裹尚未完成扫描");
                                         }
                                     };
                                 });
                             } else {
                                 if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
-                                    var _count = 0;
-                                    var checkedPackages = $scope.data.outboundPackages;
-                                    var _callback = function () {
-                                        orderService.update({ orderNumber: $scope.data.orderNumber, orderStatus: "WaybillUpdated" }, function (result) {
-                                            var outboundPackages = [];
-                                            $.each($scope.data.outboundPackages, function (i, pkg) {
-                                                outboundPackages.push(pkg.trackingNumber);
-                                            });
-                                            warehouseService.outboundPackageShip(outboundPackages, function (result) {
-                                                if (result.success == true) {
-                                                    plugMessenger.success("出库成功");
-                                                    var element = $window.document.getElementById('tempOutboundPackageNumber');
-                                                    if (element) element.focus()
-                                                    _reset();
-                                                }
-                                            });
-                                        })
-                                    }
-                                    //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
-                                    $.each(checkedPackages, function (i, pkg) {
-                                        orderService.updateOutboundPackage(pkg, function (result) {
-                                            if (!result.message) {
-                                                _count++;
-                                                if (_count == checkedPackages.length) {
-                                                    _callback();
-                                                }
-                                            }
-                                        })
-                                    });
+                                    $scope.delOutBoundUpdate("WaybillUpdated");
                                 } else {
-                                    plugMessenger.info("订单包裹尚未完成扫描");
+                                    $scope.dealUpdate("PartialShipped");
+                                    // plugMessenger.info("订单包裹尚未完成扫描");
                                 }
                             }
                         }
                     } else {
-                        $scope.dealUpdate("PartialShipped");
-                        // plugMessenger.info("订单还有包裹没有称重");
+                        plugMessenger.info("订单还有包裹没有称重");
                     }
                 }
             }
