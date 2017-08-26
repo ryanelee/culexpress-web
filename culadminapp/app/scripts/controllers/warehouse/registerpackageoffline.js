@@ -86,10 +86,6 @@ angular.module('culAdminApp')
                             // }
                             var _checked = false;
                             $.each($scope.data.outboundPackages, function (index, item) {
-                                // if (!item.checked) {
-                                //     item.checked = item.trackingNumber == $scope.tempOutboundPackageNumber;
-                                //     _checked = true;
-                                // }
                                 if (item.scanStatus == "scan") {
                                     item.checked = true;
                                 } else {
@@ -101,7 +97,6 @@ angular.module('culAdminApp')
                                     // 如果状态为未扫描，则将扫描状态更新到数据库
                                     if (item.scanStatus != "scan") {
                                         item.scanStatus = "scan";
-                                        console.log(item);
                                         orderService.updateOutboundPackage(item, function (result) {
                                             console.log(result);
                                         }) 
@@ -117,7 +112,7 @@ angular.module('culAdminApp')
                             } else {
                                 //no match
                             }
-                            $scope.weightChanged();
+                            // $scope.weightChanged();
                         }
                         $scope.tempOutboundPackageNumber = "";
                     });
@@ -140,6 +135,7 @@ angular.module('culAdminApp')
 
             $scope.weightChanged = function () {
                 $scope.outboundEnable = $.grep($scope.data.outboundPackages, function (n) { return !!n.actualWeight && n.checked == true }).length == $scope.data.outboundPackages.length;
+                // if ()
             }
 
             // $scope.btnSave = function (callback) {
