@@ -148,7 +148,7 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </table> 
                 <div class="row">
                     <div class="col-sm-6 text-left pull-left">
                         <form style="float:left;" id="form_export_order" method="post" action="/" target="_blank">
@@ -166,6 +166,7 @@
                             <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                             <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
                             <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
+                            <input id="onlineOrder" name="orderType" type="hidden" value="1" />
                             <button type="submit" class="btn btn-primary role" data-role="74">导出订单列表(线上订单)</button>
                         </form>
 
@@ -184,6 +185,7 @@
                             <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                             <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
                             <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
+                            <input id="onlineOrder" name="orderType" type="hidden" value="1" />
                             <button type="submit" class="btn btn-primary role" data-role="75">导出发货清单(线上订单)</button>
                         </form> 
                         <div class="clearfix"></div>
@@ -204,7 +206,7 @@
                             <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                             <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
                             <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                            <input id="offlineOrder" name="offlineOrder" type="hidden" value="offline" />
+                            <input id="offlineOrder" name="orderType" type="hidden" value="0" />
                             <button type="submit" class="btn btn-primary role" data-role="74">导出订单列表(线下订单)</button>
                         </form>
 
@@ -223,7 +225,9 @@
                             <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                             <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
                             <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                            <input id="offlineOrder" name="offlineOrder" type="hidden" value="offline" />
+                            <!-- <input id="offlineOrder" name="offlineOrder" type="hidden" value="offline" /> -->
+                            <input id="offlineOrder" name="orderType" type="hidden" value="0" />
+                            
                             <button type="submit" class="btn btn-primary role" data-role="75">导出发货清单(线下订单)</button>
                         </form> 
                         <!-- <button style="float:left" type="button" class="btn btn-primary" ng-click="btnBatchOutBound()">批量出库</button> -->

@@ -477,7 +477,7 @@ angular.module('culAdminApp')
                     $scope.selectPkgTotalWeight = parseFloat(parseFloat($scope.selectPkgTotalWeight || 0) + element.weight);
                 }, this);
             }
-
+ 
 
             $scope.btnSaveByPackage = function () {
                 if ($scope._selectedPackage == undefined || $scope._selectedPackage.trackingNumber == undefined) {
