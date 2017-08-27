@@ -166,7 +166,7 @@ angular
                     alertify.alert('提示', '<p style="color:red">请上传身份证正反面.<p>');
                     return
                 } else if ($scope.data.idForever == 0 && !$scope.data.deadline) {
-                    alertify.alert('提示', '<p style="color:red">必须选择永久或则填写身份证有效期.<p>');
+                    alertify.alert('提示', '<p style="color:red">必须选择永久或者填写身份证有效期.<p>');
                     return
                 } else if ($scope.data.idForever == 0 && $scope.data.deadline) {
                     var idExpired = new Date($scope.data.deadline);
@@ -201,7 +201,7 @@ angular
                     alertify.alert('提示', '<p style="color:red">请上传身份证正反面.<p>');
                     return
                 } else if ($scope.data.idForever == 0 && !$scope.data.deadline) {
-                    alertify.alert('提示', '<p style="color:red">必须选择永久或则填写身份证有效期.<p>');
+                    alertify.alert('提示', '<p style="color:red">必须选择永久或者填写身份证有效期.<p>');
                     return
                 } else if ($scope.data.idForever == 0 && $scope.data.deadline) {
                     var idExpired = new Date($scope.data.deadline);
