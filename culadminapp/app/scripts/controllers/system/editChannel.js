@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc function
- * @name culAdminApp.controller:EditChannelCtrl
+ * @name culAdminApp.controller:ChannelEditCtrl
  * @description
- * # EditChannelCtrl
+ * # ChannelEditCtrl
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('EditChannelCtrl', ['$scope', '$location', '$window', 'sysroleService', 'customerService', 'warehouseService', 'plugMessenger',
-        function($scope, $location, $window, sysroleService, customerService, warehouseService, plugMessenger) {
+    .controller('ChannelEditCtrl', ['$scope', '$location', '$window', 'plugMessenger','channelService',
+        function($scope, $location, $window, plugMessenger, channelService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -50,15 +50,17 @@ angular.module('culAdminApp')
                         return;
                     }
                     channelService.createChannel($scope.form, function(res) {
-                        if (!res.message) {
-                            plugMessenger.success("保存成功");
+                        if (res.code == '000') {
+                            plugMessenger.success("创建成功");
                             $location.path('/system/channelist')
+                        } else {
+                            plugMessenger.success(" 创建失败：" + req.msg);
                         }
                     })
                 }
                 //更新仓库
             $scope.update = function() {
-                warehouseService.updateChannel($scope.form, function(res) {
+                channelService.updateChannel($scope.form, function(res) {
                     if (res.code == '000') {
                         plugMessenger.success("更新成功");
                         $location.path('/system/channelist')
