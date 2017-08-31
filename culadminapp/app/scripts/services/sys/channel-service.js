@@ -87,7 +87,7 @@ angular.module('culAdminApp')
 
         //创建仓库
         channel.createChannel = function (options, callback) {
-            $http.post(cul.apiPath + "/channel", options).success(function (result) {
+            $http.post(cul.apiPath + "/createChannel", options).success(function (result) {
                 callback(result);
             });
         }

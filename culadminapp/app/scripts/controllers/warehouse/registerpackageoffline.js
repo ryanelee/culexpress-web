@@ -64,11 +64,7 @@ angular.module('culAdminApp')
                         }, function (result) {
                             plugMessenger.success("删除成功");
                             $scope.tempOutboundPackageNumber = $scope.tempData;
-                            console.log($scope.tempOutboundPackageNumber);
                             $scope.getData();
-                            // setTimeout(function () {
-                            //     $window.location.reload();
-                            // }, 300)
                         });
                     }
                 });
@@ -79,11 +75,9 @@ angular.module('culAdminApp')
                     orderService.getList({
                         outBoundTrackingNumber: $scope.tempOutboundPackageNumber
                     }, function (result) {
+                        console.log(result);
                         if (!!result && !!result.data && result.data.length > 0) {
-                            console.log(result)
-                            // if (!$scope.data) {
-                                $scope.data = result.data[0];
-                            // }
+                            $scope.data = result.data[0];
                             var _checked = false;
                             $.each($scope.data.outboundPackages, function (index, item) {
                                 if (item.scanStatus == "scan") {
@@ -112,7 +106,7 @@ angular.module('culAdminApp')
                             } else {
                                 //no match
                             }
-                            // $scope.weightChanged();
+                            $scope.weightChanged();
                         }
                         $scope.tempOutboundPackageNumber = "";
                     });
@@ -127,6 +121,7 @@ angular.module('culAdminApp')
                 warehouseService.outboundPackageSplit({
                     "trackingNumber": item.trackingNumber,
                 }, function (result) {
+                    console.log(result);
                     result.checked = true;
                     result.scanStatus = "scan";
                     $scope.data.outboundPackages.push(result);
@@ -135,7 +130,6 @@ angular.module('culAdminApp')
 
             $scope.weightChanged = function () {
                 $scope.outboundEnable = $.grep($scope.data.outboundPackages, function (n) { return !!n.actualWeight && n.checked == true }).length == $scope.data.outboundPackages.length;
-                // if ()
             }
 
             // $scope.btnSave = function (callback) {
