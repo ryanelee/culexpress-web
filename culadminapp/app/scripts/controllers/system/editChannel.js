@@ -20,7 +20,9 @@ angular.module('culAdminApp')
             $scope.form = $location.search().item;
 
             if ($scope.form) {
-                $scope.flag = '1'
+                // $scope.flag = '1'
+                $scope.flag = $location.search().flag;
+                console.log($scope.flag)
             } else {
                 $scope.form = {
                     status: '1'

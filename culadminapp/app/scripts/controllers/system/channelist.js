@@ -62,33 +62,37 @@ angular.module('culAdminApp')
             }
             $scope.getData();
 
-            // 新建仓库跳转
+            // 新建渠道跳转
             $scope.addChannel = function() {
-                    $location.path('/system/editchannel').search({});
-                }
-                // 修改仓库
+                $location.path('/system/editchannel').search({});
+            }
+            // 修改渠道
             $scope.edit = function(item) {
-                if (!!item) $location.search({ item: item, flag: "update" });
+                if (!!item) $location.search({ item: item, flag: "edit" });
+                $location.path('/system/editchannel')
+            }
+
+            $scope.detail  = function(item) {
+                if (!!item) $location.search({ item: item, flag: "detail" });
                 $location.path('/system/editchannel')
             }
             $scope.del = function(warehouseNumber) {
-                    //console.log(warehouseNumber);
-                    // return;
-                    plugMessenger.confirm("确认删除该仓库吗?", function(isOk) {
-                        if (isOk) {
-                            warehouseService.deleteWarehouse({ warehouseNumber: warehouseNumber }, function(res) {
-                                if (res.code == '000') {
-                                    plugMessenger.success("删除成功");
-                                    $scope.getData();
-                                } else {
-                                    plugMessenger.error("删除出错");
+                plugMessenger.confirm("确认删除该仓库吗?", function(isOk) {
+                    if (isOk) {
+                        warehouseService.deleteWarehouse({ warehouseNumber: warehouseNumber }, function(res) {
+                            if (res.code == '000') {
+                                plugMessenger.success("删除成功");
+                                $scope.getData();
+                            } else {
+                                plugMessenger.error("删除出错");
 
-                                }
-                            })
-                        }
-                    });
-                }
-                // 返回列表
+                            }
+                        })
+                    }
+                });
+            }
+
+            // 返回列表
             $scope.back = function() {
                 //$location.path('/system/rolelist');
                 $window.sessionStorage.setItem("historyFlag", 1);                 
