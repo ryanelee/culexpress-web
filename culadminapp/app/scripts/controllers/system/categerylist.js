@@ -8,11 +8,11 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('CategerylistCtrl', ['$scope', '$location', '$window', 'sysroleService', 'customerService', 'channelService', 'plugMessenger',"storage",
-        function($scope, $location, $window, sysroleService, customerService, channelService, plugMessenger,storage) {
+    .controller('CategerylistCtrl', ['$scope', '$location', '$window', 'sysroleService', 'ItemService', 'channelService', 'plugMessenger',"storage",
+        function($scope, $location, $window, sysroleService, ItemService, channelService, plugMessenger,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
-                'AngularJS',
+                'AngularJS', 
                 'Karma'
             ];
 
@@ -20,7 +20,7 @@ angular.module('culAdminApp')
             /*search bar*/
             $scope.searchBar = {
                 status: "",
-                keywordType: "channelName"
+                keywordType: "mainName"
             }
             $scope.pagination = {
                 pageSize: "20",
@@ -48,9 +48,9 @@ angular.module('culAdminApp')
 
             $scope.getData = function() {
                 storage.session.setObject("searchBar", $scope.searchBar);
-                channelService.getChannelList(_filterOptions(), function(result) {
+                ItemService.getItemCategoryList(_filterOptions(), function(result) {
                     $scope.dataList = result.data.data;
-                    $scope.pagination.totalCount = result.data.pageInfo.totalCount;
+                    console.log("$scope.dataList",$scope.dataList)
                 });
             }
             $scope.btnSearch = function() {

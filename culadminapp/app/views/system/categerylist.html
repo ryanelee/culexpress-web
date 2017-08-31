@@ -15,8 +15,8 @@
                 <div class="search-col">
                     <label class="search-label">搜索条目：</label>
                     <select class="form-control search-control" ng-model="searchBar.keywordType">
-                        <option value="channelName">主类别名称</option>
-                        <option value="channelName">子类别名称</option>
+                        <option value="mainName">主类别名称</option>
+                        <option value="name">子类别名称</option>
                     </select>
                     <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
@@ -40,10 +40,9 @@
                     <tbody>
                         <tr ng-repeat="item in dataList track by $index">
                             <td>{{$index + 1}}</td>
-                            <td>{{item.channelNumber}}</td>
-                            <td>{{item.status | warehourseStatus}}</td>
-                            <td>{{item.clearAddress}}</td>
-                            <td>{{item.channelDesc}}</td>
+                            <td>{{item.mainName}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.sequence}}</td>
                             <td>{{item.lastEditUserName}}</td>
                             <td>{{item.lastEditdate}}
                             <td>
@@ -55,28 +54,7 @@
                 </table>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-6 text-right pull-right">
-                <uib-pagination class="pagination pagination-rewrite pull-right"
-                                boundary-links="true"
-                                max-size="5"
-                                total-items="pagination.totalCount"
-                                items-per-page="pagination.pageSize"
-                                ng-model="pagination.pageIndex"
-                                ng-change="getData()"
-                                previous-text="上一页"
-                                next-text="下一页"
-                                first-text="首页"
-                                last-text="尾页">
-                </uib-pagination>
-                <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-            </div>
-        </div>
+   
     </div>
 </div>
 <print-helper></print-helper>

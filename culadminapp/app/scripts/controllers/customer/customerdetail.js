@@ -130,3 +130,5 @@ angular.module('culAdminApp')
             }
             //----------upload file END----------
         }]);
+
+
