@@ -16,6 +16,8 @@ angular.module('culAdminApp')
                 'Karma'
             ];
 
+
+
             $scope.dataList = [];
             /*search bar*/
             $scope.searchBar = {
@@ -63,13 +65,19 @@ angular.module('culAdminApp')
             $scope.getData();
 
             // 新建仓库跳转
-            $scope.addChannel = function() {
-                    $location.path('/system/editchannel').search({});
+            $scope.addCategery = function() {
+                    $location.path('/system/editcategery').search({});
                 }
                 // 修改仓库
             $scope.edit = function(item) {
+                console.log("item", item)
                 if (!!item) $location.search({ item: item, flag: "update" });
-                $location.path('/system/editchannel')
+                $location.path('/system/editcategery')
+            }
+            $scope.detail = function(item) {
+                console.log("item", item)
+                if (!!item) $location.search({ item: item, flag: "detail" });
+                $location.path('/system/editcategery')
             }
             $scope.del = function(warehouseNumber) {
                     //console.log(warehouseNumber);

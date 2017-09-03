@@ -16,6 +16,18 @@ angular.module('culAdminApp')
             callback(data);
         })
     }
+    self.insertItemCategory = function (options, callback) {
+      $http.post(cul.apiPath + "/insertItemCategory", options).then(function (data) {
+          callback(data);
+      })
+  }
+  self.updateItemCategory = function (options, callback) {
+    $http.post(cul.apiPath + "/updateItemCategory", options).then(function (data) {
+        callback(data);
+    })
+}
+
+  
 
 
 
