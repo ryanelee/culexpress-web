@@ -8,19 +8,21 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('CategerylistCtrl', ['$scope', '$location', '$window', 'sysroleService', 'customerService', 'channelService', 'plugMessenger',"storage",
-        function($scope, $location, $window, sysroleService, customerService, channelService, plugMessenger,storage) {
+    .controller('CategerylistCtrl', ['$scope', '$location', '$window', 'sysroleService', 'ItemService', 'channelService', 'plugMessenger',"storage",
+        function($scope, $location, $window, sysroleService, ItemService, channelService, plugMessenger,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
-                'AngularJS',
+                'AngularJS', 
                 'Karma'
             ];
+
+
 
             $scope.dataList = [];
             /*search bar*/
             $scope.searchBar = {
                 status: "",
-                keywordType: "channelName"
+                keywordType: "mainName"
             }
             $scope.pagination = {
                 pageSize: "20",
@@ -48,9 +50,9 @@ angular.module('culAdminApp')
 
             $scope.getData = function() {
                 storage.session.setObject("searchBar", $scope.searchBar);
-                channelService.getChannelList(_filterOptions(), function(result) {
+                ItemService.getItemCategoryList(_filterOptions(), function(result) {
                     $scope.dataList = result.data.data;
-                    $scope.pagination.totalCount = result.data.pageInfo.totalCount;
+                    console.log("$scope.dataList",$scope.dataList)
                 });
             }
             $scope.btnSearch = function() {
@@ -63,13 +65,19 @@ angular.module('culAdminApp')
             $scope.getData();
 
             // 新建仓库跳转
-            $scope.addChannel = function() {
-                    $location.path('/system/editchannel').search({});
+            $scope.addCategery = function() {
+                    $location.path('/system/editcategery').search({});
                 }
                 // 修改仓库
             $scope.edit = function(item) {
+                console.log("item", item)
                 if (!!item) $location.search({ item: item, flag: "update" });
-                $location.path('/system/editchannel')
+                $location.path('/system/editcategery')
+            }
+            $scope.detail = function(item) {
+                console.log("item", item)
+                if (!!item) $location.search({ item: item, flag: "detail" });
+                $location.path('/system/editcategery')
             }
             $scope.del = function(warehouseNumber) {
                     //console.log(warehouseNumber);
