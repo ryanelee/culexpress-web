@@ -53,10 +53,11 @@
                             <td>{{item.clearAddress}}</td>
                             <td>{{item.channelDesc}}</td>
                             <td>{{item.lastEditUserName}}</td>
-                            <td>{{item.lastEditdate}}
+                            <td>{{item.lastEditdate | date:"yyyy-MM-dd hh:mm:ss"}}
                             <td>
                                 <a href="javascript:void(0);" ng-click="detail(item)">查看</a> &nbsp;
                                 <a href="javascript:void(0);" ng-click="edit(item)">修改</a> &nbsp;
+                                <a href="javascript:void(0);" ng-click="delete(item)">删除</a> &nbsp;
                             </td>
                         </tr>
                     </tbody>

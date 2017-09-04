@@ -85,35 +85,30 @@ angular.module('culAdminApp')
             })
         }
 
-        //创建仓库
+        //创建渠道
         channel.createChannel = function (options, callback) {
             $http.post(cul.apiPath + "/createChannel", options).success(function (result) {
                 callback(result);
             });
         }
 
-        //搜索仓库
+        //搜索渠道
         channel.getChannelList = function (options, callback) {
             $http.post(cul.apiPath + "/getChannel", options).success(function (result) {
                 callback(result);
             });
         }
-        //删除仓库
+
+        //删除渠道
         channel.deleteChannel = function (options, callback) {
             $http.post(cul.apiPath + "/deleteChannel", options).success(function (result) {
                 callback(result);
             });
         }
-        //更新仓库
+
+        //更新渠道
         channel.updateChannel = function (options, callback) {
             $http.post(cul.apiPath + "/updateChannel", options).success(function (result) {
-                callback(result);
-            });
-        }
-
-        //更新仓库
-        channel.updateWareInboundpackage = function (options, callback) {
-            $http.post(cul.apiPath + "/updateWareInboundpackage", options).success(function (result) {
                 callback(result);
             });
         }
