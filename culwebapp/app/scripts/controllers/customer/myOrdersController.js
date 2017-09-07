@@ -36,8 +36,6 @@ var app = angular
             customer.getCustomerInfo($scope.currentUser.customerNumber)
                 .then(function (result) {
                     $scope.currentUser.accountBalance = result.data.accountBalance;
-                    // console.log("2323",$scope.currentUser);
-                    // AuthService.setUser($scope.currentUser);
                 });
 
 
@@ -76,7 +74,6 @@ var app = angular
 
             $scope.selectedChannel = function () {
                 $scope.$root.orderOptions.shipServiceItem = $scope.data.shipServiceItem;
-                console.log($scope.data.shipServiceItem)
                 if (!!$scope.data.shipServiceItem) {
                     //var categoryItem = $filter('filter')($scope.warehouses, function (item) { return item.warehouseNumber === getWorkhouseNumber(); });
                     $scope.goodsCategories = $scope.data.shipServiceItem.itemTypeList;
@@ -583,8 +580,6 @@ var app = angular
                 $scope.data.cartonCount = data.shippingPackageCount;
                 $scope.data.message = data.priceAdjustMemo;
                 $scope.data.shipServiceId = data.shipServiceItem.shipServiceId;
-                // console.log("*****last submit***********")
-                // console.log($scope.data)
                 preSubmitToService($scope.data);
             }
 
