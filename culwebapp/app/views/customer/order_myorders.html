@@ -91,8 +91,8 @@
                                 <th style="width:150px">创建日期</th>
                                 <th class="hidden-sm" style="max-width:200px;">订单说明</th>
                                 <th style="width:120px">渠道</th>
-                                <th>查看留言</th>
-                                <th style="min-width:160px">操作</th>
+                                <!-- <th>查看留言</th> -->
+                                <th style="min-width:200px">操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -134,7 +134,7 @@
                                 </td>
                                 <td>{{rowItem.shipServiceName}}</td>
                                 <!-- <td><small ng-repeat="orderDetailItemShipChannelItem in allShipChannels" ng-if="orderDetailItemShipChannelItem.shipServiceId===rowItem.shipServiceId">{{orderDetailItemShipChannelItem.shipServiceName}}</small></td> -->
-                                <td>
+                                <!-- <td>
                                     <div class="btn-group" style="margin-top:5px;">
                                         <ul class="list-inline" style="min-width:80px;font-size:15px;">
                                             <li ng-click="updateMessage(rowItem);" ng-show="rowItem._orderMessageStatus === '1'">
@@ -145,7 +145,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </td>
+                                </td> -->
                                 <td>
                                     <div class="btn-group" style="margin-top:5px;">
                                         <ul class="list-inline" style="min-width:100px;font-size:15px;">
@@ -167,6 +167,11 @@
                                                    <i class="fa fa-qq"></i>
                                                 </a>
                                                 
+                                            </li>
+                                            <li>
+                                                <a ui-sref="ordertracking({trackingNumber:'{{packageItem.trackingNumber}}'})"
+                                                   class="tooltips" data-toggle="tooltip" title="查看包裹轨迹" data-original-title="查看包裹轨迹" target="_blank">
+                                                    <i class="fa fa-truck"></i></a>
                                             </li>
                                         </ul>
                                     </div>
