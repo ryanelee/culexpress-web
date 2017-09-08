@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('AnnounceCtrl', ['$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService', 'customerService', 'plugMessenger','storage',
-        function ($window, $rootScope, $scope, $location, warehouseService, shelfService, customerService, plugMessenger,storage) {
+    .controller('AnnounceCtrl', ['$window', '$rootScope', '$scope', '$location', 'warehouseService', 'shelfService', 'customerService', 'plugMessenger', 'storage',
+        function ($window, $rootScope, $scope, $location, warehouseService, shelfService, customerService, plugMessenger, storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -43,7 +43,7 @@ angular.module('culAdminApp')
                 pageIndex: 1,
                 totalCount: 0
             }
-              $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            $scope.tempSearchBar = angular.copy(storage.getSearchObject());
             if ($scope.tempSearchBar) {
                 $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
             }
@@ -136,7 +136,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function () {
-                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1); $window.history.back();
             }
 
             //路由
@@ -195,9 +195,15 @@ angular.module('culAdminApp')
             $scope.flag = '1';
 
             $scope.data = $location.search().item;
+            if ($scope.data.sort) {
+                $scope.data.sort = Number($scope.data.sort)
+            } else {
+                $scope.data.sort = 1;
+            }
+            console.log("$scope.data.sort", $scope.data.sort)
 
             $scope.btnPrev = function () {
-                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1); $window.history.back();
             }
 
             //更新
@@ -209,7 +215,7 @@ angular.module('culAdminApp')
                     }
                 })
             }
-            
+
             $scope.changeOpenAll = function (type) {
                 if (type == 1 || type == 3) {
                     $scope.data.openAll = 0
