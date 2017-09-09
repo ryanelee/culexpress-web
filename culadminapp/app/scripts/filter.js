@@ -85,14 +85,14 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
 }).filter('_outPackageStatus', function () {
     var status = {
         "Init": "初始化",
-        "Packaged": "打包",
+        "Packaged": "已打包",
         "Shipped": "出库",
-        "Send": "送往机",
+        "Send": "送往机场",
         "Arrived": "到达国内"
     };
     return function (input) {
         return status[input] || input;
-    };  Init - 初始化;Packaged - 打包;Shipped - 出库; Send -  送往机;Arrived - 到达国内;
+    };  Init - 初始化; Packaged - 已打包; Shipped - 出库; Send -  送往机场; Arrived - 到达国内;
 }).filter('_shipService', function () {
     var orderStatus = {
         "1": "标准包裹服务",

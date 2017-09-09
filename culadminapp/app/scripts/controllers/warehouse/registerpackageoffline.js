@@ -181,6 +181,7 @@ angular.module('culAdminApp')
                 }
                 //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
                 $.each(checkedPackages, function (i, pkg) {
+                    pkg.status = 'Packaged';
                     orderService.updateOutboundPackage(pkg, function (result) {
                         if (!result.message) {
                             _count++;
