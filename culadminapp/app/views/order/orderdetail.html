@@ -365,6 +365,7 @@
                                     <th>打包数量</th>
                                     <th>计费重量</th>
                                     <th>运费合计</th>
+                                    <th>出库信息</th>
                                     <!--<th>打包人员</th>-->
                                 </tr>
                             </thead>
@@ -376,6 +377,7 @@
                                     <td>{{item.subGoodNumber}}</td>
                                     <td>{{item.billingWeight | number : 2}}磅</td>
                                     <td>{{item.shippingFee | currency:'¥'}}</td>
+                                    <td>{{item.status | _outPackageStatus}}</td>
                                     <!--<td>{{item.lastEditUserName}}</td>-->
                                 </tr>
                             </tbody>
