@@ -98,7 +98,7 @@ angular.module('culAdminApp')
                         $scope.getProvince(province, city, area, e);
                     })
                 }
-
+ 
                 console.log(result)
                 // if (result._printStatus == "未打印") {
                 //     $scope.isShow = true;

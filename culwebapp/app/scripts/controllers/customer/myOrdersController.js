@@ -823,6 +823,8 @@ var app = angular
                 }
             }
 
+            console.log("323",$scope.data)
+
             $scope.countFee = {};
 
             $scope.calculateFee = function (category, ctrlType) {
@@ -946,9 +948,12 @@ var app = angular
             $scope.wizardSubmit = function () {
                 $scope.submitOrder();
             }
+            console.log('$scope.data',$scope.data);
+            console.log('data',data);
 
         }
     ]);
+
 app.directive('ngEnter', function () {
     return function (scope, element, attrs) {
         element.bind("keydown keypress", function (event) {

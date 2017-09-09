@@ -26,8 +26,8 @@ angular.module('culAdminApp')
 
             $scope.form = $location.search().item;
             console.log("form", $scope.form);
-            console.log("$scope.form.name",$scope.form.mainName);
-
+            // console.log("$scope.form.name",$scope.form.mainName);
+            $scope.flag = $location.search().flag;
             if ($scope.form) {
                 // $scope.flag = '1'
                 $scope.flag = $location.search().flag;
@@ -51,18 +51,7 @@ angular.module('culAdminApp')
             ItemService.getItemCategoryList({}, function (result) {
                 $scope.CategoryList = result.data.data;
                 $scope.mainCategory = _.uniq(result.data.data, 'mainName');
-                 $scope.mainNames = [];
-                 $scope.mainCategory.forEach(function(e){
-                     
-                     $scope.mainNames.push(e.mainName);
-                 })
-                 $scope.mainNames.forEach(function(e,index){
-                     if(e == $scope.form.mainName){
-                         console.log('26');
-                        $scope.form.mainName =$scope.mainNames[index];
-                     }
-                 })
-                console.log(" $scope.mainCategory", $scope.mainCategory)
+                console.log("$scope.mainCategory",$scope.mainCategory)
             });
 
 
@@ -90,6 +79,9 @@ angular.module('culAdminApp')
                     }
 
                 }else{
+                    
+                    console.log("3212345");
+                    // return;
                     var item = {};
                     var updateItem = {};
                     item.sequence = $scope.form.sequence
@@ -98,9 +90,9 @@ angular.module('culAdminApp')
 
 
                     $scope.CategoryList.forEach(function(e){
-                        if(e.mainName == $scope.form.mainName){
+                        if(e.parentid == $scope.form.parentid){
                             item.parentid = e.parentid;
-                            if(e.mainName == $scope.form.mainName){
+                            if(e.parentid == $scope.form.parentid){
                                 updateItem = angular.copy(e);
                             }
                         }
@@ -127,7 +119,7 @@ angular.module('culAdminApp')
                 // if (!$scope.form.clearAddress) {
                 //     plugMessenger.info("请输入清关地址!");
                 //     return;
-                // }
+                // } 
                 // if (!$scope.form.channelDesc) {
                 //     plugMessenger.info("请输入渠道描述!");
                 //     return;
@@ -148,7 +140,7 @@ angular.module('culAdminApp')
                 ItemService.updateItemCategory($scope.form, function (res) {
                     if (res.data.code == '000') {
                         plugMessenger.success("更新成功");
-                        $location.path('/system/channelist')
+                        $location.path('/system/categerylist')
                     } else {
                         plugMessenger.success("更新失败" + req.msg);
                     }
