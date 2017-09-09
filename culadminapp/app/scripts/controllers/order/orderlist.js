@@ -15,7 +15,7 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
-            console.log(23,$window.sessionStorage.getItem("role"))
+            // console.log(23,$window.sessionStorage.getItem("role"))
 
             $scope.dataList = [];
             $scope.orderNumberList = [];
@@ -242,11 +242,8 @@ angular.module('culAdminApp')
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
                 plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
                     if (!!isOK) {
-                        console.log("are you ok");
                         $("#confirm-modal").modal("hide");
-                        console.log($scope.searchOrder);
                         orderService.delete($scope.searchOrder, function (result) {
-                            console.log("result",result);
                             if (result.success == true) {
                                 plugMessenger.info("删除成功");
                                 item.deleteMessage = "";

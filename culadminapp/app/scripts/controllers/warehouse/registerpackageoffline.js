@@ -75,7 +75,7 @@ angular.module('culAdminApp')
                     orderService.getList({
                         outBoundTrackingNumber: $scope.tempOutboundPackageNumber
                     }, function (result) {
-                        console.log(result);
+                        // console.log(result);
                         if (!!result && !!result.data && result.data.length > 0) {
                             $scope.data = result.data[0];
                             var _checked = false;
@@ -121,7 +121,6 @@ angular.module('culAdminApp')
                 warehouseService.outboundPackageSplit({
                     "trackingNumber": item.trackingNumber,
                 }, function (result) {
-                    console.log(result);
                     result.checked = true;
                     result.scanStatus = "scan";
                     $scope.data.outboundPackages.push(result);
@@ -129,7 +128,10 @@ angular.module('culAdminApp')
             }
 
             $scope.weightChanged = function () {
-                $scope.outboundEnable = $.grep($scope.data.outboundPackages, function (n) { return !!n.actualWeight && n.checked == true }).length == $scope.data.outboundPackages.length;
+                // 原单更新（打包后）的订单才能订单出苦
+                if ($scope.data.orderStatus == "WaybillUpdated") {
+                    $scope.outboundEnable = $.grep($scope.data.outboundPackages, function (n) { return !!n.actualWeight && n.checked == true }).length == $scope.data.outboundPackages.length;                    
+                }
             }
 
             // $scope.btnSave = function (callback) {
@@ -190,7 +192,7 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.delOutBoundUpdate = function(orderStatus) {
+            $scope.dealOutBoundUpdate = function(orderStatus) {
                 var _count = 0;
                 var checkedPackages = $scope.data.outboundPackages;
                 var _callback = function () {
@@ -211,7 +213,6 @@ angular.module('culAdminApp')
                 }
                 //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
                 $.each(checkedPackages, function (i, pkg) {
-                    console.log(checkedPackages)
                     orderService.updateOutboundPackage(pkg, function (result) {
                         if (!result.message) {
                             _count++;
@@ -223,7 +224,6 @@ angular.module('culAdminApp')
                 });
             }
             $scope.btnSave = function () {
-                console.log("number", $scope.data.orderNumber)
                 if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
                     if ($scope.data.outboundPackages[0].actualWeight <= 0) {
                         plugMessenger.error("请填写实际包裹重量！");
@@ -276,7 +276,6 @@ angular.module('culAdminApp')
                 if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
                     //当订单中所有包裹都完成称重后
                     if ($.grep($scope.data.outboundPackages, function (n) { return !!n.actualWeight }).length == $scope.data.outboundPackages.length) {
-                        console.log("number", $scope.data.orderNumber)
                         if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
                             if ($scope.data.outboundPackages[0].actualWeight <= 0) {
                                 plugMessenger.error("请填写实际包裹重量！");
@@ -287,7 +286,7 @@ angular.module('culAdminApp')
                                 plugMessenger.confirm("该订单[" + $scope.data.orderNumber + "]未打印,确认打包处理?", function (isOk) {
                                     if (isOk) {
                                         if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
-                                            $scope.delOutBoundUpdate("WaybillUpdated");
+                                            $scope.dealOutBoundUpdate("WaybillUpdated");
                                             // var _count = 0;
                                             // var checkedPackages = $scope.data.outboundPackages;
                                             // var _callback = function () {
@@ -318,14 +317,14 @@ angular.module('culAdminApp')
                                             //     })
                                             // });
                                         } else {
-                                            $scope.delOutBoundUpdate("PartialShipped");
+                                            $scope.dealOutBoundUpdate("PartialShipped");
                                             // plugMessenger.info("订单包裹尚未完成扫描");
                                         }
                                     };
                                 });
                             } else {
                                 if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
-                                    $scope.delOutBoundUpdate("WaybillUpdated");
+                                    $scope.dealOutBoundUpdate("WaybillUpdated");
                                 } else {
                                     $scope.dealUpdate("PartialShipped");
                                     // plugMessenger.info("订单包裹尚未完成扫描");
