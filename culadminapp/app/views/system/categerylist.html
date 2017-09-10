@@ -35,7 +35,7 @@
                             <th>最后修改用户</th>
                             <th>最后修改时间</th>
                             <th>操作</th>
-                        </tr>
+                        </tr> 
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in dataList track by $index">
@@ -43,11 +43,12 @@
                             <td>{{item.mainName}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.sequence}}</td> 
-                            <td>{{item.lastEditUserName}}</td>
-                            <td>{{item.lastEditdate}}
+                            <td>{{item.lasteditusername}}</td>
+                            <td>{{item.lasteditdate | date:'yyyy-MM-dd'}}
                             <td>
                                 <a href="javascript:void(0);" ng-click="detail(item)">查看</a> &nbsp;
                                 <a href="javascript:void(0);" ng-click="edit(item)">修改</a> &nbsp;
+                                <a href="javascript:void(0);" ng-click="del(item)">删除</a> &nbsp;
                             </td>
                         </tr>
                     </tbody>

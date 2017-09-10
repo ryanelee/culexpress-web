@@ -18,8 +18,10 @@ angular.module('culwebApp')
         }
 
         self.clearStorage = function() {
+            console.log("哈哈哈哈");
             localStorage.removeItem(self.userInfoKey);
             sessionStorage.removeItem(self.userInfoKey);
+            window.sessionStorage.removeItem('cache_warehouse');
         }
 
         self.getStorage = function(storageKey) {

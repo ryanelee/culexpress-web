@@ -52,6 +52,7 @@ angular.module('culAdminApp')
                 storage.session.setObject("searchBar", $scope.searchBar);
                 ItemService.getItemCategoryList(_filterOptions(), function(result) {
                     $scope.dataList = result.data.data;
+                    
                     console.log("$scope.dataList",$scope.dataList)
                 });
             }
@@ -66,10 +67,10 @@ angular.module('culAdminApp')
 
             // 新建仓库跳转
             $scope.addCategery = function() {
-                    $location.path('/system/editcategery').search({});
+                    $location.path('/system/editcategery').search({flag: "new" });
                 }
                 // 修改仓库
-            $scope.edit = function(item) {
+            $scope.edit = function(item) { 
                 console.log("item", item)
                 if (!!item) $location.search({ item: item, flag: "update" });
                 $location.path('/system/editcategery')
@@ -79,13 +80,13 @@ angular.module('culAdminApp')
                 if (!!item) $location.search({ item: item, flag: "detail" });
                 $location.path('/system/editcategery')
             }
-            $scope.del = function(warehouseNumber) {
+            $scope.del = function(item) {
                     //console.log(warehouseNumber);
                     // return;
-                    plugMessenger.confirm("确认删除该仓库吗?", function(isOk) {
+                    plugMessenger.confirm("确认删除该商品吗?", function(isOk) {
                         if (isOk) {
-                            warehouseService.deleteWarehouse({ warehouseNumber: warehouseNumber }, function(res) {
-                                if (res.code == '000') {
+                            ItemService.deleteItemCategory(item.cateid, function(res) {
+                                if (res.data.code == '000') {
                                     plugMessenger.success("删除成功");
                                     $scope.getData();
                                 } else {

@@ -261,7 +261,7 @@ angular.module('culAdminApp')
                     data.receiptNumber = $scope.data.receiptNumber;
                 }
  
-                // return;
+                // return; 
                 shelfService.onshelfForInbound(data, function (result) {
                     if (result.success) {
                         // $("#myAlert").alert();

@@ -25,6 +25,13 @@ angular.module('culAdminApp')
     $http.post(cul.apiPath + "/updateItemCategory", options).then(function (data) {
         callback(data);
     })
+    
+}
+self.deleteItemCategory = function (cateid, callback) {
+    $http.delete(cul.apiPath + "/deleteItemCategory/"+cateid).then(function (data) {
+        callback(data);
+    })
+    
 }
 
   

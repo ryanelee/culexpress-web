@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-    .module('culwebApp')
+    .module('culwebApp') 
     .controller('IndexController', ['$rootScope', '$scope', '$location', 'AuthService', '$http', 'Customer','$state',
         function($rootScope, $scope, $location, AuthService, $http, Customer, $state) {
             // if (!$rootScope.currentUser) {
