@@ -69,7 +69,8 @@
 
 </head> 
 
-<body ng-app="culwebApp" ng-controller="IndexController" onload="$('#modalNote').modal('show');">
+<!-- <body ng-app="culwebApp" ng-controller="IndexController" onload="$('#modalNote').modal('show');"> -->
+<body ng-app="culwebApp" ng-controller="IndexController">
     <loading></loading>
     <div class="wrapper">
         <div class="header-v8 header-sticky">
@@ -79,18 +80,21 @@
                     <div class="modal-body">
                     <div class="common-title" style="text-align: left">
                         <h2 style="width: 100px;">
-                        重要通知
+                        <!-- 重要通知 -->
+                        {{webAnnounce[0].title}}
                         </h2>
                     </div>
                     <br>
                     <div class="jcrop">
                         <div class="jcrop-l">
                             <p>
-                                为了给大家更好的服务质量, CUL中美速递网站全面升级。新的网站更美观，更简洁,
+                                <!-- 为了给大家更好的服务质量, CUL中美速递网站全面升级。新的网站更美观，更简洁,
                                 客户系统操作更简单, 功能覆盖范围更全面,让您的海淘之旅变的更轻松。<br><br>
-                                旧系统现已停运,老客户请使用旧的用户名和密码登录。旧系统提交的预报请在新系统中提交订单。如您有任何问题请联系我们的客服人员。<br><br>
-                                祝您购物愉快！<br>
+                                旧系统现已停运,老客户请使用旧的用户名和密码登录。旧系统提交的预报请在新系统中提交订单。如您有任何问题请联系我们的客服人员。<br><br> -->
+                                {{webAnnounce[0].content}}
+                                <br>祝您购物愉快！<br>
                                 --CUL中美速递运营团队
+                                
                             </p>
                         </div>
                     </div>

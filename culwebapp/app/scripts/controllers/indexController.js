@@ -92,5 +92,24 @@ angular
                     $state.go("uploadIDCardtw");
                  }
              }
+
+             //弹出广告管理
+            $scope.webAnnounce = [{
+                title: "",
+                content: ""
+            }];
+            $scope.getWebAnnounce = function() {
+                var obj = { type: 4, status: 1, openAll: 1 };
+                $http.post(cul.apiPath + '/web/WebAnnounce', obj).then(function(result) {
+                    $scope.webAnnounce = result.data.data.data;
+                    if($scope.webAnnounce[0]){
+                        if ($scope.webAnnounce[0].status == 1) {
+                            console.log('$scope.webAnnounce[0].status == 1')
+                            $('#modalNote').modal('show');
+                        }
+                    }
+                });
+            }
+            $scope.getWebAnnounce();
         }
     ]);
