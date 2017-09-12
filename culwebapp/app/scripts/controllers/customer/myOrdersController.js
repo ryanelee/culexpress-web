@@ -748,7 +748,7 @@ var app = angular
                         // [\\u4e00-\\u9fa5]+  /[^x00-xff]/
                         if($scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.requireEnglish4Name !== 1 &&
-                            /\\u4e00-\\u9fa5]+/.test(orderItem.description)) {
+                            /^[u4E00-u9FA5]+$/.test(orderItem.description)) {
                             alertify.alert('提示', '商品描述:[<small style="color:red">' + orderItem.description +
                                 '</small>]中包括非中文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
                                 '</small>]要求商品描述必须为中文,请填写正确的中文商品描述.');
