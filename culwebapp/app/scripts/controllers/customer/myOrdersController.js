@@ -745,7 +745,7 @@ var app = angular
                                 '</small>]要求商品描述必须为英文,请填写正确的英文商品描述.');
                             return false;
                         }
-                        // [\\u4e00-\\u9fa5]+  /[^x00-xff]/
+                        
                         if($scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.requireEnglish4Name !== 1 &&
                             /^[u4E00-u9FA5]+$/.test(orderItem.description)) {
@@ -769,11 +769,13 @@ var app = angular
                             $scope.addressListData.filter(function (value) {
                                 return value.transactionNumber == packageItem.addressNumber;
                             })[0];
-
+                        
+                        // usps 不用校验地址是否验证
                         if (addressItem != undefined &&
                             $scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.needIDCard === 1 &&
-                            addressItem.verifyMark !== 1) {
+                            addressItem.verifyMark !== 1 &&
+                            $scope.data.shipServiceItem.shipServiceId !== 9) {
                             alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' ' +
                                 addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
                                 '</small>]还未通过身份验证。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
