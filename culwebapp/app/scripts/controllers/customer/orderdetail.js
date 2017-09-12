@@ -70,7 +70,7 @@ angular.module('culwebApp')
                     .getOrderInfo(orderId)
                     .then(function (result) {
                         $scope.data = result.data;
-
+                        console.log($scope.data)
                         if ($scope.data.actualWeight == 0
                             && $scope.data.inboundPackages && $scope.data.inboundPackages.length > 0) {
                             $scope.data.inboundPackages.forEach(function (i) {
@@ -224,4 +224,15 @@ angular.module('culwebApp')
             }
 
         }
-    ]);
+    ]).filter('_outPackageStatus', function () {
+        var status = {
+            "Init": "未出库",
+            "Packaged": "未出库",
+            "Shipped": "出库",
+            "Send": "送往机场",
+            "Arrived": "到达国内"
+        };
+        return function (input) {
+            return status[input] || input;
+        }
+    });
