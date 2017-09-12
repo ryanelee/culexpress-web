@@ -102,9 +102,7 @@ angular.module('culwebApp')
                 }, paras));
             },
             getWarehouses: function() {
-                console.log("1234");
                 var cacheData = window.sessionStorage.getItem('cache_warehouse');
-                console.log("cacheData",cacheData)
                 if (!!cacheData) {
                     return {
                         then: function(callback) {
