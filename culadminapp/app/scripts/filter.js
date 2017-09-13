@@ -84,7 +84,7 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     };  Intransit - 在途; Inbound - 入库; Onshelf - 上架; Offshelf - 下架; Processing - 处理中;
 }).filter('_outPackageStatus', function () {
     var status = {
-        "Init": "初始化",
+        "Init": "未打包",
         "Packaged": "已打包",
         "Shipped": "出库",
         "Send": "送往机场",
@@ -92,7 +92,7 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     };
     return function (input) {
         return status[input] || input;
-    };  Init - 初始化; Packaged - 已打包; Shipped - 出库; Send -  送往机场; Arrived - 到达国内;
+    };  Init - 未出库/初始化; Packaged - 未出库/已打包; Shipped - 出库; Send -  送往机场; Arrived - 到达国内;
 }).filter('_shipService', function () {
     var orderStatus = {
         "1": "标准包裹服务",
