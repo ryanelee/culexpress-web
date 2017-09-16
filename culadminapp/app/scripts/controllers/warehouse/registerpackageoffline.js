@@ -224,6 +224,7 @@ angular.module('culAdminApp')
                     })
                 });
             }
+            //  打包
             $scope.btnSave = function () {
                 if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
                     if ($scope.data.outboundPackages[0].actualWeight <= 0) {
@@ -272,7 +273,7 @@ angular.module('culAdminApp')
                     }
                 }
             }
-
+            // 订单出库
             $scope.btnOutBound = function () {
                 if (!!$scope.data && $scope.data.outboundPackages.length > 0) {
                     //当订单中所有包裹都完成称重后
@@ -327,7 +328,8 @@ angular.module('culAdminApp')
                                 if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
                                     $scope.dealOutBoundUpdate("WaybillUpdated");
                                 } else {
-                                    $scope.dealUpdate("PartialShipped");
+                                    // $scope.dealUpdate("PartialShipped");
+                                    $scope.dealOutBoundUpdate("PartialShipped");
                                     // plugMessenger.info("订单包裹尚未完成扫描");
                                 }
                             }
