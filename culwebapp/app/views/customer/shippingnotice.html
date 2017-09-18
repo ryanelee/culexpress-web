@@ -10,7 +10,10 @@
             <div class="left-row">
                 <label class="label">收货仓库</label>
                 <label class="select">
-                  <select class="txt-item" ng-options="item.warehouseNumber as item.warehouseName for item in warehouses" ng-model="retrieveWarehouseNumber" ></select>
+                  <select class="txt-item" ng-options="item.warehouseNumber as item.warehouseName for item in warehouses" ng-model="retrieveWarehouseNumber">
+                      <!-- <option value="?"></option> -->
+                      <!-- <option value="" selected>--请选择--</option>   -->
+                  </select>
                   <i class="sel-icon"></i>
                 </label>
             </div>

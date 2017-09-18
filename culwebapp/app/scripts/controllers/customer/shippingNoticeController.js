@@ -8,19 +8,21 @@ var app = angular
             $scope.$root.wizardOptions = {};
             $scope.warehouses = [];
             orderSvr
-                .getWarehouses()
-                .then(function(result) {
-                    if (!window.sessionStorage.getItem('cache_warehouse')) {
-                        window.sessionStorage.setItem('cache_warehouse', JSON.stringify(result.data));
-                    }
-                    //暂时只支持OR仓库
-                    //$scope.warehouses = $filter('filter')(result.data, function (item) { return item.stateOrProvince !== 'OR'; });
+            .getWarehouses()
+            .then(function(result) {
+                if (!window.sessionStorage.getItem('cache_warehouse')) {
+                    window.sessionStorage.setItem('cache_warehouse', JSON.stringify(result.data));
+                }
+                //暂时只支持OR仓库
+                //$scope.warehouses = $filter('filter')(result.data, function (item) { return item.stateOrProvince !== 'OR'; });
 
-                    $scope.warehouses = result.data;
-                    if ($scope.warehouses) {
-                        $scope.retrieveWarehouseNumber = $scope.warehouses[0].warehouseNumber;
-                    }
-                });
+                $scope.warehouses = result.data;
+                if ($scope.warehouses) {
+                    //  仓库默认为空
+                    // $scope.retrieveWarehouseNumber = $scope.warehouses[0].warehouseNumber;
+                    $scope.retrieveWarehouseNumber = "";
+                }
+            });
 
             $scope.shippingCarriers = orderSvr.shippingCarriers
             $scope.selectedshippingCarrier = orderSvr.shippingCarriers[0];
@@ -38,11 +40,9 @@ var app = angular
                 $state.go('customer.submitorder');
             }
 
-
-
             $scope.addShippingNotice = function() {
-
-                if (!$scope.shippingNotice.trackingNumber) { alertify.alert('提醒', '请输入运单号!'); return false; }
+                if (!$scope.retrieveWarehouseNumber) { alertify.alert('提醒', '请选择收货仓库!'); return false; }
+                if (!$scope.shippingNotice.trackingNumber) { alertify.alert('提醒', '请输入运单号!'); return false; }    
                 if (!$scope.shippingNotice.packageDescription) { alertify.alert('提醒', '请输入运单内容!'); return false; }
                 if (!!$scope.shippingNotice.isFastOrder) {
                     if (!$scope.shippingNotice.packageWeight) { alertify.alert('提醒', '极速原箱订单必须输入包裹重量!'); return false; }
