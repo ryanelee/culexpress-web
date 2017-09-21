@@ -44,7 +44,7 @@
             overflow: hidden;
         }
 
-        #printTemplate .packages>tr>td {
+        #printTemplate .packages>tr>td { 
             align: center;
         }
     </style>
@@ -61,6 +61,7 @@
                         <td class="title">客户编号</td>
                         <td>{{data.customer.customerNumber}}</td>
                         <td rowspan="2" colspan="2">
+                          
                             <div class="barcode" orderNumber="{{data.orderNumber}}"></div>
                         </td>
                     </tr>
@@ -199,6 +200,28 @@
                     <tr>
                         <td class="title">备注</td>
                         <td colspan="3">{{data._orderMessage || ''}}</td>
+                    </tr>
+                    <tr>
+                        <td class="title">附加服务</td>
+                        <td colspan="3">
+                            <div class="form-group">
+                                <span class="col-sm-1" ng-if="data.pack_takeoutInvoice == 1">
+                                    <i class="fa fa-check-circle"></i><label class="control-label">取出发票</label>
+                                </span>
+                                <span class="col-sm-1" ng-if="data.pack_urgentProcess == 1">
+                                    <i class="fa fa-check-circle"></i><label class="control-label">加急处理</label>
+                                </span>
+                                <span class="col-sm-1" ng-if="data.pack_steadyInner == 1">
+                                    <i class="fa fa-check-circle"></i><label class="control-label">内件加固</label>
+                                </span>
+                                <span class="col-sm-1" ng-if="data.pack_replaceCarton == 1">
+                                    <i class="fa fa-check-circle"></i><label class="control-label">更换外箱</label>
+                                </span>
+                                <span class="col-sm-1" ng-if="data.pack_removeInner == 1">
+                                    <i class="fa fa-check-circle"></i><label class="control-label">去除内件</label>
+                                </span>
+                            </div>
+                        </td>
                     </tr>
                 </table>
             </div>

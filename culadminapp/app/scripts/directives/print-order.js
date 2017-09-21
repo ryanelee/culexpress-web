@@ -4,7 +4,7 @@
  * @ngdoc directive
  * @name culAdminApp.directive:printOrder
  * @description
- * # printOrder
+ * # printOrder 
  */
 angular.module('culAdminApp')
     .directive('printOrder', ["$timeout", "orderService", "customerMessageService", function($timeout, orderService, customerMessageService) {
@@ -87,6 +87,7 @@ console.log(result);
                             }                         
                         } 
                         $.each($scope.dataList, function(i, _data) {
+                            console.log("_data",$scope.dataList)
                             customerMessageService.getDetail(_data.orderMessageNumber, function(result) {
                                 if (result.data) {;
                                     if(result.data.messageLogs) {                              

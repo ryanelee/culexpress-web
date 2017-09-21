@@ -78,7 +78,7 @@ angular.module('culAdminApp')
             $scope.getData = function() {
                 // storage.session.setObject("searchBar", $scope.searchBar);
                 shelfService.getOnshelfList(_filterOptions(), function(result) {
-                    var _data = result.data;
+                    var _data = result.data; 
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function(x) {
                             return $scope.customer_ids.split(",").includes(x.customerNumber);

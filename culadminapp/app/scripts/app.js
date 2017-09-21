@@ -391,7 +391,7 @@ angular
                 controller: 'ChannelCtrl'
             })
             .when('/system/editchannel', {
-                templateUrl: 'views/system/editchannel.html',
+                templateUrl: 'views/system/editChannel.html',
                 controller: 'ChannelEditCtrl'
             })
             .when('/web/announce', {

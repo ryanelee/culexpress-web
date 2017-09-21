@@ -225,7 +225,7 @@
                     <td>{{item._orderStatus}}</td>
                     <!--<td>{{item.processStatus}}</td>-->
                     <td>{{item._printStatus}}</td>
-                    <td> 
+                    <td>  
                         <!-- 删除已支付和未支付订单 -->
                          <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus == '未支付' || item._orderStatus == '已支付'">删除</a> 
                         <!-- <a href="javascript:void(0);" class="role" data-role="107" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus == '未支付' || item._orderStatus == '已支付'">删除</a> -->
@@ -248,6 +248,8 @@
                     <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
                     <input id="userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
                     <input id="orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
+                    <input id="receiveTrackingNumber" name="receiveTrackingNumber" type="hidden" value="{{exportOptions.receiveTrackingNumber}}" />
+                    
                     <input id="outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}"
                     />
                     <input id="receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />

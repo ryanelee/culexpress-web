@@ -161,8 +161,8 @@ angular.module('culAdminApp')
                     !!address.city &&
                     !!address.zipcode) {
                     address.stateOrProvince = address.province.name;
-                    address.city = address.city.name;
-                    address.area = address.area.name;
+                    address.city = address.city ? address.city.name : " ";
+                    address.area = address.area ? address.area.name : " ";
 
                     if (address.stateOrProvince.indexOf("区") < 0 && address.stateOrProvince.indexOf("市") < 0) {
                         if (!address.area) {
