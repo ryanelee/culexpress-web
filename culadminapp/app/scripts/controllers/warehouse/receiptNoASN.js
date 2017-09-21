@@ -33,7 +33,6 @@ angular.module('culAdminApp')
                 inboundStatus: angular.copy($location.search().inboundStatus || ""),
             }
 
-
             // if ($scope.data.inboundStatus <= 1) {
             //     $window.document.getElementById("txtTrackingNumber").focus();
             // }
@@ -161,7 +160,6 @@ angular.module('culAdminApp')
                 // };
             };
 
-
             $scope.myKeyup = function (e) {
                 // $scope.myKeyup = function (e) {
                 var keycode = window.event ? e.keyCode : e.which;
@@ -170,9 +168,6 @@ angular.module('culAdminApp')
                 }
                 // };
             };
-
-
-
 
             // $scope.checkReceiveIdentity = function () {
             //     if (!$scope.data.receiveIdentity) {
@@ -213,7 +208,6 @@ angular.module('culAdminApp')
                 }
             }
 
-
             $scope.checkCustomerNumber = function (e) {
                 if (!$scope.data.customerNumber) {
                     plugMessenger.error("客户编号不能为空");
@@ -232,8 +226,6 @@ angular.module('culAdminApp')
                     return true;
                 }
             }
-
-
 
             $scope.checkInboundPackage = function () {
                 receiptService.checkInboundPackage($scope.data).then(function (result) {
@@ -368,9 +360,6 @@ angular.module('culAdminApp')
                     "weight": $scope.data.packageWeight,
                     "warehouseNote": $scope.data.warehouseNote
                 }
-                //console.log($scope.options);
-
-                // return;
                 receiptService.saveForOnline($scope.options, _callback);
             }
 
@@ -379,23 +368,21 @@ angular.module('culAdminApp')
                 $location.path("warehouse/receiptexceptionedit");
             }
 
-
-
             $scope.updateWarehouse = function (warehouseNumber) {
-                warehouseService.updateWareInboundpackage($scope.data, function (result) {
-                    if (result.code == '000') {
-                        plugMessenger.success("更新成功")
-                        // $scope.getPackageDetail(); 
-                        $scope.warehouseList.forEach(function (element) {
-                            if ($scope.data.warehouseNumber == element.key) {
-                                $scope.isWarehouseRight = true;
-                            }
-                        });
-                    }
-                })
+                if ($scope.data.isFastShip === 1){
+                    warehouseService.updateWareInboundpackage($scope.data, function (result) {
+                        if (result.code == '000') {
+                            plugMessenger.success("更新成功")
+                            $scope.warehouseList.forEach(function (element) {
+                                if ($scope.data.warehouseNumber == element.key) {
+                                    $scope.isWarehouseRight = true;
+                                }
+                            });
+                        }
+                    })
+                } else {
+                    plugMessenger.error("该包裹已经提交订单，无法做仓库修改，除非删除订单，方可做仓库更改！");
+                }             
             }
-
-
-
         }
     ]);
