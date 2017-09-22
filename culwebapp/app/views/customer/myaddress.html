@@ -174,7 +174,7 @@
                 在需要身份证清关的渠道使用,和收件人姓名对应.<a href="/images/ecard2.jpg" target="_blank">点击参考反面样例</a>
             </p>
           </div>
-          <div class="form-group" ng-show="adsFlag == '1'" style="display:block">
+          <div class="form-group" ng-show="adsFlag == '1'" style="display:inline-block;width:100%;">
               <label class="label">身份证地址<span style="color:red;">*</span></label>
               <input type="text" class="form-control" ng-model="data.idCardAddress">
           </div>
@@ -203,6 +203,10 @@
           <div class="form-group">
               <label class="label required">详细地址</label>
               <input type="text" class="form-control" ng-model="data.address1">
+                <p class="text-danger">
+                    为了确保快递准确送达，请将详细地址具体到街道门牌号
+                </p>
+              <span></span>
           </div>
           <div class="form-group">
               <label class="label">邮政编码</label>
