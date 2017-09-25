@@ -72,5 +72,13 @@ angular.module('culAdminApp')
                 })
             }
 
+            $('#tip_ship').popover({
+                container: 'body',
+                placement: 'top',
+                html: true,
+                trigger: 'hover',
+                title: '',
+                content: "美1美元兑换人民币汇率"
+            });
         }
     ]);
