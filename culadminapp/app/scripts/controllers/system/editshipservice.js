@@ -72,13 +72,40 @@ angular.module('culAdminApp')
                 })
             }
 
-            $('#tip_ship').popover({
+            $('#tip_RMB').popover({
                 container: 'body',
                 placement: 'top',
                 html: true,
                 trigger: 'hover',
                 title: '',
-                content: "美1美元兑换人民币汇率"
+                content: "每1美元兑换人民币汇率"
+            });
+
+            $('#tip_fweight').popover({
+                container: 'body',
+                placement: 'top',
+                html: true,
+                trigger: 'hover',
+                title: '',
+                content: "每分箱一次计入运费的箱子重量"
+            });
+
+            $('#ttip_split').popover({
+                container: 'body',
+                placement: 'top',
+                html: true,
+                trigger: 'hover',
+                title: '',
+                content: "分箱小数点进位标准(>=x)"
+            });
+
+            $('#tip_merge').popover({
+                container: 'body',
+                placement: 'top',
+                html: true,
+                trigger: 'hover',
+                title: '',
+                content: "和箱小数点进位标准(>=x)"
             });
         }
     ]);

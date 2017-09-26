@@ -7,7 +7,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">服务名称：<small style="color:red">*</small></label>
                 <div class="col-sm-10 text-left">
-                    <input id="shipServiceName" type="text" class="form-control" placeholder="渠道名称" ng-model="form.shipServiceName" ng-disabled="flag == 'detail'">
+                    <input id="shipServiceName" type="text" class="form-control" placeholder="服务名称" ng-model="form.shipServiceName" ng-disabled="flag == 'detail'">
                 </div>
             </div>
             <div class="form-group">
@@ -52,111 +52,124 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">服务简介：<small style="color:red">*</small></label>
                 <div class="col-sm-10 text-left">
-                    <input id="clearAddress" type="text" class="form-control" placeholder="清关地址" ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="serviceSummary" type="text" class="form-control" placeholder="服务简介" ng-model="form.serviceSummary" ng-disabled="flag == 'detail'">
                 </div>
             </div>
-            <div>计费规则</div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">计费规则</label>
+            </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">普通客户   </label>
                 <label class="col-sm-1 control-label text-right">人名币</label>
                 <label class="col-sm-1 control-label text-right">首重：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="text" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="firstWeight" type="text" class="form-control"  ng-model="form.firstWeight" ng-disabled="flag == 'detail'">
                 </div>
                 <label class="col-sm-2 control-label text-right">续重：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="text" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="continuedWeight" type="text" class="form-control"  ng-model="form.continuedWeight" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right"> </label>
+                <label class="col-sm-1 control-label text-right">人名币</label>
+                <label class="col-sm-1 control-label text-right">首重：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="firstWeight" type="text" class="form-control"  ng-model="form.firstWeight" ng-disabled="flag == 'detail'">
+                </div>
+                <label class="col-sm-2 control-label text-right">续重：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="continuedWeight" type="text" class="form-control"  ng-model="form.continuedWeight" ng-disabled="flag == 'detail'">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">VIP客户 </label>
                 <label class="col-sm-1 control-label text-right">美元</label>
-                <label class="col-sm-1 control-label text-right">首重：<small style="color:red">*</small></label>
+                <label class="col-sm-1 control-label text-right">首重：</label>
                 <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="text" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="firstWeight" type="text" class="form-control"  ng-model="form.firstWeight" ng-disabled="flag == 'detail'">
                 </div>
-                <label class="col-sm-2 control-label text-right">续重：<small style="color:red">*</small></label>
+                <label class="col-sm-2 control-label text-right">续重：</label>
                 <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="text" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label text-right"> </label>
-                <label class="col-sm-1 control-label text-right">人名币</label>
-                <label class="col-sm-1 control-label text-right">首重：<small style="color:red">*</small></label>
-                <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="text" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
-                </div>
-                <label class="col-sm-2 control-label text-right">续重：<small style="color:red">*</small></label>
-                <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="text" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="continuedWeight" type="text" class="form-control"  ng-model="form.continuedWeight" ng-disabled="flag == 'detail'">
                 </div>
             </div>
+           
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right"> </label>
                 <div class="col-sm-10 text-left">
-                  <label>
+                  <label class="col-sm-3 text-left">
                     需要身份证
-                    <input type="checkbox" name="status" id="status1" value="1" ng-model="form.status" ng-disabled="flag == 'detail'">
+                    <input type="checkbox"  id="needIDCard" value="1" ng-model="form.needIDCard" ng-disabled="flag == 'detail'">
                   </label> &nbsp;
-                  <label>
+                  <label class="col-sm-3 text-left">
                     英文收货人
-                    <input type="checkbox" name="status" id="status2" value="0" ng-model="form.status" ng-disabled="flag == 'detail'">                 
+                    <input type="checkbox"  id="requireEnglish4Name" value="0" ng-model="form.requireEnglish4Name" ng-disabled="flag == 'detail'">                 
                   </label>
-                  <label>
+                  <label class="col-sm-3 text-left">
                     英文收货地址
-                    <input type="checkbox" name="status" id="status2" value="0" ng-model="form.status" ng-disabled="flag == 'detail'">               
+                    <input type="checkbox"  id="requireEnglish4Address" value="0" ng-model="form.requireEnglish4Address" ng-disabled="flag == 'detail'">               
                 </label>
                 </div>
             </div>
             <div class="form-group">
                 <!-- <label class="col-sm-2 control-label text-right"> </label> -->
-                <label class="col-sm-2 control-label text-right">自购报费税率%：<small style="color:red">*</small></label>
+                <label class="col-sm-2 control-label text-right">自购报费税率%： </small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="text" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="insuranceFeeRate" type="text" class="form-control"  ng-model="form.insuranceFeeRate" ng-disabled="flag == 'detail'">
                 </div>
                 <label class="col-sm-2 control-label text-right">人名币汇率：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="text" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="RMBExchangeRate" type="text" class="form-control"  ng-model="form.RMBExchangeRate" ng-disabled="flag == 'detail'">
                 </div>
                 <div class="col-sm-1 col-padding-clear">
-                    <button id="tip_ship" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                    <button id="tip_RMB" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">递送时间：<small style="color:red">*</small></label>
                 <div class="col-sm-1 text-left">
-                    <input id="clearAddress" type="number" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="estimatedTime1" type="number" min=0 class="form-control"  ng-model="form.estimatedTime1" ng-disabled="flag == 'detail'">
                 </div>
                 <label class=" text-left" style="text-align:center;margin-top:7px;float:left">-</label>
                 <div class="col-sm-1 text-left">
-                    <input id="clearAddress" type="number" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="estimatedTime2" type="number" min=0 class="form-control"  ng-model="form.estimatedTime2" ng-disabled="flag == 'detail'">
                 </div> 
                 <label class="control-label">个工作日</label>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">最大重量(磅)：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="number" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="maxWeight" type="number" class="form-control"  ng-model="form.maxWeight" ng-disabled="flag == 'detail'">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">分箱计费重量(磅)：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="number" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="incr_weight_per_split" type="number" class="form-control"  ng-model="form.incr_weight_per_split" ng-disabled="flag == 'detail'">
+                </div>
+                <div class="col-sm-1 col-padding-clear">
+                    <button id="tip_fweight" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">分箱进位>=：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="number" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="split_roundup" type="text" class="form-control"  ng-model="form.split_roundup" ng-disabled="flag == 'detail'">
+                </div>
+                <div class="col-sm-1 col-padding-clear">
+                    <button id="tip_split" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">合箱进位>=：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="clearAddress" type="number" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="merge_roundup" type="text" class="form-control"  ng-model="form.merge_roundup" ng-disabled="flag == 'detail'">
+                </div>
+                <div class="col-sm-1 col-padding-clear">
+                    <button id="tip_merge" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
                 </div>
             </div>
             <div class="form-group">
@@ -166,27 +179,27 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label text-right">服务特色：<small style="color:red">*</small></label>
+                <label class="col-sm-2 control-label text-right">服务特色：</label>
                 <div class="col-sm-10 text-left">
-                    <input id="clearAddress" type="number" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="recommend" type="text" class="form-control"  ng-model="form.recommend" ng-disabled="flag == 'detail'">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label text-right">服务描述：<small style="color:red">*</small></label>
+                <label class="col-sm-2 control-label text-right">规则描述：</label>
                 <div class="col-sm-10 text-left">
-                    <input id="clearAddress" type="number" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="rules" type="text" class="form-control"  ng-model="form.rules" ng-disabled="flag == 'detail'">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label text-right">服务事项：<small style="color:red">*</small></label>
+                <label class="col-sm-2 control-label text-right">注意事项：</label>
                 <div class="col-sm-10 text-left">
-                    <input id="clearAddress" type="number" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="attention" type="text" class="form-control"  ng-model="form.attention" ng-disabled="flag == 'detail'">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label text-right">详细信息：<small style="color:red">*</small></label>
+                <label class="col-sm-2 control-label text-right">详细信息：</label>
                 <div class="col-sm-10 text-left">
-                    <input id="clearAddress" type="number" class="form-control"  ng-model="form.clearAddress" ng-disabled="flag == 'detail'">
+                    <input id="serviceDetail" type="text" class="form-control"  ng-model="form.serviceDetail" ng-disabled="flag == 'detail'">
                 </div>
             </div>
             
