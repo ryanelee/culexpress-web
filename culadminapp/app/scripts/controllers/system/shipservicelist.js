@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('ShipserviceCtrl', ['$scope', '$location', '$window', 'sysroleService', 'customerService', 'channelService', 'plugMessenger',"storage",
-        function($scope, $location, $window, sysroleService, customerService, channelService, plugMessenger,storage) {
+    .controller('ShipserviceCtrl', ['$scope', '$location', '$window', 'sysroleService', 'customerService', 'shipService', 'plugMessenger',"storage",
+        function($scope, $location, $window, sysroleService, customerService, shipService, plugMessenger,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -19,8 +19,9 @@ angular.module('culAdminApp')
             $scope.dataList = [];
             /*search bar*/
             $scope.searchBar = {
+                isAllWearhouse: 1,
                 status: "",
-                keywordType: "channelName"
+                keywordType: "shipServiceName"
             }
             $scope.pagination = {
                 pageSize: "20",
@@ -37,6 +38,9 @@ angular.module('culAdminApp')
                 var _options = {
                     "pageInfo": $scope.pagination
                 }
+                if (!!$scope.searchBar.isAllWearhouse) {
+                    _options["isAllWearhouse"] = $scope.searchBar.isAllWearhouse;
+                }
                 if (!!$scope.searchBar.status) {
                     _options["status"] = $scope.searchBar.status;
                 }
@@ -48,7 +52,8 @@ angular.module('culAdminApp')
 
             $scope.getData = function() {
                 storage.session.setObject("searchBar", $scope.searchBar);
-                channelService.getChannelList(_filterOptions(), function(result) {
+                shipService.getShipserviceList(_filterOptions(), function(result) {
+                    console.log(result)
                     $scope.dataList = result.data.data;
                     $scope.pagination.totalCount = result.data.pageInfo.totalCount;
                 });

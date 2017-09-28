@@ -13,10 +13,9 @@
                 </div>
                 <div class="search-col">
                     <label class="search-label">发货仓库：</label>
-                    <select class="form-control search-control"  ng-model="searchBar.status">
-                        <option value="">所有</option>
-                        <option value=1>启用</option>
-                        <option value=0>禁用</option>
+                    <select class="form-control search-control"  ng-model="searchBar.isAllWearhouse">
+                        <option value=1>所有</option>
+                        <option value=0>当前启用的所有仓库</option>
                     </select>
                 </div>
                 <div class="search-col">
@@ -68,11 +67,15 @@
                             <td>{{item.shipServiceName}}</td>
                             <td>{{item.serviceSummary}}</td>
                             <td>{{item.status | warehourseStatus}}</td>
-                            <td>{{item.warehouseNumber}}</td>
+                            <td style="min-width:140px;">
+                                <div ng-repeat="warehouse in item.warehouseList">
+                                    <label>{{warehouse.warehouseName}}</label><br>
+                                </div>      
+                            </td>
                             <td>{{item.shippingCarrierID}}</td>
                             <td>{{item.firstWeight}}</td>
                             <td>{{item.continuedWeight}}</td>
-                            <td>{{item.estimatedTime}}</td>
+                            <td style="min-width:100px;">{{item.estimatedTime}}</td>
                             <td>{{item.maxWeight}}</td>
                             <td>{{item.insuranceFeeRate}}</td>
                             <td>{{item.incr_weight_per_split}}</td>
@@ -80,7 +83,7 @@
                             <td>{{item.requireEnglish4Address}}</td>                       
                             <td>{{item.lastEditUserName}}</td>
                             <td>{{item.lastEditDate | date:"yyyy-MM-dd hh:mm:ss"}}
-                            <td>
+                            <td style="min-width:55px;">
                                 <a href="javascript:void(0);" ng-click="detail(item)">查看</a> &nbsp;
                                 <a href="javascript:void(0);" ng-click="edit(item)">修改</a> &nbsp;
                                 <!-- <a href="javascript:void(0);" ng-click="delete(item)">删除</a> &nbsp; -->

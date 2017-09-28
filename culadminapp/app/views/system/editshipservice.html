@@ -205,7 +205,7 @@
             
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button ng-if="flag != 'detail' && flag != 'edit'" type="button" class="btn btn-primary" ng-click="saveChannel()">确认</button>
+                    <button ng-if="flag != 'detail' && flag != 'edit'" type="button" class="btn btn-primary" ng-click="saveShipservice()">确认</button>
                     <button ng-if="flag == 'edit'" type="button" class="btn btn-primary" ng-click="update()">更新</button>
                     <a class="btn btn-link" href="javascript:void(0);" ng-click="back()">返回</a>
                 </div>
@@ -217,6 +217,6 @@
 
 <script>
      $(function() {
-         document.getElementById("channelName").focus();
+         document.getElementById("shipServiceName").focus();
      })
 </script>

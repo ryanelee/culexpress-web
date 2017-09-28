@@ -31,14 +31,14 @@ angular.module('culAdminApp')
 
             // 返回列表
             $scope.back = function() {
-                $location.path('/system/channelist').search({});
+                $location.path('/system/shipservicelist').search({});
             }
 
             /**
              * 保存渠道数据
              * @return {[type]}      [description]
              */
-            $scope.saveChannel= function() {
+            $scope.saveShipservice= function() {
                     if (!$scope.form.channelName) {
                         plugMessenger.info("请输入渠道名称!");
                         return;
@@ -90,7 +90,7 @@ angular.module('culAdminApp')
                 content: "每分箱一次计入运费的箱子重量"
             });
 
-            $('#ttip_split').popover({
+            $('#tip_split').popover({
                 container: 'body',
                 placement: 'top',
                 html: true,
@@ -105,7 +105,7 @@ angular.module('culAdminApp')
                 html: true,
                 trigger: 'hover',
                 title: '',
-                content: "和箱小数点进位标准(>=x)"
+                content: "合箱小数点进位标准(>=x)"
             });
         }
     ]);
