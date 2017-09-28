@@ -73,12 +73,12 @@ angular.module('culAdminApp')
             // 修改渠道
             $scope.edit = function(item) {
                 if (!!item) $location.search({ item: item, flag: "edit" });
-                $location.path('/system/editchannel')
+                $location.path('/system/editshipservice')
             }
 
             $scope.detail  = function(item) {
                 if (!!item) $location.search({ item: item, flag: "detail" });
-                $location.path('/system/editchannel')
+                $location.path('/system/editshipservice')
             }
 
             $scope.delete = function(item) {
