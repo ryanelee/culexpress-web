@@ -27,7 +27,8 @@ angular.module('culAdminApp')
                 $scope.form = {
                     status: '1',
                     RMBExchangeRate: '7.00',
-                    shipFeeList: []
+                    shipFeeList: [],
+                    carrierList: []
                 }
             }
 
