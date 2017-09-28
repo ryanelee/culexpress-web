@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('ShipserviceEditCtrl', ['$scope', '$location', '$window', 'plugMessenger','channelService',
-        function($scope, $location, $window, plugMessenger, channelService) {
+    .controller('ShipserviceEditCtrl', ['$scope', '$location', '$window', 'plugMessenger','shipService',
+        function($scope, $location, $window, plugMessenger, shipService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -25,7 +25,9 @@ angular.module('culAdminApp')
                 console.log($scope.flag)
             } else {
                 $scope.form = {
-                    status: '1'
+                    status: '1',
+                    RMBExchangeRate: '7.00',
+                    shipFeeList: []
                 }
             }
 
@@ -39,22 +41,91 @@ angular.module('culAdminApp')
              * @return {[type]}      [description]
              */
             $scope.saveShipservice= function() {
-                    if (!$scope.form.channelName) {
-                        plugMessenger.info("请输入渠道名称!");
+                    if (!$scope.form.shipServiceName) {
+                        plugMessenger.info("请输入服务名称!");
                         return;
                     }
-                    if (!$scope.form.clearAddress) {
-                        plugMessenger.info("请输入清关地址!");
+                    if (!$scope.form.serviceSummary) {
+                        plugMessenger.info("请输入服务简介!");
                         return;
                     }
-                    if (!$scope.form.channelDesc) {
-                        plugMessenger.info("请输入渠道描述!");
+                    if (!$scope.form.firstWeightRMB) {
+                        plugMessenger.info("请输入普通用户人名币首重费用!");
                         return;
                     }
-                    channelService.createChannel($scope.form, function(res) {
+                    if (!$scope.form.continuedWeightRMB) {
+                        plugMessenger.info("请输入普通用户人名币续重费用!");
+                        return;
+                    }
+                    if (!$scope.form.firstWeightRMBVip) {
+                        plugMessenger.info("请输入VIP用户人名币首重费用!");
+                        return;
+                    }
+                    if (!$scope.form.continuedWeightRMBVip) {
+                        plugMessenger.info("请输入VIP用户人名币续重费用!");
+                        return;
+                    }
+                    if (!$scope.form.insuranceFeeRate) {
+                        plugMessenger.info("请输入自购报费税率!");
+                        return;
+                    }
+                    if (!$scope.form.RMBExchangeRate) {
+                        plugMessenger.info("请输入人名币汇率!");
+                        return;
+                    }
+                    if (!$scope.form.estimatedTime1) {
+                        plugMessenger.info("请输入递送时间!");
+                        return;
+                    }
+                    if (!$scope.form.estimatedTime2) {
+                        plugMessenger.info("请输入递送时间!");
+                        return;
+                    }
+                    if (!$scope.form.maxWeight) {
+                        plugMessenger.info("请输入最大重量(磅)!");
+                        return;
+                    }
+                    if (!$scope.form.split_roundup) {
+                        plugMessenger.info("请输入分箱进位>=!");
+                        return;
+                    }
+                    if (!$scope.form.merge_roundup) {
+                        plugMessenger.info("请输入最大重量(磅)!");
+                        return;
+                    }
+                    if (!$scope.form.split_roundup) {
+                        plugMessenger.info("请输入合箱进位>=!");
+                        return;
+                    }
+                    
+                    // 普通客户人民币
+                    let item1 = {
+                        isVip: 0,
+                        firstWeight: $scope.form.firstWeightRMB,
+                        continuedWeight: $scope.form.continuedWeightRMB,
+                        currency: 'RMB'
+                    }
+                    $scope.form.shipFeeList.push(item1)
+                    // VIP客户人民币
+                    let item2 = {
+                        isVip: 1,
+                        firstWeight: $scope.form.firstWeightRMBVip,
+                        continuedWeight: $scope.form.continuedWeightRMBVip,
+                        currency: 'RMB'
+                    }
+                    $scope.form.shipFeeList.push(item2)
+                    // Vip客户美元
+                    let item3 = {
+                        isVip: 1,
+                        firstWeight: $scope.form.firstWeightUSDVip,
+                        continuedWeight: $scope.form.continuedWeightUSDVip,
+                        currency: 'USD'
+                    }
+                    $scope.form.shipFeeList.push(item3)
+                    shipService.createShipservice($scope.form, function(res) {
                         if (res.code == '000') {
                             plugMessenger.success("创建成功");
-                            $location.path('/system/channelist')
+                            $location.path('/system/shipservicelist')
                         } else {
                             plugMessenger.success(" 创建失败：" + req.msg);
                         }
@@ -62,7 +133,7 @@ angular.module('culAdminApp')
                 }
                 //更新仓库
             $scope.update = function() {
-                channelService.updateChannel($scope.form, function(res) {
+                shipService.updateChannel($scope.form, function(res) {
                     if (res.code == '000') {
                         plugMessenger.success("更新成功");
                         $location.path('/system/channelist')
