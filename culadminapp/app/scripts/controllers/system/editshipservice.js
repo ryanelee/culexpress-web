@@ -52,6 +52,31 @@ angular.module('culAdminApp')
              * @return {[type]}      [description]
              */
             $scope.saveShipservice= function() {
+                _shipserviceFilter();
+                shipService.createShipservice($scope.form, function(res) {
+                    if (res.code == '000') {
+                        plugMessenger.success("创建成功");
+                        $location.path('/system/shipservicelist')
+                    } else {
+                        plugMessenger.success(" 创建失败：" + req.msg);
+                    }
+                })
+            }
+            //更新仓库
+            $scope.update = function() {
+                _shipserviceFilter();
+                shipService.updateShipservice($scope.form, function(res) {
+                    if (res.code == '000') {
+                        plugMessenger.success("更新成功");
+                        $location.path('/system/shipservicelist')
+                    } else {
+                        plugMessenger.success("更新失败" + req.msg);
+                    }
+                })
+            }
+
+            // 新增和更新数据选项
+            var _shipserviceFilter = function () {
                 if (!$scope.form.shipServiceName) {
                     plugMessenger.info("请输入服务名称!");
                     return;
@@ -129,28 +154,8 @@ angular.module('culAdminApp')
                     currency: 'USD'
                 }
                 $scope.form.shipFeeList.push(item3)
-                $scope.form.warehouseList = $scope.warehouseList 
-                shipService.createShipservice($scope.form, function(res) {
-                    if (res.code == '000') {
-                        plugMessenger.success("创建成功");
-                        $location.path('/system/shipservicelist')
-                    } else {
-                        plugMessenger.success(" 创建失败：" + req.msg);
-                    }
-                })
+                $scope.form.warehouseList = $scope.warehouseList
             }
-                //更新仓库
-            $scope.update = function() {
-                shipService.updateShipservice($scope.form, function(res) {
-                    if (res.code == '000') {
-                        plugMessenger.success("更新成功");
-                        $location.path('/system/shipservicelist')
-                    } else {
-                        plugMessenger.success("更新失败" + req.msg);
-                    }
-                })
-            }
-
             //记录选项状态更改
             $scope.enableSubFunc = function(currentFunc){
                 if (!currentFunc)
