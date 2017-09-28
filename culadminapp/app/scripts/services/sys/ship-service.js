@@ -11,30 +11,38 @@ angular.module('culAdminApp')
     .service('shipService', ["$http", "$window", function ($http, $window) {
         var shipservice = this;
 
-        //创建装运服务
+        //创建转运服务
         shipservice.createShipservice = function (options, callback) {
             $http.post(cul.apiPath + "/createShipService", options).success(function (result) {
                 callback(result);
             });
         }
 
-        //搜索装运服务
+        //搜索转运服务
         shipservice.getShipserviceList = function (options, callback) {
             $http.post(cul.apiPath + "/getShipService", options).success(function (result) {
                 callback(result);
             });
         }
 
-        //删除装运服务
+        //删除转运服务
         shipservice.deleteShipservice = function (options, callback) {
             $http.post(cul.apiPath + "/deleteShipservice", options).success(function (result) {
                 callback(result);
             });
         }
 
-        //更新装运服务
+        //更新转运服务
         shipservice.updateShipservice = function (options, callback) {
             $http.post(cul.apiPath + "/updateShipService", options).success(function (result) {
+                callback(result);
+            });
+        }
+
+        //获取商品类别
+        shipservice.getGoodCategory = function (callback) {
+            $http.get(cul.apiPath + "/getItemCategoryListAdmin").success(function (result) {
+                console.log(result)
                 callback(result);
             });
         }

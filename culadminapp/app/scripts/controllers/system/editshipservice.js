@@ -22,7 +22,6 @@ angular.module('culAdminApp')
             if ($scope.form) {
                 // $scope.flag = '1'
                 $scope.flag = $location.search().flag;
-                console.log($scope.flag)
             } else {
                 $scope.form = {
                     status: "1",
@@ -42,13 +41,16 @@ angular.module('culAdminApp')
                 $scope.warehouseList = result;
             });
 
+            shipService.getGoodCategory(function (result){
+                $scope.goodCategoryList = result.data;
+            })
             // 返回列表
             $scope.back = function() {
                 $location.path('/system/shipservicelist').search({});
             }
 
             /**
-             * 保存渠道数据
+             * 新增转运服务
              * @return {[type]}      [description]
              */
             $scope.saveShipservice= function() {
@@ -62,7 +64,8 @@ angular.module('culAdminApp')
                     }
                 })
             }
-            //更新仓库
+
+            //更新转运服务
             $scope.update = function() {
                 _shipserviceFilter();
                 shipService.updateShipservice($scope.form, function(res) {
@@ -156,6 +159,7 @@ angular.module('culAdminApp')
                 $scope.form.shipFeeList.push(item3)
                 $scope.form.warehouseList = $scope.warehouseList
             }
+
             //记录选项状态更改
             $scope.enableSubFunc = function(currentFunc){
                 if (!currentFunc)
