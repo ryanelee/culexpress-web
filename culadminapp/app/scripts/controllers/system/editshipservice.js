@@ -134,7 +134,7 @@ angular.module('culAdminApp')
                 }
                 
                 // 普通客户人民币
-                let item1 = {
+                var item1 = {
                     isVip: 0,
                     firstWeight: $scope.form.firstWeightRMB,
                     continuedWeight: $scope.form.continuedWeightRMB,
@@ -142,7 +142,7 @@ angular.module('culAdminApp')
                 }
                 $scope.form.shipFeeList.push(item1)
                 // VIP客户人民币
-                let item2 = {
+                var item2 = {
                     isVip: 1,
                     firstWeight: $scope.form.firstWeightRMBVip,
                     continuedWeight: $scope.form.continuedWeightRMBVip,
@@ -150,7 +150,7 @@ angular.module('culAdminApp')
                 }
                 $scope.form.shipFeeList.push(item2)
                 // Vip客户美元
-                let item3 = {
+                var item3 = {
                     isVip: 1,
                     firstWeight: $scope.form.firstWeightUSDVip,
                     continuedWeight: $scope.form.continuedWeightUSDVip,
