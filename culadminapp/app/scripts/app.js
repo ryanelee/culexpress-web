@@ -391,8 +391,16 @@ angular
                 controller: 'ChannelCtrl'
             })
             .when('/system/editchannel', {
-                templateUrl: 'views/system/editChannel.html',
+                templateUrl: 'views/system/editchannel.html',
                 controller: 'ChannelEditCtrl'
+            })
+            .when('/system/shipservicelist', {
+                templateUrl: 'views/system/shipservicelist.html',
+                controller: 'ShipserviceCtrl'
+            })
+            .when('/system/editshipservice', {
+                templateUrl: 'views/system/editshipservice.html',
+                controller: 'ShipserviceEditCtrl'
             })
             .when('/web/announce', {
                 templateUrl: 'views/web/announce.html',
