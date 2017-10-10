@@ -45,6 +45,7 @@ angular.module('culAdminApp')
             }
 
             $scope.isWarehouseRight = false;
+            $scope.pkgWarehouseNumber = '';
 
             $scope.getPackageDetail = function () {
                 if (!!$scope.data.trackingNumber && $scope._trackingNumber != $scope.data.trackingNumber) {
@@ -65,6 +66,7 @@ angular.module('culAdminApp')
                         } else {
                             // console.log(result); 
                             $scope.data = result;
+                            $scope.pkgWarehouseNumber = result.warehouseNumber;
                             $scope.data.inboundStatus = angular.copy($location.search().inboundStatus || "");
                             $scope._trackingNumber = angular.copy($scope.data.trackingNumber);
                             $scope.tpl_status.isExist = true;
@@ -369,19 +371,36 @@ angular.module('culAdminApp')
             }
 
             $scope.updateWarehouse = function (warehouseNumber) {
-                if ($scope.data.isFastShip === 1){
+                console.log($scope.data);
+                // 订单提交之前所有包裹都可以修改仓库
+                if ($scope.data.inOrder === 0) {
                     warehouseService.updateWareInboundpackage($scope.data, function (result) {
                         if (result.code == '000') {
-                            plugMessenger.success("更新成功")
+                            plugMessenger.success("更新成功");
                             $scope.warehouseList.forEach(function (element) {
                                 if ($scope.data.warehouseNumber == element.key) {
                                     $scope.isWarehouseRight = true;
                                 }
                             });
                         }
-                    })
+                    });
                 } else {
-                    plugMessenger.error("该包裹已经提交订单，无法做仓库修改，除非删除订单，方可做仓库更改！");
+                    // 订单提交后只有急速可以修改仓库
+                    if ($scope.data.isFastShip === 1){
+                        warehouseService.updateWareInboundpackage($scope.data, function (result) {
+                            if (result.code == '000') {
+                                plugMessenger.success("更新成功");
+                                $scope.warehouseList.forEach(function (element) {
+                                    if ($scope.data.warehouseNumber == element.key) {
+                                        $scope.isWarehouseRight = true;
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        plugMessenger.error("该包裹已经提交订单，无法做仓库修改，除非删除订单，方可做仓库更改！");
+                        $scope.data.warehouseNumber = $scope.pkgWarehouseNumber;
+                    }  
                 }             
             }
         }
