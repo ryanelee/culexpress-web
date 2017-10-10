@@ -70,6 +70,7 @@ angular.module('culwebApp')
                     .getOrderInfo(orderId)
                     .then(function (result) {
                         $scope.data = result.data;
+                        console.log(result.data);
                         if ($scope.data.actualWeight == 0
                             && $scope.data.inboundPackages && $scope.data.inboundPackages.length > 0) {
                             $scope.data.inboundPackages.forEach(function (i) {

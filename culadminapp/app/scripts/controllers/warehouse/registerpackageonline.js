@@ -143,8 +143,12 @@ angular.module('culAdminApp')
                             }
                             var _checked = false;
                             $.each($scope.data.inboundPackages, function (index, item) {
+                               
                                 if (!item.checked) {
-                                    item.checked = $scope.getCompatibleInboundTrackingNumber(item.trackingNumber).toUpperCase() == $scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber).toUpperCase();
+                                    if(0 === $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase().localeCompare($scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase()))
+                                        item.checked = true;
+                                    // item.checked = $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase() === $scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase();
+
                                     _checked = true;
                                 }
                             });

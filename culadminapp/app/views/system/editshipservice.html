@@ -1,0 +1,267 @@
+<div class="widget">
+    <div class="widget-header">
+        <h3><i class="fa fa-edit"></i>渠道管理-转运服务管理</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">服务名称：<small style="color:red">*</small></label>
+                <div class="col-sm-10 text-left">
+                    <input id="shipServiceName" type="text" class="form-control" placeholder="服务名称" ng-model="form.shipServiceName" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2  text-right">状态：</label>
+                <div class="col-sm-10 text-left">
+                  <label>
+                    <input type="radio" name="status" id="status1" value="1" ng-model="form.status" ng-disabled="flag == 'detail'">
+                    启用
+                  </label> &nbsp;
+                  <label>
+                    <input type="radio" name="status" id="status2" value="0" ng-model="form.status" ng-disabled="flag == 'detail'">
+                    禁用
+                  </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2  text-right">发货仓库：</label>
+                <div class="col-sm-10 text-left functions">
+                    <ul class="firstul">
+                        <li ng-repeat="row in warehouseList">
+                        <p>
+                            <span ng-click="row.close = !row.close">
+                            <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !row.close, 'glyphicon-chevron-down': row.close}"></i>
+                            {{row.warehouseName}} &nbsp;
+                            </span> &nbsp;
+                            <label>
+                            <input type="radio" name="func{{row.functionID}}" value="1" ng-model="row.status" ng-change="enableSubFunc(row);">
+                            启用
+                            </label> &nbsp;
+                            <label>
+                            <input type="radio" name="func{{row.functionID}}" value="2" ng-model="row.status" ng-change="enableSubFunc(row)">
+                            禁用
+                            </label>
+                        </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2  text-right">发货渠道：</label>
+                <div class="col-sm-10 text-left">
+                  <label>
+                    <input type="radio" name="status" id="status1" value="1" ng-model="form.shippingCarrierID" ng-disabled="flag == 'detail'">
+                    启用
+                  </label> &nbsp;
+                  <label>
+                    <input type="radio" name="status" id="status2" value="0" ng-model="form.status" ng-disabled="flag == 'detail'">
+                    禁用
+                  </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">服务简介：<small style="color:red">*</small></label>
+                <div class="col-sm-10 text-left">
+                    <input id="serviceSummary" type="text" class="form-control" placeholder="服务简介" ng-model="form.serviceSummary" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">计费规则</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">普通客户   </label>
+                <label class="col-sm-1 control-label text-right">人名币</label>
+                <label class="col-sm-1 control-label text-right">首重：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="firstWeightRMB" type="text" class="form-control"  ng-model="form.firstWeightRMB" ng-disabled="flag == 'detail'">
+                </div>
+                <label class="col-sm-2 control-label text-right">续重：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="continuedWeightRMB" type="text" class="form-control"  ng-model="form.continuedWeightRMB" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">VIP客户</label>
+                <label class="col-sm-1 control-label text-right">人名币</label>
+                <label class="col-sm-1 control-label text-right">首重：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="firstWeightRMBVip" type="text" class="form-control"  ng-model="form.firstWeightRMBVip" ng-disabled="flag == 'detail'">
+                </div>
+                <label class="col-sm-2 control-label text-right">续重：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="continuedWeightRMBVip" type="text" class="form-control"  ng-model="form.continuedWeightRMBVip" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right"> </label>
+                <label class="col-sm-1 control-label text-right">美元</label>
+                <label class="col-sm-1 control-label text-right">首重：</label>
+                <div class="col-sm-2 text-left">
+                    <input id="firstWeightUSDVip" type="text" class="form-control"  ng-model="form.firstWeightUSDVip" ng-disabled="flag == 'detail'">
+                </div>
+                <label class="col-sm-2 control-label text-right">续重：</label>
+                <div class="col-sm-2 text-left">
+                    <input id="continuedWeightUSDVip" type="text" class="form-control"  ng-model="form.continuedWeightUSDVip" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right"> </label>
+                <div class="col-sm-10 text-left">
+                  <label class="col-sm-3 text-left">
+                    需要身份证
+                    <input type="checkbox"  id="needIDCard" value="1" ng-model="form.needIDCard" ng-disabled="flag == 'detail'">
+                  </label> &nbsp;
+                  <label class="col-sm-3 text-left">
+                    英文收货人
+                    <input type="checkbox"  id="requireEnglish4Name" value="0" ng-model="form.requireEnglish4Name" ng-disabled="flag == 'detail'">                 
+                  </label>
+                  <label class="col-sm-3 text-left">
+                    英文收货地址
+                    <input type="checkbox"  id="requireEnglish4Address" value="0" ng-model="form.requireEnglish4Address" ng-disabled="flag == 'detail'">               
+                </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <!-- <label class="col-sm-2 control-label text-right"> </label> -->
+                <label class="col-sm-2 control-label text-right">自购报费税率%：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="insuranceFeeRate" type="text" class="form-control"  ng-model="form.insuranceFeeRate" ng-disabled="flag == 'detail'">
+                </div>
+                <label class="col-sm-2 control-label text-right">人名币汇率：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="RMBExchangeRate" type="text" class="form-control"  ng-model="form.RMBExchangeRate" ng-disabled="flag == 'detail'">
+                </div>
+                <div class="col-sm-1 col-padding-clear">
+                    <button id="tip_RMB" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">递送时间：<small style="color:red">*</small></label>
+                <div class="col-sm-1 text-left">
+                    <input id="estimatedTime1" type="number" min=0 class="form-control"  ng-model="form.estimatedTime1" ng-disabled="flag == 'detail'">
+                </div>
+                <label class=" text-left" style="text-align:center;margin-top:7px;float:left">-</label>
+                <div class="col-sm-1 text-left">
+                    <input id="estimatedTime2" type="number" min=0 class="form-control"  ng-model="form.estimatedTime2" ng-disabled="flag == 'detail'">
+                </div> 
+                <label class="control-label">个工作日</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">最大重量(磅)：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="maxWeight" type="number" class="form-control"  ng-model="form.maxWeight" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">分箱计费重量(磅)：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="incr_weight_per_split" type="number" class="form-control"  ng-model="form.incr_weight_per_split" ng-disabled="flag == 'detail'">
+                </div>
+                <div class="col-sm-1 col-padding-clear">
+                    <button id="tip_fweight" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">分箱进位>=：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="split_roundup" type="text" class="form-control"  ng-model="form.split_roundup" ng-disabled="flag == 'detail'">
+                </div>
+                <div class="col-sm-1 col-padding-clear">
+                    <button id="tip_split" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">合箱进位>=：<small style="color:red">*</small></label>
+                <div class="col-sm-2 text-left">
+                    <input id="merge_roundup" type="text" class="form-control"  ng-model="form.merge_roundup" ng-disabled="flag == 'detail'">
+                </div>
+                <div class="col-sm-1 col-padding-clear">
+                    <button id="tip_merge" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">商品主类别：<small style="color:red">*</small></label>
+                <div class="col-sm-10 text-left functions">
+                    <ul class="firstul">
+                        <li ng-repeat="row in goodCategoryList">
+                        <p>
+                            <span ng-click="row.close = !row.close">
+                            <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !row.close, 'glyphicon-chevron-down': row.close}"></i>
+                            {{row.name}} &nbsp;
+                            </span> &nbsp;
+                            <label>
+                            <input type="radio" name="func{{row.functionID}}" value="1" ng-model="row.status" ng-change="enableSubFunc(row);">
+                            启用
+                            </label> &nbsp;
+                            <label>
+                            <input type="radio" name="func{{row.functionID}}" value="2" ng-model="row.status" ng-change="enableSubFunc(row)">
+                            禁用
+                            </label>
+                        </p>
+                        <ul ng-show="!row.close">
+                            <li ng-repeat="child in row.children">
+                                <p>
+                                <span ng-click="child.close = !child.close">
+                                    <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !child.close, 'glyphicon-chevron-down': child.close}"></i>
+                                    {{child.name}} &nbsp;
+                                </span> &nbsp;
+                                <label>
+                                    <input type="radio" name="func{{child.functionID}}" value="1" ng-model="child.status" ng-disabled="row.status == 2" ng-change="enableSubFunc(child)">
+                                    启用
+                                </label> &nbsp;
+                                <label>
+                                    <input type="radio" name="func{{child.functionID}}" value="2" ng-model="child.status" ng-disabled="row.status == 2" ng-change="enableSubFunc(child)">
+                                    禁用
+                                </label>
+                                </p>
+                            </li>
+                        </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">服务特色：</label>
+                <div class="col-sm-10 text-left">
+                    <input id="recommend" type="text" class="form-control"  ng-model="form.recommend" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">规则描述：</label>
+                <div class="col-sm-10 text-left">
+                    <input id="rules" type="text" class="form-control"  ng-model="form.rules" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">注意事项：</label>
+                <div class="col-sm-10 text-left">
+                    <input id="attention" type="text" class="form-control"  ng-model="form.attention" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">详细信息：</label>
+                <div class="col-sm-10 text-left">
+                    <input id="serviceDetail" type="text" class="form-control"  ng-model="form.serviceDetail" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button ng-if="flag != 'detail' && flag != 'edit'" type="button" class="btn btn-primary" ng-click="saveShipservice()">确认</button>
+                    <button ng-if="flag == 'edit'" type="button" class="btn btn-primary" ng-click="update()">更新</button>
+                    <a class="btn btn-link" href="javascript:void(0);" ng-click="back()">返回</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<print-inbound-package></print-inbound-package>
+
+<script>
+     $(function() {
+         document.getElementById("shipServiceName").focus();
+     })
+</script>

@@ -43,7 +43,9 @@
                             <tr>
                                 <td>{{item.trackingNumber}}</td>
                                 <td>{{item.packageWeight}}</td>
-                                <td class="text-center"><i class="fa fa-check btn-icon green" ng-show="item.checked"></i></td>
+                                <td class="text-center"><i class="fa fa-check btn-icon green" ng-show="item.checked"></i>
+                                    <input type="checkbox" ng-model="item.checked">
+                                </td>
                             </tr>
                         </tbody>
                     </table>

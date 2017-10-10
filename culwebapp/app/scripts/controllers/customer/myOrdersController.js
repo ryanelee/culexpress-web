@@ -168,7 +168,6 @@ var app = angular
                 $scope.$root.goback();
             }
 
-
             $scope.addressListData = [];
             addressSvr.getAddressList(1, {
                 userName: $scope.$root.currentUser.userName,
@@ -350,7 +349,6 @@ var app = angular
                 return addressArr;
             }
 
-
             var getInboundPackages = function () {
                 var packageArr = [];
                 if ($scope.shippingItems && $scope.shippingItems.length) {
@@ -414,12 +412,8 @@ var app = angular
                         }
                     }
                 }
-
                 return orders;
             }
-
-
-
 
             var getGoodsCategory = function () {
                 if (angular.isObject(data.goodsCategory)) {
@@ -465,8 +459,6 @@ var app = angular
                 }
             }
 
-
-
             $scope.removePackage = function (packageItem) {
                 if ($scope.outboundPackages.length > 1) {
                     var index = $scope.outboundPackages.indexOf(packageItem);
@@ -477,11 +469,9 @@ var app = angular
                 }
             }
 
-
             $scope.redirectToAddressInfo = function (addressItem) {
                 $state.go('customer.myaddress', { addressId: addressItem.transactionNumber });
             }
-
 
             var preSubmitToService = function (data) {
                 var text = '';
@@ -567,9 +557,6 @@ var app = angular
                     }
                     //$scope.data.packageWeight = $scope.shippingItems[0].packageWeight;
                 }
-
-
-
                 $scope.data.outboundPackages = getOutboundPackage('CUL')
                 $scope.data.orderItems = orderItems;
                 $scope.data.shipToAddresses = getShippingAddressNumber().length <= 0 ? [{ addressNumber: '' }] : getShippingAddressNumber();
@@ -668,7 +655,6 @@ var app = angular
                 //  }
             }
 
-
             $scope.wizardOptions = {
                 verified: true,
                 mode: 'disable',
@@ -690,14 +676,11 @@ var app = angular
 
                     }
                 }
-
                 if (!data.shipServiceItem) {
                     alertify.alert('提示', '请先选择发货渠道!');
                     return false;
                 }
-
                 if (index === 2) {
-
                     //selectedCategory(outboundPackageItem,'currentCategory',null);
                     var orderItems = getOrders();
                     for (var i = 0, ii = orderItems.length; i < ii; i++) {
@@ -707,7 +690,7 @@ var app = angular
                             alertify.alert('提示', '必须填写转运包裹申报商品信息，包括商品品牌、商品描述、数量和单价!');
                             return false;
                         }
-                        
+                       
                         // var patternEng = /^[A-Za-z0-9]+$/
                         // var patternChn = /[^x00-xff]/
 
@@ -727,9 +710,9 @@ var app = angular
                         //         return false;
                         //     }
 
-                        
+                        // 所有渠道都控制品牌名必须为英文
+                        // $scope.data.shipServiceItem.requireEnglish4Name === 1 &&
                         if($scope.data.shipServiceItem != undefined &&
-                            $scope.data.shipServiceItem.requireEnglish4Name === 1 &&
                             !/^[^\u4e00-\u9fa5]+$/i.test(orderItem.itemBrand)) {
                             alertify.alert('提示', '商品品牌:[<small style="color:red">' + orderItem.itemBrand +
                                 '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
@@ -944,8 +927,6 @@ var app = angular
             //        })
             //}
             //$scope.loadGoodsCategory();
-
-
 
             $scope.wizardSubmit = function () {
                 $scope.submitOrder();
