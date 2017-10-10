@@ -193,7 +193,7 @@ angular.module('culAdminApp')
                             //     if (isOK) {
                             $scope.$broadcast("print-order.action", item.orderNumber);
                             // }
-                            // });
+                            // }); 
                             break;
                         case "package":
                             $scope.$broadcast("print-package.action", item.orderNumber);

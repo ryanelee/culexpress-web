@@ -101,7 +101,7 @@ angular.module('culAdminApp')
                 }
                 if (!!$scope.searchBar.printStatus) {
                     _options["printStatus"] = $scope.searchBar.printStatus;
-                }
+                } 
                 if (!!$scope.searchBar.warehouseNumber) {
                     _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
                 } 

@@ -87,8 +87,8 @@ angular.module('culAdminApp')
                         if ($scope.searchBar.keywords.indexOf('\n') >= 0) {
                             _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split('\n')
                         }
-
-                    }
+ 
+                    } 
 
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                 }
@@ -100,7 +100,7 @@ angular.module('culAdminApp')
                 var _options = _filterOptions();
                 warehouseService.getOutboundPackageList($.extend(angular.copy(_options), { hasWeight: true }), function (result) {
                     var _data = result.data;
-
+                    console.log("result",result)
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function (x) {
                             return $scope.customer_ids.split(",").includes(x.customerNumber);
