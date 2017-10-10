@@ -1,6 +1,6 @@
 'use strict';
 
-angular
+angular 
     .module('culwebApp') 
     .controller('IndexController', ['$rootScope', '$scope', '$location', 'AuthService', '$http', 'Customer','$state',
         function($rootScope, $scope, $location, AuthService, $http, Customer, $state) {
@@ -8,7 +8,7 @@ angular
             $rootScope.currentUser = AuthService.getUser();
             // };
 
-
+            $scope.notice =   window.sessionStorage.getItem("notice")
             // console.log("客户编号：" + $rootScope.currentUser.customerNumber);
             $scope.logout = function() {
                 AuthService.logout(function() {
@@ -104,12 +104,28 @@ angular
                     $scope.webAnnounce = result.data.data.data;
                     if($scope.webAnnounce[0]){
                         if ($scope.webAnnounce[0].status == 1) {
-                            console.log('$scope.webAnnounce[0].status == 1')
-                            $('#modalNote').modal('show');
+                            console.log('$scope.webAnnounce[0].status == 1');
+                            console.log("$scope.notice",$scope.notice)
+                            if(!$scope.notice){
+                                console.log(23)
+                                $('#modalNote').modal('show');
+                            }
                         }
                     }
                 });
             }
             $scope.getWebAnnounce();
+
+            $scope.noRemeber = function(){
+                if($scope.rememberMe){
+                    window.sessionStorage.setItem("notice",false)
+                }else{
+                    window.sessionStorage.setItem("notice",true)
+                }
+                console.log( window.sessionStorage.getItem("notice"))
+            }
+
+
+
         }
     ]);
