@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('ShipserviceEditCtrl', ['$scope', '$location', '$window', 'plugMessenger','shipService','warehouseService',
-        function($scope, $location, $window, plugMessenger, shipService, warehouseService) {
+    .controller('ShipserviceEditCtrl', ['$scope', '$location', '$window', 'plugMessenger','shipService','warehouseService','channelService',
+        function($scope, $location, $window, plugMessenger, shipService, warehouseService,channelService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -26,8 +26,8 @@ angular.module('culAdminApp')
                 $scope.form = {
                     status: "1",
                     RMBExchangeRate: "7.00",
-                    split_roundup: "0.01",
-                    merge_roundup: "0.01",
+                    split_roundup: "0.10",
+                    merge_roundup: "0.10",
                     shipFeeList: [],
                     carrierList: [],
                     warehouseList: []
@@ -43,6 +43,10 @@ angular.module('culAdminApp')
 
             shipService.getGoodCategory(function (result){
                 $scope.goodCategoryList = result.data;
+            })
+
+            channelService.getChannelList(function (result) {
+                $scope.channelList = result.data.data;
             })
             // 返回列表
             $scope.back = function() {
