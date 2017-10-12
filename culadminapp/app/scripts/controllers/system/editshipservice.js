@@ -30,7 +30,8 @@ angular.module('culAdminApp')
                     merge_roundup: "0.10",
                     shipFeeList: [],
                     carrierList: [],
-                    warehouseList: []
+                    warehouseList: [],
+                    channelList: []
                 }
             }
 
@@ -39,6 +40,7 @@ angular.module('culAdminApp')
              */
             warehouseService.getWarehouse(function (result) {
                 $scope.warehouseList = result;
+                console.log($scope.warehouseList)
             });
 
             shipService.getGoodCategory(function (result){
@@ -72,6 +74,9 @@ angular.module('culAdminApp')
             //更新转运服务
             $scope.update = function() {
                 _shipserviceFilter();
+                getFormWarehouseList();
+                getFormChannelList();
+                getFormCarrierList();
                 shipService.updateShipservice($scope.form, function(res) {
                     if (res.code == '000') {
                         plugMessenger.success("更新成功");
@@ -174,6 +179,43 @@ angular.module('culAdminApp')
                     currentFunc.close = true;
                 }
             };
+
+            // 仓库启用列表
+            var getFormWarehouseList = function(){
+                if (!$scope.warehouseList)
+                    return;
+                for (var i = 0; i < $scope.warehouseList.length; i++){
+                    if ($scope.warehouseList[i].status == 1)
+                        $scope.form.warehouseList.push($scope.warehouseList[i])
+                }           
+            }
+
+            // 渠道启用列表
+            var getFormChannelList = function(){
+                if (!$scope.channelList)
+                    return;
+                for (var i = 0; i < $scope.channelList.length; i++){
+                    if ($scope.channelList[i].status == 1)
+                        $scope.form.channelList.push($scope.channelList[i])
+                }              
+            }
+
+            // 商品主类别启用列表
+            var getFormCarrierList = function(){
+                if (!$scope.carrierList)
+                    return;
+                for (var i = 0; i < $scope.carrierList.length; i++){
+                    if ($scope.carrierList[i].status == 1){
+                        $scope.form.carrierList.push($scope.carrierList[i]);
+                        $scope.form.carrierList[i].children = [];
+                        for (var i = 0; j < $scope.carrierList[i].children.length; i++){
+                            if ($scope.carrierList[i].children[j].status == 1){
+                                $scope.form.carrierList[i].children.push($scope.carrierList[i].children[j]);
+                            }
+                        }
+                    }                     
+                }              
+            }
 
             $('#tip_RMB').popover({
                 container: 'body',
