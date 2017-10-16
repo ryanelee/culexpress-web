@@ -50,18 +50,18 @@
                 <label class="col-sm-2  text-right">发货渠道：</label>
                 <div class="col-sm-10 text-left functions">
                     <ul class="firstul">
-                        <li ng-repeat="row in channelList">
+                        <li ng-repeat="channel in channelList">
                         <p>
-                            <span ng-click="row.close = !row.close">
-                            <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !row.close, 'glyphicon-chevron-down': row.close}"></i>
-                            {{row.channelName}} &nbsp;
+                            <span ng-click="channel.close = !channel.close">
+                            <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !channel.close, 'glyphicon-chevron-down': channel.close}"></i>
+                            {{channel.channelName}} &nbsp;
                             </span> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.channelId}}" value="1" ng-model="row.status" ng-change="enableSubFunc(row);">
+                            <input type="radio" name="func{{channel.channelId}}" value="1" ng-model="channel.status" ng-change="enableSubFunc(channel);">
                             启用
                             </label> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.channelId}}" value="2" ng-model="row.status" ng-change="enableSubFunc(row)">
+                            <input type="radio" name="func{{channel.channelId}}" value="2" ng-model="channel.status" ng-change="enableSubFunc(channel)">
                             禁用
                             </label>
                         </p>
