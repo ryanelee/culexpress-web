@@ -99,7 +99,7 @@ angular.module('culAdminApp')
             });
         }
         // 获取所有渠道
-        channel.getChannelList = function (callback) {
+        channel.getAllChannelList = function (callback) {
             $http.post(cul.apiPath + "/getChannel", {}).success(function (result) {
                 callback(result);
             });

@@ -47,7 +47,7 @@ angular.module('culAdminApp')
                 $scope.goodCategoryList = result.data;
             })
 
-            channelService.getChannelList(function (result) {
+            channelService.getAllChannelList(function (result) {
                 $scope.channelList = result.data.data;
             })
             // 返回列表
