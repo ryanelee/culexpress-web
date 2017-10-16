@@ -74,9 +74,21 @@
                                                     </ul>
                                                 </td>
                                                 <td class="hidden-sm" style="text-align:left;">
-                                                    {{data.shipServiceItem.serviceDetail}}
                                                     <span class="label label-light">
-                                                        <i class="fa fa-hand-o-right"></i>{{data.shipServiceItem.attention}}{{data.shipServiceItem.rules}}{{data.shipServiceItem.serviceSummary}}
+                                                        <i class="fa fa-exclamation-circle"></i> {{data.shipServiceItem.serviceDetail}}
+                                                    </span>
+                                                    <span class="label label-light">
+                                                        <i class="fa fa-cubes"></i> 限重:{{data.shipServiceItem.maxWeight}}磅
+                                                    </span>
+                                                    <span class="label label-light">
+                                                        <i class="fa fa-flag"></i> {{data.shipServiceItem.include_tax !== undefined && data.shipServiceItem.include_tax === 1 ? "包关税": "不包关税"}} 
+                                                        {{data.shipServiceItem.customsClearance_rate !== undefined ? "清关费用:" + data.shipServiceItem.customsClearance_rate*100 + "%": ""}}
+                                                    </span>
+                                                    <span class="label label-light">
+                                                        <!-- <i class="fa fa-hand-o-right"></i> -->
+                                                        <div bind-html-unsafe="data.shipServiceItem.attention"></div>
+                                                        <div bind-html-unsafe="data.shipServiceItem.rules"></div>
+                                                        <div bind-html-unsafe="data.shipServiceItem.serviceSummary"></div>
                                                     </span>
                                                 </td>
                                             </tr>
