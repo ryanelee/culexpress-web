@@ -43,13 +43,14 @@ angular.module('culAdminApp')
                 console.log($scope.warehouseList)
             });
 
+            channelService.getAllChannelList(function (result) {
+                $scope.channelList = result.data.data;
+            })
+
             shipService.getGoodCategory(function (result){
                 $scope.goodCategoryList = result.data;
             })
 
-            channelService.getAllChannelList(function (result) {
-                $scope.channelList = result.data.data;
-            })
             // 返回列表
             $scope.back = function() {
                 $location.path('/system/shipservicelist').search({});
@@ -68,6 +69,10 @@ angular.module('culAdminApp')
                     $scope.getFormWarehouseList();
                     $scope.getFormChannelList();
                     $scope.getFormCarrierList();
+                    
+                    // $scope.form.warehouseList = $scope.warehouseList
+                    // $scope.form.channelList = $scope.channelList
+                    // $scope.form.goodCategoryList = $scope.goodCategoryList
                     console.log("$scope.form")
                     console.log($scope.form)
                     shipService.createShipservice($scope.form, function(res) {
@@ -91,6 +96,9 @@ angular.module('culAdminApp')
                     $scope.getFormCarrierList();
                     console.log("$scope.form")
                     console.log($scope.form)
+                    // $scope.form.warehouseList = $scope.warehouseList
+                    // $scope.form.channelList = $scope.channelList
+                    // $scope.form.goodCategoryList = $scope.goodCategoryList
                     shipService.updateShipservice($scope.form, function(res) {
                         if (res.code == '000') {
                             plugMessenger.success("更新成功");
@@ -188,12 +196,24 @@ angular.module('culAdminApp')
             $scope.enableSubFunc = function(currentFunc){
                 if (!currentFunc)
                 return;
-                if (currentFunc.status == 1)
-                    currentFunc.close = false;
-                else{
-                    currentFunc.close = true;
+                // if (currentFunc.status === "1")
+                //     currentFunc.close = false;
+                // else{
+                //     currentFunc.close = true;
+                // }
+                // console.log(currentFunc);
+                    
+                if(currentFunc.children && currentFunc.children.length > 0){
+                    if (currentFunc.status == 1)
+                        currentFunc.close = false;
+                    else{
+                        currentFunc.close = true;
+                        currentFunc.children.forEach(function (item) {
+                            item.status = 2;
+                        })
+                    }
                 }
-                console.log(currentFunc);
+                // console.log(currentFunc);
             };
 
             // 仓库启用列表
@@ -221,27 +241,28 @@ angular.module('culAdminApp')
             }
 
             // 商品主类别启用列表
-            $scope.getFormCarrierList = function(){
+            $scope.getFormCarrierList = function(){;
                 $scope.form.carrierList = [];
                 if (!$scope.goodCategoryList)
                     return false;
                 for (var i = 0; i < $scope.goodCategoryList.length; i++){
-                    console.log($scope.goodCategoryList)  
-                    if ($scope.goodCategoryList[i].status === "1"){
-                        $scope.form.carrierList.push($scope.goodCategoryList[i]);
-                        var fLength = $scope.form.carrierList.length
-                        $scope.form.carrierList[fLength - 1].children = [];
+                    if ($scope.goodCategoryList[i].status === "1"){ 
+                        var item1 = {
+                            cateid: ''
+                        }  
+                        item1.cateid = $scope.goodCategoryList[i].cateid
+                        $scope.form.carrierList.push(item1);
                         for (var j = 0; j < $scope.goodCategoryList[i].children.length; j++){
-                            if ($scope.goodCategoryList[i].children[j].status === "1"){
-                                $scope.form.carrierList[fLength - 1].children.push($scope.goodCategoryList[i].children[j]);
+                            if ($scope.goodCategoryList[i].children[j].status === "1"){ 
+                                var item2 = {
+                                    cateid: ''
+                                } 
+                                item2.cateid = $scope.goodCategoryList[i].children[j].cateid    
+                                $scope.form.carrierList.push(item2);
                             }
                         }
-                        console.log("$scope.form.carrierList")    
-                        console.log($scope.form.carrierList)
-                        console.log($scope.goodCategoryList)    
                     }                     
-                }
-                console.log($scope.form.carrierList)              
+                }        
             }
 
             $('#tip_RMB').popover({
