@@ -18,6 +18,7 @@ angular.module('culAdminApp')
             $scope.form = {};
 
             $scope.form = $location.search().item;
+            console.log($scope.form)
 
             if ($scope.form) {
                 // $scope.flag = '1'
@@ -62,18 +63,13 @@ angular.module('culAdminApp')
              */
             $scope.saveShipservice= function() {
                 if (_shipserviceFilter() === false) {
-                    console.log('false')
                     return;
                 } else {
-                    console.log('true')
                     $scope.getFormWarehouseList();
                     $scope.getFormChannelList();
                     $scope.getFormCarrierList();
                     
-                    // $scope.form.warehouseList = $scope.warehouseList
-                    // $scope.form.channelList = $scope.channelList
-                    // $scope.form.goodCategoryList = $scope.goodCategoryList
-                    console.log("$scope.form")
+                    $scope.form.estimatedTime = estimatedTime1 + "-" + estimatedTime2 + "个工作日";
                     console.log($scope.form)
                     shipService.createShipservice($scope.form, function(res) {
                         if (res.code == '000') {
@@ -96,9 +92,6 @@ angular.module('culAdminApp')
                     $scope.getFormCarrierList();
                     console.log("$scope.form")
                     console.log($scope.form)
-                    // $scope.form.warehouseList = $scope.warehouseList
-                    // $scope.form.channelList = $scope.channelList
-                    // $scope.form.goodCategoryList = $scope.goodCategoryList
                     shipService.updateShipservice($scope.form, function(res) {
                         if (res.code == '000') {
                             plugMessenger.success("更新成功");
@@ -196,13 +189,12 @@ angular.module('culAdminApp')
             $scope.enableSubFunc = function(currentFunc){
                 if (!currentFunc)
                 return;
-                // if (currentFunc.status === "1")
-                //     currentFunc.close = false;
-                // else{
-                //     currentFunc.close = true;
-                // }
-                // console.log(currentFunc);
-                    
+
+                if (currentFunc.status === "1")
+                    currentFunc.close = false;
+                else{
+                    currentFunc.close = true;
+                }
                 if(currentFunc.children && currentFunc.children.length > 0){
                     if (currentFunc.status == 1)
                         currentFunc.close = false;
@@ -212,6 +204,18 @@ angular.module('culAdminApp')
                             item.status = 2;
                         })
                     }
+                }
+                console.log(currentFunc);
+            };
+
+            $scope.enableSubChannel = function(currentFunc){
+                if (!currentFunc)
+                return;
+                
+                if (currentFunc.status === "1")
+                    currentFunc.close = false;
+                else{
+                    currentFunc.close = true;
                 }
                 // console.log(currentFunc);
             };
