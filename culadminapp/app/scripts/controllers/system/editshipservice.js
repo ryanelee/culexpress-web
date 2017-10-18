@@ -20,9 +20,37 @@ angular.module('culAdminApp')
             $scope.form = $location.search().item;
             console.log($scope.form)
 
+            $scope.initData = function() {
+                // 计算规则
+                if ($scope.form.shipFeeList.length > 0) {
+                    var shipFeeList = $scope.form.shipFeeList
+                    shipFeeList.forEach(function(item){
+                        // 普通客户
+                        if (item.isVip === 0) {
+                            $scope.form.firstWeightRMB = item.firstWeight
+                            $scope.form.continuedWeightRMB = item.continuedWeight
+                        } else {
+                            if (item.currency === "RMB") {
+                                $scope.form.firstWeightRMBVip = item.firstWeight
+                                $scope.form.continuedWeightRMBVip = item.continuedWeight
+                            } else if (item.currency === "USD") {
+                                $scope.form.firstWeightUSDVip = item.firstWeight
+                                $scope.form.continuedWeightUSDVip = item.continuedWeight
+                            }
+                        }
+                    })
+                }
+                if ($scope.form.estimatedTime) {
+                    $scope.form.estimatedTime1 = Number($scope.form.estimatedTime.substr(0,1));
+                    $scope.form.estimatedTime2 = Number($scope.form.estimatedTime.substr(2,1));
+                    console.log($scope.form.estimatedTime1, $scope.form.estimatedTime2)
+                }
+            }
+
             if ($scope.form) {
                 // $scope.flag = '1'
                 $scope.flag = $location.search().flag;
+                $scope.initData();
             } else {
                 $scope.form = {
                     status: "1",
@@ -35,27 +63,23 @@ angular.module('culAdminApp')
                     channelList: []
                 }
             }
-
+            
             /**
              * 仓库列表
              */
             warehouseService.getWarehouse(function (result) {
                 $scope.warehouseList = result;
-                console.log($scope.warehouseList)
             });
 
             channelService.getAllChannelList(function (result) {
                 $scope.channelList = result.data.data;
+                console.log(result);
+
             })
 
             shipService.getGoodCategory(function (result){
                 $scope.goodCategoryList = result.data;
             })
-
-            // 返回列表
-            $scope.back = function() {
-                $location.path('/system/shipservicelist').search({});
-            }
 
             /**
              * 新增转运服务
@@ -68,8 +92,7 @@ angular.module('culAdminApp')
                     $scope.getFormWarehouseList();
                     $scope.getFormChannelList();
                     $scope.getFormCarrierList();
-                    
-                    $scope.form.estimatedTime = estimatedTime1 + "-" + estimatedTime2 + "个工作日";
+                    $scope.form.estimatedTime = $scope.form.estimatedTime1 + "-" + $scope.form.estimatedTime2 + "个工作日";
                     console.log($scope.form)
                     shipService.createShipservice($scope.form, function(res) {
                         if (res.code == '000') {
@@ -90,6 +113,7 @@ angular.module('culAdminApp')
                     $scope.getFormWarehouseList();
                     $scope.getFormChannelList();
                     $scope.getFormCarrierList();
+                    $scope.form.estimatedTime = $scope.form.estimatedTime1 + "-" + $scope.form.estimatedTime2 + "个工作日";
                     console.log("$scope.form")
                     console.log($scope.form)
                     shipService.updateShipservice($scope.form, function(res) {
@@ -267,6 +291,11 @@ angular.module('culAdminApp')
                         }
                     }                     
                 }        
+            }
+
+            // 返回列表
+            $scope.back = function() {
+                $location.path('/system/shipservicelist').search({});
             }
 
             $('#tip_RMB').popover({

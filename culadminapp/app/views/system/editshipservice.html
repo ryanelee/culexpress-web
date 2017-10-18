@@ -50,7 +50,7 @@
                 <label class="col-sm-2  text-right">发货渠道：</label>
                 <div class="col-sm-10 text-left functions">
                     <ul class="firstul">
-                        <li ng-repeat="channel in channelList">
+                        <li ng-repeat="row in channelList">
                         <p>
                             <span ng-click="row.close = !row.close">
                             <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !row.close, 'glyphicon-chevron-down': row.close}"></i>
