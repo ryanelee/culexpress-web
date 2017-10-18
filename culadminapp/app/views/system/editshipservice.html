@@ -34,11 +34,11 @@
                             {{row.warehouseName}} &nbsp;
                             </span> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.warehouseNumber}}" value="1" ng-model="row.status" ng-change="enableSubFunc(row);">
+                            <input type="radio" name="func{{row.warehouseName}}" value="1" ng-model="row.itemStatus" ng-change="enableSubFunc(row);">
                             启用
                             </label> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.warehouseNumber}}" value="2" ng-model="row.status" ng-change="enableSubFunc(row)">
+                            <input type="radio" name="func{{row.warehouseName}}" value="2" ng-model="row.itemStatus" ng-change="enableSubFunc(row)">
                             禁用
                             </label>
                         </p>
@@ -57,11 +57,11 @@
                             {{row.channelName}} &nbsp;
                             </span> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.channelId}}" value="1" ng-model="row.status" ng-change="enableSubFunc(row);">
+                            <input type="radio" name="func{{row.channelName}}" value="1" ng-model="row.itemStatus" ng-change="enableSubFunc(row);">
                             启用
                             </label> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.channelId}}" value="2" ng-model="row.status" ng-change="enableSubFunc(row)">
+                            <input type="radio" name="func{{row.channelName}}" value="2" ng-model="row.itemStatus" ng-change="enableSubFunc(row)">
                             禁用
                             </label>
                         </p>
@@ -121,16 +121,16 @@
                 <label class="col-sm-2 control-label text-right"> </label>
                 <div class="col-sm-10 text-left">
                   <label class="col-sm-3 text-left">
+                    <input type="checkbox"  id="needIDCard" ng-model="form.needIDCard" ng-disabled="flag == 'detail'">
                     需要身份证
-                    <input type="checkbox"  id="needIDCard" value="1" ng-model="form.needIDCard" ng-disabled="flag == 'detail'">
-                  </label> &nbsp;
+                </label> &nbsp;
                   <label class="col-sm-3 text-left">
+                    <input type="checkbox"  id="requireEnglish4Name"  ng-model="form.requireEnglish4Name" ng-disabled="flag == 'detail'">                 
                     英文收货人
-                    <input type="checkbox"  id="requireEnglish4Name" value="0" ng-model="form.requireEnglish4Name" ng-disabled="flag == 'detail'">                 
-                  </label>
+                </label>
                   <label class="col-sm-3 text-left">
+                    <input type="checkbox"  id="requireEnglish4Address"  ng-model="form.requireEnglish4Address" ng-disabled="flag == 'detail'">               
                     英文收货地址
-                    <input type="checkbox"  id="requireEnglish4Address" value="0" ng-model="form.requireEnglish4Address" ng-disabled="flag == 'detail'">               
                 </label>
                 </div>
             </div>
@@ -203,11 +203,11 @@
                             {{row.name}} &nbsp;
                             </span> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.cateid}}" value="1" ng-model="row.status" ng-change="enableSubFunc(row);">
+                            <input type="radio" name="func{{row.cateid}}" value="1" ng-model="row.itemStatus" ng-change="enableSubFunc(row);">
                             启用
                             </label> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.cateid}}" value="2" ng-model="row.status" ng-change="enableSubFunc(row)">
+                            <input type="radio" name="func{{row.cateid}}" value="2" ng-model="row.itemStatus" ng-change="enableSubFunc(row)">
                             禁用
                             </label>
                         </p>
