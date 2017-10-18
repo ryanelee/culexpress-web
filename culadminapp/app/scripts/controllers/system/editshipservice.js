@@ -94,14 +94,17 @@ angular.module('culAdminApp')
              */
             warehouseService.getWarehouse(function (result) {
                 $scope.warehouseList = result;
+                console.log($scope.warehouseList)
             });
 
             channelService.getAllChannelList(function (result) {
                 $scope.channelList = result.data.data;
+                console.log($scope.channelList)
             })
 
             shipService.getGoodCategory(function (result){
                 $scope.goodCategoryList = result.data;
+                console.log($scope.goodCategoryList)
             })
 
             /**
@@ -244,18 +247,18 @@ angular.module('culAdminApp')
                 if (!currentFunc)
                 return;
 
-                if (currentFunc.status === "1")
+                if (currentFunc.itemStatus === "1")
                     currentFunc.close = false;
                 else{
                     currentFunc.close = true;
                 }
                 if(currentFunc.children && currentFunc.children.length > 0){
-                    if (currentFunc.status == 1)
+                    if (currentFunc.itemStatus == 1)
                         currentFunc.close = false;
                     else{
                         currentFunc.close = true;
                         currentFunc.children.forEach(function (item) {
-                            item.status = 2;
+                            item.itemStatus = 2;
                         })
                     }
                 }
@@ -266,7 +269,7 @@ angular.module('culAdminApp')
                 if (!currentFunc)
                 return;
                 
-                if (currentFunc.status === "1")
+                if (currentFunc.itemStatus === "1")
                     currentFunc.close = false;
                 else{
                     currentFunc.close = true;
@@ -280,7 +283,7 @@ angular.module('culAdminApp')
                 if (!$scope.warehouseList)
                     return false;
                 for (var i = 0; i < $scope.warehouseList.length; i++){
-                    if ($scope.warehouseList[i].status === "1") {
+                    if ($scope.warehouseList[i].itemStatus === "1") {
                         $scope.form.warehouseList.push($scope.warehouseList[i])
                     }      
                 } 
@@ -293,7 +296,7 @@ angular.module('culAdminApp')
                 if (!$scope.channelList)
                     return false;
                 for (var i = 0; i < $scope.channelList.length; i++){
-                    if ($scope.channelList[i].status === "1")
+                    if ($scope.channelList[i].itemStatus === "1")
                         $scope.form.channelList.push($scope.channelList[i])
                 }              
             }
@@ -304,14 +307,14 @@ angular.module('culAdminApp')
                 if (!$scope.goodCategoryList)
                     return false;
                 for (var i = 0; i < $scope.goodCategoryList.length; i++){
-                    if ($scope.goodCategoryList[i].status === "1"){ 
+                    if ($scope.goodCategoryList[i].itemStatus === "1"){ 
                         var item1 = {
                             cateid: ''
                         }  
                         item1.cateid = $scope.goodCategoryList[i].cateid
                         $scope.form.categoryList.push(item1);
                         for (var j = 0; j < $scope.goodCategoryList[i].children.length; j++){
-                            if ($scope.goodCategoryList[i].children[j].status === "1"){ 
+                            if ($scope.goodCategoryList[i].children[j].itemStatus === "1"){ 
                                 var item2 = {
                                     cateid: ''
                                 } 
