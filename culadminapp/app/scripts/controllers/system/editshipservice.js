@@ -66,13 +66,10 @@ angular.module('culAdminApp')
                 if ($scope.form.estimatedTime) {
                     $scope.form.estimatedTime1 = Number($scope.form.estimatedTime.substr(0,1));
                     $scope.form.estimatedTime2 = Number($scope.form.estimatedTime.substr(2,1));
-                    console.log($scope.form.estimatedTime1, $scope.form.estimatedTime2)
                 }  
-                console.log($scope.form.needIDCard);
                 $scope.form.needIDCard = transVal($scope.form.needIDCard);
                 $scope.form.requireEnglish4Name = transVal($scope.form.requireEnglish4Name);
                 $scope.form.requireEnglish4Address = transVal($scope.form.requireEnglish4Address);
-                console.log($scope.form.needIDCard);
             }
 
             if ($scope.form) {
@@ -86,7 +83,7 @@ angular.module('culAdminApp')
                     split_roundup: "0.10",
                     merge_roundup: "0.10",
                     shipFeeList: [],
-                    carrierList: [],
+                    categoryList: [],
                     warehouseList: [],
                     channelList: []
                 }
@@ -101,14 +98,11 @@ angular.module('culAdminApp')
 
             channelService.getAllChannelList(function (result) {
                 $scope.channelList = result.data.data;
-                console.log(result);
-
             })
 
             shipService.getGoodCategory(function (result){
                 $scope.goodCategoryList = result.data;
             })
-
 
             /**
              * 新增转运服务
@@ -120,7 +114,7 @@ angular.module('culAdminApp')
                 } else {
                     $scope.getFormWarehouseList();
                     $scope.getFormChannelList();
-                    $scope.getFormCarrierList();
+                    $scope.getFormCategoryList();
                     $scope.form.estimatedTime = $scope.form.estimatedTime1 + "-" + $scope.form.estimatedTime2 + "个工作日";
                     $scope.form.needIDCard = valTrans($scope.form.needIDCard);
                     $scope.form.requireEnglish4Name = valTrans($scope.form.requireEnglish4Name);
@@ -144,7 +138,7 @@ angular.module('culAdminApp')
                 } else {
                     $scope.getFormWarehouseList();
                     $scope.getFormChannelList();
-                    $scope.getFormCarrierList();
+                    $scope.getFormCategoryList();
                     $scope.form.estimatedTime = $scope.form.estimatedTime1 + "-" + $scope.form.estimatedTime2 + "个工作日";
                     $scope.form.needIDCard = valTrans($scope.form.needIDCard);
                     $scope.form.requireEnglish4Name = valTrans($scope.form.requireEnglish4Name);
@@ -305,8 +299,8 @@ angular.module('culAdminApp')
             }
 
             // 商品主类别启用列表
-            $scope.getFormCarrierList = function(){;
-                $scope.form.carrierList = [];
+            $scope.getFormCategoryList = function(){;
+                $scope.form.categoryList = [];
                 if (!$scope.goodCategoryList)
                     return false;
                 for (var i = 0; i < $scope.goodCategoryList.length; i++){
@@ -315,14 +309,14 @@ angular.module('culAdminApp')
                             cateid: ''
                         }  
                         item1.cateid = $scope.goodCategoryList[i].cateid
-                        $scope.form.carrierList.push(item1);
+                        $scope.form.categoryList.push(item1);
                         for (var j = 0; j < $scope.goodCategoryList[i].children.length; j++){
                             if ($scope.goodCategoryList[i].children[j].status === "1"){ 
                                 var item2 = {
                                     cateid: ''
                                 } 
                                 item2.cateid = $scope.goodCategoryList[i].children[j].cateid    
-                                $scope.form.carrierList.push(item2);
+                                $scope.form.categoryList.push(item2);
                             }
                         }
                     }                     
