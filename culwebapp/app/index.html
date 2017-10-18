@@ -79,7 +79,7 @@
                 <div class="modal-content">
                     <div class="modal-body">
                     <div class="common-title" style="text-align: left">
-                        <h2 style="width: 100px;">
+                        <h2>
                         <!-- 重要通知 -->
                         {{webAnnounce[0].title}}
                         </h2>
@@ -88,6 +88,7 @@
                     <div class="jcrop">
                         <div class="jcrop-l">
                             <p>
+                                    
                                 <!-- 为了给大家更好的服务质量, CUL中美速递网站全面升级。新的网站更美观，更简洁,
                                 客户系统操作更简单, 功能覆盖范围更全面,让您的海淘之旅变的更轻松。<br><br>
                                 旧系统现已停运,老客户请使用旧的用户名和密码登录。旧系统提交的预报请在新系统中提交订单。如您有任何问题请联系我们的客服人员。<br><br> -->
@@ -101,7 +102,12 @@
                     </div>
                     <div class="modal-footer" style="text-align: center;">
                         <button type="button" class="btn-u bg-color-ffb" data-dismiss="modal">知道了</button>
+                      <input type="checkbox" ng-click="noRemeber()" ng-model="rememberMe"><span><small>不在提示</small> </span>
+                    
                     </div>
+                        
+                        
+                    
                 </div>
             </div>
         </div>

@@ -72,7 +72,7 @@ console.log(result);
                                     detail.shelfNumber = e.shelfNumber;
                                     detail.packageWeight = e.packageWeight;
                                     shelf.data.push(detail);
-                                })
+                                }) 
                             } 
                             
                             if (j % 10 == 0 || i == $scope.dataList.length - 1) {

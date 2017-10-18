@@ -185,7 +185,7 @@ angular.module('culAdminApp')
             $scope.dealUpdate = function (orderStatus) {
                 var _count = 0;
                 var checkedPackages = $scope.data.outboundPackages;
-                var _callback = function () {
+                var _callback = function () { 
                     plugMessenger.success("保存成功");
                     //   $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
                     // $location.path('/warehouse/package');
