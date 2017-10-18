@@ -20,6 +20,86 @@ angular.module('culAdminApp')
             $scope.form = $location.search().item;
             console.log($scope.form)
 
+            
+            /**
+             * 仓库列表
+             */
+            $scope.initList = function () {
+                warehouseService.getWarehouse(function (result) {
+                    $scope.warehouseList = result;
+                    console.log($scope.warehouseList)
+                    // if ($scope.form) {
+                    //     $scope.getValidWarehouseList();
+                    // }
+                });
+                channelService.getAllChannelList(function (result) {
+                    $scope.carrierList = result.data.data;
+                    // if ($scope.form) {
+                    //     $scope.getValidCarrierList();
+                    // }
+                });
+                shipService.getGoodCategory(function (result){
+                    $scope.goodCategoryList = result.data;
+                    // if ($scope.form) {
+                    //     $scope.getValidCategoryList();
+                    // }
+                }); 
+            }
+            $scope.initList();
+
+            $scope.getValidWarehouseList = function () {
+                if ($scope.form.warehouseList) {
+                    $scope.form.warehouseList.forEach(function(item){
+                        $scope.warehouseList.forEach(function(item2){
+                            if (item2.warehouseNumber == item.warehouseNumber){
+                                item2.itemStatus = "1"
+                            } else {
+                                item2.itemStatus = "2"
+                            }
+                        })
+                    })
+                }
+            }
+
+            $scope.getValidCarrierList = function () {
+                if ($scope.form.carrierList) {
+                    $scope.form.carrierList.forEach(function(item){
+                        $scope.carrierList.forEach(function(item2){
+                            if (item.channelId == item2.channelId){
+                                item2.itemStatus = "1"
+                            } else {
+                                item2.itemStatus = "2"
+                            }
+                        })
+                    })
+                }
+            }
+
+            $scope.getValidCategoryList = function () {
+                if ($scope.form.categoryList) {
+                    $scope.form.categoryList.forEach(function(item){
+                        if ($scope.categoryList){
+                            $scope.categoryList.forEach(function(item2){
+                                if (item.itemCategory == item2.cateid){
+                                    item2.itemStatus = "1"
+                                } else {
+                                    item2.itemStatus = "2"
+                                }
+                                if (item.children){
+                                    item.children.forEach(function(item3) {
+                                        if (item.itemCategory == item3.cateid){
+                                            item3.itemStatus = "1"
+                                        } else {
+                                            item3.itemStatus = "2"
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+
             // true - "1" false - "0"
             var valTrans = function(value) {
                 switch(value){
@@ -43,33 +123,40 @@ angular.module('culAdminApp')
                 }
             }
 
+
+            // update时
             $scope.initData = function() {
                 // 计算规则
-                if ($scope.form.shipFeeList.length > 0) {
-                    var shipFeeList = $scope.form.shipFeeList
-                    shipFeeList.forEach(function(item){
-                        // 普通客户
-                        if (item.isVip === 0) {
-                            $scope.form.firstWeightRMB = item.firstWeight
-                            $scope.form.continuedWeightRMB = item.continuedWeight
-                        } else {
-                            if (item.currency === "RMB") {
-                                $scope.form.firstWeightRMBVip = item.firstWeight
-                                $scope.form.continuedWeightRMBVip = item.continuedWeight
-                            } else if (item.currency === "USD") {
-                                $scope.form.firstWeightUSDVip = item.firstWeight
-                                $scope.form.continuedWeightUSDVip = item.continuedWeight
+                if ($scope.form.shipFeeList) {
+                    if ($scope.form.shipFeeList.length > 0) {
+                        var shipFeeList = $scope.form.shipFeeList
+                        shipFeeList.forEach(function(item){
+                            // 普通客户
+                            if (item.isVip === 0) {
+                                $scope.form.firstWeightRMB = item.firstWeight
+                                $scope.form.continuedWeightRMB = item.continuedWeight
+                            } else {
+                                if (item.currency === "RMB") {
+                                    $scope.form.firstWeightRMBVip = item.firstWeight
+                                    $scope.form.continuedWeightRMBVip = item.continuedWeight
+                                } else if (item.currency === "USD") {
+                                    $scope.form.firstWeightUSDVip = item.firstWeight
+                                    $scope.form.continuedWeightUSDVip = item.continuedWeight
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
+                    if ($scope.form.estimatedTime) {
+                        $scope.form.estimatedTime1 = Number($scope.form.estimatedTime.substr(0,1));
+                        $scope.form.estimatedTime2 = Number($scope.form.estimatedTime.substr(2,1));
+                    }  
+                    $scope.form.needIDCard = transVal($scope.form.needIDCard);
+                    $scope.form.requireEnglish4Name = transVal($scope.form.requireEnglish4Name);
+                    $scope.form.requireEnglish4Address = transVal($scope.form.requireEnglish4Address);
+                    $scope.getValidWarehouseList();
+                    $scope.getValidCarrierList();
+                    $scope.getValidCategoryList();
                 }
-                if ($scope.form.estimatedTime) {
-                    $scope.form.estimatedTime1 = Number($scope.form.estimatedTime.substr(0,1));
-                    $scope.form.estimatedTime2 = Number($scope.form.estimatedTime.substr(2,1));
-                }  
-                $scope.form.needIDCard = transVal($scope.form.needIDCard);
-                $scope.form.requireEnglish4Name = transVal($scope.form.requireEnglish4Name);
-                $scope.form.requireEnglish4Address = transVal($scope.form.requireEnglish4Address);
             }
 
             if ($scope.form) {
@@ -85,27 +172,9 @@ angular.module('culAdminApp')
                     shipFeeList: [],
                     categoryList: [],
                     warehouseList: [],
-                    channelList: []
+                    carrierList: []
                 }
             }
-            
-            /**
-             * 仓库列表
-             */
-            warehouseService.getWarehouse(function (result) {
-                $scope.warehouseList = result;
-                console.log($scope.warehouseList)
-            });
-
-            channelService.getAllChannelList(function (result) {
-                $scope.channelList = result.data.data;
-                console.log($scope.channelList)
-            })
-
-            shipService.getGoodCategory(function (result){
-                $scope.goodCategoryList = result.data;
-                console.log($scope.goodCategoryList)
-            })
 
             /**
              * 新增转运服务
@@ -116,7 +185,7 @@ angular.module('culAdminApp')
                     return;
                 } else {
                     $scope.getFormWarehouseList();
-                    $scope.getFormChannelList();
+                    $scope.getFormCarrierList();
                     $scope.getFormCategoryList();
                     $scope.form.estimatedTime = $scope.form.estimatedTime1 + "-" + $scope.form.estimatedTime2 + "个工作日";
                     $scope.form.needIDCard = valTrans($scope.form.needIDCard);
@@ -140,7 +209,7 @@ angular.module('culAdminApp')
                     return;
                 } else {
                     $scope.getFormWarehouseList();
-                    $scope.getFormChannelList();
+                    $scope.getFormCarrierList();
                     $scope.getFormCategoryList();
                     $scope.form.estimatedTime = $scope.form.estimatedTime1 + "-" + $scope.form.estimatedTime2 + "个工作日";
                     $scope.form.needIDCard = valTrans($scope.form.needIDCard);
@@ -253,28 +322,16 @@ angular.module('culAdminApp')
                     currentFunc.close = true;
                 }
                 if(currentFunc.children && currentFunc.children.length > 0){
-                    if (currentFunc.itemStatus == 1)
+                    if (currentFunc.itemStatus == "1")
                         currentFunc.close = false;
                     else{
                         currentFunc.close = true;
                         currentFunc.children.forEach(function (item) {
-                            item.itemStatus = 2;
+                            item.itemStatus = "2";
                         })
                     }
                 }
                 console.log(currentFunc);
-            };
-
-            $scope.enableSubChannel = function(currentFunc){
-                if (!currentFunc)
-                return;
-                
-                if (currentFunc.itemStatus === "1")
-                    currentFunc.close = false;
-                else{
-                    currentFunc.close = true;
-                }
-                // console.log(currentFunc);
             };
 
             // 仓库启用列表
@@ -291,13 +348,13 @@ angular.module('culAdminApp')
             }
 
             // 渠道启用列表
-            $scope.getFormChannelList = function(){
-                $scope.form.channelList = [];
-                if (!$scope.channelList)
+            $scope.getFormCarrierList = function(){
+                $scope.form.carrierList = [];
+                if (!$scope.carrierList)
                     return false;
-                for (var i = 0; i < $scope.channelList.length; i++){
-                    if ($scope.channelList[i].itemStatus === "1")
-                        $scope.form.channelList.push($scope.channelList[i])
+                for (var i = 0; i < $scope.carrierList.length; i++){
+                    if ($scope.carrierList[i].itemStatus === "1")
+                        $scope.form.carrierList.push($scope.carrierList[i])
                 }              
             }
 
@@ -309,17 +366,19 @@ angular.module('culAdminApp')
                 for (var i = 0; i < $scope.goodCategoryList.length; i++){
                     if ($scope.goodCategoryList[i].itemStatus === "1"){ 
                         var item1 = {
-                            cateid: ''
+                            itemCategory: ''
                         }  
-                        item1.cateid = $scope.goodCategoryList[i].cateid
+                        item1.itemCategory = $scope.goodCategoryList[i].cateid
                         $scope.form.categoryList.push(item1);
-                        for (var j = 0; j < $scope.goodCategoryList[i].children.length; j++){
-                            if ($scope.goodCategoryList[i].children[j].itemStatus === "1"){ 
-                                var item2 = {
-                                    cateid: ''
-                                } 
-                                item2.cateid = $scope.goodCategoryList[i].children[j].cateid    
-                                $scope.form.categoryList.push(item2);
+                        if ($scope.goodCategoryList[i].children){
+                            for (var j = 0; j < $scope.goodCategoryList[i].children.length; j++){
+                                if ($scope.goodCategoryList[i].children[j].itemStatus === "1"){ 
+                                    var item2 = {
+                                        itemCategory: ''
+                                    } 
+                                    item2.itemCategory = $scope.goodCategoryList[i].children[j].cateid    
+                                    $scope.form.categoryList.push(item2);
+                                }
                             }
                         }
                     }                     

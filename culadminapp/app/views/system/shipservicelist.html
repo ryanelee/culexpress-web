@@ -74,7 +74,10 @@
                                     <label>{{warehouse.warehouseName}}</label><br>
                                 </div>      
                             </td>
-                            <td>{{item.shippingCarrierID}}</td>
+                            <td>
+                                <div ng-repeat="carrier in item.carrierList">
+                                    <label>{{carrier.channelName}}</label><br>
+                                </div> </td>
                             <td>{{item.firstWeight}}</td>
                             <td>{{item.continuedWeight}}</td>
                             <td style="min-width:100px;">{{item.estimatedTime}}</td>
