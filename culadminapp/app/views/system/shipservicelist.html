@@ -65,7 +65,9 @@
                         <tr ng-repeat="item in dataList track by $index">
                             <td>{{$index + 1}}</td>
                             <td>{{item.shipServiceName}}</td>
-                            <td>{{item.serviceSummary}}</td>
+                            <td>
+                                <div ng-bind-html="item.serviceSummary"></div>
+                            </td>
                             <td>{{item.status | warehourseStatus}}</td>
                             <td style="min-width:140px;">
                                 <div ng-repeat="warehouse in item.warehouseList">

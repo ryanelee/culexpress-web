@@ -20,6 +20,29 @@ angular.module('culAdminApp')
             $scope.form = $location.search().item;
             console.log($scope.form)
 
+            // true - "1" false - "0"
+            var valTrans = function(value) {
+                switch(value){
+                    case true:
+                       return 1
+                    case false:
+                       return 0
+                    default:
+                       return 0
+                }
+            }
+            // "1" - true "0" - false
+            var transVal = function(value) {
+                switch(value){
+                    case 1:
+                       return true
+                    case 0:
+                       return false
+                    default:
+                       return false
+                }
+            }
+
             $scope.initData = function() {
                 // 计算规则
                 if ($scope.form.shipFeeList.length > 0) {
@@ -44,7 +67,12 @@ angular.module('culAdminApp')
                     $scope.form.estimatedTime1 = Number($scope.form.estimatedTime.substr(0,1));
                     $scope.form.estimatedTime2 = Number($scope.form.estimatedTime.substr(2,1));
                     console.log($scope.form.estimatedTime1, $scope.form.estimatedTime2)
-                }
+                }  
+                console.log($scope.form.needIDCard);
+                $scope.form.needIDCard = transVal($scope.form.needIDCard);
+                $scope.form.requireEnglish4Name = transVal($scope.form.requireEnglish4Name);
+                $scope.form.requireEnglish4Address = transVal($scope.form.requireEnglish4Address);
+                console.log($scope.form.needIDCard);
             }
 
             if ($scope.form) {
@@ -81,10 +109,6 @@ angular.module('culAdminApp')
                 $scope.goodCategoryList = result.data;
             })
 
-            var valTrans = function(value) {
-                if (value === true) return '1'
-                else return '0'
-            }
 
             /**
              * 新增转运服务
@@ -125,7 +149,7 @@ angular.module('culAdminApp')
                     $scope.form.needIDCard = valTrans($scope.form.needIDCard);
                     $scope.form.requireEnglish4Name = valTrans($scope.form.requireEnglish4Name);
                     $scope.form.requireEnglish4Address = valTrans($scope.form.requireEnglish4Address);
-                    
+
                     console.log("$scope.form")
                     console.log($scope.form)
                     shipService.updateShipservice($scope.form, function(res) {
