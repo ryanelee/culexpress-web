@@ -20,30 +20,22 @@ angular.module('culAdminApp')
             $scope.form = $location.search().item;
             console.log($scope.form)
 
-            
             /**
              * 仓库列表
              */
             $scope.initList = function () {
                 warehouseService.getWarehouse(function (result) {
                     $scope.warehouseList = result;
-                    console.log($scope.warehouseList)
-                    // if ($scope.form) {
-                    //     $scope.getValidWarehouseList();
-                    // }
-                });
-                channelService.getAllChannelList(function (result) {
-                    $scope.carrierList = result.data.data;
-                    // if ($scope.form) {
-                    //     $scope.getValidCarrierList();
-                    // }
-                });
-                shipService.getGoodCategory(function (result){
-                    $scope.goodCategoryList = result.data;
-                    // if ($scope.form) {
-                    //     $scope.getValidCategoryList();
-                    // }
-                }); 
+                    channelService.getAllChannelList(function (result) {
+                        $scope.carrierList = result.data.data;
+                        shipService.getGoodCategory(function (result){
+                            $scope.goodCategoryList = result.data;
+                            $scope.getValidWarehouseList();
+                            $scope.getValidCarrierList();
+                            $scope.getValidCategoryList();
+                        }); 
+                    });
+                });  
             }
             $scope.initList();
 
@@ -78,15 +70,15 @@ angular.module('culAdminApp')
             $scope.getValidCategoryList = function () {
                 if ($scope.form.categoryList) {
                     $scope.form.categoryList.forEach(function(item){
-                        if ($scope.categoryList){
-                            $scope.categoryList.forEach(function(item2){
+                        if ($scope.goodCategoryList){
+                            $scope.goodCategoryList.forEach(function(item2){
                                 if (item.itemCategory == item2.cateid){
                                     item2.itemStatus = "1"
                                 } else {
                                     item2.itemStatus = "2"
                                 }
-                                if (item.children){
-                                    item.children.forEach(function(item3) {
+                                if (item2.children){
+                                    item2.children.forEach(function(item3) {
                                         if (item.itemCategory == item3.cateid){
                                             item3.itemStatus = "1"
                                         } else {
@@ -123,7 +115,6 @@ angular.module('culAdminApp')
                 }
             }
 
-
             // update时
             $scope.initData = function() {
                 // 计算规则
@@ -153,9 +144,9 @@ angular.module('culAdminApp')
                     $scope.form.needIDCard = transVal($scope.form.needIDCard);
                     $scope.form.requireEnglish4Name = transVal($scope.form.requireEnglish4Name);
                     $scope.form.requireEnglish4Address = transVal($scope.form.requireEnglish4Address);
-                    $scope.getValidWarehouseList();
-                    $scope.getValidCarrierList();
-                    $scope.getValidCategoryList();
+                    // $scope.getValidWarehouseList();
+                    // $scope.getValidCarrierList();
+                    // $scope.getValidCategoryList();
                 }
             }
 
