@@ -112,7 +112,7 @@ angular.module('culAdminApp')
                     $scope.searchBar.sendType = 2;
                 }
                 shelfService.getTransportList(_filterOptions(), function (result) {
-                    // console.log(result);
+                    console.log(result);
                     var _data = result.data;
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function (x) {
@@ -157,9 +157,6 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSearch = function () {
-
-
-
                 $scope.dataList = [];
                 $scope.pagination.pageIndex = 1;
                 $scope.pagination.totalCount = 0;
