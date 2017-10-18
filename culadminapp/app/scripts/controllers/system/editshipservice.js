@@ -81,6 +81,11 @@ angular.module('culAdminApp')
                 $scope.goodCategoryList = result.data;
             })
 
+            var valTrans = function(value) {
+                if (value === true) return '1'
+                else return '0'
+            }
+
             /**
              * 新增转运服务
              * @return {[type]}      [description]
@@ -93,6 +98,9 @@ angular.module('culAdminApp')
                     $scope.getFormChannelList();
                     $scope.getFormCarrierList();
                     $scope.form.estimatedTime = $scope.form.estimatedTime1 + "-" + $scope.form.estimatedTime2 + "个工作日";
+                    $scope.form.needIDCard = valTrans($scope.form.needIDCard);
+                    $scope.form.requireEnglish4Name = valTrans($scope.form.requireEnglish4Name);
+                    $scope.form.requireEnglish4Address = valTrans($scope.form.requireEnglish4Address);
                     console.log($scope.form)
                     shipService.createShipservice($scope.form, function(res) {
                         if (res.code == '000') {
@@ -114,6 +122,10 @@ angular.module('culAdminApp')
                     $scope.getFormChannelList();
                     $scope.getFormCarrierList();
                     $scope.form.estimatedTime = $scope.form.estimatedTime1 + "-" + $scope.form.estimatedTime2 + "个工作日";
+                    $scope.form.needIDCard = valTrans($scope.form.needIDCard);
+                    $scope.form.requireEnglish4Name = valTrans($scope.form.requireEnglish4Name);
+                    $scope.form.requireEnglish4Address = valTrans($scope.form.requireEnglish4Address);
+                    
                     console.log("$scope.form")
                     console.log($scope.form)
                     shipService.updateShipservice($scope.form, function(res) {
