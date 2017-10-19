@@ -30,9 +30,11 @@ angular.module('culAdminApp')
                         $scope.carrierList = result.data.data;
                         shipService.getGoodCategory(function (result){
                             $scope.goodCategoryList = result.data;
-                            $scope.getValidWarehouseList();
-                            $scope.getValidCarrierList();
-                            $scope.getValidCategoryList();
+                            if ($scope.form) {
+                                $scope.getValidWarehouseList();
+                                $scope.getValidCarrierList();
+                                $scope.getValidCategoryList();
+                            } 
                         }); 
                     });
                 });  
@@ -45,8 +47,6 @@ angular.module('culAdminApp')
                         $scope.warehouseList.forEach(function(item2){
                             if (item2.warehouseNumber == item.warehouseNumber){
                                 item2.itemStatus = "1"
-                            } else {
-                                item2.itemStatus = "2"
                             }
                         })
                     })
@@ -59,30 +59,26 @@ angular.module('culAdminApp')
                         $scope.carrierList.forEach(function(item2){
                             if (item.channelId == item2.channelId){
                                 item2.itemStatus = "1"
-                            } else {
-                                item2.itemStatus = "2"
                             }
                         })
                     })
                 }
             }
 
-            $scope.getValidCategoryList = function () {
+            $scope.getValidCategoryList = function () {;
                 if ($scope.form.categoryList) {
                     $scope.form.categoryList.forEach(function(item){
                         if ($scope.goodCategoryList){
                             $scope.goodCategoryList.forEach(function(item2){
                                 if (item.itemCategory == item2.cateid){
                                     item2.itemStatus = "1"
-                                } else {
-                                    item2.itemStatus = "2"
+                                    return
                                 }
                                 if (item2.children){
                                     item2.children.forEach(function(item3) {
                                         if (item.itemCategory == item3.cateid){
                                             item3.itemStatus = "1"
-                                        } else {
-                                            item3.itemStatus = "2"
+                                            return
                                         }
                                     })
                                 }
@@ -144,9 +140,6 @@ angular.module('culAdminApp')
                     $scope.form.needIDCard = transVal($scope.form.needIDCard);
                     $scope.form.requireEnglish4Name = transVal($scope.form.requireEnglish4Name);
                     $scope.form.requireEnglish4Address = transVal($scope.form.requireEnglish4Address);
-                    // $scope.getValidWarehouseList();
-                    // $scope.getValidCarrierList();
-                    // $scope.getValidCategoryList();
                 }
             }
 
@@ -156,10 +149,11 @@ angular.module('culAdminApp')
                 $scope.initData();
             } else {
                 $scope.form = {
-                    status: "1",
+                    status: 1,
                     RMBExchangeRate: "7.00",
                     split_roundup: "0.10",
                     merge_roundup: "0.10",
+                    include_tax: "0",
                     shipFeeList: [],
                     categoryList: [],
                     warehouseList: [],
@@ -207,7 +201,6 @@ angular.module('culAdminApp')
                     $scope.form.requireEnglish4Name = valTrans($scope.form.requireEnglish4Name);
                     $scope.form.requireEnglish4Address = valTrans($scope.form.requireEnglish4Address);
 
-                    console.log("$scope.form")
                     console.log($scope.form)
                     shipService.updateShipservice($scope.form, function(res) {
                         if (res.code == '000') {
@@ -225,6 +218,12 @@ angular.module('culAdminApp')
                 if (!$scope.form.shipServiceName) {
                     plugMessenger.info("请输入服务名称!");
                     return false;
+                }
+                if ($scope.form.include_tax == "0") {
+                    if (!$scope.form.customsClearance_rate) {
+                        plugMessenger.info("请输入清关费率!");
+                        return false;
+                    }
                 }
                 if (!$scope.form.serviceSummary) {
                     plugMessenger.info("请输入服务简介!");
@@ -322,7 +321,6 @@ angular.module('culAdminApp')
                         })
                     }
                 }
-                console.log(currentFunc);
             };
 
             // 仓库启用列表
@@ -334,8 +332,7 @@ angular.module('culAdminApp')
                     if ($scope.warehouseList[i].itemStatus === "1") {
                         $scope.form.warehouseList.push($scope.warehouseList[i])
                     }      
-                } 
-                console.log($scope.form.warehouseList)          
+                }   
             }
 
             // 渠道启用列表
