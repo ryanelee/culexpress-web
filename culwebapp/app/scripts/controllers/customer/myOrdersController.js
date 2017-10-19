@@ -852,10 +852,17 @@ var app = angular
 
                         if (!calculData) calculData = {};
 
-                        if ($scope.data.insuranceMark == 1)
-                            calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95);
-                        // calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate ;
-                        else {
+                        if ($scope.data.insuranceMark == 1){
+                            console.log("***********shipService***********")
+                            console.log(shipService)
+                            if (shipService.customsClearance_rate !== null) {
+                                calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95) * shipService.customsClearance_rate;
+                                // calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate ;
+                            } else {
+                                calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95);
+                            }
+                                                            
+                        } else {
                             calculData.insuranceMark = 0;
                             calculData.insuranceFee = 0;
                         }
