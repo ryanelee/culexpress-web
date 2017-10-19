@@ -133,14 +133,17 @@ angular.module('culAdminApp')
                             }
                         })
                     }
-                    if ($scope.form.estimatedTime) {
-                        $scope.form.estimatedTime1 = Number($scope.form.estimatedTime.substr(0,1));
-                        $scope.form.estimatedTime2 = Number($scope.form.estimatedTime.substr(2,1));
-                    }  
-                    $scope.form.needIDCard = transVal($scope.form.needIDCard);
-                    $scope.form.requireEnglish4Name = transVal($scope.form.requireEnglish4Name);
-                    $scope.form.requireEnglish4Address = transVal($scope.form.requireEnglish4Address);
                 }
+                if ($scope.form.estimatedTime) {
+                    var split1 = $scope.form.estimatedTime.indexOf("-");
+                    $scope.form.estimatedTime1 = Number($scope.form.estimatedTime.substring(0,split1));
+                    var split2 = $scope.form.estimatedTime.indexOf("个");
+                    split1 = split1 + 1;
+                    $scope.form.estimatedTime2 = Number($scope.form.estimatedTime.substring(split1,split2));
+                }  
+                $scope.form.needIDCard = transVal($scope.form.needIDCard);
+                $scope.form.requireEnglish4Name = transVal($scope.form.requireEnglish4Name);
+                $scope.form.requireEnglish4Address = transVal($scope.form.requireEnglish4Address);
             }
 
             if ($scope.form) {
@@ -270,7 +273,7 @@ angular.module('culAdminApp')
                     return false;
                 }
                 if (!$scope.form.merge_roundup) {
-                    plugMessenger.info("请输入最大重量(磅)!");
+                    plugMessenger.info("请输入合箱进位>=!");
                     return false;
                 }
                 $scope.form.shipFeeList = [];
