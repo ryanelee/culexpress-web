@@ -74,7 +74,10 @@
                                     <label>{{warehouse.warehouseName}}</label><br>
                                 </div>      
                             </td>
-                            <td>{{item.shippingCarrierID}}</td>
+                            <td style="min-width:60px;">
+                                <div ng-repeat="carrier in item.carrierList">
+                                    <label>{{carrier.channelName}}</label><br>
+                                </div> </td>
                             <td>{{item.firstWeight}}</td>
                             <td>{{item.continuedWeight}}</td>
                             <td style="min-width:100px;">{{item.estimatedTime}}</td>
@@ -88,7 +91,7 @@
                             <td style="min-width:55px;">
                                 <a href="javascript:void(0);" ng-click="detail(item)">查看</a> &nbsp;
                                 <a href="javascript:void(0);" ng-click="edit(item)">修改</a> &nbsp;
-                                <!-- <a href="javascript:void(0);" ng-click="delete(item)">删除</a> &nbsp; -->
+                                <a href="javascript:void(0);" ng-click="delete(item)">删除</a> &nbsp;
                             </td>
                         </tr>
                     </tbody>

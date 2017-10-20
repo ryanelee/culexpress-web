@@ -91,6 +91,28 @@ angular
                 });
             }
             $scope.getOpenAnnounce();
+
+            $scope.allShipChannels = [];
+            $scope.shipChannelsInsuse = [];
+
+            $scope.getShipChannels = function () {
+                var options = {};
+                $http.post(cul.apiPath + "/getShipService", options).then(function (result) {
+                    $scope.allShipChannels = result.data.data.data;
+                    console.log('allShipChannels');
+                    console.log($scope.allShipChannels);
+                    $scope.allShipChannels.forEach(function(item) {
+                        if (item.status == 1) {
+                            if (item.shipFeeList){
+                                item.firstWeight = item.shipFeeList[0].firstWeight;
+                                item.continuedWeight = item.shipFeeList[0].continuedWeight;
+                            }
+                            $scope.shipChannelsInsuse.push(item);
+                        }
+                    });
+                });
+            }
+            $scope.getShipChannels();         
         }
     ])
     .directive('ourclient', function() {

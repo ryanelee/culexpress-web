@@ -123,7 +123,7 @@ var app = angular
                     .then(function(result) {
                             $scope.pagedOptions.total = result.data.pageInfo.totalPageCount;
                             $scope.shippingNoticeList = result.data.data;  
-                            // console.log($scope.shippingNoticeList)
+                            console.log($scope.shippingNoticeList)
                             //  if(status === "Onshelf") {
                             //     var shippingNoticeListOnshelf = [];
                             //     $scope.shippingNoticeList.forEach(function(item) {

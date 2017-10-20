@@ -53,7 +53,6 @@ angular.module('culAdminApp')
             $scope.getData = function() {
                 storage.session.setObject("searchBar", $scope.searchBar);
                 shipService.getShipserviceList(_filterOptions(), function(result) {
-                    console.log(result)
                     $scope.dataList = result.data.data;
                     $scope.pagination.totalCount = result.data.pageInfo.totalCount;
                 });
@@ -66,11 +65,11 @@ angular.module('culAdminApp')
             }
             $scope.getData();
 
-            // 新建服务跳转
+            // 新建转运服务跳转
             $scope.addShipservice = function() {
                 $location.path('/system/editshipservice').search({});
             }
-            // 修改渠道
+            // 修改转运服务
             $scope.edit = function(item) {
                 if (!!item) $location.search({ item: item, flag: "edit" });
                 $location.path('/system/editshipservice')
@@ -81,10 +80,11 @@ angular.module('culAdminApp')
                 $location.path('/system/editshipservice')
             }
 
+            //  删除转运服务
             $scope.delete = function(item) {
-                plugMessenger.confirm("确认删除该渠道吗?", function(isOk) {
+                plugMessenger.confirm("确认删除该转运服务吗?", function(isOk) {
                     if (isOk) {
-                        channelService.deleteChannel({ channelId: item.channelId }, function(res) {
+                        shipService.deleteShipservice(item.shipServiceId, function(res) {
                             if (res.code == '000') {
                                 plugMessenger.success("删除成功");
                                 $scope.getData();

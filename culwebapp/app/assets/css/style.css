@@ -521,7 +521,7 @@ select::-ms-expand {
 }
 
 .index-price-list:nth-child(even) {
-	vertical-align: bottom;
+	/* vertical-align: bottom; */
 }
 
 .index-price-list .price-head {
@@ -3583,5 +3583,10 @@ select:-webkit-autofill {
 }
 .file-upload .file-drop-zone-title{
 	padding: 40px 10px !important;
+}
+
+.item-center {
+	text-align: center;
+    vertical-align: inherit !important;
 }
 

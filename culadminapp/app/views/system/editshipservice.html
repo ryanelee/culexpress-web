@@ -14,11 +14,11 @@
                 <label class="col-sm-2  text-right">状态：</label>
                 <div class="col-sm-10 text-left">
                   <label>
-                    <input type="radio" name="status" id="status1" value="1" ng-model="form.status" ng-disabled="flag == 'detail'">
+                    <input type="radio" name="status" id="status1" value=1 ng-model="form.status" ng-disabled="flag == 'detail'">
                     启用
                   </label> &nbsp;
                   <label>
-                    <input type="radio" name="status" id="status2" value="0" ng-model="form.status" ng-disabled="flag == 'detail'">
+                    <input type="radio" name="status" id="status2" value=0 ng-model="form.status" ng-disabled="flag == 'detail'">
                     禁用
                   </label>
                 </div>
@@ -50,7 +50,7 @@
                 <label class="col-sm-2  text-right">发货渠道：</label>
                 <div class="col-sm-10 text-left functions">
                     <ul class="firstul">
-                        <li ng-repeat="row in channelList">
+                        <li ng-repeat="row in carrierList">
                         <p>
                             <span ng-click="row.close = !row.close">
                             <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !row.close, 'glyphicon-chevron-down': row.close}"></i>
@@ -70,6 +70,25 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2  text-right">是否包关税：</label>
+                <div class="col-sm-10 text-left">
+                    <label>
+                    <input type="radio" name="include_tax" id="status1" value="1" ng-model="form.include_tax" ng-disabled="flag == 'detail'">
+                    是
+                    </label> &nbsp;
+                    <label>
+                    <input type="radio" name="include_tax" id="status2" value="0" ng-model="form.include_tax" ng-disabled="flag == 'detail'">
+                    否
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-right">清关费用%：</label>
+                <div class="col-sm-4 text-left">
+                    <input id="serviceSummary" type="text" class="form-control" placeholder="0～100" ng-model="form.customsClearance_rate" ng-disabled="flag == 'detail'">
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2 control-label text-right">服务简介：<small style="color:red">*</small></label>
                 <div class="col-sm-10 text-left">
                     <input id="serviceSummary" type="text" class="form-control" placeholder="服务简介" ng-model="form.serviceSummary" ng-disabled="flag == 'detail'">
@@ -83,11 +102,11 @@
                 <label class="col-sm-1 control-label text-right">人名币</label>
                 <label class="col-sm-1 control-label text-right">首重：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="firstWeightRMB" type="text" class="form-control"  ng-model="form.firstWeightRMB" ng-disabled="flag == 'detail'">
+                    <input id="firstWeightRMB" type="number"  class="form-control"  ng-model="form.firstWeightRMB" ng-disabled="flag == 'detail'">
                 </div>
                 <label class="col-sm-2 control-label text-right">续重：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="continuedWeightRMB" type="text" class="form-control"  ng-model="form.continuedWeightRMB" ng-disabled="flag == 'detail'">
+                    <input id="continuedWeightRMB" type="number"  class="form-control"  ng-model="form.continuedWeightRMB" ng-disabled="flag == 'detail'">
                 </div>
             </div>
 
@@ -96,11 +115,11 @@
                 <label class="col-sm-1 control-label text-right">人名币</label>
                 <label class="col-sm-1 control-label text-right">首重：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="firstWeightRMBVip" type="text" class="form-control"  ng-model="form.firstWeightRMBVip" ng-disabled="flag == 'detail'">
+                    <input id="firstWeightRMBVip" type="number"  class="form-control"  ng-model="form.firstWeightRMBVip" ng-disabled="flag == 'detail'">
                 </div>
                 <label class="col-sm-2 control-label text-right">续重：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="continuedWeightRMBVip" type="text" class="form-control"  ng-model="form.continuedWeightRMBVip" ng-disabled="flag == 'detail'">
+                    <input id="continuedWeightRMBVip" type="number" class="form-control"  ng-model="form.continuedWeightRMBVip" ng-disabled="flag == 'detail'">
                 </div>
             </div>
 
@@ -109,11 +128,11 @@
                 <label class="col-sm-1 control-label text-right">美元</label>
                 <label class="col-sm-1 control-label text-right">首重：</label>
                 <div class="col-sm-2 text-left">
-                    <input id="firstWeightUSDVip" type="text" class="form-control"  ng-model="form.firstWeightUSDVip" ng-disabled="flag == 'detail'">
+                    <input id="firstWeightUSDVip" type="number" class="form-control"  ng-model="form.firstWeightUSDVip" ng-disabled="flag == 'detail'">
                 </div>
                 <label class="col-sm-2 control-label text-right">续重：</label>
                 <div class="col-sm-2 text-left">
-                    <input id="continuedWeightUSDVip" type="text" class="form-control"  ng-model="form.continuedWeightUSDVip" ng-disabled="flag == 'detail'">
+                    <input id="continuedWeightUSDVip" type="number" class="form-control"  ng-model="form.continuedWeightUSDVip" ng-disabled="flag == 'detail'">
                 </div>
             </div>
            
@@ -150,11 +169,11 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">递送时间：<small style="color:red">*</small></label>
-                <div class="col-sm-1 text-left">
+                <div class="col-sm-2 text-left">
                     <input id="estimatedTime1" type="number" min=0 class="form-control"  ng-model="form.estimatedTime1" ng-disabled="flag == 'detail'">
                 </div>
                 <label class=" text-left" style="text-align:center;margin-top:7px;float:left">-</label>
-                <div class="col-sm-1 text-left">
+                <div class="col-sm-2 text-left">
                     <input id="estimatedTime2" type="number" min=0 class="form-control"  ng-model="form.estimatedTime2" ng-disabled="flag == 'detail'">
                 </div> 
                 <label class="control-label">个工作日</label>
@@ -168,7 +187,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">分箱计费重量(磅)：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
-                    <input id="incr_weight_per_split" type="number" class="form-control"  ng-model="form.incr_weight_per_split" ng-disabled="flag == 'detail'">
+                    <input id="incr_weight_per_split" type="text" class="form-control"  ng-model="form.incr_weight_per_split" ng-disabled="flag == 'detail'">
                 </div>
                 <div class="col-sm-1 col-padding-clear">
                     <button id="tip_fweight" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
@@ -219,11 +238,11 @@
                                     {{child.name}} &nbsp;
                                 </span> &nbsp;
                                 <label>
-                                    <input type="radio" name="func{{child.cateid}}" value="1" ng-model="child.status" ng-disabled="row.status == 2" ng-change="enableSubFunc(child)">
+                                    <input type="radio" name="func{{child.cateid}}" value="1" ng-model="child.itemStatus" ng-disabled="row.status == 2" ng-change="enableSubFunc(child)">
                                     启用
                                 </label> &nbsp;
                                 <label>
-                                    <input type="radio" name="func{{child.cateid}}" value="2" ng-model="child.status" ng-disabled="row.status == 2" ng-change="enableSubFunc(child)">
+                                    <input type="radio" name="func{{child.cateid}}" value="2" ng-model="child.itemStatus" ng-disabled="row.status == 2" ng-change="enableSubFunc(child)">
                                     禁用
                                 </label>
                                 </p>

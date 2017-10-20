@@ -26,8 +26,8 @@ angular.module('culAdminApp')
         }
 
         //删除转运服务
-        shipservice.deleteShipservice = function (options, callback) {
-            $http.post(cul.apiPath + "/deleteShipservice", options).success(function (result) {
+        shipservice.deleteShipservice = function (shipservice_id, callback) {
+            $http.get(cul.apiPath + "/deleteShipservice/"+shipservice_id, {}).success(function (result) {
                 callback(result);
             });
         }
@@ -42,7 +42,6 @@ angular.module('culAdminApp')
         //获取商品类别
         shipservice.getGoodCategory = function (callback) {
             $http.get(cul.apiPath + "/getItemCategoryListAdmin").success(function (result) {
-                console.log(result)
                 callback(result);
             });
         }
