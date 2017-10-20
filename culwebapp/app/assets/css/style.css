@@ -521,7 +521,7 @@ select::-ms-expand {
 }
 
 .index-price-list:nth-child(even) {
-	vertical-align: bottom;
+	/* vertical-align: bottom; */
 }
 
 .index-price-list .price-head {
