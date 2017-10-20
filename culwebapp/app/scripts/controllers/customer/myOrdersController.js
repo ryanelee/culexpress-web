@@ -2,17 +2,21 @@
 
 var app = angular
     .module('culwebApp')
-    .controller('MyOrdersController', ['$rootScope', '$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter', '$window', 'AuthService','Customer',
-        function ($rootScope, $scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter, $window, AuthService,customer) {
+    .controller('MyOrdersController', ['$rootScope', '$scope', '$compile', '$timeout', '$state', '$stateParams', 'OrderSvr', 'addressSvr', 'settlementSvr', '$filter', '$window', 'AuthService', 'Customer',
+        function ($rootScope, $scope, $compile, $timeout, $state, $stateParams, orderSvr, addressSvr, settlementSvr, $filter, $window, AuthService, customer) {
             if (!$scope.$root.orderOptions) $scope.$root.orderOptions = {};
             $scope.orderItems = [];
+            $scope.calculateCategory = {
+                mainName: "",
+                name: ""
+            }
             $scope.addOrderItem = function ($event, shippingItem) {
-                var orderItem = { 
+                var orderItem = {
                     id: shippingItem.orderItems.length + 1,
                     packageNumber: shippingItem.trackingNumber,
                     itemBrand: '',
                     description: '',
-                    quantity: '', 
+                    quantity: '',
                     unitprice: ''
                 },
                     items = shippingItem.orderItems;
@@ -73,6 +77,12 @@ var app = angular
 
 
             $scope.selectedChannel = function () {
+
+                console.log("发货渠道", $scope.data.shipServiceItem);
+
+
+
+
                 $scope.$root.orderOptions.shipServiceItem = $scope.data.shipServiceItem;
                 if (!!$scope.data.shipServiceItem) {
                     //var categoryItem = $filter('filter')($scope.warehouses, function (item) { return item.warehouseNumber === getWorkhouseNumber(); });
@@ -108,7 +118,7 @@ var app = angular
                         $scope.shippingItems = orderSvr.selectedShippingItems;
                         // }
 
-                        $scope.warehouses = result.data;                        
+                        $scope.warehouses = result.data;
 
                         // if ($scope.$root && $scope.$root.orderOptions) {
                         //     $scope.$root.orderOptions.warehouses = $scope.warehouses;
@@ -241,12 +251,13 @@ var app = angular
                 var pageSize = $scope.pageSize;
                 $scope.pagedOptions.index = index;
                 $scope.pagedOptions.size = pageSize;
-                
+
                 orderSvr
                     .getOrderList(index, angular.extend({
                         customerNumber: $scope.$root.currentUser.customerNumber,
-                        orderStatus: $scope.queryPara.orderStatus}, paras || {}
-                    ),pageSize)
+                        orderStatus: $scope.queryPara.orderStatus
+                    }, paras || {}
+                    ), pageSize)
                     .then(function (result) {
                         if (result.data) {
                             $scope.pagedOptions.total = result.data.pageInfo.totalPageCount;
@@ -444,9 +455,11 @@ var app = angular
                 $scope.outboundPackages = packages;
 
             }
+
             $scope.selectedCategory = function (packageItem, propName, val) {
                 packageItem[propName] = val;
                 if (propName == "currentCategory") {
+                    $scope.calculateCategory.mainName = val
                     packageItem.subCategories = [];
                     packageItem.goodsCategory = "";
                     if (!!val) {
@@ -456,6 +469,8 @@ var app = angular
                             packageItem.goodsCategory = packageItem.subCategories[0].cateid;
                         }
                     }
+                } else {
+                    $scope.calculateCategory.name = val
                 }
             }
 
@@ -680,17 +695,38 @@ var app = angular
                     alertify.alert('提示', '请先选择发货渠道!');
                     return false;
                 }
+
+
+
+
+
                 if (index === 2) {
+
+                    console.log("shipServiceItem-->", $scope.data.shipServiceItem)
+                    console.log("-->", $scope.data)
+
+
                     //selectedCategory(outboundPackageItem,'currentCategory',null);
                     var orderItems = getOrders();
+                    console.log("orderItems-->", orderItems);
+                    // console.log("outboundPackageItem.currentCategory",$scope.outboundPackageItem.currentCategory)
+                    $scope.data.addMoneyFromChannel = 0
+
+
+
+                    $scope.sumMoney = 0;
+                    $scope.allQuantity = 0
                     for (var i = 0, ii = orderItems.length; i < ii; i++) {
+
                         var orderItem = orderItems[i];
                         // 允许orderItem.unitprice值为0
                         if (!orderItem.itemBrand || !orderItem.description || !orderItem.quantity || orderItem.unitprice == undefined || orderItem.unitprice == null) {
                             alertify.alert('提示', '必须填写转运包裹申报商品信息，包括商品品牌、商品描述、数量和单价!');
                             return false;
                         }
-                       
+                        $scope.allQuantity += orderItems[i].quantity
+                        $scope.sumMoney += orderItems[i].unitprice;
+
                         // var patternEng = /^[A-Za-z0-9]+$/
                         // var patternChn = /[^x00-xff]/
 
@@ -698,7 +734,7 @@ var app = angular
                         //     alertify.alert('提示', ' 请填写正确的商品品牌的英文名！');
                         //     return false;
                         // }
-                        
+
                         // if ($scope.data.shipServiceItem.shipServiceId == '9') {
                         //     if (!patternEng.test(orderItem.description)){
                         //         alertify.alert('提示', ' 请填写英文商品描述！');
@@ -712,7 +748,7 @@ var app = angular
 
                         // 所有渠道都控制品牌名必须为英文
                         // $scope.data.shipServiceItem.requireEnglish4Name === 1 &&
-                        if($scope.data.shipServiceItem != undefined &&
+                        if ($scope.data.shipServiceItem != undefined &&
                             !/^[^\u4e00-\u9fa5]+$/i.test(orderItem.itemBrand)) {
                             alertify.alert('提示', '商品品牌:[<small style="color:red">' + orderItem.itemBrand +
                                 '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
@@ -720,7 +756,7 @@ var app = angular
                             return false;
                         }
 
-                        if($scope.data.shipServiceItem != undefined &&
+                        if ($scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.requireEnglish4Name === 1 &&
                             !/^[^\u4e00-\u9fa5]+$/i.test(orderItem.description)) {
                             alertify.alert('提示', '商品描述:[<small style="color:red">' + orderItem.description +
@@ -728,8 +764,8 @@ var app = angular
                                 '</small>]要求商品描述必须为英文,请填写正确的英文商品描述.');
                             return false;
                         }
-                        
-                        if($scope.data.shipServiceItem != undefined &&
+
+                        if ($scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.requireEnglish4Name !== 1 &&
                             /^[u4E00-u9FA5]+$/.test(orderItem.description)) {
                             alertify.alert('提示', '商品描述:[<small style="color:red">' + orderItem.description +
@@ -739,7 +775,30 @@ var app = angular
                         }
                     }
 
+                    if ($scope.data.shipServiceItem.shipServiceName == "E") {
+
+                        if ($scope.calculateCategory.mainName.indexOf("手表") >= 0) {
+                            if ($scope.allQuantity > 1) {
+                                alertify.alert('提示', '一个包裹只能含有一块手表');
+                                return false;
+                            }
+                            if ($scope.sumMoney <= 300) {
+                                $scope.data.addMoneyFromChannel = 50;
+                            } else {
+                                alertify.alert('提示', '货物价值超过$300,该渠道不支持，请走USPS');
+                                return false;
+                            }
+                        }
+                        if($scope.calculateCategory.name == "吸尘器" ||
+                        $scope.calculateCategory.name == "扫地机器人" ||
+                        $scope.calculateCategory.name == "空气净化机"){
+                            $scope.data.addMoneyFromChannel = 150;
+                        }
+
+                    }
+
                     var packageItems = getOutboundPackage('CUL');
+                    console.log("packageItems", packageItems)
                     for (var j = 0, jj = packageItems.length; j < jj; j++) {
                         var packageItem = packageItems[j];
                         if (!packageItem.addressNumber) {
@@ -752,7 +811,7 @@ var app = angular
                             $scope.addressListData.filter(function (value) {
                                 return value.transactionNumber == packageItem.addressNumber;
                             })[0];
-                        
+
                         // usps 不用校验地址是否验证
                         if (addressItem != undefined &&
                             $scope.data.shipServiceItem != undefined &&
@@ -771,7 +830,7 @@ var app = angular
                             $scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.requireEnglish4Name === 1 &&
                             ($scope.data.shipServiceItem === 9 ||
-                            $scope.data.shipServiceItem === 10)&&
+                                $scope.data.shipServiceItem === 10) &&
                             !/^[^\u4e00-\u9fa5]+$/i.test(addressItem.receivePersonName)) {
                             alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' ' +
                                 addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
@@ -792,6 +851,7 @@ var app = angular
                         }
 
                         if (!packageItem.goodsCategory) {
+
                             alertify.alert('提示', '请确保每个转运包裹都选择了商品类别!');
                             return false;
                         }
@@ -808,7 +868,7 @@ var app = angular
                 }
             }
 
-            console.log("323",$scope.data)
+            console.log("323", $scope.data)
 
             $scope.countFee = {};
 
@@ -852,16 +912,16 @@ var app = angular
 
                         if (!calculData) calculData = {};
 
-                        if ($scope.data.insuranceMark == 1){
+                        if ($scope.data.insuranceMark == 1) {
                             console.log("***********shipService***********")
                             console.log(shipService)
                             if (shipService.customsClearance_rate !== null) {
-                                calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95) * (shipService.customsClearance_rate/100);
+                                calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95) * (shipService.customsClearance_rate / 100);
                                 // calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate ;
                             } else {
                                 calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95);
                             }
-                                                            
+
                         } else {
                             calculData.insuranceMark = 0;
                             calculData.insuranceFee = 0;
@@ -938,8 +998,8 @@ var app = angular
             $scope.wizardSubmit = function () {
                 $scope.submitOrder();
             }
-            console.log('$scope.data',$scope.data);
-            console.log('data',data);
+            console.log('$scope.data', $scope.data);
+            console.log('data', data);
 
         }
     ]);
