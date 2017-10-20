@@ -20,16 +20,28 @@ angular.module('culAdminApp')
             $scope.form = $location.search().item;
             console.log($scope.form)
 
-            /**
-             * 仓库列表
-             */
+            // 默认禁用
+            $scope.setListDefault = function(list) {
+                list.forEach(function(item){
+                    item.itemStatus = "2"
+                    if (item.children){
+                        item.children.forEach(function(item3) {
+                            item.itemStatus = "2"
+                        })
+                    }
+                })
+            }
+            
             $scope.initList = function () {
                 warehouseService.getWarehouse(function (result) {
                     $scope.warehouseList = result;
+                    $scope.setListDefault($scope.warehouseList);
                     channelService.getAllChannelList(function (result) {
                         $scope.carrierList = result.data.data;
+                        $scope.setListDefault($scope.carrierList);
                         shipService.getGoodCategory(function (result){
                             $scope.goodCategoryList = result.data;
+                            $scope.setListDefault($scope.goodCategoryList);
                             if ($scope.form) {
                                 $scope.getValidWarehouseList();
                                 $scope.getValidCarrierList();
