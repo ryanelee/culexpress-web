@@ -7,7 +7,7 @@ var app = angular
             if (!$scope.$root.orderOptions) $scope.$root.orderOptions = {};
             $scope.orderItems = [];
             $scope.addOrderItem = function ($event, shippingItem) {
-                var orderItem = {
+                var orderItem = { 
                     id: shippingItem.orderItems.length + 1,
                     packageNumber: shippingItem.trackingNumber,
                     itemBrand: '',

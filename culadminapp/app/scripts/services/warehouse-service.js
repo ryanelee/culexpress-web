@@ -131,7 +131,7 @@ angular.module('culAdminApp')
         }
 
         self.getWarehouse = function (callback) {
-            var warehouse  = $window.sessionStorage.getItem("warehouse");
+            // var warehouse  = $window.sessionStorage.getItem("warehouse");
             // console.log("warehouse",warehouse);
 
             if (!warehouse || warehouse == 'undefined' ) {

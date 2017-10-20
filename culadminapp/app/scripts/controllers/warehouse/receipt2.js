@@ -157,7 +157,7 @@ angular.module('culAdminApp')
             }
 
             $scope.btnSearch = function () {
-                $scope.dataList = [];
+                $scope.dataList = []; 
                 $scope.pagination.pageIndex = 1;
                 $scope.pagination.totalCount = 0;
                 $scope.getData();
