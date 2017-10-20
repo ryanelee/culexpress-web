@@ -3585,3 +3585,8 @@ select:-webkit-autofill {
 	padding: 40px 10px !important;
 }
 
+.item-center {
+	text-align: center;
+    vertical-align: inherit !important;
+}
+

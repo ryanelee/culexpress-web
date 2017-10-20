@@ -341,6 +341,11 @@ angular
                 url: '/howtouse',
                 templateUrl: 'views/howtouse.html'
             })
+            .state('channelintro', {
+                url: '/channelintro',
+                templateUrl: 'views/channelintro.html',
+                controller: function() {}
+            })
             .state('embargo', {
                 url: '/embargo',
                 templateUrl: 'views/embargo.html'

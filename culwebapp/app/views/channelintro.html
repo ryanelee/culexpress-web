@@ -1,0 +1,71 @@
+<div ng-controller="MainController">
+    <img class="index-banner" src="../assets/img/faq/faq_banner.jpg" />
+  <!--=== Content Part ===-->
+  <div class="container content">
+        <div class="row embargo-title">
+            <div>渠道说明</div>
+            <div class="title-icon">
+                <img src="../assets/img/jinyun/icon-zy.png" />
+            </div>
+        </div>
+        <div class="channelintro-tab">
+            <div class="table-search-v1">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered" style="margin-bottom:0px">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="max-width:50px">渠道</th>
+                                <!-- <th style="min-width:100px">商品类别</th> -->
+                                <th class="text-center" style="width:500px">服务描述</th>
+                                <th class="text-center" style="width:250px">物品要求</th>
+                                <th class="text-center hidden-sm" style="max-width:50px;">关税</th>
+                                <th class="text-center" style="width:50px">限重</th>
+                                <th class="text-center" >身份证</th>
+                                <th class="text-center" style="min-width:50px">首重</th>
+                                <th class="text-center" style="min-width:50px">续重</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="shipChannelItem in shipChannelsInsuse">
+                                <td class="item-center">{{shipChannelItem.shipServiceName}}</td>
+                                <td class="td-width">                                   　
+                                    <small>
+                                        <div bind-html-unsafe="shipChannelItem.serviceSummary"></div>
+                                    </small>
+                                </td>
+                                <td><small>{{shipChannelItem.serviceDetail}}</small></td>
+                                <td class="item-center">
+                                    <span ng-show="shipChannelItem.include_tax == '1'">包税</span>
+                                    <span ng-show="shipChannelItem.include_tax == '0'">不包税</span>
+                                    <span ng-show="shipChannelItem.customsClearance_rate > 0">{{shipChannelItem.customsClearance_rate}}%清关费用</span>
+                                    
+                                </td>
+                                <td class="item-center">{{shipChannelItem.maxWeight}}磅</td>
+                                <td class="item-center">
+                                    <span ng-show="shipChannelItem.needIDCard == '1'">需要身份证</span>
+                                    <span ng-show="shipChannelItem.needIDCard == '0'">无需身份证</span>
+                                </td>
+                                <td class="item-center">
+                                    {{shipChannelItem.firstWeight}} ¥
+                                </td>
+                                <td class="item-center">
+                                   {{shipChannelItem.continuedWeight}}/磅
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div><!--/container-->
+  <!--=== End Content Part ===-->
+  </div>
+  <script type="text/javascript">
+    $('.faq-title').on('click', function() {
+      var nextCont = $(this).nextAll('.faq-content');
+      $('.faq-content').not(nextCont).hide();
+      nextCont.toggle();
+    })
+  </script>
+  
