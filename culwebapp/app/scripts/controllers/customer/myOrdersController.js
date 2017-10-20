@@ -856,7 +856,7 @@ var app = angular
                             console.log("***********shipService***********")
                             console.log(shipService)
                             if (shipService.customsClearance_rate !== null) {
-                                calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95) * shipService.customsClearance_rate;
+                                calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95) * (shipService.customsClearance_rate/100);
                                 // calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate ;
                             } else {
                                 calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95);
