@@ -709,7 +709,6 @@ var app = angular
                         //         alertify.alert('提示', ' 请填写中文商品描述！');
                         //         return false;
                         //     }
-
                         // 所有渠道都控制品牌名必须为英文
                         // $scope.data.shipServiceItem.requireEnglish4Name === 1 &&
                         if($scope.data.shipServiceItem != undefined &&
