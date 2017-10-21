@@ -239,6 +239,13 @@
                             route: 'refer-a-friend'
                         }
                     ]
+                }, {
+                    key: 'service',
+                    name: '资费与服务',
+                    icon: 'fa fa-question-circle',
+                    route: 'customer.service',
+                    toggle: true,
+                    childs: []
                 }];
                 //为了方便实现，这里直接设置数组的第一个元素为默认选中元素
                 prevSelected = data[0];

@@ -3590,3 +3590,11 @@ select:-webkit-autofill {
     vertical-align: inherit !important;
 }
 
+.service-content{
+	margin-top: 30px;
+}
+.service-content th{
+	text-align: center;
+	background-color: #E6E9EA;
+}
+
