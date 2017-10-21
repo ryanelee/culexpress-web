@@ -131,5 +131,10 @@ angular
                 url: '/sendidetail/:id',
                 templateUrl: 'views/products/sendi_detail.html',
                 controller: 'SendiDetailCtrl'
+            })
+            .state('customer.service', {
+                url: '/service',
+                templateUrl: 'views/customer/service.html',
+                controller: function () { }
             });
     });
