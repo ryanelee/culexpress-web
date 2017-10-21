@@ -64,7 +64,7 @@ angular
                 controller: function () { }
             })
             .state('customer.myfinance', {
-                url: '/myfinance',
+                url: '/myBalance',
                 templateUrl: 'views/customer/myfinance.html',
                 controller: function () { }
             })
