@@ -235,7 +235,7 @@ angular.module('culAdminApp')
                     return false;
                 }
                 if ($scope.form.include_tax == "0") {
-                    if (!$scope.form.customsClearance_rate) {
+                    if (!$scope.form.surcharge_overBaseRate) {
                         plugMessenger.info("请输入清关费率!");
                         return false;
                     }

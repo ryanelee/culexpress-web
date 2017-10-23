@@ -472,6 +472,7 @@ var app = angular
                 } else {
                     $scope.calculateCategory.name = val
                 }
+                console.log($scope.calculateCategory);
             }
 
             $scope.removePackage = function (packageItem) {
@@ -774,27 +775,28 @@ var app = angular
                         }
                     }
 
-                    if ($scope.data.shipServiceItem.shipServiceName == "E") {
+                    
+                    // if ($scope.data.shipServiceItem.shipServiceName == "E") {
 
-                        if ($scope.calculateCategory.mainName.indexOf("手表") >= 0) {
-                            if ($scope.allQuantity > 1) {
-                                alertify.alert('提示', '一个包裹只能含有一块手表');
-                                return false;
-                            }
-                            if ($scope.sumMoney <= 300) {
-                                $scope.data.addMoneyFromChannel = 50;
-                            } else {
-                                alertify.alert('提示', '货物价值超过$300,该渠道不支持，请走USPS');
-                                return false;
-                            }
-                        }
-                        if($scope.calculateCategory.name == "吸尘器" ||
-                        $scope.calculateCategory.name == "扫地机器人" ||
-                        $scope.calculateCategory.name == "空气净化机"){
-                            $scope.data.addMoneyFromChannel = 150;
-                        }
+                    //     if ($scope.calculateCategory.mainName.indexOf("手表") >= 0) {
+                    //         if ($scope.allQuantity > 1) {
+                    //             alertify.alert('提示', '一个包裹只能含有一块手表');
+                    //             return false;
+                    //         }
+                    //         if ($scope.sumMoney <= 300) {
+                    //             $scope.data.addMoneyFromChannel = 50;
+                    //         } else {
+                    //             alertify.alert('提示', '货物价值超过$300,该渠道不支持，请走USPS');
+                    //             return false;
+                    //         }
+                    //     }
+                    //     if($scope.calculateCategory.name == "吸尘器" ||
+                    //     $scope.calculateCategory.name == "扫地机器人" ||
+                    //     $scope.calculateCategory.name == "空气净化机"){
+                    //         $scope.data.addMoneyFromChannel = 150;
+                    //     }
 
-                    }
+                    // }
 
                     var packageItems = getOutboundPackage('CUL');
                     console.log("packageItems", packageItems)
@@ -848,6 +850,39 @@ var app = angular
                                 '</small>]要求收货人地址必须为英文拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
                             return false;
                         }
+
+                        //商品主类别渠道限制规则
+                     
+                        var currentMainCategory = $filter('filter')($scope.categories, function (categoryItem) { return categoryItem.parentid === $scope.calculateCategory });
+                        console.log(orderItem);
+                        console.log(currentMainCategoryy);
+                        /******************** */
+                        //1 - quantityLimit
+                        if(currentMainCategory != undefined &&
+                            currentMainCategory.quantityLimit != undefined &&
+                            orderItem.quantity > currentMainCategory.quantityLimit ){
+                                alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
+                                    '</small>]每个包裹限制数量:['+ currentMainCategory.quantityLimit + '].');
+                                    return false;
+                            }
+                        //2 - surcharge_maxValueAmount
+                        if(currentMainCategory != undefined &&
+                            currentMainCategory.surcharge_maxValueAmount != undefined &&
+                            orderItem.quantity * orderItem.unitprice > currentMainCategory.surcharge_maxValueAmount ){
+                                alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
+                                    '</small>]每个包裹限制价值不能超过:['+ currentMainCategory.surcharge_maxValueAmount + ']美元.请使用USPS渠道.');
+                                    return false;
+                            }
+                        // //3 - weightLimit
+                        // if(currentMainCategory != undefined &&
+                        //     currentMainCategory.weightLimit != undefined &&
+                        //     shippingItem.packageWeight > currentMainCategory.weightLimit ){
+                        //         alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
+                        //             '</small>]每个包裹限制重量不能超过:['+ currentMainCategory.weightLimit + ']磅.');
+                        //             return false;
+                        //     }
+
+                        /******************* */
 
                         if (!packageItem.goodsCategory) {
 
