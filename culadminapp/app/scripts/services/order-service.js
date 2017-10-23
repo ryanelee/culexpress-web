@@ -320,4 +320,6 @@ angular.module('culAdminApp')
             })
         }
 
+       
+
     }]);

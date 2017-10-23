@@ -82,7 +82,6 @@ var app = angular
 
 
 
-
                 $scope.$root.orderOptions.shipServiceItem = $scope.data.shipServiceItem;
                 if (!!$scope.data.shipServiceItem) {
                     //var categoryItem = $filter('filter')($scope.warehouses, function (item) { return item.warehouseNumber === getWorkhouseNumber(); });
@@ -406,6 +405,7 @@ var app = angular
             var getOrders = function () {
                 //if ($scope.orderItems.length > 0) return $scope.orderItems;
                 var orders = [];
+                console.log("data.shipServiceItem", data.shipServiceItem)
                 $scope.data.declareGoodsValue = 0;
                 if ($scope.outboundPackages && $scope.outboundPackages.length) {
                     for (var i = 0, ii = $scope.outboundPackages.length; i < ii; i++) {
@@ -419,6 +419,8 @@ var app = angular
                             if (angular.isObject(orderItem.goodsCategory)) {
                                 orderItem.goodsCategory = orderItem.goodsCategory.goodsCategory;
                             }
+                            orderItem.itemCategory = $scope.outboundPackages[i].goodsCategory;
+                            orderItem.shipServiceId = data.shipServiceItem.shipServiceId;
                             orders.push(orderItem);
                         }
                     }
@@ -706,6 +708,9 @@ var app = angular
 
                     //selectedCategory(outboundPackageItem,'currentCategory',null);
                     var orderItems = getOrders();
+                    orderSvr.cacluTariff(orderItems).then(function(data){
+                        console.log("data",data)
+                    })
                     console.log("orderItems-->", orderItems);
                     // console.log("outboundPackageItem.currentCategory",$scope.outboundPackageItem.currentCategory)
                     $scope.data.addMoneyFromChannel = 0
@@ -772,7 +777,7 @@ var app = angular
                         }
                     }
 
-                    
+
                     // if ($scope.data.shipServiceItem.shipServiceName == "E") {
 
                     //     if ($scope.calculateCategory.mainName.indexOf("手表") >= 0) {
@@ -806,7 +811,7 @@ var app = angular
 
                     // }
 
-                    
+
 
 
                     var packageItems = getOutboundPackage('CUL');
@@ -863,27 +868,26 @@ var app = angular
                         }
 
                         //商品主类别渠道限制规则
-                     
+
                         var currentMainCategory = $filter('filter')($scope.categories, function (categoryItem) { return categoryItem.parentid === $scope.calculateCategory });
                         console.log(orderItem);
-                        console.log(currentMainCategoryy);
                         /******************** */
                         //1 - quantityLimit
-                        if(currentMainCategory != undefined &&
+                        if (currentMainCategory != undefined &&
                             currentMainCategory.quantityLimit != undefined &&
-                            orderItem.quantity > currentMainCategory.quantityLimit ){
-                                alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
-                                    '</small>]每个包裹限制数量:['+ currentMainCategory.quantityLimit + '].');
-                                    return false;
-                            }
+                            orderItem.quantity > currentMainCategory.quantityLimit) {
+                            alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
+                                '</small>]每个包裹限制数量:[' + currentMainCategory.quantityLimit + '].');
+                            return false;
+                        }
                         //2 - surcharge_maxValueAmount
-                        if(currentMainCategory != undefined &&
+                        if (currentMainCategory != undefined &&
                             currentMainCategory.surcharge_maxValueAmount != undefined &&
-                            orderItem.quantity * orderItem.unitprice > currentMainCategory.surcharge_maxValueAmount ){
-                                alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
-                                    '</small>]每个包裹限制价值不能超过:['+ currentMainCategory.surcharge_maxValueAmount + ']美元.请使用USPS渠道.');
-                                    return false;
-                            }
+                            orderItem.quantity * orderItem.unitprice > currentMainCategory.surcharge_maxValueAmount) {
+                            alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
+                                '</small>]每个包裹限制价值不能超过:[' + currentMainCategory.surcharge_maxValueAmount + ']美元.请使用USPS渠道.');
+                            return false;
+                        }
                         // //3 - weightLimit
                         // if(currentMainCategory != undefined &&
                         //     currentMainCategory.weightLimit != undefined &&

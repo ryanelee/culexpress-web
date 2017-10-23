@@ -382,6 +382,10 @@ angular
                 templateUrl: 'views/system/categerylist.html',
                 controller: 'CategerylistCtrl'
             })
+            .when('/system/maincategerylist', {
+                templateUrl: 'views/system/maincategerylist.html',
+                controller: 'MainCategerylistCtrl'
+            })
             .when('/system/editcategery', {
                 templateUrl: 'views/system/editcategery.html',
                 controller: 'EditCategeryCtrl'

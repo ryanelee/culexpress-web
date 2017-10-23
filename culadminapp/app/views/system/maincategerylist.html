@@ -1,29 +1,27 @@
-
 <div class="widget widget-table" style="overflow: initial">
     <div class="widget-header">
-        <h3><i class="fa fa-table"></i> 商品种类管理</h3>
+        <h3>
+            <i class="fa fa-table"></i>商品主类别管理</h3>
     </div>
     <div class="widget-content">
         <div class="row">
             <div class="col-sm-12 search-bar">
                 <div class="col-sm-12 search-bar">
                     <div class="search-col" style="margin-bottom: 0px;">
-                        <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="addCategery()">新建商品种类</button>
-                    </div>
-                    <div class="search-col" style="margin-bottom: 0px;">
-                        <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="mainCategory()">查看主类别</button>
+                        <button type="button" class="btn btn-primary role" data-role="62" style="margin-left:5px;" ng-click="back()">返回</button>
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <div class="search-col">
+                <!-- <div class="search-col">
                     <label class="search-label">搜索条目：</label>
                     <select class="form-control search-control" ng-model="searchBar.keywordType">
                         <option value="mainName">主类别名称</option>
                         <option value="name">子类别名称</option>
                     </select>
-                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords"
+                        ng-enter="btnSearch()" />
                     <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="row">
@@ -33,32 +31,30 @@
                         <tr>
                             <th>序号</th>
                             <th>主类别</th>
-                            <th>子类别</th>
                             <th>显示顺序</th>
                             <th>最后修改用户</th>
                             <th>最后修改时间</th>
                             <th>操作</th>
-                        </tr> 
-                    </thead>
+                        </tr>
+                    </thead> 
                     <tbody>
                         <tr ng-repeat="item in dataList track by $index">
                             <td>{{$index + 1}}</td>
-                            <td>{{item.mainName}}</td>
                             <td>{{item.name}}</td>
-                            <td>{{item.sequence}}</td> 
+                            <td>{{item.sequence}}</td>
                             <td>{{item.lasteditusername}}</td>
                             <td>{{item.lasteditdate | date:'yyyy-MM-dd'}}
-                            <td>
-                                <a href="javascript:void(0);" ng-click="detail(item)">查看</a> &nbsp;
-                                <a href="javascript:void(0);" ng-click="edit(item)">修改</a> &nbsp;
-                                <a href="javascript:void(0);" ng-click="del(item)">删除</a> &nbsp;
-                            </td>
+                                <td>
+                                    <!-- <a href="javascript:void(0);" ng-click="detail(item)">查看</a> &nbsp; -->
+                                    <!-- <a href="javascript:void(0);" ng-click="edit(item)">修改</a> &nbsp; -->
+                                    <a href="javascript:void(0);" ng-click="del(item)">删除</a> &nbsp;
+                                </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-   
+
     </div>
 </div>
 <print-helper></print-helper>

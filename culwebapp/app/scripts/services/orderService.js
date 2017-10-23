@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('culwebApp')
-    .factory('OrderSvr', ['$http', function($http) {
+    .factory('OrderSvr', ['$http', function ($http) {
 
         var shippingCarriers = [{
             id: 1,
@@ -15,7 +15,7 @@ angular.module('culwebApp')
         }, {
             id: 4,
             name: 'UPS'
-        },{
+        }, {
             id: 5,
             name: 'USPS'
         }, {
@@ -68,10 +68,10 @@ angular.module('culwebApp')
         }, {
             key: 4,
             text: '4'
-        }]; 
+        }];
 
         return {
-            addShippingNotice: function(shippingNotice) {
+            addShippingNotice: function (shippingNotice) {
                 return $http.post(cul.apiPath + '/inboundpackage', {
                     customerNumber: shippingNotice.customerNumber,
                     status: 'Intransit',
@@ -84,15 +84,15 @@ angular.module('culwebApp')
                     isFastShip: (shippingNotice.isFastOrder ? 1 : 0)
                 });
             },
-            deleteShippingNotice: function(transactionNumber) {
+            deleteShippingNotice: function (transactionNumber) {
                 return $http.delete(cul.apiPath + '/inboundpackage?number=' + transactionNumber);
             },
-            retrieveShippingNoticeList: function(index, pageSize, paras) {
+            retrieveShippingNoticeList: function (index, pageSize, paras) {
                 if (!paras) paras = {};
 
                 paras.status = paras.status ? [paras.status] : ["Intransit", "Inbound", "Onshelf"]
                 paras.excludeInOrderPackage = true;//Doesn't show packages with order submitted.
-                
+
                 return $http.post(cul.apiPath + '/inboundpackage/list', $.extend({
                     pageInfo: {
                         pageSize: pageSize,
@@ -101,11 +101,11 @@ angular.module('culwebApp')
                     customerNumber: paras.customerNumber,
                 }, paras));
             },
-            getWarehouses: function() {
+            getWarehouses: function () {
                 var cacheData = window.sessionStorage.getItem('cache_warehouse');
                 if (!!cacheData) {
                     return {
-                        then: function(callback) {
+                        then: function (callback) {
                             callback && callback({
                                 data: JSON.parse(cacheData)
                             });
@@ -116,10 +116,10 @@ angular.module('culwebApp')
                 console.log("wonderful world");
                 return $http.get(cul.apiPath + '/warehouse', obj);
             },
-            getShipChannelItems: function() {
+            getShipChannelItems: function () {
                 return $http.post(cul.apiPath + '/shipservice/list');
             },
-            getOrderList: function(index, queryPara, pageSize) {
+            getOrderList: function (index, queryPara, pageSize) {
                 var paras = {
                     pageInfo: {
                         pageSize: pageSize || 10,
@@ -138,13 +138,13 @@ angular.module('culwebApp')
 
                 return $http.post(cul.apiPath + '/order/list', paras);
             },
-            getOrderInfo: function(orderId) {
+            getOrderInfo: function (orderId) {
                 return $http.get(cul.apiPath + '/order/' + orderId);
             },
-            getOrderPackageNumber: function(orderId) {
+            getOrderPackageNumber: function (orderId) {
                 return $http.get(cul.apiPath + '/order/package/' + orderId);
             },
-            submitOrder: function(orderData) {
+            submitOrder: function (orderData) {
                 return $http.post(cul.apiPath + '/order', {
                     //客户编号
                     customerNumber: orderData.customerNumber,
@@ -197,16 +197,16 @@ angular.module('culwebApp')
                     packageWeight: orderData.packageWeight
                 });
             },
-            getOrderStepList: function(trackingNumber) {
+            getOrderStepList: function (trackingNumber) {
                 return $http.put(cul.apiPath + '/order/step', {
                     trackingNumber: trackingNumber
                 });
             },
-            getOrderTrackingList: function(trackingNumber) {
+            getOrderTrackingList: function (trackingNumber) {
                 return $http.get(cul.apiPath + '/outboundpackage/track/' + trackingNumber);
             },
             // saveMessageBack: function(orderMessageNumber, messageContent) {
-            saveMessageBack: function(questionMessageItem) {
+            saveMessageBack: function (questionMessageItem) {
                 return $http.post(cul.apiPath + '/customermessage/log', {
                     messageNumber: questionMessageItem.orderMessageNumber,
                     message: questionMessageItem.messageContent,
@@ -214,7 +214,7 @@ angular.module('culwebApp')
                     status: 0
                 });
             },
-            saveMessage: function(orderMessageItem) {
+            saveMessage: function (orderMessageItem) {
                 return $http.post(cul.apiPath + '/customermessage/log', {
                     messageNumber: orderMessageItem.orderMessageNumber,
                     message: orderMessageItem.messageContent,
@@ -222,96 +222,99 @@ angular.module('culwebApp')
                     status: 0
                 });
             },
-            deleteOrder: function(orderNumber) {
+            deleteOrder: function (orderNumber) {
                 return $http.delete(cul.apiPath + '/order?number=' + orderNumber);
             },
 
-            getMessage: function(messageNumber) {
+            getMessage: function (messageNumber) {
                 return $http.get(cul.apiPath + '/customermessage/' + messageNumber);
             },
             /**
              * 更新订单留言消息的状态，从未读变为已读
              */
-            updateMessageStatus: function(messageNumber) {
+            updateMessageStatus: function (messageNumber) {
                 return $http.put(cul.apiPath + '/customermessage/log', {
                     messageNumber: messageNumber,
                     status: 0        // 0-已读
                 });
             },
-            paymentOrder: function(orderNumber) {
+            paymentOrder: function (orderNumber) {
                 return $http.put(cul.apiPath + '/order/payment', {
                     orderNumber: orderNumber
                 });
             },
-            getGoodsCategories: function() {
+            getGoodsCategories: function () {
                 return $http.get(cul.apiPath + '/item/category/list');
             },
 
-            submitProduct: function(model) {
+            submitProduct: function (model) {
                 if (!!model.transactionNumber) {
                     return $http.put(cul.apiPath + '/item', model);
                 }
                 return $http.post(cul.apiPath + '/item', model);
             },
 
-            getProducts: function(queryPara) {
+            getProducts: function (queryPara) {
                 return $http.post(cul.apiPath + '/item/list', queryPara);
             },
-            getProduct: function(itemNumber) {
+            getProduct: function (itemNumber) {
                 return $http.get(cul.apiPath + '/item?itemNumber=' + itemNumber);
             },
-            deleteProducts: function(itemNumbers) {
+            deleteProducts: function (itemNumbers) {
                 return $http.put(cul.apiPath + '/item/batch/delete', { itemNumbers: itemNumbers });
             },
-            getItemInventory: function(queryPara) {
+            getItemInventory: function (queryPara) {
                 return $http.post(cul.apiPath + '/item/inventory/log/list', queryPara);
             },
-            batchProductsUpload: function(form) {
+            batchProductsUpload: function (form) {
                 return $http.post(cul.apiPath + '/files/upload', form, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 });
             },
-            batchProductsVerify: function(fileId) {
+            batchProductsVerify: function (fileId) {
                 return $http.post(cul.apiPath + '/item/batch/check', {
                     "fileId": fileId
                 });
             },
-            batchProductsCreate: function(fileId) {
+            batchProductsCreate: function (fileId) {
                 return $http.post(cul.apiPath + '/item/batch/create', {
                     "fileId": fileId
                 });
             },
-            transportItem: function(model) {
+            transportItem: function (model) {
                 if (!!model.transactionNumber) {
                     return $http.put(cul.apiPath + '/item/transport', model);
                 }
                 return $http.post(cul.apiPath + '/item/transport', model);
             },
-            getTransportItems: function(queryPara) {
+            getTransportItems: function (queryPara) {
                 return $http.post(cul.apiPath + '/item/transport/list', queryPara);
             },
-            getTransportItem: function(transportNumber) {
+            getTransportItem: function (transportNumber) {
                 return $http.get(cul.apiPath + '/item/transport?receiptNumber=' + transportNumber);
             },
-            deleteTransportItem: function(transportNumber) {
+            deleteTransportItem: function (transportNumber) {
                 return $http.post(cul.apiPath + '/item/transport/void', { receiptNumber: transportNumber });
             },
-            batchTransportUpload: function(form) {
+            batchTransportUpload: function (form) {
                 return $http.post(cul.apiPath + '/files/upload', form, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 });
             },
-            batchTransportVerify: function(fileId) {
+            batchTransportVerify: function (fileId) {
                 return $http.post(cul.apiPath + '/item/transport/batch/check', {
                     "fileId": fileId
                 });
             },
-            batchTransportCreate: function(fileId) {
+            batchTransportCreate: function (fileId) {
                 return $http.post(cul.apiPath + '/item/transport/batch/create', {
                     "fileId": fileId
                 });
+            },
+            cacluTariff: function (options, callback) {
+             return   $http.post(cul.apiPath + "/order/cacluTariff", options);
             },
             shippingCarriers: shippingCarriers,
             goodsCategories: goodsCategories,

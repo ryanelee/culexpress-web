@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('CategerylistCtrl', ['$scope', '$location', '$window', 'sysroleService', 'ItemService', 'channelService', 'plugMessenger',"storage",
+    .controller('MainCategerylistCtrl', ['$scope', '$location', '$window', 'sysroleService', 'ItemService', 'channelService', 'plugMessenger',"storage",
         function($scope, $location, $window, sysroleService, ItemService, channelService, plugMessenger,storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
@@ -50,10 +50,10 @@ angular.module('culAdminApp')
 
             $scope.getData = function() {
                 storage.session.setObject("searchBar", $scope.searchBar);
-                ItemService.getItemCategoryList(_filterOptions(), function(result) {
+                ItemService.getMainItemCategoryList(_filterOptions(), function(result) {
                     $scope.dataList = result.data.data;
                     
-                    console.log("$scope.dataList",$scope.dataList)
+                    console.log("$scope.dataList",result)
                 });
             }
             $scope.btnSearch = function() {
@@ -69,10 +69,6 @@ angular.module('culAdminApp')
             $scope.addCategery = function() {
                     $location.path('/system/editcategery').search({flag: "new" });
                 }
-                $scope.mainCategory = function() {
-                    $location.path('/system/maincategerylist');
-                }
-                
                 // 修改仓库
             $scope.edit = function(item) { 
                 console.log("item", item)
@@ -85,9 +81,7 @@ angular.module('culAdminApp')
                 $location.path('/system/editcategery')
             }
             $scope.del = function(item) {
-                    //console.log(warehouseNumber);
-                    // return;
-                    plugMessenger.confirm("确认删除该商品吗?", function(isOk) {
+                    plugMessenger.confirm("确认删除该主类别商品吗，删除后子类别不可用，危险操作?", function(isOk) {
                         if (isOk) {
                             ItemService.deleteItemCategory(item.cateid, function(res) {
                                 if (res.data.code == '000') {
