@@ -134,7 +134,7 @@ angular.module('culAdminApp')
             // var warehouse  = $window.sessionStorage.getItem("warehouse");
             // console.log("warehouse",warehouse);
 
-            if (!warehouse || warehouse == 'undefined' ) {
+            // if (!warehouse || warehouse == 'undefined' ) {
                 $http.get(cul.apiPath + "/warehouse").success(function (result) {
                     var role = [], warehouse_ids = [];
                     if ($window.sessionStorage.getItem('role')) {
@@ -156,9 +156,9 @@ angular.module('culAdminApp')
                     $window.sessionStorage.setItem("warehouse",JSON.stringify(_data));
                     callback(_data);
                 })
-            }else{
-                callback(JSON.parse(warehouse));
-            }
+            // }else{
+            //     callback(JSON.parse(warehouse));
+            // }
 
 
         }
