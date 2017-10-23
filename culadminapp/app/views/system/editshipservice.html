@@ -73,19 +73,13 @@
                 <label class="col-sm-2  text-right">是否包关税：</label>
                 <div class="col-sm-10 text-left">
                     <label>
-                    <input type="radio" name="include_tax" id="status1" value="1" ng-model="form.include_tax" ng-disabled="flag == 'detail'">
+                    <input type="radio" name="taxIncluded" id="status1" value="1" ng-model="form.taxIncluded" ng-disabled="flag == 'detail'">
                     是
                     </label> &nbsp;
                     <label>
-                    <input type="radio" name="include_tax" id="status2" value="0" ng-model="form.include_tax" ng-disabled="flag == 'detail'">
+                    <input type="radio" name="taxIncluded" id="status2" value="0" ng-model="form.taxIncluded" ng-disabled="flag == 'detail'">
                     否
                     </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label text-right">清关费用%：</label>
-                <div class="col-sm-4 text-left">
-                    <input id="serviceSummary" type="text" class="form-control" placeholder="0～100" ng-model="form.customsClearance_rate" ng-disabled="flag == 'detail'">
                 </div>
             </div>
             <div class="form-group">
