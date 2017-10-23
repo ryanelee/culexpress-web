@@ -218,6 +218,10 @@ angular.module('culAdminApp')
                         case "flyingexpress":
                         case "flyingexpress2":
                         console.log("item",item);
+                            if(item.orderType == 1 && (!item.payDate || item.orderStatus.toUpperCase() === "UNPAID" || item.orderStatus.toUpperCase() === "VOID" )){
+                                plugMessenger.info("未支付或者已删除的线上订单不能打印.")
+                                break;
+                            }
                             plugMessenger.confirm("订单将变为已打印状态,请确认是否打印？", function(isOK) {
                                 if (isOK) {
                                     orderService.printOrder(item.orderNumber, function(result) {
@@ -278,6 +282,18 @@ angular.module('culAdminApp')
                         case "order":
                         case "flyingexpress":
                         case "flyingexpress2":
+                            var declinePrint = false;
+                            $.each(selectedList, function(i, _item) {
+                                console.log(_item);
+                                if(_item.orderType == 1 && (!_item.payDate || _item.orderStatus.toUpperCase() === "UNPAID" || _item.orderStatus.toUpperCase() === "VOID" )){
+                                    plugMessenger.info("未支付或者已删除的线上订单[" + _item.orderNumber + "]不能打印.")
+                                    declinePrint = true;
+                                    return;
+                                }
+                            });
+
+                            if(declinePrint) break;
+                            
                             plugMessenger.confirm("订单将变为已打印状态,请确认是否打印？", function(isOK) {
                                 if (isOK) {
                                     var orderArray = [];

@@ -472,6 +472,7 @@ var app = angular
                 } else {
                     $scope.calculateCategory.name = val
                 }
+                console.log($scope.calculateCategory);
             }
 
             $scope.removePackage = function (packageItem) {
@@ -742,7 +743,6 @@ var app = angular
                         //         alertify.alert('提示', ' 请填写中文商品描述！');
                         //         return false;
                         //     }
-
                         // 所有渠道都控制品牌名必须为英文
                         // $scope.data.shipServiceItem.requireEnglish4Name === 1 &&
                         if ($scope.data.shipServiceItem != undefined &&
@@ -772,6 +772,7 @@ var app = angular
                         }
                     }
 
+                    
                     // if ($scope.data.shipServiceItem.shipServiceName == "E") {
 
                     //     if ($scope.calculateCategory.mainName.indexOf("手表") >= 0) {
@@ -861,6 +862,39 @@ var app = angular
                             return false;
                         }
 
+                        //商品主类别渠道限制规则
+                     
+                        var currentMainCategory = $filter('filter')($scope.categories, function (categoryItem) { return categoryItem.parentid === $scope.calculateCategory });
+                        console.log(orderItem);
+                        console.log(currentMainCategoryy);
+                        /******************** */
+                        //1 - quantityLimit
+                        if(currentMainCategory != undefined &&
+                            currentMainCategory.quantityLimit != undefined &&
+                            orderItem.quantity > currentMainCategory.quantityLimit ){
+                                alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
+                                    '</small>]每个包裹限制数量:['+ currentMainCategory.quantityLimit + '].');
+                                    return false;
+                            }
+                        //2 - surcharge_maxValueAmount
+                        if(currentMainCategory != undefined &&
+                            currentMainCategory.surcharge_maxValueAmount != undefined &&
+                            orderItem.quantity * orderItem.unitprice > currentMainCategory.surcharge_maxValueAmount ){
+                                alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
+                                    '</small>]每个包裹限制价值不能超过:['+ currentMainCategory.surcharge_maxValueAmount + ']美元.请使用USPS渠道.');
+                                    return false;
+                            }
+                        // //3 - weightLimit
+                        // if(currentMainCategory != undefined &&
+                        //     currentMainCategory.weightLimit != undefined &&
+                        //     shippingItem.packageWeight > currentMainCategory.weightLimit ){
+                        //         alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
+                        //             '</small>]每个包裹限制重量不能超过:['+ currentMainCategory.weightLimit + ']磅.');
+                        //             return false;
+                        //     }
+
+                        /******************* */
+
                         if (!packageItem.goodsCategory) {
 
                             alertify.alert('提示', '请确保每个转运包裹都选择了商品类别!');
@@ -926,8 +960,8 @@ var app = angular
                         if ($scope.data.insuranceMark == 1) {
                             console.log("***********shipService***********")
                             console.log(shipService)
-                            if (shipService.customsClearance_rate !== null) {
-                                calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95) * (shipService.customsClearance_rate / 100);
+                            if (shipService.surcharge_overBaseRate !== null) {
+                                calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95) * (shipService.surcharge_overBaseRate / 100);
                                 // calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate ;
                             } else {
                                 calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95);

@@ -61,18 +61,30 @@
                                             <tr>
                                                 <td>{{data.shipServiceItem.shipServiceName}}</td>
                                                 <td>{{data.shipServiceItem.estimatedTime}}</td>
-                                                <td style="text-align:left;">
+                                                <td>
+                                                    <span class="label label-light">
+                                                            <i class="fa fa-money"></i> {{data.shipServiceItem.shipServiceFeeList[0].currency}}
+                                                    </span>
+                                                    <span class="label label-light">
+                                                            <i class="fa fa-jpy"></i> 首磅价格：{{data.shipServiceItem.shipServiceFeeList[0].firstWeight|number:2}}
+                                                    </span>
+                                                    <span class="label label-light">
+                                                            <i class="fa fa-jpy"></i> 次磅价格：{{data.shipServiceItem.shipServiceFeeList[0].continuedWeight|number:2}}
+                                                    </span>
+                                                </td>
+                                                <!-- <td style="text-align:left;">
                                                     <ul class="list-unstyled">
                                                         <li ng-repeat="goodsCategoryItem in data.shipServiceItem.shipServiceFeeList">
                                                             <div><label class="label">{{goodsCategoryItem.currency}}</label></div>
                                                             <div>
                                                                 首磅价格：{{goodsCategoryItem.firstWeight|number:2}}
                                                             </div>
-                                                            <div>次磅价格：{{goodsCategoryItem.continuedWeight|number:2}}
+                                                            <div>
+                                                                次磅价格：{{goodsCategoryItem.continuedWeight|number:2}}
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                </td>
+                                                </td> -->
                                                 <td class="hidden-sm" style="text-align:left;">
                                                     <span class="label label-light">
                                                         <i class="fa fa-exclamation-circle"></i> {{data.shipServiceItem.serviceDetail}}
@@ -92,7 +104,6 @@
                                                     </span>
                                                 </td>
                                             </tr>
-                                            <tr>
                                         </tbody>
                                     </table>
                                 </div>
