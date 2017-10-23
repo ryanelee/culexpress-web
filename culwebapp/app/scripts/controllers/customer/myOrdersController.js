@@ -697,9 +697,6 @@ var app = angular
                 }
 
 
-
-
-
                 if (index === 2) {
 
                     console.log("shipServiceItem-->", $scope.data.shipServiceItem)
@@ -775,27 +772,41 @@ var app = angular
                         }
                     }
 
-                    if ($scope.data.shipServiceItem.shipServiceName == "E") {
+                    // if ($scope.data.shipServiceItem.shipServiceName == "E") {
 
-                        if ($scope.calculateCategory.mainName.indexOf("手表") >= 0) {
-                            if ($scope.allQuantity > 1) {
-                                alertify.alert('提示', '一个包裹只能含有一块手表');
-                                return false;
-                            }
-                            if ($scope.sumMoney <= 300) {
-                                $scope.data.addMoneyFromChannel = 50;
-                            } else {
-                                alertify.alert('提示', '货物价值超过$300,该渠道不支持，请走USPS');
-                                return false;
-                            }
-                        }
-                        if($scope.calculateCategory.name == "吸尘器" ||
-                        $scope.calculateCategory.name == "扫地机器人" ||
-                        $scope.calculateCategory.name == "空气净化机"){
-                            $scope.data.addMoneyFromChannel = 150;
-                        }
+                    //     if ($scope.calculateCategory.mainName.indexOf("手表") >= 0) {
+                    //         if ($scope.allQuantity > 1) {
+                    //             alertify.alert('提示', '一个包裹只能含有一块手表');
+                    //             return false;
+                    //         }
+                    //         if ($scope.sumMoney <= 300) {
+                    //             $scope.data.addMoneyFromChannel = 50;
+                    //         } else {
+                    //             alertify.alert('提示', '货物价值超过$300,该渠道不支持，请走USPS');
+                    //             return false;
+                    //         }
+                    //     }
+                    //     if ($scope.calculateCategory.name == "吸尘器" ||
+                    //         $scope.calculateCategory.name == "扫地机器人" ||
+                    //         $scope.calculateCategory.name == "空气净化机") {
+                    //         if ($scope.sumMoney > 500) {
+                    //             alert("吸尘器，扫地机器人，空气净化机最高货值500");
+                    //             return false;
+                    //         }
+                    //         $scope.data.addMoneyFromChannel = 150;
+                    //     }
 
-                    }
+                    //     if ($scope.calculateCategory.name == "电子游戏机" ||
+                    //         $scope.calculateCategory.name == "网卡" ||
+                    //         $scope.calculateCategory.name == "CPU",
+                    //         $scope.calculateCategory.name == "3D眼镜") {
+                    //         $scope.data.addMoneyFromChannel = 100;
+                    //     }
+
+                    // }
+
+                    
+
 
                     var packageItems = getOutboundPackage('CUL');
                     console.log("packageItems", packageItems)
