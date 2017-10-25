@@ -14,7 +14,7 @@ angular.module('culwebApp')
                 transclude: true,
                 restrict: 'E',
                 scope: {
-                    options: '=',
+                    options: '=', 
                     onNext: '&',
                     onPrev: '&',
                     onSubmit: '&',
@@ -158,13 +158,22 @@ angular.module('culwebApp')
                         var verifiedMethod = $scope.onValid(),
                             currentStep = viewport.find('.step-' + currentIndex.toString()),
                             currentTitle = $(wizardSteps.get(currentIndex - 1)),
-                            verified = verifiedMethod && verifiedMethod(currentIndex, currentStep, currentTitle);
-                        if (verified !== false) {
-                            eventMethod && eventMethod();
-                            callback && callback();
-                        } else {
-                            console.info('step' + currentIndex + '自定义验证没有通过。');
-                        };
+                            verified;
+                            verifiedMethod(currentIndex, currentStep, function(err,result){
+                                if(err){
+                                    console.info('step' + currentIndex + '自定义验证没有通过。');
+                                }else{
+                                    eventMethod && eventMethod();
+                                    callback && callback();
+                                }
+                            });
+                            // verified = verifiedMethod && verifiedMethod(currentIndex, currentStep, currentTitle);
+                        // if (verified !== false) {
+                        //     eventMethod && eventMethod();
+                        //     callback && callback();
+                        // } else {
+                        //     console.info('step' + currentIndex + '自定义验证没有通过。');
+                        // };
                     }
 
 
