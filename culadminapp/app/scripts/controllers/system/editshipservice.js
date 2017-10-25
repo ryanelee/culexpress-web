@@ -168,7 +168,7 @@ angular.module('culAdminApp')
                     RMBExchangeRate: "7.00",
                     split_roundup: "0.10",
                     merge_roundup: "0.10",
-                    include_tax: "0",
+                    taxIncluded: "0",
                     shipFeeList: [],
                     categoryList: [],
                     warehouseList: [],
@@ -233,12 +233,6 @@ angular.module('culAdminApp')
                 if (!$scope.form.shipServiceName) {
                     plugMessenger.info("请输入服务名称!");
                     return false;
-                }
-                if ($scope.form.include_tax == "0") {
-                    if (!$scope.form.surcharge_overBaseRate) {
-                        plugMessenger.info("请输入清关费率!");
-                        return false;
-                    }
                 }
                 if (!$scope.form.serviceSummary) {
                     plugMessenger.info("请输入服务简介!");
