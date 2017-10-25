@@ -401,7 +401,6 @@ var app = angular
                 }
                 return packageArr;
             }
-
             var getOrders = function () {
                 //if ($scope.orderItems.length > 0) return $scope.orderItems;
                 var orders = [];
@@ -420,7 +419,9 @@ var app = angular
                                 orderItem.goodsCategory = orderItem.goodsCategory.goodsCategory;
                             }
                             orderItem.itemCategory = $scope.outboundPackages[i].goodsCategory;
+                            orderItem.currentCategory = $scope.outboundPackages[i].currentCategory;
                             orderItem.shipServiceId = data.shipServiceItem.shipServiceId;
+                            orderItem.packageIndex = i
                             orders.push(orderItem);
                         }
                     }
@@ -708,8 +709,8 @@ var app = angular
 
                     //selectedCategory(outboundPackageItem,'currentCategory',null);
                     var orderItems = getOrders();
-                    orderSvr.cacluTariff(orderItems).then(function(data){
-                        console.log("data",data)
+                    orderSvr.cacluTariff(orderItems).then(function (data) {
+                        console.log("data", data)
                     })
                     console.log("orderItems-->", orderItems);
                     // console.log("outboundPackageItem.currentCategory",$scope.outboundPackageItem.currentCategory)
@@ -776,43 +777,6 @@ var app = angular
                             return false;
                         }
                     }
-
-
-                    // if ($scope.data.shipServiceItem.shipServiceName == "E") {
-
-                    //     if ($scope.calculateCategory.mainName.indexOf("手表") >= 0) {
-                    //         if ($scope.allQuantity > 1) {
-                    //             alertify.alert('提示', '一个包裹只能含有一块手表');
-                    //             return false;
-                    //         }
-                    //         if ($scope.sumMoney <= 300) {
-                    //             $scope.data.addMoneyFromChannel = 50;
-                    //         } else {
-                    //             alertify.alert('提示', '货物价值超过$300,该渠道不支持，请走USPS');
-                    //             return false;
-                    //         }
-                    //     }
-                    //     if ($scope.calculateCategory.name == "吸尘器" ||
-                    //         $scope.calculateCategory.name == "扫地机器人" ||
-                    //         $scope.calculateCategory.name == "空气净化机") {
-                    //         if ($scope.sumMoney > 500) {
-                    //             alert("吸尘器，扫地机器人，空气净化机最高货值500");
-                    //             return false;
-                    //         }
-                    //         $scope.data.addMoneyFromChannel = 150;
-                    //     }
-
-                    //     if ($scope.calculateCategory.name == "电子游戏机" ||
-                    //         $scope.calculateCategory.name == "网卡" ||
-                    //         $scope.calculateCategory.name == "CPU",
-                    //         $scope.calculateCategory.name == "3D眼镜") {
-                    //         $scope.data.addMoneyFromChannel = 100;
-                    //     }
-
-                    // }
-
-
-
 
                     var packageItems = getOutboundPackage('CUL');
                     console.log("packageItems", packageItems)
@@ -905,15 +869,23 @@ var app = angular
                             return false;
                         }
                     }
+                    orderSvr.cacluTariff(orderItems).then(function (tariff) {
+                        console.log("tariff", tariff)
+                        tariff = tariff.data
+                        if (tariff.code == "999") {
+                            alertify.alert('提示', tariff.msg);
+                            return false;
+                        } else {
+                            alert("2345623456789")
+                            // $timeout(function () {
+                                // alert("111")
+                                $scope.calculateFee();
+                            // })
 
-                    //if (getShippingAddressNumber().length <= 0) {
-                    //    SweetAlert.swal('提示', '必须选择至少一个收货地址!', 'warning');
-                    //    return false;
-                    //}
+                        }
 
-                    $timeout(function () {
-                        $scope.calculateFee();
                     })
+
                 }
             }
 
@@ -922,6 +894,7 @@ var app = angular
             $scope.countFee = {};
 
             $scope.calculateFee = function (category, ctrlType) {
+                console.log("12345678")
                 var pointTotal = $scope.currentUser.myPoint;
                 if ($scope.data.usePoint > pointTotal) {
                     $scope.data.usePoint = pointTotal;
