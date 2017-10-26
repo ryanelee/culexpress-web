@@ -85,7 +85,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">服务简介：<small style="color:red">*</small></label>
                 <div class="col-sm-10 text-left">
-                    <input id="serviceSummary" type="text" class="form-control" placeholder="服务简介" ng-model="form.serviceSummary" ng-disabled="flag == 'detail'">
+                    <textarea id="serviceSummary" type="text" rows="5" class="form-control" placeholder="需要包含html标签" ng-model="form.serviceSummary" ng-disabled="flag == 'detail'"></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -267,7 +267,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">详细信息：</label>
                 <div class="col-sm-10 text-left">
-                    <input id="serviceDetail" type="text" class="form-control"  ng-model="form.serviceDetail" ng-disabled="flag == 'detail'">
+                    <textarea id="serviceDetail" type="text" rows="3" class="form-control"  ng-model="form.serviceDetail" ng-disabled="flag == 'detail'"></textarea>
                 </div>
             </div>
             
