@@ -404,6 +404,7 @@ var app = angular
             var getOrders = function () {
                 //if ($scope.orderItems.length > 0) return $scope.orderItems;
                 var orders = [];
+              $scope.packageWeight  =  getWeight();
                 console.log("data.shipServiceItem", data.shipServiceItem)
                 $scope.data.declareGoodsValue = 0;
                 if ($scope.outboundPackages && $scope.outboundPackages.length) {
@@ -422,11 +423,22 @@ var app = angular
                             orderItem.currentCategory = $scope.outboundPackages[i].currentCategory;
                             orderItem.shipServiceId = data.shipServiceItem.shipServiceId;
                             orderItem.packageIndex = i
+                            orderItem.packageWeight = $scope.packageWeight
+                            
                             orders.push(orderItem);
                         }
                     }
                 }
                 return orders;
+            }
+
+            var getWeight = function(){
+                var packageWeight = 0,
+                outboundItems = $scope.shippingItems;
+                for (var i = 0, ii = outboundItems.length; i < ii; i++) {
+                    packageWeight += (outboundItems[i].packageWeight * 1);
+                }
+                return packageWeight;
             }
 
             var getGoodsCategory = function () {
@@ -586,6 +598,8 @@ var app = angular
                 $scope.data.cartonCount = data.shippingPackageCount;
                 $scope.data.message = data.priceAdjustMemo;
                 $scope.data.shipServiceId = data.shipServiceItem.shipServiceId;
+                $scope.data.tariffMoney = $scope.countFee.tariffMoney
+                
                 preSubmitToService($scope.data);
             }
 
@@ -890,6 +904,9 @@ var app = angular
                 }
             }
 
+
+            
+
             console.log("323", $scope.data)
 
             $scope.countFee = {};
@@ -966,7 +983,6 @@ var app = angular
                         var ruleDetail = $.grep(calRule.detail, function (n) { return n.currency == "RMB" })[0];
 
                         calculData.packageWeight = getPackageWeight(shipService, result.roundup);
-
                         calculData.shippingFee += getShippingFee(calculData.packageWeight, ruleDetail.firstWeight, ruleDetail.continuedWeight, shipService);
 
                         setInsuranceFee(calculData, shipService);
