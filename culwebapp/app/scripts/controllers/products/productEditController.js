@@ -20,33 +20,35 @@ angular
                 submitText: '提交'
             }
 
-            $scope.wizardValid = function (index, step) {
+            $scope.wizardValid = function (index, step,callback) {
                 if (index == 1) {
                     if (!!$scope.current.isEdit) {
+                        callback(null,null)
                         return true;
                     }
                     if (!$scope.model.category) {
                         alertify.alert('提示', '请选择商品类别。', 'warning');
-                        return false;
+                       callback("err")
                     }
                     if (!$scope.model.subcategory) {
                         alertify.alert('提示', '请选择商品子类别。', 'warning');
-                        return false;
+                       callback("err")
                     }
                 }
                 if (index == 2) {
                     if (!$scope.model.brand) {
                         alertify.alert('提示', '商品品牌不能为空。', 'warning');
-                        return false;
+                       callback("err")
                     }
                     if (!$scope.model.upccode) {
                         alertify.alert('提示', 'UPC代码不能为空。', 'warning');
-                        return false;
+                       callback("err")
                     }
                     if (!$scope.model.description) {
                         alertify.alert('提示', '商品描述不能为空。', 'warning');
-                        return false;
+                       callback("err")
                     }
+                    callback(null,null)
                     $timeout(function () {
                         initSlider();
                         if (!!$scope.current.isEdit) {
