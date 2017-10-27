@@ -194,7 +194,9 @@ angular.module('culwebApp')
                     cartonCount: orderData.cartonCount || 0,
                     goodsCount: orderData.goodsCount,
                     isFastOrder: orderData.isFastOrder ? 1 : 0,
-                    packageWeight: orderData.packageWeight
+                    packageWeight: orderData.packageWeight,
+                    tariffMoney:orderData.tariffMoney ,
+                    
                 });
             },
             getOrderStepList: function (trackingNumber) {
