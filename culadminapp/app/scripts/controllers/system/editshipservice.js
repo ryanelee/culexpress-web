@@ -18,7 +18,7 @@ angular.module('culAdminApp')
             $scope.form = {};
 
             $scope.form = $location.search().item;
-
+            $scope.warehouseList = [];
             // 默认禁用
             $scope.setListDefault = function(list) {
                 list.forEach(function(item){
@@ -33,7 +33,12 @@ angular.module('culAdminApp')
             
             $scope.initList = function () {
                 warehouseService.getWarehouse(function (result) {
-                    $scope.warehouseList = result;
+                    let warehouse = {
+                        name: '发货仓库',
+                        children: []
+                    }
+                    warehouse.children = result;
+                    $scope.warehouseList.push(warehouse);
                     $scope.setListDefault($scope.warehouseList);
                     channelService.getAllChannelList(function (result) {
                         $scope.carrierList = result.data.data;
@@ -214,7 +219,6 @@ angular.module('culAdminApp')
                     $scope.form.requireEnglish4Name = valTrans($scope.form.requireEnglish4Name);
                     $scope.form.requireEnglish4Address = valTrans($scope.form.requireEnglish4Address);
 
-                    console.log($scope.form)
                     shipService.updateShipservice($scope.form, function(res) {
                         if (res.code == '000') {
                             plugMessenger.success("更新成功");
@@ -237,19 +241,19 @@ angular.module('culAdminApp')
                     return false;
                 }
                 if (!$scope.form.firstWeightRMB) {
-                    plugMessenger.info("请输入普通用户人名币首重费用!");
+                    plugMessenger.info("请输入普通用户人民币首重费用!");
                     return false;
                 }
                 if (!$scope.form.continuedWeightRMB) {
-                    plugMessenger.info("请输入普通用户人名币续重费用!");
+                    plugMessenger.info("请输入普通用户人民币续重费用!");
                     return false;
                 }
                 if (!$scope.form.firstWeightRMBVip) {
-                    plugMessenger.info("请输入VIP用户人名币首重费用!");
+                    plugMessenger.info("请输入VIP用户人民币首重费用!");
                     return false;
                 }
                 if (!$scope.form.continuedWeightRMBVip) {
-                    plugMessenger.info("请输入VIP用户人名币续重费用!");
+                    plugMessenger.info("请输入VIP用户人民币续重费用!");
                     return false;
                 }
                 if (!$scope.form.insuranceFeeRate) {
@@ -257,7 +261,7 @@ angular.module('culAdminApp')
                     return false;
                 }
                 if (!$scope.form.RMBExchangeRate) {
-                    plugMessenger.info("请输入人名币汇率!");
+                    plugMessenger.info("请输入人民币汇率!");
                     return false;
                 }
                 if (!$scope.form.estimatedTime1) {
@@ -314,15 +318,15 @@ angular.module('culAdminApp')
                 return;
 
                 if (currentFunc.itemStatus === "1")
-                    currentFunc.close = false;
-                else{
                     currentFunc.close = true;
+                else{
+                    currentFunc.close = false;
                 }
                 if(currentFunc.children && currentFunc.children.length > 0){
                     if (currentFunc.itemStatus == "1")
-                        currentFunc.close = false;
-                    else{
                         currentFunc.close = true;
+                    else{
+                        currentFunc.close = false;
                         currentFunc.children.forEach(function (item) {
                             item.itemStatus = "2";
                         })
