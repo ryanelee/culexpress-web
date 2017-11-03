@@ -18,7 +18,6 @@ angular.module('culAdminApp')
             $scope.form = {};
 
             $scope.form = $location.search().item;
-            console.log($scope.form)
 
             // 默认禁用
             $scope.setListDefault = function(list) {
@@ -131,7 +130,7 @@ angular.module('culAdminApp')
                         var shipFeeList = $scope.form.shipFeeList
                         shipFeeList.forEach(function(item){
                             // 普通客户
-                            if (item.isVip === 0) {
+                            if (item.isVip == 0) {
                                 $scope.form.firstWeightRMB = item.firstWeight
                                 $scope.form.continuedWeightRMB = item.continuedWeight
                             } else {
@@ -191,7 +190,6 @@ angular.module('culAdminApp')
                     $scope.form.needIDCard = valTrans($scope.form.needIDCard);
                     $scope.form.requireEnglish4Name = valTrans($scope.form.requireEnglish4Name);
                     $scope.form.requireEnglish4Address = valTrans($scope.form.requireEnglish4Address);
-                    console.log($scope.form)
                     shipService.createShipservice($scope.form, function(res) {
                         if (res.code == '000') {
                             plugMessenger.success("创建成功");
