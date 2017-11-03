@@ -60,7 +60,7 @@ angular.module('culAdminApp')
             $scope.getValidWarehouseList = function () {
                 if ($scope.form.warehouseList) {
                     $scope.form.warehouseList.forEach(function(item){
-                        $scope.warehouseList.forEach(function(item2){
+                        $scope.warehouseList[0].children.forEach(function(item2){
                             if (item2.warehouseNumber == item.warehouseNumber){
                                 item2.itemStatus = "1"
                             }
@@ -313,7 +313,7 @@ angular.module('culAdminApp')
             }
 
             //记录选项状态更改
-            $scope.enableSubFunc = function(currentFunc){
+            $scope.enableSubFunc = function(currentFunc, sign){
                 if (!currentFunc)
                 return;
 
@@ -323,9 +323,14 @@ angular.module('culAdminApp')
                     currentFunc.close = false;
                 }
                 if(currentFunc.children && currentFunc.children.length > 0){
-                    if (currentFunc.itemStatus == "1")
+                    if (currentFunc.itemStatus == "1") {
                         currentFunc.close = true;
-                    else{
+                        if (sign == "warehouseList") {
+                            currentFunc.children.forEach(function (item) {
+                                item.itemStatus = "1";
+                            })
+                        }
+                    } else{
                         currentFunc.close = false;
                         currentFunc.children.forEach(function (item) {
                             item.itemStatus = "2";
@@ -339,9 +344,9 @@ angular.module('culAdminApp')
                 $scope.form.warehouseList = [];
                 if (!$scope.warehouseList)
                     return false;
-                for (var i = 0; i < $scope.warehouseList.length; i++){
-                    if ($scope.warehouseList[i].itemStatus === "1") {
-                        $scope.form.warehouseList.push($scope.warehouseList[i])
+                for (var i = 0; i < $scope.warehouseList[0].children.length; i++){
+                    if ($scope.warehouseList[0].children[i].itemStatus === "1") {
+                        $scope.form.warehouseList.push($scope.warehouseList[0].children[i])
                     }      
                 }   
             }

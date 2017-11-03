@@ -34,11 +34,11 @@
                             {{row.name}} &nbsp;
                             </span> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.name}}" value="1" ng-model="row.itemStatus" ng-change="enableSubFunc(row);">
+                            <input type="radio" name="func{{row.name}}" value="1" ng-model="row.itemStatus" ng-change="enableSubFunc(row, 'warehouseList');">
                             启用
                             </label> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.name}}" value="2" ng-model="row.itemStatus" ng-change="enableSubFunc(row)">
+                            <input type="radio" name="func{{row.name}}" value="2" ng-model="row.itemStatus" ng-change="enableSubFunc(row, 'warehouseList')">
                             禁用
                             </label>
                         </p>
