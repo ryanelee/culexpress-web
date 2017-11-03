@@ -129,7 +129,7 @@ var app = angular
                                     var queried = $filter('filter')($scope.allShipChannels, function (channelItem) {
                                         return channelItem.shipServiceId === shipServiceList[j].shipServiceId;
                                     });
-                                    if (queried.length <= 0) {
+                                    if (queried.length <= 0 && shipServiceList[j].status === 1) {
                                         $scope.allShipChannels.push(shipServiceList[j]);
                                     }
                                 }
@@ -146,13 +146,15 @@ var app = angular
                             var queried = $filter('filter')($scope.allShipChannels, function (channelItem) {
                                 return channelItem.shipServiceId === shipServiceList[n].shipServiceId;
                             });
-                            if (queried.length <= 0) {
+                            if (queried.length <= 0 && shipServiceList[n].status === 1) {
                                 $scope.allShipChannels.push(shipServiceList[n]);
                             }
                         }
                     }
                 }
             }
+
+            console.log($scope.allShipChannels);
             if (!!$scope.$root.orderOptions.shipServiceItem) $scope.data.shipServiceItem = $scope.$root.orderOptions.shipServiceItem;
             if (!$scope.$root.orderOptions.shippingItems || $scope.$root.orderOptions.shippingItems.length <= 0) {
                 $scope.$root.orderOptions.shippingItems = $scope.shippingItems = orderSvr.selectedShippingItems || [];
