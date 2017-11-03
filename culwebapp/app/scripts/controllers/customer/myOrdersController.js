@@ -846,6 +846,17 @@ var app = angular
                            return callback("err")
                         }
 
+                        if (addressItem != undefined &&
+                            $scope.data.shipServiceItem != undefined &&
+                            $scope.data.shipServiceItem.requireEnglish4Address !== 1 &&
+                            /^[u4E00-u9FA5]+$/.test(addressItem.address1 + addressItem.zipcode)) {
+                            alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' ' +
+                                addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
+                                '</small>]中包括非中文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                '</small>]要求收货人地址必须为中文,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
+                           return callback("err")
+                        }
+
                         //商品主类别渠道限制规则
 
                         var currentMainCategory = $filter('filter')($scope.categories, function (categoryItem) { return categoryItem.parentid === $scope.calculateCategory });
