@@ -8,6 +8,7 @@ angular.module('culwebApp')
                 'AngularJS',
                 'Karma'
             ];
+            console.log("hello")
             $scope.imageArr = [];
             $scope.images;
 
@@ -70,6 +71,7 @@ angular.module('culwebApp')
                     .getOrderInfo(orderId)
                     .then(function (result) {
                         $scope.data = result.data;
+                        console.log(JSON.stringify(result.data));
                         console.log(result.data);
                         if ($scope.data.actualWeight == 0
                             && $scope.data.inboundPackages && $scope.data.inboundPackages.length > 0) {

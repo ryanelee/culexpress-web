@@ -254,6 +254,7 @@
                             <thead>
                                 <tr>
                                     <th width="50px">序号</th>
+                                    <th>CUL包裹单号</th>
                                     <th>品牌</th>
                                     <th>商品描述</th>
                                     <th>数量</th>
@@ -268,7 +269,8 @@
                             </thead>
                             <tbody class="form-edit">
                                 <tr ng-repeat="item in data.orderItems">
-                                    <td>{{$index+1}}</td>
+                                        <td>{{$index+1}}</td>
+                                        <td>{{item.trackingNumber}}</td>
                                     <td>
                                         <span ng-show="!_editOrderItems">{{item.itemBrand}}</span>
                                         <input type="text" class="form-control " ng-model="item.itemBrand" ng-show="!!_editOrderItems" />

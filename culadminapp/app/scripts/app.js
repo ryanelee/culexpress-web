@@ -161,6 +161,10 @@ angular
                 templateUrl: 'views/warehouse/inventoryadjust.html',
                 controller: 'WarehouseInventoryAdjustCtrl'
             })
+            .when('/warehouse/inventoryadjustweight', {
+                templateUrl: 'views/warehouse/inventoryadjustweight.html',
+                controller: 'WarehouseInventoryAdjustWeightCtrl'
+            })
             .when('/warehouse/inventorydetail', {
                 templateUrl: 'views/warehouse/inventorydetail.html',
                 controller: 'WarehouseInventoryDetailCtrl'
