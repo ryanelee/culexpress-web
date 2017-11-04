@@ -9,7 +9,7 @@
  */
 angular.module('culAdminApp')
     .controller('OrderDetailCtrl', ["$scope", "$location", "$window", "orderService", "addressService", "customerMessageService", "plugMessenger",
-        function($scope, $location, $window, orderService, addressService, customerMessageService, plugMessenger) {
+        function ($scope, $location, $window, orderService, addressService, customerMessageService, plugMessenger) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -20,11 +20,11 @@ angular.module('culAdminApp')
             $scope.provinces = [];
             $scope.citys = [];
             $scope.areas = [];
-            $scope.getProvince = function(province, city, area, address) {
-                addressService.getDistrict($scope.search).then(function(data) {
+            $scope.getProvince = function (province, city, area, address) {
+                addressService.getDistrict($scope.search).then(function (data) {
                     $scope.provinces = data.data.data;
                     if (province) {
-                        $scope.provinces.forEach(function(e) {
+                        $scope.provinces.forEach(function (e) {
                             if (province.indexOf(e.name) >= 0) {
                                 address.province = e;
                                 $scope.search.province = e
@@ -38,16 +38,16 @@ angular.module('culAdminApp')
             }
             $scope.getProvince();
 
-            $scope.getCity = function(city, area, address) {
+            $scope.getCity = function (city, area, address) {
                 // if (address || address.province || address.province.id)
                 //     return;
                 address.area = "";
                 address.city = "";
                 $scope.search.parentid = address.province.id;
-                addressService.getDistrict($scope.search).then(function(data) {
+                addressService.getDistrict($scope.search).then(function (data) {
                     $scope.citys = data.data.data;
                     if (city) {
-                        $scope.citys.forEach(function(e) {
+                        $scope.citys.forEach(function (e) {
                             if (city.indexOf(e.name) >= 0) {
                                 address.city = e;
                                 $scope.search.city = e
@@ -60,14 +60,14 @@ angular.module('culAdminApp')
 
                 })
             }
-            $scope.getArea = function(area, address) {
+            $scope.getArea = function (area, address) {
                 // if (address || address.city || address.city.id)
                 //     return;
                 $scope.search.parentid = address.city.id;
-                addressService.getDistrict($scope.search).then(function(data) {
+                addressService.getDistrict($scope.search).then(function (data) {
                     $scope.areas = data.data.data;
                     if (area) {
-                        $scope.areas.forEach(function(e) {
+                        $scope.areas.forEach(function (e) {
                             if (area.indexOf(e.name) >= 0) {
                                 address.area = e;
                                 $scope.search.area = e
@@ -86,29 +86,40 @@ angular.module('culAdminApp')
             $scope.isPrintDetail = !!$location.search().print;
 
             $scope.isShow = false;
-            orderService.getDetail($location.search().orderNumber, function(result) {
+            orderService.getDetail($location.search().orderNumber, function (result) {
                 // console.log(result)
                 $scope.data = result;
                 $scope.result = result;
                 if ($scope.data.shipToAddresses && $scope.data.shipToAddresses[0]) {
-                    $scope.data.shipToAddresses.forEach(function(e) {
+                    $scope.data.shipToAddresses.forEach(function (e) {
                         var province = e.stateOrProvince;
                         var city = e.city;
                         var area = e.area;
                         $scope.getProvince(province, city, area, e);
                     })
                 }
- 
-                console.log(result)
+                // $scope.result = result;
+                if (result.outboundPackages && result.outboundPackages[0] && result.orderItems instanceof Array) {
+                    result.outboundPackages.forEach(function (outboundPackage) {
+                        outboundPackage.items.forEach(function (item) {
+                            result.orderItems.forEach(function (item2) {
+                                if (item.transactionNumber == item2.transactionNumber) {
+                                    item2.trackingNumber = outboundPackage.trackingNumber;
+                                }
+                            })
+                        })
+                    })
+                }
+                console.log("123", result)
                 // if (result._printStatus == "未打印") {
                 //     $scope.isShow = true;
                 // };
                 if (result.printStatus != "Printed" && result.orderStatus != "WaybillUpdated" && result.orderStatus != "Shipped") {
                     $scope.isShow = true;
                 };
-                $.each($scope.data.shipToAddresses, function(i, address) {
+                $.each($scope.data.shipToAddresses, function (i, address) {
                     address._trackingNumbers = [];
-                    $.each($scope.data.outboundPackages, function(i, outboundPackage) {
+                    $.each($scope.data.outboundPackages, function (i, outboundPackage) {
                         if (outboundPackage.address.transactionNumber == address.transactionNumber) {
                             address._trackingNumbers.push(outboundPackage.trackingNumber);
                         }
@@ -116,7 +127,7 @@ angular.module('culAdminApp')
                 });
 
                 $scope.data._shippingFeeTotal = 0;
-                $.each($scope.data.outboundPackages, function(i, outboundPackage) {
+                $.each($scope.data.outboundPackages, function (i, outboundPackage) {
                     $scope.data._shippingFeeTotal += outboundPackage.shippingFee;
                 });
                 $scope.data._shippingFeeTotal = $scope.data._shippingFeeTotal.toFixed(2);
@@ -124,37 +135,37 @@ angular.module('culAdminApp')
                 $scope.refreshMessage();
             });
 
-            $scope.refreshMessage = function() {
-                customerMessageService.getDetail($scope.data.orderMessageNumber, function(result) {
+            $scope.refreshMessage = function () {
+                customerMessageService.getDetail($scope.data.orderMessageNumber, function (result) {
                     $scope.data.messageLogs = [];
                     if (!!result) {
                         $scope.data.messageLogs = result.data.messageLogs;
-                        if($scope.data.messageLogs) {
+                        if ($scope.data.messageLogs) {
                             $scope.data.messageLogs.forEach(function (e) {
-                            if (e.images && e.images.indexOf(",") >= 0) {
-                                e.images = e.images.split(',');
-                            } else {
-                                e.images = [e.images];
-                            }
-                        })
-                        }                      
+                                if (e.images && e.images.indexOf(",") >= 0) {
+                                    e.images = e.images.split(',');
+                                } else {
+                                    e.images = [e.images];
+                                }
+                            })
+                        }
                     }
                     _buildUpload($('#uploadImg'), "_images");
                 });
             }
 
-            $scope.btnEditOrderItems = function() {
+            $scope.btnEditOrderItems = function () {
                 $scope._editOrderItemsData = JSON.parse(JSON.stringify($scope.data.orderItems));
                 $scope._editOrderItems = true;
             }
 
             $scope.cloneAddress = null;
-            $scope.btnEditOrderAddress = function(address) {
+            $scope.btnEditOrderAddress = function (address) {
                 $scope.cloneAddress = angular.copy(address);
 
                 address._edit = true;
             }
-            $scope.btnSaveAddress = function(address) {
+            $scope.btnSaveAddress = function (address) {
                 if (!!address.receivePersonName &&
                     !!address.cellphoneNumber &&
                     !!address.address1_before &&
@@ -175,12 +186,12 @@ angular.module('culAdminApp')
                     address.address1 = address.address1_before
                     address.transactionNumber = address.addressNumber;
                     // return;
-                    addressService.update(address, function(result) {
+                    addressService.update(address, function (result) {
                         if (result.success == true) {
                             address._edit = false;
                             $scope.cloneAddress = null;
                             plugMessenger.success("收货地址保存成功。");
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 $window.location.reload();
                             }, 300)
                         }
@@ -189,7 +200,7 @@ angular.module('culAdminApp')
                     plugMessenger.info("收货地址没有填写全，不能提交更改。");
                 }
             }
-            $scope.btnCancelAddress = function(address) {
+            $scope.btnCancelAddress = function (address) {
                 for (var key in $scope.cloneAddress) {
                     if (key != "$$hashKey") address[key] = $scope.cloneAddress[key];
                 }
@@ -197,7 +208,7 @@ angular.module('culAdminApp')
                 $scope.cloneAddress = null;
             }
 
-            $scope.btnOrderItems_Oper = function(type, index) {
+            $scope.btnOrderItems_Oper = function (type, index) {
                 switch (type) {
                     case "add":
                         $scope.data.orderItems.push({
@@ -209,10 +220,10 @@ angular.module('culAdminApp')
                         break;
                     case "del":
                         $scope.data.orderItems[index] = null;
-                        $scope.data.orderItems = $.grep($scope.data.orderItems, function(n) { return !!n });
+                        $scope.data.orderItems = $.grep($scope.data.orderItems, function (n) { return !!n });
                         break;
                     case "repeat":
-                        var _repeatData = $.grep($scope._editOrderItemsData, function(n) { return n.transactionNumber == $scope.data.orderItems[index].transactionNumber });
+                        var _repeatData = $.grep($scope._editOrderItemsData, function (n) { return n.transactionNumber == $scope.data.orderItems[index].transactionNumber });
                         if (_repeatData.length > 0) _repeatData = _repeatData[0];
                         for (var key in $scope.data.orderItems[index]) {
                             if (key != "$$hashKey") {
@@ -227,22 +238,22 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnMessagePush = function() {
+            $scope.btnMessagePush = function () {
                 if (!!$scope._message) {
                     customerMessageService.push({
                         "messageNumber": $scope.data.orderMessageNumber,
                         "message": $scope._message,
                         "images": $scope.data._images
-                    }, function(result) {
+                    }, function (result) {
                         $scope.refreshMessage();
                         $scope._message = "";
                         $scope.data._images = "";
-                        $("#uploadImg_show").attr('src',''); 
+                        $("#uploadImg_show").attr('src', '');
                     });
                 }
             }
 
-            $scope.btnSave = function() {
+            $scope.btnSave = function () {
                 var data = $scope.data;
                 orderService.update({
                     "orderNumber": data.orderNumber,
@@ -252,7 +263,7 @@ angular.module('culAdminApp')
                     "paied": data.paied,
                     "priceAdjustMemo": data.priceAdjustMemo,
                     "orderItems": data.orderItems
-                }, function(result) {
+                }, function (result) {
                     if (!result.message) {
                         plugMessenger.success("保存成功");
                         // $scope.btnPrev();
@@ -261,10 +272,10 @@ angular.module('culAdminApp')
                 });
             }
 
-            $scope.btnPrev = function() {
-                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+            $scope.btnPrev = function () {
+                $window.sessionStorage.setItem("historyFlag", 1); $window.history.back();
             }
-           //----------upload file START----------
+            //----------upload file START----------
             var _buildUpload = function ($el, key) {
                 var _$panel = $el.parents(".fileupload-buttonbar:first");
                 $el.fileupload({
