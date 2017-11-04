@@ -30,18 +30,36 @@
                         <li ng-repeat="row in warehouseList">
                         <p>
                             <span ng-click="row.close = !row.close">
-                            <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !row.close, 'glyphicon-chevron-down': row.close}"></i>
-                            {{row.warehouseName}} &nbsp;
+                            <i class="glyphicon" ng-class="{'glyphicon-chevron-down': !row.close, 'glyphicon-chevron-up': row.close}"></i>
+                            {{row.name}} &nbsp;
                             </span> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.warehouseName}}" value="1" ng-model="row.itemStatus" ng-change="enableSubFunc(row);">
+                            <input type="radio" name="func{{row.name}}" value="1" ng-model="row.itemStatus" ng-change="enableSubFunc(row, 'warehouseList');">
                             启用
                             </label> &nbsp;
                             <label>
-                            <input type="radio" name="func{{row.warehouseName}}" value="2" ng-model="row.itemStatus" ng-change="enableSubFunc(row)">
+                            <input type="radio" name="func{{row.name}}" value="2" ng-model="row.itemStatus" ng-change="enableSubFunc(row, 'warehouseList')">
                             禁用
                             </label>
                         </p>
+                        <ul ng-show="row.close">
+                            <li ng-repeat="child in row.children">
+                                <p>
+                                    <span ng-click="child.close = !child.close">
+                                    <i class="glyphicon" ng-class="{'glyphicon-chevron-down': !child.close, 'glyphicon-chevron-up': child.close}"></i>
+                                    {{child.warehouseName}} &nbsp;
+                                </span> &nbsp;
+                                    <label>
+                                    <input type="radio" name="func{{child.warehouseName}}" value="1" ng-model="child.itemStatus" ng-disabled="row.status == 2" ng-change="enableSubFunc(child)">
+                                    启用
+                                </label> &nbsp;
+                                    <label>
+                                    <input type="radio" name="func{{child.warehouseName}}" value="2" ng-model="child.itemStatus" ng-disabled="row.status == 2" ng-change="enableSubFunc(child)">
+                                    禁用
+                                </label>
+                                </p>
+                            </li>
+                        </ul>
                         </li>
                     </ul>
                 </div>
@@ -93,7 +111,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">普通客户   </label>
-                <label class="col-sm-1 control-label text-right">人名币</label>
+                <label class="col-sm-1 control-label text-right">人民币</label>
                 <label class="col-sm-1 control-label text-right">首重：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
                     <input id="firstWeightRMB" type="number"  class="form-control"  ng-model="form.firstWeightRMB" ng-disabled="flag == 'detail'">
@@ -106,7 +124,7 @@
 
             <div class="form-group">
                 <label class="col-sm-2 control-label text-right">VIP客户</label>
-                <label class="col-sm-1 control-label text-right">人名币</label>
+                <label class="col-sm-1 control-label text-right">人民币</label>
                 <label class="col-sm-1 control-label text-right">首重：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
                     <input id="firstWeightRMBVip" type="number"  class="form-control"  ng-model="form.firstWeightRMBVip" ng-disabled="flag == 'detail'">
@@ -153,7 +171,7 @@
                 <div class="col-sm-2 text-left">
                     <input id="insuranceFeeRate" type="text" class="form-control"  ng-model="form.insuranceFeeRate" ng-disabled="flag == 'detail'">
                 </div>
-                <label class="col-sm-2 control-label text-right">人名币汇率：<small style="color:red">*</small></label>
+                <label class="col-sm-2 control-label text-right">人民币汇率：<small style="color:red">*</small></label>
                 <div class="col-sm-2 text-left">
                     <input id="RMBExchangeRate" type="text" class="form-control"  ng-model="form.RMBExchangeRate" ng-disabled="flag == 'detail'">
                 </div>
@@ -212,7 +230,7 @@
                         <li ng-repeat="row in goodCategoryList">
                         <p>
                             <span ng-click="row.close = !row.close">
-                            <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !row.close, 'glyphicon-chevron-down': row.close}"></i>
+                            <i class="glyphicon" ng-class="{'glyphicon-chevron-down': !row.close, 'glyphicon-chevron-up': row.close}"></i>
                             {{row.name}} &nbsp;
                             </span> &nbsp;
                             <label>
@@ -224,11 +242,11 @@
                             禁用
                             </label>
                         </p>
-                        <ul ng-show="!row.close">
+                        <ul ng-show="row.close">
                             <li ng-repeat="child in row.children">
                                 <p>
                                 <span ng-click="child.close = !child.close">
-                                    <i class="glyphicon" ng-class="{'glyphicon-chevron-up': !child.close, 'glyphicon-chevron-down': child.close}"></i>
+                                    <i class="glyphicon" ng-class="{'glyphicon-chevron-down': !child.close, 'glyphicon-chevron-up': child.close}"></i>
                                     {{child.name}} &nbsp;
                                 </span> &nbsp;
                                 <label>

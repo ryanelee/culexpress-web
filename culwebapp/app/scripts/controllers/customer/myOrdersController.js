@@ -129,7 +129,7 @@ var app = angular
                                     var queried = $filter('filter')($scope.allShipChannels, function (channelItem) {
                                         return channelItem.shipServiceId === shipServiceList[j].shipServiceId;
                                     });
-                                    if (queried.length <= 0) {
+                                    if (queried.length <= 0 && shipServiceList[j].status === 1) {
                                         $scope.allShipChannels.push(shipServiceList[j]);
                                     }
                                 }
@@ -146,13 +146,15 @@ var app = angular
                             var queried = $filter('filter')($scope.allShipChannels, function (channelItem) {
                                 return channelItem.shipServiceId === shipServiceList[n].shipServiceId;
                             });
-                            if (queried.length <= 0) {
+                            if (queried.length <= 0 && shipServiceList[n].status === 1) {
                                 $scope.allShipChannels.push(shipServiceList[n]);
                             }
                         }
                     }
                 }
             }
+
+            console.log($scope.allShipChannels);
             if (!!$scope.$root.orderOptions.shipServiceItem) $scope.data.shipServiceItem = $scope.$root.orderOptions.shipServiceItem;
             if (!$scope.$root.orderOptions.shippingItems || $scope.$root.orderOptions.shippingItems.length <= 0) {
                 $scope.$root.orderOptions.shippingItems = $scope.shippingItems = orderSvr.selectedShippingItems || [];
@@ -784,7 +786,7 @@ var app = angular
                         }
 
                         if ($scope.data.shipServiceItem != undefined &&
-                            $scope.data.shipServiceItem.requireEnglish4Name !== 1 &&
+                            $scope.data.shipServiceItem.requireEnglish4Name != 1 &&
                             /^[u4E00-u9FA5]+$/.test(orderItem.description)) {
                             alertify.alert('提示', '商品描述:[<small style="color:red">' + orderItem.description +
                                 '</small>]中包括非中文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
@@ -794,7 +796,6 @@ var app = angular
                     }
 
                     var packageItems = getOutboundPackage('CUL');
-                    console.log("packageItems", packageItems)
                     for (var j = 0, jj = packageItems.length; j < jj; j++) {
                         var packageItem = packageItems[j];
                         if (!packageItem.addressNumber) {
@@ -834,7 +835,7 @@ var app = angular
                                 '</small>]要求收货人姓名必须为英文或者拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
                            return callback("err")
                         }
-
+                         
                         if (addressItem != undefined &&
                             $scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.requireEnglish4Address === 1 &&
@@ -846,8 +847,18 @@ var app = angular
                            return callback("err")
                         }
 
-                        //商品主类别渠道限制规则
+                        if (addressItem != undefined &&
+                            $scope.data.shipServiceItem != undefined &&
+                            $scope.data.shipServiceItem.requireEnglish4Address != 1 &&
+                            /^[^\u4e00-\u9fa5]+$/i.test(addressItem.address1 + addressItem.zipcode)) {
+                            alertify.alert('提示', '收货地址:[<small style="color:red">' + addressItem.stateOrProvince + ' ' +
+                                addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
+                                '</small>]中包括非中文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
+                                '</small>]要求收货人地址必须为中文,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
+                           return callback("err")
+                        }
 
+                        //商品主类别渠道限制规则
                         var currentMainCategory = $filter('filter')($scope.categories, function (categoryItem) { return categoryItem.parentid === $scope.calculateCategory });
                         console.log(orderItem);
                         /******************** */
@@ -905,14 +916,9 @@ var app = angular
             }
 
 
-            
-
-            console.log("323", $scope.data)
-
             $scope.countFee = {};
 
             $scope.calculateFee = function (category, ctrlType) {
-                console.log("12345678")
                 var pointTotal = $scope.currentUser.myPoint;
                 if ($scope.data.usePoint > pointTotal) {
                     $scope.data.usePoint = pointTotal;
