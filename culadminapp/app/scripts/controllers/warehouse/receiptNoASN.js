@@ -388,9 +388,9 @@ angular.module('culAdminApp')
                         $scope.data.warehouseNumber = $scope.pkgWarehouseNumber;
                     } 
                 } else {
-                    // 订单提交后只有急速并且上架之前（Intransit：在途；Inbound：入库）的可以修改仓库
+                    // 订单提交后只有急速并且上架之前（Intransit：在途；Inbound：入库，上架：InOrder）的可以修改仓库
                     if ($scope.data.isFastShip === 1){
-                        if ($scope.data.status === "Intransit" || $scope.data.status === "Inbound") {
+                        if ($scope.data.status === "Intransit" || $scope.data.status === "Inbound" || $scope.data.status === "InOrder") {
                             warehouseService.updateWareInboundpackage($scope.data, function (result) {
                                 if (result.code == '000') {
                                     plugMessenger.success("更新成功");
@@ -402,7 +402,7 @@ angular.module('culAdminApp')
                                 }
                             });
                         } else {
-                            plugMessenger.error("该包裹已经完成上架，无法更改仓库");
+                            plugMessenger.error("该包裹已经完成上架, 且非极速订单，无法更改仓库");
                             $scope.data.warehouseNumber = $scope.pkgWarehouseNumber;
                         }
                     } else {
