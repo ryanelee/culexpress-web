@@ -49,6 +49,18 @@ angular.module('culAdminApp')
                 callback(result);
             });
         }
+        self.updateInboundPackage = function (model, callback) {
+            $http.put(cul.apiPath + "/inboundpackage", model).success(function (result) {
+                callback(result);
+            });
+        }
+        self.updateInboundpackageWeight = function (model, callback) {
+            $http.post(cul.apiPath + "/updateInboundpackageWeight", model).success(function (result) {
+                callback(result);
+            });
+        }
+        
+        
 
         self.deleteInboundPackageDetail = function (id, callback) {
             $http.delete(cul.apiPath + "/inboundPackage?number=" + id).success(function (result) {
