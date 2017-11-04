@@ -63,6 +63,8 @@ angular.module('culAdminApp')
                         $scope.warehouseList[0].children.forEach(function(item2){
                             if (item2.warehouseNumber == item.warehouseNumber){
                                 item2.itemStatus = "1"
+                                $scope.warehouseList[0].itemStatus = "1"
+                                $scope.warehouseList[0].close = true;
                             }
                         })
                     })
