@@ -78,10 +78,6 @@ var app = angular
 
             $scope.selectedChannel = function () {
 
-                console.log("发货渠道", $scope.data.shipServiceItem);
-
-
-
                 $scope.$root.orderOptions.shipServiceItem = $scope.data.shipServiceItem;
                 if (!!$scope.data.shipServiceItem) {
                     //var categoryItem = $filter('filter')($scope.warehouses, function (item) { return item.warehouseNumber === getWorkhouseNumber(); });
@@ -154,7 +150,6 @@ var app = angular
                 }
             }
 
-            console.log($scope.allShipChannels);
             if (!!$scope.$root.orderOptions.shipServiceItem) $scope.data.shipServiceItem = $scope.$root.orderOptions.shipServiceItem;
             if (!$scope.$root.orderOptions.shippingItems || $scope.$root.orderOptions.shippingItems.length <= 0) {
                 $scope.$root.orderOptions.shippingItems = $scope.shippingItems = orderSvr.selectedShippingItems || [];
@@ -407,7 +402,6 @@ var app = angular
                 //if ($scope.orderItems.length > 0) return $scope.orderItems;
                 var orders = [];
               $scope.packageWeight  =  getWeight();
-                console.log("data.shipServiceItem", data.shipServiceItem)
                 $scope.data.declareGoodsValue = 0;
                 if ($scope.outboundPackages && $scope.outboundPackages.length) {
                     for (var i = 0, ii = $scope.outboundPackages.length; i < ii; i++) {
@@ -489,7 +483,6 @@ var app = angular
                 } else {
                     $scope.calculateCategory.name = val
                 }
-                console.log($scope.calculateCategory);
             }
 
             $scope.removePackage = function (packageItem) {
@@ -698,7 +691,6 @@ var app = angular
                 submitText: '提交'
             }
             $scope.wizardValid = function (index, step, callback) {
-                console.log("step", step)
                 if (!!$scope.showWeight) {
                     if (!$scope.data.packageWeight) {
                         alertify.alert('提示', '请输入包裹重量!');
@@ -720,20 +712,12 @@ var app = angular
 
                 if (index === 2) {
 
-                    console.log("shipServiceItem-->", $scope.data.shipServiceItem)
-                    console.log("-->", $scope.data)
-
-
                     //selectedCategory(outboundPackageItem,'currentCategory',null);
                     var orderItems = getOrders();
                     orderSvr.cacluTariff(orderItems).then(function (data) {
                         console.log("data", data)
                     })
-                    console.log("orderItems-->", orderItems);
-                    // console.log("outboundPackageItem.currentCategory",$scope.outboundPackageItem.currentCategory)
                     $scope.data.addMoneyFromChannel = 0
-
-
 
                     $scope.sumMoney = 0;
                     $scope.allQuantity = 0
@@ -860,7 +844,6 @@ var app = angular
 
                         //商品主类别渠道限制规则
                         var currentMainCategory = $filter('filter')($scope.categories, function (categoryItem) { return categoryItem.parentid === $scope.calculateCategory });
-                        console.log(orderItem);
                         /******************** */
                         //1 - quantityLimit
                         if (currentMainCategory != undefined &&
@@ -896,7 +879,6 @@ var app = angular
                         }
                     }
                     orderSvr.cacluTariff(orderItems).then(function (tariff) {
-                        console.log("tariff", tariff)
                         tariff = tariff.data
                         if (tariff.code == "999") {
                             alertify.alert('提示', tariff.msg);
@@ -914,7 +896,6 @@ var app = angular
                     return callback(null, null)
                 }
             }
-
 
             $scope.countFee = {};
 
@@ -942,6 +923,7 @@ var app = angular
                         }
                     }
                     var carton = getPackageFirstWeight(shipService);
+
                     packageWeight += (carton - 1) * shipService.incr_weight_per_split;
                     if (parseFloat((packageWeight - parseInt(packageWeight)).toFixed(2)) >= roundup)
                         packageWeight = Math.ceil(packageWeight);
@@ -1036,9 +1018,6 @@ var app = angular
             $scope.wizardSubmit = function () {
                 $scope.submitOrder();
             }
-            console.log('$scope.data', $scope.data);
-            console.log('data', data);
-
         }
     ]);
 
