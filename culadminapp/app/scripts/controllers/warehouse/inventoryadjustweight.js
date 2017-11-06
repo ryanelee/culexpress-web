@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('WarehouseInventoryAdjustCtrl', ['$scope', '$location', '$window', 'inventoryService', 'plugMessenger',
-        function ($scope, $location, $window, inventoryService, plugMessenger) {
+    .controller('WarehouseInventoryAdjustWeightCtrl', ['$scope', '$location', '$window', 'inventoryService', 'plugMessenger','warehouseService',"receiptService",
+        function ($scope, $location, $window, inventoryService, plugMessenger,warehouseService,receiptService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -18,7 +18,12 @@ angular.module('culAdminApp')
             $scope.data = null;
 
             $scope.tempItemNumber = $location.search().itemNumber || "";
-
+            $scope.packageWeight = $location.search().packageWeight || 0;
+            $scope.data = {
+                trackingNumber:  $scope.tempItemNumber,
+                packageWeight: $scope.packageWeight,
+                reason: ""
+            }
             $scope.keyDown = function (e) {
                 var keycode = window.event ? e.keyCode : e.which;
                 if (keycode == 13) {
@@ -28,15 +33,13 @@ angular.module('culAdminApp')
 
             $scope.checkItemNumber = function () {
                 if (!!$scope.tempItemNumber) {
-                    inventoryService.getDetail($scope.tempItemNumber, function (result) {
-                        console.log(" $scope.data",result)
-                        if (result.length > 0) {
+                    console.log('2345')
+                    receiptService.getInboundPackage($scope.tempItemNumber, function (result) {
+                        console.log("result",result)
+                        if (result) {
                             $scope.data = {
-                                itemNumber: result[0].itemNumber,
-                                warehouseNumber: result[0].warehouseNumber,
-                                // inventory: result[0].inventory,
-                                inventory: "0",
-                                weight: result[0].weight,
+                                trackingNumber:  $scope.tempItemNumber,
+                                packageWeight: result.packageWeight,
                                 reason: ""
                             }
                         }
@@ -50,17 +53,18 @@ angular.module('culAdminApp')
             $scope.checkItemNumber();
 
             $scope.btnSave = function (type) {
-
-                if (!$scope.data.inventory) {
+                    console.log($scope.data);
+                if (!$scope.data.packageWeight) {
                     plugMessenger.info("请填写正确的数量");
                     return;
                 }
-                console.log($scope.data);
-                inventoryService.adjust($scope.data, function (result) {
+                // trackingNumber
+                warehouseService.updateInboundpackageWeight($scope.data, function (result) {
                     if (result.success) {
                         plugMessenger.success("操作成功");
                         $scope.btnPrev();
                     }
+                    
                 });
             }
 

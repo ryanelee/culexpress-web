@@ -195,7 +195,7 @@ angular.module('culwebApp')
                     goodsCount: orderData.goodsCount,
                     isFastOrder: orderData.isFastOrder ? 1 : 0,
                     packageWeight: orderData.packageWeight,
-                    tariffMoney:orderData.tariffMoney ,
+                    tariffMoney:orderData.tariffMoney 
                     
                 });
             },

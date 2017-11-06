@@ -112,6 +112,13 @@ angular.module('culAdminApp')
             return $http.post(cul.apiPath + "/customermessage/getInboundPackage", options)
         }
 
+        self.getInboundPackage = function (trackingNumber, callback) {
+            console.log("trackingNumber",trackingNumber)
+             $http.get(cul.apiPath + "/inboundpackage/"+trackingNumber).success(function (result) {
+                callback(result);
+            });
+        }
+
         self.mapping = {
             sendType: function (sendType) {
                 var _sendType = "";

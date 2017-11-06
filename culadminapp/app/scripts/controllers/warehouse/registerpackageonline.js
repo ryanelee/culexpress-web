@@ -181,6 +181,7 @@ angular.module('culAdminApp')
                     plugMessenger.info("填写的数字不能小于1");
                 }
             }
+            
 
             $scope.dealUpdate = function (orderStatus) {
                 var _count = 0;

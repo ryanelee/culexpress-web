@@ -175,6 +175,11 @@ angular.module('culAdminApp')
                         break;
                 }
             }
+            $scope.adjustWeight = function (item) {
+                console.log(item);
+                if (!!item) $location.search({ itemNumber: item.receiptNumber,packageWeight:item.packageWeight});
+                $location.path("/warehouse/inventoryadjustweight");
+            }
 
             $scope.deleteLog = function () {
                 $location.path('/warehouse/deleteReceiptLog');

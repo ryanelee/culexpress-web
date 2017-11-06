@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('WarehouseInventoryCtrl', ['$timeout', '$rootScope', '$scope', '$location', '$window', 'warehouseService', 'inventoryService',"storage",
-        function ($timeout, $rootScope, $scope, $location, $window, warehouseService, inventoryService,storage) {
+    .controller('WarehouseInventoryCtrl', ['$timeout', '$rootScope', '$scope', '$location', '$window', 'warehouseService', 'inventoryService', "storage",
+        function ($timeout, $rootScope, $scope, $location, $window, warehouseService, inventoryService, storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -25,7 +25,7 @@ angular.module('culAdminApp')
             ]
 
             $scope.dataList = [];
-    // keywordType: "receiptNumber",
+            // keywordType: "receiptNumber",
             /*search bar*/
             $scope.searchBar = {
                 keywordType: "receiptNumber",
@@ -43,7 +43,7 @@ angular.module('culAdminApp')
                     endDate: false
                 }
             }
-               $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            $scope.tempSearchBar = angular.copy(storage.getSearchObject());
             if ($scope.tempSearchBar) {
                 $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
             }
@@ -120,12 +120,12 @@ angular.module('culAdminApp')
                 }
                 if (!!$scope.searchBar.keywords) {
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
-                }  
+                }
                 return angular.copy(_options);
             }
 
             $scope.getData = function () {
-                 storage.session.setObject("searchBar", $scope.searchBar);
+                storage.session.setObject("searchBar", $scope.searchBar);
                 inventoryService.getList(_filterOptions(), function (result) {
 
                     var __data = result.data;
@@ -156,11 +156,11 @@ angular.module('culAdminApp')
                         }
                     })
 
-                     if ($scope.searchBar.isUnusual == 2) {
+                    if ($scope.searchBar.isUnusual == 2) {
                         $scope.searchBar.sendType = $scope.sendTypes[3].key;
                     }
-                      if ($scope.searchBar.isUnusual == 1) {
-                        $scope.searchBar.sendType =  $scope.sendTypes[4].key;
+                    if ($scope.searchBar.isUnusual == 1) {
+                        $scope.searchBar.sendType = $scope.sendTypes[4].key;
                     }
 
                     $scope.dataList = _data;
@@ -169,10 +169,10 @@ angular.module('culAdminApp')
                 });
             }
 
-            $timeout(function(){
+            $timeout(function () {
                 // $scope.getData();
-            },500);
-            
+            }, 500);
+
             $scope.btnSearch = function () {
 
                 if ($scope.searchBar.sendType == 3) {
@@ -192,6 +192,11 @@ angular.module('culAdminApp')
                 $scope.pagination.totalCount = 0;
                 $scope.getData();
             }
+            $scope.adjustWeight = function (item) {
+                console.log(item);
+                if (!!item) $location.search({ itemNumber: item.receiptNumber ,originItemNumber:item.itemNumber});
+                $location.path("/warehouse/inventoryadjustweight");
+            }
 
             $scope.btnAction = function (type, item) {
                 if (!!item) $location.search({ itemNumber: item.itemNumber });
@@ -208,7 +213,7 @@ angular.module('culAdminApp')
                     case "detail":
                         $location.path("/warehouse/inventorydetail");
                         break;
-                        case "check":
+                    case "check":
                         $location.path("/warehouse/inventorycheck");
                         break;
                 }
