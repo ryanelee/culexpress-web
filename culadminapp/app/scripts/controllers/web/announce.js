@@ -16,6 +16,10 @@ angular.module('culAdminApp')
                 'Karma'
             ];
 
+            $('#content').froalaEditor().on('froalaEditor.contentChanged', function (e, editor) {
+             $scope.data.content=   $('#content').val()
+              })
+            
             $scope.dataList = [];
             $scope.warehouseList = [];
             $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
