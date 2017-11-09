@@ -33,7 +33,7 @@ angular.module('culAdminApp')
             
             $scope.initList = function () {
                 warehouseService.getWarehouse(function (result) {
-                    let warehouse = {
+                    var warehouse = {
                         name: '发货仓库',
                         children: []
                     }

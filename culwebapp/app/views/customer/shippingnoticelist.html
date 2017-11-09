@@ -136,10 +136,10 @@
                 </table>
                 <div class="row" style="margin-top:10px"> 
                     <div class="text-right pull-right">                    
-                        <pagination options="pagedOptions " on-page="onPaged(1)"></pagination>
+                        <pagination options="pagedOptions" on-page="onPaged"></pagination>
                     </div>      
                      <label class="pull-right">
-                        <select style="width:50px;float:right" class="form-control" ng-model="pageSize" ng-change="onPaged">
+                        <select style="width:50px;float:right" class="form-control" ng-model="pageSize" ng-change="onPaged(1)">
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="50">50</option>
