@@ -256,8 +256,9 @@ var app = angular
                     ), pageSize)
                     .then(function (result) {
                         if (result.data) {
-                            $scope.pagedOptions.total = result.data.pageInfo.totalPageCount;
                             $scope.orderListData = result.data.data;
+                            $scope.pagedOptions.total = result.data.pageInfo.totalCount;
+
                             getOrderMessageStatus()
                         }
                     });
