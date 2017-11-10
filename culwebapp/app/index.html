@@ -309,19 +309,25 @@
                                     </a>
                                 </li> -->
                             </ul>
-                            <!-- <ul class="topbar-list topbar-log_reg">
+                            <ul class="topbar-list topbar-log_reg">
                                 <li class="id-announce hoverSelector">
                                     <a class="topbar-down">CUL公告</a>
                                     <i class="fa fa-chevron-up" ng-show="!isLackProfile"></i>
                                     <i class="fa fa-chevron-down" ng-show="isLackProfile"></i>
-                                    <ul class="topbar-dropdown  hidden-xs hidden-sm" ng-show="!isLackProfile" style="z-index:12">
+                                    <ul class="topbar-dropdown  hidden-xs hidden-sm " ng-show="!isLackProfile" style="z-index:12">
                                         <div class="ane-title">CUL公告</div>
+                                        <li ng-repeat="item in primAnnounceList">
+                                            <a ui-sref="customer.myhome"><label class="text-red">[公告]</label> {{item.title}}</a>
+                                        </li>
                                         <li>
-                                            <a ui-sref="customer.myhome"><i class="fa fa-bar-chart-o"></i> 天猫秋装特惠</a>
-                                        </li>                                                                                            
+                                            <a ui-sref="customer.myhome"><label class="text-green">[评价]</label> 天猫秋装特惠</a>
+                                        </li>
+                                        <li>
+                                            <a ui-sref="customer.myhome"><label class="text-yellow">[折扣]</label> 天猫秋装特惠</a>
+                                        </li>
                                     </ul>
                                 </li>
-                            </ul> -->
+                            </ul>
                         </div>
                     </div>
                 </div>

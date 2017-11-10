@@ -116,6 +116,19 @@ angular
             }
             $scope.getWebAnnounce();
 
+            //登入普通广告管理
+            $scope.primAnnounceList = [{
+                title: "",
+                content: ""
+            }];
+            $scope.getPrimAnnounce = function () {
+                var objPrim = { type: 2, status: 1, openAll: 0 };
+                $http.post(cul.apiPath + '/web/WebAnnounce', objPrim).then(function (result) {
+                    $scope.primAnnounceList = result.data.data.data;
+                });
+            }
+            $scope.getPrimAnnounce();
+
             $scope.noRemeber = function(){
                 if($scope.rememberMe){
                     window.sessionStorage.setItem("notice",false)
