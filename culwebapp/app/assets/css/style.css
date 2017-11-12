@@ -3597,4 +3597,23 @@ select:-webkit-autofill {
 	text-align: center;
 	background-color: #E6E9EA;
 }
+.addsrvice-tab table {
+	border-color: #ffffff;
+}
+.addsrvice-tab th {
+	text-align: center !important;
+	font-size: 20px;
+	font-weight: 500;
+	background-color: #5879a2;
+	color:#ffffff;
+}
+.addsrvice-tab td {
+	text-align: center !important;
+	background-color: #efefef;
+	border-color: #ffffff !important;
+}
+.addsrvice-tab .text-strong {
+	color:#000000;
+	font-weight: 600;
+}
 
