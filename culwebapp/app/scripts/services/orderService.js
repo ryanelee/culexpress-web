@@ -90,8 +90,18 @@ angular.module('culwebApp')
             retrieveShippingNoticeList: function (index, pageSize, paras) {
                 if (!paras) paras = {};
 
-                paras.status = paras.status ? [paras.status] : ["Intransit", "Inbound", "Onshelf"]
-                paras.excludeInOrderPackage = true;//Doesn't show packages with order submitted.
+                if(paras.status === 'InOrder'){
+                    paras.status = ["Intransit", "Inbound", "Onshelf"];
+                    paras.onlyIncludeInOrderPackage = true;//Only return packages with order submitted.                    
+                }
+                else if (paras.status == ''){//all
+                    paras.status = ["Intransit", "Inbound", "Onshelf"];
+                }
+                else {
+                    paras.excludeInOrderPackage = true;//Doesn't show packages with order submitted.
+                    paras.status = paras.status ? [paras.status] : ["Intransit", "Inbound", "Onshelf"];
+                }
+                    
 
                 return $http.post(cul.apiPath + '/inboundpackage/list', $.extend({
                     pageInfo: {
