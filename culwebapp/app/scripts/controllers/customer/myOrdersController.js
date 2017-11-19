@@ -501,6 +501,7 @@ var app = angular
             }
 
             var preSubmitToService = function (data) {
+                console.log(data)
                 var text = '';
                 if (!data.isFastOrder) {
                     text = "确定提交订单?";
@@ -595,7 +596,7 @@ var app = angular
                 $scope.data.message = data.priceAdjustMemo;
                 $scope.data.shipServiceId = data.shipServiceItem.shipServiceId;
                 $scope.data.tariffMoney = $scope.countFee.tariffMoney
-                $scope.data.extraServceFee = $scope.countFee.extraServceFee 
+                $scope.data.valueAddFee = $scope.countFee.valueAddFee 
                 
                 preSubmitToService($scope.data);
             }
@@ -957,7 +958,7 @@ var app = angular
                                 packageWeight: 0,
                                 tariffMoney: 0,
                                 shippingFee: 0,
-                                extraServceFee: 0,
+                                valueAddFee: ($scope.data.valueAddFee * 1) || 0,
                                 tip: ($scope.data.tip * 1) || 0,
                                 usePoint: ($scope.data.usePoint * -1) || 0
                             },
@@ -970,8 +971,8 @@ var app = angular
 
                         setInsuranceFee(calculData, shipService);
                         calculData.tariffMoney = $scope.data.tariffMoney 
-                        calculData.extraServceFee = $scope.data.extraServceFee
-                        calculData.totalCount = (calculData.insuranceFee || 0) + (calculData.shippingFee || 0) + (calculData.tip || 0) + (calculData.usePoint || 0) + (calculData.tariffMoney || 0) + (calculData.extraServceFee || 0);
+                        calculData.valueAddFee = $scope.data.valueAddFee
+                        calculData.totalCount = (calculData.insuranceFee || 0) + (calculData.shippingFee || 0) + (calculData.tip || 0) + (calculData.usePoint || 0) + (calculData.tariffMoney || 0) + (calculData.valueAddFee || 0);
 
                         $timeout(function () {
                             $scope.countFee = calculData;
@@ -988,9 +989,9 @@ var app = angular
                     } else if (category === 'usePoint') {
                         $scope.countFee.usePoint = ($scope.data.usePoint * -1) || 0;
                     } else if (category === 'extraServce') {
-                        $scope.countFee.extraServceFee = ($scope.data.extraServceFee * 1) || 0;
+                        $scope.countFee.valueAddFee = ($scope.data.valueAddFee * 1) || 0;
                     }
-                    $scope.countFee.totalCount = ($scope.countFee.insuranceFee || 0) + ($scope.countFee.shippingFee || 0) + ($scope.countFee.tip || 0) + ($scope.countFee.usePoint || 0) + ($scope.countFee.extraServceFee || 0);
+                    $scope.countFee.totalCount = ($scope.countFee.insuranceFee || 0) + ($scope.countFee.shippingFee || 0) + ($scope.countFee.tip || 0) + ($scope.countFee.usePoint || 0) + ($scope.countFee.valueAddFee || 0);
                     if (ctrlType !== 'checkbox') {
                         if (!angular.isNumber($scope.data.declareGoodsValue) || $scope.data.declareGoodsValue <= 0) $scope.data.declareGoodsValue = 0;
                         if (!angular.isNumber($scope.data.tip) || $scope.data.tip <= 0) $scope.data.tip = 0;
@@ -1013,17 +1014,17 @@ var app = angular
             }
 
             // 增值服务费用
-            $scope.getExtraServceFee = function () {  
-                $scope.data.extraServceFee = 0;
+            $scope.getValueAddFee = function () {  
+                $scope.data.valueAddFee = 0;
 
                 if ($scope.data.pack_steadyInner == '1') {
-                    $scope.data.extraServceFee = $scope.data.extraServceFee + 3
+                    $scope.data.valueAddFee = $scope.data.valueAddFee + 3
                 }
                 if ($scope.data.pack_addCarton == '1') {
-                    $scope.data.extraServceFee = $scope.data.extraServceFee + 20
+                    $scope.data.valueAddFee = $scope.data.valueAddFee + 20
                 }
                 if ($scope.data.pack_checkCount == '1') {
-                    $scope.data.extraServceFee = $scope.data.extraServceFee + 20
+                    $scope.data.valueAddFee = $scope.data.valueAddFee + 20
                 }
                 $scope.calculateFee('extraServce')
             }

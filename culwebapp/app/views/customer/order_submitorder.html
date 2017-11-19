@@ -348,25 +348,25 @@
                             <div class="form-group row" style="margin:5px 15px">
                                 <div class="col-sm-2"><label class="label">增值服务：</label></div>
                                 <div class="col-sm-8">
-                                    <a href="javascript:void(0)" ng-click="getExtraServceFee()">
+                                    <a href="javascript:void(0)" ng-click="getValueAddFee()">
                                       <input id="agree-message" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_takeoutInvoice" />
                                       <label for="agree-message"> 取出发票 </label></a>
-                                    <a href="javascript:void(0)" class="pk-item" ng-click="getExtraServceFee()">
+                                    <a href="javascript:void(0)" class="pk-item" ng-click="getValueAddFee()">
                                       <input id="pack_urgentProcess" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_urgentProcess" />
                                       <label for="pack_urgentProcess"> 加急处理 </label></a>
-                                    <a href="javascript:void(0)" class="pk-item" ng-click="getExtraServceFee()">
+                                    <a href="javascript:void(0)" class="pk-item" ng-click="getValueAddFee()">
                                       <input id="pack_steadyInner" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_steadyInner" />
                                       <label for="pack_steadyInner"> 内件加固 </label></a>
-                                    <a href="javascript:void(0)" class="pk-item" ng-click="getExtraServceFee()">
+                                    <a href="javascript:void(0)" class="pk-item" ng-click="getValueAddFee()">
                                       <input id="pack_replaceCarton" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_replaceCarton" />
                                       <label for="pack_replaceCarton"> 更换外箱 </label></a>
-                                    <a href="javascript:void(0)" class="pk-item" ng-click="getExtraServceFee()">
+                                    <a href="javascript:void(0)" class="pk-item" ng-click="getValueAddFee()">
                                       <input id="pack_removeInner" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_removeInner" />
                                         <label for="pack_removeInner"> 去鞋盒/包装 </label></a>
-                                    <a href="javascript:void(0)" class="pk-item" ng-click="getExtraServceFee()">
+                                    <a href="javascript:void(0)" class="pk-item" ng-click="getValueAddFee()">
                                       <input id="pack_addCarton" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_addCarton" />
                                         <label for="pack_addCarton"> 加套外箱 </label></a>
-                                    <a href="javascript:void(0)" class="pk-item" ng-click="getExtraServceFee()">
+                                    <a href="javascript:void(0)" class="pk-item" ng-click="getValueAddFee()">
                                       <input id="pack_checkCount" class="pk-checkbox-input" type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.pack_checkCount" />
                                         <label for="pack_checkCount"> 清点拍照 </label></a>
                                 </div>
@@ -390,7 +390,7 @@
                                     <td class="td-m">{{countFee.shippingFee|currency:'¥'}}</td>
                                     <td class="td-m">{{countFee.insuranceFee|currency:'¥'}}</td>
                                     <td class="td-m">{{countFee.tip|currency:'¥'}}</td>
-                                    <td class="td-m">{{(countFee.extraServceFee||0)|currency:'￥'}}</td>
+                                    <td class="td-m">{{(countFee.valueAddFee||0)|currency:'￥'}}</td>
                                     <td class="td-m" style="color: red">{{(countFee.usePoint||0)|currency:'￥'}}</td>
                                     <td class="td-m" style="color: red">{{(countFee.tariffMoney||0)|currency:'￥'}}</td>
                                     <td class="td-m"><strong>{{countFee.totalCount|currency:'¥'}}</strong></td>
