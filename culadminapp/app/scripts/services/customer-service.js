@@ -233,11 +233,18 @@ angular.module('culAdminApp')
             });
         }
 
+        //返还运费列表
+        self.getRefundList = function(options, callback) {
+            console.log(options);
+            $http.post(cul.apiPath + "/getRefundList", options).success(function(result) {
+                callback(result);
+            });
+        }
 
-
-
-
-
-
+        self.refundShippingFee = function(options, callback) {
+            $http.post(cul.apiPath + "/refundShippingFee", options).success(function(result) {
+                callback(result);
+            });
+        }
 
     }]);
