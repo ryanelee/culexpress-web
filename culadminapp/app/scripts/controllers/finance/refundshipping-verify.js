@@ -17,11 +17,16 @@ angular.module('culAdminApp')
             ];
 
             $scope.dataList = [];
+            $scope.pagination = {
+                pageSize: "20",
+                pageIndex: 1,
+                totalCount: 0
+            }
             /*search bar*/
             $scope.searchBar = {
                 selectedAll: false,
                 keywordType: "customerNumber",
-                warehouseNumber: "",
+                warehouseNumber: 0,
                 shipServiceId: 0
             }
 
@@ -50,6 +55,7 @@ angular.module('culAdminApp')
 
             var _filterOptions = function () {
                 var _options = {
+                    "pageInfo": $scope.pagination
                 };
 
                 if (!!$scope.searchBar.warehouseNumber) {
@@ -71,10 +77,11 @@ angular.module('culAdminApp')
                 customerService.getRefundList(angular.copy(_options), function (result) {
                     if(!result || !result.data || result.data.length < 1) return;
 
-                    $scope.dataList = result.data;
+                    $scope.dataList = result.data.data;
+                    $scope.pagination.totalCount = result.data.pageInfo.totalCount;
+                    $rootScope.$emit("changeMenu");
 
                     $.each($scope.dataList, function (i, item) {
-                        item.rownumber = i + 1;
                         if(item.tariffMoney == null) item.tariffMoney = 0;
                         if(item.payment == null) item.payment = 0;
 
@@ -96,6 +103,8 @@ angular.module('culAdminApp')
 
                 $scope.selectedListCache = [];
                 $scope.dataList = [];
+                $scope.pagination.pageIndex = 1;
+                $scope.pagination.totalCount = 0;
                 $scope.getData();
             }
 
@@ -218,8 +227,6 @@ angular.module('culAdminApp')
                     item._selected = false;
                 });
                 var _options = _filterOptions();
-                //新导出逻辑
-                $scope.exportOptions = $.extend({ token: _token }, _options);
             }
 
             $timeout(function () {
