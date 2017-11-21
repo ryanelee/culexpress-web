@@ -127,7 +127,7 @@ angular.module('culAdminApp')
             $scope.getData = function () {
                 storage.session.setObject("searchBar", $scope.searchBar);
                 inventoryService.getList(_filterOptions(), function (result) {
-
+                    console.log("result-->",result)
                     var __data = result.data;
                     var _data = [];
 
