@@ -178,6 +178,10 @@ angular.module('culwebApp')
                     pack_replaceCarton: orderData.pack_replaceCarton,
                     //去除内件 0,1
                     pack_removeInner: orderData.pack_removeInner,
+                    //加套外箱 0,1
+                    pack_addCarton: orderData.pack_addCarton,
+                    //清点拍照 0,1
+                    pack_checkCount: orderData.pack_checkCount,
                     //购买保险标识 0,1
                     insuranceMark: (orderData.insuranceMark ? 1 : 0),
                     //使用积分标识 0,1
