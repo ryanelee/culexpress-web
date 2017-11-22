@@ -18,35 +18,9 @@
                         <label class="search-label">发货仓库：</label>
                         <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
                     </div>
-                    <div class="search-col">
-                        <label class="search-label">库存：</label>
-                        <select class="form-control search-control" ng-model="searchBar.inventoryCondition">
-                            <option value="">所有</option>
-                            <option value=">">大于</option>
-                            <option value="=">等于</option>
-                            <option value="<">小于</option>
-                        </select>
-                        <input class="form-control search-control" style="width:100px;" ng-model="searchBar.inventoryConditionValue" ng-show="searchBar.inventoryCondition != ''"
-                        />
-                    </div>
-                    <div class="search-col">
-                        <label class="search-label">商品主类别：</label>
-                        <select class="form-control search-control" ng-model="searchBar.categoryId" ng-change="changeCategory()" ng-options="item.cateid as item.name for item in searchBar.categoryList"></select>
-                    </div>
-                    <div class="search-col">
-                        <label class="search-label">商品子类别：</label>
-                        <select class="form-control search-control" ng-model="searchBar.categorySubId" ng-options="item.cateid as item.name for item in searchBar.categorySubList"></select>
-                    </div>
-                    <!--<div class="search-col">
-                        <label class="search-label">创建时间：</label>
-                        <select class="form-control search-control" ng-model="searchBar.dateRange" ng-change="changeDate()">
-                            <option value="">所有</option>
-                            <option value="3">最近3天</option>
-                            <option value="7">最近7天</option>
-                            <option value="range">时间范围</option>
-                        </select>
-                    </div>-->
-                    <!--<div class="search-col" ng-show="searchBar.dateRange == 'range'">-->
+                
+             
+               
                     <div class="search-col">
                         <label class="search-label">创建时间：起</label>
                         <p class="input-group pull-left">
@@ -105,11 +79,11 @@
                             <th>入库类型</th>
                             <th>入库单号</th>
                             <th>重量</th>
-                            <th>创建日期</th>
-                            <th>出库日期</th>
+                            <th>入库日期</th>
                             <th>是否出库</th>
                             <th>库存天数</th>
                             <th>入库人员</th>
+                            <th>应付金额</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -122,12 +96,12 @@
                             <td>{{item.shelfNumber}}</td>
                             <td>{{item._sendType}}</td>
                             <td>{{item.receiptNumber}}</td>
-                            <td>{{item.weight | number:2}}</td>
+                            <td>{{item.packageWeight | number:2}}</td>
                             <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                            <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                            <td></td>
+                            <td>{{item.isOutInventory | _outInventory}}</td>
                             <td>{{item.days}}</td>
                             <td>{{item.inboundUser}}</td>
+                            <td>{{item.payMoney}}</td>
                             <td><a href="javascript:void(0);" ng-click="btnAction('adjust',item)">付款</a></td>
                         </tr>
                     </tbody>
