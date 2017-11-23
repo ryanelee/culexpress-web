@@ -48,6 +48,7 @@
                     <th>小费</th>
                     <th>预收运费</th>
                     <th>清关费用</th>
+                    <th>增值费用</th>
                     <th style="color:red">订单金额</th>
                     <th style="color:red">支付金额</th>
                     <th>打包重量</th>
@@ -81,6 +82,7 @@
                     <td style="max-width: 200px;">{{item.tip|currency:'¥'}}</td>
                     <td style="max-width: 200px;">{{item.shippingFee|currency:'¥'}}</td>
                     <td style="max-width: 200px;">{{(item.tariffMoney||0)|currency:'¥'}}</td>
+                    <td style="max-width: 200px;">{{(item.valueAddFee||0)|currency:'¥'}}</td>
                     <td style="max-width: 200px;color:red">{{item.totalCount|currency:'¥'}}</td>
                     <td style="max-width: 200px;color:red">{{item.paied|currency:'¥'}}</td>
                     <td style="max-width:150px;">{{item.actualWeight}}</td>
