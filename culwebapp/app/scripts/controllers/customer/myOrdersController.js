@@ -402,7 +402,7 @@ var app = angular
             var getOrders = function () {
                 //if ($scope.orderItems.length > 0) return $scope.orderItems;
                 var orders = [];
-              $scope.packageWeight  =  getWeight();
+                $scope.packageWeight = getWeight();
                 $scope.data.declareGoodsValue = 0;
                 if ($scope.outboundPackages && $scope.outboundPackages.length) {
                     for (var i = 0, ii = $scope.outboundPackages.length; i < ii; i++) {
@@ -421,7 +421,7 @@ var app = angular
                             orderItem.shipServiceId = data.shipServiceItem.shipServiceId;
                             orderItem.packageIndex = i
                             orderItem.packageWeight = $scope.packageWeight
-                            
+
                             orders.push(orderItem);
                         }
                     }
@@ -429,9 +429,9 @@ var app = angular
                 return orders;
             }
 
-            var getWeight = function(){
+            var getWeight = function () {
                 var packageWeight = 0,
-                outboundItems = $scope.shippingItems;
+                    outboundItems = $scope.shippingItems;
                 for (var i = 0, ii = outboundItems.length; i < ii; i++) {
                     packageWeight += (outboundItems[i].packageWeight * 1);
                 }
@@ -501,6 +501,7 @@ var app = angular
             }
 
             var preSubmitToService = function (data) {
+                console.log(data)
                 var text = '';
                 if (!data.isFastOrder) {
                     text = "确定提交订单?";
@@ -595,7 +596,8 @@ var app = angular
                 $scope.data.message = data.priceAdjustMemo;
                 $scope.data.shipServiceId = data.shipServiceItem.shipServiceId;
                 $scope.data.tariffMoney = $scope.countFee.tariffMoney
-                
+                $scope.data.valueAddFee = $scope.countFee.valueAddFee
+
                 preSubmitToService($scope.data);
             }
 
@@ -716,7 +718,7 @@ var app = angular
                     //selectedCategory(outboundPackageItem,'currentCategory',null);
                     var orderItems = getOrders();
                     orderSvr.cacluTariff(orderItems).then(function (data) {
-                        console.log("data", data)
+                        // console.log("data", data)
                     })
                     $scope.data.addMoneyFromChannel = 0
 
@@ -758,7 +760,7 @@ var app = angular
                             alertify.alert('提示', '商品品牌:[<small style="color:red">' + orderItem.itemBrand +
                                 '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
                                 '</small>]要求商品品牌必须为英文,请填写正确的英文商品品牌.');
-                           return callback("err")
+                            return callback("err")
                         }
 
                         if ($scope.data.shipServiceItem != undefined &&
@@ -767,7 +769,7 @@ var app = angular
                             alertify.alert('提示', '商品描述:[<small style="color:red">' + orderItem.description +
                                 '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
                                 '</small>]要求商品描述必须为英文,请填写正确的英文商品描述.');
-                           return callback("err")
+                            return callback("err")
                         }
 
                         if ($scope.data.shipServiceItem != undefined &&
@@ -785,7 +787,7 @@ var app = angular
                         var packageItem = packageItems[j];
                         if (!packageItem.addressNumber) {
                             alertify.alert('提示', '请确保每个转运包裹都选择了收货地址!');
-                           return callback("err")
+                            return callback("err")
                         }
 
                         //身份证渠道需要验证选择的收货地址是否通过验证
@@ -804,7 +806,7 @@ var app = angular
                                 addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
                                 '</small>]还未通过身份验证。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
                                 '</small>]要求收货地址必须提供验证通过的身份证信息,请更改地址信息或者选择其他收货地址。');
-                           return callback("err")
+                            return callback("err")
                         }
 
                         //USPS渠道要求收货人姓名必须为英文/拼音,地址为拼音
@@ -818,9 +820,9 @@ var app = angular
                                 addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
                                 '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
                                 '</small>]要求收货人姓名必须为英文或者拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
-                           return callback("err")
+                            return callback("err")
                         }
-                         
+
                         if (addressItem != undefined &&
                             $scope.data.shipServiceItem != undefined &&
                             $scope.data.shipServiceItem.requireEnglish4Address === 1 &&
@@ -829,7 +831,7 @@ var app = angular
                                 addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
                                 '</small>]中包括非英文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
                                 '</small>]要求收货人地址必须为英文拼音,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
-                           return callback("err")
+                            return callback("err")
                         }
 
                         if (addressItem != undefined &&
@@ -840,7 +842,7 @@ var app = angular
                                 addressItem.address1 + ' ' + addressItem.zipcode + ' ' + addressItem.receivePersonName +
                                 '</small>]中包括非中文字符。当前发货渠道:[<small style="color:red">' + $scope.data.shipServiceItem.shipServiceName +
                                 '</small>]要求收货人地址必须为中文,请更改收货人信息或者选择其他收货人。注意不能包括空格之外的其他特殊字符.');
-                           return callback("err")
+                            return callback("err")
                         }
 
                         //商品主类别渠道限制规则
@@ -852,7 +854,7 @@ var app = angular
                             orderItem.quantity > currentMainCategory.quantityLimit) {
                             alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
                                 '</small>]每个包裹限制数量:[' + currentMainCategory.quantityLimit + '].');
-                           return callback("err")
+                            return callback("err")
                         }
                         //2 - surcharge_maxValueAmount
                         if (currentMainCategory != undefined &&
@@ -860,7 +862,7 @@ var app = angular
                             orderItem.quantity * orderItem.unitprice > currentMainCategory.surcharge_maxValueAmount) {
                             alertify.alert('提示', '商品主类别:[<small style="color:red">' + currentMainCategory.name +
                                 '</small>]每个包裹限制价值不能超过:[' + currentMainCategory.surcharge_maxValueAmount + ']美元.请使用USPS渠道.');
-                           return callback("err")
+                            return callback("err")
                         }
                         // //3 - weightLimit
                         // if(currentMainCategory != undefined &&
@@ -876,7 +878,7 @@ var app = angular
                         if (!packageItem.goodsCategory) {
 
                             alertify.alert('提示', '请确保每个转运包裹都选择了商品类别!');
-                           return callback("err")
+                            return callback("err")
                         }
                     }
                     orderSvr.cacluTariff(orderItems).then(function (tariff) {
@@ -887,7 +889,7 @@ var app = angular
                             return callback("err")
                         } else {
                             $scope.data.tariffMoney = tariff.data
-                            callback(null,null)
+                            callback(null, null)
                             $scope.calculateFee();
                         }
 
@@ -942,7 +944,8 @@ var app = angular
                         if (!calculData) calculData = {};
 
                         if ($scope.data.insuranceMark == 1) {
-                            calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95);
+                            calculData.insuranceFee = ($scope.data.declareGoodsValue || 0) * shipService.insuranceFeeRate * (shipService.RMBExchangeRate || 6.95)
+                            // calculData.totalCount =  calculData.totalCount +  $scope.data.tariffMoney;
                         } else {
                             calculData.insuranceMark = 0;
                             calculData.insuranceFee = 0;
@@ -956,6 +959,7 @@ var app = angular
                                 packageWeight: 0,
                                 tariffMoney: 0,
                                 shippingFee: 0,
+                                valueAddFee: ($scope.data.valueAddFee * 1) || 0,
                                 tip: ($scope.data.tip * 1) || 0,
                                 usePoint: ($scope.data.usePoint * -1) || 0
                             },
@@ -967,11 +971,13 @@ var app = angular
                         calculData.shippingFee += getShippingFee(calculData.packageWeight, ruleDetail.firstWeight, ruleDetail.continuedWeight, shipService);
 
                         setInsuranceFee(calculData, shipService);
-                        calculData.tariffMoney = $scope.data.tariffMoney 
-                        calculData.totalCount = (calculData.insuranceFee || 0) + (calculData.shippingFee || 0) + (calculData.tip || 0) + (calculData.usePoint || 0) + (calculData.tariffMoney || 0);
-                        
+                        calculData.tariffMoney = $scope.data.tariffMoney
+                        calculData.valueAddFee = $scope.data.valueAddFee
+                        calculData.totalCount = (calculData.insuranceFee || 0) + (calculData.shippingFee || 0) + (calculData.tip || 0) + (calculData.usePoint || 0) + (calculData.tariffMoney || 0) + (calculData.valueAddFee || 0);
+
                         $timeout(function () {
                             $scope.countFee = calculData;
+                            console.log("$scope.countFee...",$scope.countFee.countFee)
                         })
                     };
                 // (shipService.RMBExchangeRate || 6.95);
@@ -984,8 +990,10 @@ var app = angular
                         $scope.countFee.tip = ($scope.data.tip * 1) || 0;
                     } else if (category === 'usePoint') {
                         $scope.countFee.usePoint = ($scope.data.usePoint * -1) || 0;
+                    } else if (category === 'extraServce') {
+                        $scope.countFee.valueAddFee = ($scope.data.valueAddFee * 1) || 0;
                     }
-                    $scope.countFee.totalCount = ($scope.countFee.insuranceFee || 0) + ($scope.countFee.shippingFee || 0) + ($scope.countFee.tip || 0) + ($scope.countFee.usePoint || 0);
+                    $scope.countFee.totalCount = ($scope.countFee.insuranceFee || 0) + ($scope.countFee.shippingFee || 0) + ($scope.countFee.tip || 0) + ($scope.countFee.usePoint || 0) + ($scope.countFee.valueAddFee || 0) +  ($scope.countFee.tariffMoney || 0);
                     if (ctrlType !== 'checkbox') {
                         if (!angular.isNumber($scope.data.declareGoodsValue) || $scope.data.declareGoodsValue <= 0) $scope.data.declareGoodsValue = 0;
                         if (!angular.isNumber($scope.data.tip) || $scope.data.tip <= 0) $scope.data.tip = 0;
@@ -1007,6 +1015,21 @@ var app = angular
                     });
             }
 
+            // 增值服务费用
+            $scope.getValueAddFee = function () {
+                $scope.data.valueAddFee = 0;
+
+                if ($scope.data.pack_steadyInner == '1') {
+                    $scope.data.valueAddFee = $scope.data.valueAddFee + 3
+                }
+                if ($scope.data.pack_addCarton == '1') {
+                    $scope.data.valueAddFee = $scope.data.valueAddFee + 20
+                }
+                if ($scope.data.pack_checkCount == '1') {
+                    $scope.data.valueAddFee = $scope.data.valueAddFee + 20
+                }
+                $scope.calculateFee('extraServce')
+            }
             //$scope.categories = [];
             //$scope.loadGoodsCategory = function () {
             //    orderSvr.getGoodsCategories()

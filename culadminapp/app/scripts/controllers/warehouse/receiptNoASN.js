@@ -78,6 +78,10 @@ angular.module('culAdminApp')
                                 $scope.tpl_status.isExist_p = false;
                             }
 
+                            if ($scope.data.status == "InOrder") {
+                                $scope.tpl_status.isExist_p = true;
+                            }
+
                             $scope.warehouseList.forEach(function (element) {
                                 if ($scope.data.warehouseNumber == element.key) {
                                     $scope.isWarehouseRight = true;
@@ -411,5 +415,14 @@ angular.module('culAdminApp')
                     }  
                 }             
             }
+
+            $('#tip_pkg_weight').popover({
+                container: 'body',
+                placement: 'top',
+                html: true,
+                trigger: 'hover',
+                title: '',
+                content: "已收货和已上架包裹可修改重量。<br/>已提交订单的包裹需要删除订单<br/>方可做入库重量的修改。<br/>"
+            });
         }
     ]);

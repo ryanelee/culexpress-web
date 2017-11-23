@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('WarehouseInventoryAdjustWeightCtrl', ['$scope', '$location', '$window', 'inventoryService', 'plugMessenger','warehouseService',"receiptService",
-        function ($scope, $location, $window, inventoryService, plugMessenger,warehouseService,receiptService) {
+    .controller('WarehouseInventoryAdjustWeightCtrl', ['$scope', '$location', '$window', 'inventoryService', 'plugMessenger', 'warehouseService', "receiptService", "orderService",
+        function ($scope, $location, $window, inventoryService, plugMessenger, warehouseService, receiptService, orderService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -20,7 +20,7 @@ angular.module('culAdminApp')
             $scope.tempItemNumber = $location.search().itemNumber || "";
             $scope.packageWeight = $location.search().packageWeight || 0;
             $scope.data = {
-                trackingNumber:  $scope.tempItemNumber,
+                trackingNumber: $scope.tempItemNumber,
                 packageWeight: $scope.packageWeight,
                 reason: ""
             }
@@ -35,10 +35,10 @@ angular.module('culAdminApp')
                 if (!!$scope.tempItemNumber) {
                     console.log('2345')
                     receiptService.getInboundPackage($scope.tempItemNumber, function (result) {
-                        console.log("result",result)
+                        console.log("result", result)
                         if (result) {
                             $scope.data = {
-                                trackingNumber:  $scope.tempItemNumber,
+                                trackingNumber: $scope.tempItemNumber,
                                 packageWeight: result.packageWeight,
                                 reason: ""
                             }
@@ -53,23 +53,37 @@ angular.module('culAdminApp')
             $scope.checkItemNumber();
 
             $scope.btnSave = function (type) {
-                    console.log($scope.data);
+                console.log($scope.data);
                 if (!$scope.data.packageWeight) {
-                    plugMessenger.info("请填写正确的数量");
+                    plugMessenger.info("请填写正确的重量");
                     return;
                 }
                 // trackingNumber
-                warehouseService.updateInboundpackageWeight($scope.data, function (result) {
-                    if (result.success) {
-                        plugMessenger.success("操作成功");
-                        $scope.btnPrev();
+                var _options = {
+                    dateFrom: "",
+                    dateTo: "",
+                    exceptOrderStatus: ["Void"],
+                    pageInfo: { pageSize: "20", pageIndex: 1, totalCount: 0 },
+                    receiveTrackingNumber: $scope.data.trackingNumber
+                }
+                orderService.getList(angular.copy(_options), function (result) {
+                    if (result.data instanceof Array && result.data[0]) {
+                        plugMessenger.error("该包裹已提交订单，不能修改重量");
+                        return;
                     }
-                    
-                });
+                    warehouseService.updateInboundpackageWeight($scope.data, function (result) {
+                        if (result.success) {
+                            plugMessenger.success("操作成功");
+                            $scope.btnPrev();
+                        }
+
+                    });
+                })
+
             }
 
             $scope.btnPrev = function () {
-                $window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1); $window.history.back();
             }
 
             $('#tip_itemNumber').popover({

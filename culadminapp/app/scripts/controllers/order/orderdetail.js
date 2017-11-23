@@ -84,7 +84,7 @@ angular.module('culAdminApp')
 
 
             $scope.isPrintDetail = !!$location.search().print;
-
+ 
             $scope.isShow = false;
             orderService.getDetail($location.search().orderNumber, function (result) {
                 // console.log(result)

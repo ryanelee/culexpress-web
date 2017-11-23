@@ -6,7 +6,7 @@
  * @description
  * # RegisterPackageOnlineCtrl
  * Controller of the culAdminApp
- */
+ */ 
 angular.module('culAdminApp')
     .controller('RegisterPackageOnlineCtrl', ['$scope', '$location', '$window', 'orderService', 'warehouseService', 'plugMessenger',
         function ($scope, $location, $window, orderService, warehouseService, plugMessenger) {

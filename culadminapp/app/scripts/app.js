@@ -142,6 +142,11 @@ angular
                 templateUrl: 'views/warehouse/inventory.html',
                 controller: 'WarehouseInventoryCtrl'
             })
+            .when('/warehouse/inventoryTime', {
+                templateUrl: 'views/warehouse/inventorytime.html',
+                controller: 'InventoryTimeCtrl'
+            })
+
 
             .when('/warehouse/inventorycheck', {
                 templateUrl: 'views/warehouse/inventorycheck.html',

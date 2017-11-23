@@ -8,7 +8,7 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('WarehouseInventoryCtrl', ['$timeout', '$rootScope', '$scope', '$location', '$window', 'warehouseService', 'inventoryService', "storage",
+    .controller('InventoryTimeCtrl', ['$timeout', '$rootScope', '$scope', '$location', '$window', 'warehouseService', 'inventoryService', "storage",
         function ($timeout, $rootScope, $scope, $location, $window, warehouseService, inventoryService, storage) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
@@ -126,7 +126,7 @@ angular.module('culAdminApp')
 
             $scope.getData = function () {
                 storage.session.setObject("searchBar", $scope.searchBar);
-                inventoryService.getList(_filterOptions(), function (result) {
+                inventoryService.getTimeList(_filterOptions(), function (result) {
                     console.log("result-->",result)
                     var __data = result.data;
                     var _data = [];

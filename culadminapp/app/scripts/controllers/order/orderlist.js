@@ -3,7 +3,7 @@
 /**
  * @ngdoc function
  * @name culAdminApp.controller:OrderListCtrl
- * @description
+ * @description 
  * # OrderListCtrl 
  * Controller of the culAdminApp
  */ 
@@ -129,9 +129,12 @@ angular.module('culAdminApp')
                 return angular.copy(_options);
             }
 
+          
+
             $scope.getData = function () {
                 storage.session.setObject("searchBar", $scope.searchBar);
                 var _options = _filterOptions();
+                console.log("_options",_options)
                 orderService.getList(angular.copy(_options), function (result) {
                     $scope.dataList = result.data;
                     // console.log($scope.dataList)
