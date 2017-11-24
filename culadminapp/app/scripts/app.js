@@ -343,6 +343,10 @@ angular
                 templateUrl: 'views/finance/finance-pointlog.html',
                 controller: 'PointLogCtrl'
             })
+            .when('/finance/refundlist', { //返还运费
+                templateUrl: 'views/finance/refundshipping-verify.html',
+                controller: 'RefundShippingVerifyCtl'
+            })
             .when('/system/operationloglist', {
                 templateUrl: 'views/system/operationloglist.html',
                 controller: 'SystemOperationLogListCtrl'
