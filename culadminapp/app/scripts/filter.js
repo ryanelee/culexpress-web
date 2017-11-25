@@ -14,6 +14,14 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     return function (input) {
         return sendType[input] || input;
     };
+}).filter('_outInventory', function () {
+    var sendType = {
+        "0": "否",
+        "1": "是"
+    };
+    return function (input) {
+        return sendType[input] || input;
+    };
 }).filter('webType', function () {
     var _webType = {
         1: "登入广告",

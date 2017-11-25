@@ -142,6 +142,11 @@ angular
                 templateUrl: 'views/warehouse/inventory.html',
                 controller: 'WarehouseInventoryCtrl'
             })
+            .when('/warehouse/inventoryTime', {
+                templateUrl: 'views/warehouse/inventorytime.html',
+                controller: 'InventoryTimeCtrl'
+            })
+
 
             .when('/warehouse/inventorycheck', {
                 templateUrl: 'views/warehouse/inventorycheck.html',
@@ -337,6 +342,10 @@ angular
             .when('/finance/pointlog', { //调分记录
                 templateUrl: 'views/finance/finance-pointlog.html',
                 controller: 'PointLogCtrl'
+            })
+            .when('/finance/refundlist', { //返还运费
+                templateUrl: 'views/finance/refundshipping-verify.html',
+                controller: 'RefundShippingVerifyCtl'
             })
             .when('/system/operationloglist', {
                 templateUrl: 'views/system/operationloglist.html',
