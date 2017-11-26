@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('InventoryTimeCtrl', ['$timeout', '$rootScope', '$scope', '$location', '$window', 'warehouseService', 'inventoryService', "storage",
-        function ($timeout, $rootScope, $scope, $location, $window, warehouseService, inventoryService, storage) {
+    .controller('InventoryTimeCtrl', ['$timeout', '$rootScope', '$scope', '$location', '$window', 'warehouseService', 'inventoryService', "storage", "plugMessenger",
+        function ($timeout, $rootScope, $scope, $location, $window, warehouseService, inventoryService, storage, plugMessenger) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -127,7 +127,7 @@ angular.module('culAdminApp')
             $scope.getData = function () {
                 storage.session.setObject("searchBar", $scope.searchBar);
                 inventoryService.getTimeList(_filterOptions(), function (result) {
-                    console.log("result-->",result)
+                    console.log("result-->", result)
                     var __data = result.data;
                     var _data = [];
 
@@ -194,8 +194,32 @@ angular.module('culAdminApp')
             }
             $scope.adjustWeight = function (item) {
                 console.log(item);
-                if (!!item) $location.search({ itemNumber: item.receiptNumber ,originItemNumber:item.itemNumber});
+                if (!!item) $location.search({ itemNumber: item.receiptNumber, originItemNumber: item.itemNumber });
                 $location.path("/warehouse/inventoryadjustweight");
+            }
+            $scope.payMoney = function (item) {
+                console.log("item", item)
+                var pay = {
+                    customerNumber: item.customerNumber,
+                    operationType: "12",
+                    payment: item.payMoney,
+                    memo: item.memo,
+                    payInventory: item.payMoney,
+                    receiptNumber: item.receiptNumber
+                }
+                if (item.shouldPay <= 0) {
+                    return plugMessenger.error("需要支付的金额必须大于0元")
+                }
+                plugMessenger.confirm("确认扣除客户管理费" + item.payMoney + "元?", function (isOk) {
+                    if (isOk) {
+                        inventoryService.payInventory(pay, function (result) {
+                            if (result.success == true) {
+                                plugMessenger.success("扣款成功")
+                                $scope.getData();
+                            }
+                        })
+                    }
+                })
             }
 
             $scope.btnAction = function (type, item) {
