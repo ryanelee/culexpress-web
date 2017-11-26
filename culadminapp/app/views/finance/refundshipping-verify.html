@@ -1,0 +1,135 @@
+<div class="widget widget-table">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i> 返还运费</h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-sm-12 search-bar">
+                <div class="search-col">
+                    <label class="search-label">发货仓库：</label>
+                    <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                </div>
+                <div class="search-col">
+                    <label class="search-label">发货渠道：</label>
+                    <select class="form-control search-control" ng-model="searchBar.shipServiceId" ng-options="item.shipServiceId as item.shipServiceName for item in searchBar.shippingChannelList"></select>
+                </div>
+                <div class="clearfix"></div>
+                <div class="search-col">
+                    <label class="search-label">搜索条目：</label>
+                    <select class="form-control search-control" ng-model="searchBar.keywordType">
+                        <option value="customerNumber">客户编号</option>
+                        <option value="orderNumber">订单编号</option>       
+                    </select>
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()" />
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                </div>
+            </div>
+            <div class="col-sm-12 search-bar" ng-show="selectedListCache.length > 0">
+                <div class="search-col" style="margin-bottom: 0px;">
+                    <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>
+                    <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="searchBar.selectedAll" /></th>
+                    <th>序号</th>
+                    <th>发货仓库</th>
+                    <th>客户编号</th>
+                    <th>订单编号</th>
+                    <th>发货渠道</th>
+                    <!-- <th>订单状态</th> -->
+                    <th>生成日期</th>
+                    <!-- <th>订单支付日期</th> -->
+                    <th>购买保险</th>
+                    <th>积分抵扣</th>
+                    <th>小费</th>
+                    <th>预收运费</th>
+                    <th>清关费用</th>
+                    <th>增值费用</th>
+                    <th style="color:red">订单金额</th>
+                    <th style="color:red">支付金额</th>
+                    <th>打包重量</th>
+                    <th style="color:red">打包运费</th>
+                    <th style="color:red">已返还</th>
+                    <!-- <th>返还备注</th>
+                    <th>返还时间</th>
+                    <th>返还用户</th> -->
+                    <th style="color:red">返还金额</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in dataList">
+                    <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
+                    <td>{{item.rownumber}}</td>
+                    <td style="max-width:150px;">{{item.warehouseName}}</td>
+                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customerNumber}}</a></td>
+                    <td style="max-width: 200px;">
+                        <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
+                        <span ng-if="item.isFastOrder == 1" title="极速原箱">
+                            <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                        </span>
+                    </td>
+                    <td style="max-width:150px;">{{item.shipServiceName}}</td>
+                    <!-- <td style="max-width:150px;">{{item.orderStatus}}</td> -->
+                    <td style="max-width: 160px;">{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                    <!-- <td style="max-width: 160px;">{{item.payDate | date:'MM/dd/yyyy HH:mm:ss'}}</td> -->
+                    <td style="max-width: 200px;">{{item.insuranceFee|currency:'¥'}}</td>
+                    <td style="max-width: 200px;">{{item.usedPoint|currency:'¥'}}</td>
+                    <td style="max-width: 200px;">{{item.tip|currency:'¥'}}</td>
+                    <td style="max-width: 200px;">{{item.shippingFee|currency:'¥'}}</td>
+                    <td style="max-width: 200px;">{{(item.tariffMoney||0)|currency:'¥'}}</td>
+                    <td style="max-width: 200px;">{{(item.valueAddFee||0)|currency:'¥'}}</td>
+                    <td style="max-width: 200px;color:red">{{item.totalCount|currency:'¥'}}</td>
+                    <td style="max-width: 200px;color:red">{{item.paied|currency:'¥'}}</td>
+                    <td style="max-width:150px;">{{item.actualWeight}}</td>
+                    <td style="max-width: 200px;color:red">{{item.actualShippingFee|currency:'¥'}}</td>
+                    <td style="max-width: 200px;color:red">{{(item.payment||0)|currency:'¥'}}</td>
+                    <!-- <td class="long-cell">
+                        {{(item.payment||0)|currency:'¥'}}
+                        {{item.refundDate}} {{item.refundUserName}}
+                        {{item.refundMemo}}
+                    </td> -->
+                    <!-- <td style="max-width:150px;">{{item.refundDate}}</td>
+                    <td style="max-width:150px;">{{item.refundUserName}}</td> -->
+                    <td style="max-width: 200px;color:red">{{(item.refundAmount||0)|currency:'¥'}}</td>
+                    <td>  
+                        <!-- 确认退款 -->
+                        <a href="javascript:void(0);" class="role" data-role="49" ng-click="btnSingleRefund(item)">确认退款</a> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-6 text-right pull-right">
+                <uib-pagination class="pagination pagination-rewrite pull-right"
+                                boundary-links="true"
+                                max-size="5"
+                                total-items="pagination.totalCount"
+                                items-per-page="pagination.pageSize"
+                                ng-model="pagination.pageIndex"
+                                ng-change="getData()"
+                                previous-text="上一页"
+                                next-text="下一页"
+                                first-text="首页"
+                                last-text="尾页">
+                </uib-pagination>
+                <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-right pull-left" style="margin-left:10px">
+                <button type="button" class="btn btn-primary" ng-click="btnBatchRefund()" data-role="49"> 批量退款</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

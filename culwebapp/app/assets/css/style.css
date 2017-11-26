@@ -3493,6 +3493,11 @@ select:-webkit-autofill {
 		height: 457px !important;
 	}
 }
+@media (max-width: 1366px) {
+	.index-banner-height {
+		height: 440px !important;
+	}
+}
 @media (max-width: 1280px) {
 	.index-banner-height {
 		height: 430px !important;
