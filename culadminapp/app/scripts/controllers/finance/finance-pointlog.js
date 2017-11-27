@@ -4,7 +4,7 @@
  * @ngdoc function
  * @name culAdminApp.controller:FinanceDetailCtrl
  * @description
- * # FinanceDetailCtrl
+ * # FinanceDetailCtrl 
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
