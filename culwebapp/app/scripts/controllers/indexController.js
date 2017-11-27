@@ -8,8 +8,7 @@ angular
             $rootScope.currentUser = AuthService.getUser();
             // };
 
-            $scope.notice =   window.sessionStorage.getItem("notice")
-            // console.log("客户编号：" + $rootScope.currentUser.customerNumber);
+            $scope.notice =   window.sessionStorage.getItem("notice");
             $scope.logout = function() {
                 AuthService.logout(function() {
                     $scope.isLogin();
@@ -33,7 +32,6 @@ angular
 
             $scope.getMessageOperationlog = function() {
                 Customer.getMessageOperationlog().then(function(data) {
-                    console.log("data-->",data)
                     $scope.tipMessageList = data.data.data;
                     $scope.tipMessageLength = data.data.data.length;
                 })
@@ -104,10 +102,7 @@ angular
                     $scope.webAnnounce = result.data.data.data;
                     if($scope.webAnnounce[0]){
                         if ($scope.webAnnounce[0].status == 1) {
-                            console.log('$scope.webAnnounce[0].status == 1');
-                            console.log("$scope.notice",$scope.notice)
                             if(!$scope.notice){
-                                console.log(23)
                                 $('#modalNote').modal('show');
                             }
                         }
@@ -135,7 +130,6 @@ angular
                 }else{
                     window.sessionStorage.setItem("notice",true)
                 }
-                console.log( window.sessionStorage.getItem("notice"))
             }
 
 
