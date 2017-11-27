@@ -4,9 +4,9 @@
  * @ngdoc function
  * @name culAdminApp.controller:FinanceRecordRechargeLogsCtrl
  * @description
- * # FinanceDetailRechargeLogsCtrl
+ * # FinanceDetailRechargeLogsCtrl 
  * Controller of the culAdminApp 
- */
+ */ 
 angular.module('culAdminApp')
     .controller('FinancePointRechargeLogsCtrl', ["$scope", "$location", "$filter", "customerService", "settlementService", "plugMessenger",
         function ($scope, $location, $filter, customerService, settlementService, plugMessenger) {
@@ -18,10 +18,11 @@ angular.module('culAdminApp')
             
             $scope.tpl_status = {
                 "rechargeType": [
-                    { "title": "全部", "value": "1,3,4" },
+                    { "title": "全部", "value": "1,3,4,12" },
                     { "title": "支付宝人民币充值", "value": "1" },
                     { "title": "赠送", "value": "3" },
                     { "title": "退款", "value": "4" },
+                    { "title": "扣除货物保管费", "value": "12" },
                 ]
             }
 
@@ -37,7 +38,7 @@ angular.module('culAdminApp')
 
                 customerNumber: $location.search().customerNumber,
                 selectedAll: false,
-                rechargeType: "1,3,4",
+                rechargeType: "1,3,4,12",
                 keywordType: "customerNumber",
                 dateRange: "",
                 startDate: "",
@@ -97,6 +98,7 @@ angular.module('culAdminApp')
             $scope.getData = function () {
                 var _options = _filterOptions();
                 customerService.financeLogList(angular.copy(_options), function (result) {
+                    console.log("result",result)
                     $scope.allTotal = result.allTotal;
                     $scope.dataList = result.data;
                     $scope.pageInfo = result.pageInfo;

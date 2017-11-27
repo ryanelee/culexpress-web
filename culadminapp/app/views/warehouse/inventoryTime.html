@@ -84,10 +84,12 @@
                             <th>库存天数</th>
                             <th>入库人员</th>
                             <th>应付金额</th>
+                            <th>已付金额</th>
+                            <th>待付金额</th>
                             <th>操作</th>
                         </tr>
                     </thead>
-                    <tbody> 
+                    <tbody>  
                         <tr ng-repeat="item in dataList">
                             <td>{{item.rownumber}}</td> 
                             <td>{{item.customerNumber}}</td>
@@ -102,7 +104,9 @@
                             <td>{{item.days}}</td>
                             <td>{{item.inboundUser}}</td>
                             <td>{{item.payMoney}}</td>
-                            <td><a href="javascript:void(0);" ng-click="btnAction('adjust',item)">付款</a></td>
+                            <td>{{item.payInventory}}</td>
+                            <td>{{item.shouldPay}}</td>
+                            <td><a href="javascript:void(0);" ng-click="payMoney(item)">付款</a></td>
                         </tr>
                     </tbody>
                 </table>
