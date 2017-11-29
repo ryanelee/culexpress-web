@@ -9,7 +9,7 @@ angular.module('culwebApp')
                 'Karma'
             ];
             console.log("hello")
-            $scope.imageArr = [];
+            $scope.imageArr = []; 
             $scope.images;
 
             // $scope.$on('$viewContentLoaded', function () {
