@@ -108,7 +108,24 @@ angular.module('culAdminApp')
         $http.post(cul.apiPath + "/getInboundPackage", options).success(function (result) {
             callback(result);
         })
+
+        
     }
+    self.check = function (options, callback) {
+        $http.post(cul.apiPath + "/getInboundPackage", options).success(function (result) {
+            callback(result);
+        })
+
+        
+    }
+    self.payInventory = function (options, callback) {
+        $http.post(cul.apiPath + "/customer/payInventory", options).success(function (result) {
+            callback(result);
+        })
+
+        
+    }
+
 
       
 

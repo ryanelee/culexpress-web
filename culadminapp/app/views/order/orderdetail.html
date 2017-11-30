@@ -445,13 +445,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right" style="font-weight:bold">运费总计：</label>
                     <div class="col-sm-4">
-                        <label class="control-label" style="font-weight:bold">{{((data.totalCount + (data.tariffMoney||0)) - data.shippingFeeAdjust) | currency:'¥'}}</label>
-                    </div>
-                </div>
-                <div class="form-group" ng-if="data.totalRefund && data.totalRefund > 0">
-                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">已返还运费：</label>
-                    <div class="col-sm-4">
-                        <label class="control-label" style="font-weight:bold">{{data.totalRefund | currency:'¥'}}</label>
+                        <label class="control-label" style="font-weight:bold">{{(data.totalCount - data.shippingFeeAdjust) | currency:'¥'}}</label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -462,6 +456,12 @@
                     <label class="col-sm-2 control-label text-right" style="font-weight:bold">支付日期：</label>
                     <div class="col-sm-4">
                         <label class="control-label" style="font-weight:bold">{{data.payDate | date:'yyyy-MM-dd HH:mm:ss'}}</label>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="data.totalRefund && data.totalRefund > 0">
+                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">已返还运费：</label>
+                    <div class="col-sm-4">
+                        <label class="control-label" style="font-weight:bold">{{data.totalRefund | currency:'¥'}}</label>
                     </div>
                 </div>
                 <div class="form-group" ng-if="data.shippingFeeAdjust && data.shippingFeeAdjust < 0">
