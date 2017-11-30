@@ -347,6 +347,10 @@ angular
                 templateUrl: 'views/finance/refundshipping-verify.html',
                 controller: 'RefundShippingVerifyCtl'
             })
+            .when('/finance/customerwithdraw', { //返还运费
+                templateUrl: 'views/finance/customer-withdrawRequest.html',
+                controller: 'CustomerWithdrawCtl'
+            })
             .when('/system/operationloglist', {
                 templateUrl: 'views/system/operationloglist.html',
                 controller: 'SystemOperationLogListCtrl'

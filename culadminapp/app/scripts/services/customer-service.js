@@ -246,4 +246,22 @@ angular.module('culAdminApp')
             });
         }
 
+        self.getWithdrawRequestList = function(options, callback) {
+            $http.post(cul.apiPath + "/customer/getWithdrawRequestList", options).success(function(result) {
+                callback(result);
+            });
+        }
+
+        self.updateWithdrawRequest = function(options, callback) {
+            $http.post(cul.apiPath + "/customer/updateWithdrawRequest", options).success(function(result) {
+                callback(result);
+            });
+        }
+
+        self.approveWithdrawRequest = function(options, callback) {
+            $http.post(cul.apiPath + "/customer/approveWithdrawRequest", options).success(function(result) {
+                callback(result);
+            });
+        }
+
     }]);
