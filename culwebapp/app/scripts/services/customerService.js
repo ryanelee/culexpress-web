@@ -69,10 +69,10 @@ angular.module('culwebApp')
                     customerNumber: customerNumber
                 });
             },
-            getFinanceLog: function(index, customerNumber, operationType) {
+            getFinanceLog: function(index, customerNumber, operationType,size) {
                 return $http.post(cul.apiPath + '/customer/financelog/list', {
                     pageInfo: {
-                        pageSize: 10,
+                        pageSize: size | 10,
                         pageIndex: index || 1
                     },
                     operationType: operationType || 1,
@@ -137,6 +137,18 @@ angular.module('culwebApp')
             },
             updateMessageOperation: function(obj) {
                 return $http.post(cul.apiPath + '/customermessage/updateMessageOperation', obj);
+            },
+            saveWithdrawRequest: function(obj) {
+                return $http.post(cul.apiPath + '/customer/withdrawRequest', obj);
+            },
+            getWithdrawRquestList: function(index,size,customerNumber) {
+                return $http.post(cul.apiPath + '/customer/getWithdrawRequestList',{
+                    pageInfo: {
+                        pageSize: size | 10,
+                        pageIndex: index || 1
+                    },
+                    customerNumber: customerNumber
+                });
             },
 
             ProvinceList: provinceList

@@ -1,0 +1,146 @@
+<div class="widget widget-table">
+    <div class="widget-header">
+        <h3><i class="fa fa-table"></i> 客户提款申请</h3>
+    </div>
+    <div class="widget-content">
+        <div class="row">
+            <div class="col-sm-12 search-bar">
+                <div class="search-col">
+                    <label class="search-label">状态：</label>
+                    <select class="form-control search-control" ng-model="searchBar.status">
+                        <option value="0">全部</option>
+                        <option value="P">未审核</option>
+                        <option value="A">已接受</option>
+                        <option value="D">已拒绝</option>
+                        <option value="R">已退款</option>
+                    </select>
+                </div>
+                <div class="clearfix"></div>
+                <div class="search-col">
+                    <label class="search-label">搜索条目：</label>
+                    <select class="form-control search-control" ng-model="searchBar.keywordType">
+                        <option value="customerNumber">客户编号</option>     
+                    </select>
+                    <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()" />
+                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>客户编号</th>
+                    <th>注册账号</th>
+                    <th>客户类型</th>
+                    <th>账号余额</th>
+                    <th>申请金额</th>
+                    <th>申请状态</th>
+                    <th>申请日期</th>
+                    <th>申请人</th>
+                    <th>审核时间</th>
+                    <th>审核人</th>
+                    <th>退款金额</th>
+                    <th>备注</th>
+                    <!-- <th ng-if="item.alipay_sucess">支付宝退款</th>
+                    <th ng-if="item.alipay_notify_msg">支付宝错误</th> -->
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in dataList">
+                    <td>{{item.rownumber}}</td>
+                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customerNumber}}</a></td>
+                    <td style="max-width:150px;">{{item.userName}}</td>
+                    <td style="max-width:150px;">{{item.userTypeID == 4 ? '普通客户' : 'VIP客户'}}</td>
+                    <td style="max-width: 200px;">{{item.accountBalance|currency:'¥'}}</td>
+                    <td style="max-width: 200px;">{{item.requestAmount|currency:'¥'}}</td>
+                    <td style="max-width:150px;">{{item.statusName}}</td>
+                    <td style="max-width: 160px;">{{item.requestDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                    <td style="max-width: 200px;">{{item.requestUser}}</td>
+                    <td style="max-width: 160px;">{{item.reviewDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                    <td style="max-width: 200px;">{{item.reviewUser}}</td>
+                    <td style="max-width: 200px;">{{item.refundAmount | currency: '￥'}}</td>
+                    <td class="long-cell">{{item.reviewNote}}</td>
+                    <!-- <td style="max-width: 200px;" ng-if="item.alipay_sucess">{{item.alipay_sucess == 'Y' ? '成功' : '失败'}}</td>
+                    <td style="max-width: 200px;" ng-if="item.alipay_notify_msg">{{item.alipay_notify_msg}}</td> -->
+                    <td>  
+                        <!-- 确认退款 -->
+                        <a href="javascript:void(0);" class="role" data-role="49" ng-if="item.status == 'P'" ng-click="btnAccept(item)">接受</a> 
+                        <a href="javascript:void(0);" class="role" data-role="49" ng-if="item.status == 'P'" ng-click="btnDeclineWithNote(item)">拒绝</a> 
+                        <a href="javascript:void(0);" class="role" data-role="49" ng-if="item.status == 'A'" ng-click="btnConfirmWithNote(item)">完成退款</a> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-6 text-right pull-right">
+                <uib-pagination class="pagination pagination-rewrite pull-right"
+                                boundary-links="true"
+                                max-size="5"
+                                total-items="pagination.totalCount"
+                                items-per-page="pagination.pageSize"
+                                ng-model="pagination.pageIndex"
+                                ng-change="getData()"
+                                previous-text="上一页"
+                                next-text="下一页"
+                                first-text="首页"
+                                last-text="尾页">
+                </uib-pagination>
+                <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script type="text/html" id="decline_note_form">
+    <form class="form-horizontal" role="form">
+        <fieldset>
+            <legend>备注</legend>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-right">拒绝原因:</label>
+                <div class="col-sm-5 text-left">
+                    <textarea type="input" class="form-control" ng-model="declineNote"></textarea>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group text-center">
+            <button type="button" class="btn btn-primary" ng-click="btnDecline(item)">确定</button>
+            <button type="button" class="btn btn-default" ng-click="btnCancel($event)">取消</button>
+        </div>
+    </form>
+</script>
+
+<script type="text/html" id="confirm_refund_form">
+    <form class="form-horizontal" role="form">
+        <fieldset>
+            <legend>完成退款</legend>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-right">实际退款金额:</label>
+                <div class="col-sm-5 text-left">
+                    <input type="text" class="form-control" ng-model="confirmRefundAmount"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-right">备注:</label>
+                <div class="col-sm-5 text-left">
+                    <textarea type="input" class="form-control" ng-model="confirmNote"></textarea>
+                </div>
+            </div>
+
+        </fieldset>
+        <div class="form-group text-center">
+            <button type="button" class="btn btn-primary" ng-click="btnConfirm(item)">确定</button>
+            <button type="button" class="btn btn-default" ng-click="btnCancel($event)">取消</button>
+        </div>
+    </form>
+</script>
