@@ -85,7 +85,8 @@ angular.module('culAdminApp')
                         if(item.tariffMoney == null) item.tariffMoney = 0;
                         if(item.payment == null) item.payment = 0;
 
-                        item.refundAmount = parseFloat((item.paied + item.usedPoint) - (item.actualShippingFee + item.insuranceFee + item.tip + item.tariffMoney + item.valueAddFee + item.payment)).toFixed(2);
+                        item.totalSurcharge = parseFloat(item.actualShippingFee + item.insuranceFee + item.tip + item.tariffMoney + item.valueAddFee + item.payment).toFixed(2);
+                        item.refundAmount = parseFloat((item.paied + item.usedPoint) - item.totalSurcharge).toFixed(2);
                         item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
                     });
 

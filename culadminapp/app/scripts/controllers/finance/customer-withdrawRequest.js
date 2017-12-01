@@ -54,18 +54,18 @@ angular.module('culAdminApp')
                 customerService.getWithdrawRequestList(angular.copy(_options), function (result) {
                     if(!result || !result.data || result.data.length < 1) return;
 
-                    $.each(result.data.data,function(){
-                        if(this.status == 'P')
-                            this.statusName = '未审核';
-                        else if(this.status == 'A')
-                            this.statusName = '已接受';
-                        else if(this.status == 'R')
-                            this.statusName = '已退款';
-                        else if(this.status == 'D')
-                            this.statusName = '已拒绝';
-                        else 
-                            this.statusName = '已拒绝';
-                    })
+                    // $.each(result.data.data,function(){
+                    //     if(this.status == 'P')
+                    //         this.statusName = '未审核';
+                    //     else if(this.status == 'A')
+                    //         this.statusName = '已接受';
+                    //     else if(this.status == 'R')
+                    //         this.statusName = '已退款';
+                    //     else if(this.status == 'D')
+                    //         this.statusName = '已拒绝';
+                    //     else 
+                    //         this.statusName = '已拒绝';
+                    // })
 
                     $scope.dataList = result.data.data;
                     $scope.pagination.totalCount = result.data.pageInfo.totalCount;
@@ -89,7 +89,7 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnApprove = function(item){
+            $scope.btnAccept = function(item){
                 if(!item) return;
 
                 plugMessenger.confirm("确定要接受提款申请吗?", function (isOK) {
@@ -105,11 +105,11 @@ angular.module('culAdminApp')
                         };
 
                         customerService.updateWithdrawRequest(data, function (result) {
-                            if (result.success == true) {
+                            if (result.code == "000") {
                                 plugMessenger.info("操作成功");
                                 $scope.getData();
                             } else {
-                                plugMessenger.info(result);
+                                plugMessenger.info(result.msg);
                             }
                         });
                     }
@@ -156,11 +156,23 @@ angular.module('culAdminApp')
                 plugMessenger.template($compile($("#confirm_refund_form").html())($scope));
             }
 
+            function isFloat(n){
+                return Number(n) === n && n % 1 !== 0;
+            }
+
             $scope.btnConfirm = function(item){
                 if(!item) return;
 
                 if (!$scope.confirmRefundAmount) {
                     return plugMessenger.info("实际退款金额不能为空");
+                }
+
+                if (!isFloat($scope.confirmRefundAmount)) {
+                    return plugMessenger.info("实际退款金额格式不正确,请输入浮点数字(2位小数)");
+                }
+
+                if (!$scope.confirmRefundAmount != item.requestAmount && !$scope.confirmNote) {
+                    return plugMessenger.info("实际退款不等于申请金额,必须输入备注信息");
                 }
 
                 plugMessenger.confirm("确定通知客户已完成退款吗?", function (isOK) {
@@ -169,6 +181,7 @@ angular.module('culAdminApp')
 
                         var data = {
                             transactionNumber:item.transactionNumber,
+                            customerNumber: item.customerNumber,
                             refundAmount:$scope.confirmRefundAmount,
                             status: 'R',
                             note: $scope.confirmNote
@@ -176,8 +189,9 @@ angular.module('culAdminApp')
                             // alipay_refund_detail_data:item.alipay_refund_detail_data
                         };
 
-                        customerService.updateWithdrawRequest(data, function (result) {
+                        customerService.confirmWithdrawRequest(data, function (result) {
                             $scope.confirmNote = "";
+                            $scope.confirmRefundAmount = "";
 
                             if (result.code == '000') {                                
                                 plugMessenger.info("操作成功");

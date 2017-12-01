@@ -73,6 +73,11 @@ angular
                 templateUrl: 'views/customer/myfinancedetail.html',
                 controller: function () { }
             })
+            .state('customer.mywithdrawrequest', {
+                url: '/mywithdrawrequest',
+                templateUrl: 'views/customer/mywithdrawrequest.html',
+                controller: function () { }
+            })
             .state('customer.myquestions', {
                 url: '/myquestions',
                 templateUrl: 'views/customer/myquestions.html',

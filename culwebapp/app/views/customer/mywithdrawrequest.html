@@ -1,0 +1,56 @@
+<div class="row" ng-controller="MyFinanceController">
+        <div class="profile-body margin-bottom-20">
+            <div class="tab-v1">
+                <div class="headline"><h2>我的提款记录</h2></div>
+                <div class="tab-content">
+                    <div class="profile-edit">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width: 20px;">#</th>
+                                        <th style="width:150px;">申请日期</th>
+                                        <th style="width:80px;">申请金额</th>                                       
+                                        <th style="width:80px;">申请状态</th>
+                                        <th style="width:150px;">审核时间</th>
+                                        <th style="width:80px;">退款金额(支付宝)</th>
+                                        <th style="width:150px;">备注</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in myWithdrawListData">
+                                        <td style="width:20px;">{{item.rownumber}}</td>
+                                        <td>
+                                            {{item.requestDate|date: 'yyyy年MM月dd日 HH:mm:ss'}}
+                                        </td>
+                                        <td>
+                                            {{item.requestAmount|currency:'￥'}}
+                                        </td>
+                                        <td>
+                                            <span class="label label-success" ng-if="item.status=='R'">{{item.statusName}}</span>
+                                            <span class="label label-danger" ng-if="item.status=='D'">{{item.statusName}}</span>
+                                            <span class="label label-info" ng-if="item.status!='D' && item.status != 'R'">{{item.statusName}}</span>
+                                        </td>
+                                        <td>
+                                            {{item.reviewDate|date: 'yyyy年MM月dd日 HH:mm:ss'}}
+                                        </td>
+                                        <td>
+                                            {{item.refundAmount|currency:'￥'}}
+                                        </td>
+                                        <td>
+                                            {{item.reviewNote}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-right">
+                                <button type="button" class="btn-back pull-left" ng-click="goback()">返回</button>
+                                <pagination options="pagedOptions" on-page="onWithdrawPaged"></pagination>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

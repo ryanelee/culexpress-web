@@ -258,8 +258,8 @@ angular.module('culAdminApp')
             });
         }
 
-        self.approveWithdrawRequest = function(options, callback) {
-            $http.post(cul.apiPath + "/customer/approveWithdrawRequest", options).success(function(result) {
+        self.confirmWithdrawRequest = function(options, callback) {
+            $http.post(cul.apiPath + "/customer/confirmWithdrawRequest", options).success(function(result) {
                 callback(result);
             });
         }

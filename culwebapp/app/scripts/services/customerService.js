@@ -141,8 +141,14 @@ angular.module('culwebApp')
             saveWithdrawRequest: function(obj) {
                 return $http.post(cul.apiPath + '/customer/withdrawRequest', obj);
             },
-            getWithdrawRquestList: function(obj) {
-                return $http.post(cul.apiPath + '/customer/getWithdrawRequestList',obj);
+            getWithdrawRquestList: function(index,size,customerNumber) {
+                return $http.post(cul.apiPath + '/customer/getWithdrawRequestList',{
+                    pageInfo: {
+                        pageSize: size | 10,
+                        pageIndex: index || 1
+                    },
+                    customerNumber: customerNumber
+                });
             },
 
             ProvinceList: provinceList

@@ -134,6 +134,21 @@ angular
                     });
             }
 
+            $scope.myWithdrawListData = [];
+            var loadWithdrawList = function (index,callback) {
+                customer.getWithdrawRquestList(index, 10, $scope.currentUser.customerNumber)
+                    .then(function (result) {
+                        callback && callback(result);
+                    });
+            }
+
+            $scope.onWithdrawPaged = function (pageIndex) {
+                loadFinanceLog(pageIndex, function () {
+                    $scope.myWithdrawListData = result.data.data;
+                    $scope.pagedOptions.total = result.data.data.pageInfo.totalCount;
+                });
+            }
+
             $scope.myfinanceListData = [];
             $scope.pagedDebitOptions = $scope.pagedOptions = {
                 total: 0,
@@ -142,7 +157,6 @@ angular
             var loadFinanceLog = function (index, callback) {
                 customer.getFinanceLog(index, $scope.currentUser.customerNumber, operationType)
                     .then(function (result) {
-                        console.log(result);
                         callback && callback(result);
                     });
             }
@@ -174,6 +188,13 @@ angular
                         $scope.myDebitListData = result.data.data;
                         $scope.pagedDebitOptions.total = result.data.pageInfo.totalCount;
                     }
+                });
+            }
+
+            if ($location.path() === '/customer/mywithdrawrequest') {
+                loadWithdrawList(1, function (result) {
+                    $scope.myWithdrawListData = result.data.data.data;
+                    $scope.pagedOptions.total = result.data.data.pageInfo.totalCount;
                 });
             }
 
