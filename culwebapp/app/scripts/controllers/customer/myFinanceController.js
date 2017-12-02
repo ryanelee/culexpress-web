@@ -72,10 +72,52 @@ angular
                 window.open('rechargepage.html?ra=' + encodeURIComponent(model.payAmount) + '&cn=' + encodeURIComponent(currentCustomer.customerNumber));
             }
 
+            $scope.preApplyRefund_success = false;
+            $scope.preApplyRefund = function () {
+                $scope.preApplyRefund_success = false;
+
+                var currentCustomer = AuthService.getUser();
+                if (!currentCustomer) {
+                    alertify.alert('提醒', '请先登录.', 'warning');
+                    return false;
+                }
+
+                if (!model.refundAmount) {
+                    alertify.alert('提醒', '请输入退款金额.', 'warning');
+                    return false;
+                }
+                if (model.refundAmount < 100) {
+                    alertify.alert('提醒', '退款金额不能小于100', 'warning');
+                    return false;
+                }
+                if ($scope.currentUser.accountBalance < 120) {
+                    alertify.alert('提醒', '您账户余额至少需要￥120: 最小退款金额￥100, 单次退款手续费￥20.', 'warning');
+                    return false;
+                }
+
+                $scope.preApplyRefund_success = true;
+            };
+
             $scope.applyRefund = function () {
                 var currentCustomer = AuthService.getUser();
                 if (!currentCustomer) {
                     alertify.alert('提醒', '请先登录.', 'warning');
+                    return false;
+                }
+                if(!model.alipayAccount){
+                    alertify.alert('提醒', '请输入支付宝账号.', 'warning');
+                    return false;
+                }
+                if(!model.alipayAccountRepeat){
+                    alertify.alert('提醒', '请再输入一次支付宝账号.', 'warning');
+                    return false;
+                }
+                if(model.alipayAccount.trim().toLowerCase() !== model.alipayAccountRepeat.trim().toLowerCase()){
+                    alertify.alert('提醒', '两次输入的支付宝账号不一致,请重新输入', 'warning');
+                    return false;
+                }
+                if(!model.acceptTerms){
+                    alertify.alert('提醒', '请勾选选择框确认输入了正确的支付宝账号', 'warning');
                     return false;
                 }
                 if (!model.refundAmount) {
@@ -120,7 +162,8 @@ angular
                 // alipay_detail_data = alipay_detail_data.slice(0,-1)//remove last #
                 var data = [{
                     customerNumber: $scope.currentUser.customerNumber,
-                    requestAmount: model.refundAmount
+                    requestAmount: model.refundAmount,
+                    alipay_account: model.alipayAccount,
                     // alipay_batch_no: alipay_batch_no,
                     // alipay_detail_data: alipay_detail_data
                 }];
