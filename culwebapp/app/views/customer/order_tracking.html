@@ -68,7 +68,8 @@
               <div class='item-content'>
                 <p>出库时间{{orderEventInfo.status}}</p>
                 <!--<p class="chuku">{{orderEventInfo.eventList[0].operationDate|date:'yyyy.MM.dd HH:mm'}}</p>-->
-                <p class="chuku">{{eventChukuDate |date:'yyyy.MM.dd HH:mm'}}</p>              
+                <p class="chuku">{{eventChukuDate |date:'yyyy.MM.dd HH:mm'}}</p> 
+                <p class="chuku" ng-show="eventChukuDate == undefined">还未出库</p>
               </div>
             </div>
           </div>

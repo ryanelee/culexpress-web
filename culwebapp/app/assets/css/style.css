@@ -2898,11 +2898,11 @@ select:-webkit-autofill {
 }
 
 .my-home .order-info .item-user {
-	height: 255px;
+	height: 300px;
 }
 
 .my-home .order-info .item-fei {
-	height: 255px;
+	height: 300px;
 	background: #f7f9fb url('../../assets/img/dashbard/fei-bg.png') no-repeat right top;
 }
 
