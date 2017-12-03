@@ -74,8 +74,7 @@ angular.module('culAdminApp')
                 if (!!$scope.tempOutboundPackageNumber) {
                     orderService.getList({
                         outBoundTrackingNumber: $scope.tempOutboundPackageNumber
-                    }, function (result) {
-                        // console.log(result);
+                    }, function (result) {                     
                         if (!!result && !!result.data && result.data.length > 0) {
                             $scope.data = result.data[0];
                             var _checked = false;
@@ -128,7 +127,7 @@ angular.module('culAdminApp')
             }
 
             $scope.weightChanged = function () {
-                // 原单更新（打包后）的订单才能订单出苦
+                // 原单更新（打包后）的订单才能订单出库
                 if ($scope.data.orderStatus == "WaybillUpdated") {
                     $scope.outboundEnable = $.grep($scope.data.outboundPackages, function (n) { return !!n.actualWeight && n.checked == true }).length == $scope.data.outboundPackages.length;                    
                 }
@@ -236,28 +235,7 @@ angular.module('culAdminApp')
                         plugMessenger.confirm("该订单[" + $scope.data.orderNumber + "]未打印,确认打包处理?", function (isOk) {
                             if (isOk) {
                                 if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
-                                    $scope.dealUpdate("WaybillUpdated");
-                                    // var _count = 0;
-                                    // var checkedPackages = $scope.data.outboundPackages;
-                                    // var _callback = function () {
-                                    //     orderService.update({ orderNumber: $scope.data.orderNumber, orderStatus: "WaybillUpdated" }, function (result) {
-                                    //         plugMessenger.success("保存成功");
-                                    //         var element = $window.document.getElementById('tempInboundPackageNumber');
-                                    //         if (element) element.focus()
-                                    //         _reset();
-                                    //     })
-                                    // }
-                                    // //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
-                                    // $.each(checkedPackages, function (i, pkg) {
-                                    //     orderService.updateOutboundPackage(pkg, function (result) {
-                                    //         if (!result.message) {
-                                    //             _count++;
-                                    //             if (_count == checkedPackages.length) {
-                                    //                 _callback();
-                                    //             }
-                                    //         }
-                                    //     })
-                                    // });
+                                    $scope.dealUpdate("WaybillUpdated");                                 
                                 } else {
                                     $scope.dealUpdate("PartialShipped");
                                     // plugMessenger.info("订单包裹尚未完成扫描");
@@ -288,36 +266,7 @@ angular.module('culAdminApp')
                                 plugMessenger.confirm("该订单[" + $scope.data.orderNumber + "]未打印,确认打包处理?", function (isOk) {
                                     if (isOk) {
                                         if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
-                                            $scope.dealOutBoundUpdate("WaybillUpdated");
-                                            // var _count = 0;
-                                            // var checkedPackages = $scope.data.outboundPackages;
-                                            // var _callback = function () {
-                                            //     orderService.update({ orderNumber: $scope.data.orderNumber, orderStatus: "WaybillUpdated" }, function (result) {
-                                            //         var outboundPackages = [];
-                                            //         $.each($scope.data.outboundPackages, function (i, pkg) {
-                                            //             outboundPackages.push(pkg.trackingNumber);
-                                            //         });
-                                            //         warehouseService.outboundPackageShip(outboundPackages, function (result) {
-                                            //             if (result.success == true) {
-                                            //                 plugMessenger.success("出库成功");
-                                            //                 var element = $window.document.getElementById('tempOutboundPackageNumber');
-                                            //                 if (element) element.focus()
-                                            //                 _reset();
-                                            //             }
-                                            //         });
-                                            //     })
-                                            // }
-                                            // //记录当前已扫描包裹的重量，并新增轨迹信息：完成称重,已计算出运费
-                                            // $.each(checkedPackages, function (i, pkg) {
-                                            //     orderService.updateOutboundPackage(pkg, function (result) {
-                                            //         if (!result.message) {
-                                            //             _count++;
-                                            //             if (_count == checkedPackages.length) {
-                                            //                 _callback();
-                                            //             }
-                                            //         }
-                                            //     })
-                                            // });
+                                            $scope.dealOutBoundUpdate("WaybillUpdated");                                                                            
                                         } else {
                                             $scope.dealOutBoundUpdate("PartialShipped");
                                             // plugMessenger.info("订单包裹尚未完成扫描");
