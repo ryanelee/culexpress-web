@@ -35,6 +35,7 @@
                     <th>客户类型</th>
                     <th>账号余额</th>
                     <th>申请金额</th>
+                    <th>支付宝账号</th>
                     <th>申请状态</th>
                     <th>申请日期</th>
                     <th>申请人</th>
@@ -55,6 +56,7 @@
                     <td style="max-width:150px;">{{item.userTypeID == 4 ? '普通客户' : 'VIP客户'}}</td>
                     <td style="max-width: 200px;">{{item.accountBalance|currency:'¥'}}</td>
                     <td style="max-width: 200px;">{{item.requestAmount|currency:'¥'}}</td>
+                    <td style="max-width:150px;">{{item.alipay_account}}</td>
                     <td style="max-width:150px;">{{item.statusName}}</td>
                     <td style="max-width: 160px;">{{item.requestDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                     <td style="max-width: 200px;">{{item.requestUser}}</td>
