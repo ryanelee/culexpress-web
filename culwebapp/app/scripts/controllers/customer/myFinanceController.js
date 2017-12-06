@@ -72,6 +72,11 @@ angular
                 window.open('rechargepage.html?ra=' + encodeURIComponent(model.payAmount) + '&cn=' + encodeURIComponent(currentCustomer.customerNumber));
             }
 
+            function isInt(n){
+                if(n !== n) return false;
+                return parseInt(n) === n || n % 1 !== 0;
+            }
+
             $scope.preApplyRefund_success = false;
             $scope.preApplyRefund = function () {
                 $scope.preApplyRefund_success = false;
@@ -86,12 +91,24 @@ angular
                     alertify.alert('提醒', '请输入退款金额.', 'warning');
                     return false;
                 }
-                if (model.refundAmount < 100) {
+
+                var parsedRefundAmount = parseFloat(model.refundAmount);
+
+                if (!isInt(parsedRefundAmount)) {
+                    alertify.alert("实际退款金额格式不正确,请输入数字金额");
+                    return false;
+                }
+                if (parsedRefundAmount < 100) {
                     alertify.alert('提醒', '退款金额不能小于100', 'warning');
                     return false;
                 }
                 if ($scope.currentUser.accountBalance < 120) {
                     alertify.alert('提醒', '您账户余额至少需要￥120: 最小退款金额￥100, 单次退款手续费￥20.', 'warning');
+                    return false;
+                }
+
+                if (parsedRefundAmount + 20 > $scope.currentUser.accountBalance) {
+                    alertify.alert('提醒', '您账户余额至少需要￥' + parseFloat(parsedRefundAmount + 20).toFixed(2) + ': 申请退款金额￥'+ parsedRefundAmount.toFixed(2) + ',单次退款手续费￥20.', 'warning');
                     return false;
                 }
 
@@ -124,12 +141,23 @@ angular
                     alertify.alert('提醒', '请输入退款金额.', 'warning');
                     return false;
                 }
-                if (model.refundAmount < 100) {
+                var parsedRefundAmount = parseFloat(model.refundAmount);
+                
+                if (!isInt(parsedRefundAmount)) {
+                    alertify.alert("实际退款金额格式不正确,请输入数字金额");
+                    return false;
+                }
+                if (parsedRefundAmount < 100) {
                     alertify.alert('提醒', '退款金额不能小于100', 'warning');
                     return false;
                 }
                 if ($scope.currentUser.accountBalance < 120) {
                     alertify.alert('提醒', '您账户余额至少需要￥120: 最小退款金额￥100, 单次退款手续费￥20.', 'warning');
+                    return false;
+                }
+
+                if (parsedRefundAmount + 20 > $scope.currentUser.accountBalance) {
+                    alertify.alert('提醒', '您账户余额至少需要￥' + parseFloat(parsedRefundAmount + 20).toFixed(2) + ': 申请退款金额￥'+ parsedRefundAmount.toFixed(2) + ',单次退款手续费￥20.', 'warning');
                     return false;
                 }
                 // if( !$scope.alipay_eligible_refund || $scope.alipay_eligible_refund.length < 1){
@@ -162,7 +190,7 @@ angular
                 // alipay_detail_data = alipay_detail_data.slice(0,-1)//remove last #
                 var data = [{
                     customerNumber: $scope.currentUser.customerNumber,
-                    requestAmount: model.refundAmount,
+                    requestAmount: parsedRefundAmount.toFixed(2),
                     alipay_account: model.alipayAccount,
                     // alipay_batch_no: alipay_batch_no,
                     // alipay_detail_data: alipay_detail_data
@@ -170,7 +198,6 @@ angular
 
                 customer.saveWithdrawRequest(data)
                     .then(function (result) {
-                        console.log(result);
                         if(result && result.data && result.data.code === '000'){
                             alertify.alert('提交成功', '成功提交提款申请,通过财务审核后将会返款到您的支付宝账号', 'success');
                         }
