@@ -97,15 +97,15 @@ angular.module('culAdminApp')
 
                         var data = {
                             transactionNumber:item.transactionNumber,
+                            customerNumber: item.customerNumber,
                             refundAmount:item.requestAmount,
-                            status: 'A',
-                            customerNumber: item.customerNumber
+                            status: 'A'
                             // alipay_refund_batch_num:item.alipay_refund_batch_num,
                             // alipay_refund_detail_data:item.alipay_refund_detail_data
                         };
 
-                        customerService.updateWithdrawRequest(data, function (result) {
-                            if (result.code == "000") {
+                        customerService.confirmWithdrawRequest(data, function (result) {
+                            if (result.code == '000') {                                
                                 plugMessenger.info("操作成功");
                                 $scope.getData();
                             } else {
@@ -141,6 +141,7 @@ angular.module('culAdminApp')
 
                             if (result.code == '000') {
                                 plugMessenger.info("操作成功");
+                                $("#confirm-modal").modal("hide");
                                 $scope.getData();
                             } else {
                                 plugMessenger.info(result.msg);
@@ -156,8 +157,9 @@ angular.module('culAdminApp')
                 plugMessenger.template($compile($("#confirm_refund_form").html())($scope));
             }
 
-            function isFloat(n){
-                return Number(n) === n && n % 1 !== 0;
+            function isInt(n){
+                if(n !== n) return false;
+                return parseInt(n) === n || n % 1 !== 0;
             }
 
             $scope.btnConfirm = function(item){
@@ -167,11 +169,18 @@ angular.module('culAdminApp')
                     return plugMessenger.info("实际退款金额不能为空");
                 }
 
-                if (!isFloat($scope.confirmRefundAmount)) {
-                    return plugMessenger.info("实际退款金额格式不正确,请输入浮点数字(2位小数)");
+                var parsedRefundAmount = parseFloat($scope.confirmRefundAmount);
+
+                if (!isInt(parsedRefundAmount)) {
+                    return plugMessenger.info("实际退款金额格式不正确,请输入数字金额");
                 }
 
-                if (!$scope.confirmRefundAmount != item.requestAmount && !$scope.confirmNote) {
+                if (parsedRefundAmount + 20 > item.accountBalance) {
+                    alertify.alert('提醒', '您账户余额至少需要￥' + parseFloat(parsedRefundAmount + 20).toFixed(2) + ': 申请退款金额￥'+ parsedRefundAmount.toFixed(2) + ',单次退款手续费￥20.', 'warning');
+                    return false;
+                }
+
+                if (parsedRefundAmount.toFixed(2) != item.requestAmount && !$scope.confirmNote) {
                     return plugMessenger.info("实际退款不等于申请金额,必须输入备注信息");
                 }
 
@@ -181,25 +190,45 @@ angular.module('culAdminApp')
 
                         var data = {
                             transactionNumber:item.transactionNumber,
-                            customerNumber: item.customerNumber,
-                            refundAmount:$scope.confirmRefundAmount,
+                            refundAmount:parsedRefundAmount.toFixed(2),
                             status: 'R',
+                            customerNumber: item.customerNumber,
                             note: $scope.confirmNote
                             // alipay_refund_batch_num:item.alipay_refund_batch_num,
                             // alipay_refund_detail_data:item.alipay_refund_detail_data
                         };
 
-                        customerService.confirmWithdrawRequest(data, function (result) {
-                            $scope.confirmNote = "";
-                            $scope.confirmRefundAmount = "";
-
-                            if (result.code == '000') {                                
+                        customerService.updateWithdrawRequest(data, function (result) {
+                            if (result.code == "000") {
                                 plugMessenger.info("操作成功");
+                                $("#confirm-modal").modal("hide");
                                 $scope.getData();
                             } else {
                                 plugMessenger.info(result.msg);
                             }
                         });
+
+                        // var data = {
+                        //     transactionNumber:item.transactionNumber,
+                        //     customerNumber: item.customerNumber,
+                        //     refundAmount:parsedRefundAmount.toFixed(2),
+                        //     status: 'R',
+                        //     note: $scope.confirmNote
+                        //     // alipay_refund_batch_num:item.alipay_refund_batch_num,
+                        //     // alipay_refund_detail_data:item.alipay_refund_detail_data
+                        // };
+
+                        // customerService.confirmWithdrawRequest(data, function (result) {
+                        //     $scope.confirmNote = "";
+                        //     $scope.confirmRefundAmount = "";
+
+                        //     if (result.code == '000') {                                
+                        //         plugMessenger.info("操作成功");
+                        //         $scope.getData();
+                        //     } else {
+                        //         plugMessenger.info(result.msg);
+                        //     }
+                        // });
                     }
                 });
             }
