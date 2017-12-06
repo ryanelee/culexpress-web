@@ -173,7 +173,7 @@ angular.module('culAdminApp')
                             note: $scope.declineNote,
                             customerNumber: item.customerNumber,
                             requestAmount: item.requestAmount,
-                            memo: "管理员拒绝提现申请",
+                            memo: "管理员取消提现申请",
                             operationType: "1",
                             payment: -(Number(item.requestAmount) + 20)
                         };
