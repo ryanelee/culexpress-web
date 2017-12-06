@@ -25,7 +25,7 @@ angular.module('culAdminApp')
             /*search bar*/
             $scope.searchBar = {
                 keywordType: "customerNumber",
-                status: 0
+                status: ""
             }
 
             $scope.tempSearchBar = angular.copy(storage.getSearchObject());
@@ -121,13 +121,12 @@ angular.module('culAdminApp')
                 plugMessenger.template($compile($("#decline_note_form").html())($scope));
             }
 
-            $scope.btnDecline = function(item){
+            $scope.btnDecline = function(event, item){
                 if(!item) return;
 
                 plugMessenger.confirm("确定要拒绝提款申请吗?", function (isOK) {
+                    $("#confirm-modal").modal("hide");
                     if (!!isOK) {
-                        $("#confirm-modal").modal("hide");
-
                         var data = {
                             transactionNumber:item.transactionNumber,
                             status: 'D',
@@ -138,10 +137,9 @@ angular.module('culAdminApp')
 
                         customerService.updateWithdrawRequest(data, function (result) {
                             $scope.declineNote = "";
-
                             if (result.code == '000') {
+                                $(event.currentTarget).parents("#confirm-modal").modal("hide");
                                 plugMessenger.info("操作成功");
-                                $("#confirm-modal").modal("hide");
                                 $scope.getData();
                             } else {
                                 plugMessenger.info(result.msg);
