@@ -8,10 +8,11 @@
                 <div class="search-col">
                     <label class="search-label">状态：</label>
                     <select class="form-control search-control" ng-model="searchBar.status">
-                        <option value="0">全部</option>
+                        <option value="">全部</option>
                         <option value="P">未审核</option>
                         <option value="A">已接受</option>
                         <option value="D">已拒绝</option>
+                        <option value="C">已取消</option>
                         <option value="R">已退款</option>
                     </select>
                 </div>
@@ -71,6 +72,7 @@
                         <a href="javascript:void(0);" class="role" data-role="49" ng-if="item.status == 'P'" ng-click="btnAccept(item)">接受</a> 
                         <a href="javascript:void(0);" class="role" data-role="49" ng-if="item.status == 'P'" ng-click="btnDeclineWithNote(item)">拒绝</a> 
                         <a href="javascript:void(0);" class="role" data-role="49" ng-if="item.status == 'A'" ng-click="btnConfirmWithNote(item)">完成退款</a> 
+                        <a href="javascript:void(0);" class="role" data-role="49" ng-if="item.status == 'A'" ng-click="btnCancelWithNote(item)">取消</a>
                     </td>
                 </tr>
             </tbody>
@@ -105,7 +107,6 @@
     <form class="form-horizontal" role="form">
         <fieldset>
             <legend>备注</legend>
-
             <div class="form-group">
                 <label class="col-sm-3 control-label text-right">拒绝原因:</label>
                 <div class="col-sm-5 text-left">
@@ -114,7 +115,7 @@
             </div>
         </fieldset>
         <div class="form-group text-center">
-            <button type="button" class="btn btn-primary" ng-click="btnDecline(item)">确定</button>
+            <button type="button" class="btn btn-primary" ng-click="btnDecline($event,item)">确定</button>
             <button type="button" class="btn btn-default" ng-click="btnCancel($event)">取消</button>
         </div>
     </form>

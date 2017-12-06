@@ -25,7 +25,7 @@ angular.module('culAdminApp')
             /*search bar*/
             $scope.searchBar = {
                 keywordType: "customerNumber",
-                status: 0
+                status: ""
             }
 
             $scope.tempSearchBar = angular.copy(storage.getSearchObject());
@@ -121,13 +121,11 @@ angular.module('culAdminApp')
                 plugMessenger.template($compile($("#decline_note_form").html())($scope));
             }
 
-            $scope.btnDecline = function (item) {
-                if (!item) return;
-
+            $scope.btnDecline = function(event, item){
+                if(!item) return;
                 plugMessenger.confirm("确定要拒绝提款申请吗?", function (isOK) {
+                    $("#confirm-modal").modal("hide");
                     if (!!isOK) {
-                        $("#confirm-modal").modal("hide");
-
                         var data = {
                             transactionNumber: item.transactionNumber,
                             status: 'D',
@@ -143,10 +141,9 @@ angular.module('culAdminApp')
 
                         customerService.updateWithdrawRequest(data, function (result) {
                             $scope.declineNote = "";
-
                             if (result.code == '000') {
+                                $(event.currentTarget).parents("#confirm-modal").modal("hide");
                                 plugMessenger.info("操作成功");
-                                $("#confirm-modal").modal("hide");
                                 $scope.getData();
                             } else {
                                 plugMessenger.info(result.msg);
@@ -160,6 +157,32 @@ angular.module('culAdminApp')
                 $scope.item = item;
                 $scope.confirmRefundAmount = item.requestAmount;
                 plugMessenger.template($compile($("#confirm_refund_form").html())($scope));
+            }
+             
+            /**
+             *  取消退款
+             */
+            $scope.btnCancelWithNote = function (item) {
+                if (!item) return;
+                plugMessenger.confirm("确定要取消提款申请吗?", function (isOK) {
+                    $("#confirm-modal").modal("hide");
+                    if (!!isOK) {
+                        var data = {
+                            transactionNumber: item.transactionNumber,
+                            status: 'C',
+                            note: $scope.declineNote
+                        };
+                        customerService.updateWithdrawRequest(data, function (result) {
+                            $scope.declineNote = "";
+                            if (result.code == '000') {
+                                plugMessenger.info("操作成功");
+                                $scope.getData();
+                            } else {
+                                plugMessenger.info(result.msg);
+                            }
+                        });
+                    }
+                })
             }
 
             function isInt(n) {

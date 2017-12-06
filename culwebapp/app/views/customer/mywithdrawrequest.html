@@ -33,7 +33,8 @@
                                         <td>
                                             <span class="label label-success" ng-if="item.status=='R'">{{item.statusName}}</span>
                                             <span class="label label-danger" ng-if="item.status=='D'">{{item.statusName}}</span>
-                                            <span class="label label-info" ng-if="item.status!='D' && item.status != 'R'">{{item.statusName}}</span>
+                                            <span class="label label-default" ng-if="item.status=='C'">{{item.statusName}}</span>
+                                            <span class="label label-info" ng-if="item.status!='C' && item.status!='D' && item.status != 'R'">{{item.statusName}}</span>          
                                         </td>
                                         <td>
                                             {{item.reviewDate|date: 'yyyy年MM月dd日 HH:mm:ss'}}

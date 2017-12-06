@@ -110,7 +110,7 @@ angular
                     alertify.alert('提醒', '提款金额不能大于账户余额', 'warning');
                     return false;
                 }
-
+                
                 if (parsedRefundAmount + 20 > $scope.currentUser.accountBalance) {
                     alertify.alert('提醒', '您账户余额至少需要￥' + parseFloat(parsedRefundAmount + 20).toFixed(2) + ': 申请退款金额￥'+ parsedRefundAmount.toFixed(2) + ',单次退款手续费￥20.', 'warning');
                     return false;
