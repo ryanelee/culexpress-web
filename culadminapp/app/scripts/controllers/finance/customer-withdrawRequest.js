@@ -174,7 +174,7 @@ angular.module('culAdminApp')
                             customerNumber: item.customerNumber,
                             requestAmount: item.requestAmount,
                             memo: "管理员拒绝提现申请",
-                            operationType: "4",
+                            operationType: "1",
                             payment: -(Number(item.requestAmount) + 20)
                         };
                         customerService.updateWithdrawRequest(data, function (result) {
