@@ -12,6 +12,7 @@
                         <option value="P">未审核</option>
                         <option value="A">已接受</option>
                         <option value="D">已拒绝</option>
+                        <option value="C">已取消</option>
                         <option value="R">已退款</option>
                     </select>
                 </div>
@@ -71,6 +72,7 @@
                         <a href="javascript:void(0);" class="role" data-role="49" ng-if="item.status == 'P'" ng-click="btnAccept(item)">接受</a> 
                         <a href="javascript:void(0);" class="role" data-role="49" ng-if="item.status == 'P'" ng-click="btnDeclineWithNote(item)">拒绝</a> 
                         <a href="javascript:void(0);" class="role" data-role="49" ng-if="item.status == 'A'" ng-click="btnConfirmWithNote(item)">完成退款</a> 
+                        <a href="javascript:void(0);" class="role" data-role="49" ng-if="item.status == 'A'" ng-click="btnCancelWithNote(item)">取消</a>
                     </td>
                 </tr>
             </tbody>
