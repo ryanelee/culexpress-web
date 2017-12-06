@@ -170,8 +170,9 @@ angular
 
                 customer.saveWithdrawRequest(data)
                     .then(function (result) {
-                        console.log(result);
                         if(result && result.data && result.data.code === '000'){
+                            // 提款申请成功后再关闭model
+                            $('#withdraw_modal').modal('hide');
                             alertify.alert('提交成功', '成功提交提款申请,通过财务审核后将会返款到您的支付宝账号', 'success');
                         }
                     });
