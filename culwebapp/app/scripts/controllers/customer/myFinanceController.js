@@ -7,7 +7,7 @@ angular
         function ($scope, $stateParams, $window, $location, customer, AuthService) {
             if (App) {
                 App.init();
-                App.initCounter();
+                App.initCounter(); 
                 App.initScrollBar();
             }
 
@@ -103,7 +103,11 @@ angular
                     return false;
                 }
                 if ($scope.currentUser.accountBalance < 120) {
-                    alertify.alert('提醒', '您账户余额至少需要￥120: 最小退款金额￥100, 单次退款手续费￥20.', 'warning');
+                    alertify.alert('提醒', '您账户余额至少需要￥120， 最小退款金额￥100, 单次退款手续费￥20.', 'warning');
+                    return false;
+                }
+                if(model.refundAmount>$scope.currentUser.accountBalance){
+                    alertify.alert('提醒', '提款金额不能大于账户余额', 'warning');
                     return false;
                 }
                 
@@ -119,11 +123,12 @@ angular
                 var currentCustomer = AuthService.getUser();
                 if (!currentCustomer) {
                     alertify.alert('提醒', '请先登录.', 'warning');
-                    return false;
+                    return $scope.preApplyRefund_success = true;;
                 }
                 if(!model.alipayAccount){
                     alertify.alert('提醒', '请输入支付宝账号.', 'warning');
-                    return false;
+                    return $scope.preApplyRefund_success = true;
+                    // return false;
                 }
                 if(!model.alipayAccountRepeat){
                     alertify.alert('提醒', '请再输入一次支付宝账号.', 'warning');
@@ -135,11 +140,12 @@ angular
                 }
                 if(!model.acceptTerms){
                     alertify.alert('提醒', '请勾选选择框确认输入了正确的支付宝账号', 'warning');
-                    return false;
+                    
+                    return $scope.preApplyRefund_success = true;
                 }
                 if (!model.refundAmount) {
                     alertify.alert('提醒', '请输入退款金额.', 'warning');
-                    return false;
+                    return $scope.preApplyRefund_success = true;
                 }
                 var parsedRefundAmount = parseFloat(model.refundAmount);
                 
