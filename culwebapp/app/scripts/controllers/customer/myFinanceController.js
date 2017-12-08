@@ -112,7 +112,7 @@ angular
                 }
                 
                 if (parsedRefundAmount + 20 > $scope.currentUser.accountBalance) {
-                    alertify.alert('提醒', '您账户余额至少需要￥' + parseFloat(parsedRefundAmount + 20).toFixed(2) + ': 申请退款金额￥'+ parsedRefundAmount.toFixed(2) + ',单次退款手续费￥20.', 'warning');
+                    alertify.alert('提醒', '您账户余额至少需要￥' + parseFloat(parsedRefundAmount + 20).toFixed(2) + '，申请退款金额￥'+ parsedRefundAmount.toFixed(2) + '，单次退款手续费￥20.', 'warning');
                     return false;
                 }
 
@@ -158,12 +158,12 @@ angular
                     return false;
                 }
                 if ($scope.currentUser.accountBalance < 120) {
-                    alertify.alert('提醒', '您账户余额至少需要￥120: 最小退款金额￥100, 单次退款手续费￥20.', 'warning');
+                    alertify.alert('提醒', '您账户余额至少需要￥120，最小退款金额￥100, 单次退款手续费￥20.', 'warning');
                     return false;
                 }
 
                 if (parsedRefundAmount + 20 > $scope.currentUser.accountBalance) {
-                    alertify.alert('提醒', '您账户余额至少需要￥' + parseFloat(parsedRefundAmount + 20).toFixed(2) + ': 申请退款金额￥'+ parsedRefundAmount.toFixed(2) + ',单次退款手续费￥20.', 'warning');
+                    alertify.alert('提醒', '您账户余额至少需要￥' + parseFloat(parsedRefundAmount + 20).toFixed(2) + '，申请退款金额￥'+ parsedRefundAmount.toFixed(2) + '，单次退款手续费￥20.', 'warning');
                     return false;
                 }
                 // if( !$scope.alipay_eligible_refund || $scope.alipay_eligible_refund.length < 1){
