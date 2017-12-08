@@ -170,7 +170,7 @@ angular.module('culAdminApp')
                         var data = {
                             transactionNumber: item.transactionNumber,
                             status: 'C',
-                            note: $scope.declineNote,
+                            note: "取消退款",
                             customerNumber: item.customerNumber,
                             requestAmount: item.requestAmount,
                             memo: "管理员取消提现申请",
@@ -178,7 +178,6 @@ angular.module('culAdminApp')
                             payment: -(Number(item.requestAmount) + 20)
                         };
                         customerService.updateWithdrawRequest(data, function (result) {
-                            $scope.declineNote = "";
                             if (result.code == '000') {
                                 plugMessenger.info("操作成功");
                                 $scope.getData();
