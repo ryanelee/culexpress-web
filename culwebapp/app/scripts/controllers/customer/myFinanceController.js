@@ -152,7 +152,7 @@ angular
                 if (!isInt(parsedRefundAmount)) {
                     alertify.alert("实际退款金额格式不正确,请输入数字金额");
                     return false;
-                }
+                } 
                 if (parsedRefundAmount < 100) {
                     alertify.alert('提醒', '退款金额不能小于100', 'warning');
                     return false;
@@ -201,15 +201,23 @@ angular
                     // alipay_batch_no: alipay_batch_no,
                     // alipay_detail_data: alipay_detail_data
                 }];
-
-                customer.saveWithdrawRequest(data)
+                $('#withdraw_modal').modal('hide');
+                alertify.confirm('确认', '提交申请后,申请相关余额和手续费20元将会被冻结，确认提交申请吗?',
+                function() {
+                    customer.saveWithdrawRequest(data)
                     .then(function (result) {
                         if(result && result.data && result.data.code === '000'){
                             // 提款申请成功后再关闭model
-                            $('#withdraw_modal').modal('hide');
+                            // $('#withdraw_modal').modal('hide');
                             alertify.alert('提交成功', '成功提交提款申请,通过财务审核后将会返款到您的支付宝账号', 'success');
                         }
                     });
+                },
+                function() {
+                 console.log("已取消")
+                })
+           
+               
             }
 
             $scope.myWithdrawListData = [];
