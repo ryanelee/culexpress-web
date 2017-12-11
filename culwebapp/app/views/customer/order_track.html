@@ -5,7 +5,7 @@
             <ul class="timeline-v2">
                 <li class="title equal-height-columns">
                     <p ng-if="!!orderEventInfo.usedTimeString">已运送：{{orderEventInfo.usedTimeString }}</p>
-                    <p ng-if="!orderEventInfo.usedTimeString">已运送：{{orderEventInfo.usedDay}}天{{orderEventInfo.usedHour}}小时</p>
+                    <!-- <p ng-if="!orderEventInfo.usedTimeString">已运送：{{orderEventInfo.usedDay}}天{{orderEventInfo.usedHour}}小时</p> -->
                     <p ng-if="!!orderEventInfo.outboundDate && showOutboundDate">出库时间：{{orderEventInfo.outboundDate|date:'yyyy年MM月dd日 HH:mm'}}</p>
                 </li>
                 <li class="equal-height-columns" ng-repeat="eventItem in orderEventInfo.eventList">
