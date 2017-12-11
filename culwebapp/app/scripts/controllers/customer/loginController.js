@@ -1,12 +1,12 @@
 'use strict';
 
 angular
-    .module('culwebApp')
+    .module('culwebApp') 
     .controller('LoginController', ['$rootScope', '$scope', 'AuthService', '$state', '$window',
         function($rootScope, $scope, AuthService, $state, $window) {
             $scope.rememberMe = false;
             $scope.loginError = undefined;
-            $scope.showLoginError = false;
+            $scope.showLoginError = false; 
             // $window.localStorage.removeItem('user')
             $scope.user = angular.fromJson(localStorage.getItem('user'))
             if ($scope.user) {
@@ -19,6 +19,11 @@ angular
 
             $scope.login = function() {
                 if ($('.state-error').length > 0) return;
+                if(!$scope.password){
+                    $scope.showLoginError = true; 
+                    $scope.loginError = "密码不能为空";
+                    return;
+                }
                 var loginData = {
                     emailAddress: $scope.emailAddress,
                     password: $scope.password,
@@ -27,6 +32,7 @@ angular
 
                 AuthService.login(loginData)
                     .then(function(result) {
+                            console.log("result",result)
                             if (result.data && result.data.photoUrl === null) {
 
                                 if (result.data.gender === 'M')

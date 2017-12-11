@@ -7,7 +7,7 @@
                 <strong>使用说明:</strong>
                 请填入您要充值的金额,点击确认付款.充值成功的话，该款项将直接划入您在本系统帐户上.
                 如果您正在进行交易,请确保您充值的金额不少于您的交易金额.
-            </div>
+            </div> 
         </div>
         <div>
             <form action="#" id="sky-form1" class="sky-form" novalidate="novalidate">
@@ -69,9 +69,9 @@
             <hr style="margin:10px 0">
             <input type="text" name="number" class="form-control" ng-model="model.refundAmount" placeholder="提款金额" />          
             <div style="margin-top:6px;padding:0 1px;font-size:11px;line-height:15px;color:#999">
-                <i class="fa fa-exclamation-triangle color-ffb"></i>
-                <strong>注意:</strong>最小提款金额为￥100, 每次提款收取￥20手续费。申请批准后,提款金额将会返还到您支付宝账户。
-            </div>  
+                    <i class="fa fa-exclamation-triangle color-ffb"></i>
+                    <strong>注意:</strong>最小提款金额为￥100, 每次提款收取￥20手续费。申请批准后,提款金额将会返还到您支付宝账户。
+                </div>  
           </div>
           <div class="right2">
             <button type="button" class="btn-u btn-chong btn-common" ng-click="userPay();">充值</button>
@@ -91,7 +91,8 @@
                                 </div>  
                                 <div class="col-md-8">
                                     <p><input class="form-control" type="text" ng-model="model.alipayAccount" placeholder="请输入支付宝账号"></p>
-                                    <p><input class="form-control" type="text" ng-model="model.alipayAccountRepeat" placeholder="请再输入一次支付宝账号"></p>                                  
+                                    <p><input class="form-control" type="text" ng-model="model.alipayAccountRepeat" placeholder="请再输入一次支付宝账号"></p>
+                                    
                                 </div>                                
                             </div>
                             <div class="row">
@@ -107,7 +108,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn-u btn-u-default btn-common" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn-u btn-chong btn-common"  ng-click="applyRefund();">提交申请</button>
+                            <button type="button" class="btn-u btn-chong btn-common" data-dismiss="modal" ng-click="applyRefund();">提交申请</button>
                         </div>
                     </div>
                 </div>
