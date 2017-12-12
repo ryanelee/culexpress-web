@@ -18,8 +18,8 @@
     "ui-bootstrap": "#2.2.0",
     "bootstrap-fileinput": "^4.3.5",
     "clipboard": "^1.5.16",
-    "eonasdan-bootstrap-datetimepicker": "^4.17.45",
-    "froala-wysiwyg-editor": "^2.7.1"
+    "eonasdan-bootstrap-datetimepicker": "^4.17.45"
+    // "froala-wysiwyg-editor": "^2.7.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

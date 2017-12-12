@@ -16,9 +16,9 @@ angular.module('culAdminApp')
                 'Karma'
             ];
 
-            $('#content').froalaEditor().on('froalaEditor.contentChanged', function (e, editor) {
-             $scope.data.content=   $('#content').val()
-              })
+            // $('#content').froalaEditor().on('froalaEditor.contentChanged', function (e, editor) {
+            //  $scope.data.content=   $('#content').val()
+            //   })
             
             $scope.dataList = [];
             $scope.warehouseList = [];
