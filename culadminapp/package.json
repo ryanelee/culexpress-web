@@ -28,6 +28,7 @@
     "jshint-stylish": "^1.0.0",
     "karma-jasmine": "*",
     "time-grunt": "^1.0.0"
+    // "froala-editor":"2.7.3"
   },
   "engines": {
     "node": ">=0.10.0"
