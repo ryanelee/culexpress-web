@@ -13,7 +13,7 @@ angular.module('culAdminApp')
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS', 
-                'Karma'
+                'Karma' 
             ];
             $location.search({ trackingNumber: null });
 
@@ -40,6 +40,7 @@ angular.module('culAdminApp')
                 keywordType: "customerNumber",
                 orderStatus: "",
                 warehouseNumber: "",
+                orderType:"",
                 exportStatus: "UnExported",
                 startDate: "",
                 endDate: ""
@@ -73,6 +74,10 @@ angular.module('culAdminApp')
                 if (!!$scope.searchBar.warehouseNumber) {
                     _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
                 }
+                if (!!$scope.searchBar.orderType) {
+                    _options["orderType"] = $scope.searchBar.orderType;
+                }
+                
                 if (!!$scope.searchBar.exportStatus) {
                     _options["exportStatus"] = $scope.searchBar.exportStatus;
                 }

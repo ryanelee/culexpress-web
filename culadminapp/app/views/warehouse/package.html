@@ -34,6 +34,15 @@
                             <option value="Exported">已导出</option>
                         </select>
                     </div>
+                    
+                    <div class="search-col">
+                        <label class="search-label">订单类型：</label>
+                        <select class="form-control search-control" ng-model="searchBar.orderType">
+                            <option value="">全部</option>
+                            <option value="1">线上订单</option>
+                            <option value="0">线下订单</option>
+                        </select>
+                    </div>
                     <div class="search-col">
                         <label class="search-label">发货仓库：</label>
                         <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>

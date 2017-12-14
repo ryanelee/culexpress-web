@@ -28,6 +28,7 @@ angular.module('culAdminApp')
                 keywordType: "customerNumber",
                 orderStatus: "",
                 printStatus: "",
+                orderType:"",
                 // printStatus: "UnPrinted",
                 warehouseNumber: "",
                 startDate: "",
@@ -131,6 +132,10 @@ angular.module('culAdminApp')
                 if ($scope.searchBar.isFastOrder == true) {
                     _options["isFastOrder"] = 1;
                 }
+                if ($scope.searchBar.orderType) {
+                    _options["orderType"] =$scope.searchBar.orderType;
+                }
+                
                 if (!!$scope.searchBar.keywords) {
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                     if ($scope.searchBar.keywordType == 'orderNumber') {

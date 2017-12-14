@@ -7,7 +7,7 @@
  * # OrderOfflineImportCtrl
  * Controller of the culAdminApp
  */
-angular.module('culAdminApp')
+angular.module('culAdminApp') 
   .controller('OrderOfflineImportCtrl', ["$scope", "$timeout", "$filter", "orderService", "warehouseService", "plugMessenger",
       function ($scope, $timeout, $filter, orderService, warehouseService, plugMessenger) {
       this.awesomeThings = [

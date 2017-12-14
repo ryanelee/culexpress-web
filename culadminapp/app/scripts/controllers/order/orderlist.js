@@ -25,8 +25,8 @@ angular.module('culAdminApp')
             $("#form_export").attr("action", cul.apiPath + "/order/list/export?Token=" + _token);
             $("#form_exportUSPS").attr("action", cul.apiPath + "/order/list/export/usps?Token=" + _token);
             $scope.exportUrl = "";
-            $scope.pagination = {
-                pageSize: "20",
+            $scope.pagination = { 
+                pageSize: "20",  
                 pageIndex: 1,
                 totalCount: 0
             }
@@ -35,6 +35,7 @@ angular.module('culAdminApp')
                 selectedAll: false,
                 keywordType: "customerNumber",
                 orderStatus: "",
+                orderType:"",
                 printStatus: "",
                 warehouseNumber: "",
                 shipServiceId: 0,
@@ -108,6 +109,10 @@ angular.module('culAdminApp')
                 if (!!$scope.searchBar.shipServiceId) {
                     _options["shipServiceId"] = $scope.searchBar.shipServiceId;
                 }
+                if (!!$scope.searchBar.orderType) {
+                    _options["orderType"] = $scope.searchBar.orderType;
+                }
+                
                 if ($scope.searchBar.isFastOrder == true) {
                     _options["isFastOrder"] = 1;
                 }
