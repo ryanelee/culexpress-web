@@ -24,6 +24,7 @@ angular.module('culAdminApp')
             _token = !!_token ? encodeURIComponent(_token) : null
             $("#form_export").attr("action", cul.apiPath + "/order/list/export?Token=" + _token);
             $("#form_exportUSPS").attr("action", cul.apiPath + "/order/list/export/usps?Token=" + _token);
+            $("#form_exportHT").attr("action", cul.apiPath + "/order/list/export/ht?Token=" + _token);
             $scope.exportUrl = "";
             $scope.pagination = { 
                 pageSize: "20",  
@@ -134,7 +135,7 @@ angular.module('culAdminApp')
                 return angular.copy(_options);
             }
 
-          
+           
 
             $scope.getData = function () {
                 storage.session.setObject("searchBar", $scope.searchBar);

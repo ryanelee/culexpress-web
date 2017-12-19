@@ -26,7 +26,7 @@
                         <option value="UnPrinted">未打印</option>
                         <option value="Printed">已打印</option>
                     </select>
-                </div>
+                </div> 
 
                 <div class="search-col">
                     <label class="search-label">订单类型：</label>
@@ -241,7 +241,7 @@
                         <!-- 删除其他状态订单 -->
                          <a href="javascript:void(0);" class="role" data-role="107" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus != '未支付' && item._orderStatus != '已支付'">删除</a> 
                     </td>
-                </tr>
+                </tr> 
             </tbody>
         </table> 
         <div class="row">
@@ -288,6 +288,28 @@
                     <input id="USPS_cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                     <input id="USPS_token" name="token" type="hidden" value="{{exportOptions.token}}" />
                     <button type="submit" class="btn btn-primary" data-role="34"><i class="fa fa-file-excel-o" aria-hidden="true"></i> 将结果导出USPS文件</button>
+
+                </form>
+            </div>
+            <div class="text-right pull-left" style="margin-left:10px">
+                <form id="form_exportHT" method="post" action="/" target="_blank">
+                    <input id="USPS_dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.dateFrom}}" />
+                    <input id="USPS_dateTo" name="dateTo" type="hidden" value="{{exportOptions.dateTo}}" />
+                    <input id="USPS_orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
+                    <input id="USPS_printStatus" name="printStatus" type="hidden" value="{{exportOptions.printStatus}}" />
+                    <input id="USPS_warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
+                    <input id="USPS_shipServiceId" name="shipServiceId" type="hidden" value="{{exportOptions.shipServiceId}}" />
+                    <input id="USPS_customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
+                    <input id="USPS_userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
+                    <input id="USPS_orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
+                    <input id="USPS_outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}"
+                    />
+                    <input id="USPS_receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
+                    <input id="USPS_referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}"
+                    />
+                    <input id="USPS_cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
+                    <input id="USPS_token" name="token" type="hidden" value="{{exportOptions.token}}" />
+                    <button type="submit" class="btn btn-primary" data-role="34"><i class="fa fa-file-excel-o" aria-hidden="true"></i> 将结果导出为华通订单</button>
 
                 </form>
             </div>
