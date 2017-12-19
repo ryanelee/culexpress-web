@@ -4,7 +4,7 @@
         <div class="common-title">
             <h2> 
                 <i class="fa fa-clock-o"></i> 预报信息
-            </h2>
+            </h2> 
         </div>
         <!--<div class="alert alert-warning fade in alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -98,7 +98,11 @@
                                     ng-hide="shippingNoticeItem.status==='InOrder' || shippingNoticeItem.status==='Intransit' " /> -->
                             </td>
                             <td><small>{{shippingNoticeItem.rownumber}}</small></td>
-                            <td class="td-width"><small>{{ shippingNoticeItem.trackingNumber }}</small></div></td>
+                            <td class="td-width"><small>{{ shippingNoticeItem.trackingNumber }}</small>
+                                <small ng-if="!!shippingNoticeItem.isFastShip" title="极速原单">
+                                    <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                               </small>
+                            </div></td>
                             <!--<td style="width:140px"><small style="word-wrap:break-word">{{ shippingNoticeItem.trackingNumber }}</small></td>-->
                             <td class="hidden-sm" style="max-width:100px"><small style="word-wrap:break-word">{{ shippingNoticeItem.packageDescription }}</small></td>
                             <td class="hidden-sm" style="max-width:100px"><small style="word-wrap:break-word">{{ shippingNoticeItem.packageNote }}</small></td>
@@ -110,6 +114,12 @@
                                 <span ng-if="shippingNoticeItem.status==='Intransit' " class="label label-info ">在途中</span>
                                 <span ng-if="shippingNoticeItem.status==='Onshelf' " class="label label-info ">已上架</span>
                                 <span ng-if="shippingNoticeItem.status==='Offshelf' " class="label label-info ">已下架</span>
+                                <span  ng-if="shippingNoticeItem.isFastShip===1">
+                                <span ng-if="shippingNoticeItem.inbound_status==='Inbound' " class="label label-ru ">已入库</span>
+                                <span ng-if="shippingNoticeItem.inbound_status==='Intransit' " class="label label-info ">在途中</span>
+                                <span ng-if="shippingNoticeItem.inbound_status==='Onshelf' " class="label label-info ">已上架</span>
+                                <span ng-if="shippingNoticeItem.inbound_status==='Offshelf' " class="label label-info ">已下架</span>
+                            </span>
                                 <p ng-if="shippingNoticeItem.status==='InOrder' ">
                                     <small>
                                         <!-- <i class="fa fa-shopping-cart "></i> -->
