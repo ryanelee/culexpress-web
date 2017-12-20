@@ -18,11 +18,15 @@ angular.module('culAdminApp')
 
             $scope.data = null;
             $scope.receiptNumber = null;
-            $scope.tempReceiptNumber = $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
-            $scope.isUnusual = $location.search().isUnusual;
+            // $scope.tempReceiptNumber = $scope.tempItemNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
+            // $scope.isUnusual = $location.search().isUnusual;
             $scope.isModifyShelf = false;
             $scope.originShelfNumber = null;
+            $scope.shelfInput = true;
+            $scope.tempShelfNumber = "";
+            $scope.tempItemNumber = ""
 
+            // 校验架位
             $scope.isExpecial = function () {
                 if ($scope.isUnusual == 1) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
@@ -46,21 +50,18 @@ angular.module('culAdminApp')
                 return true;
             }
 
-            $scope.hotKey = function (event) {
-                switch (event.keyCode) {
-                    case 13:  //enter
-                        $scope.isExpecial();
-                        break;
-                }
-            }
-
             // 录入架位编号并enter
             $scope.keydownShelfNumber = function (event) {
-                switch (event.keyCode) {
-                    case 13:  //enter
-                        $scope.checkItemNumber();
-                        break;
+                debugger;
+                if (!!$scope.tempShelfNumber) {
+                    $scope.shelfInput = false;
+                    $("#tempItemNumber").focus();
                 }
+                // switch (event.keyCode) {
+                //     case 13:  //enter
+                //         $scope.checkItemNumber();
+                //         break;
+                // }
             }
 
             // 录入入库单号并enter
@@ -71,6 +72,8 @@ angular.module('culAdminApp')
                         break;
                 }
             }
+
+            // 入库单号enter直接提交
             $scope.keydownBtnSave = function (event) {
                 switch (event.keyCode) {
                     case 13:  //enter
@@ -79,41 +82,23 @@ angular.module('culAdminApp')
                 }
             }
 
-
-
-            // var _timeout = null;
             $scope.checkItemNumber = function () {
-                // if (!!_timeout) clearTimeout(_timeout);
-                // _timeout = setTimeout(function() {
-                //     $scope.$apply(function() {
                 $scope.isModifyShelf = false;
                 if ($scope.tempItemNumber == $location.search().receiptNumber) {
                     inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
                         $scope.data = null;
-
                         console.log("23", result);
+
                         if (!result.message) {
                             $scope.data = result;
                             $scope.receiptNumber = $location.search().receiptNumber;
                             $scope._itemType = $scope.data.itemNumber.substr(0, 2);
                             $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
-
-                            $timeout(function () {
-                                $('#tip_ASNNumber').popover({
-                                    container: 'body',
-                                    placement: 'top',
-                                    html: true,
-                                    trigger: 'hover',
-                                    title: '',
-                                    content: "请扫描ASN开头寄送库存单据编号。"
-                                });
-                            });
                         }
 
                         $scope.tempItemNumber = "";
-                        $("#shelfNumber").focus();
+                        // $("#shelfNumber").focus();
                     });
-
                     return;
                 }
 
@@ -126,7 +111,6 @@ angular.module('culAdminApp')
                         if (!result.message) {
                             $scope.data = result;
 
-                            // $scope.receiptNumber = $location.search().receiptNumber;
                             $scope._itemType = $scope.data.itemNumber.substr(0, 2);
                             $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
                             //display shelf # if have been on shelf.
@@ -135,56 +119,18 @@ angular.module('culAdminApp')
                                 $scope.isModifyShelf = true;
                                 $scope.originShelfNumber = result.inventoryList[0].shelfNumber;
                             }
-
-                            $timeout(function () {
-                                $('#tip_ASNNumber').popover({
-                                    container: 'body',
-                                    placement: 'top',
-                                    html: true,
-                                    trigger: 'hover',
-                                    title: '',
-                                    content: "请扫描ASN开头寄送库存单据编号。"
-                                });
-                            });
                         }
                         $scope.tempItemNumber = "";
                     });
 
-                    $("#shelfNumber").focus();
+                    // $("#shelfNumber").focus();
                     return;
-
-                    // inventoryService.getInfo($scope.tempItemNumber, function (result) {
-                    //     $scope.data = null;
-                    //     if (!result.message) {
-                    //         $scope.data = result;
-                    //         $scope._itemType = $scope.data.itemNumber.substr(0, 2);
-                    //         $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
-
-                    //         $timeout(function () {
-                    //             $('#tip_ASNNumber').popover({
-                    //                 container: 'body',
-                    //                 placement: 'top',
-                    //                 html: true,
-                    //                 trigger: 'hover',
-                    //                 title: '',
-                    //                 content: "请扫描ASN开头寄送库存单据编号。"
-                    //             });
-                    //         });
-                    //     }
-                    //     $scope.tempItemNumber = "";
-                    // });
-
-
-
                 } else {
                     $scope.tempItemNumber = "";
                 }
-                // $window.document.getElementById("shelfNumber").focus();
-                //     })
-                // }, 1000);
             }
 
-            $scope.checkItemNumber();
+            // $scope.checkItemNumber();
 
             $scope.btnSave = function (type) {
                 if (!$scope.data.shelfNumber) {
@@ -194,7 +140,7 @@ angular.module('culAdminApp')
 
                 if ($scope.isExpecial() == false)
                     return;
-
+                // 修改架位
                 if ($scope.isModifyShelf) {
                     if ($scope.originShelfNumber == $scope.data.shelfNumber) {
                         return;
@@ -236,27 +182,25 @@ angular.module('culAdminApp')
                     itemCount: $scope.data.itemCount,
                     emailAddress: $scope.data.emailAddress
                 }
-                if ($scope._itemType == "S2") {
-                    data.receiptNumber = $scope.data.receiptNumber;
-                }
 
-                // return; 
+                 //  商品上架
                 shelfService.onshelfForInbound(data, function (result) {
                     if (result.success) {
                         // $("#myAlert").alert();
-                        plugMessenger.success("操作成功");
+                        plugMessenger.success("上架成功");
                         $scope.data = null;
-                        //$window.sessionStorage.setItem("historyFlag", 1);                 $window.history.back();
-                        // 上架成功后停留在上架登记界面继续上架操作
-                        //  $location.path("/warehouse/onshelfdetail"); 
-
                         $timeout(function () {
                             $window.document.getElementById('tempItemNumber').focus();
                         }, 1000);
                     } else {
-                        // plugMessenger.error("操作失败");
-                        $window.document.getElementById('shelfNumber').select();
-                        $window.document.getElementById('shelfNumber').focus();
+                        // 上架失败则停留在录入单号界面，并将错误信息反馈给操作员，操作员点击确认后进入架位录入页面。
+                        plugMessenger.confirm("单号【 " + data.itemNumber + " 】上架失败，是否继续批量上架？", function (isOK) {
+                            if (isOK) {
+                                $window.document.getElementById('tempShelfNumber').focus();
+                            } else {
+                                $window.document.getElementById('tempItemNumber').focus();
+                            }
+                        });
                     }
                 });
 

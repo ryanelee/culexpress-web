@@ -5,21 +5,25 @@
     </div>
     <div class="widget-content">
         <form class="form-horizontal" role="form">
-            <fieldset>
+            <fieldset ng-if="!!shelfInput">
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">架位编号</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" ng-model="tempShelfNumber" ng-keydown="keydownShelfNumber($event)" id="tempShelfNumber"
                         />
+                        {{tempShelfNumber}}
                     </div>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset ng-if="!shelfInput">
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">入库单号</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="tempItemNumber" ng-keydown="keydownReceiptNumber($event)" id="tempItemNumber"
-                        />
+                        <input type="text" class="form-control" ng-model="tempItemNumber" ng-keydown="keydownReceiptNumber($event)" id="tempItemNumber"/>
+                    </div>
+                    <label class="col-sm-2 control-label text-right"></label>
+                    <div class="col-sm-4">
+                        <label>架位：{{tempShelfNumber}}</label>
                     </div>
                 </div>
             </fieldset>
