@@ -5,7 +5,7 @@
  * @name culAdminApp.controller:WarehouseOnShelfDetailBatchCtrl
  * @description
  * # WarehouseOnShelfDetailBatchCtrl
- * Controller of the culAdminApp
+ * Controller of the culAdminApp 
  */
 angular.module('culAdminApp')
     .controller('WarehouseOnShelfDetailBatchCtrl', ['$scope', '$location', '$window', 'shelfService', 'inventoryService', 'plugMessenger', '$timeout',
@@ -35,7 +35,7 @@ angular.module('culAdminApp')
                         $scope.data.shelfNumber = "";
                         plugMessenger.error("员工包裹必须以D开头");
                         return false;
-                    }
+                    } 
                 }
                 if ($scope.isUnusual == 2) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
@@ -49,11 +49,16 @@ angular.module('culAdminApp')
 
                 return true;
             }
-
+            $scope.up = function(){
+                console.log("232",$scope.tim);
+            }
             // 录入架位编号并enter
             $scope.keydownShelfNumber = function (event) {
-                debugger;
-                if (!!$scope.tempShelfNumber) {
+                let vm = $scope;
+                // debugger;
+                // $scope.$apply();
+                let obj = document.getElementById("tempShelfNumber").value;
+                if (!!vm.tempShelfNumber) {
                     $scope.shelfInput = false;
                     $("#tempItemNumber").focus();
                 }
