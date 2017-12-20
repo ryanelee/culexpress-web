@@ -54,7 +54,8 @@ angular.module('culAdminApp')
             }
             // 录入架位编号并enter
             $scope.keydownShelfNumber = function (event) {
-                let obj = document.getElementById("tempShelfNumber").value;
+                let shelfNumber = document.getElementById("tempShelfNumber").value;
+                $scope.tempShelfNumber = shelfNumber
                 if (!!$scope.tempShelfNumber) {
                     $scope.shelfInput = false;
                     $("#tempItemNumber").focus();
@@ -63,11 +64,15 @@ angular.module('culAdminApp')
 
             // 录入入库单号并enter
             $scope.keydownReceiptNumber = function (event) {
-                switch (event.keyCode) {
-                    case 13:  //enter
-                        $scope.checkItemNumber();
-                        break;
-                }
+                let itemNumber = document.getElementById("tempItemNumber").value;
+                $scope.tempItemNumber = itemNumber
+                if (!!$scope.tempItemNumber) {
+                    switch (event.keyCode) {
+                        case 13:  //enter
+                            $scope.checkItemNumber();
+                            break;
+                    }
+                }  
             }
 
             // 入库单号enter直接提交
