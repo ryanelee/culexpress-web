@@ -52,16 +52,10 @@ angular.module('culAdminApp')
 
             // 录入架位编号并enter
             $scope.keydownShelfNumber = function (event) {
-                debugger;
                 if (!!$scope.tempShelfNumber) {
                     $scope.shelfInput = false;
                     $("#tempItemNumber").focus();
                 }
-                // switch (event.keyCode) {
-                //     case 13:  //enter
-                //         $scope.checkItemNumber();
-                //         break;
-                // }
             }
 
             // 录入入库单号并enter
