@@ -1,0 +1,53 @@
+<div class="widget">
+    <div class="widget-header">
+        <h3>
+            <i class="fa fa-edit"></i> 批量上架</h3>
+    </div>
+    <div class="widget-content">
+        <form class="form-horizontal" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">架位编号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="tempShelfNumber" ng-keydown="keydownShelfNumber($event)" id="tempShelfNumber"
+                        />
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">入库单号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="tempItemNumber" ng-keydown="keydownReceiptNumber($event)" id="tempItemNumber"
+                        />
+                    </div>
+                </div>
+            </fieldset>
+                
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <!-- <button type="button" class="btn btn-primary" ng-click="btnSave()" ng-if="!!data">
+                        <i class="fa fa-save"></i>完成上架</button> -->
+                    <button type="button" class="btn btn-default" ng-click="btnPrev()">
+                        <i class="fa fa-reply"></i>返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        var tempItemNumber = document.getElementById("tempItemNumber").focus();
+        var shelfNumber = document.getElementById("shelfNumber");
+    })
+    tempItemNumber.onkeydown = function (event) {
+        e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        var shelfNumber = document.getElementById("shelfNumber");
+        if (e.keyCode == 13 && shelfNumber) {
+            shelfNumber.focus();
+        }
+    }
+    // var shelfNumber = document.getElementById("shelfNumber");
+    // shelfNumber.focus();
+</script>

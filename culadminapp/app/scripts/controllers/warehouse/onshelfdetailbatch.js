@@ -1,14 +1,14 @@
-﻿'use strict';
+'use strict';
 
 /**
  * @ngdoc function
- * @name culAdminApp.controller:WarehouseOnShelfDetailCtrl
+ * @name culAdminApp.controller:WarehouseOnShelfDetailBatchCtrl
  * @description
- * # WarehouseOnShelfDetailCtrl
+ * # WarehouseOnShelfDetailBatchCtrl
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')
-    .controller('WarehouseOnShelfDetailCtrl', ['$scope', '$location', '$window', 'shelfService', 'inventoryService', 'plugMessenger', '$timeout',
+    .controller('WarehouseOnShelfDetailBatchCtrl', ['$scope', '$location', '$window', 'shelfService', 'inventoryService', 'plugMessenger', '$timeout',
         function ($scope, $location, $window, shelfService, inventoryService, plugMessenger, $timeout) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
@@ -22,8 +22,6 @@ angular.module('culAdminApp')
             $scope.isUnusual = $location.search().isUnusual;
             $scope.isModifyShelf = false;
             $scope.originShelfNumber = null;
-
-            //console.log($scope.tempItemNumber) 
 
             $scope.isExpecial = function () {
                 if ($scope.isUnusual == 1) {
@@ -56,6 +54,16 @@ angular.module('culAdminApp')
                 }
             }
 
+            // 录入架位编号并enter
+            $scope.keydownShelfNumber = function (event) {
+                switch (event.keyCode) {
+                    case 13:  //enter
+                        $scope.checkItemNumber();
+                        break;
+                }
+            }
+
+            // 录入入库单号并enter
             $scope.keydownReceiptNumber = function (event) {
                 switch (event.keyCode) {
                     case 13:  //enter
@@ -82,14 +90,14 @@ angular.module('culAdminApp')
                 if ($scope.tempItemNumber == $location.search().receiptNumber) {
                     inventoryService.getInfoByReceiptNumber($scope.tempItemNumber, function (result) {
                         $scope.data = null;
-                    
-                        console.log("23",result);
+
+                        console.log("23", result);
                         if (!result.message) {
                             $scope.data = result;
                             $scope.receiptNumber = $location.search().receiptNumber;
                             $scope._itemType = $scope.data.itemNumber.substr(0, 2);
                             $scope.data.itemCount = $scope._itemType == "S1" ? 1 : "";
- 
+
                             $timeout(function () {
                                 $('#tip_ASNNumber').popover({
                                     container: 'body',
@@ -188,7 +196,7 @@ angular.module('culAdminApp')
                     return;
 
                 if ($scope.isModifyShelf) {
-                    if($scope.originShelfNumber == $scope.data.shelfNumber){                        
+                    if ($scope.originShelfNumber == $scope.data.shelfNumber) {
                         return;
                     }
 
@@ -226,12 +234,12 @@ angular.module('culAdminApp')
                     shelfNumber: $scope.data.shelfNumber,
                     receiptNumber: $scope.receiptNumber,
                     itemCount: $scope.data.itemCount,
-                    emailAddress:$scope.data.emailAddress
+                    emailAddress: $scope.data.emailAddress
                 }
                 if ($scope._itemType == "S2") {
                     data.receiptNumber = $scope.data.receiptNumber;
                 }
- 
+
                 // return; 
                 shelfService.onshelfForInbound(data, function (result) {
                     if (result.success) {

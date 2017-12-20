@@ -198,6 +198,10 @@ angular.module('culAdminApp')
                         if (!!item && item.sendType == 2) $location.search({ receiptNumber: item.receiptNumber, isUnusual: item.isUnusual });
                         $location.path("/warehouse/onshelfdetail");
                         break;
+                    case "onshelfbatch":
+                        if (!!item && item.sendType == 2) $location.search({ receiptNumber: item.receiptNumber, isUnusual: item.isUnusual });
+                        $location.path("/warehouse/onshelfdetailbatch");
+                        break;
                     case "edit":
                         if (!!item) $location.search({ receiptNumber: item.receiptNumber });
                         $location.path("/warehouse/shelfdetail");

@@ -114,6 +114,10 @@ angular
                 templateUrl: 'views/warehouse/onshelfdetail.html',
                 controller: 'WarehouseOnShelfDetailCtrl'
             })
+            .when('/warehouse/onshelfdetailbatch', {
+                templateUrl: 'views/warehouse/onshelfdetailbatch.html',
+                controller: 'WarehouseOnShelfDetailBatchCtrl'
+            })
             .when('/warehouse/shelfmanagement', {
                 templateUrl: 'views/warehouse/shelfmanagement.html',
                 controller: 'WarehouseShelfManagementCtrl'
