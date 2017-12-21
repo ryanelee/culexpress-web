@@ -9,7 +9,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">架位编号</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="tempShelfNumber" ng-keydown="keydownShelfNumber($event)" id="tempShelfNumber"/>
+                        <input type="text" class="form-control" ng-model="shelfNumber" ng-keydown="keydownShelfNumber($event)" id="shelfNumber"/>
                     </div>
                 </div>
             </fieldset>
@@ -18,13 +18,18 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">入库单号</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-keydown="keydownReceiptNumber($event)"   ng-model="tempItemNumber" id="tempItemNumber"/>
+                        <input type="text" class="form-control" ng-keydown="keydownReceiptNumber($event)"   ng-model="receiptNumber" id="receiptNumber"/>
+                    </div>
+                    <div class="col-sm-6 text-left red" ng-if="!!isOnShelf">
+                        <i class="fa fa-warning">
+                            <small>该商品已上架,不可重复上架</small>
+                        </i>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right"></label>
                     <div class="col-sm-4">
-                        <label>架位：{{tempShelfNumber}}</label>
+                        <label>架位：{{shelfNumber}}</label>
                     </div>
                 </div>
             </fieldset>
@@ -40,18 +45,18 @@
 </div>
 <script>
     $(function () {
-        var tempItemNumber = document.getElementById("tempItemNumber").focus();
-        var tempShelfNumber = document.getElementById("tempShelfNumber");
+        var receiptNumber = document.getElementById("receiptNumber").focus();
+        var shelfNumber = document.getElementById("shelfNumber");
     })
-    tempItemNumber.onkeydown = function (event) {
+    receiptNumber.onkeydown = function (event) {
         e = event ? event : (window.event ? window.event : null);
         // 按下回车键且输入框值非空时  
-        // var tempShelfNumber = document.getElementById("tempShelfNumber");
-        // if (e.keyCode == 13 && tempShelfNumber) {
-        //     tempShelfNumber.focus();
+        // var shelfNumber = document.getElementById("shelfNumber");
+        // if (e.keyCode == 13 && shelfNumber) {
+        //     shelfNumber.focus();
         // }
     }
-    tempShelfNumber.onkeydown = function (event) {
+    shelfNumber.onkeydown = function (event) {
         e = event ? event : (window.event ? window.event : null);
     }
 </script>

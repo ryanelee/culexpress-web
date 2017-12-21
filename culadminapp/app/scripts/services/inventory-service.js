@@ -23,6 +23,7 @@ angular.module('culAdminApp')
           })
       }
 
+      // 获取单个商品
       self.getInfoByReceiptNumber = function (receiptNumber, callback) {
           $http.get(cul.apiPath + "/item/info?receiptNumber=" + receiptNumber).success(function (result) {
               callback(result);
