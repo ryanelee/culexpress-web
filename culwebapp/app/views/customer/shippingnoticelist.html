@@ -37,7 +37,7 @@
                         <div class="inline-group pull-left">
                             <label class="radio" style="margin-right: 10px; padding-left: 20px; ">
                                 <a href="javascript:void(0)" ng-click="changeQueryStaus()" class="rbx-txt">
-                                    <input type="radio" ng-model="queryPara.status" value="" /><i class="rounded-x"></i>所有状态
+                                    <input type="radio" ng-model="queryPara.status" value="" /><i class="rounded-x"></i>所有状态(不包括已创建订单)
                                 </a>
                             </label>
                             <label class="radio" style="margin-right:10px;padding-left:20px;">
@@ -113,7 +113,8 @@
                                 <p ng-if="shippingNoticeItem.status==='InOrder' ">
                                     <small>
                                         <!-- <i class="fa fa-shopping-cart "></i> -->
-                                        <a href="javascript:void(0) " ng-click="redirectToOrderDetail(shippingNoticeItem.orderNumber); ">{{shippingNoticeItem.orderNumber}}</a>
+                                        <span ng-if="shippingNoticeItem.orderNumber==undefined">老系统导入包裹暂不提供订单信息</span>
+                                        <a ng-if="shippingNoticeItem.orderNumber!=undefined" href="javascript:void(0) " ng-click="redirectToOrderDetail(shippingNoticeItem.orderNumber); ">{{shippingNoticeItem.orderNumber}}</a>
                                     </small>
                                 </p>
                                 <p ng-if="shippingNoticeItem.status==='Inbound' ">

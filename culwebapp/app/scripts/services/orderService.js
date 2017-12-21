@@ -95,6 +95,7 @@ angular.module('culwebApp')
                     paras.onlyIncludeInOrderPackage = true;//Only return packages with order submitted.                    
                 }
                 else if (paras.status == ''){//all
+                    paras.excludeInOrderPackage = true;//Doesn't show packages with order submitted.
                     paras.status = ["Intransit", "Inbound", "Onshelf"];
                 }
                 else {
