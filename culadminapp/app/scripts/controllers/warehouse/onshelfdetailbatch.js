@@ -18,19 +18,15 @@ angular.module('culAdminApp')
 
             $scope.data = null;
             $scope.receiptNumber = null;
-            // $scope.tempReceiptNumber = $scope.receiptNumber = $location.search().itemNumber || $location.search().receiptNumber || "";
-            // $scope.isUnusual = $location.search().isUnusual;
-            $scope.isModifyShelf = false;
-            $scope.originShelfNumber = null;
             $scope.shelfInput = true;
+            $scope.isOnShelf = false;
             $scope.shelfNumber = "";
-            $scope.receiptNumber = ""
+            $scope.receiptNumber = "";
 
             // 校验架位
             $scope.isExpecial = function () {
                 if ($scope.isUnusual == 1) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
-                    //console.log(staffFlag);
                     if (staffFlag != 'D') {
                         $scope.data.shelfNumber = "";
                         plugMessenger.error("员工包裹必须以D开头");
@@ -39,19 +35,15 @@ angular.module('culAdminApp')
                 }
                 if ($scope.isUnusual == 2) {
                     var staffFlag = $scope.data.shelfNumber.substring(0, 1);
-                    //console.log(staffFlag);
                     if (staffFlag != 'C') {
                         $scope.data.shelfNumber = "";
                         plugMessenger.error("异常包裹必须以C开头");
                         return false;
                     }
                 }
-
                 return true;
             }
-            $scope.up = function(){
-                console.log("232",$scope.tim);
-            }
+            
             // 录入架位编号并enter
             $scope.keydownShelfNumber = function (event) {
                 let shelfNumber = document.getElementById("shelfNumber").value;
@@ -59,8 +51,8 @@ angular.module('culAdminApp')
                 if (!!$scope.shelfNumber) {
                     $scope.shelfInput = false;
                     $("#receiptNumber").focus();
+                }
             }
-        }
 
             // 录入入库单号并enter
             $scope.keydownReceiptNumber = function (event) {
@@ -77,7 +69,6 @@ angular.module('culAdminApp')
 
             $scope.checkReceiptNumber = function () {
                 $scope.data = null
-            
                 if (!!$scope.receiptNumber) {
                     // 根据入库单号取单个商品,并判断是否已经上架
                     inventoryService.getInfoByReceiptNumber($scope.receiptNumber, function (result) {
@@ -85,9 +76,7 @@ angular.module('culAdminApp')
                             $scope.data = result;
                             //display shelf # if have been on shelf.
                             if (result && result.inventoryList && result.inventoryList.length > 0 && result.inventoryList[0].shelfNumber && $scope._itemType == "S1") {
-                                //  $scope.data.shelfNumber = result.inventoryList[0].shelfNumber;
                                 $scope.isOnShelf = true;
-                                // $scope.originShelfNumber = result.inventoryList[0].shelfNumber;
                                 plugMessenger.error("该商品已经上架，不允许重复上架");
                             } else {
                                 // 还为上架，直接上架
@@ -101,6 +90,7 @@ angular.module('culAdminApp')
                 }
             }
 
+            // 上架
             $scope.btnSave = function (type) {
                 if (!$scope.shelfNumber) {
                     plugMessenger.error("架位号不能为空");
@@ -117,7 +107,7 @@ angular.module('culAdminApp')
                     weight: $scope.data.weight,
                     shelfNumber: $scope.shelfNumber,
                     receiptNumber: $scope.receiptNumber,
-                    itemCount: $scope.data.itemCount,
+                    itemCount: 1,
                     emailAddress: $scope.data.emailAddress
                 }
 
@@ -148,7 +138,6 @@ angular.module('culAdminApp')
                         });
                     }
                 });
-
             }
 
             $scope.btnPrev = function () {
