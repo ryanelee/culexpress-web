@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right"></label>
                     <div class="col-sm-4">
-                        <label>架位：{{shelfNumber}}</label>
+                        <label style="color:#0a9e6c;">架位：{{shelfNumber}}</label>
                     </div>
                 </div>
             </fieldset>
@@ -45,16 +45,16 @@
 </div>
 <script>
     $(function () {
-        var receiptNumber = document.getElementById("receiptNumber").focus();
-        var shelfNumber = document.getElementById("shelfNumber");
+        var receiptNumber = document.getElementById("receiptNumber");
+        var shelfNumber = document.getElementById("shelfNumber").focus();
     })
     receiptNumber.onkeydown = function (event) {
         e = event ? event : (window.event ? window.event : null);
         // 按下回车键且输入框值非空时  
-        // var shelfNumber = document.getElementById("shelfNumber");
-        // if (e.keyCode == 13 && shelfNumber) {
-        //     shelfNumber.focus();
-        // }
+        var shelfNumber = document.getElementById("shelfNumber");
+        if (e.keyCode == 13 && shelfNumber) {
+            shelfNumber.focus();
+        }
     }
     shelfNumber.onkeydown = function (event) {
         e = event ? event : (window.event ? window.event : null);

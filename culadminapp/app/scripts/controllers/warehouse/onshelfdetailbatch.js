@@ -131,13 +131,19 @@ angular.module('culAdminApp')
                         }, 1000);
                     } else {
                         // 上架失败则停留在录入单号界面，并将错误信息反馈给操作员，操作员点击确认后进入架位录入页面。
-                        plugMessenger.confirm("单号【 " + $scope.receiptNumber + " 】上架失败，是否继续批量上架？", function (isOK) {
+                        plugMessenger.confirm("单号【 " + data.receiptNumber + " 】上架失败，是否继续批量上架？", function (isOK) {
                             if (isOK) {
                                 $scope.shelfInput = true;
-                                $window.document.getElementById('shelfNumber').focus();
+                                $scope.receiptNumber = "";
+                                $scope.shelfNumber = "";
+                                $timeout(function () {
+                                    $window.document.getElementById('shelfNumber').focus();
+                                }, 300);
                             } else {
                                 $scope.shelfInput = false;
-                                $window.document.getElementById('receiptNumber').focus();
+                                $timeout(function () {
+                                    $window.document.getElementById('receiptNumber').focus();
+                                }, 300);
                             }
                         });
                     }
