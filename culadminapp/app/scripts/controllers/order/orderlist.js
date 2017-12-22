@@ -19,6 +19,7 @@ angular.module('culAdminApp')
 
             $scope.dataList = [];
             $scope.orderNumberList = [];
+            $scope.deleteMessage = "";
             //新导出逻辑
             var _token = sessionStorage.getItem("token");
             _token = !!_token ? encodeURIComponent(_token) : null
@@ -54,7 +55,6 @@ angular.module('culAdminApp')
                     endDate: false
                 }
             }
-
 
             $scope.tempSearchBar = angular.copy(storage.getSearchObject());
             if ($scope.tempSearchBar) {
@@ -134,8 +134,6 @@ angular.module('culAdminApp')
                 }
                 return angular.copy(_options);
             }
-
-           
 
             $scope.getData = function () {
                 storage.session.setObject("searchBar", $scope.searchBar);
@@ -228,34 +226,35 @@ angular.module('culAdminApp')
                     plugMessenger.info("请选择需要删除的订单");
                     return;
                 } else {
+                    // plugMessenger.template($compile($("#delete_approval_form").html())($scope));
                     $scope.btnDelete($scope.orderNumberList)
                 } 
             }
 
-            $scope.btnDeleteApproval = function (item) {
+            $scope.btnDeleteApproval = function (item, event) {
                 $scope.item = item;
                 plugMessenger.template($compile($("#delete_approval_form").html())($scope));
             }
 
             $scope.btnDelete = function (item) {
-                if (!$scope.deleteMessage) {
-                    return plugMessenger.info("删除原因不能为空");
-                }
-                item.deleteMessage = $scope.deleteMessage;
                 $scope.searchOrder = {};
                 if (item instanceof Array) {
                     $scope.searchOrder.orderNumberList = item;
                 } else {
+                    item.deleteMessage = $scope.deleteMessage;
                     $scope.searchOrder.orderNumber = item.orderNumber;
+                    if (!$scope.deleteMessage) {
+                        return plugMessenger.info("删除原因不能为空");
+                    }
                 }
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
                 plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
                     if (!!isOK) {
-                        $("#confirm-modal").modal("hide");
+                        $("#delete_approval_form").modal("hide");
                         orderService.delete($scope.searchOrder, function (result) {
                             if (result.success == true) {
                                 plugMessenger.info("删除成功");
-                                $("#confirm-modal").modal("hide");
+                                $("#delete_approval_form").modal("hide");
                                 item.deleteMessage = "";
                                 $scope.deleteMessage = "";
                                 $scope.getData();
@@ -267,8 +266,6 @@ angular.module('culAdminApp')
                     }
                 });
             }
-
-
 
             $scope.btnClearSelectedListCache = function () {
                 $scope.selectedListCache = [];
@@ -286,8 +283,7 @@ angular.module('culAdminApp')
             }, 500);
 
             $scope.btnCancel = function (event) {
-                $(event.currentTarget).parents("#confirm-modal").modal("hide");
+                $(event.currentTarget).parents("#delete_approval_form").modal("hide");
             }
-
 
         }]);
