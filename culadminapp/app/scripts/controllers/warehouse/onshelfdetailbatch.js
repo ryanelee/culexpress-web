@@ -116,8 +116,10 @@ angular.module('culAdminApp')
                     if (result.success) {
                         plugMessenger.success("上架成功");
                         $scope.data = null;
+                        $scope.receiptNumber = "";
+                        $scope.shelfNumber = "";
                         $timeout(function () {
-                            $window.document.getElementById('receiptNumber').focus();
+                            $window.document.getElementById('shelfNumber').focus();
                         }, 1000);
                     } else {
                         // 上架失败则停留在录入单号界面，并将错误信息反馈给操作员，操作员点击确认后进入架位录入页面。
