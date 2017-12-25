@@ -5,7 +5,7 @@
     <div class="widget-content">
         <form class="form-horizontal" role="form">
 
-            <fieldset ng-if="!!shelfInput">
+            <fieldset ng-show="!!shelfInput">
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">架位编号</label>
                     <div class="col-sm-4">
@@ -14,7 +14,7 @@
                 </div>
             </fieldset>
 
-            <fieldset ng-if="!shelfInput">
+            <fieldset ng-show="!shelfInput">
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">入库单号</label>
                     <div class="col-sm-4">
@@ -45,18 +45,15 @@
 </div>
 <script>
     $(function () {
-        var receiptNumber = document.getElementById("receiptNumber");
-        var shelfNumber = document.getElementById("shelfNumber").focus();
-    })
-    receiptNumber.onkeydown = function (event) {
-        e = event ? event : (window.event ? window.event : null);
-        // 按下回车键且输入框值非空时  
         var shelfNumber = document.getElementById("shelfNumber");
-        if (e.keyCode == 13 && shelfNumber) {
-            shelfNumber.focus();
-        }
-    }
+        shelfNumber.focus();
+    })
     shelfNumber.onkeydown = function (event) {
         e = event ? event : (window.event ? window.event : null);
+        // 按下回车键且输入框值非空时  
+        var receiptNumber = document.getElementById("receiptNumber");
+        if (e.keyCode == 13 && shelfNumber) {
+            receiptNumber.focus();
+        }
     }
 </script>
