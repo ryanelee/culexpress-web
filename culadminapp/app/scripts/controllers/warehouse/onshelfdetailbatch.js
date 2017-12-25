@@ -49,8 +49,12 @@ angular.module('culAdminApp')
                 let shelfNumber = document.getElementById("shelfNumber").value;
                 $scope.shelfNumber = shelfNumber
                 if (!!$scope.shelfNumber) {
-                    $scope.shelfInput = false;
-                    $("#receiptNumber").focus();
+                    switch (event.keyCode) {
+                        case 13:  //enter
+                            $scope.shelfInput = false;
+                            $("#receiptNumber").focus();
+                            break;
+                    }
                 }
             }
 
@@ -143,7 +147,8 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function () {
-                $window.sessionStorage.setItem("historyFlag", 1); $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1); 
+                $window.history.back();
             }
         }
     ]);
