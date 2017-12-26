@@ -85,7 +85,7 @@ angular.module('culAdminApp')
                                 $scope.isOnShelf = true;
                                 plugMessenger.error("该商品已经上架，不允许重复上架");
                             } else {
-                                // 还为上架，直接上架
+                                // 还未上架，直接上架
                                 $scope.btnSave();
                             }
                         }
@@ -123,10 +123,8 @@ angular.module('culAdminApp')
                         plugMessenger.success("上架成功");
                         $scope.data = null;
                         $scope.receiptNumber = "";
-                        $scope.shelfNumber = "";
-                        $scope.shelfInput = true;
                         $timeout(function () {
-                            $window.document.getElementById('shelfNumber').focus();
+                            $window.document.getElementById('receiptNumber').focus();
                         }, 1000);
                     } else {
                         // 上架失败则停留在录入单号界面，并将错误信息反馈给操作员，操作员点击确认后进入架位录入页面。
@@ -140,6 +138,7 @@ angular.module('culAdminApp')
                                 }, 300);
                             } else {
                                 $scope.shelfInput = false;
+                                $scope.receiptNumber = "";
                                 $timeout(function () {
                                     $window.document.getElementById('receiptNumber').focus();
                                 }, 300);
