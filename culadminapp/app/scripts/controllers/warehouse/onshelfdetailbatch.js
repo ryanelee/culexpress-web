@@ -52,7 +52,9 @@ angular.module('culAdminApp')
                     switch (event.keyCode) {
                         case 13:  //enter
                             $scope.shelfInput = false;
-                            $("#receiptNumber").focus();
+                            $timeout(function () {
+                                $window.document.getElementById('receiptNumber').focus();
+                            }, 300);
                             break;
                     }
                 }
@@ -122,6 +124,7 @@ angular.module('culAdminApp')
                         $scope.data = null;
                         $scope.receiptNumber = "";
                         $scope.shelfNumber = "";
+                        $scope.shelfInput = true;
                         $timeout(function () {
                             $window.document.getElementById('shelfNumber').focus();
                         }, 1000);
