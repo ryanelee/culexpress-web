@@ -8,8 +8,8 @@
  * Controller of the culAdminApp 
  */
 angular.module('culAdminApp')
-    .controller('WarehouseOnShelfDetailBatchCtrl', ['$scope', '$location', '$window', 'shelfService', 'inventoryService', 'plugMessenger', '$timeout',
-        function ($scope, $location, $window, shelfService, inventoryService, plugMessenger, $timeout) {
+    .controller('WarehouseOnShelfDetailBatchCtrl', ['$scope', '$location', '$window', 'shelfService', 'inventoryService', 'plugMessenger', '$timeout', 'warehouseService',
+        function ($scope, $location, $window, shelfService, inventoryService, plugMessenger, $timeout, warehouseService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -23,6 +23,7 @@ angular.module('culAdminApp')
             $scope.shelfNumber = "";
             $scope.receiptNumber = "";
             $scope.shelfList = [];
+            $scope.warehouseNumber = "";
 
             // 校验架位
             $scope.isExpecial = function () {
@@ -44,10 +45,20 @@ angular.module('culAdminApp')
                 }
                 return true;
             }
+            // 获取操作员所在仓库
+            warehouseService.getWarehouse(function (result) {
+                if (result.length == 1) {
+                    $scope.warehouseNumber = 1; // 操作员所属仓库
+                } else {
+                    $scope.warehouseNumber = ""; //全部
+                }
+            });
 
+            // 校验架位是否存在
             var _checkShelf = function () {
                 var options = {
                     shelfNumber: $scope.shelfNumber,
+                    warehouseNumber: $scope.warehouseNumber,
                     pageInfo: {
                         pageIndex: 1,
                         pageSize: "20",
@@ -56,7 +67,6 @@ angular.module('culAdminApp')
                 }
                 shelfService.getList(options, function (result) {
                     $scope.shelfList = result.data
-                    console.log($scope.shelfList)
                     if ($scope.shelfList.length > 0) {
                         $scope.shelfInput = false;
                         $timeout(function () {
