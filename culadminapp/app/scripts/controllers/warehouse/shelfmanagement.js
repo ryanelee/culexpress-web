@@ -80,9 +80,9 @@ angular.module('culAdminApp')
 
             $scope.getData = function () {
                 storage.session.setObject("searchBar", $scope.searchBar);
+                console.log(_filterOptions())
                 shelfService.getList(_filterOptions(), function (result) {
                     var _data = result.data;
-                    console.log(_data)
                     _data.forEach(function (e) {
                         if (e.type == "C") {
                             e._type = "异常包裹"

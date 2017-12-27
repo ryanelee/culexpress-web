@@ -22,6 +22,7 @@ angular.module('culAdminApp')
             $scope.isOnShelf = false;
             $scope.shelfNumber = "";
             $scope.receiptNumber = "";
+            $scope.shelfList = [];
 
             // 校验架位
             $scope.isExpecial = function () {
@@ -43,6 +44,33 @@ angular.module('culAdminApp')
                 }
                 return true;
             }
+
+            var _checkShelf = function () {
+                var options = {
+                    shelfNumber: $scope.shelfNumber,
+                    pageInfo: {
+                        pageIndex: 1,
+                        pageSize: "20",
+                        totalCount: 0
+                    }
+                }
+                shelfService.getList(options, function (result) {
+                    $scope.shelfList = result.data
+                    console.log($scope.shelfList)
+                    if ($scope.shelfList.length > 0) {
+                        $scope.shelfInput = false;
+                        $timeout(function () {
+                            $window.document.getElementById('receiptNumber').focus();
+                        }, 300);
+                    } else {
+                        plugMessenger.error("架位" + $scope.shelfNumber + "不存在，请重新输入");
+                        $scope.shelfNumber = "";
+                        $timeout(function () {
+                            $window.document.getElementById('shelfNumber').focus();
+                        }, 300);
+                    }
+                });
+            }
             
             // 录入架位编号并enter
             $scope.keydownShelfNumber = function (event) {
@@ -51,10 +79,7 @@ angular.module('culAdminApp')
                 if (!!$scope.shelfNumber) {
                     switch (event.keyCode) {
                         case 13:  //enter
-                            $scope.shelfInput = false;
-                            $timeout(function () {
-                                $window.document.getElementById('receiptNumber').focus();
-                            }, 300);
+                            _checkShelf();
                             break;
                     }
                 }
@@ -128,7 +153,7 @@ angular.module('culAdminApp')
                         }, 1000);
                     } else {
                         // 上架失败则停留在录入单号界面，并将错误信息反馈给操作员，操作员点击确认后进入架位录入页面。
-                        plugMessenger.confirm("单号【 " + data.receiptNumber + " 】上架失败，是否继续批量上架？", function (isOK) {
+                        plugMessenger.confirm("单号【 " + data.receiptNumber + " 】上架失败，是否重新输入架位再进行批量上架？", function (isOK) {
                             if (isOK) {
                                 $scope.shelfInput = true;
                                 $scope.receiptNumber = "";
