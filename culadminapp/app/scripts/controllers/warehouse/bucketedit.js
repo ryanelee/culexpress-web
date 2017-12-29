@@ -400,7 +400,8 @@ angular.module('culAdminApp')
                 }
             }
 
-            $scope.btnSave = function () {
+            // 总单保存
+            $scope.btnSave = function (closePage) {
                 //修改总单
                 if (!!$scope.tpl_status.bucketNumber) {
                     bucketService.update($scope.data, function (result) {
@@ -413,9 +414,16 @@ angular.module('culAdminApp')
                 }
                 //新建
                 bucketService.create($scope.data, function (result) {
+                    console.log(result)
+                    console.log(result[0].bucketNumber)
                     if (!result.message) {
+                        // 避免多次保存，生成多个总单
+                        $scope.tpl_status.bucketNumber = result[0].bucketNumber;
+                        $scope.data.bucketNumber = result[0].bucketNumber;
                         plugMessenger.success("创建成功");
-                        $scope.btnPrev();
+                        if (closePage) {
+                            $scope.btnPrev();
+                        }
                     }
                 });
             }
@@ -434,6 +442,7 @@ angular.module('culAdminApp')
                 //新建
                 bucketService.create($scope.data, function (result) {
                     if (!result.message) {
+                        $scope.tpl_status.bucketNumber = result.bucketNumber
                         plugMessenger.success("保存成功");
                     }
                 });
@@ -463,7 +472,7 @@ angular.module('culAdminApp')
                 }
             };
 
-
+            // 总单重量校验
             $scope.checkWeight = function (event) {
                 if (event.keyCode === 13) {
                     $scope.btnCheckWeight();
@@ -478,7 +487,7 @@ angular.module('culAdminApp')
                 }, this);
             }
  
-
+            // 添加包裹到总单，但还未真正保存到总单
             $scope.btnSaveByPackage = function () {
                 if ($scope._selectedPackage == undefined || $scope._selectedPackage.trackingNumber == undefined) {
                     plugMessenger.info("请输入包裹单号.");
