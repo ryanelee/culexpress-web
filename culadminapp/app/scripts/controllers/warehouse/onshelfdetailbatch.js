@@ -8,8 +8,8 @@
  * Controller of the culAdminApp 
  */
 angular.module('culAdminApp')
-    .controller('WarehouseOnShelfDetailBatchCtrl', ['$scope', '$location', '$window', 'shelfService', 'inventoryService', 'plugMessenger', '$timeout',
-        function ($scope, $location, $window, shelfService, inventoryService, plugMessenger, $timeout) {
+    .controller('WarehouseOnShelfDetailBatchCtrl', ['$scope', '$location', '$window', 'shelfService', 'inventoryService', 'plugMessenger', '$timeout', 'warehouseService',
+        function ($scope, $location, $window, shelfService, inventoryService, plugMessenger, $timeout, warehouseService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -22,6 +22,8 @@ angular.module('culAdminApp')
             $scope.isOnShelf = false;
             $scope.shelfNumber = "";
             $scope.receiptNumber = "";
+            $scope.shelfList = [];
+            $scope.warehouseNumber = "";
 
             // 校验架位
             $scope.isExpecial = function () {
@@ -43,14 +45,53 @@ angular.module('culAdminApp')
                 }
                 return true;
             }
+            // 获取操作员所在仓库
+            warehouseService.getWarehouse(function (result) {
+                if (result.length == 1) {
+                    $scope.warehouseNumber = 1; // 操作员所属仓库
+                } else {
+                    $scope.warehouseNumber = ""; //全部
+                }
+            });
+
+            // 校验架位是否存在
+            var _checkShelf = function () {
+                var options = {
+                    shelfNumber: $scope.shelfNumber,
+                    warehouseNumber: $scope.warehouseNumber,
+                    pageInfo: {
+                        pageIndex: 1,
+                        pageSize: "20",
+                        totalCount: 0
+                    }
+                }
+                shelfService.getList(options, function (result) {
+                    $scope.shelfList = result.data
+                    if ($scope.shelfList.length > 0) {
+                        $scope.shelfInput = false;
+                        $timeout(function () {
+                            $window.document.getElementById('receiptNumber').focus();
+                        }, 300);
+                    } else {
+                        plugMessenger.error("架位" + $scope.shelfNumber + "不存在，请重新输入");
+                        $scope.shelfNumber = "";
+                        $timeout(function () {
+                            $window.document.getElementById('shelfNumber').focus();
+                        }, 300);
+                    }
+                });
+            }
             
             // 录入架位编号并enter
             $scope.keydownShelfNumber = function (event) {
                 let shelfNumber = document.getElementById("shelfNumber").value;
                 $scope.shelfNumber = shelfNumber
                 if (!!$scope.shelfNumber) {
-                    $scope.shelfInput = false;
-                    $("#receiptNumber").focus();
+                    switch (event.keyCode) {
+                        case 13:  //enter
+                            _checkShelf();
+                            break;
+                    }
                 }
             }
 
@@ -79,7 +120,7 @@ angular.module('culAdminApp')
                                 $scope.isOnShelf = true;
                                 plugMessenger.error("该商品已经上架，不允许重复上架");
                             } else {
-                                // 还为上架，直接上架
+                                // 还未上架，直接上架
                                 $scope.btnSave();
                             }
                         }
@@ -116,12 +157,13 @@ angular.module('culAdminApp')
                     if (result.success) {
                         plugMessenger.success("上架成功");
                         $scope.data = null;
+                        $scope.receiptNumber = "";
                         $timeout(function () {
                             $window.document.getElementById('receiptNumber').focus();
                         }, 1000);
                     } else {
                         // 上架失败则停留在录入单号界面，并将错误信息反馈给操作员，操作员点击确认后进入架位录入页面。
-                        plugMessenger.confirm("单号【 " + data.receiptNumber + " 】上架失败，是否继续批量上架？", function (isOK) {
+                        plugMessenger.confirm("单号【 " + data.receiptNumber + " 】上架失败，是否重新输入架位再进行批量上架？", function (isOK) {
                             if (isOK) {
                                 $scope.shelfInput = true;
                                 $scope.receiptNumber = "";
@@ -131,6 +173,7 @@ angular.module('culAdminApp')
                                 }, 300);
                             } else {
                                 $scope.shelfInput = false;
+                                $scope.receiptNumber = "";
                                 $timeout(function () {
                                     $window.document.getElementById('receiptNumber').focus();
                                 }, 300);
@@ -141,7 +184,8 @@ angular.module('culAdminApp')
             }
 
             $scope.btnPrev = function () {
-                $window.sessionStorage.setItem("historyFlag", 1); $window.history.back();
+                $window.sessionStorage.setItem("historyFlag", 1); 
+                $window.history.back();
             }
         }
     ]);
