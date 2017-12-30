@@ -119,17 +119,31 @@ angular.module('culAdminApp')
                 if ($scope.data.outboundPackages.length <= 1) {
                     return plugMessenger.info("只有一个包裹，不允许删除");
                 }
-                plugMessenger.confirm("确认删除转运包裹“" + item.trackingNumber + "”吗？", function (isOk) {
+                if(item.status === "Packaged"){
+                                 plugMessenger.confirm("该包裹已打包，是否删除？", function (isOk) {
+                                    if (isOk) {
+                                        orderService.deleteOutboundPackage({
+                                            "number": item.trackingNumber,
+                                        }, function (result) {
+                                            $scope.tempInboundPackageNumber = $scope.tempData;
+                                            console.log("2323",result);
+                                            $scope.getData();
+                                        });
+                                    }
+                                 })
+                }else{
+                   plugMessenger.confirm("确认删除转运包裹“" + item.trackingNumber + "”吗？", function (isOk) {
                     if (isOk) {
                         orderService.deleteOutboundPackage({
                             "number": item.trackingNumber,
                         }, function (result) {
                             $scope.tempInboundPackageNumber = $scope.tempData;
                             $scope.getData();
-
                         });
                     }
                 });
+                }
+            
             }
 
             $scope.getData = function () {
@@ -161,7 +175,7 @@ angular.module('culAdminApp')
                             if ($.grep($scope.data.inboundPackages, function (n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
                                 //success
                             } else if (_checked == true) {
-                                //match
+                                //match 
                             } else {
                                 //no match
                             }

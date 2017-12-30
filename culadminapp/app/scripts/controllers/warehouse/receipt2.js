@@ -4,7 +4,7 @@
  * @ngdoc function
  * @name culAdminApp.controller:Receipt2Ctrl
  * @description
- * # Receipt2Ctrl
+ * # Receipt2Ctrl 
  * Controller of the culAdminApp
  */
 angular.module('culAdminApp')

@@ -58,12 +58,12 @@ angular.module('culAdminApp')
                     plugMessenger.info("请填写正确的重量");
                     return;
                 }
-                // trackingNumber
+                // trackingNumber 
                 var _options = {
                     dateFrom: "",
                     dateTo: "",
                     exceptOrderStatus: ["Void"],
-                    pageInfo: { pageSize: "20", pageIndex: 1, totalCount: 0 },
+                    pageInfo: { pageSize: "20", pageIndex: 1, totalCount: 0 }, 
                     receiveTrackingNumber: $scope.data.trackingNumber
                 }
                 orderService.getList(angular.copy(_options), function (result) {
