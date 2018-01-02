@@ -236,6 +236,9 @@ angular.module('culAdminApp')
                             $scope.data.packageList = _.filter($scope.data.packageList, function (pkg) { return pkg.trackingNumber != item.trackingNumber });
                             //如果当前操作的包裹是编辑状态下的包裹，则清除编辑状态。
                             if (!!$scope._selectedPackage && $scope._selectedPackage.trackingNumber == item.trackingNumber) $scope._selectedPackage = null;
+                            // 删除包裹后自动保存，未校验
+                            _selected_bag.isCheckWeight = false;
+                            $scope.btnSave();
                             $scope.totalWeight()
                             $scope.refesh();
                             break;
