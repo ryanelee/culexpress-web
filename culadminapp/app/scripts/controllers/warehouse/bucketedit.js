@@ -40,7 +40,6 @@ angular.module('culAdminApp')
             if (!!$scope.tpl_status.bucketNumber) {
                 bucketService.getDetail($scope.tpl_status.bucketNumber, function (result) {
                     $scope.data = result;
-                    // console.log("result", result);
                     if ($scope.data.detail[0]) {
                         $scope.data.detail.forEach(function (e) {
                             e.totalWeight = 0;
@@ -89,14 +88,6 @@ angular.module('culAdminApp')
                             }
                         })
                     }
-
-                    // if (!!$scope.data) {
-                    //     if ($scope.data.packageList[0]) {
-                    //         $scope.data.packageList.forEach(function (e1) {
-                    //             $scope.selectPkgTotalWeight += e1.weight || 0;
-                    //         })
-                    //     }
-                    // } 
                 });
 
                 $("#bucket-title").text("编辑" + $scope.tpl_status.bucketNumber);
@@ -128,9 +119,6 @@ angular.module('culAdminApp')
             }
 
 
-            /**
-             * 发货渠道
-             */
             $scope.callback = {
                 check: function (item, resource, level) {
                     if (!item) return;
@@ -508,38 +496,19 @@ angular.module('culAdminApp')
 
                                 if (!_.isArray(_selected_bag.packages)) {
                                     _selected_bag.packages = [_successPackage];
-                                    // 添加包裹自动保存
+                                    // 添加包裹自动保存，未校验
+                                    _selected_bag.isCheckWeight = false;
                                     $scope.btnSave();
-                                    // $scope.data.packageList= [_successPackage];
                                 }
                                 else {
                                     _selected_bag.packages.push(_successPackage);
-                                    // 添加包裹自动保存
+                                    // 添加包裹自动保存，未校验
+                                    _selected_bag.isCheckWeight = false;
                                     $scope.btnSave();
-                                    // $scope.data.packageList.push(_successPackage);
                                 }
 
                                 $scope.data.packageList = _selected_bag.packages;
                             }
-                            // else if (_cacheCurrentResult.actualWeight - 1 < $scope._selectedPackage.weight && _cacheCurrentResult.actualWeight + 1 > $scope._selectedPackage.weight) {
-                            //     var _successPackage = angular.copy($scope._selectedPackage);
-                            //     _successPackage.weight = _cacheCurrentResult.actualWeight;
-
-                            //     $scope.data.packageList.push(_successPackage);
-
-                            //     if (!_.isArray(_selected_bag.packages)) {
-                            //         _selected_bag.packages = [_successPackage];
-                            //     }
-                            //     else {
-                            //         _selected_bag.packages.push(_successPackage);
-                            //     }
-                            // } else {
-                            //     plugMessenger.info("CUL包裹单号" + $scope._selectedPackage.trackingNumber + "无法装袋:出库重量和打包重量不匹配。");
-                            //     $scope._selectedPackage = null;
-                            //     _cacheCurrentResult = null;
-                            //     document.getElementById('key_trackingNumber').focus();
-                            //     return;
-                            // }
                         } else {
                             plugMessenger.info("包裹[" + $scope._selectedPackage.trackingNumber + "]已存在当前总单中。");
                             $scope._selectedPackage = null;
@@ -571,16 +540,13 @@ angular.module('culAdminApp')
                 var _pallet = _.findWhere($scope.data.detail, { _selected: true }),
                     _bags = _.isArray(_pallet.bags) && _pallet.bags.length > 0 ? _pallet.bags : _.findWhere(_pallet.boxes, { _selected: true }).bags,
                     _selected_bag = _.findWhere(_bags, { _selected: true });
-                // let allowDevision = parseFloat(parseFloat($scope.cul.bagWeight || 0) + 1);
                 if ($scope.data.packageList.length > 0 && $scope._selectedPackage.totalWeight != undefined) {
                     var compareWeight = parseFloat(sumWeight) + parseFloat($scope.cul.bagWeight);
                     if ((compareWeight - parseFloat($scope._selectedPackage.totalWeight)) < 1 && (compareWeight - parseFloat($scope._selectedPackage.totalWeight)) > -1) {
-                        // if ($scope.selectPkgTotalWeight - allowDevision <= $scope._selectedPackage.totalWeight && $scope.selectPkgTotalWeight + allowDevision >= $scope._selectedPackage.totalWeight) {
                         _selected_bag.isCheckWeight = true;
                         $scope.btnSave();
                         plugMessenger.info("校验成功，并已经保存！");
                     } else {
-                        // plugMessenger.info("称重重量[" + $scope._selectedPackage.totalWeight + "]不等于包裹总重量[" + $scope.selectPkgTotalWeight + "]!")
                         _selected_bag.isCheckWeight = false;
                         plugMessenger.error("重量校验失败![称重重量" + $scope._selectedPackage.totalWeight + "磅]和[包裹加袋子重量"+ compareWeight +"磅]的误差必须小于正负1磅!");
                         document.getElementById('key_trackingNumber').focus();
