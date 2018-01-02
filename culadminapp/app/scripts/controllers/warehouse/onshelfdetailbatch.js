@@ -84,7 +84,7 @@ angular.module('culAdminApp')
             
             // 录入架位编号并enter
             $scope.keydownShelfNumber = function (event) {
-                let shelfNumber = document.getElementById("shelfNumber").value;
+                var shelfNumber = document.getElementById("shelfNumber").value;
                 $scope.shelfNumber = shelfNumber
                 if (!!$scope.shelfNumber) {
                     switch (event.keyCode) {
@@ -97,7 +97,7 @@ angular.module('culAdminApp')
 
             // 录入入库单号并enter
             $scope.keydownReceiptNumber = function (event) {
-                let rNumber = document.getElementById("receiptNumber").value;
+                var rNumber = document.getElementById("receiptNumber").value;
                 $scope.receiptNumber = rNumber
                 if (!!$scope.receiptNumber) {
                     switch (event.keyCode) {
