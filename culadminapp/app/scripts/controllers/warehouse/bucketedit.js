@@ -317,28 +317,12 @@ angular.module('culAdminApp')
                                     $.each($scope.data.packageList, function (i, item) {
                                         trackingNumbers.push(item.trackingNumber);
                                     });
-
+                                    // 出库，并更新状态和轨迹
                                     warehouseService.outboundPackageShip(trackingNumbers, function (result) {
                                         if (result.success == true) {
-                                        _callback();
+                                            _callback();
                                         }
                                     });
-                                    // bucketService.updateculBucket($scope.data.packageList, function (result) {
-                                    //     _callback();
-                                    // })
-                                    // 获取包裹信息
-                                    // $scope.data.packageList.forEach(function (pkg) {
-                                    //     orderService.getOutboundPackage(pkg.trackingNumber, function (result) {
-                                    //         $scope.packages = result;
-                                    //         $scope.packages.status = "Shipped";
-
-                                    //         orderService.updateOutboundPackage($scope.packages, function (result) {
-                                    //             if (!result.message) {
-                                    //                 $scope.btnPrev();
-                                    //             }
-                                    //         })
-                                    //     });
-                                    // });
                                 }
                             });
                         }

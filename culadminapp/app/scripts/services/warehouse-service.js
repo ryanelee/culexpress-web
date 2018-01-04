@@ -76,7 +76,7 @@ angular.module('culAdminApp')
                 callback(result);
             });
         }
-
+        // 出库
         self.outboundPackageShip = function (trackingNumbers, callback) {
             var _data = [];
             $.each(trackingNumbers, function (i, trackingNumber) {

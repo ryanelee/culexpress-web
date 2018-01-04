@@ -274,7 +274,7 @@ angular.module('culAdminApp')
                     }
                 }
             }
-
+            // 批量出库
             $scope.btnBatchOutBound = function () {
                 var trackingNumbers = [];
                 $.each($scope.selectedListCache, function (i, item) {
