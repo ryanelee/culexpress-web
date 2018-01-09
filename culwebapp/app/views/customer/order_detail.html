@@ -64,7 +64,7 @@
                     <label>清关费用：</label> <span>{{(data.tariffMoney||0)  | currency:'￥'}}</span>
                 </div>
                 <div>
-                    <strong><label><strong>运费总计：</strong></label> <span>{{data.totalCount |currency:'¥'}}</span></strong>
+                    <strong><label><strong>运费总计：</strong></label> <span>{{((data.shippingFee + data.tariffMoney + data.tip + data.valueAddFee + data.insuranceFee) - data.usedPoint) |currency:'¥'}}</span></strong>
                 </div>
                 <div ng-if="data.orderStatus=='Arrears'">
                     <strong><label><strong>运费拖欠：</strong></label> <span>{{data.shippingFeeAdjust|currency:'¥'}}</span></strong>
@@ -79,7 +79,8 @@
                 <div>
                     <label>支付日期:</label> <span>{{data.payDate|date:'yyyy-MM-dd HH:mm:ss'}}</span>
                     <label style="margin-left: 50px;">实际支付:</label> <span>{{data.paied|currency:'¥'}}</span>
-                    <span ng-if="(data.paied - data.totalCount) >= 100"><i class="fa fa-money"><em>多收运费经财务审核后会返还到个人账户, 如有任何问题请联系客服.</em></i></span>
+                    <span ng-if="data.totalRefund == 0 && (data.paied - data.totalCount) > 0"><i class="fa fa-exclamation-circle"><em>多收运费经财务审核后会返还到个人账户, 如有任何问题请联系客服.</em></i></span>
+                    <span ng-if="data.totalRefund > 0"><i class="fa fa-money"><em>已返还多收运费到个人账户, 如有任何问题请联系客服.</em></i></span>
                 </div>
             </div>
         </div>
