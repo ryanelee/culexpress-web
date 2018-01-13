@@ -226,17 +226,17 @@ angular.module('culAdminApp')
                     plugMessenger.info("请选择需要删除的订单");
                     return;
                 } else {
-                    // plugMessenger.template($compile($("#delete_approval_form").html())($scope));
+                    // plugMessenger.template($compile($("#confirm-modal").html())($scope));
                     $scope.btnDelete($scope.orderNumberList)
                 } 
             }
 
             $scope.btnDeleteApproval = function (item, event) {
                 $scope.item = item;
-                plugMessenger.template($compile($("#delete_approval_form").html())($scope));
+                plugMessenger.template($compile($("#confirm-modal").html())($scope));
             }
 
-            $scope.btnDelete = function (item) {
+            $scope.btnDelete = function (item, event) {
                 $scope.searchOrder = {};
                 if (item instanceof Array) {
                     $scope.searchOrder.orderNumberList = item;
@@ -250,11 +250,12 @@ angular.module('culAdminApp')
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
                 plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
                     if (!!isOK) {
-                        $("#delete_approval_form").modal("hide");
+                        $timeout(function () {
+                            $(event.currentTarget).parents("#confirm-modal").modal("hide");
+                        }, 500);
                         orderService.delete($scope.searchOrder, function (result) {
                             if (result.success == true) {
                                 plugMessenger.info("删除成功");
-                                $("#delete_approval_form").modal("hide");
                                 item.deleteMessage = "";
                                 $scope.deleteMessage = "";
                                 $scope.getData();
@@ -283,7 +284,7 @@ angular.module('culAdminApp')
             }, 500);
 
             $scope.btnCancel = function (event) {
-                $(event.currentTarget).parents("#delete_approval_form").modal("hide");
+                $(event.currentTarget).parents("#confirm-modal").modal("hide");
             }
 
         }]);
