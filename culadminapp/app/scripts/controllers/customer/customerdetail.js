@@ -13,11 +13,16 @@ angular.module('culAdminApp')
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
-                'Karma'
+                'Karma' 
             ];
+            $scope.emailFlag = false;
             $scope.tpl_status = {
                 editPoint: false
             }
+
+            
+
+
         
             $scope.customerNumber = $location.search().customerNumber;
             customerService.getDetail($scope.customerNumber, function (result) {

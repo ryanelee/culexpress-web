@@ -58,6 +58,7 @@ angular.module('culAdminApp')
                     callback(true);
                 });
                 _$template.modal("hide");
+                _$template = "";
             });
 
             _$template.find("#btnCancel").click(function () {
@@ -112,9 +113,10 @@ angular.module('culAdminApp')
             _$template.on("hidden.bs.modal", function () {
                 $("#confirm-modal").remove();
             });
-        }
-
+        } 
+        var i = 0;
         self.template = function (template) {
+           
             var _$template = $("<div id=\"confirm-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\">\
                                   <div class=\"modal-dialog\">\
                                       <div class=\"modal-content\">\
@@ -124,7 +126,10 @@ angular.module('culAdminApp')
                                   </div>\
                               </div>");
             _$template.find(".modal-body").html(template);
-            $("body").append(_$template);
+            // if(i === 0){
+            // $("body").append(_$template);
+            // }
+            //  i ++;
             _$template.modal("show");
         }
     }]);
