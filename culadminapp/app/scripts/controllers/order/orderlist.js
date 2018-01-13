@@ -250,12 +250,12 @@ angular.module('culAdminApp')
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
                 plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
                     if (!!isOK) {
-                        $timeout(function () {
-                            $(event.currentTarget).parents("#confirm-modal").modal("hide");
-                        }, 500);
+                        $(event.currentTarget).parents("#confirm-modal").modal("hide");
                         orderService.delete($scope.searchOrder, function (result) {
                             if (result.success == true) {
                                 plugMessenger.info("删除成功");
+                                // $("#confirm-modal").modal("hide");
+                                // $(event.currentTarget).parents("#confirm-modal").modal("hide");
                                 item.deleteMessage = "";
                                 $scope.deleteMessage = "";
                                 $scope.getData();
@@ -284,6 +284,7 @@ angular.module('culAdminApp')
             }, 500);
 
             $scope.btnCancel = function (event) {
+                // $("#confirm-modal").modal("hide");
                 $(event.currentTarget).parents("#confirm-modal").modal("hide");
             }
 
