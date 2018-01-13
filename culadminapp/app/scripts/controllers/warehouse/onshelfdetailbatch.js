@@ -58,7 +58,7 @@ angular.module('culAdminApp')
             var _checkShelf = function () {
                 var options = {
                     shelfNumber: $scope.shelfNumber,
-                    warehouseNumber: $scope.warehouseNumber,
+                    // warehouseNumber: $scope.warehouseNumber,
                     pageInfo: {
                         pageIndex: 1,
                         pageSize: "20",
