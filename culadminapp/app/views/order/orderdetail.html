@@ -80,7 +80,8 @@
                                     <td>
                                         <div ng-show="!address._edit">
                                             {{address.receivePersonName}}
-                                            <span ng-if="!!address.cellphoneNumber">({{address.cellphoneNumber}})</span>                                            {{address.address1}}{{address.receiveCompanyName}}
+                                            <span ng-if="!!address.cellphoneNumber">({{address.cellphoneNumber}})</span>                                            
+                                            {{address.address1}}{{address.receiveCompanyName}}
                                             <span ng-if="!!address.zipcode">({{address.zipcode}})</span>
                                         </div>
                                         <div ng-show="!!address._edit">
