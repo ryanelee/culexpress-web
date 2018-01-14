@@ -1,6 +1,6 @@
 ﻿<div class="widget">
     <div class="widget-header">
-        <h3><i class="fa fa-edit"></i> 线下订单打包登记</h3>
+        <h3><i class="fa fa-edit"></i> 线下订单明细</h3>
     </div>
     <div class="widget-content">
         <form class="form-horizontal" role="form">
@@ -32,6 +32,33 @@
                 </div>
             </fieldset>
             <fieldset>
+                <legend>收货地址</legend>
+                <div class="row col-sm-8 col-sm-offset-1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">CUL包裹单号</th>
+                                <th style="width: 80%;">收货地址</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="package in editOrderInfo.outboundPackages track by $index">
+                                <td>
+                                    <div>{{package.trackingNumber}}</div>
+                                </td>
+                                <td>
+                                    {{package.address.receivePersonName}}
+                                    <span ng-if="!!package.address.cellphoneNumber">({{package.address.cellphoneNumber}})</span>                                            
+                                    {{package.address.address1}}{{package.address.receiveCompanyName}}
+                                    <span ng-if="!!package.address.zipcode">({{package.address.zipcode}})</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+            </fieldset>
+            <fieldset>
                 <legend>订单明细</legend>
                 <div class="row col-sm-8 col-sm-offset-1">
                     <table class="table">
@@ -40,7 +67,7 @@
                                 <th style="width: 20%;">CUL包裹单号</th>
                                 <th style="width: 20%;">物品编号</th>
                                 <th style="width: 20%;">物品描述</th>
-                                <th style="width: 20%;" class="text-center">单价($)</th>
+                                <th style="width: 20%;">单价($)</th>
                                 <th style="width: 20%;">物品数量</th>
                             </tr>
                         </thead>
@@ -62,14 +89,14 @@
                         <label class="control-label">{{'1'}}</label>
                     </div>
                 </div>-->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="col-sm-2 control-label text-right">添加新备注：</label>
                     <div class="col-sm-4">
                         <textarea class="form-control" ng-model="editOrderInfo.message"></textarea>
                     </div>
-                </div>
+                </div> -->
             </fieldset>
-            <fieldset>
+            <!-- <fieldset>
                 <legend>打包明细</legend>
                 <div class="row col-sm-8 col-sm-offset-1">
                     <table class="table">
@@ -94,13 +121,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <!--<div class="form-group col-sm-11 col-sm-offset-1">
-                        <button type="button" class="btn btn-primary" ng-click="btnEditAddPackage()">
-                            <i class="fa fa-plus"></i>新增
-                        </button>
-                    </div>-->
                 </div>
-            </fieldset>
+            </fieldset> -->
         </form>
     </div>
 </div>

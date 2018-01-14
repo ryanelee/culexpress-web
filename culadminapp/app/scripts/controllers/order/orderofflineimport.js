@@ -312,19 +312,19 @@ angular.module('culAdminApp')
               }
           });
       }
-      $scope.btnPrint = function (item) {
-          $("<div></div>").barcode(item.trackingNumber, "code128", {
-              addQuietZone: "1",
-              barHeight: "50",
-              barWidth: "1",
-              bgColor: "#FFFFFF",
-              color: "#000000",
-              moduleSize: "5",
-              output: "css",
-              posX: "10",
-              posY: "20"
-          }).jqprint();
-      }
+    //   $scope.btnPrint = function (item) {
+    //       $("<div></div>").barcode(item.trackingNumber, "code128", {
+    //           addQuietZone: "1",
+    //           barHeight: "50",
+    //           barWidth: "1",
+    //           bgColor: "#FFFFFF",
+    //           color: "#000000",
+    //           moduleSize: "5",
+    //           output: "css",
+    //           posX: "10",
+    //           posY: "20"
+    //       }).jqprint();
+    //   }
  
       $scope.btnSplitPackage = function (item) {
           warehouseService.outboundPackageSplit({
@@ -351,7 +351,10 @@ angular.module('culAdminApp')
       }
 
       $scope.btnBatchQuery = function () {
-          if (!$scope.searchBatchNumber) return false;
+        $scope.stepIndex = 3;
+        $scope.selectedListCache = [];
+
+        if (!$scope.searchBatchNumber) return false;
           orderService.getList({
               "pageInfo": {
                   "pageSize": 9999,
@@ -389,5 +392,81 @@ angular.module('culAdminApp')
                   }
               }
           });
-      }
+      };
+      $scope.selectedListCache = [];
+
+      $scope.btnSelectedItem = function(item) {
+        if (!!item) {
+            if (!item._selected) {
+                $scope.searchBar.selectedAll = false;
+            }
+        } else {
+            $.each($scope.dataList, function(i, item) {
+                item._selected = $scope.searchBar.selectedAll;
+            });
+        }
+        //将当前页所有选中的item缓存到$scope.selectedListCache中（并去重）。
+        $.each($scope.dataList, function(i, item) {
+            var isExists = $.grep($scope.selectedListCache, function(n) { return n.orderNumber == item.orderNumber }).length > 0;
+            if (!!item._selected && isExists == false) {
+                $scope.selectedListCache.push(angular.copy(item));
+            } else if (!item._selected && isExists == true) {
+                $scope.selectedListCache = $.grep($scope.selectedListCache, function(n) { return n.orderNumber != item.orderNumber });
+            }
+        });
+    }
+
+      $scope.btnClearSelectedListCache = function() {
+        $scope.selectedListCache = [];
+        $scope.searchBar.selectedAll = false;
+        $.each($scope.dataList, function(i, item) {
+            item._selected = false;
+        });
+    };
+
+    $scope.btnPrint = function(item, type) {            
+        var _print = function() {
+            switch (type) {
+                case "package":
+                    $scope.$broadcast("print-offline-package.action", item.orderNumber);
+                    break;
+                case "trackingNumber":
+                    $scope.$broadcast("print-tracking-number.action", item);
+                    break;
+            }
+        };
+
+        _print();
+    };
+
+    $scope.btnPrintBatch = function(type) {
+        var orderNumbers = [];
+        var selectedList = angular.copy($scope.selectedListCache);
+        $.each($scope.selectedListCache, function(index, item) {
+            orderNumbers.push(item.orderNumber);
+        });
+        var _print = function() {
+            if (orderNumbers.length > 0) {
+                switch (type) {
+                    case "package":
+                        $scope.$broadcast("print-offline-package.action", orderNumbers);
+                        break;
+                    case "trackingNumber":
+                        // _printTrackingNumbers(selectedList);
+                        $scope.$broadcast("print-tracking-number.action", selectedList);
+                        break;
+                }
+            }
+        }
+
+        if ($scope.selectedListCache.length == 0) {
+
+            $.each($scope.dataList, function (i, item) {
+                orderNumbers.push(item.orderNumber);
+                selectedList.push(item);
+            });
+        };
+
+        _print();
+    };
   }]);

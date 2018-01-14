@@ -248,8 +248,8 @@ angular.module('culAdminApp')
                     }
                 }
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
-                plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
-                    if (!!isOK) {
+                // plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
+                    // if (!!isOK) {
                         $(event.currentTarget).parents("#confirm-modal").modal("hide");
                         orderService.delete($scope.searchOrder, function (result) {
                             if (result.success == true) {
@@ -264,8 +264,8 @@ angular.module('culAdminApp')
                                 // plugMessenger.info(result);
                             }
                         });
-                    }
-                });
+                    // }
+                // });
             }
 
             $scope.btnClearSelectedListCache = function () {

@@ -178,13 +178,13 @@
                             ng-model="searchBar.batchChannel"
                             ng-options="option.value as option.title for option in channelFilter"></select>-->
                     <button type="button" class="btn btn-primary role" data-role="35" style="margin-left:5px;" ng-click="btnPrintBatch('order')">批量打印订单</button>
-                    <button type="button" class="btn btn-primary role" data-role="36" style="margin-left:5px;" ng-click="btnPrintBatch('flyingexpress')">批量打印翔通面单</button>
-                    <button type="button" class="btn btn-primary role" data-role="37" style="margin-left:5px;" ng-click="btnPrintBatch('flyingexpress2')">批量打印翔通单据</button>
+                    <button type="button" class="btn btn-primary role" data-role="36" style="margin-left:5px;" ng-click="btnPrintBatch('flyingexpress')">批量打印特快渠道面单</button>
+                    <button type="button" class="btn btn-primary role" data-role="37" style="margin-left:5px;" ng-click="btnPrintBatch('flyingexpress2')">批量打印特快渠道单据</button>
                     <button type="button" class="btn btn-primary role" data-role="38" style="margin-left:5px;" ng-click="btnPrintBatch('package')">批量打印发票</button>
                     <button type="button" class="btn btn-primary role" data-role="39" style="margin-left:5px;" ng-click="btnPrintBatch('trackingNumber')">批量打印包裹号</button>
                 </div>
                 <div class="search-col pull-right" style="margin-bottom: 0px; margin-right:0px;">
-                    <button type="button" class="btn btn-primary role" data-role="40" style="margin-left:5px;" ng-click="btnPrintEmptyFlyingExpress()">打印空白翔通单据</button>
+                    <button type="button" class="btn btn-primary role" data-role="40" style="margin-left:5px;" ng-click="btnPrintEmptyFlyingExpress()">打印空白特快渠道单据</button>
                 </div>
             </div>
             <div class="col-sm-12 search-bar" style="margin-bottom: 0px;" ng-show="selectedListCache.length > 0">
@@ -234,8 +234,8 @@
                 <td>{{item._orderStatus}}</td>
                 <td>
                     <a href="javascript:void(0)" class="role" data-role="41" ng-click="btnPrint(item,'order')">打印订单</a>
-                    <a href="javascript:void(0)" class="role" data-role="42" ng-click="btnPrint(item,'flyingexpress')">打印翔通面单</a>
-                    <a href="javascript:void(0)" class="role" data-role="43" ng-click="btnPrint(item,'flyingexpress2')">打印翔通单据</a>
+                    <a href="javascript:void(0)" class="role" data-role="42" ng-click="btnPrint(item,'flyingexpress')">打印特快渠道面单</a>
+                    <a href="javascript:void(0)" class="role" data-role="43" ng-click="btnPrint(item,'flyingexpress2')">打印特快渠道单据</a>
                     <a href="javascript:void(0)" class="role" data-role="44" ng-click="btnPrint(item,'package')">打印发票</a>
                     <a href="javascript:void(0)" class="role" data-role="45" ng-click="btnPrint(item,'trackingNumber')">打印包裹号</a>
                 </td>

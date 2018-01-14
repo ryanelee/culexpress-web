@@ -9,8 +9,8 @@
                     <li data-target="#step1" class="active"><span class="badge badge-info">1</span>上传文件<span class="chevron"></span></li>
                     <li data-target="#step2"><span class="badge">2</span>文件预检测<span class="chevron"></span></li>
                     <li data-target="#step3"><span class="badge">3</span>创建订单<span class="chevron"></span></li>
-                    <li data-target="#step4"><span class="badge">4</span>订单支付</li>
-                    <li data-target="#step5" class="last"><span class="badge">5</span>订单出库</li>
+                    <!-- <li data-target="#step4"><span class="badge">4</span>订单支付</li>
+                    <li data-target="#step5" class="last"><span class="badge">5</span>订单出库</li> -->
                 </ul>
             </div>
             <div class="step-content">
@@ -73,34 +73,63 @@
                             <div class="widget-header">
                                 <h3><i class="fa fa-table"></i> 订单列表</h3>
                             </div>
+                            <br />
+                            <div class="col-sm-12 search-bar">
+                                <div class="search-col" style="margin-bottom: 0px;">
+                                    <label class="search-label">批打通道：</label>
+                                    <!--<select class="form-control search-control"
+                                            ng-model="searchBar.batchChannel"
+                                            ng-options="option.value as option.title for option in channelFilter"></select>-->
+                                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnPrintBatch('package')">批量打印订单</button>
+                                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnPrintBatch('trackingNumber')">批量打印包裹号</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 search-bar">
+                                <i class="fa fa-info-circle"></i><label class="search-label">请点击打印包裹号按钮打印CUL条码粘贴到包裹上.</label>
+                            </div>
+                            <div class="col-sm-12 search-bar" style="margin-bottom: 0px;" ng-show="selectedListCache.length > 0">
+                                <div class="search-col" style="margin-bottom: 0px;">
+                                    <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>
+                                    <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
+                                </div>
+                            </div>
                             <div class="widget-content">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
+                                            <th><input type="checkbox" ng-change="btnSelectedItem()" ng-model="searchBar.selectedAll" /></th>
+                                            <th>序号</th>
                                             <th>订单编号</th>
                                             <th>客户编号</th>
                                             <th>客户关联编号</th>
+                                            <th>生成日期</th>
                                             <th>包裹数</th>
-                                            <th>实际打包数量</th>
-                                            <th>实际订单重量</th>
+                                            <th>CUL包裹单号</th>
                                             <td>发货仓库</td>
-                                            <th>备注</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="item in dataList">
-                                            <td>{{item.orderNumber}}</td>
-                                            <td>{{item.customerNumber}}</td>
-                                            <td>{{item.id}}</td>
-                                            <td>{{item.cartonCount}}</td>
-                                            <td>{{item.outboundPackages.length}}</td>
-                                            <td>{{item.actualTotalWeight}}</td>
-                                            <td>{{item.warehouseName}}</td>
-                                            <td>{{item.message}}</td>
+                                            <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
+                                            <td>{{item.rownumber}}</td>
                                             <td>
-                                                <i class="fa fa-edit btn-icon green" ng-click="openDetail(item)"></i>
+                                                <a href="javascript:void(0);" ng-click="openDetail(item)">{{item.orderNumber}}</a>
                                                 <i class="fa fa-remove btn-icon red" ng-click="btnRemoveOrder(item)"></i>
+                                            </td>
+                                            <td>{{item.customerNumber}}</td>
+                                            <td>{{item.referenceOrderNumber}}</td>
+                                            <td>{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                                            <td>{{item.outboundPackages.length}}</td>
+                                            <td>
+                                                <div ng-repeat="package in item.outboundPackages track by $index">{{package.trackingNumber}}</div>
+                                            </td>
+                                            <td>{{item.warehouseName}}</td>
+                                            <td>
+                                                <!-- <i class="fa fa-edit btn-icon green" ng-click="openDetail(item)"></i> -->
+                                                <a href="javascript:void(0)" ng-click="btnPrint(item,'package')">打印订单</a>
+                                                <a href="javascript:void(0)" ng-click="btnPrint(item,'trackingNumber')">打印包裹号</a>
+                                                <!-- <i class="fa fa-remove btn-icon red" ng-click="btnRemoveOrder(item)"></i> -->
                                             </td>
                                         </tr>
                                     </tbody>
@@ -165,10 +194,10 @@
                     </div>
                 </div>
             </div>
-            <div class="actions" ng-hide="stepIndex == 5">
+            <div class="actions" ng-hide="stepIndex == 3">
                 <button type="button" class="btn btn-default btn-prev"><i class="fa fa-arrow-left"></i> 上一步</button>
-                <button type="button" class="btn btn-primary btn-next" ng-show="stepIndex < 4" ng-disabled="!btnNextEnable">下一步 <i class="fa fa-arrow-right"></i></button>
-                <button type="button" class="btn btn-primary btn-checkout" ng-show="stepIndex == 4" ng-disabled="!btnNextEnable">订单出库 <i class="fa fa-truck"></i></button>
+                <button type="button" class="btn btn-primary btn-next" ng-show="stepIndex < 3" ng-disabled="!btnNextEnable">下一步 <i class="fa fa-arrow-right"></i></button>
+                <button type="button" class="btn btn-primary btn-checkout" ng-show="stepIndex == 3" ng-disabled="!btnNextEnable">订单出库 <i class="fa fa-truck"></i></button>
             </div>
         </div>
     </div>
@@ -181,14 +210,16 @@
             <div class="modal-body" style="max-height: 700px; overflow-x:hidden; overflow-y: scroll;" ng-include="'views/order/offlineorderdetail.html'"></div>
             <div class="modal-footer">
                 <div class="text-center">
-                    <button type="button" class="btn btn-primary" ng-click="btnSaveDetail()">
+                    <!-- <button type="button" class="btn btn-primary" ng-click="btnSaveDetail()">
                         <i class="fa fa-save"></i>确认
-                    </button>
+                    </button> -->
                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                        <i class="fa fa-reply"></i>返回
+                        <i class="fa fa-reply"></i>关闭
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<print-offline-package></print-offline-package>
+<print-tracking-number></print-tracking-number>

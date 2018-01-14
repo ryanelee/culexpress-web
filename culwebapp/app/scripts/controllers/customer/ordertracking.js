@@ -37,7 +37,7 @@ angular.module('culwebApp')
                     orderSvr
                         .getOrderPackageNumber($scope.trackingNumber)
                         .then(function (result) {
-                            if (result.data) {
+                            if (result.data) { 
                                 $scope.packagesList = result.data;
                                 if ($scope.packagesList.length <= 0) {
                                     $scope.isErrorNumber = true;
