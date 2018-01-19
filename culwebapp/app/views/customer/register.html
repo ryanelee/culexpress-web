@@ -128,7 +128,7 @@
       <input class="txt tj" name="customerNumber" ng-disabled="{{ $stateParams.reference !== undefined }}" placeholder="推荐人" ng-model="customerNumber"
         autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" maxlength="5" /><br />
       <div class="check-style">
-        <input id="agree-message1" class="checkbox-input" type="checkbox" ng-model="terms">
+        <input id="agree-message1" type="checkbox" ng-model="terms">
         <label for="agree-message1">
           我同意<a ui-sref="terms" class="color-green" target="_blank">用户注册协议</a>
         </label>

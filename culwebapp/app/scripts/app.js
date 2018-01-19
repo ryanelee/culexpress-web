@@ -467,6 +467,11 @@ angular
                 templateUrl: 'views/customer/register.html',
                 controller: function() {}
             })
+            .state('registerVIP', {
+                url: '/registervip/:reference',
+                templateUrl: 'views/customer/registerVIP.html',
+                controller: function() {}
+            })
             .state('customer', {
                 url: '/customer',
                 templateUrl: 'views/customer/myhome.html'

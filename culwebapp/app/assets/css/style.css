@@ -1721,6 +1721,11 @@ select::-ms-expand {
 	text-align: center;
 }
 
+.registervip-container {
+	background: url(../img/login/register-vip-bg.jpg) no-repeat center center;
+	text-align: center;
+}
+
 .login-container .login-main {
 	position: relative;
 	display: inline-block;
@@ -1752,6 +1757,20 @@ select::-ms-expand {
 	position: relative;
 }
 
+.registervip-container .login-main {
+	max-width: 970px;
+	min-height: 640px;
+	padding: 35px;
+	box-sizing: border-box;
+	margin: 115px auto;
+}
+
+.registervip-container .register-form {
+	display: inline-block;
+	max-width: 440px;
+	width: 440px;
+	position: relative;
+}
 
 
 
@@ -1782,6 +1801,10 @@ select::-ms-expand {
 }
 
 .register-container .login-main .txt {
+	width: 100%;
+}
+
+.registervip-container .login-main .txt {
 	width: 100%;
 }
 
@@ -3426,6 +3449,11 @@ select:-webkit-autofill {
 	}
 
 	.register-container .login-main .txt
+	{
+		width: 80%;
+	}
+
+	.registervip-container .login-main .txt
 	{
 		width: 80%;
 	}

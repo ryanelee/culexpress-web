@@ -23,6 +23,7 @@ angular.module('culAdminApp')
             //新导出逻辑
             var _token = sessionStorage.getItem("token");
             _token = !!_token ? encodeURIComponent(_token) : null
+            console.log(_token);
             $("#form_export").attr("action", cul.apiPath + "/order/list/export?Token=" + _token);
             $("#form_exportUSPS").attr("action", cul.apiPath + "/order/list/export/usps?Token=" + _token);
             $("#form_exportHT").attr("action", cul.apiPath + "/order/list/export/ht?Token=" + _token);
