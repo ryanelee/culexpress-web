@@ -237,8 +237,8 @@ angular.module('culAdminApp')
                                 if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
                                     $scope.dealUpdate("WaybillUpdated");                                 
                                 } else {
-                                    $scope.dealUpdate("PartialShipped");
-                                    // plugMessenger.info("订单包裹尚未完成扫描");
+                                    // $scope.dealUpdate("PartialShipped");
+                                    plugMessenger.info("订单包裹尚未完成扫描");
                                 }
                             };
                         });
@@ -246,7 +246,8 @@ angular.module('culAdminApp')
                         if ($.grep($scope.data.outboundPackages, function (n) { return n.checked == true }).length == $scope.data.outboundPackages.length) {
                             $scope.dealUpdate("WaybillUpdated");
                         } else {
-                            $scope.dealUpdate("PartialShipped");
+                            // $scope.dealUpdate("PartialShipped");
+                            plugMessenger.info("订单包裹尚未完成扫描");
                         }
                     }
                 }
