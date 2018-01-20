@@ -50,8 +50,6 @@ angular.module('culAdminApp')
             $scope.checkItemNumber();
 
             $scope.btnSave = function (type) {
-                console.log("$scope.data",$scope.data);
-                return;
                 if (!$scope.data.inventory) {
                     plugMessenger.info("请填写正确的数量");
                     return;
