@@ -70,6 +70,8 @@ angular.module('culwebApp')
             text: '4'
         }];
 
+        
+
         return {
             addShippingNotice: function (shippingNotice) {
                 return $http.post(cul.apiPath + '/inboundpackage', {
@@ -334,6 +336,291 @@ angular.module('culwebApp')
             cacluTariff: function (options, callback) {
              return   $http.post(cul.apiPath + "/order/cacluTariff", options);
             },
+
+            
+
+            getList: function (options, callback) {
+                var customer_ids;
+
+                var roles = JSON.parse($window.sessionStorage.getItem("role"));
+                roles.forEach(function (role) {
+                    customer_ids = $.grep([customer_ids, role.customer_ids], Boolean).join(",");
+                });
+
+                if (customer_ids != undefined && parseInt(customer_ids) !== 0) {
+
+                    if (options["customerNumber"] != undefined &&
+                        customer_ids.toString().split(",").indexof(options["customerNumber"].toUpperCase()) == -1) { //搜索指定customer#不在当前用户允许查询的customer权限中，直接返回空数据集
+                        return;
+                    };
+
+                    if (options["customerNumber"] == undefined) //默认只返回具备权限查看customer的订单数据
+                        options["customerNumber"] = customer_ids;
+                };
+
+                $http.post(cul.apiPath + "/order/list", options).success(function (result) {
+                    $.each(result.data, function (index, item) {
+
+                        item._orderStatus = _getOrderStatus(item.orderStatus);
+                        item._printStatus = _getPrintStatus(item.printStatus);
+                        item._shipToAddresses = [];
+                        $.each(item.shipToAddresses, function (i, address) {
+                            var _str = address.receivePersonName;
+                            if (!!address.cellphoneNumber) _str += "(" + address.cellphoneNumber + ")";
+                            if (item.shipServiceId != 9 && address.item != 10) {
+                                _str += address.address1;
+                            } else {
+                                _str = _str + address.addressPinyin + address.address1_before;
+                            }
+                            if (!!address.receiveCompanyName) _str += address.receiveCompanyName;
+                            if (!!address.zipcode) _str += "(" + address.zipcode + ")";
+                            if ($.grep(item._shipToAddresses, function (n) { return n == _str }).length == 0) {
+                                item._shipToAddresses.push(_str);
+                            }
+                        });
+                        // CUL包裹单号list
+                        item._outboundTrackingNumbers = [];
+                        if (item.outboundPackages) {
+                            $.each(item.outboundPackages, function (i, outboundPackage) {
+                                item._outboundTrackingNumbers.push(outboundPackage.trackingNumber);
+                            });
+                        }
+                        // 入库单号list
+                        item._inboundTrackingNumbers = [];
+
+                        if (item.inboundPackages && item.inboundPackages.length > 0) {
+                            $.each(item.inboundPackages, function (i, inboundPackage) {
+                                item._inboundTrackingNumbers.push(inboundPackage.trackingNumber);
+                            });
+                        }
+                    });
+                    callback(result);
+                });
+            },
+
+            getExportUrl: function (options, callback) {
+                var queryString = [];
+                for (var key in options) {
+                    if (key != "pageInfo") {
+                        queryString.push(key + "=" + options[key]);
+                    }
+                }
+                var _token = sessionStorage.getItem("token");
+                if (!!_token) queryString.push("token=" + encodeURIComponent(_token));
+                callback(cul.apiPath + "/order/list/export?" + queryString.join("&"));
+            },
+
+            getDetail: function (orderNumber, callback) {
+                $http.get(cul.apiPath + "/order/" + orderNumber).success(function (result) {
+                    result._orderStatus = _getOrderStatus(result.orderStatus);
+                    result._printStatus = _getPrintStatus(result.printStatus);
+                    callback(result);
+                });
+            },
+
+            create: function (order, callback) {
+                $http.post(cul.apiPath + "/order", order).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            update: function (order, callback) {
+                $http.put(cul.apiPath + "/order", order).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            checkOrderNumber: function (order) {
+                return $http.post(cul.apiPath + "/order/checkOrderNumber", order)
+            },
+
+            delete: function (searchOrder, callback) {
+                $http.delete(cul.apiPath + "/order?number=" + searchOrder.orderNumber + "&orderNumberList=" + searchOrder.orderNumberList + "&deleteMessage=" + searchOrder.deleteMessage).success(function (result) {
+                    console.log("result", result)
+                    callback(result);
+                });
+            },
+
+            offlineOrderCheckExcel: function (fileId, callback) {
+                $http.post(cul.apiPath + "/order/offlineOrderCheckExcel", {
+                    fileId: fileId
+                }).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            offlineOrderCreateExcel: function (fileId, callback) {
+                $http.post(cul.apiPath + "/order/offlineOrderCreateExcel", {
+                    fileId: fileId
+                }).success(function (result) {
+                    warehouseService.getWarehouse(function (warehouseList) {
+                        $.each(result, function (i, order) {
+                            var _warehouse = $.grep(warehouseList, function (n) { return n.warehouseNumber == order.warehouseNumber });
+                            order.warehouseName = _warehouse.length > 0 ? _warehouse[0].warehouseName : "";
+                        })
+                        callback(result);
+                    });
+                });
+            },
+
+            generatePackageNumber: function (model, callback) {
+                $http.post(cul.apiPath + "/outboundpackage/generate", model).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            orderPackageUpdateByExcel: function (fileId, callback) {
+                $http.post(cul.apiPath + "/order/batchUpdateOutboundPackageByExcel", {
+                    fileId: fileId
+                }).success(function (result) {
+                    callback(result == "import successfully" ? true : result.message);
+                });
+            },
+
+            updateOutboundPackage: function (model, callback) {
+                $http.put(cul.apiPath + "/outboundpackage", model).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            deleteOutboundPackage: function (numbers, callback) {
+                //console.log("deleteOutboundPackage");
+                //console.log(numbers);
+                // $http.delete(cul.apiPath + "/outboundpackage?number=" + numbers.join(",")).success(function (result) {
+                $http.post(cul.apiPath + "/deleteOutboundpackage", numbers).success(function (result) {
+                    callback(result);
+                });
+            },
+            getOutboundPackage: function (number, callback) {
+                $http.get(cul.apiPath + "/outboundpackage/" + number).success(function (result) {
+                    // $http.get(cul.apiPath + "/deleteOutboundpackage", numbers).success(function(result) {
+                    callback(result);
+                });
+            },
+
+            settlementForOffline: function (batchNumber, callback) {
+                $http.get(cul.apiPath + "/order/settlement/offline/" + batchNumber).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            outbound: function (model, callback) {
+                $http.post(cul.apiPath + "/order/ship/offline", model).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            outbound_vip: function (model, callback) {
+                $http.post(cul.apiPath + "/order/ship/vip/" + model.orderNumber, model).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            batchOutboundPackage_vip: function (orderNumbers, callback) {
+                $http.post(cul.apiPath + "/order/ship/vip", {
+                    orderNumber: orderNumber
+                }).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            updateOutboundPackageAndMessage: function (model, callback) {
+                $http.put(cul.apiPath + "/order/message_package/offline", model).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            settlementForOnline: function (orderNumber, callback) {
+                $http.get(cul.apiPath + "/order/settlement/online/" + orderNumber).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            batchUpdate: function (orderArray, callback) {
+                $http.post(cul.apiPath + "/order/batchUpdate", orderArray).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            orderTrackUpdateByExcel: function (fileId, callback) {
+                $http.post(cul.apiPath + "/order/batchUpdateOrderStepByExcel", {
+                    fileId: fileId
+                }).success(function (result) {
+                    callback(result == "import successfully" ? true : result.message);
+                });
+            },
+
+            printOrder: function (orderNumbers, callback) {
+                $http.put(cul.apiPath + "/order/print", {
+                    orderNumber: orderNumbers
+                }).success(function (result) {
+                    callback(result);
+                });
+            },
+
+            activitiesList: function (options, callback) {
+                $http.post(cul.apiPath + "/order/activities", options).success(function (result) {
+                    $.each(result.data, function (index, item) {
+                        item._orderStatus = _getOrderStatus(item.orderStatus);
+                        item._printStatus = _getPrintStatus(item.printStatus);
+                    });
+                    callback(result);
+                });
+            },
+
+            _getOrderStatus: function(orderStatus) {
+                var statusTitle = "";
+                switch (orderStatus) {
+                    case "Canceled":
+                        statusTitle = "取消";
+                        break;
+                    case "Unpaid":
+                        statusTitle = "未支付";
+                        break;
+                    case "Paid":
+                        statusTitle = "已支付";
+                        break;
+                    case "Processing":
+                        statusTitle = "处理中";
+                        break;
+                    case "WaybillUpdated":
+                        statusTitle = "运单更新";
+                        break;
+                    case "Checkout":
+                        statusTitle = "签出";
+                        break;
+                    case "Arrears":
+                        statusTitle = "运费不足";
+                        break;
+                    case "Shipped":
+                        statusTitle = "已出库";
+                        break;
+                    case "Arrived":
+                        statusTitle = "已送达";
+                        break;
+                    case "Void":
+                        statusTitle = "已删除";
+                        break;
+                    case "PartialShipped":
+                        statusTitle = "部分出库";
+                        break;
+                }
+                return statusTitle;
+            },
+
+            _getPrintStatus: function(printStatus) {
+                var printTitle = "";
+                switch (printStatus) {
+                    case "Printed":
+                        printTitle = "已打印";
+                        break;
+                    case "UnPrinted":
+                        printTitle = "未打印";
+                        break;
+                }
+                return printTitle;
+            },
+
             shippingCarriers: shippingCarriers,
             goodsCategories: goodsCategories,
             packageCountItems: packageCountItems

@@ -1,0 +1,251 @@
+
+
+/*------------------------------------------------*/
+/*  Components
+/*------------------------------------------------*/
+/* wizard */
+/* line 6, ../../sass/partials/_components.scss */
+.wizard {
+  position: relative;
+  overflow: hidden;
+  background-color: #f9f9f9;
+}
+/* line 11, ../../sass/partials/_components.scss */
+.wizard:before, .wizard:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+/* line 18, ../../sass/partials/_components.scss */
+.wizard:after {
+  clear: both;
+}
+/* line 22, ../../sass/partials/_components.scss */
+.wizard ul {
+  width: 4000px;
+  padding: 0;
+  margin: 0;
+  list-style: none outside none;
+}
+/* line 28, ../../sass/partials/_components.scss */
+.wizard ul.previous-disabled li.complete {
+  cursor: default;
+}
+/* line 31, ../../sass/partials/_components.scss */
+.wizard ul.previous-disabled li.complete:hover {
+  color: #468847;
+  cursor: default;
+  background: #f3f4f5;
+}
+/* line 36, ../../sass/partials/_components.scss */
+.wizard ul.previous-disabled li.complete:hover .chevron:before {
+  border-left-color: #f3f4f5;
+}
+/* line 42, ../../sass/partials/_components.scss */
+.wizard ul li {
+  position: relative;
+  float: left;
+  height: 46px;
+  padding: 0 20px 0 30px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 46px;
+  color: #a5a5a5;
+  cursor: default;
+  background: #f2f2f2;
+}
+/* line 54, ../../sass/partials/_components.scss */
+.wizard ul li:first-child {
+  padding-left: 20px;
+}
+/* line 58, ../../sass/partials/_components.scss */
+.wizard ul li .chevron {
+  position: absolute;
+  top: -24px;
+  right: -14px;
+  z-index: 1;
+  display: block;
+  border: 48px solid transparent;
+  border-right: 0;
+  border-left: 24px solid #fff;
+}
+/* line 68, ../../sass/partials/_components.scss */
+.wizard ul li .chevron:before {
+  position: absolute;
+  top: -48px;
+  right: 5px;
+  display: block;
+  border: 48px solid transparent;
+  border-right: 0;
+  border-left: 24px solid #f2f2f2;
+  content: "";
+}
+/* line 80, ../../sass/partials/_components.scss */
+.wizard ul li.complete {
+  color: #fff;
+  background: #4BA84B;
+}
+/* line 84, ../../sass/partials/_components.scss */
+.wizard ul li.complete:hover {
+  cursor: pointer;
+  background: #49a449;
+}
+/* line 88, ../../sass/partials/_components.scss */
+.wizard ul li.complete:hover .chevron:before {
+  border-left: 24px solid #49a449;
+}
+/* line 93, ../../sass/partials/_components.scss */
+.wizard ul li.complete .chevron:before {
+  border-left: 24px solid #4BA84B;
+}
+/* line 98, ../../sass/partials/_components.scss */
+.wizard ul li.active {
+  color: #fff;
+  background: #296EAA;
+}
+/* line 102, ../../sass/partials/_components.scss */
+.wizard ul li.active .chevron:before {
+  border-left: 24px solid #296EAA;
+}
+/* line 107, ../../sass/partials/_components.scss */
+.wizard ul li .badge {
+  position: relative;
+  top: -2px;
+  margin-right: 8px;
+  padding: 4px 7px;
+}
+/* line 113, ../../sass/partials/_components.scss */
+.wizard ul li .badge.badge-info {
+  background-color: #1f5381;
+}
+/* line 117, ../../sass/partials/_components.scss */
+.wizard ul li .badge.badge-success {
+  background-color: #3b853b;
+}
+
+/* line 125, ../../sass/partials/_components.scss */
+.step-content {
+  margin: 30px 0;
+  padding-left: 20px;
+}
+/* line 129, ../../sass/partials/_components.scss */
+.step-content .step-pane {
+  display: none;
+}
+/* line 133, ../../sass/partials/_components.scss */
+.step-content .active {
+  display: block;
+}
+/* line 136, ../../sass/partials/_components.scss */
+.step-content .active .btn-group .active {
+  display: inline-block;
+}
+
+
+
+/* dropzone file uplaod */
+/* line 1223, ../../sass/partials/_ui-elements.scss */
+.dropzone {
+  padding: 20px;
+  height: 500px;
+  background-image: url('../img/diagonal-stripe.png?1369651034');
+  background-repeat: repeat;
+}
+/* line 1231, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-message {
+  font-size: 52px;
+  text-align: center;
+  color: #A4A4A4;
+}
+/* line 1236, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-message:before {
+  font-family: FontAwesome;
+  content: '\f0ee';
+  display: block;
+  font-size: 4em;
+  line-height: 1;
+}
+/* line 1245, ../../sass/partials/_ui-elements.scss */
+.dropzone.dz-started .dz-message {
+  display: none;
+}
+/* line 1249, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-message {
+  display: block;
+}
+/* line 1253, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-default.dz-message {
+  background: none;
+  position: relative;
+  width: auto;
+  height: auto;
+  margin-left: 0;
+  margin-top: -2.8em;
+  top: 50%;
+  left: initial;
+}
+/* line 1263, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-default.dz-message span {
+  display: block;
+}
+/* line 1268, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-fallback {
+  text-align: center;
+}
+/* line 1271, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-fallback input[type="file"] {
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+/* line 1278, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-preview .dz-remove {
+  background: #DB3833;
+  color: #fff;
+  font-size: 0.9em;
+}
+/* line 1283, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-preview .dz-remove:before {
+  font-family: FontAwesome;
+  content: '\f00d';
+  margin-right: 3px;
+}
+/* line 1289, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-preview .dz-remove:hover {
+  background: #d02a25;
+  color: #fff;
+  cursor: pointer;
+}
+/* line 1296, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-preview .dz-error-mark,
+.dropzone .dz-preview .dz-success-mark {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: #fff;
+  width: 25px;
+  height: 25px;
+}
+/* line 1304, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-preview .dz-error-mark:before,
+.dropzone .dz-preview .dz-success-mark:before {
+  font-family: FontAwesome;
+  font-size: 15px;
+  position: absolute;
+  left: 5px;
+  top: 2px;
+}
+/* line 1314, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-preview .dz-error-mark:before {
+  content: '\f071';
+  color: #DB3833;
+}
+/* line 1321, ../../sass/partials/_ui-elements.scss */
+.dropzone .dz-preview .dz-success-mark:before {
+  content: '\f00c';
+  color: #4BA84B;
+}
+
+/* line 1329, ../../sass/partials/_ui-elements.scss */
+.ie9 .dropzone .dz-message:before {
+  font-size: 0.2em;
+}

@@ -150,11 +150,11 @@ angular
             .state('customer.orderlist', {
                 url: '/orderlist',
                 templateUrl: 'views/customer/order_orderlist.html',
-                controller: function () { }
+                controller: 'OrderListCtrl'
             })
             .state('customer.orderprint', {
                 url: '/orderprint',
                 templateUrl: 'views/customer/order_orderprint.html',
-                controller: function () { }
+                controller: 'OrderPrintCtrl'
             });
     });
