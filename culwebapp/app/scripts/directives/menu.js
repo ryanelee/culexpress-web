@@ -140,16 +140,16 @@
                         route: 'customer.neworder'
                     }, {
                         leaf: true, //叶子节点（有父节点）
-                        key: 'orders',
+                        key: 'orderlist',
                         name: '订单查询',
                         icon: 'fa fa-list-ol',
-                        route: 'customer.orders'
+                        route: 'customer.orderlist'
                     }, {
                         leaf: true, //叶子节点（有父节点）
-                        key: 'printOrders',
+                        key: 'orderprint',
                         name: '订单打印',
                         icon: 'fa fa-print',
-                        route: 'customer.printorders'
+                        route: 'customer.orderprint'
                     }]
 
                 }, {

@@ -141,5 +141,20 @@ angular
                 url: '/service',
                 templateUrl: 'views/customer/service.html',
                 controller: function () { }
+            })
+            .state('customer.neworder', {
+                url: '/neworder',
+                templateUrl: 'views/customer/order_neworder.html',
+                controller: function () { }
+            })
+            .state('customer.orderlist', {
+                url: '/orderlist',
+                templateUrl: 'views/customer/order_orderlist.html',
+                controller: function () { }
+            })
+            .state('customer.orderprint', {
+                url: '/orderprint',
+                templateUrl: 'views/customer/order_orderprint.html',
+                controller: function () { }
             });
     });

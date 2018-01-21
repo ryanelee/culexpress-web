@@ -425,36 +425,36 @@ angular
                 templateUrl: 'views/customer/order_track.html',
                 controller: function() {}
             }).
-        state('ordertracking', {
-            url: '/ordertracking/:trackingNumber',
-            templateUrl: 'views/customer/order_tracking.html',
+            state('ordertracking', {
+                url: '/ordertracking/:trackingNumber',
+                templateUrl: 'views/customer/order_tracking.html',
+                controller: function() {}
+            }).
+            state('useractive', {
+                url: '/useractive',
+                templateUrl: 'views/customer/useractive.html',
+                controller: function() {}
+            }).
+            state('forgetpassword', {
+                url: '/forgetpassword',
+                templateUrl: 'views/customer/forgetpassword.html',
+                controller: function() {}
+            }).
+            state('resetpassword', {
+                url: '/resetpassword',
+                templateUrl: 'views/customer/resetpassword.html',
+                controller: function() {}
+            }).
+            state('successpay', {
+                url: '/successpay',
+                templateUrl: 'views/successpay.html',
             controller: function() {}
-        }).
-        state('useractive', {
-            url: '/useractive',
-            templateUrl: 'views/customer/useractive.html',
-            controller: function() {}
-        }).
-        state('forgetpassword', {
-            url: '/forgetpassword',
-            templateUrl: 'views/customer/forgetpassword.html',
-            controller: function() {}
-        }).
-        state('resetpassword', {
-            url: '/resetpassword',
-            templateUrl: 'views/customer/resetpassword.html',
-            controller: function() {}
-        }).
-        state('successpay', {
-            url: '/successpay',
-            templateUrl: 'views/successpay.html',
-            controller: function() {}
-        }).
-        state('failedpay', {
-            url: '/failedpay',
-            templateUrl: 'views/failedpay.html',
-            controller: function() {}
-        });
+            }).
+            state('failedpay', {
+                url: '/failedpay',
+                templateUrl: 'views/failedpay.html',
+                controller: function() {}
+            });
 
         $stateProvider
             .state('login', {
