@@ -156,5 +156,12 @@ angular
                 url: '/orderprint',
                 templateUrl: 'views/customer/order_orderprint.html',
                 controller: 'OrderPrintCtrl'
+            })
+            .state('customer.orderofflineimport', {
+                url: '/orderofflineimport',
+                templateUrl: 'views/customer/orderofflineimport.html',
+                controller: 'OrderOfflineImportCtrl'
             });
+
+            
     });
