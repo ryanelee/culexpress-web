@@ -242,7 +242,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">申报价值：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.declareGoodsValue | number:2}}</label>
+                        <label class="control-label">{{data.declareGoodsValue | currency:'$'}}</label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -285,7 +285,7 @@
                                         <input type="text" class="form-control " ng-model="item.quantity" ng-show="!!_editOrderItems" />
                                     </td>
                                     <td>
-                                        <span ng-show="!_editOrderItems">{{item.unitprice | number:2}}</span>
+                                        <span ng-show="!_editOrderItems">{{item.unitprice | currency:'$'}}</span>
                                         <input type="text" class="form-control " ng-model="item.unitprice" ng-show="!!_editOrderItems" />
                                     </td>
                                     <td>
@@ -382,7 +382,8 @@
                                     <td>{{item.subDeclareGoodsName}}</td>
                                     <td>{{item.subGoodNumber}}</td>
                                     <td>{{item.billingWeight | number : 2}}磅</td>
-                                    <td>{{item.shippingFee | currency:'¥'}}</td>
+                                    <td ng-if="data.currencyCode === 'USD'">{{item.shippingFee | currency:'$'}}</td>
+                                    <td ng-if="data.currencyCode !== 'USD'">{{item.shippingFee | currency:'￥'}}</td>
                                     <td>{{item.status | _outPackageStatus}}</td>
                                     <!--<td>{{item.lastEditUserName}}</td>-->
                                 </tr>
@@ -411,48 +412,56 @@
                     <div class="col-sm-4">
                         <label class="control-label" style="font-weight:bold">{{data.actualWeight | number : 2}}磅</label>
                     </div>
-                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">运费合计({{data.orderType == 0 && data.customer.isVip == true ? '$' : '￥'}})：</label>
+                    <label class="col-sm-2 control-label text-right" style="font-weight:bold">运费合计({{data.currencyCode === 'USD' ? '$' : '￥'}})：</label>
                     <div class="col-sm-4">
-                        <label class="control-label" style="font-weight:bold">{{data._shippingFeeTotal || 0}}</label>
+                        <label ng-if="data.currencyCode === 'USD'" class="control-label" style="font-weight:bold">{{data._shippingFeeTotal | currency:'$'}}</label>
+                        <label ng-if="data.currencyCode !== 'USD'" class="control-label" style="font-weight:bold">{{data._shippingFeeTotal | currency:'￥'}}</label>
                     </div>
                 </div>
                 <hr class="inner-separator">        
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">购买保险：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.insuranceFee | currency:'¥'}}</label>
+                        <label ng-if="data.currencyCode === 'USD'" class="control-label">{{data.insuranceFee | currency:'$'}}</label>
+                        <label ng-if="data.currencyCode !== 'USD'" class="control-label">{{data.insuranceFee | currency:'￥'}}</label>
                     </div>
                     <label class="col-sm-2 control-label text-right">小 &nbsp; &nbsp; &nbsp; 费：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.tip | currency:'¥'}}</label>
+                        <label ng-if="data.currencyCode === 'USD'" class="control-label">{{data.tip | currency:'$'}}</label>
+                        <label ng-if="data.currencyCode !== 'USD'" class="control-label">{{data.tip | currency:'￥'}}</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">增值服务：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.valueAddFee | currency:'¥'}}</label>
+                        <label ng-if="data.currencyCode === 'USD'" class="control-label">{{data.valueAddFee | currency:'$'}}</label>
+                        <label ng-if="data.currencyCode !== 'USD'" class="control-label">{{data.valueAddFee | currency:'￥'}}</label>
                     </div>
                     <label class="col-sm-2 control-label text-right">积分抵扣：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">-{{(data.usedPoint||0) | currency:'￥'}}</label>
+                        <label ng-if="data.currencyCode === 'USD'" class="control-label">-{{(data.usedPoint||0) | currency:'$'}}</label>
+                        <label ng-if="data.currencyCode !== 'USD'" class="control-label">-{{(data.usedPoint||0) | currency:'￥'}}</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right"> 清关费用：</label>
                     <div class="col-sm-4">
-                        <label class="control-label">{{data.tariffMoney | currency:'¥'}}</label>
+                        <label ng-if="data.currencyCode === 'USD'" class="control-label">{{data.tariffMoney | currency:'$'}}</label>
+                        <label ng-if="data.currencyCode !== 'USD'" class="control-label">{{data.tariffMoney | currency:'￥'}}</label>
                     </div>
                 </div> 
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right" style="font-weight:bold">运费总计：</label>
                     <div class="col-sm-4">
-                        <label class="control-label" style="font-weight:bold">{{((data.shippingFee + data.tariffMoney + data.tip + data.valueAddFee + data.insuranceFee) - data.usedPoint) | currency:'¥'}}</label>
+                        <label class="control-label" ng-if="data.currencyCode === 'USD'" style="font-weight:bold">{{((data.shippingFee + data.tariffMoney + data.tip + data.valueAddFee + data.insuranceFee) - data.usedPoint) | currency:'$'}}</label>
+                        <label class="control-label" ng-if="data.currencyCode !== 'USD'" style="font-weight:bold">{{((data.shippingFee + data.tariffMoney + data.tip + data.valueAddFee + data.insuranceFee) - data.usedPoint) | currency:'￥'}}</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right" style="font-weight:bold">实际支付：</label>
                     <div class="col-sm-4">
-                        <label class="control-label" style="font-weight:bold">{{data.paied | currency:'¥'}}</label>
+                        <label ng-if="data.currencyCode === 'USD'" class="control-label" style="font-weight:bold">{{data.paied | currency:'$'}}</label>
+                        <label ng-if="data.currencyCode !== 'USD'" class="control-label" style="font-weight:bold">{{data.paied | currency:'￥'}}</label>
                     </div>
                     <label class="col-sm-2 control-label text-right" style="font-weight:bold">支付日期：</label>
                     <div class="col-sm-4">
@@ -462,13 +471,15 @@
                 <div class="form-group" ng-if="data.totalRefund && data.totalRefund > 0">
                     <label class="col-sm-2 control-label text-right" style="font-weight:bold">已返还运费：</label>
                     <div class="col-sm-4">
-                        <label class="control-label" style="font-weight:bold">{{data.totalRefund | currency:'¥'}}</label>
+                        <label ng-if="data.currencyCode === 'USD'" class="control-label" style="font-weight:bold">{{data.totalRefund | currency:'$'}}</label>
+                        <label ng-if="data.currencyCode !== 'USD'" class="control-label" style="font-weight:bold">{{data.totalRefund | currency:'￥'}}</label>
                     </div>
                 </div>
                 <div class="form-group" ng-if="data.shippingFeeAdjust && data.shippingFeeAdjust < 0">
                     <label class="col-sm-2 control-label text-right" style="font-weight:bold;color:red">拖欠运费：</label>
                     <div class="col-sm-4">
-                        <label class="control-label" style="font-weight:bold;color:red">{{data.shippingFeeAdjust | currency:'¥'}}</label>
+                        <label ng-if="data.currencyCode === 'USD'" class="control-label" style="font-weight:bold;color:red">{{data.shippingFeeAdjust | currency:'$'}}</label>
+                        <label ng-if="data.currencyCode !== 'USD'" class="control-label" style="font-weight:bold;color:red">{{data.shippingFeeAdjust | currency:'￥'}}</label>
                     </div>
                 </div>
             </fieldset>
