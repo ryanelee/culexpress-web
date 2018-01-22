@@ -143,6 +143,7 @@ angular.module('culwebApp')
         }
 
         self.getWarehouse = function (callback) {
+            debugger;
             // var warehouse  = $window.sessionStorage.getItem("warehouse");
             // console.log("warehouse",warehouse);
 
