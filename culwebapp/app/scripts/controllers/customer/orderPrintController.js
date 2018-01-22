@@ -8,8 +8,8 @@
  * Controller of the culwebApp
  */
 angular.module('culwebApp')
-    .controller('OrderPrintCtrl', ["$timeout", "$window", "$scope", "$rootScope", "orderService", "warehouseService", "$location", "plugMessenger", "customerMessageService",
-        function ($timeout, $window, $scope, $rootScope, orderService, warehouseService, $location, plugMessenger, customerMessageService) {
+    .controller('OrderPrintCtrl', ["$timeout", "$window", "$scope", "$rootScope", "orderService", "warehouseService", "$location",
+        function ($timeout, $window, $scope, $rootScope, orderService, warehouseService, $location) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -192,13 +192,7 @@ angular.module('culwebApp')
                 var _print = function () {
                     switch (type) {
                         case "order":
-                            // plugMessenger.confirm("订单将变为已打印状态,请确认是否打印？", function(isOK) {
-                            //     var orderNumbers = [];
-                            //     orderNumbers.push(item.orderNumber)
-                            //     if (isOK) {
                             $scope.$broadcast("print-order.action", item.orderNumber);
-                            // }
-                            // }); 
                             break;
                         case "package":
                             $scope.$broadcast("print-package.action", item.orderNumber);
@@ -210,7 +204,6 @@ angular.module('culwebApp')
                             $scope.$broadcast("print-flying-express2.action", item.orderNumber);
                             break;
                         case "trackingNumber":
-                            //  _printTrackingNumbers(item);
                             $scope.$broadcast("print-tracking-number.action", item);
                             break;
                     }
@@ -224,11 +217,11 @@ angular.module('culwebApp')
                         case "flyingexpress2":
                             console.log("item", item);
                             if (item.orderType == 1 && (!item.payDate || item.orderStatus.toUpperCase() === "UNPAID" || item.orderStatus.toUpperCase() === "VOID")) {
-                                plugMessenger.info("未支付或者已删除的线上订单不能打印.")
+                                alertify.alert('提示', '未支付或者已删除的线上订单不能打印', 'warning');
                                 break;
                             }
-                            plugMessenger.confirm("订单将变为已打印状态,请确认是否打印？", function (isOK) {
-                                if (isOK) {
+                            alertify.confirm("订单将变为已打印状态,请确认是否打印？", 
+                                function () {
                                     orderService.printOrder(item.orderNumber, function (result) {
                                         if (item.orderStatus === "WaybillUpdated") {
                                             var order = {
@@ -245,8 +238,10 @@ angular.module('culwebApp')
                                             _print();
                                         });
                                     });
-                                }
-                            });
+                                    
+                                },function () {
+                                    // alertify.error('已取消删除!');
+                                });
                             break;
                         default:
                             _print();
@@ -291,7 +286,7 @@ angular.module('culwebApp')
                             $.each(selectedList, function (i, _item) {
                                 console.log(_item);
                                 if (_item.orderType == 1 && (!_item.payDate || _item.orderStatus.toUpperCase() === "UNPAID" || _item.orderStatus.toUpperCase() === "VOID")) {
-                                    plugMessenger.info("未支付或者已删除的线上订单[" + _item.orderNumber + "]不能打印.")
+                                    alertify.alert("提示", "未支付或者已删除的线上订单[" + _item.orderNumber + "]不能打印.", "warning");
                                     declinePrint = true;
                                     return;
                                 }
@@ -299,8 +294,8 @@ angular.module('culwebApp')
 
                             if (declinePrint) break;
 
-                            plugMessenger.confirm("订单将变为已打印状态,请确认是否打印？", function (isOK) {
-                                if (isOK) {
+                            alertify.confirm("订单将变为已打印状态,请确认是否打印？", 
+                                function () {
                                     var orderArray = [];
                                     var orderList = [];
                                     $.each(selectedList, function (i, _item) {
@@ -313,9 +308,10 @@ angular.module('culwebApp')
                                         orderService.batchUpdate(orderList, function (result) {
                                             _print();
                                         });
-                                    });
-                                }
-                            });
+                                    });                                
+                                }, function () {
+                                    // alertify.error('已取消删除!');
+                                });
                             break;
                         default:
                             _print();

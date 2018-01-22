@@ -5,23 +5,7 @@
     <div class="widget-content">
         <div class="row">
             <div class="col-sm-12 search-bar">
-                <!--<div class="search-col">
-                    <label class="search-label">打印类型：</label>
-                    <select class="form-control search-control" ng-model="searchBar.type">
-                        <option value="single">单包打印</option>
-                        <option value="multi">多包打印</option>
-                    </select>
-                </div>-->
-                <!--<div class="search-col">
-                    <label class="search-label">渠道类型：</label>
-                    <select class="form-control search-control"
-                            ng-model="searchBar.channel"
-                            ng-options="option.value as option.title for option in channelFilter"></select>
-                </div>-->
-                <!--<div class="search-col" style="float:right; margin-right:0px;">
-                    <button class="btn btn-primary">确认打印</button>
-                </div>-->
-                <div class="search-col">
+                <!-- <div class="search-col">
                     <label class="search-label">订单状态：</label>
                     <select class="form-control search-control" ng-model="searchBar.orderStatus">
                         <option value="">全部(不包括已删除)</option>
@@ -33,38 +17,38 @@
                         <option value="Shipped">已出库</option>
                         <option value="Void">已删除</option>
                     </select>
-                </div>
-                <div class="search-col">
+                </div> -->
+                <!-- <div class="search-col">
                     <label class="search-label">打印状态：</label>
                     <select class="form-control search-control" ng-model="searchBar.printStatus">
                         <option value="">全部</option>
                         <option value="UnPrinted">未打印</option>
                         <option value="Printed">已打印</option>
                     </select>
-                </div>
-                <div class="search-col">
+                </div> -->
+                <!-- <div class="search-col">
                     <label class="search-label">订单类型：</label>
                     <select class="form-control search-control" ng-model="searchBar.orderType">
                         <option value="">全部</option>
                         <option value="1">线上订单</option>
                         <option value="0">线下订单</option>
                     </select>
-                </div>
-                <div class="search-col">
+                </div> -->
+                <!-- <div class="search-col">
                     <label class="search-label">发货仓库：</label>
                     <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
-                </div>
-                <div class="search-col">
+                </div> -->
+                <!-- <div class="search-col">
                     <label class="search-label">发货渠道：</label>
                     <select class="form-control search-control" ng-model="searchBar.shipServiceId" ng-options="item.shipServiceId as item.shipServiceName for item in searchBar.shippingChannelList"></select>
-                </div>
-                <div class="search-col">
+                </div> -->
+                <!-- <div class="search-col">
                     <label class="search-label">
                         <input type="checkbox" ng-model="searchBar.isFastOrder" />
                         <span>极速原箱 <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i></span>
                     </label>
-                </div>
-                <div class="clearfix"></div>
+                </div> -->
+                <!-- <div class="clearfix"></div>
                 <div class="search-col">
                     <label class="search-label">开始日期：</label>
                     <p class="input-group pull-left">
@@ -151,7 +135,7 @@
                         <input type="text" class="form-control search-control" style="width:45px;" maxlength="2" ng-model="searchBar.endTime_ss" />
                         <label class="search-label">秒</label>
                     </div>
-                </div>
+                </div> -->
                 <div class="clearfix"></div>
                 <div class="search-col">
                     <label class="search-label">搜索条目：</label>
@@ -187,6 +171,94 @@
                     <button type="button" class="btn btn-primary role" data-role="40" style="margin-left:5px;" ng-click="btnPrintEmptyFlyingExpress()">打印空白特快渠道单据</button>
                 </div>
             </div>
+
+            <form action="#" id="sky-form" class="sky-form" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-sm-2 text-right" style="padding:0;">
+                        <label>搜索条目：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <select class="form-control" ng-model="searchBar.keywordType">
+                            <option value="customerNumber">客户编号</option>
+                            <option value="orderNumber">订单编号</option>
+                            <option value="receiveTrackingNumber">入库单号</option>
+                            <option value="outBoundTrackingNumber">CUL包裹单号</option>
+                            <option value="referenceOrderNumber">客户关联订单号</option>
+                            <option value="cnTrackingNumber">国内物流号</option>
+                            <option value="userName">客户ID</option>
+                            <option value="receiveIdentity">客户标示</option>
+                            <option value="referenceOrderNumber">客户关联号</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" ng-model="searchBar.keywords" />
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="javascript:void(0)" ng-click="btnSearch()" class="btn-u">搜索</a>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-sm-2 text-right" style="padding:0;">
+                        <label>订单状态：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <select class="form-control" ng-model="current.orderStatus">
+                            <option value="">全部(不包括已删除)</option>
+                            <option value="Unpaid">待支付</option>
+                            <option value="Paid">已支付</option>
+                            <option value="Processing">处理中</option>
+                            <option value="WaybillUpdated">运单更新</option>
+                            <option value="Arrears">运费不足</option>
+                            <option value="PartialShipped">部分出库</option>
+                            <option value="Shipped">已出库</option>
+                            <option value="Void">已删除</option>
+                        </select>
+                    </div>
+            
+                    <div class="col-sm-2 text-right" style="padding:0;">
+                        <label>打印状态：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <select class="form-control" ng-model="current.printStatus">
+                            <option value="">全部</option>
+                            <option value="UnPrinted">未打印</option>
+                            <option value="Printed">已打印</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 text-right" style="padding:0;">
+                        <label>发货仓库：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <select class="form-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList">
+                        </select>
+                    </div>
+                    <div class="col-sm-2 text-right" style="padding:0;">
+                        <label>发货渠道：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <select class="form-control" ng-model="searchBar.shipServiceId" ng-options="item.shipServiceId as item.shipServiceName for item in searchBar.shippingChannelList">
+                        </select>
+                    </div>
+            
+            
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-sm-2 text-right" style="padding:0;">
+                        <label>开始时间：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <input type="date" class="form-control date-control" ng-model="searchBar.dateFromString" />
+                    </div>
+                    <div class="col-sm-1 text-right" style="padding:0;">
+                        <label>结束时间：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <input type="date" class="form-control date-control" ng-model="searchBar.dateToString" />
+                    </div>
+                </div>
+            </form>
+
+
             <div class="col-sm-12 search-bar" style="margin-bottom: 0px;" ng-show="selectedListCache.length > 0">
                 <div class="search-col" style="margin-bottom: 0px;">
                     <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>

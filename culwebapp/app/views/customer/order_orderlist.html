@@ -188,7 +188,7 @@
                         <input type="text" class="form-control" ng-model="searchBar.keywords" />
                     </div>
                     <div class="col-sm-2">
-                        <a href="javascript:void(0)" ng-click="btnSearch()" class="btn-u">查找商品</a>
+                        <a href="javascript:void(0)" ng-click="btnSearch()" class="btn-u">搜索</a>
                     </div>
                 </div>
                 <div class="row" style="margin-top:15px;">
@@ -224,7 +224,14 @@
                     </div>
                     <div class="col-sm-2" style="padding:0;">
                         <select class="form-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList">
-                            <option value="">全部</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-2 text-right" style="padding:0;">
+                        <label>发货渠道：</label>
+                    </div>
+                    <div class="col-sm-2" style="padding:0;">
+                        <select class="form-control"  ng-model="searchBar.shipServiceId" ng-options="item.shipServiceId as item.shipServiceName for item in searchBar.shippingChannelList">
                         </select>
                     </div>
                    
@@ -259,8 +266,6 @@
                     </div>
                 </div>
             </form>
-
-
 
             <div class="col-sm-12 search-bar" ng-show="selectedListCache.length > 0">
                 <div class="search-col" style="margin-bottom: 0px;">
