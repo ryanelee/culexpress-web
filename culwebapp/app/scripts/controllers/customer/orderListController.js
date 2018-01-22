@@ -8,8 +8,8 @@
  * Controller of the culwebApp
  */
 angular.module('culwebApp')
-    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderService", "warehouseService", "plugMessenger", "storage", "$compile",
-        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderService, warehouseService, plugMessenger, storage, $compile) {
+    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderService", "warehouseService", "$compile",
+        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderService, warehouseService, $compile) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -57,10 +57,10 @@ angular.module('culwebApp')
                 }
             }
 
-            $scope.tempSearchBar = angular.copy(storage.getSearchObject());
-            if ($scope.tempSearchBar) {
-                $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
-            }
+            // $scope.tempSearchBar = angular.copy(storage.getSearchObject());
+            // if ($scope.tempSearchBar) {
+            //     $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
+            // }
             //  storage.session.setObject("searchBar", $scope.searchBar);
 
             warehouseService.getWarehouse(function (result) {
@@ -137,7 +137,7 @@ angular.module('culwebApp')
             }
 
             $scope.getData = function () {
-                storage.session.setObject("searchBar", $scope.searchBar);
+                // storage.session.setObject("searchBar", $scope.searchBar);
                 var _options = _filterOptions();
                 console.log("_options", _options)
                 orderService.getList(angular.copy(_options), function (result) {
@@ -224,7 +224,7 @@ angular.module('culwebApp')
                     }
                 })
                 if (!$scope.orderNumberList[0]) {
-                    plugMessenger.info("请选择需要删除的订单");
+                    alertify.alert('提示', '请选择需要删除的订单', 'warning');
                     return;
                 } else {
                     // plugMessenger.template($compile($("#confirm-modal").html())($scope));
@@ -234,7 +234,17 @@ angular.module('culwebApp')
 
             $scope.btnDeleteApproval = function (item, event) {
                 $scope.item = item;
-                plugMessenger.template($compile($("#confirm-modal").html())($scope));
+                // plugMessenger.template($compile($("#confirm-modal").html())($scope));
+                // alertify.confirm('确认', '您选择了' + itemNumbers.length + '个商品，确定删除？',
+                //     function () {
+                //         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
+                //         orderSvr.deleteProducts(itemNumbers).then(function (result) {
+                //             alertify.success('删除成功!');
+                //             $scope.loadListData(1);
+                //         });
+                //     }, function () {
+                //         alertify.error('已取消删除!');
+                //     });
             }
 
             $scope.btnDelete = function (item, event) {
@@ -245,7 +255,7 @@ angular.module('culwebApp')
                     item.deleteMessage = $scope.deleteMessage;
                     $scope.searchOrder.orderNumber = item.orderNumber;
                     if (!$scope.deleteMessage) {
-                        return plugMessenger.info("删除原因不能为空");
+                        return alertify.alert('提示', '删除原因不能为空', 'warning');
                     }
                 }
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
@@ -254,7 +264,7 @@ angular.module('culwebApp')
                 $(event.currentTarget).parents("#confirm-modal").modal("hide");
                 orderService.delete($scope.searchOrder, function (result) {
                     if (result.success == true) {
-                        plugMessenger.info("删除成功");
+                        alertify.success('删除成功!');
                         // $("#confirm-modal").modal("hide");
                         // $(event.currentTarget).parents("#confirm-modal").modal("hide");
                         item.deleteMessage = "";
