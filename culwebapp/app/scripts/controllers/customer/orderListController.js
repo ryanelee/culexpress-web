@@ -6,10 +6,10 @@
  * @description 
  * # OrderListCtrl 
  * Controller of the culwebApp
- */ 
+ */
 angular.module('culwebApp')
-    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderSvr", "warehouseService", "plugMessenger", "storage", "$compile",
-        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderSvr, warehouseService, plugMessenger, storage, $compile) {
+    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderService", "warehouseService", "plugMessenger", "storage", "$compile",
+        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderService, warehouseService, plugMessenger, storage, $compile) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -20,7 +20,6 @@ angular.module('culwebApp')
             $scope.dataList = [];
             $scope.orderNumberList = [];
             $scope.deleteMessage = "";
-            $scope.deleteMessage111 = "deleteMessage1111111";
             //新导出逻辑
             var _token = sessionStorage.getItem("token");
             _token = !!_token ? encodeURIComponent(_token) : null
@@ -29,8 +28,8 @@ angular.module('culwebApp')
             $("#form_exportUSPS").attr("action", cul.apiPath + "/order/list/export/usps?Token=" + _token);
             $("#form_exportHT").attr("action", cul.apiPath + "/order/list/export/ht?Token=" + _token);
             $scope.exportUrl = "";
-            $scope.pagination = { 
-                pageSize: "20",  
+            $scope.pagination = {
+                pageSize: "20",
                 pageIndex: 1,
                 totalCount: 0
             }
@@ -39,7 +38,7 @@ angular.module('culwebApp')
                 selectedAll: false,
                 keywordType: "customerNumber",
                 orderStatus: "",
-                orderType:"",
+                orderType: "",
                 printStatus: "",
                 warehouseNumber: "",
                 shipServiceId: 0,
@@ -105,17 +104,17 @@ angular.module('culwebApp')
                 }
                 if (!!$scope.searchBar.printStatus) {
                     _options["printStatus"] = $scope.searchBar.printStatus;
-                } 
+                }
                 if (!!$scope.searchBar.warehouseNumber) {
                     _options["warehouseNumber"] = $scope.searchBar.warehouseNumber;
-                } 
+                }
                 if (!!$scope.searchBar.shipServiceId) {
                     _options["shipServiceId"] = $scope.searchBar.shipServiceId;
                 }
                 if (!!$scope.searchBar.orderType) {
                     _options["orderType"] = $scope.searchBar.orderType;
                 }
-                
+
                 if ($scope.searchBar.isFastOrder == true) {
                     _options["isFastOrder"] = 1;
                 }
@@ -140,8 +139,8 @@ angular.module('culwebApp')
             $scope.getData = function () {
                 storage.session.setObject("searchBar", $scope.searchBar);
                 var _options = _filterOptions();
-                console.log("_options",_options)
-                orderSvr.getList(angular.copy(_options), function (result) {
+                console.log("_options", _options)
+                orderService.getList(angular.copy(_options), function (result) {
                     $scope.dataList = result.data;
                     // console.log($scope.dataList)
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
@@ -159,7 +158,7 @@ angular.module('culwebApp')
                 if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
                 //新导出逻辑
                 $scope.exportOptions = $.extend({ token: _token }, _options);
-                
+
             }
 
             $scope.btnSearch = function () {
@@ -190,7 +189,7 @@ angular.module('culwebApp')
                         $scope.selectedListCache.push(angular.copy(item));
                     } else if (!item._selected && isExists == true) {
                         $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
-                    } 
+                    }
                 });
                 var _orderNumbers = [];
                 var _options = _filterOptions();
@@ -230,7 +229,7 @@ angular.module('culwebApp')
                 } else {
                     // plugMessenger.template($compile($("#confirm-modal").html())($scope));
                     $scope.btnDelete($scope.orderNumberList)
-                } 
+                }
             }
 
             $scope.btnDeleteApproval = function (item, event) {
@@ -251,22 +250,22 @@ angular.module('culwebApp')
                 }
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
                 // plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
-                    // if (!!isOK) {
-                        $(event.currentTarget).parents("#confirm-modal").modal("hide");
-                        orderSvr.delete($scope.searchOrder, function (result) {
-                            if (result.success == true) {
-                                plugMessenger.info("删除成功");
-                                // $("#confirm-modal").modal("hide");
-                                // $(event.currentTarget).parents("#confirm-modal").modal("hide");
-                                item.deleteMessage = "";
-                                $scope.deleteMessage = "";
-                                $scope.getData();
-                                $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
-                            } else {
-                                // plugMessenger.info(result);
-                            }
-                        });
-                    // }
+                // if (!!isOK) {
+                $(event.currentTarget).parents("#confirm-modal").modal("hide");
+                orderService.delete($scope.searchOrder, function (result) {
+                    if (result.success == true) {
+                        plugMessenger.info("删除成功");
+                        // $("#confirm-modal").modal("hide");
+                        // $(event.currentTarget).parents("#confirm-modal").modal("hide");
+                        item.deleteMessage = "";
+                        $scope.deleteMessage = "";
+                        $scope.getData();
+                        $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
+                    } else {
+                        // plugMessenger.info(result);
+                    }
+                });
+                // }
                 // });
             }
 

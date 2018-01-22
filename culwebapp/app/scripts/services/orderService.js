@@ -338,7 +338,8 @@ angular.module('culwebApp')
             },
 
             
-
+            /** 新建订单 当单列表 订单答应 开始 */
+            
             getList: function (options, callback) {
                 var customer_ids;
 
