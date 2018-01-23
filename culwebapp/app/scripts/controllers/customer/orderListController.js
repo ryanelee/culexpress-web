@@ -123,14 +123,7 @@ angular.module('culwebApp')
                         if ($scope.searchBar.keywords.indexOf('\n') >= 0) {
                             _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split('\n')
                         }
-
                     }
-                    // if ($scope.searchBar.keywordType == 'outBoundTrackingNumber') {
-                    //     if ($scope.searchBar.keywords.indexOf('\n') >= 0) {
-                    //         _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split('\n')
-                    //     }
-
-                    // }
                 }
                 return angular.copy(_options);
             }
@@ -159,6 +152,18 @@ angular.module('culwebApp')
             //     $scope.exportOptions = $.extend({ token: _token }, _options);
 
             // }
+            var _getPrintStatus = function (printStatus) {
+                var printTitle = '';
+                switch (printStatus) {
+                    case 'Printed':
+                        printTitle = '已打印';
+                        break;
+                    case 'UnPrinted':
+                        printTitle = '未打印';
+                        break;
+                }
+                return printTitle;
+            }
 
             $scope.pagedOptions = {
                 total: 0,
@@ -198,10 +203,56 @@ angular.module('culwebApp')
                     ), pageSize)
                     .then(function (result) {
                         if (result.data) {
+                            $.each(result.data.data, function (index, item) {
+                                item._printStatus = _getPrintStatus(item.printStatus);
+                                item._shipToAddresses = [];
+                                $.each(item.shipToAddresses, function (i, address) {
+                                    var _str = address.receivePersonName;
+                                    if (!!address.cellphoneNumber) _str += '(' + address.cellphoneNumber + ')';
+                                    if (item.shipServiceId != 9 && address.item != 10) {
+                                        _str += address.address1;
+                                    } else {
+                                        _str = _str + address.addressPinyin + address.address1_before;
+                                    }
+                                    if (!!address.receiveCompanyName) _str += address.receiveCompanyName;
+                                    if (!!address.zipcode) _str += '(' + address.zipcode + ')';
+                                    if ($.grep(item._shipToAddresses, function (n) { return n == _str }).length == 0) {
+                                        item._shipToAddresses.push(_str);
+                                    }
+                                });
+                                // CUL包裹单号list
+                                item._outboundTrackingNumbers = [];
+                                if (item.outboundPackages) {
+                                    $.each(item.outboundPackages, function (i, outboundPackage) {
+                                        item._outboundTrackingNumbers.push(outboundPackage.trackingNumber);
+                                    });
+                                }
+                                // 入库单号list
+                                item._inboundTrackingNumbers = [];
+
+                                if (item.inboundPackages && item.inboundPackages.length > 0) {
+                                    $.each(item.inboundPackages, function (i, inboundPackage) {
+                                        item._inboundTrackingNumbers.push(inboundPackage.trackingNumber);
+                                    });
+                                }
+                            });
                             $scope.dataList = result.data.data;
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
+
+                            
+                            // $.each($scope.dataList, function (i, item) {
+                            //     item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
+                            // });
+                            // $scope.searchBar.selectedAll = $.grep($scope.dataList, function (n) { return n._selected == true }).length == $scope.dataList.length;
                         }
                     });
+                    // var _orderNumbers = [];
+                    // $.each($scope.selectedListCache, function (i, item) {
+                    //     _orderNumbers.push(item.orderNumber);
+                    // });
+                    // if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
+                    // //新导出逻辑
+                    // $scope.exportOptions = $.extend({ token: _token }, _options);
             }
             $scope.queryOrder();
 

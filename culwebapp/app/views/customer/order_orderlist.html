@@ -186,7 +186,6 @@
                         <th>发货渠道</th>
                         <th>收货地址</th>
                         <th>价格</th>
-                        <th>订单状态</th>
                         <th>打印状态</th>
                     </tr>
                 </thead>
@@ -196,11 +195,19 @@
                         <td>{{item.rownumber}}</td>
                         <!-- <td>{{item.batchNumber || '-'}}</td> -->
                         <!-- <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td> -->
-                        <td>
-                            <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
-                            <span ng-if="item.isFastOrder == 1" title="极速原箱">
-                                <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
-                            </span>
+                        <td style="width: 200px;">
+                            <small>
+                                <span class="label label-success" ng-if="item.orderStatus==='Shipped'">已出库</span>
+                                <span class="label label-warning" ng-if="item.orderStatus==='Unpaid'">待支付</span>
+                                <span class="label label-info" ng-if="item.orderStatus==='Processing'">处理中</span>
+                                <span class="label label-info" ng-if="item.orderStatus==='WaybillUpdated'">运单更新</span>
+                                <span class="label label-info" ng-if="item.orderStatus==='Void'">已取消</span>
+                                <span class="label label-success" ng-if="item.orderStatus==='Paid'">已支付</span>
+                                <span class="label label-danger" ng-if="item.orderStatus==='Arrears'">运费不足</span>
+                                <span class="label label-success" ng-if="item.orderStatus==='Arrived'">已送达</span>
+                                <span class="label label-success" ng-if="item.orderStatus==='PartialShipped'">部分出库</span>
+                            </small>
+                            <small>{{item.orderNumber}}</small>
                         </td>
                         <td style="max-width: 160px;">
                             <div ng-repeat="pkg in item._outboundTrackingNumbers track by $index">{{pkg}}</div>
@@ -224,9 +231,7 @@
                             <span ng-if="item.currencyCode != 'USD'" title="RMB">
                                 <i class="fa fa-rmb" aria-hidden="true"></i>
                             </span> {{item.totalCount}}
-                        </td>
-                        <td>{{item._orderStatus}}</td>
-                       
+                        </td>  
                         <td>{{item._printStatus}}</td>
                     </tr> 
                 </tbody>
