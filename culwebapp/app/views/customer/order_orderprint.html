@@ -139,16 +139,10 @@
                 <div class="clearfix"></div>
                 <div class="search-col">
                     <label class="search-label">搜索条目：</label>
-                    <select class="form-control search-control" ng-model="searchBar.keywordType">
-                        <option value="customerNumber">客户编号</option>
-                        <option value="orderNumber">订单编号</option>
-                        <option value="receiveTrackingNumber">入库单号</option>
+                    <select class="form-control search-control" ng-model="searchBar.keywordType">                       
+                        <option value="orderNumber">订单编号</option>                     
                         <option value="outBoundTrackingNumber">CUL包裹单号</option>                       
-                        <option value="referenceOrderNumber">客户关联订单号</option>
-                        <option value="cnTrackingNumber">国内物流号</option>                        
-                        <option value="userName">客户ID</option>                        
-                        <option value="receiveIdentity">客户标示</option>
-                        <option value="referenceOrderNumber">客户关联号</option>  
+                        <option value="cnTrackingNumber">国内物流号</option>                                              
                     </select>
                     <textarea type="text" class="form-control search-control" style="margin-left:5px; width:480px;" 
                     placeholder="请输入查询关键字" ng-model="searchBar.keywords" ></textarea>
@@ -269,7 +263,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-top:15px;">
         <table class="table table-bordered">
             <thead>
                 <tr>

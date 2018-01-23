@@ -66,7 +66,7 @@ angular.module('culwebApp')
 
         self.getList = function (options, callback) {
             var customer_ids;
-
+            debugger;
             var roles = JSON.parse($window.sessionStorage.getItem("role"));
             roles.forEach(function (role) {
                 customer_ids = $.grep([customer_ids, role.customer_ids], Boolean).join(",");

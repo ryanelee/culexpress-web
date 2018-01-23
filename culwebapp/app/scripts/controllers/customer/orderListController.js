@@ -8,15 +8,14 @@
  * Controller of the culwebApp
  */
 angular.module('culwebApp')
-    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "orderService", "warehouseService", "$compile",
-        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderService, warehouseService, $compile) {
+    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "OrderSvr", "orderService", "warehouseService", "$compile",
+        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderSvr, orderService, warehouseService, $compile) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
                 'Karma'
             ];
-            // console.log(23,$window.sessionStorage.getItem("role"))
-
+            
             $scope.dataList = [];
             $scope.orderNumberList = [];
             $scope.deleteMessage = "";
@@ -136,30 +135,102 @@ angular.module('culwebApp')
                 return angular.copy(_options);
             }
 
-            $scope.getData = function () {
-                // storage.session.setObject("searchBar", $scope.searchBar);
-                var _options = _filterOptions();
-                console.log("_options", _options)
-                orderService.getList(angular.copy(_options), function (result) {
-                    $scope.dataList = result.data;
-                    // console.log($scope.dataList)
-                    $scope.pagination.totalCount = result.pageInfo.totalCount;
-                    $rootScope.$emit('changeMenu');
+            // $scope.getData = function () {
+            //     // storage.session.setObject("searchBar", $scope.searchBar);
+            //     var _options = _filterOptions();
+            //     console.log("_options", _options)
+            //     orderService.getList(angular.copy(_options), function (result) {
+            //         $scope.dataList = result.data;
+            //         // console.log($scope.dataList)
+            //         $scope.pagination.totalCount = result.pageInfo.totalCount;
+            //         $rootScope.$emit('changeMenu');
 
-                    $.each($scope.dataList, function (i, item) {
-                        item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
-                    });
-                    $scope.searchBar.selectedAll = $.grep($scope.dataList, function (n) { return n._selected == true }).length == $scope.dataList.length;
-                });
-                var _orderNumbers = [];
-                $.each($scope.selectedListCache, function (i, item) {
-                    _orderNumbers.push(item.orderNumber);
-                });
-                if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
-                //新导出逻辑
-                $scope.exportOptions = $.extend({ token: _token }, _options);
+            //         $.each($scope.dataList, function (i, item) {
+            //             item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
+            //         });
+            //         $scope.searchBar.selectedAll = $.grep($scope.dataList, function (n) { return n._selected == true }).length == $scope.dataList.length;
+            //     });
+            //     var _orderNumbers = [];
+            //     $.each($scope.selectedListCache, function (i, item) {
+            //         _orderNumbers.push(item.orderNumber);
+            //     });
+            //     if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
+            //     //新导出逻辑
+            //     $scope.exportOptions = $.extend({ token: _token }, _options);
 
+            // }
+
+            $scope.pagedOptions = {
+                total: 0,
+                size: 10
             }
+            $scope.pageSize = 10;
+
+            $scope.searchKeyItems = [{
+                key: 'orderNumber',
+                text: '订单编号'
+            }, {
+                key: 'receiveTrackingNumber',
+                text: '预报快递单号'
+            }
+                , {
+                key: 'outBoundTrackingNumber',
+                text: '出库包裹编号'
+            }
+            ];
+            var queryPara = $scope.queryPara = {
+                searchKeyName: 'orderNumber',
+                dateRange: 'last6Months',
+                orderStatus: 'Unpaid',
+
+            };
+
+            $scope.queryOrder = function (index, paras) {
+                var pageSize = $scope.pageSize;
+                $scope.pagedOptions.index = index;
+                $scope.pagedOptions.size = pageSize;
+
+                orderSvr
+                    .getOrderList(index, angular.extend({
+                        customerNumber: $scope.$root.currentUser.customerNumber,
+                        orderStatus: $scope.queryPara.orderStatus
+                    }, paras || {}
+                    ), pageSize)
+                    .then(function (result) {
+                        if (result.data) {
+                            $scope.dataList = result.data.data;
+                            $scope.pagedOptions.total = result.data.pageInfo.totalCount;
+                        }
+                    });
+            }
+            $scope.queryOrder();
+
+            $scope.rangSearch = function (rangeItem) {
+                $scope.queryPara = {
+                    searchKeyName: 'orderNumber',
+                    dateRange: 'last6Months',
+                    orderStatus: 'Unpaid',
+                };
+
+                $scope.queryOrder(1, angular.extend($scope.queryPara, {
+                    dateFrom: rangeItem.begin,
+                    dateTo: rangeItem.end
+                }));
+            }
+            $scope.searchOrder = function () {
+                $scope.queryOrder(1, $scope.queryPara);
+            }
+
+
+            $scope.onPaged = function (pageIndex) {
+                $scope.queryOrder(pageIndex);
+            }
+
+            $scope.changeQueryStaus = function (status) {
+                $scope.queryPara.orderStatus = status || '';
+                $scope.queryOrder(1, $scope.queryPara);
+            }
+
 
             $scope.btnSearch = function () {
 
@@ -290,9 +361,9 @@ angular.module('culwebApp')
                 $scope.exportOptions = $.extend({ token: _token }, _options);
             }
 
-            $timeout(function () {
-                $scope.getData();
-            }, 500);
+            // $timeout(function () {
+            //     $scope.getData();
+            // }, 500);
 
             $scope.btnCancel = function (event) {
                 // $("#confirm-modal").modal("hide");
