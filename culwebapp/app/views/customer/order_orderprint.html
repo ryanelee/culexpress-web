@@ -225,6 +225,8 @@
                             <option value="Printed">已打印</option>
                         </select>
                     </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
                     <div class="col-sm-2 text-right" style="padding:0;">
                         <label>发货仓库：</label>
                     </div>
@@ -249,7 +251,7 @@
                     <div class="col-sm-2" style="padding:0;">
                         <input type="date" class="form-control date-control" ng-model="searchBar.dateFromString" />
                     </div>
-                    <div class="col-sm-1 text-right" style="padding:0;">
+                    <div class="col-sm-2 text-right" style="padding:0;">
                         <label>结束时间：</label>
                     </div>
                     <div class="col-sm-2" style="padding:0;">
@@ -267,53 +269,55 @@
             </div>
         </div>
     </div>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th><input type="checkbox" ng-change="btnSelectedItem()" ng-model="searchBar.selectedAll" /></th>
-                <th>序号</th>
-                <th>订单批号</th>
-                <th>订单编号</th>
-                <th>生成日期</th>
-                <th>客户编号</th>
-                <th>客户ID</th>
-                <th>标示</th>
-                <th>CUL包裹单号</th>
-                <th>打印状态</th>
-                <th>订单状态</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="item in dataList">
-                <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
-                <td>{{item.rownumber}}</td>
-                <td style="max-width: 150px;">{{item.batchNumber || '-'}}</td>
-                <td style="max-width: 200px;">
-                    <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
-                    <span ng-if="item.isFastOrder == 1" title="极速原箱">
-                        <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
-                    </span>
-                </td>
-                <td>{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
-                <td>{{item.customer.userName}}</td>
-                <td>{{item.customer.receiveIdentity}}</td>
-                <td style="max-width: 150px;">
-                    <div ng-repeat="pkg in item.outboundPackages">{{pkg.trackingNumber}}</div>
-                </td>
-                <td>{{item._printStatus}}</td>
-                <td>{{item._orderStatus}}</td>
-                <td>
-                    <a href="javascript:void(0)" class="role" data-role="41" ng-click="btnPrint(item,'order')">打印订单</a>
-                    <a href="javascript:void(0)" class="role" data-role="42" ng-click="btnPrint(item,'flyingexpress')">打印特快渠道面单</a>
-                    <a href="javascript:void(0)" class="role" data-role="43" ng-click="btnPrint(item,'flyingexpress2')">打印特快渠道单据</a>
-                    <a href="javascript:void(0)" class="role" data-role="44" ng-click="btnPrint(item,'package')">打印发票</a>
-                    <a href="javascript:void(0)" class="role" data-role="45" ng-click="btnPrint(item,'trackingNumber')">打印包裹号</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" ng-change="btnSelectedItem()" ng-model="searchBar.selectedAll" /></th>
+                    <th>序号</th>
+                    <th>订单批号</th>
+                    <th>订单编号</th>
+                    <th>生成日期</th>
+                    <th>客户编号</th>
+                    <th>客户ID</th>
+                    <th>标示</th>
+                    <th>CUL包裹单号</th>
+                    <th>打印状态</th>
+                    <th>订单状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in dataList">
+                    <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
+                    <td>{{item.rownumber}}</td>
+                    <td style="max-width: 150px;">{{item.batchNumber || '-'}}</td>
+                    <td style="max-width: 200px;">
+                        <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
+                        <span ng-if="item.isFastOrder == 1" title="极速原箱">
+                            <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                        </span>
+                    </td>
+                    <td>{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
+                    <td>{{item.customer.userName}}</td>
+                    <td>{{item.customer.receiveIdentity}}</td>
+                    <td style="max-width: 150px;">
+                        <div ng-repeat="pkg in item.outboundPackages">{{pkg.trackingNumber}}</div>
+                    </td>
+                    <td>{{item._printStatus}}</td>
+                    <td>{{item._orderStatus}}</td>
+                    <td>
+                        <a href="javascript:void(0)" class="role" data-role="41" ng-click="btnPrint(item,'order')">打印订单</a>
+                        <a href="javascript:void(0)" class="role" data-role="42" ng-click="btnPrint(item,'flyingexpress')">打印特快渠道面单</a>
+                        <a href="javascript:void(0)" class="role" data-role="43" ng-click="btnPrint(item,'flyingexpress2')">打印特快渠道单据</a>
+                        <a href="javascript:void(0)" class="role" data-role="44" ng-click="btnPrint(item,'package')">打印发票</a>
+                        <a href="javascript:void(0)" class="role" data-role="45" ng-click="btnPrint(item,'trackingNumber')">打印包裹号</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div class="row">
         <div class="col-sm-12 text-right">
             <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount" items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页" next-text="下一页"

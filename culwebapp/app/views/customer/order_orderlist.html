@@ -219,6 +219,8 @@
                             <option value="Printed">已打印</option>
                         </select>
                     </div>
+                </div>
+                <div class="row" style="margin-top:15px;">              
                     <div class="col-sm-2 text-right" style="padding:0;">
                         <label>发货仓库：</label>
                     </div>
@@ -258,7 +260,7 @@
                     <div class="col-sm-2" style="padding:0;">
                         <input type="date" class="form-control date-control" ng-model="searchBar.dateFromString" />
                     </div>
-                    <div class="col-sm-1 text-right" style="padding:0;">
+                    <div class="col-sm-2 text-right" style="padding:0;">
                         <label>结束时间：</label>
                     </div>
                     <div class="col-sm-2" style="padding:0;">
@@ -267,85 +269,87 @@
                 </div>
             </form>
 
-            <div class="col-sm-12 search-bar" ng-show="selectedListCache.length > 0">
+            <div class="col-sm-12 search-bar" ng-show="selectedListCache.length > 0" >
                 <div class="search-col" style="margin-bottom: 0px;">
                     <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>
                     <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
                 </div>
             </div>
         </div>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="searchBar.selectedAll" /></th>
-                    <th>序号</th>
-                    <th>订单批号</th>
-                    <th>客户编号</th>
-                    <th>订单编号</th>
-                    <th>CUL包裹单号</th>
-                    <th>入库单号</th>
-                    <th>生成日期</th>
-                    <!--<th>客户ID</th>-->
-                    <!--<th>标示</th>-->
-                    <th>客户关联号</th>
-                    <th>发货仓库</th>
-                    <th>发货渠道</th>
-                    <th>收货地址</th>
-                    <th>价格</th>
-                    <th>订单状态</th>
-                    <!--<th>通过状态</th>-->
-                    <th>打印状态</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in dataList">
-                    <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
-                    <td>{{item.rownumber}}</td>
-                    <td style="max-width: 150px;">{{item.batchNumber || '-'}}</td>
-                    <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
-                    <td style="max-width: 200px;">
-                        <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
-                        <span ng-if="item.isFastOrder == 1" title="极速原箱">
-                            <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
-                        </span>
-                    </td>
-                    <td style="max-width: 160px;">
-                        <div ng-repeat="pkg in item._outboundTrackingNumbers track by $index">{{pkg}}</div>
-                    </td>
-                    <td class="long-cell">
-                        <div ng-repeat="pkg in item._inboundTrackingNumbers" style="overflow: hidden;">{{pkg}}</div>
-                    </td>
-                    <td style="max-width: 160px;">{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                    <td style="max-width: 200px;">{{item.referenceOrderNumber || '-'}}</td>
-                    <td style="max-width:150px;">{{item.warehouseName}}</td>
-                    <td style="max-width:150px;">{{item.shipServiceName}}</td>
-                    <td class="long-cell">
-                        <p ng-repeat="ads in item._shipToAddresses track by $index">
-                            {{ads}}
-                        </p>
-                    </td>
-                    <td>
-                        <span ng-if="item.currencyCode == 'USD'" title="USD">
-                            <i class="fa fa-dollar" aria-hidden="true"></i>
-                        </span>
-                        <span ng-if="item.currencyCode != 'USD'" title="RMB">
-                            <i class="fa fa-rmb" aria-hidden="true"></i>
-                        </span> {{item.totalCount}}
-                    </td>
-                    <td>{{item._orderStatus}}</td>
-                    <!--<td>{{item.processStatus}}</td>-->
-                    <td>{{item._printStatus}}</td>
-                    <td>  
-                        <!-- 删除已支付和未支付订单 -->
-                         <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus == '未支付' || item._orderStatus == '已支付'">删除</a> 
-                        <!-- <a href="javascript:void(0);" class="role" data-role="107" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus == '未支付' || item._orderStatus == '已支付'">删除</a> -->
-                        <!-- 删除其他状态订单 -->
-                         <a href="javascript:void(0);" class="role" data-role="107" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus != '未支付' && item._orderStatus != '已支付'">删除</a> 
-                    </td>
-                </tr> 
-            </tbody>
-        </table> 
+        <div class="row">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="searchBar.selectedAll" /></th>
+                        <th>序号</th>
+                        <th>订单批号</th>
+                        <th>客户编号</th>
+                        <th>订单编号</th>
+                        <th>CUL包裹单号</th>
+                        <th>入库单号</th>
+                        <th>生成日期</th>
+                        <!--<th>客户ID</th>-->
+                        <!--<th>标示</th>-->
+                        <th>客户关联号</th>
+                        <th>发货仓库</th>
+                        <th>发货渠道</th>
+                        <th>收货地址</th>
+                        <th>价格</th>
+                        <th>订单状态</th>
+                        <!--<th>通过状态</th>-->
+                        <th>打印状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in dataList">
+                        <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
+                        <td>{{item.rownumber}}</td>
+                        <td style="max-width: 150px;">{{item.batchNumber || '-'}}</td>
+                        <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
+                        <td style="max-width: 200px;">
+                            <a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a>
+                            <span ng-if="item.isFastOrder == 1" title="极速原箱">
+                                <i class="fa fa-bolt" aria-hidden="true" style="color:#ff6a00;font-size:16px;"></i>
+                            </span>
+                        </td>
+                        <td style="max-width: 160px;">
+                            <div ng-repeat="pkg in item._outboundTrackingNumbers track by $index">{{pkg}}</div>
+                        </td>
+                        <td class="long-cell">
+                            <div ng-repeat="pkg in item._inboundTrackingNumbers" style="overflow: hidden;">{{pkg}}</div>
+                        </td>
+                        <td style="max-width: 160px;">{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                        <td style="max-width: 200px;">{{item.referenceOrderNumber || '-'}}</td>
+                        <td style="max-width:150px;">{{item.warehouseName}}</td>
+                        <td style="max-width:150px;">{{item.shipServiceName}}</td>
+                        <td class="long-cell">
+                            <p ng-repeat="ads in item._shipToAddresses track by $index">
+                                {{ads}}
+                            </p>
+                        </td>
+                        <td>
+                            <span ng-if="item.currencyCode == 'USD'" title="USD">
+                                <i class="fa fa-dollar" aria-hidden="true"></i>
+                            </span>
+                            <span ng-if="item.currencyCode != 'USD'" title="RMB">
+                                <i class="fa fa-rmb" aria-hidden="true"></i>
+                            </span> {{item.totalCount}}
+                        </td>
+                        <td>{{item._orderStatus}}</td>
+                        <!--<td>{{item.processStatus}}</td>-->
+                        <td>{{item._printStatus}}</td>
+                        <td>  
+                            <!-- 删除已支付和未支付订单 -->
+                            <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus == '未支付' || item._orderStatus == '已支付'">删除</a> 
+                            <!-- <a href="javascript:void(0);" class="role" data-role="107" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus == '未支付' || item._orderStatus == '已支付'">删除</a> -->
+                            <!-- 删除其他状态订单 -->
+                            <a href="javascript:void(0);" class="role" data-role="107" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus != '未支付' && item._orderStatus != '已支付'">删除</a> 
+                        </td>
+                    </tr> 
+                </tbody>
+            </table> 
+        </div>
         <div class="row">
             <div class="text-left pull-left " style="margin-left:20px">
                 <!--<a class="btn btn-primary" target="_blank" ng-href="{{exportUrl}}">将结果导出Excel文件</a>-->

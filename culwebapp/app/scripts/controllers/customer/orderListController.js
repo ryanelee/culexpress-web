@@ -64,7 +64,6 @@ angular.module('culwebApp')
             //  storage.session.setObject("searchBar", $scope.searchBar);
 
             warehouseService.getWarehouse(function (result) {
-                debugger;
                 if (result.length == 1) {
                     $scope.searchBar.warehouseList = result;
                     $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
