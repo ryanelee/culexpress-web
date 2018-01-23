@@ -160,12 +160,15 @@
                     </div>
                 </div>
             </form>
-        </div>
 
-        <div class="col-sm-12 search-bar" ng-show="selectedListCache.length > 0" >
-            <div class="search-col" style="margin-bottom: 0px;">
-                <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>
-                <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
+            <div class="row" style="margin-top:15px;">
+                <div class="form-group">
+                    <label class="pull-left" style="margin-top:5px;">已选择：</label>
+                    <div class="inline-group pull-left">
+                        <label class="search-label">{{selectedListCache.length}}个订单</label>
+                        <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
+                    </div>
+                </div>
             </div>
         </div>
 
