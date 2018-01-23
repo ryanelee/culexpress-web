@@ -1,225 +1,24 @@
-<div class="widget">
-    <div class="widget-header">
-        <h3><i class="fa fa-edit"></i> 批量创建线下订单</h3>
-    </div>
-    <div class="widget-content"> 
-        <div class="wizard-wrapper"> 
-            <div id="offline-order-wizard" class="wizard">
-                <ul class="steps">
-                    <li data-target="#step1" class="active"><span class="badge badge-info">1</span>上传文件<span class="chevron"></span></li>
-                    <li data-target="#step2"><span class="badge">2</span>文件预检测<span class="chevron"></span></li>
-                    <li data-target="#step3"><span class="badge">3</span>创建订单<span class="chevron"></span></li>
-                    <!-- <li data-target="#step4"><span class="badge">4</span>订单支付</li>
-                    <li data-target="#step5" class="last"><span class="badge">5</span>订单出库</li> -->
-                </ul>
-            </div>
-            <div class="step-content">
-                <div class="step-pane active" id="step1">
-                    
-                    <div class="col-sm-12 search-bar">
-                        <div class="col-sm-6 col-padding-clear"><a class="btn btn-sm btn-primary" download="offlineorder.xlsx"   href="resource/offlineorder.xlsx"><i class="fa fa-download fa-3x pull-left"></i> 批量线下订单模板<br /><small>Excel文件下载</small></a></div>
-                        <div class="search-col pull-right col-padding-clear">
-                            <label class="search-label">批号查询：</label>
-                            <input type="text" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="输入订单批号" ng-model="searchBatchNumber" ng-enter="btnBatchQuery()"/>
-                            <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnBatchQuery()">搜索</button>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="col-sm-12">
-                        <form id="form1" class="dropzone" enctype="multipart/form-data"></form>
-                    </div>
-                </div>
-                <div class="step-pane" id="step2">
-                    <form id="form2">
-                        <p>
-                            正在对上传的文件进行预检查，请耐心等待...
-                            <br />
-                            <em><small class="red">预检查过程中请不要进行其它操作</small></em>
-                        </p>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="progress progress-striped active">
-                                    <div id="precheckProgressBar" class="progress-bar progress-bar-info" data-transitiongoal="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="contextual-summary-info contextual-background green-bg" ng-show="stepValidation[1] === true">
-                                    <i class="fa fa-check-circle"></i>
-                                    <p class="pull-right"><span style="font-size:32px;">文件预检查成功！</span></p>
-                                </div>
-                                <div class="contextual-summary-info contextual-background red-bg clearfix" ng-show="stepValidation[1] === false">
-                                    <i class="fa fa-close" style="width:5%"></i>
-                                    <p class="pull-right" style="width:95%"><span style="font-size:32px;">{{excelErrorMessage}}</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="step-pane" id="step3">
-                    <form id="form3" ng-show="tpl_status.step3 == 1">
-                        <p>
-                            正在创建订单，请稍后...
-                        </p>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="progress progress-striped active">
-                                    <div id="createOrderProgressBar" class="progress-bar progress-bar-info" data-transitiongoal="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="col-sm-12" ng-show="tpl_status.step3 == 2">
-                        <div class="widget widget-table">
-                            <div class="widget-header">
-                                <h3><i class="fa fa-table"></i> 订单列表</h3>
-                            </div>
-                            <br />
-                            <div class="col-sm-12 search-bar">
-                                <div class="search-col" style="margin-bottom: 0px;">
-                                    <label class="search-label">批打通道：</label>
-                                    <!--<select class="form-control search-control"
-                                            ng-model="searchBar.batchChannel"
-                                            ng-options="option.value as option.title for option in channelFilter"></select>-->
-                                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnPrintBatch('package')">批量打印订单</button>
-                                    <button type="button" class="btn btn-primary" style="margin-left:5px;" ng-click="btnPrintBatch('trackingNumber')">批量打印包裹号</button>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 search-bar">
-                                <i class="fa fa-info-circle"></i><label class="search-label">请点击打印包裹号按钮打印CUL条码粘贴到包裹上.</label>
-                            </div>
-                            <div class="col-sm-12 search-bar" style="margin-bottom: 0px;" ng-show="selectedListCache.length > 0">
-                                <div class="search-col" style="margin-bottom: 0px;">
-                                    <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>
-                                    <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
-                                </div>
-                            </div>
-                            <div class="widget-content">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th><input type="checkbox" ng-change="btnSelectedItem()" ng-model="searchBar.selectedAll" /></th>
-                                            <th>序号</th>
-                                            <th>订单编号</th>
-                                            <th>客户编号</th>
-                                            <th>客户关联编号</th>
-                                            <th>生成日期</th>
-                                            <th>包裹数</th>
-                                            <th>CUL包裹单号</th>
-                                            <td>发货仓库</td>
-                                            <th>操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="item in dataList">
-                                            <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
-                                            <td>{{item.rownumber}}</td>
-                                            <td>
-                                                <a href="javascript:void(0);" ng-click="openDetail(item)">{{item.orderNumber}}</a>
-                                                <i class="fa fa-remove btn-icon red" ng-click="btnRemoveOrder(item)"></i>
-                                            </td>
-                                            <td>{{item.customerNumber}}</td>
-                                            <td>{{item.referenceOrderNumber}}</td>
-                                            <td>{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                                            <td>{{item.outboundPackages.length}}</td>
-                                            <td>
-                                                <div ng-repeat="package in item.outboundPackages track by $index">{{package.trackingNumber}}</div>
-                                            </td>
-                                            <td>{{item.warehouseName}}</td>
-                                            <td>
-                                                <!-- <i class="fa fa-edit btn-icon green" ng-click="openDetail(item)"></i> -->
-                                                <a href="javascript:void(0)" ng-click="btnPrint(item,'package')">打印订单</a>
-                                                <a href="javascript:void(0)" ng-click="btnPrint(item,'trackingNumber')">打印包裹号</a>
-                                                <!-- <i class="fa fa-remove btn-icon red" ng-click="btnRemoveOrder(item)"></i> -->
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!--<div class="row">
-                                    <div class="col-sm-12">
-                                        <uib-pagination class="pagination pagination-rewrite pull-right"
-                                                        style="width: 100%;"
-                                                        boundary-links="true"
-                                                        max-size="5"
-                                                        total-items="pagination.totalCount"
-                                                        items-per-page="pagination.pageSize"
-                                                        ng-model="pagination.pageIndex"
-                                                        ng-change="getData()"
-                                                        previous-text="上一页"
-                                                        next-text="下一页"
-                                                        first-text="首页"
-                                                        last-text="尾页">
-                                        </uib-pagination>
-                                    </div>
-                                </div>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="step-pane" id="step4">
-                    <form id="form4">
-                        <div class="form-group">
-                            <label class="control-label">总计重量：</label>
-                            <label class="control-label">{{paymentInfo.totalWeight | number:2}}磅</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">总计运费：</label>
-                            <label class="control-label">${{paymentInfo.shippingFee | number:2}}</label>
-                        </div>
-                        <p style="border-top: 1px solid lightgray; padding-top: 20px;">请选择支付方式:</p>
-                        <div class="form-group">
-                            <label><input type="radio" ng-model="paymentInfo.paymentType" value="2" />现金</label>
-                            <label><input type="radio" ng-model="paymentInfo.paymentType" value="3" />支票</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">支付金额（美元）：</label>
-                        </div>
-                        <div class="form-group row col-sm-2">
-                            <input type="text" class="form-control" ng-model="paymentPrice" ng-change="validPaymentPrice()" />
-                        </div>
-                        <div class="clearfix"></div>
-                    </form>
-                </div>
-                <div class="step-pane" id="step5">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="contextual-summary-info contextual-background green-bg" ng-show="!paymentErrorMessage">
-                                <i class="fa fa-check-circle"></i>
-                                <p class="pull-right"><span style="font-size:32px;">订单出库成功！</span></p>
-                            </div>
-                            <div class="contextual-summary-info contextual-background red-bg clearfix" ng-show="!!paymentErrorMessage">
-                                <i class="fa fa-close" style="width:5%"></i>
-                                <p class="pull-right" style="width:95%"><span style="font-size:32px;">{{paymentErrorMessage}}</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="actions" ng-hide="stepIndex == 3">
-                <button type="button" class="btn btn-default btn-prev"><i class="fa fa-arrow-left"></i> 上一步</button>
-                <button type="button" class="btn btn-primary btn-next" ng-show="stepIndex < 3" ng-disabled="!btnNextEnable">下一步 <i class="fa fa-arrow-right"></i></button>
-                <button type="button" class="btn btn-primary btn-checkout" ng-show="stepIndex == 3" ng-disabled="!btnNextEnable">订单出库 <i class="fa fa-truck"></i></button>
-            </div>
+<!-- Begin Content -->
+<div class="row" ng-controller="OrderOfflineImportCtrl" style="background-color: #fff;">
+    <div class="profile-body margin-bottom-20" style="background-color: #fff;">
+        <div class="common-title">
+            <h2>
+                <i class="fa fa-clock-o"></i> 批量创建线下订单
+            </h2>
         </div>
-    </div>
-</div>
-
-<!-- Offline Order Detail Modal-->
-<div id="offlineOrderDetailModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" style="width: 1024px;">
-        <div class="modal-content">
-            <div class="modal-body" style="max-height: 700px; overflow-x:hidden; overflow-y: scroll;" ng-include="'views/order/offlineorderdetail.html'"></div>
-            <div class="modal-footer">
-                <div class="text-center">
-                    <!-- <button type="button" class="btn btn-primary" ng-click="btnSaveDetail()">
-                        <i class="fa fa-save"></i>确认
-                    </button> -->
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        <i class="fa fa-reply"></i>关闭
-                    </button>
+        <div class="sky-form edit-content">
+            <div class="form-group">
+                <label class="label required">线下订单上传</label>
+                <div style="height: 50%">
+                    <form enctype="multipart/form-data" id="addForm">
+                        <div class="form-group">
+                            <label></label>
+                            <input id="orderfile" type="file" class="file" name="file" multiple="true" accept=".xlsx">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<print-offline-package></print-offline-package>
-<print-tracking-number></print-tracking-number>
+<!-- End Content -->

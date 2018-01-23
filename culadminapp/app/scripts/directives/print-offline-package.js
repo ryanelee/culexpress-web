@@ -23,7 +23,7 @@ angular.module('culAdminApp')
                   moduleSize: "5",
                   output: "css",
                   posX: "10",
-                  posY: "20"
+                  posY: "20" 
               }
 
               $scope.$on("print-offline-package.action", function (e, orderNumbers) {

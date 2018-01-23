@@ -151,7 +151,7 @@ angular
                 url: '/orderlist',
                 templateUrl: 'views/customer/order_orderlist.html',
                 controller: 'OrderListCtrl'
-            })
+            }) 
             .state('customer.orderprint', {
                 url: '/orderprint',
                 templateUrl: 'views/customer/order_orderprint.html',

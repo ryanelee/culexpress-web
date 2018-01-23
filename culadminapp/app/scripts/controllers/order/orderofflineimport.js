@@ -129,6 +129,7 @@ angular.module('culAdminApp')
                   success: function (_result) {
                       $timeout(function () {
                           var result = JSON.parse(_result.xhr.response)
+                          console.log('result.filePath;',result.filePath);
                           $scope.fileId = result.filePath;
                           $scope.stepValidation[0] = true;
                           $wizard.wizard('next');
