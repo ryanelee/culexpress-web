@@ -142,6 +142,9 @@ angular.module('culwebApp')
             });
         }
 
+
+        
+
         self.getWarehouse = function (callback) {
             // var warehouse  = $window.sessionStorage.getItem("warehouse");
             // console.log("warehouse",warehouse);

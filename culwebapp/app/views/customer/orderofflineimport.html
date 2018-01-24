@@ -1,6 +1,6 @@
 <!-- Begin Content -->
 <div class="row" ng-controller="OrderOfflineImportCtrl" style="background-color: #fff;">
-    <div class="profile-body margin-bottom-20" style="background-color: #fff;">
+    <div ng-show="!dataList" class="profile-body margin-bottom-20" style="background-color: #fff;">
         <div class="common-title">
             <h2>
                 <i class="fa fa-clock-o"></i> 批量创建线下订单
@@ -19,6 +19,57 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="table-search-v1" ng-show="dataList" >
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered" style="margin-bottom:0px">
+                <thead>
+                    <tr>
+                        <!-- <th><input type="checkbox" ng-change="btnSelectedItem()" ng-model="searchBar.selectedAll" /></th> -->
+                        <th>序号</th>
+                        <th>订单编号</th>
+                        <th>客户编号</th>
+                        <th>客户关联编号</th>
+                        <th>生成日期</th>
+                        <th>包裹数</th>
+                        <th>CUL包裹单号</th>
+                        <td>发货仓库</td>
+                        <!-- <th>操作</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in dataList">
+                            <!-- <td><input type="checkbox"  /></td> -->
+
+                        <td>{{item.rownumber}}</td>
+                        <td>{{item.orderNumber}}</td>
+                        <td>{{item.customerNumber}}</td>
+                        <td>{{item.referenceOrderNumber}}</td>
+                        <td>{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                        <td>{{item.outboundPackages.length}}</td>
+                        <td>
+                            <div ng-repeat="package in item.outboundPackages track by $index">{{package.trackingNumber}}</div>
+                        </td>
+                        <td>{{item.warehouseName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <div  class="row" style="margin-top:10px">
+                <div class="text-right pull-right">
+                    <pagination options="pagedOptions" on-page="onPaged"></pagination>
+                </div>
+                <label class="pull-right">
+                    <select style="width:50px;" class="form-control" ng-model="pageSize" ng-change="onPaged(1)">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+            </div> -->
+        </div>
+
+
     </div>
 </div>
 <!-- End Content -->

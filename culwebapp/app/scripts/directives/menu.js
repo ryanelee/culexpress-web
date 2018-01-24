@@ -137,7 +137,7 @@
                         key: 'newOrder',
                         name: '创建订单',
                         icon: 'fa fa-plus-square',
-                        route: 'customer.neworder'
+                        route: 'customer.orderofflineimport'
                     }, {
                         leaf: true, //叶子节点（有父节点）
                         key: 'orderlist',

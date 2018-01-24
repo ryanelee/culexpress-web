@@ -8,13 +8,19 @@
  * Controller of the culAdminApp
  */
 angular.module('culwebApp')
-    .controller('OrderOfflineImportCtrl', ["$scope", "$timeout", "$filter", "OrderSvr",
-        function ($scope, $timeout, $filter, OrderSvr) {
+    .controller('OrderOfflineImportCtrl', ["$scope", "$timeout", "$filter", "OrderSvr","orderService",
+        function ($scope, $timeout, $filter, OrderSvr,orderService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
                 'Karma'
             ];
+
+            $scope.pagination = {
+                pageSize: "20",
+                pageIndex: 1,
+                totalCount: 0
+            }
             console.log('123456', sessionStorage.getItem("cul-token"));
             loadFileinput();
             function loadFileinput() { //初始化 fileinput
@@ -62,7 +68,7 @@ angular.module('culwebApp')
             });
             $scope.offlineOrderCheckExcel = function () {
                 // $timeout(function () {
-                OrderSvr.offlineOrderCheckExcel($scope.fileId, function (result) {
+                    orderService.offlineOrderCheckExcel($scope.fileId, function (result) {
                     if (result.success == true) {
                         $scope.offlineOrderCreateExcel();
                     } else {
@@ -74,24 +80,16 @@ angular.module('culwebApp')
 
             $scope.offlineOrderCreateExcel = function () {
                 // $timeout(function () {
-                OrderSvr.offlineOrderCreateExcel($scope.fileId, function (result) {
-                    if (result.success == true) {
-                        orderService.offlineOrderCreateExcel($scope.fileId, function (result) {
-                            $.each(result, function (index, item) {
-                                item.actualTotalWeight = 0;
-                                $.each(item.outboundPackages, function (i, pkg) {
-                                    item.actualTotalWeight += pkg.actualWeight || 0;
-                                });
-                                item.actualTotalWeight = item.actualTotalWeight.toFixed(2);
-                            });
-                            $scope.dataList = result;
-                            $scope.pagination.totalCount = $scope.dataList.totalCount;
+                    orderService.offlineOrderCreateExcel($scope.fileId, function (result) {
+                    $.each(result, function (index, item) {
+                        item.actualTotalWeight = 0;
+                        $.each(item.outboundPackages, function (i, pkg) {
+                            item.actualTotalWeight += pkg.actualWeight || 0;
                         });
-                    } else {
-                        alertify.error('文件上传失败,请删除重新上传:' + result.message);
-
-                    }
-                    // });
+                        item.actualTotalWeight = item.actualTotalWeight.toFixed(2);
+                    });
+                    $scope.dataList = result;
+                    $scope.pagination.totalCount = $scope.dataList.totalCount;
                 });
             }
 

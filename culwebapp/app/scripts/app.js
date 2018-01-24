@@ -293,12 +293,15 @@ angular
                     return response;
                 },
                 'responseError': function(rejection, status) {
+                    console.log('1234',status);
                     if (status == 401 || rejection.status == 401) {
                         $location.path('/login');
                     } else if (status == 500 || rejection.status == 500) {
                         SweetAlert.swal('错误', '系统异常，请稍后重试！', 'error');
                         loadingSvr.hide();
                         return $q.reject();
+                    }else if (rejection.status == 400) {
+                        SweetAlert.swal('错误', rejection.data.message, 'error');
                     }
 
                     loadingSvr.hide();
