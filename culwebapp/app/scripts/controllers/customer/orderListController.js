@@ -15,12 +15,12 @@ angular.module('culwebApp')
                 'AngularJS',
                 'Karma'
             ];
-            
+
             $scope.dataList = [];
             $scope.orderNumberList = [];
             $scope.deleteMessage = "";
             //新导出逻辑
-            var _token = sessionStorage.getItem("token");
+            var _token = sessionStorage.getItem("cul-token");
             _token = !!_token ? encodeURIComponent(_token) : null
             console.log(_token);
             $("#form_export").attr("action", cul.apiPath + "/order/list/export?Token=" + _token);
@@ -203,6 +203,12 @@ angular.module('culwebApp')
                     ), pageSize)
                     .then(function (result) {
                         if (result.data) {
+                            $scope.exportOptions = $.extend({ token: _token }, {
+                                customerNumber: $scope.$root.currentUser.customerNumber,
+                                orderStatus: $scope.queryPara.orderStatus
+                            }, paras || {}
+                            );
+
                             $.each(result.data.data, function (index, item) {
                                 item._printStatus = _getPrintStatus(item.printStatus);
                                 item._shipToAddresses = [];
@@ -239,20 +245,20 @@ angular.module('culwebApp')
                             $scope.dataList = result.data.data;
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
 
-                            
+
                             // $.each($scope.dataList, function (i, item) {
                             //     item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
                             // });
                             // $scope.searchBar.selectedAll = $.grep($scope.dataList, function (n) { return n._selected == true }).length == $scope.dataList.length;
                         }
                     });
-                    // var _orderNumbers = [];
-                    // $.each($scope.selectedListCache, function (i, item) {
-                    //     _orderNumbers.push(item.orderNumber);
-                    // });
-                    // if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
-                    // //新导出逻辑
-                    // $scope.exportOptions = $.extend({ token: _token }, _options);
+                // var _orderNumbers = [];
+                // $.each($scope.selectedListCache, function (i, item) {
+                //     _orderNumbers.push(item.orderNumber);
+                // });
+                // if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
+                // //新导出逻辑
+                // $scope.exportOptions = $.extend({ token: _token }, _options);
             }
             $scope.queryOrder();
 

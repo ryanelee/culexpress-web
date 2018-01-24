@@ -173,7 +173,7 @@ angular.module('culAdminApp')
                                   item.actualTotalWeight = item.actualTotalWeight.toFixed(2);
                               });
                               $scope.dataList = result;
-
+ 
                               $scope.pagination.totalCount = $scope.dataList.totalCount;
                               $scope.stepValidation[2] = true;
                               $scope.btnNextEnable = true;
