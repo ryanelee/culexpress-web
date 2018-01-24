@@ -6,80 +6,8 @@
                 订单列表
             </h2>
         </div>
-    
-        <!--Table Bordered-->
-        <div class="list">
-            <!-- <form action="#" id="sky-form" class="sky-form" novalidate="novalidate">
-                <div class="row">
-                    <div class="col-sm-2 text-right" style="padding:0;">
-                        <label>搜索条目：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control" ng-model="searchBar.keywordType">
-                            <option value="orderNumber">订单编号</option>
-                            <option value="outBoundTrackingNumber">CUL包裹单号</option>
-                            <option value="cnTrackingNumber">国内物流号</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" ng-model="searchBar.keywords" />
-                    </div>
-                    <div class="col-sm-2">
-                        <a href="javascript:void(0)" ng-click="queryOrder()" class="btn-u">搜索</a>
-                    </div>
-                </div>
-                <div class="row" style="margin-top:15px;">
-                    <div class="col-sm-2 text-right" style="padding:0;">
-                        <label>订单状态：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control" ng-model="current.orderStatus">
-                            <option value="">全部(不包括已删除)</option>
-                            <option value="Unpaid">待支付</option>
-                            <option value="Paid">已支付</option>
-                            <option value="Processing">处理中</option>
-                            <option value="WaybillUpdated">运单更新</option>
-                            <option value="Arrears">运费不足</option>
-                            <option value="PartialShipped">部分出库</option>
-                            <option value="Shipped">已出库</option>
-                            <option value="Void">已删除</option>
-                        </select>
-                    </div>
-            
-                    <div class="col-sm-1 text-right" style="padding:0;">
-                        <label>打印状态：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control" ng-model="current.printStatus">
-                            <option value="">全部</option>
-                            <option value="UnPrinted">未打印</option>
-                            <option value="Printed">已打印</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-1 text-right" style="padding:0;">
-                        <label>发货渠道：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control"  ng-model="searchBar.shipServiceId" ng-options="item.shipServiceId as item.shipServiceName for item in searchBar.shippingChannelList">
-                        </select>
-                    </div>
-                </div>
-                <div class="row" style="margin-top:15px;">
-                    <div class="col-sm-2 text-right" style="padding:0;">
-                        <label>开始时间：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <input type="date" class="form-control date-control" ng-model="searchBar.dateFromString" />
-                    </div>
-                    <div class="col-sm-1 text-right" style="padding:0;">
-                        <label>结束时间：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <input type="date" class="form-control date-control" ng-model="searchBar.dateToString" />
-                    </div>
-                </div>
-            </form> -->
 
+        <div class="list">
             <form action="#" id="sky-form" class="sky-form form-inline" novalidate="novalidate">
                 <div class="row">
                     <daterange-search label="预报时间" btn-text="查看历史订单" on-search="rangSearch"></daterange-search>
@@ -238,7 +166,8 @@
                         </td>  
                         <td>{{item._printStatus}}</td>
                         <td>
-                            <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._printStatus == '未打印'">删除</a>
+                            <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._printStatus == '未打印'">
+                                 <i class="fa fa-trash-o" style="font-size: 20px;"></i></a>
                         </td>
                     </tr> 
                 </tbody>
@@ -280,55 +209,11 @@
                     />
                     <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                     <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                    <button type="submit" class="btn btn-primary role" data-role="33">将结果导出Excel文件</button>
+                    <button type="submit" class="btn-u bg-color-ffb" >将结果导出Excel文件</button>
                 </form>
             </div>
-            <!-- <div class="text-right pull-left" style="margin-left:10px">
-                <form id="form_exportUSPS" method="post" action="/" target="_blank">
-                    <input id="USPS_dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.dateFrom}}" />
-                    <input id="USPS_dateTo" name="dateTo" type="hidden" value="{{exportOptions.dateTo}}" />
-                    <input id="USPS_orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
-                    <input id="USPS_printStatus" name="printStatus" type="hidden" value="{{exportOptions.printStatus}}" />
-                    <input id="USPS_warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
-                    <input id="USPS_shipServiceId" name="shipServiceId" type="hidden" value="{{exportOptions.shipServiceId}}" />
-                    <input id="USPS_customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
-                    <input id="USPS_userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
-                    <input id="USPS_orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
-                    <input id="USPS_outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}"
-                    />
-                    <input id="USPS_receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
-                    <input id="USPS_referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}"
-                    />
-                    <input id="USPS_cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
-                    <input id="USPS_token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                    <button type="submit" class="btn btn-primary" data-role="34"><i class="fa fa-file-excel-o" aria-hidden="true"></i> 将结果导出USPS文件</button>
-
-                </form>
-            </div> -->
-            <!-- <div class="text-right pull-left" style="margin-left:10px">
-                <form id="form_exportHT" method="post" action="/" target="_blank">
-                    <input id="USPS_dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.dateFrom}}" />
-                    <input id="USPS_dateTo" name="dateTo" type="hidden" value="{{exportOptions.dateTo}}" />
-                    <input id="USPS_orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
-                    <input id="USPS_printStatus" name="printStatus" type="hidden" value="{{exportOptions.printStatus}}" />
-                    <input id="USPS_warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
-                    <input id="USPS_shipServiceId" name="shipServiceId" type="hidden" value="{{exportOptions.shipServiceId}}" />
-                    <input id="USPS_customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
-                    <input id="USPS_userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
-                    <input id="USPS_orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
-                    <input id="USPS_outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}"
-                    />
-                    <input id="USPS_receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
-                    <input id="USPS_referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}"
-                    />
-                    <input id="USPS_cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
-                    <input id="USPS_token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                    <button type="submit" class="btn btn-primary" data-role="34"><i class="fa fa-file-excel-o" aria-hidden="true"></i> 将结果导出为HT订单</button>
-
-                </form> 
-            </div>-->
             <div class="text-right pull-left" style="margin-left:10px">
-                <button type="button" class="btn btn-primary" ng-click="delSomeOrder()" data-role="34"> 批量删除</button>
+                <button type="button" class="btn-u bg-color-ffb" ng-click="delSomeOrder()"> 批量删除</button>
             </div>
         </div>
     </div>
@@ -354,7 +239,6 @@
                 <button type="button" class="btn-u bg-color-ffb" data-dismiss="modal" ng-click="btnDelete(item, $event)">确定</button>
                 <button type="button" class="btn-u bg-color-ffb" data-dismiss="modal" ng-click="btnCancel($event)">取消</button>
             </div>
-
         </div>
     </div>
 </div>
