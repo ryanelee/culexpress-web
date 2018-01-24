@@ -8,8 +8,8 @@
  * Controller of the culwebApp
  */
 angular.module('culwebApp')
-    .controller('OrderPrintCtrl', ["$timeout", "$window", "$scope", "$rootScope", "orderService", "warehouseService", "$location",
-        function ($timeout, $window, $scope, $rootScope, orderService, warehouseService, $location) {
+    .controller('OrderPrintCtrl', ["$timeout", "$window", "$scope", "$rootScope", "OrderSvr", "orderService", "warehouseService", "$location",
+        function ($timeout, $window, $scope, $rootScope, orderSvr, orderService, warehouseService, $location) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -149,23 +149,148 @@ angular.module('culwebApp')
                 return angular.copy(_options);
             }
 
-            $scope.getData = function () {
-                orderService.getList(_filterOptions(), function (result) {
-                    $scope.dataList = result.data;
-                    $scope.pagination.totalCount = result.pageInfo.totalCount;
-                    $rootScope.$emit('changeMenu');
+            // $scope.getData = function () {
+            //     orderService.getList(_filterOptions(), function (result) {
+            //         $scope.dataList = result.data;
+            //         $scope.pagination.totalCount = result.pageInfo.totalCount;
+            //         $rootScope.$emit('changeMenu');
 
-                    $.each($scope.dataList, function (i, item) {
-                        item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
-                    });
-                    $scope.searchBar.selectedAll = $.grep($scope.dataList, function (n) { return n._selected == true }).length == $scope.dataList.length;
+            //         $.each($scope.dataList, function (i, item) {
+            //             item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
+            //         });
+            //         $scope.searchBar.selectedAll = $.grep($scope.dataList, function (n) { return n._selected == true }).length == $scope.dataList.length;
 
-                });
+            //     });
+            // }
+
+            var _getPrintStatus = function (printStatus) {
+                var printTitle = '';
+                switch (printStatus) {
+                    case 'Printed':
+                        printTitle = '已打印';
+                        break;
+                    case 'UnPrinted':
+                        printTitle = '未打印';
+                        break;
+                }
+                return printTitle;
             }
 
-            $timeout(function () {
-                $scope.getData();
-            }, 500);
+            $scope.pagedOptions = {
+                total: 0,
+                size: 10
+            }
+            $scope.pageSize = 10;
+
+            $scope.searchKeyItems = [{
+                key: 'orderNumber',
+                text: '订单编号'
+            }, {
+                key: 'receiveTrackingNumber',
+                text: '预报快递单号'
+            }
+                , {
+                key: 'outBoundTrackingNumber',
+                text: '出库包裹编号'
+            }
+            ];
+            var queryPara = $scope.queryPara = {
+                searchKeyName: 'orderNumber',
+                dateRange: 'last6Months',
+                orderStatus: 'Unpaid',
+
+            };
+
+            $scope.queryOrder = function (index, paras) {
+                var pageSize = $scope.pageSize;
+                $scope.pagedOptions.index = index;
+                $scope.pagedOptions.size = pageSize;
+                orderSvr
+                    .getOrderList(index, angular.extend({
+                        customerNumber: $scope.$root.currentUser.customerNumber,
+                        orderStatus: $scope.queryPara.orderStatus
+                    }, paras || {}
+                    ), pageSize)
+                    .then(function (result) {
+                        if (result.data) {
+                            $.each(result.data.data, function (index, item) {
+                                item._printStatus = _getPrintStatus(item.printStatus);
+                                item._shipToAddresses = [];
+                                $.each(item.shipToAddresses, function (i, address) {
+                                    var _str = address.receivePersonName;
+                                    if (!!address.cellphoneNumber) _str += '(' + address.cellphoneNumber + ')';
+                                    if (item.shipServiceId != 9 && address.item != 10) {
+                                        _str += address.address1;
+                                    } else {
+                                        _str = _str + address.addressPinyin + address.address1_before;
+                                    }
+                                    if (!!address.receiveCompanyName) _str += address.receiveCompanyName;
+                                    if (!!address.zipcode) _str += '(' + address.zipcode + ')';
+                                    if ($.grep(item._shipToAddresses, function (n) { return n == _str }).length == 0) {
+                                        item._shipToAddresses.push(_str);
+                                    }
+                                });
+                                // CUL包裹单号list
+                                item._outboundTrackingNumbers = [];
+                                if (item.outboundPackages) {
+                                    $.each(item.outboundPackages, function (i, outboundPackage) {
+                                        item._outboundTrackingNumbers.push(outboundPackage.trackingNumber);
+                                    });
+                                }
+                                // 入库单号list
+                                item._inboundTrackingNumbers = [];
+
+                                if (item.inboundPackages && item.inboundPackages.length > 0) {
+                                    $.each(item.inboundPackages, function (i, inboundPackage) {
+                                        item._inboundTrackingNumbers.push(inboundPackage.trackingNumber);
+                                    });
+                                }
+                            });
+                            $scope.dataList = result.data.data;
+                            $scope.pagedOptions.total = result.data.pageInfo.totalCount;
+
+
+                            // $.each($scope.dataList, function (i, item) {
+                            //     item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
+                            // });
+                            // $scope.searchBar.selectedAll = $.grep($scope.dataList, function (n) { return n._selected == true }).length == $scope.dataList.length;
+                        }
+                    });
+                // var _orderNumbers = [];
+                // $.each($scope.selectedListCache, function (i, item) {
+                //     _orderNumbers.push(item.orderNumber);
+                // });
+                // if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
+                // //新导出逻辑
+                // $scope.exportOptions = $.extend({ token: _token }, _options);
+            }
+            $scope.queryOrder();
+
+            $scope.rangSearch = function (rangeItem) {
+                $scope.queryPara = {
+                    searchKeyName: 'orderNumber',
+                    dateRange: 'last6Months',
+                    orderStatus: 'Unpaid',
+                };
+
+                $scope.queryOrder(1, angular.extend($scope.queryPara, {
+                    dateFrom: rangeItem.begin,
+                    dateTo: rangeItem.end
+                }));
+            }
+            $scope.searchOrder = function () {
+                $scope.queryOrder(1, $scope.queryPara);
+            }
+
+
+            $scope.onPaged = function (pageIndex) {
+                $scope.queryOrder(pageIndex);
+            }
+
+            $scope.changeQueryStaus = function (status) {
+                $scope.queryPara.orderStatus = status || '';
+                $scope.queryOrder(1, $scope.queryPara);
+            }
 
             $scope.btnSearch = function () {
                 $scope.selectedListCache = [];

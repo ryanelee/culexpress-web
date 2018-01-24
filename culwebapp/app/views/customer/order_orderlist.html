@@ -6,79 +6,8 @@
                 订单列表
             </h2>
         </div>
-    
-        <!--Table Bordered-->
+
         <div class="list">
-            <!-- <form action="#" id="sky-form" class="sky-form" novalidate="novalidate">
-                <div class="row">
-                    <div class="col-sm-2 text-right" style="padding:0;">
-                        <label>搜索条目：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control" ng-model="searchBar.keywordType">
-                            <option value="orderNumber">订单编号</option>
-                            <option value="outBoundTrackingNumber">CUL包裹单号</option>
-                            <option value="cnTrackingNumber">国内物流号</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" ng-model="searchBar.keywords" />
-                    </div>
-                    <div class="col-sm-2">
-                        <a href="javascript:void(0)" ng-click="queryOrder()" class="btn-u">搜索</a>
-                    </div>
-                </div>
-                <div class="row" style="margin-top:15px;">
-                    <div class="col-sm-2 text-right" style="padding:0;">
-                        <label>订单状态：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control" ng-model="current.orderStatus">
-                            <option value="">全部(不包括已删除)</option>
-                            <option value="Unpaid">待支付</option>
-                            <option value="Paid">已支付</option>
-                            <option value="Processing">处理中</option>
-                            <option value="WaybillUpdated">运单更新</option>
-                            <option value="Arrears">运费不足</option>
-                            <option value="PartialShipped">部分出库</option>
-                            <option value="Shipped">已出库</option>
-                            <option value="Void">已删除</option>
-                        </select>
-                    </div>
-            
-                    <div class="col-sm-1 text-right" style="padding:0;">
-                        <label>打印状态：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control" ng-model="current.printStatus">
-                            <option value="">全部</option>
-                            <option value="UnPrinted">未打印</option>
-                            <option value="Printed">已打印</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-1 text-right" style="padding:0;">
-                        <label>发货渠道：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <select class="form-control"  ng-model="searchBar.shipServiceId" ng-options="item.shipServiceId as item.shipServiceName for item in searchBar.shippingChannelList">
-                        </select>
-                    </div>
-                </div>
-                <div class="row" style="margin-top:15px;">
-                    <div class="col-sm-2 text-right" style="padding:0;">
-                        <label>开始时间：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <input type="date" class="form-control date-control" ng-model="searchBar.dateFromString" />
-                    </div>
-                    <div class="col-sm-1 text-right" style="padding:0;">
-                        <label>结束时间：</label>
-                    </div>
-                    <div class="col-sm-2" style="padding:0;">
-                        <input type="date" class="form-control date-control" ng-model="searchBar.dateToString" />
-                    </div>
-                </div>
-            </form> -->
 
             <form action="#" id="sky-form" class="sky-form form-inline" novalidate="novalidate">
                 <div class="row">
@@ -238,7 +167,8 @@
                         </td>  
                         <td>{{item._printStatus}}</td>
                         <td>
-                            <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._printStatus == '未打印'">删除</a>
+                            <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._printStatus == '未打印'">
+                                 <i class="fa fa-trash-o" style="font-size: 20px;"></i></a>
                         </td>
                     </tr> 
                 </tbody>
@@ -354,7 +284,6 @@
                 <button type="button" class="btn-u bg-color-ffb" data-dismiss="modal" ng-click="btnDelete(item, $event)">确定</button>
                 <button type="button" class="btn-u bg-color-ffb" data-dismiss="modal" ng-click="btnCancel($event)">取消</button>
             </div>
-
         </div>
     </div>
 </div>
