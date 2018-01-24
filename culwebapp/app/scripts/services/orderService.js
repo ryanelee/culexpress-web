@@ -70,7 +70,7 @@ angular.module('culwebApp')
             text: '4'
         }];
 
-        
+
 
         return {
             addShippingNotice: function (shippingNotice) {
@@ -92,11 +92,11 @@ angular.module('culwebApp')
             retrieveShippingNoticeList: function (index, pageSize, paras) {
                 if (!paras) paras = {};
 
-                if(paras.status === 'InOrder'){
+                if (paras.status === 'InOrder') {
                     paras.status = ['Intransit', 'Inbound', 'Onshelf'];
                     paras.onlyIncludeInOrderPackage = true;//Only return packages with order submitted.                    
                 }
-                else if (paras.status == ''){//all
+                else if (paras.status == '') {//all
                     paras.excludeInOrderPackage = true;//Doesn't show packages with order submitted.
                     paras.status = ['Intransit', 'Inbound', 'Onshelf'];
                 }
@@ -104,7 +104,7 @@ angular.module('culwebApp')
                     paras.excludeInOrderPackage = true;//Doesn't show packages with order submitted.
                     paras.status = paras.status ? [paras.status] : ['Intransit', 'Inbound', 'Onshelf'];
                 }
-                    
+
 
                 return $http.post(cul.apiPath + '/inboundpackage/list', $.extend({
                     pageInfo: {
@@ -333,10 +333,25 @@ angular.module('culwebApp')
                     'fileId': fileId
                 });
             },
-            cacluTariff: function (options, callback) {
-             return   $http.post(cul.apiPath + '/order/cacluTariff', options);
+
+            offlineOrderCreateExcel: function (fileId, callback) {
+                $http.post(cul.apiPath + "/order/offlineOrderCreateExcel", {
+                    fileId: fileId
+                }).success(function (result) {
+                    debugger;
+                    warehouseService.getWarehouse(function (warehouseList) {
+                        $.each(result, function (i, order) {
+                            var _warehouse = $.grep(warehouseList, function (n) { return n.warehouseNumber == order.warehouseNumber });
+                            order.warehouseName = _warehouse.length > 0 ? _warehouse[0].warehouseName : "";
+                        })
+                        callback(result);
+                    });
+                });
             },
-            
+            cacluTariff: function (options, callback) {
+                return $http.post(cul.apiPath + '/order/cacluTariff', options);
+            },
+
             shippingCarriers: shippingCarriers,
             goodsCategories: goodsCategories,
             packageCountItems: packageCountItems
