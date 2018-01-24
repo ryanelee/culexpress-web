@@ -349,13 +349,13 @@ angular.module('culwebApp')
                     alertify.alert('提示', '请选择需要删除的订单', 'warning');
                     return;
                 } else {
-                    // plugMessenger.template($compile($("#confirm-modal").html())($scope));
                     $scope.btnDelete($scope.orderNumberList)
                 }
             }
 
             $scope.btnDeleteApproval = function (item, event) {
                 $scope.item = item;
+                $('#del-modal').modal('show');
                 // plugMessenger.template($compile($("#confirm-modal").html())($scope));
                 // alertify.confirm('确认', '您选择了' + itemNumbers.length + '个商品，确定删除？',
                 //     function () {
@@ -370,6 +370,7 @@ angular.module('culwebApp')
             }
 
             $scope.btnDelete = function (item, event) {
+                // debugger;
                 $scope.searchOrder = {};
                 if (item instanceof Array) {
                     $scope.searchOrder.orderNumberList = item;
@@ -383,7 +384,8 @@ angular.module('culwebApp')
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
                 // plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
                 // if (!!isOK) {
-                $(event.currentTarget).parents("#confirm-modal").modal("hide");
+                $('#del-modal').modal('hide');
+                // $(event.currentTarget).parents("#del-modal").modal("hide");
                 orderService.delete($scope.searchOrder, function (result) {
                     if (result.success == true) {
                         alertify.success('删除成功!');
@@ -391,7 +393,7 @@ angular.module('culwebApp')
                         // $(event.currentTarget).parents("#confirm-modal").modal("hide");
                         item.deleteMessage = "";
                         $scope.deleteMessage = "";
-                        $scope.getData();
+                        $scope.queryOrder();
                         $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
                     } else {
                         // plugMessenger.info(result);
