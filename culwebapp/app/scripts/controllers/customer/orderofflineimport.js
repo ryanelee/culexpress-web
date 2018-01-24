@@ -72,11 +72,14 @@ angular.module('culwebApp')
                     if (result.success == true) {
                         $scope.offlineOrderCreateExcel();
                     } else {
+                        $('#orderfile').fileinput('clear');
                         alertify.error('文件上传失败,请删除重新上传:' + result.message);
                     }
                     // });
                 });
             }
+
+            
 
             $scope.offlineOrderCreateExcel = function () {
                 // $timeout(function () {

@@ -301,6 +301,7 @@ angular
                         loadingSvr.hide();
                         return $q.reject();
                     }else if (rejection.status == 400) {
+                        $('#orderfile').fileinput('clear');
                         SweetAlert.swal('错误', rejection.data.message, 'error');
                     }
 
