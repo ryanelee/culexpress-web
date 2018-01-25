@@ -645,6 +645,7 @@
         <script src="bower_components/froala-wysiwyg-editor/js/third_party/embedly.min.js"></script>
         <script src="bower_components/froala-wysiwyg-editor/js/third_party/image_aviary.min.js"></script>
         <script src="bower_components/froala-wysiwyg-editor/js/third_party/spell_checker.min.js"></script>
+        <script src="bower_components/underscore/underscore.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:js({.tmp,app}) scripts/assets.js -->
@@ -674,8 +675,8 @@
         <script type="text/javascript" src="assets/js/plugins/cube-portfolio/cube-portfolio-4.js"></script>
         <script type="text/javascript" src="assets/plugins/jquery.parallax.js"></script>
         <script type="text/javascript" src="assets/js/plugins/owl-recent-works.js"></script>
-        <script src="assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-        <script src="assets/plugins/bootstrap-datepicker/bootstrap-datepicker.zh-CN.min.js"></script>
+        <script type="text/javascript" src="assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="assets/plugins/bootstrap-datepicker/bootstrap-datepicker.zh-CN.min.js"></script>
         <script type="text/javascript" src="assets/js/forms/reg.js"></script>
         <script type="text/javascript" src="assets/js/plugins/masking.js"></script>
         <script type="text/javascript" src="assets/js/forms/checkout.js"></script>
@@ -685,6 +686,8 @@
         <script type="text/javascript" src="assets/js/forms/contact.js"></script>
         <script type="text/javascript" src="assets/js/pages/page_contacts.js"></script>
         <script type="text/javascript" src="assets/plugins/dropzone/dropzone.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/jquery-barcode.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/jquery.jqprint-0.3.js"></script>
 
 
         <!--<script type="text/javascript" src="assets/plugins/viewer/viewer.js"></script>-->
@@ -701,7 +704,9 @@
         <script type="text/javascript" src="scripts/services/orderServiceForBigCust.js"></script>
         <script type="text/javascript" src="scripts/services/warehouseService.js"></script>
         <script type="text/javascript" src="scripts/services/customerService.js"></script>
-        <script src="scripts/services/settlementSvr.js"></script>
+        <script type="text/javascript" src="scripts/services/settlementSvr.js"></script>
+        <script type="text/javascript" src="scripts/services/customerMessageService.js"></script>
+
         <script type="text/javascript" src="scripts/controllers/customer/loginController.js"></script>
         <script type="text/javascript" src="scripts/controllers/customer/registerController.js"></script>
         <script type="text/javascript" src="scripts/controllers/customer/registerVIPController.js"></script>
@@ -745,6 +750,8 @@
         <script src="scripts/directives/daterangesearch.js"></script>
         <!--<script src="scripts/directives/datetimepicker.js"></script>-->
         <script src="scripts/directives/menu.js"></script>
+        <script src="scripts/directives/print-order.js"></script>
+        <script src="scripts/directives/print-trackingnumber.js"></script>
         <script src="assets/js/www-umiex-com-Google-analytics.js"></script>
         <!-- endbuild -->
 

@@ -386,15 +386,15 @@ angular.module('culwebApp')
                             case "order":
                                 $scope.$broadcast("print-order.action", orderNumbers);
                                 break;
-                            case "package":
-                                $scope.$broadcast("print-package.action", orderNumbers);
-                                break;
-                            case "flyingexpress":
-                                $scope.$broadcast("print-flying-express.action", orderNumbers);
-                                break;
-                            case "flyingexpress2":
-                                $scope.$broadcast("print-flying-express2.action", orderNumbers);
-                                break;
+                            // case "package":
+                            //     $scope.$broadcast("print-package.action", orderNumbers);
+                            //     break;
+                            // case "flyingexpress":
+                            //     $scope.$broadcast("print-flying-express.action", orderNumbers);
+                            //     break;
+                            // case "flyingexpress2":
+                            //     $scope.$broadcast("print-flying-express2.action", orderNumbers);
+                            //     break;
                             case "trackingNumber":
                                 // _printTrackingNumbers(selectedList);
                                 $scope.$broadcast("print-tracking-number.action", selectedList);

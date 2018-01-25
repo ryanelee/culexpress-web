@@ -51,6 +51,13 @@ angular
             }  
         }
     })
+    .filter('intercept', function () { //截取字符串后六位
+        return function (input) {
+            if (input) {
+                return input.slice(input.length - 6, input.length);
+            }
+        }
+    })
     .factory('loadingSvr', ['$timeout', function($timeout) {
         return {
             hide: function(delay) {

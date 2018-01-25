@@ -74,6 +74,7 @@ module.exports = function(config) {
       'bower_components/froala-wysiwyg-editor/js/third_party/embedly.min.js',
       'bower_components/froala-wysiwyg-editor/js/third_party/image_aviary.min.js',
       'bower_components/froala-wysiwyg-editor/js/third_party/spell_checker.min.js',
+      'bower_components/underscore/underscore.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
