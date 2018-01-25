@@ -32,14 +32,6 @@ angular.module('culwebApp')
                     $scope.printDate = new Date();
                     $scope.dataList = [];
                     $scope.packagesList = [];
-                    // var _options = {
-                    //     pageInfo: {
-                    //         pageSize: 99999,
-                    //         pageIndex: 1
-                    //     },
-                    //     orderNumber: orderNumbers
-                    // } 
-                    // orderService.getList(_options, function(result) {
                     
                     var pageIndex = 1;
                     var pageSize = 9999;
