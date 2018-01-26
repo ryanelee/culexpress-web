@@ -112,7 +112,7 @@
                         <th>CUL包裹单号</th>
                         <!-- <th>入库单号</th> -->
                         <th>生成日期</th>
-                        <!-- <th>客户关联号</th> -->
+                        <th>客户关联号</th>
                         <th>发货仓库</th>
                         <th>发货渠道</th>
                         <th>收货地址</th>
@@ -148,7 +148,7 @@
                             <div ng-repeat="pkg in item._inboundTrackingNumbers" style="overflow: hidden;">{{pkg}}</div>
                         </td> -->
                         <td>{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                        <!-- <td>{{item.referenceOrderNumber || '-'}}</td> -->
+                        <td>{{item.referenceOrderNumber || '-'}}</td>
                         <td>{{item.warehouseName}}</td>
                         <td>{{item.shipServiceName}}</td>
                         <td class="long-cell">

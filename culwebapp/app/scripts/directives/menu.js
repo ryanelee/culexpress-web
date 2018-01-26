@@ -1,4 +1,6 @@
-﻿angular.module('culwebApp')
+﻿'use strict';
+
+angular.module('culwebApp')
     .directive('umiMenu', ['$timeout', '$compile', 'menuSerivce', 'AuthService',
         function($timeout, $compile, menuSerivce, AuthService) {
             return {
@@ -105,6 +107,7 @@
                 }, {
                     key: 'productManage',
                     name: '商品管理',
+                    icon: 'fa fa-reorder',
                     toggle: true,
                     visible: isVip,
                     childs: [{
@@ -130,6 +133,7 @@
                 }, {
                     key: 'orderManage',
                     name: '订单管理',
+                    icon: 'fa fa-shopping-cart',
                     toggle: true,
                     visible: isVip,
                     childs: [{

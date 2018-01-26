@@ -128,18 +128,17 @@ angular.module('culwebApp')
                 key: 'orderNumber',
                 text: '订单编号'
             }, {
-                key: 'receiveTrackingNumber',
-                text: '预报快递单号'
-            }
-                , {
+                key: 'referenceOrderNumber',
+                text: '客户关联号'
+            }, {
                 key: 'outBoundTrackingNumber',
-                text: '出库包裹编号'
+                text: 'cul包裹编号'
             }
             ];
             var queryPara = $scope.queryPara = {
                 searchKeyName: 'orderNumber',
                 dateRange: 'last6Months',
-                orderStatus: 'Unpaid',
+                orderStatus: '',
 
             };
 
