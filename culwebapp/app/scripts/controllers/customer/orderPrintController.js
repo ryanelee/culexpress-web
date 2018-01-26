@@ -182,7 +182,7 @@ angular.module('culwebApp')
             var queryPara = $scope.queryPara = {
                 searchKeyName: 'orderNumber',
                 dateRange: 'last6Months',
-                orderStatus: 'Unpaid',
+                orderStatus: '',
 
             };
 
@@ -255,7 +255,7 @@ angular.module('culwebApp')
                 $scope.queryPara = {
                     searchKeyName: 'orderNumber',
                     dateRange: 'last6Months',
-                    orderStatus: 'Unpaid',
+                    orderStatus: '',
                 };
 
                 $scope.queryOrder(1, angular.extend($scope.queryPara, {

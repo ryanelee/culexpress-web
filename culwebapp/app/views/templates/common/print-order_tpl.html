@@ -172,25 +172,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="title">收货明细</td>
-                        <td colspan="3">
-                            <table cellpadding="5" cellspacing="0" border="0" width="100%" bor>
-                                <tr style="border-bottom:#6f6b6b solid 1px">
-                                    <th>单号</th>
-                                    <th>重量(磅)</th>
-                                    <th>架位</th>
-                                    <th>备注</th>
-                                </tr>
-                                <tr ng-repeat="item in data.inboundPackages">
-                                    <td align="center">{{item.trackingNumber}}</td>
-                                    <td align="center">{{item.packageWeight || 0}}</td>
-                                    <td align="center">{{item.shelfNumber}}</td>
-                                    <td align="center">{{item.packageNote || ''}}</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
                         <td class="title">包裹件数</td>
                         <td>{{data.outboundPackages.length}}</td>
                         <td class="title">打包人员</td>
@@ -205,34 +186,6 @@
                     <tr>
                         <td class="title">备注</td>
                         <td colspan="3">{{data._orderMessage || ''}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">附加服务</td>
-                        <td colspan="3">
-                            <div class="form-group">
-                                <span class="col-sm-1" ng-if="data.pack_takeoutInvoice == 1">
-                                    <i class="fa fa-check-circle"></i><label class="control-label">取出发票</label>
-                                </span>
-                                <span class="col-sm-1" ng-if="data.pack_urgentProcess == 1">
-                                    <i class="fa fa-check-circle"></i><label class="control-label">加急处理</label>
-                                </span>
-                                <span class="col-sm-1" ng-if="data.pack_steadyInner == 1">
-                                    <i class="fa fa-check-circle"></i><label class="control-label">内件加固</label>
-                                </span>
-                                <span class="col-sm-1" ng-if="data.pack_replaceCarton == 1">
-                                    <i class="fa fa-check-circle"></i><label class="control-label">更换外箱</label>
-                                </span>
-                                <span class="col-sm-1" ng-if="data.pack_removeInner == 1">
-                                    <i class="fa fa-check-circle"></i><label class="control-label">去除鞋盒/包装</label>
-                                </span>
-                                <span class="col-sm-1" ng-if="data.pack_addCarton == 1">
-                                    <i class="fa fa-check-circle"></i><label class="control-label">加套外箱</label>
-                                </span>
-                                <span class="col-sm-1" ng-if="data.pack_checkCount == 1">
-                                    <i class="fa fa-check-circle"></i><label class="control-label">清点拍照</label>
-                                </span>
-                            </div>
-                        </td>
                     </tr>
                 </table>
             </div>
