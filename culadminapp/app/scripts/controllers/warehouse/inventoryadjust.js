@@ -54,7 +54,6 @@ angular.module('culAdminApp')
                     plugMessenger.info("请填写正确的数量");
                     return;
                 }
-                console.log($scope.data);
                 inventoryService.adjust($scope.data, function (result) {
                     if (result.success) {
                         plugMessenger.success("操作成功");

@@ -1,168 +1,174 @@
-﻿<div class="widget widget-table order-list">
-    <div class="widget-header">
-        <h3><i class="fa fa-table"></i> 订单打印</h3>
-    </div> 
-    <div class="widget-content">
-        <form action="#" id="sky-form" class="sky-form form-inline" novalidate="novalidate">
-            <div class="row">
-                <daterange-search label="预报时间" btn-text="查看历史订单" on-search="rangSearch"></daterange-search>
-                <div class="form-group">
-                    <label>搜索条目：</label>
-                    <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
-                    <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" ng-enter="searchOrder()" />
-                    <a href="javascript:void(0)" ng-click="searchOrder()" class="btn-u bg-color-ffb">查找订单</a>
-                </div>
-            </div>
-            <div class="row" style="margin-top:15px;">
-                <div class="form-group">
-                    <label class="pull-left" style="margin-top:5px;">订单状态：</label>
-                    <div class="inline-group pull-left">
-                        <label class="radio" style="margin-right: 10px; padding-left: 10px;">
-                            <a href="javascript:void(0)" ng-click="changeQueryStaus('Shipped')" class="rbx-txt">
-                                <input type="radio" ng-model="queryPara.orderStatus" value="Shipped" />
-                                <i class="rounded-x"></i>已出库
-                            </a>
-                        </label>
-                        <label class="radio" style="margin-right:10px;padding-left:10px;">
-                            <a href="javascript:void(0)" ng-click="changeQueryStaus('PartialShipped')" class="rbx-txt">
-                                <input type="radio" ng-model="queryPara.orderStatus" value="PartialShipped" />
-                                <i class="rounded-x"></i>部分出库
-                            </a>
-                        </label>
-                        <label class="radio" style="margin-right:10px;padding-left:10px;">
-                            <a href="javascript:void(0)" ng-click="changeQueryStaus('Unpaid')" class="rbx-txt">
-                                <input type="radio" ng-model="queryPara.orderStatus" value="Unpaid" />
-                                <i class="rounded-x"></i>待支付
-                            </a>
-                        </label>
-                        <label class="radio" style="margin-right:10px;padding-left:10px;">
-                            <a href="javascript:void(0)" ng-click="changeQueryStaus('Arrears')" class="rbx-txt">
-                                <input type="radio" ng-model="queryPara.orderStatus" value="Arrears" />
-                                <i class="rounded-x"></i>运费不足
-                            </a>
-                        </label>
-                        <label class="radio" style="margin-right:10px;padding-left:10px;">
-                            <a href="javascript:void(0)" ng-click="changeQueryStaus('Processing')" class="rbx-txt">
-                                <input type="radio" ng-model="queryPara.orderStatus" value="Processing" />
-                                <i class="rounded-x"></i>处理中
-                            </a>
-                        </label>
-                        <label class="radio" style="margin-right:10px;padding-left:10px;">
-                            <a href="javascript:void(0)" ng-click="changeQueryStaus('WaybillUpdated')" class="rbx-txt">
-                                <input type="radio" ng-model="queryPara.orderStatus" value="WaybillUpdated" />
-                                <i class="rounded-x"></i>运单更新
-                            </a>
-                        </label>
-                        <label class="radio" style="margin-right:10px;padding-left:10px;">
-                            <a href="javascript:void(0)" ng-click="changeQueryStaus('Void')" class="rbx-txt">
-                                <input type="radio" ng-model="queryPara.orderStatus" value="Void" />
-                                <i class="rounded-x"></i>已取消
-                            </a>
-                        </label>
-        
-                        <label class="radio" style="margin-right:10px;padding-left:10px;">
-                            <a href="javascript:void(0)" ng-click="changeQueryStaus('Paid')" class="rbx-txt">
-                                <input type="radio" ng-model="queryPara.orderStatus" value="Paid" />
-                                <i class="rounded-x"></i>已支付
-                            </a>
-                        </label>
-                        <label class="radio" style="margin-right:10px;padding-left:10px;">
-                            <a href="javascript:void(0)" ng-click="changeQueryStaus('Arrived')" class="rbx-txt">
-                                <input type="radio" ng-model="queryPara.orderStatus" value="Arrived" />
-                                <i class="rounded-x"></i>已送达
-                            </a>
-                        </label>
-                        <label class="radio" style="margin-right:10px;padding-left:10px;">
-                            <a href="javascript:void(0)" ng-click="changeQueryStaus()" class="rbx-txt">
-                                <input type="radio" ng-model="queryPara.orderStatus" value="" />
-                                <i class="rounded-x"></i>所有状态
-                            </a>
-                        </label>
+﻿<div class="widget widget-table">
+    <div class="profile-body margin-bottom-20 order-list">
+        <div class="common-title">
+            <h2>
+                <i class="fa fa-shopping-cart"></i>
+                订单打印
+            </h2>
+        </div>
+        <div class="list">
+            <form action="#" id="sky-form" class="sky-form form-inline" novalidate="novalidate">
+                <div class="row">
+                    <daterange-search label="预报时间" btn-text="查看历史订单" on-search="rangSearch"></daterange-search>
+                    <div class="form-group">
+                        <label>搜索条目：</label>
+                        <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
+                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" ng-enter="searchOrder()" />
+                        <a href="javascript:void(0)" ng-click="searchOrder()" class="btn-u bg-color-ffb">查找订单</a>
                     </div>
-                    <div class="clearfix"></div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="form-group">
+                        <label class="pull-left" style="margin-top:5px;">订单状态：</label>
+                        <div class="inline-group pull-left">
+                            <label class="radio" style="margin-right: 10px; padding-left: 10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Shipped')" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="Shipped" />
+                                    <i class="rounded-x"></i>已出库
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('PartialShipped')" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="PartialShipped" />
+                                    <i class="rounded-x"></i>部分出库
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Unpaid')" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="Unpaid" />
+                                    <i class="rounded-x"></i>待支付
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Arrears')" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="Arrears" />
+                                    <i class="rounded-x"></i>运费不足
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Processing')" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="Processing" />
+                                    <i class="rounded-x"></i>处理中
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('WaybillUpdated')" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="WaybillUpdated" />
+                                    <i class="rounded-x"></i>运单更新
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Void')" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="Void" />
+                                    <i class="rounded-x"></i>已取消
+                                </a>
+                            </label>
+            
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Paid')" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="Paid" />
+                                    <i class="rounded-x"></i>已支付
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus('Arrived')" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="Arrived" />
+                                    <i class="rounded-x"></i>已送达
+                                </a>
+                            </label>
+                            <label class="radio" style="margin-right:10px;padding-left:10px;">
+                                <a href="javascript:void(0)" ng-click="changeQueryStaus()" class="rbx-txt">
+                                    <input type="radio" ng-model="queryPara.orderStatus" value="" />
+                                    <i class="rounded-x"></i>所有状态
+                                </a>
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </form>
+            <div class="row" style="margin-top:15px;" ng-show="selectedListCache.length > 0">
+                <div class="form-group">
+                    <label class="pull-left" style="margin-top:5px;">已选择：</label>
+                    <div class="inline-group pull-left">
+                        <label class="search-label">{{selectedListCache.length}}个订单</label>
+                        <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
+                    </div>
                 </div>
             </div>
-        </form>
-
-
-        <div class="col-sm-12 search-bar" style="margin-bottom: 0px;" ng-show="selectedListCache.length > 0">
-            <div class="search-col" style="margin-bottom: 0px;">
-                <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>
-                <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
+        </div>
+        <div class="row" style="margin-top:15px;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" ng-change="btnSelectedItem()" ng-model="searchBar.selectedAll" /></th>
+                        <th>序号</th>
+                        <!-- <th>订单批号</th> -->
+                        <th>订单编号</th>
+                        <th>生成日期</th>
+                        <!-- <th>客户编号</th>
+                        <th>客户ID</th> -->
+                        <th>标示</th>
+                        <th>CUL包裹单号</th>
+                        <th>打印状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in dataList">
+                        <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
+                        <td>{{item.rownumber}}</td>
+                        <!-- <td style="max-width: 150px;">{{item.batchNumber || '-'}}</td> -->
+                        <td>
+                            <small>
+                                <span class="label label-success" ng-if="item.orderStatus==='Shipped'">已出库</span>
+                                <span class="label label-warning" ng-if="item.orderStatus==='Unpaid'">待支付</span>
+                                <span class="label label-info" ng-if="item.orderStatus==='Processing'">处理中</span>
+                                <span class="label label-info" ng-if="item.orderStatus==='WaybillUpdated'">运单更新</span>
+                                <span class="label label-info" ng-if="item.orderStatus==='Void'">已取消</span>
+                                <span class="label label-success" ng-if="item.orderStatus==='Paid'">已支付</span>
+                                <span class="label label-danger" ng-if="item.orderStatus==='Arrears'">运费不足</span>
+                                <span class="label label-success" ng-if="item.orderStatus==='Arrived'">已送达</span>
+                                <span class="label label-success" ng-if="item.orderStatus==='PartialShipped'">部分出库</span>
+                            </small>
+                            <small>
+                                    {{item.orderNumber}}
+                            </small>
+                        </td>
+                        <td>{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                        <!-- <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
+                        <td>{{item.customer.userName}}</td> -->
+                        <td>{{item.customer.receiveIdentity}}</td>
+                        <td>
+                            <div ng-repeat="pkg in item.outboundPackages">{{pkg.trackingNumber}}</div>
+                        </td>
+                        <td>{{item._printStatus}}</td>
+                        <td>
+                            <a href="javascript:void(0)" class="role" data-role="41" ng-click="btnPrint(item,'order')">打印订单</a><br>
+                            <a href="javascript:void(0)" class="role" data-role="45" ng-click="btnPrint(item,'trackingNumber')">打印包裹号</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="row" style="margin:10px 0px;">
+            <div class="text-left pull-left">
+                <button type="button" class="btn-u bg-color-ffb" ng-click="btnPrintBatch('order')">批量打印订单</button>
+                <button type="button" class="btn-u bg-color-ffb" ng-click="btnPrintBatch('trackingNumber')">批量打印包裹号</button>
             </div>
+            <div class="text-right pull-right">
+                <pagination options="pagedOptions" on-page="onPaged"></pagination>
+            </div>
+            <label class="pull-right">
+                <select style="width:50px;" class="form-control" ng-model="pageSize" ng-change="onPaged(1)">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </label>
         </div>
-    </div>
-    <div class="row" style="margin-top:15px;">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th><input type="checkbox" ng-change="btnSelectedItem()" ng-model="searchBar.selectedAll" /></th>
-                    <th>序号</th>
-                    <!-- <th>订单批号</th> -->
-                    <th>订单编号</th>
-                    <th>生成日期</th>
-                    <!-- <th>客户编号</th>
-                    <th>客户ID</th> -->
-                    <th>标示</th>
-                    <th>CUL包裹单号</th>
-                    <th>打印状态</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in dataList">
-                    <td><input type="checkbox" ng-change="btnSelectedItem(item)" ng-model="item._selected" /></td>
-                    <td>{{item.rownumber}}</td>
-                    <!-- <td style="max-width: 150px;">{{item.batchNumber || '-'}}</td> -->
-                    <td style="max-width: 200px;">
-                        <small>
-                            <span class="label label-success" ng-if="item.orderStatus==='Shipped'">已出库</span>
-                            <span class="label label-warning" ng-if="item.orderStatus==='Unpaid'">待支付</span>
-                            <span class="label label-info" ng-if="item.orderStatus==='Processing'">处理中</span>
-                            <span class="label label-info" ng-if="item.orderStatus==='WaybillUpdated'">运单更新</span>
-                            <span class="label label-info" ng-if="item.orderStatus==='Void'">已取消</span>
-                            <span class="label label-success" ng-if="item.orderStatus==='Paid'">已支付</span>
-                            <span class="label label-danger" ng-if="item.orderStatus==='Arrears'">运费不足</span>
-                            <span class="label label-success" ng-if="item.orderStatus==='Arrived'">已送达</span>
-                            <span class="label label-success" ng-if="item.orderStatus==='PartialShipped'">部分出库</span>
-                        </small>
-                        <small>
-                                {{item.orderNumber}}
-                        </small>
-                    </td>
-                    <td>{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                    <!-- <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'customerdetail')">{{item.customer.customerNumber}}</a></td>
-                    <td>{{item.customer.userName}}</td> -->
-                    <td>{{item.customer.receiveIdentity}}</td>
-                    <td style="max-width: 150px;">
-                        <div ng-repeat="pkg in item.outboundPackages">{{pkg.trackingNumber}}</div>
-                    </td>
-                    <td>{{item._printStatus}}</td>
-                    <td>
-                        <a href="javascript:void(0)" class="role" data-role="41" ng-click="btnPrint(item,'order')">打印订单</a><br>
-                        <a href="javascript:void(0)" class="role" data-role="45" ng-click="btnPrint(item,'trackingNumber')">打印包裹号</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <div class="row" style="margin:10px 0px;">
-        <div class="text-left pull-left">
-            <button type="button" class="btn-u bg-color-ffb" ng-click="btnPrintBatch('order')">批量打印订单</button>
-            <button type="button" class="btn-u bg-color-ffb" ng-click="btnPrintBatch('trackingNumber')">批量打印包裹号</button>
-        </div>
-        <div class="text-right pull-right">
-            <pagination options="pagedOptions" on-page="onPaged"></pagination>
-        </div>
-        <label class="pull-right">
-            <select style="width:50px;" class="form-control" ng-model="pageSize" ng-change="onPaged(1)">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-            </select>
-        </label>
     </div>
 </div>
 <print-order></print-order>

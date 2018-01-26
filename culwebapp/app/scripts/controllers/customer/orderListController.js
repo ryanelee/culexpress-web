@@ -56,29 +56,6 @@ angular.module('culwebApp')
                 }
             }
 
-            // $scope.tempSearchBar = angular.copy(storage.getSearchObject());
-            // if ($scope.tempSearchBar) {
-            //     $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
-            // }
-            //  storage.session.setObject("searchBar", $scope.searchBar);
-
-            warehouseService.getWarehouse(function (result) {
-                if (result.length == 1) {
-                    $scope.searchBar.warehouseList = result;
-                    $scope.searchBar.warehouseNumber = $scope.searchBar.warehouseList[0].warehouseNumber;
-                } else {
-                    $scope.searchBar.warehouseList = [{ warehouseNumber: "", warehouseName: "全部" }].concat(result);
-                }
-            });
-
-            warehouseService.getShippingChannelList(function (result) {
-                if (result.length == 1) {
-                    $scope.searchBar.shippingChannelList = result;
-                    $scope.searchBar.shipServiceId = $scope.searchBar.shippingChannelList[0].shipServiceId;
-                } else {
-                    $scope.searchBar.shippingChannelList = [{ shipServiceId: 0, shipServiceName: "全部" }].concat(result);
-                }
-            });
 
             var _filterOptions = function () {
                 if (!!$scope.searchBar.startDate) {
@@ -128,30 +105,6 @@ angular.module('culwebApp')
                 return angular.copy(_options);
             }
 
-            // $scope.getData = function () {
-            //     // storage.session.setObject("searchBar", $scope.searchBar);
-            //     var _options = _filterOptions();
-            //     console.log("_options", _options)
-            //     orderService.getList(angular.copy(_options), function (result) {
-            //         $scope.dataList = result.data;
-            //         // console.log($scope.dataList)
-            //         $scope.pagination.totalCount = result.pageInfo.totalCount;
-            //         $rootScope.$emit('changeMenu');
-
-            //         $.each($scope.dataList, function (i, item) {
-            //             item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
-            //         });
-            //         $scope.searchBar.selectedAll = $.grep($scope.dataList, function (n) { return n._selected == true }).length == $scope.dataList.length;
-            //     });
-            //     var _orderNumbers = [];
-            //     $.each($scope.selectedListCache, function (i, item) {
-            //         _orderNumbers.push(item.orderNumber);
-            //     });
-            //     if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
-            //     //新导出逻辑
-            //     $scope.exportOptions = $.extend({ token: _token }, _options);
-
-            // }
             var _getPrintStatus = function (printStatus) {
                 var printTitle = '';
                 switch (printStatus) {
@@ -175,18 +128,17 @@ angular.module('culwebApp')
                 key: 'orderNumber',
                 text: '订单编号'
             }, {
-                key: 'receiveTrackingNumber',
-                text: '预报快递单号'
-            }
-                , {
+                key: 'referenceOrderNumber',
+                text: '客户关联号'
+            }, {
                 key: 'outBoundTrackingNumber',
-                text: '出库包裹编号'
+                text: 'cul包裹编号'
             }
             ];
             var queryPara = $scope.queryPara = {
                 searchKeyName: 'orderNumber',
                 dateRange: 'last6Months',
-                orderStatus: 'Unpaid',
+                orderStatus: '',
 
             };
 
@@ -244,21 +196,8 @@ angular.module('culwebApp')
                             });
                             $scope.dataList = result.data.data;
                             $scope.pagedOptions.total = result.data.pageInfo.totalCount;
-
-
-                            // $.each($scope.dataList, function (i, item) {
-                            //     item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
-                            // });
-                            // $scope.searchBar.selectedAll = $.grep($scope.dataList, function (n) { return n._selected == true }).length == $scope.dataList.length;
                         }
                     });
-                // var _orderNumbers = [];
-                // $.each($scope.selectedListCache, function (i, item) {
-                //     _orderNumbers.push(item.orderNumber);
-                // });
-                // if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
-                // //新导出逻辑
-                // $scope.exportOptions = $.extend({ token: _token }, _options);
             }
             $scope.queryOrder();
 
@@ -362,21 +301,9 @@ angular.module('culwebApp')
             $scope.btnDeleteApproval = function (item, event) {
                 $scope.item = item;
                 $('#del-modal').modal('show');
-                // plugMessenger.template($compile($("#confirm-modal").html())($scope));
-                // alertify.confirm('确认', '您选择了' + itemNumbers.length + '个商品，确定删除？',
-                //     function () {
-                //         $('.sa-confirm-button-container button.confirm').attr({ disabled: true });
-                //         orderSvr.deleteProducts(itemNumbers).then(function (result) {
-                //             alertify.success('删除成功!');
-                //             $scope.loadListData(1);
-                //         });
-                //     }, function () {
-                //         alertify.error('已取消删除!');
-                //     });
             }
 
             $scope.btnDelete = function (item, event) {
-                // debugger;
                 $scope.searchOrder = {};
                 if (item instanceof Array) {
                     $scope.searchOrder.orderNumberList = item;
@@ -388,25 +315,17 @@ angular.module('culwebApp')
                     }
                 }
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
-                // plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
-                // if (!!isOK) {
                 $('#del-modal').modal('hide');
-                // $(event.currentTarget).parents("#del-modal").modal("hide");
                 orderService.delete($scope.searchOrder, function (result) {
                     if (result.success == true) {
                         alertify.success('删除成功!');
-                        // $("#confirm-modal").modal("hide");
-                        // $(event.currentTarget).parents("#confirm-modal").modal("hide");
                         item.deleteMessage = "";
                         $scope.deleteMessage = "";
                         $scope.queryOrder();
                         $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
                     } else {
-                        // plugMessenger.info(result);
                     }
                 });
-                // }
-                // });
             }
 
             $scope.btnClearSelectedListCache = function () {
@@ -418,15 +337,6 @@ angular.module('culwebApp')
                 var _options = _filterOptions();
                 //新导出逻辑
                 $scope.exportOptions = $.extend({ token: _token }, _options);
-            }
-
-            // $timeout(function () {
-            //     $scope.getData();
-            // }, 500);
-
-            $scope.btnCancel = function (event) {
-                // $("#confirm-modal").modal("hide");
-                $(event.currentTarget).parents("#confirm-modal").modal("hide");
             }
 
         }]);

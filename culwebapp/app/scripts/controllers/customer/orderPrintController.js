@@ -149,20 +149,6 @@ angular.module('culwebApp')
                 return angular.copy(_options);
             }
 
-            // $scope.getData = function () {
-            //     orderService.getList(_filterOptions(), function (result) {
-            //         $scope.dataList = result.data;
-            //         $scope.pagination.totalCount = result.pageInfo.totalCount;
-            //         $rootScope.$emit('changeMenu');
-
-            //         $.each($scope.dataList, function (i, item) {
-            //             item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
-            //         });
-            //         $scope.searchBar.selectedAll = $.grep($scope.dataList, function (n) { return n._selected == true }).length == $scope.dataList.length;
-
-            //     });
-            // }
-
             var _getPrintStatus = function (printStatus) {
                 var printTitle = '';
                 switch (printStatus) {
@@ -186,10 +172,9 @@ angular.module('culwebApp')
                 key: 'orderNumber',
                 text: '订单编号'
             }, {
-                key: 'receiveTrackingNumber',
-                text: '预报快递单号'
-            }
-                , {
+                key: 'referenceOrderNumber',
+                text: '客户关联号'
+            }, {
                 key: 'outBoundTrackingNumber',
                 text: '出库包裹编号'
             }
@@ -197,7 +182,7 @@ angular.module('culwebApp')
             var queryPara = $scope.queryPara = {
                 searchKeyName: 'orderNumber',
                 dateRange: 'last6Months',
-                orderStatus: 'Unpaid',
+                orderStatus: '',
 
             };
 
@@ -270,7 +255,7 @@ angular.module('culwebApp')
                 $scope.queryPara = {
                     searchKeyName: 'orderNumber',
                     dateRange: 'last6Months',
-                    orderStatus: 'Unpaid',
+                    orderStatus: '',
                 };
 
                 $scope.queryOrder(1, angular.extend($scope.queryPara, {
@@ -386,17 +371,7 @@ angular.module('culwebApp')
                             case "order":
                                 $scope.$broadcast("print-order.action", orderNumbers);
                                 break;
-                            case "package":
-                                $scope.$broadcast("print-package.action", orderNumbers);
-                                break;
-                            case "flyingexpress":
-                                $scope.$broadcast("print-flying-express.action", orderNumbers);
-                                break;
-                            case "flyingexpress2":
-                                $scope.$broadcast("print-flying-express2.action", orderNumbers);
-                                break;
                             case "trackingNumber":
-                                // _printTrackingNumbers(selectedList);
                                 $scope.$broadcast("print-tracking-number.action", selectedList);
                                 break;
                         }
