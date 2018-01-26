@@ -156,6 +156,7 @@ angular.module('culAdminApp')
                 });
                 if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
                 //新导出逻辑
+                _options = orderService.getCurrentOption(_options);
                 $scope.exportOptions = $.extend({ token: _token }, _options);
                 
             }

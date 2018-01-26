@@ -64,6 +64,31 @@ angular.module('culAdminApp')
             return printTitle;
         }
 
+        self.getCurrentOption = function (options){
+
+            if(options == undefined) return options;
+
+            var customer_ids;
+
+            var roles = JSON.parse($window.sessionStorage.getItem("role"));
+            roles.forEach(function (role) {
+                customer_ids = $.grep([customer_ids, role.customer_ids], Boolean).join(",");
+            });
+
+            if (customer_ids != undefined && parseInt(customer_ids) !== 0) {
+
+                if (options["customerNumber"] != undefined &&
+                    customer_ids.toString().split(",").indexof(options["customerNumber"].toUpperCase()) == -1) { //搜索指定customer#不在当前用户允许查询的customer权限中，直接返回空数据集
+                    return;
+                };
+
+                if (options["customerNumber"] == undefined) //默认只返回具备权限查看customer的订单数据
+                    options["customerNumber"] = customer_ids;
+            };
+
+            return options;
+        }
+
         self.getList = function (options, callback) {
             var customer_ids;
 
