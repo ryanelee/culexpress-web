@@ -143,7 +143,7 @@ angular.module('culwebApp')
         }
 
 
-        
+
 
         self.getWarehouse = function (callback) {
             // var warehouse  = $window.sessionStorage.getItem("warehouse");
@@ -151,23 +151,23 @@ angular.module('culwebApp')
 
             // if (!warehouse || warehouse == 'undefined' ) {
             $http.get(cul.apiPath + "/warehouse").success(function (result) {
-                var role = [], warehouse_ids = [];
-                if ($window.sessionStorage.getItem('role')) {
-                    role = JSON.parse($window.sessionStorage.getItem('role'));
-                }
+                var warehouse_ids = [];
+                // if ($window.sessionStorage.getItem('role')) {
+                //     role = JSON.parse($window.sessionStorage.getItem('role'));
+                // }
 
-                if (role && role.length > 0) {
-                    role.forEach(function (item) {
-                        warehouse_ids = $.extend(warehouse_ids, item.warehouse_ids.toString().split(","));
-                    })
-                }
+                // if (role && role.length > 0) {
+                //     role.forEach(function (item) {
+                // warehouse_ids = $.extend(warehouse_ids, item.warehouse_ids.toString().split(","));
+                //     })
+                // }
                 var _data = result;
                 //filter by role
-                if (warehouse_ids) {
-                    _data = result.filter(function (x) {
-                        return warehouse_ids.includes('' + x.warehouseNumber);
-                    });
-                };
+                // if (warehouse_ids) {
+                //     _data = result.filter(function (x) {
+                //         return warehouse_ids.includes('' + x.warehouseNumber);
+                //     });
+                // };
                 $window.sessionStorage.setItem("warehouse", JSON.stringify(_data));
                 callback(_data);
             })

@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culwebApp')
-    .controller('OrderOfflineImportCtrl', ["$scope", "$timeout", "$filter", "OrderSvr","orderService",
-        function ($scope, $timeout, $filter, OrderSvr,orderService) {
+    .controller('OrderOfflineImportCtrl', ["$scope", "$timeout", "$filter", "OrderSvr","orderService","AuthService",
+        function ($scope, $timeout, $filter, OrderSvr,orderService,AuthService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -83,7 +83,8 @@ angular.module('culwebApp')
 
             $scope.offlineOrderCreateExcel = function () {
                 // $timeout(function () {
-                    orderService.offlineOrderCreateExcel($scope.fileId, function (result) {
+                     
+                    orderService.offlineOrderCreateExcel({fileId:$scope.fileId,customerNumber:AuthService.getUser().customerNumber}, function (result) {
                     $.each(result, function (index, item) {
                         item.actualTotalWeight = 0;
                         $.each(item.outboundPackages, function (i, pkg) {

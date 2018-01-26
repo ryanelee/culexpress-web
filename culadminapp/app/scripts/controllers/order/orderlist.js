@@ -191,7 +191,7 @@ angular.module('culAdminApp')
                         $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
                     } 
                 });
-                var _orderNumbers = [];
+                var _orderNumbers = []; 
                 var _options = _filterOptions();
                 $.each($scope.selectedListCache, function (i, item) {
                     _orderNumbers.push(item.orderNumber);

@@ -166,18 +166,15 @@ angular.module('culwebApp')
         }
 
         self.offlineOrderCheckExcel = function (fileId, callback) {
-            $http.post(cul.apiPath + '/order/offlineOrderCheckExcel', {
+            $http.post(cul.apiPath + '/order/offlineOrderCheckExcelWeb', {
                 fileId: fileId
             }).success(function (result) {
                 callback(result);
             });
         }
 
-        self.offlineOrderCreateExcel = function (fileId, callback) {
-            $http.post(cul.apiPath + '/order/offlineOrderCreateExcel', {
-                fileId: fileId
-            }).success(function (result) {
-                debugger;
+        self.offlineOrderCreateExcel = function (obj, callback) {
+            $http.post(cul.apiPath + '/order/offlineOrderCreateExcelWeb', obj).success(function (result) {
                 warehouseService.getWarehouse(function (warehouseList) {
                     $.each(result, function (i, order) {
                         var _warehouse = $.grep(warehouseList, function (n) { return n.warehouseNumber == order.warehouseNumber });
