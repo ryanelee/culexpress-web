@@ -316,16 +316,20 @@ angular.module('culwebApp')
                 }
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
                 $('#del-modal').modal('hide');
-                orderService.delete($scope.searchOrder, function (result) {
-                    if (result.success == true) {
-                        alertify.success('删除成功!');
-                        item.deleteMessage = "";
-                        $scope.deleteMessage = "";
-                        $scope.queryOrder();
-                        $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
-                    } else {
-                    }
-                });
+                alertify.confirm("确定删除订单吗？(删除后不可恢复)", 
+                function () {
+                    orderService.delete($scope.searchOrder, function (result) {
+                        if (result.success == true) {
+                            alertify.success('删除成功!');
+                            item.deleteMessage = "";
+                            $scope.deleteMessage = "";
+                            $scope.queryOrder();
+                            $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
+                        } else {
+                        }
+                    });
+                },
+                function () {});
             }
 
             $scope.btnClearSelectedListCache = function () {
