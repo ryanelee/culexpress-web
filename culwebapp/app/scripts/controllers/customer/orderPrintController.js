@@ -325,33 +325,7 @@ angular.module('culwebApp')
                         case "order":
                         case "flyingexpress":
                         case "flyingexpress2":
-                            console.log("item", item);
-                            if (item.orderType == 1 && (!item.payDate || item.orderStatus.toUpperCase() === "UNPAID" || item.orderStatus.toUpperCase() === "VOID")) {
-                                alertify.alert('提示', '未支付或者已删除的线上订单不能打印', 'warning');
-                                break;
-                            }
-                            alertify.confirm("订单将变为已打印状态,请确认是否打印？", 
-                                function () {
-                                    orderService.printOrder(item.orderNumber, function (result) {
-                                        if (item.orderStatus === "WaybillUpdated") {
-                                            var order = {
-                                                orderNumber: item.orderNumber,
-                                                orderStatus: "WaybillUpdated",
-                                            }
-                                        } else {
-                                            var order = {
-                                                orderNumber: item.orderNumber,
-                                                orderStatus: "Processing",
-                                            }
-                                        }
-                                        orderService.update(order, function (result) {
-                                            _print();
-                                        });
-                                    });
-                                    
-                                },function () {
-                                    // alertify.error('已取消删除!');
-                                });
+                            _print();
                             break;
                         default:
                             _print();
