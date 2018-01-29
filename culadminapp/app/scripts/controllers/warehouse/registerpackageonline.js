@@ -189,11 +189,12 @@ angular.module('culAdminApp')
                                 return plugMessenger.error("订单未打印不能打包,请在订单打印页面打印.");
                             }
 
-                            if ($scope.data.orderStatus !== "Processing" && $scope.data.orderStatus !== "Paid" && $scope.data.orderStatus !== "PartialShipped") {
+                            if ($scope.data.orderStatus !== "Processing" && $scope.data.orderStatus !== "Paid" 
+                                && $scope.data.orderStatus !== "PartialShipped" && $scope.data.orderStatus !== "WaybillUpdated") {
                                 $scope.tempInboundPackageNumber = "";
                                 var orderStatus = $scope.data._orderStatus;
                                 $scope.data = null;
-                                return plugMessenger.error("无效订单状态,当前订单状态为["+ orderStatus +"]");
+                                return plugMessenger.error("当前订单状态为["+ orderStatus +"],不能打包!");
                             }
 
                             var _checked = false;
