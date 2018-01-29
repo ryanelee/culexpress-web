@@ -199,11 +199,13 @@ angular.module('culAdminApp')
 
                             var _checked = false;
                             $.each($scope.data.inboundPackages, function (index, item) {
-                                item._trackingNumber = $scope.lpad(item.trackingNumber,"*",6);
+                                //item._trackingNumber = $scope.lpad(item.trackingNumber,"*",6);
 
                                 if (!item.checked) {
-                                    if(0 === $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase().localeCompare($scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase()))
+                                    if(0 === $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase().localeCompare($scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase())){
                                         item.checked = true;
+                                    }
+                                        
                                     // item.checked = $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase() === $scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase();
 
                                     _checked = true;
