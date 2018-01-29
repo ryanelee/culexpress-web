@@ -189,32 +189,6 @@
                     </tr>
                 </table>
             </div>
-            <div ng-if="data.flag =='shelf'" class="height-100">
-                <table cellpadding="2" cellspacing="0" border="0" width="100%" class="list">
-                    <tr>
-                        <th width="10%">入库单号(后6位)</th>
-                        <th width="13%">架位</th>
-                        <th width="11%">客户编号</th>
-                        <th width="24%">订单编号</th>
-                        <th width="8%">重量（磅）</th>
-                        <th width="10%">件数</th>
-                        <th width="15%">&nbsp;&nbsp;&nbsp;生成日期</th>
-                        <th width="9%">小费</th>
-                    </tr>
-                    <table cellpadding="2" cellspacing="0" border="0" width="100%" class="packages">
-                        <tr ng-repeat="item in data.data " style="border-bottom:#6f6b6b solid 1px">
-                            <td width="10%">{{item.trackingNumber | intercept}}</td>
-                            <td width="15%">{{item.shelfNumber}}</td>
-                            <td width="10%">{{item.customerNumber}}</td>
-                            <td width="26%">{{item.orderNumber}}</td>
-                            <td width="8%">{{item.packageWeight || 0}}</td>
-                            <td width="10%">{{item.cartonCount + '-1' || 0}}</td>
-                            <td width="15%">{{item.payDate | date:'MM/dd/yyyy'}}</td>
-                            <td width="6%">{{item.tip | number:2}}</td>
-                        </tr>
-                    </table>
-                </table>
-            </div>
         </div>
     </div>
 </div>
