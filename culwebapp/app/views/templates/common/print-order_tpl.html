@@ -120,13 +120,6 @@
                             </table>
                         </td>
                     </tr>
-                    <!--<tr ng-repeat="item in data.outboundPackages">
-                        <td class="title">CUL包裹单号</td>
-                        <td>{{item.trackingNumber}}</td>
-                        <td colspan="2">
-                            <div class="barcode" trackingNumber="{{item.trackingNumber}}"></div>
-                        </td>
-                    </tr>-->
                     <tr>
                         <th colspan="4">订单内容</th>
                     </tr>
@@ -137,23 +130,12 @@
                                 <tr>
                                     <th>序号</th>
                                     <th>品牌</th>
-                                    <!--<th>商品描述</th>-->
                                     <th>数量</th>
                                     <th>价值($)</th>
                                 </tr>
                                 <tr ng-repeat="item in data.orderItems">
                                     <td align="center">{{$index + 1}}</td>
                                     <td align="center">{{item.itemBrand}}</td>
-                                    <!--<td style="max-width: 300px;">
-                                        <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:44px;">
-                                            {{item.description}}
-                                            {{ !!item.property1 ? " " + item.property1 : "" }}
-                                            {{ !!item.property2 ? " " + item.property2 : "" }}
-                                            {{ !!item.property3 ? " " + item.property3 : "" }}
-                                            {{ !!item.property4 ? " " + item.property4 : "" }}
-                                            {{ !!item.property5 ? " " + item.property5 : "" }}
-                                        </div>
-                                    </td>-->
                                     <td align="center">{{item.quantity}}</td>
                                     <td align="center">{{item.unitprice | number:2}}</td>
                                 </tr>
