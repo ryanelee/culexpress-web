@@ -35,6 +35,7 @@ angular.module('culAdminApp')
             $scope.keyDown = function (e) {
                 var keycode = window.event ? e.keyCode : e.which;
                 if (keycode == 13) {
+                    $scope.data = null;
                     $scope.checkInboundPackageNumber();
                 }
             }
@@ -146,6 +147,32 @@ angular.module('culAdminApp')
             
             }
 
+            //pads left
+            $scope.lpad = function(str, padString, length) {
+                var val = str.substring(str.length - length, str.length);
+
+                var count = 1;
+                while (count < str.length - length){
+                    val = padString + val;
+                    count += 1;
+                }
+                    
+                return val;
+            }
+            
+            //pads right
+            $scope.rpad = function(str, padString, length) {
+                var val = str.substring(0, length);
+
+                var count = 1;
+                while (count < str.length - length){
+                    val = val + padString;
+                    count += 1;
+                }
+
+                return str;
+            }
+
             $scope.getData = function () {
                 if (!!$scope.tempInboundPackageNumber) {
                     orderService.getList({
@@ -155,9 +182,24 @@ angular.module('culAdminApp')
                             if (!$scope.data) {
                                 $scope.data = result.data[0];
                             }
+
+                            if($scope.data.printStatus !== "Printed"){
+                                $scope.tempInboundPackageNumber = "";
+                                $scope.data = null;
+                                return plugMessenger.error("订单未打印不能打包,请在订单打印页面打印.");
+                            }
+
+                            if ($scope.data.orderStatus !== "Processing" && $scope.data.orderStatus !== "Paid" && $scope.data.orderStatus !== "PartialShipped") {
+                                $scope.tempInboundPackageNumber = "";
+                                var orderStatus = $scope.data._orderStatus;
+                                $scope.data = null;
+                                return plugMessenger.error("无效订单状态,当前订单状态为["+ orderStatus +"]");
+                            }
+
                             var _checked = false;
                             $.each($scope.data.inboundPackages, function (index, item) {
-                               
+                                item._trackingNumber = $scope.lpad(item.trackingNumber,"*",6);
+
                                 if (!item.checked) {
                                     if(0 === $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase().localeCompare($scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase()))
                                         item.checked = true;
