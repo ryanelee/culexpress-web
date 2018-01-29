@@ -166,7 +166,7 @@
                         </td>  
                         <td>{{item._printStatus}}</td>
                         <td>
-                            <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._printStatus == '未打印'">
+                            <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._printStatus == '未打印' && item.orderStatus == 'Unpaid'">
                                  <i class="fa fa-trash-o" style="font-size: 20px;"></i></a>
                         </td>
                     </tr> 
