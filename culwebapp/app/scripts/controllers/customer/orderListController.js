@@ -295,7 +295,7 @@ angular.module('culwebApp')
                         $scope.orderNumberList.push(e.orderNumber)
                     }
                 })
-                setTimeout(() => {
+                setTimeout(function() {
                     if (!$scope.orderNumberList[0]) {
                         alertify.alert('提示', '请选择需要删除的订单', 'warning');
                         return;

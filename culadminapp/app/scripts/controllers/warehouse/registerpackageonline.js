@@ -198,12 +198,11 @@ angular.module('culAdminApp')
                             }
 
                             var _checked = false;
-                            debugger;
                             $.each($scope.data.inboundPackages, function (index, item) {
                                 item._trackingNumber = $scope.lpad(item.trackingNumber,"*",6);
 
                                 if (!item.checked) {
-                                    // if(0 === $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase().localeCompare($scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase()))
+                                    if(0 === $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase().localeCompare($scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase()))
                                         item.checked = true;
                                     // item.checked = $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase() === $scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase();
 
@@ -213,7 +212,7 @@ angular.module('culAdminApp')
                             $scope.data._quantityCount = 0;
                             $.each($scope.data.orderItems, function (index, item) {
                                 $scope.data._quantityCount += item.quantity
-                            }); 
+                            });
 
                             //todo: 根据 _checked 调用提示音
                             if ($.grep($scope.data.inboundPackages, function (n) { return n.checked == true }).length == $scope.data.inboundPackages.length) {
