@@ -282,20 +282,30 @@ angular.module('culwebApp')
                 }
             }
 
+            /** 批量删除 */
             $scope.delSomeOrder = function () {
+                var isDel = true;
                 //每次执行批量删除时，将之前的选中记录清理掉。
                 $scope.orderNumberList = [];
                 $scope.dataList.forEach(function (e) {
                     if (e._selected == true) {
+                        if (e.orderStatus != 'Unpaid') {
+                            isDel = false;
+                        }
                         $scope.orderNumberList.push(e.orderNumber)
                     }
                 })
-                if (!$scope.orderNumberList[0]) {
-                    alertify.alert('提示', '请选择需要删除的订单', 'warning');
-                    return;
-                } else {
-                    $scope.btnDelete($scope.orderNumberList)
-                }
+                setTimeout(() => {
+                    if (!$scope.orderNumberList[0]) {
+                        alertify.alert('提示', '请选择需要删除的订单', 'warning');
+                        return;
+                    } else if (isDel == false){
+                        alertify.alert('提示', '只能删除未支付状态的订单！', 'warning');
+                        return;
+                    } else {
+                        $scope.btnDelete($scope.orderNumberList);
+                    }
+                }, 200);
             }
 
             $scope.btnDeleteApproval = function (item, event) {

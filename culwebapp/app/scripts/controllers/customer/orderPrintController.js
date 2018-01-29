@@ -333,6 +333,8 @@ angular.module('culwebApp')
                     }
                 }
             }
+
+            /** 批量打印 */
             $scope.btnPrintBatch = function (type) {
                 var orderNumbers = [];
                 var selectedList = angular.copy($scope.selectedListCache);
@@ -351,64 +353,23 @@ angular.module('culwebApp')
                         }
                     }
                 }
-                var _checkConfirm = function () {
-                    switch (type) {
-                        case "order":
-                        case "flyingexpress":
-                        case "flyingexpress2":
-                            var declinePrint = false;
-                            $.each(selectedList, function (i, _item) {
-                                console.log(_item);
-                                if (_item.orderType == 1 && (!_item.payDate || _item.orderStatus.toUpperCase() === "UNPAID" || _item.orderStatus.toUpperCase() === "VOID")) {
-                                    alertify.alert("提示", "未支付或者已删除的线上订单[" + _item.orderNumber + "]不能打印.", "warning");
-                                    declinePrint = true;
-                                    return;
-                                }
-                            });
-
-                            if (declinePrint) break;
-
-                            alertify.confirm("订单将变为已打印状态,请确认是否打印？", 
-                                function () {
-                                    var orderArray = [];
-                                    var orderList = [];
-                                    $.each(selectedList, function (i, _item) {
-                                        orderArray.push(_item.orderNumber);
-                                        orderList.push({ orderNumber: _item.orderNumber, orderStatus: "Processing" })
-
-                                    });
-                                    console.log(orderArray);
-                                    orderService.printOrder(orderArray, function (result) {
-                                        orderService.batchUpdate(orderList, function (result) {
-                                            _print();
-                                        });
-                                    });                                
-                                }, function () {
-                                    // alertify.error('已取消删除!');
-                                });
-                            break;
-                        default:
-                            _print();
-                            break;
-                    }
-                }
+                
                 if ($scope.selectedListCache.length == 0) {
                     var _options = $.extend(true, _filterOptions(), {
                         "pageInfo": {
                             "pageSize": 99999,
                             "pageIndex": 1,
                         },
-                        //"printStatus": ""
                     })
                     orderService.getList(_options, function (result) {
                         $.each(result.data, function (i, item) {
                             orderNumbers.push(item.orderNumber);
                             selectedList.push(item);
                         });
-                        _checkConfirm();
+                        _print();
                     });
                 } else {
-                    _checkConfirm();
+                    _print();
                 }
             }
 

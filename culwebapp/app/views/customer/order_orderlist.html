@@ -10,11 +10,28 @@
         <div class="list">
             <form action="#" id="sky-form" class="sky-form form-inline" novalidate="novalidate">
                 <div class="row">
-                    <daterange-search label="预报时间" btn-text="查看历史订单" on-search="rangSearch"></daterange-search>
                     <div class="form-group">
                         <label>搜索条目：</label>
                         <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
                         <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" ng-enter="searchOrder()" />
+                        
+                        <div class="form-group" id="datepicker1">
+                            <div class="input-group date">
+                                <input type="text" placeholder="开始时间" class="form-control" ng-model="queryPara.startDate">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-th"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group" id="datepicker2">
+                            <div class="input-group date">
+                                <input type="text" placeholder="结束时间" class="form-control" ng-model="queryPara.endDate">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-th"></i>
+                                </span>
+                            </div>
+                        </div>
+
                         <a href="javascript:void(0)" ng-click="searchOrder()" class="btn-u bg-color-ffb">查找订单</a>
                     </div>
                 </div>
@@ -86,6 +103,9 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    
                 </div>
             </form>
 
@@ -166,7 +186,7 @@
                         </td>  
                         <td>{{item._printStatus}}</td>
                         <td>
-                            <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._printStatus == '未打印'">
+                            <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._printStatus == '未打印' && item.orderStatus == 'Unpaid'">
                                  <i class="fa fa-trash-o" style="font-size: 20px;"></i></a>
                         </td>
                     </tr> 
@@ -242,3 +262,24 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#datepicker1 .input-group.date').datepicker({
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            // keepOpen: true,
+            language: 'zh-CN',
+            todayBtn: "linked",
+            toggleActive: true
+        });
+        $('#datepicker2 .input-group.date').datepicker({
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            // keepOpen: true,
+            language: 'zh-CN',
+            todayBtn: "linked",
+            toggleActive: true
+        });
+    });
+</script>
