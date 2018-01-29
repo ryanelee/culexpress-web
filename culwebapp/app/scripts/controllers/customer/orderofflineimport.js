@@ -8,8 +8,8 @@
  * Controller of the culAdminApp
  */
 angular.module('culwebApp')
-    .controller('OrderOfflineImportCtrl', ["$scope", "$timeout", "$filter", "OrderSvr","orderService","AuthService",
-        function ($scope, $timeout, $filter, OrderSvr,orderService,AuthService) {
+    .controller('OrderOfflineImportCtrl', ["$scope", "$timeout", "$filter", "OrderSvr", "orderService", "AuthService",
+        function ($scope, $timeout, $filter, OrderSvr, orderService, AuthService) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -54,8 +54,10 @@ angular.module('culwebApp')
 
             $('#orderfile').on('fileuploaded', function (event, data, previewId, index) {
                 console.log(' data.response.url;', data);
-                $scope.fileId = data.response.filePath;
-                $scope.offlineOrderCheckExcel();
+                if ($scope.fileId !== data.response.filePath) {
+                    $scope.fileId = data.response.filePath;
+                    $scope.offlineOrderCheckExcel();
+                }
                 // console.log('previewId', previewId);
                 // console.log('data', data);
                 // console.log('index', index);
@@ -68,7 +70,7 @@ angular.module('culwebApp')
             });
             $scope.offlineOrderCheckExcel = function () {
                 // $timeout(function () {
-                    orderService.offlineOrderCheckExcel($scope.fileId, function (result) {
+                orderService.offlineOrderCheckExcel($scope.fileId, function (result) {
                     if (result.success == true) {
                         $scope.offlineOrderCreateExcel();
                     } else {
@@ -79,12 +81,12 @@ angular.module('culwebApp')
                 });
             }
 
-            
+
 
             $scope.offlineOrderCreateExcel = function () {
                 // $timeout(function () {
-                     
-                    orderService.offlineOrderCreateExcel({fileId:$scope.fileId,customerNumber:AuthService.getUser().customerNumber}, function (result) {
+
+                orderService.offlineOrderCreateExcel({ fileId: $scope.fileId, customerNumber: AuthService.getUser().customerNumber }, function (result) {
                     $.each(result, function (index, item) {
                         item.actualTotalWeight = 0;
                         $.each(item.outboundPackages, function (i, pkg) {
