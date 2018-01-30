@@ -186,14 +186,28 @@ angular.module('culwebApp')
 
             };
 
+            // yyyy-mm-dd
+            var _getDate = function (dateStr) {
+                var year = dateStr.substr(0, 4);
+                var month = dateStr.substr(5, 2) - 1;
+                var day = dateStr.substr(8, 2);
+                return new Date(year, month, day);
+            };
+
             $scope.queryOrder = function (index, paras) {
                 var pageSize = $scope.pageSize;
                 $scope.pagedOptions.index = index;
                 $scope.pagedOptions.size = pageSize;
+
+                var dateFrom = !!$scope.queryPara.startDate ? _getDate($scope.queryPara.startDate).toISOString() : "";
+                var dateTo = !!$scope.queryPara.endDate ? _getDate($scope.queryPara.endDate).toISOString() : "";
+
                 orderSvr
                     .getOrderList(index, angular.extend({
                         customerNumber: $scope.$root.currentUser.customerNumber,
-                        orderStatus: $scope.queryPara.orderStatus
+                        orderStatus: $scope.queryPara.orderStatus,
+                        dateFrom: dateFrom,
+                        dateTo: dateTo
                     }, paras || {}
                     ), pageSize)
                     .then(function (result) {

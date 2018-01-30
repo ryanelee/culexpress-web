@@ -194,3 +194,27 @@
 <print-flying-express2></print-flying-express2>
 <print-flying-express-empty></print-flying-express-empty>
 <print-tracking-number></print-tracking-number>
+
+<script>
+    $(document).ready(function () {
+        $('#datepicker1 .input-group.date').datepicker({
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            showSecond: true,
+            // keepOpen: true,
+            language: 'zh-CN',
+            todayBtn: "linked",
+            toggleActive: true
+        });
+        $('#datepicker2 .input-group.date').datepicker({
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            // keepOpen: true,
+            language: 'zh-CN',
+            todayBtn: "linked",
+            toggleActive: true
+        });
+    });
+</script>

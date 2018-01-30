@@ -137,9 +137,15 @@ angular.module('culwebApp')
             ];
             var queryPara = $scope.queryPara = {
                 searchKeyName: 'orderNumber',
-                dateRange: 'last6Months',
-                orderStatus: '',
+                orderStatus: ''
+            };
 
+            // yyyy-mm-dd
+            var _getDate = function (dateStr) {
+                var year = dateStr.substr(0, 4);
+                var month = dateStr.substr(5, 2) - 1;
+                var day = dateStr.substr(8, 2);
+                return new Date(year, month, day);
             };
 
             $scope.queryOrder = function (index, paras) {
@@ -147,17 +153,23 @@ angular.module('culwebApp')
                 $scope.pagedOptions.index = index;
                 $scope.pagedOptions.size = pageSize;
 
+                var dateFrom = !!$scope.queryPara.startDate ? _getDate($scope.queryPara.startDate).toISOString() : "";
+                var dateTo = !!$scope.queryPara.endDate ? _getDate($scope.queryPara.endDate).toISOString() : "";
+
                 orderSvr
                     .getOrderList(index, angular.extend({
                         customerNumber: $scope.$root.currentUser.customerNumber,
-                        orderStatus: $scope.queryPara.orderStatus
-                    }, paras || {}
-                    ), pageSize)
+                        orderStatus: $scope.queryPara.orderStatus,
+                        dateFrom: dateFrom,
+                        dateTo: dateTo
+                    }, paras || {}), pageSize)
                     .then(function (result) {
                         if (result.data) {
                             $scope.exportOptions = $.extend({ token: _token }, {
                                 customerNumber: $scope.$root.currentUser.customerNumber,
-                                orderStatus: $scope.queryPara.orderStatus
+                                orderStatus: $scope.queryPara.orderStatus,
+                                dateFrom: dateFrom,
+                                dateTo: dateTo
                             }, paras || {}
                             );
 
@@ -201,11 +213,11 @@ angular.module('culwebApp')
             }
             $scope.queryOrder();
 
+
             $scope.rangSearch = function (rangeItem) {
                 $scope.queryPara = {
                     searchKeyName: 'orderNumber',
-                    dateRange: 'last6Months',
-                    orderStatus: 'Unpaid',
+                    orderStatus: 'Unpaid'
                 };
 
                 $scope.queryOrder(1, angular.extend($scope.queryPara, {
@@ -214,6 +226,10 @@ angular.module('culwebApp')
                 }));
             }
             $scope.searchOrder = function () {
+                $scope.selectedListCache = [];
+                $scope.dataList = [];
+                $scope.pagination.pageIndex = 1;
+                $scope.pagination.totalCount = 0;
                 $scope.queryOrder(1, $scope.queryPara);
             }
 
@@ -228,14 +244,14 @@ angular.module('culwebApp')
             }
 
 
-            $scope.btnSearch = function () {
+            // $scope.btnSearch = function () {
 
-                $scope.selectedListCache = [];
-                $scope.dataList = [];
-                $scope.pagination.pageIndex = 1;
-                $scope.pagination.totalCount = 0;
-                $scope.getData();
-            }
+            //     $scope.selectedListCache = [];
+            //     $scope.dataList = [];
+            //     $scope.pagination.pageIndex = 1;
+            //     $scope.pagination.totalCount = 0;
+            //     $scope.getData();
+            // }
 
             $scope.selectedListCache = [];
 
