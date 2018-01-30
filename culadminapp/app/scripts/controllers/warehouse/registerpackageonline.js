@@ -127,7 +127,6 @@ angular.module('culAdminApp')
                                             "number": item.trackingNumber,
                                         }, function (result) {
                                             $scope.tempInboundPackageNumber = $scope.tempData;
-                                            console.log("2323",result);
                                             $scope.getData();
                                         });
                                     }
@@ -173,6 +172,8 @@ angular.module('culAdminApp')
                 return str;
             }
 
+            $scope.scannedTrackingList = [];
+
             $scope.getData = function () {
                 if (!!$scope.tempInboundPackageNumber) {
                     orderService.getList({
@@ -183,27 +184,37 @@ angular.module('culAdminApp')
                                 $scope.data = result.data[0];
                             }
 
-                            // if($scope.data.printStatus !== "Printed"){
-                            //     $scope.tempInboundPackageNumber = "";
-                            //     $scope.data = null;
-                            //     return plugMessenger.error("订单未打印不能打包,请在订单打印页面打印.");
-                            // }
+                            if($scope.data.printStatus !== "Printed"){
+                                $scope.tempInboundPackageNumber = "";
+                                $scope.data = null;
+                                return plugMessenger.error("订单未打印不能打包,请在订单打印页面打印.");
+                            }
 
-                            // if ($scope.data.orderStatus !== "Processing" && $scope.data.orderStatus !== "Paid" 
-                            //     && $scope.data.orderStatus !== "PartialShipped" && $scope.data.orderStatus !== "WaybillUpdated") {
-                            //     $scope.tempInboundPackageNumber = "";
-                            //     var orderStatus = $scope.data._orderStatus;
-                            //     $scope.data = null;
-                            //     return plugMessenger.error("当前订单状态为["+ orderStatus +"],不能打包!");
-                            // }
+                            if ($scope.data.orderStatus !== "Processing" && $scope.data.orderStatus !== "Paid" 
+                                && $scope.data.orderStatus !== "PartialShipped" && $scope.data.orderStatus !== "WaybillUpdated") {
+                                $scope.tempInboundPackageNumber = "";
+                                var orderStatus = $scope.data._orderStatus;
+                                $scope.data = null;
+                                return plugMessenger.error("当前订单状态为["+ orderStatus +"],不能打包!");
+                            }
 
                             var _checked = false;
                             $.each($scope.data.inboundPackages, function (index, item) {
-                                //item._trackingNumber = $scope.lpad(item.trackingNumber,"*",6);
+                                item._trackingNumber = $scope.lpad(item.trackingNumber,"*",6);
+                                if($scope.scannedTrackingList && $scope.scannedTrackingList.length > 0){
+                                    $.each($scope.scannedTrackingList, function(index, trk){
+                                        if(trk.checked && trk.trackingNumber.trim().toLowerCase() === item.trackingNumber.trim().toLowerCase())
+                                            item.checked = true;
+                                    });
+                                }
 
                                 if (!item.checked) {
                                     if(0 === $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase().localeCompare($scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase())){
                                         item.checked = true;
+                                        $scope.scannedTrackingList.push({
+                                            trackingNumber: item.trackingNumber,
+                                            checked: true
+                                        });
                                     }
                                         
                                     // item.checked = $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase() === $scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase();
