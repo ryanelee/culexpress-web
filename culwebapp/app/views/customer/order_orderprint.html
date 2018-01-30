@@ -149,7 +149,7 @@
                                 <span class="label label-success" ng-if="item.orderStatus==='PartialShipped'">部分出库</span>
                             </small>
                             <small>
-                                    {{item.orderNumber}}
+                                <a href="javascript:void(0)" ng-click="redirectToDetail(item);">{{item.orderNumber}}</a>
                             </small>
                         </td>
                         <td>{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>

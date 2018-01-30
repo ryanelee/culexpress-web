@@ -164,15 +164,10 @@ angular.module('culwebApp')
                     .getOrderList(index, angular.extend({
                         customerNumber: $scope.$root.currentUser.customerNumber,
                         orderStatus: $scope.queryPara.orderStatus,
-<<<<<<< HEAD
                         dateFrom: dateFrom,
-                        dateTo: dateTo
-                    }, paras || {}), pageSize)
-=======
+                        dateTo: dateTo,
                         orderType: 0
-                    }, paras || {}
-                    ), pageSize)
->>>>>>> c3fe490efa18611ac4a02a82d4f42027cd09d585
+                    }, paras || {}), pageSize)
                     .then(function (result) {
                         if (result.data) {
                             $scope.exportOptions = $.extend({ token: _token }, {
