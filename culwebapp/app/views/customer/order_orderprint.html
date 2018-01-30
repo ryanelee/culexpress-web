@@ -14,6 +14,7 @@
                         <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
                         <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" ng-enter="searchOrder()" />
                         
+                        <label>时间范围：</label>
                         <div class="form-group" id="datepicker1">
                             <div class="input-group date">
                                 <input type="text" placeholder="开始时间" class="form-control" ng-model="queryPara.startDate">
