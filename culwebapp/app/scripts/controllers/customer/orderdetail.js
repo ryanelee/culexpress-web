@@ -71,8 +71,6 @@ angular.module('culwebApp')
                     .getOrderInfo(orderId)
                     .then(function (result) {
                         $scope.data = result.data;
-                        console.log(JSON.stringify(result.data));
-                        console.log(result.data);
                         if ($scope.data.actualWeight == 0
                             && $scope.data.inboundPackages && $scope.data.inboundPackages.length > 0) {
                             $scope.data.inboundPackages.forEach(function (i) {
@@ -128,7 +126,7 @@ angular.module('culwebApp')
                 orderSvr
                     .getMessage($scope.data.orderMessageNumber)
                     .then(function (result) {
-                        if (result.data.messageLogs) {
+                        if (result && result.data && result.data.messageLogs) {
                             $scope.orderMessages = result.data.messageLogs;
                             $scope.orderMessages.forEach(function (e, index) {
                                 if (e.images != null && e.images != '') {

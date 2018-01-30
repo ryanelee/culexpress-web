@@ -141,6 +141,7 @@ angular.module('culwebApp')
                     customerNumber: queryPara.customerNumber,
                     dateFrom: queryPara.dateFrom,
                     dateTo: queryPara.dateTo,
+                    orderType: queryPara.orderType
                 };
 
                 if (queryPara.orderStatus) {

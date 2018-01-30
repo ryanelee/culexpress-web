@@ -159,7 +159,9 @@
                                 <span class="label label-success" ng-if="item.orderStatus==='Arrived'">已送达</span>
                                 <span class="label label-success" ng-if="item.orderStatus==='PartialShipped'">部分出库</span>
                             </small>
-                            <small>{{item.orderNumber}}</small>
+                            <small>
+                                <a href="javascript:void(0)" ng-click="redirectToDetail(item);">{{item.orderNumber}}</a>
+                            </small>
                         </td>
                         <td style="max-width: 160px;">
                             <div ng-repeat="pkg in item._outboundTrackingNumbers track by $index">{{pkg}}</div>

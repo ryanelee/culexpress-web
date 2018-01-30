@@ -8,8 +8,8 @@
  * Controller of the culwebApp
  */
 angular.module('culwebApp')
-    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "OrderSvr", "orderService", "warehouseService", "$compile",
-        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderSvr, orderService, warehouseService, $compile) {
+    .controller('OrderListCtrl', ["$timeout", "$window", "$scope", "$rootScope", "$location", "$filter", "OrderSvr", "orderService", "warehouseService", "$compile","$state",
+        function ($timeout, $window, $scope, $rootScope, $location, $filter, orderSvr, orderService, warehouseService, $compile, $state) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -142,6 +142,10 @@ angular.module('culwebApp')
 
             };
 
+            $scope.redirectToDetail = function (orderItem) {
+                $state.go('customer.orderdetail', { id: orderItem.orderNumber });
+            }
+            
             $scope.queryOrder = function (index, paras) {
                 var pageSize = $scope.pageSize;
                 $scope.pagedOptions.index = index;
@@ -150,7 +154,8 @@ angular.module('culwebApp')
                 orderSvr
                     .getOrderList(index, angular.extend({
                         customerNumber: $scope.$root.currentUser.customerNumber,
-                        orderStatus: $scope.queryPara.orderStatus
+                        orderStatus: $scope.queryPara.orderStatus,
+                        orderType: 0
                     }, paras || {}
                     ), pageSize)
                     .then(function (result) {
