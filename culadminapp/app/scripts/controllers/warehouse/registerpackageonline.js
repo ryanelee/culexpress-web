@@ -127,7 +127,6 @@ angular.module('culAdminApp')
                                             "number": item.trackingNumber,
                                         }, function (result) {
                                             $scope.tempInboundPackageNumber = $scope.tempData;
-                                            console.log("2323",result);
                                             $scope.getData();
                                         });
                                     }
@@ -173,6 +172,8 @@ angular.module('culAdminApp')
                 return str;
             }
 
+            $scope.scannedTrackingList = [];
+
             $scope.getData = function () {
                 if (!!$scope.tempInboundPackageNumber) {
                     orderService.getList({
@@ -200,10 +201,22 @@ angular.module('culAdminApp')
                             var _checked = false;
                             $.each($scope.data.inboundPackages, function (index, item) {
                                 item._trackingNumber = $scope.lpad(item.trackingNumber,"*",6);
+                                if($scope.scannedTrackingList && $scope.scannedTrackingList.length > 0){
+                                    $.each($scope.scannedTrackingList, function(index, trk){
+                                        if(trk.checked && trk.trackingNumber.trim().toLowerCase() === item.trackingNumber.trim().toLowerCase())
+                                            item.checked = true;
+                                    });
+                                }
 
                                 if (!item.checked) {
-                                    if(0 === $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase().localeCompare($scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase()))
+                                    if(0 === $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase().localeCompare($scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase())){
                                         item.checked = true;
+                                        $scope.scannedTrackingList.push({
+                                            trackingNumber: item.trackingNumber,
+                                            checked: true
+                                        });
+                                    }
+                                        
                                     // item.checked = $scope.getCompatibleInboundTrackingNumber(item.trackingNumber.trim()).toLowerCase() === $scope.getCompatibleInboundTrackingNumber($scope.tempInboundPackageNumber.trim()).toLowerCase();
 
                                     _checked = true;

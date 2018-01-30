@@ -103,7 +103,7 @@
             </div>
         </div>
     </div>
-    <div class="row" style="margin-top:20px;">
+    <div class="row" style="margin-top:20px;" ng-hide="data.orderType === 0">
         <div class="col-sm-12">
             <div class="common-title">
                 <h2>
@@ -213,7 +213,7 @@
               申报商品总价:</span>
         <span>{{(data.declareGoodsValue||0)|currency}}</span>
     </div>
-    <div class="row">
+    <div class="row" ng-hide="data.orderType === 0">
         <div class="col-sm-12">
             <div class="common-title">
                 <h2>

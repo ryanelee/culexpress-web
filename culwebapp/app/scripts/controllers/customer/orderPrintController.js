@@ -8,8 +8,8 @@
  * Controller of the culwebApp
  */
 angular.module('culwebApp')
-    .controller('OrderPrintCtrl', ["$timeout", "$window", "$scope", "$rootScope", "OrderSvr", "orderService", "warehouseService", "$location",
-        function ($timeout, $window, $scope, $rootScope, orderSvr, orderService, warehouseService, $location) {
+    .controller('OrderPrintCtrl', ["$timeout", "$window", "$scope", "$rootScope", "OrderSvr", "orderService", "warehouseService", "$location","$state",
+        function ($timeout, $window, $scope, $rootScope, orderSvr, orderService, warehouseService, $location, $state) {
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
@@ -186,6 +186,7 @@ angular.module('culwebApp')
 
             };
 
+<<<<<<< HEAD
             // yyyy-mm-dd
             var _getDate = function (dateStr) {
                 var year = dateStr.substr(0, 4);
@@ -193,6 +194,11 @@ angular.module('culwebApp')
                 var day = dateStr.substr(8, 2);
                 return new Date(year, month, day);
             };
+=======
+            $scope.redirectToDetail = function (orderItem) {
+                $state.go('customer.orderdetail', { id: orderItem.orderNumber });
+            }
+>>>>>>> c3fe490efa18611ac4a02a82d4f42027cd09d585
 
             $scope.queryOrder = function (index, paras) {
                 var pageSize = $scope.pageSize;
@@ -206,8 +212,12 @@ angular.module('culwebApp')
                     .getOrderList(index, angular.extend({
                         customerNumber: $scope.$root.currentUser.customerNumber,
                         orderStatus: $scope.queryPara.orderStatus,
+<<<<<<< HEAD
                         dateFrom: dateFrom,
                         dateTo: dateTo
+=======
+                        orderType: 0
+>>>>>>> c3fe490efa18611ac4a02a82d4f42027cd09d585
                     }, paras || {}
                     ), pageSize)
                     .then(function (result) {
