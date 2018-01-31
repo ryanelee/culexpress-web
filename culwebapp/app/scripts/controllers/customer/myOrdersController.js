@@ -413,7 +413,7 @@ var app = angular
                             var orderItem = packageItem.orderItems[j];
                             orderItem.packageNumber = packageNumber;
                             $scope.data.declareGoodsValue += orderItem.quantity * orderItem.unitprice;
-                            $scope.data.declareGoodsValue = $scope.data.declareGoodsValue.toFixed(2);
+                            $scope.data.declareGoodsValue = parseInt($scope.data.declareGoodsValue);
                             if (angular.isObject(orderItem.goodsCategory)) {
                                 orderItem.goodsCategory = orderItem.goodsCategory.goodsCategory;
                             }
