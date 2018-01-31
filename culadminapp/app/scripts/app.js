@@ -147,7 +147,7 @@ angular
                 controller: 'WarehouseInventoryCtrl'
             })
             .when('/warehouse/inventoryTime', {
-                templateUrl: 'views/warehouse/inventorytime.html',
+                templateUrl: 'views/warehouse/inventoryTime.html',
                 controller: 'InventoryTimeCtrl'
             })
 
