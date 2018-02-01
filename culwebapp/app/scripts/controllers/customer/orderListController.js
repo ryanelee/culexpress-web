@@ -137,6 +137,7 @@ angular.module('culwebApp')
             ];
             var queryPara = $scope.queryPara = {
                 searchKeyName: 'orderNumber',
+                keywords: '',
                 orderStatus: ''
             };
 
@@ -156,16 +157,10 @@ angular.module('culwebApp')
                 var pageSize = $scope.pageSize;
                 $scope.pagedOptions.index = index;
                 $scope.pagedOptions.size = pageSize;
-
-                var dateFrom = !!$scope.queryPara.startDate ? _getDate($scope.queryPara.startDate).toISOString() : "";
-                var dateTo = !!$scope.queryPara.endDate ? _getDate($scope.queryPara.endDate).toISOString() : "";
-
                 orderSvr
                     .getOrderList(index, angular.extend({
                         customerNumber: $scope.$root.currentUser.customerNumber,
                         orderStatus: $scope.queryPara.orderStatus,
-                        dateFrom: dateFrom,
-                        dateTo: dateTo,
                         orderType: 0
                     }, paras || {}), pageSize)
                     .then(function (result) {
@@ -173,8 +168,7 @@ angular.module('culwebApp')
                             $scope.exportOptions = $.extend({ token: _token }, {
                                 customerNumber: $scope.$root.currentUser.customerNumber,
                                 orderStatus: $scope.queryPara.orderStatus,
-                                dateFrom: dateFrom,
-                                dateTo: dateTo
+                                orderType: 0
                             }, paras || {}
                             );
 
@@ -218,7 +212,6 @@ angular.module('culwebApp')
             }
             $scope.queryOrder();
 
-
             $scope.rangSearch = function (rangeItem) {
                 $scope.queryPara = {
                     searchKeyName: 'orderNumber',
@@ -230,12 +223,30 @@ angular.module('culwebApp')
                     dateTo: rangeItem.end
                 }));
             }
+
+            var _options = function () {
+                var dateFrom = !!$scope.queryPara.startDate ? _getDate($scope.queryPara.startDate).toISOString() : "";
+                var dateTo = !!$scope.queryPara.endDate ? _getDate($scope.queryPara.endDate).toISOString() : "";
+                var _options = {
+                    "dateFrom": dateFrom,
+                    "dateTo": dateTo
+                }
+                if (!!$scope.queryPara.orderStatus) {
+                    _options["orderStatus"] = $scope.queryPara.orderStatus;
+                }
+                if (!!$scope.queryPara.keywords) {
+                    _options[$scope.queryPara.searchKeyName] = $scope.queryPara.keywords;
+                }
+                return angular.copy(_options);
+            }
+
             $scope.searchOrder = function () {
                 $scope.selectedListCache = [];
                 $scope.dataList = [];
                 $scope.pagination.pageIndex = 1;
                 $scope.pagination.totalCount = 0;
-                $scope.queryOrder(1, $scope.queryPara);
+                var options = _options();
+                $scope.queryOrder(1, options);
             }
 
 
