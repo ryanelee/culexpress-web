@@ -73,7 +73,7 @@ angular.module('culAdminApp')
             });
 
             warehouseService.getShippingChannelList(function (result) {
-                if (result.length == 1) {
+                if (result.length == 1) { 
                     $scope.searchBar.shippingChannelList = result;
                     $scope.searchBar.shipServiceId = $scope.searchBar.shippingChannelList[0].shipServiceId;
                 } else {
@@ -250,9 +250,9 @@ angular.module('culAdminApp')
                     }
                 }
                 $scope.searchOrder.deleteMessage = $scope.deleteMessage;
-                // plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
-                    // if (!!isOK) {
-                        $(event.currentTarget).parents("#confirm-modal").modal("hide");
+                plugMessenger.confirm("确定要删除订单吗？(删除后不可恢复)", function (isOK) {
+                    if (!!isOK) {
+                        // $(event.currentTarget).parents("#confirm-modal").modal("hide");
                         orderService.delete($scope.searchOrder, function (result) {
                             if (result.success == true) {
                                 plugMessenger.info("删除成功");
@@ -266,8 +266,8 @@ angular.module('culAdminApp')
                                 // plugMessenger.info(result);
                             }
                         });
-                    // }
-                // });
+                    }
+                });
             }
 
             $scope.btnClearSelectedListCache = function () {
