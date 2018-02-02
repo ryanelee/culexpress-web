@@ -715,7 +715,6 @@ var app = angular
 
 
                 if (index === 2) {
-
                     //selectedCategory(outboundPackageItem,'currentCategory',null);
                     var orderItems = getOrders();
                     orderSvr.cacluTariff(orderItems).then(function (data) {
