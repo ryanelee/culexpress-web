@@ -715,7 +715,6 @@ var app = angular
 
 
                 if (index === 2) {
-
                     //selectedCategory(outboundPackageItem,'currentCategory',null);
                     var orderItems = getOrders();
                     orderSvr.cacluTariff(orderItems).then(function (data) {
@@ -978,7 +977,6 @@ var app = angular
 
                         $timeout(function () {
                             $scope.countFee = calculData;
-                            console.log("$scope.countFee...",$scope.countFee.countFee)
                         })
                     };
                 // (shipService.RMBExchangeRate || 6.95);

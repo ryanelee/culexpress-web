@@ -137,9 +137,16 @@ angular.module('culwebApp')
             ];
             var queryPara = $scope.queryPara = {
                 searchKeyName: 'orderNumber',
-                dateRange: 'last6Months',
-                orderStatus: '',
+                keywords: '',
+                orderStatus: ''
+            };
 
+            // yyyy-mm-dd
+            var _getDate = function (dateStr) {
+                var year = dateStr.substr(0, 4);
+                var month = dateStr.substr(5, 2) - 1;
+                var day = dateStr.substr(8, 2);
+                return new Date(year, month, day);
             };
 
             $scope.redirectToDetail = function (orderItem) {
@@ -150,19 +157,18 @@ angular.module('culwebApp')
                 var pageSize = $scope.pageSize;
                 $scope.pagedOptions.index = index;
                 $scope.pagedOptions.size = pageSize;
-
                 orderSvr
                     .getOrderList(index, angular.extend({
                         customerNumber: $scope.$root.currentUser.customerNumber,
                         orderStatus: $scope.queryPara.orderStatus,
                         orderType: 0
-                    }, paras || {}
-                    ), pageSize)
+                    }, paras || {}), pageSize)
                     .then(function (result) {
                         if (result.data) {
                             $scope.exportOptions = $.extend({ token: _token }, {
                                 customerNumber: $scope.$root.currentUser.customerNumber,
-                                orderStatus: $scope.queryPara.orderStatus
+                                orderStatus: $scope.queryPara.orderStatus,
+                                orderType: 0
                             }, paras || {}
                             );
 
@@ -209,8 +215,7 @@ angular.module('culwebApp')
             $scope.rangSearch = function (rangeItem) {
                 $scope.queryPara = {
                     searchKeyName: 'orderNumber',
-                    dateRange: 'last6Months',
-                    orderStatus: 'Unpaid',
+                    orderStatus: 'Unpaid'
                 };
 
                 $scope.queryOrder(1, angular.extend($scope.queryPara, {
@@ -218,8 +223,30 @@ angular.module('culwebApp')
                     dateTo: rangeItem.end
                 }));
             }
+
+            var _options = function () {
+                var dateFrom = !!$scope.queryPara.startDate ? _getDate($scope.queryPara.startDate).toISOString() : "";
+                var dateTo = !!$scope.queryPara.endDate ? _getDate($scope.queryPara.endDate).toISOString() : "";
+                var _options = {
+                    "dateFrom": dateFrom,
+                    "dateTo": dateTo
+                }
+                if (!!$scope.queryPara.orderStatus) {
+                    _options["orderStatus"] = $scope.queryPara.orderStatus;
+                }
+                if (!!$scope.queryPara.keywords) {
+                    _options[$scope.queryPara.searchKeyName] = $scope.queryPara.keywords;
+                }
+                return angular.copy(_options);
+            }
+
             $scope.searchOrder = function () {
-                $scope.queryOrder(1, $scope.queryPara);
+                $scope.selectedListCache = [];
+                $scope.dataList = [];
+                $scope.pagination.pageIndex = 1;
+                $scope.pagination.totalCount = 0;
+                var options = _options();
+                $scope.queryOrder(1, options);
             }
 
 
@@ -233,14 +260,14 @@ angular.module('culwebApp')
             }
 
 
-            $scope.btnSearch = function () {
+            // $scope.btnSearch = function () {
 
-                $scope.selectedListCache = [];
-                $scope.dataList = [];
-                $scope.pagination.pageIndex = 1;
-                $scope.pagination.totalCount = 0;
-                $scope.getData();
-            }
+            //     $scope.selectedListCache = [];
+            //     $scope.dataList = [];
+            //     $scope.pagination.pageIndex = 1;
+            //     $scope.pagination.totalCount = 0;
+            //     $scope.getData();
+            // }
 
             $scope.selectedListCache = [];
 

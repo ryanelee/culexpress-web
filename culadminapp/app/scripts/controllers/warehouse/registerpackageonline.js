@@ -116,21 +116,22 @@ angular.module('culAdminApp')
                     $scope.data.outboundPackages.push(result);
                 });
             }
-            $scope.btnDelPackage = function (item) {
+            $scope.btnDelPackage = function (item, index) {
                 if ($scope.data.outboundPackages.length <= 1) {
                     return plugMessenger.info("只有一个包裹，不允许删除");
                 }
                 if(item.status === "Packaged"){
-                                 plugMessenger.confirm("该包裹已打包，是否删除？", function (isOk) {
-                                    if (isOk) {
-                                        orderService.deleteOutboundPackage({
-                                            "number": item.trackingNumber,
-                                        }, function (result) {
-                                            $scope.tempInboundPackageNumber = $scope.tempData;
-                                            $scope.getData();
-                                        });
-                                    }
-                                 })
+                    plugMessenger.confirm("该包裹已打包，是否删除？", function (isOk) {
+                    if (isOk) {
+                        orderService.deleteOutboundPackage({
+                            "number": item.trackingNumber,
+                        }, function (result) {
+                            $scope.tempInboundPackageNumber = $scope.tempData;
+                            $scope.data.outboundPackages.splice(index, 1);
+                            $scope.getData();
+                        });
+                    }
+                    })
                 }else{
                    plugMessenger.confirm("确认删除转运包裹“" + item.trackingNumber + "”吗？", function (isOk) {
                     if (isOk) {
@@ -138,6 +139,7 @@ angular.module('culAdminApp')
                             "number": item.trackingNumber,
                         }, function (result) {
                             $scope.tempInboundPackageNumber = $scope.tempData;
+                            $scope.data.outboundPackages.splice(index, 1);
                             $scope.getData();
                         });
                     }
@@ -182,6 +184,7 @@ angular.module('culAdminApp')
                         if (!!result && !!result.data && result.data.length > 0) {
                             if (!$scope.data) {
                                 $scope.data = result.data[0];
+                                console.log($scope.data);
                             }
 
                             if($scope.data.printStatus !== "Printed"){
@@ -191,7 +194,7 @@ angular.module('culAdminApp')
                             }
 
                             if ($scope.data.orderStatus !== "Processing" && $scope.data.orderStatus !== "Paid" 
-                                && $scope.data.orderStatus !== "PartialShipped" && $scope.data.orderStatus !== "WaybillUpdated") {
+                                && $scope.data.orderStatus !== "PartialShipped" && $scope.data.orderStatus !== "WaybillUpdated" && $scope.data.orderStatus !== "Arrears") {
                                 $scope.tempInboundPackageNumber = "";
                                 var orderStatus = $scope.data._orderStatus;
                                 $scope.data = null;

@@ -12,8 +12,9 @@
                     <div class="form-group">
                         <label>搜索条目：</label>
                         <select class="form-control" ng-model="queryPara.searchKeyName" ng-options="searchKeyItem.key as searchKeyItem.text for searchKeyItem in searchKeyItems"></select>
-                        <input type="text" class="form-control" ng-model="queryPara[queryPara.searchKeyName]" ng-enter="searchOrder()" />
+                        <input type="text" class="form-control" ng-model="queryPara.keywords" ng-enter="searchOrder()" />
                         
+                        <label>时间范围：</label>
                         <div class="form-group" id="datepicker1">
                             <div class="input-group date">
                                 <input type="text" placeholder="开始时间" class="form-control" ng-model="queryPara.startDate">
@@ -194,3 +195,26 @@
 <print-flying-express2></print-flying-express2>
 <print-flying-express-empty></print-flying-express-empty>
 <print-tracking-number></print-tracking-number>
+
+<script>
+    $(document).ready(function () {
+        $('#datepicker1 .input-group.date').datepicker({
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            showSecond: true,
+            language: 'zh-CN',
+            todayBtn: "linked",
+            toggleActive: true
+        });
+        $('#datepicker2 .input-group.date').datepicker({
+            format: 'yyyy-mm-dd',
+            todayHighlight: true,
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            // keepOpen: true,
+            language: 'zh-CN',
+            todayBtn: "linked",
+            toggleActive: true
+        });
+    });
+</script>
