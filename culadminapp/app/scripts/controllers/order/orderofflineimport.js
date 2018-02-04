@@ -22,89 +22,7 @@ angular.module('culAdminApp')
       $scope.tpl_status = {
           step3: 1
       }
-
-      var $wizard = null;
-      $timeout(function () {
-          $wizard = $("#offline-order-wizard");
-          $wizard.wizard({ clickableSteps: false })
-          $wizard.on('change', function (e, data) {
-              if (data.direction == "next") {
-                  if (!$scope.stepValidation[data.step - 1]) {
-                      switch (data.step) {
-                          case 1:
-                              plugMessenger.info("请上传线下订单Excel文件");
-                              break;
-                          case 2:
-                              plugMessenger.info("文件检查未通过，请返回上一步重新上传");
-                              break;
-                      }
-                      return false;
-                  }
-                  if (data.step == 3) {         //检查List
-                      var errorMessage = null;
-                      $.each($scope.dataList, function (index, item) {
-                          if (item.actualTotalWeight == null || item.actualTotalWeight == 0) {
-                              errorMessage = "订单编号为“" + item.orderNumber + "”的订单，没有填写实际订单重量。";
-                              return false;
-                          }
-                      })
-                      if (!!errorMessage) {
-                          plugMessenger.error(errorMessage);
-                          return false;
-                      }
-                  } else if (data.step == 4) {  //检查Form
-                  }
-                  switch (data.step) {
-                      case 1:
-                          _stepFunction[1]();
-                          break;
-                      case 2:
-                          _stepFunction[2]();
-                          break;
-                      case 3:
-                          _stepFunction[3]();
-                          break;
-                      case 4:
-                          _stepFunction[4]();
-                          break;
-                  }
-
-                  $timeout(function () {
-                      $scope.stepIndex = data.step + 1;
-                      if ($scope.stepIndex == 4) {
-                          $scope.validPaymentPrice();
-                      } else {
-                          $scope.btnNextEnable = false;
-                      }
-                  });
-              } else {
-                  $timeout(function () {
-                      $scope.stepIndex = data.step - 1;
-                      $scope.btnNextEnable = true;
-                  });
-              }
-          }).on('finished', function () {
-              //alert('Your account has been created.');
-          });
-
-          $('.wizard-wrapper .btn-next').click(function () {
-              $wizard.wizard('next');
-          });
-
-          $('.wizard-wrapper .btn-prev').click(function () {
-              $wizard.wizard('previous');
-          });
-
-          $('.wizard-wrapper .btn-checkout').click(function () {
-              plugMessenger.confirm("确定要出库吗？", function (isOK) {
-                  if (isOK) $wizard.wizard('next');
-              });
-          });
-
-          _stepFunction[0]();
-      });
-
-      var _stepFunction = [
+       var _stepFunction = [
           //step 1
           function () {
               Dropzone.autoDiscover = false;
@@ -242,6 +160,87 @@ angular.module('culAdminApp')
           }
       ]
 
+      var $wizard = null;
+          $wizard = $("#offline-order-wizard");
+          $wizard.wizard({ clickableSteps: false })
+          $wizard.on('change', function (e, data) {
+              if (data.direction == "next") {
+                  if (!$scope.stepValidation[data.step - 1]) {
+                      switch (data.step) {
+                          case 1:
+                              plugMessenger.info("请上传线下订单Excel文件");
+                              break;
+                          case 2:
+                              plugMessenger.info("文件检查未通过，请返回上一步重新上传");
+                              break;
+                      }
+                      return false;
+                  }
+                  if (data.step == 3) {         //检查List
+                      var errorMessage = null;
+                      $.each($scope.dataList, function (index, item) {
+                          if (item.actualTotalWeight == null || item.actualTotalWeight == 0) {
+                              errorMessage = "订单编号为“" + item.orderNumber + "”的订单，没有填写实际订单重量。";
+                              return false;
+                          }
+                      })
+                      if (!!errorMessage) {
+                          plugMessenger.error(errorMessage);
+                          return false;
+                      }
+                  } else if (data.step == 4) {  //检查Form
+                  }
+                  switch (data.step) {
+                      case 1:
+                          _stepFunction[1]();
+                          break;
+                      case 2:
+                          _stepFunction[2]();
+                          break;
+                      case 3:
+                          _stepFunction[3]();
+                          break;
+                      case 4:
+                          _stepFunction[4]();
+                          break;
+                  }
+
+                  $timeout(function () {
+                      $scope.stepIndex = data.step + 1;
+                      if ($scope.stepIndex == 4) {
+                          $scope.validPaymentPrice();
+                      } else {
+                          $scope.btnNextEnable = false;
+                      }
+                  });
+              } else {
+                  $timeout(function () {
+                      $scope.stepIndex = data.step - 1;
+                      $scope.btnNextEnable = true;
+                  });
+              }
+          }).on('finished', function () {
+              //alert('Your account has been created.');
+          });
+
+          $('.wizard-wrapper .btn-next').click(function () {
+              $wizard.wizard('next');
+          });
+
+          $('.wizard-wrapper .btn-prev').click(function () {
+              $wizard.wizard('previous');
+          });
+
+          $('.wizard-wrapper .btn-checkout').click(function () {
+              plugMessenger.confirm("确定要出库吗？", function (isOK) {
+                  if (isOK) $wizard.wizard('next');
+              });
+          });
+
+
+     
+      _stepFunction[0]();
+
 
       //step 3
       $scope.dataList = [];
@@ -263,7 +262,7 @@ angular.module('culAdminApp')
                               return false;
                           }
                       });
-                  });
+                  }); 
               }
 
               $("#offlineOrderDetailModal").modal("show");

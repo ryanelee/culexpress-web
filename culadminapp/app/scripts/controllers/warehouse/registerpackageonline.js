@@ -194,7 +194,7 @@ angular.module('culAdminApp')
                             }
 
                             if ($scope.data.orderStatus !== "Processing" && $scope.data.orderStatus !== "Paid" 
-                                && $scope.data.orderStatus !== "PartialShipped" && $scope.data.orderStatus !== "WaybillUpdated") {
+                                && $scope.data.orderStatus !== "PartialShipped" && $scope.data.orderStatus !== "WaybillUpdated" && $scope.data.orderStatus !== "Arrears") {
                                 $scope.tempInboundPackageNumber = "";
                                 var orderStatus = $scope.data._orderStatus;
                                 $scope.data = null;
