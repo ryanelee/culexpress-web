@@ -210,6 +210,7 @@ var app = angular
 
             var queryPara = $scope.queryPara = {
                 searchKeyName: 'orderNumber',
+                keywords: '',
                 dateRange: 'last6Months',
                 orderStatus: 'Unpaid',
 
@@ -298,8 +299,25 @@ var app = angular
                     dateTo: rangeItem.end
                 }));
             }
+            var _options = function () {
+                var dateFrom = !!$scope.queryPara.startDate ? _getDate($scope.queryPara.startDate).toISOString() : "";
+                var dateTo = !!$scope.queryPara.endDate ? _getDate($scope.queryPara.endDate).toISOString() : "";
+                var _options = {
+                    "dateFrom": dateFrom,
+                    "dateTo": dateTo
+                }
+                if (!!$scope.queryPara.orderStatus) {
+                    _options["orderStatus"] = $scope.queryPara.orderStatus;
+                }
+                if (!!$scope.queryPara.keywords) {
+                    _options[$scope.queryPara.searchKeyName] = $scope.queryPara.keywords;
+                }
+                return angular.copy(_options);
+            }
+
             $scope.searchOrder = function () {
-                $scope.queryOrder(1, $scope.queryPara);
+                var options = _options();
+                $scope.queryOrder(1, options);
             }
 
 
