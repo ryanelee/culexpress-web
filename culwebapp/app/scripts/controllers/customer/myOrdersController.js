@@ -413,7 +413,6 @@ var app = angular
                             var orderItem = packageItem.orderItems[j];
                             orderItem.packageNumber = packageNumber;
                             $scope.data.declareGoodsValue += orderItem.quantity * orderItem.unitprice;
-                            $scope.data.declareGoodsValue = Number($scope.data.declareGoodsValue).toFixed(2);
                             if (angular.isObject(orderItem.goodsCategory)) {
                                 orderItem.goodsCategory = orderItem.goodsCategory.goodsCategory;
                             }
@@ -425,6 +424,7 @@ var app = angular
 
                             orders.push(orderItem);
                         }
+                        $scope.data.declareGoodsValue = Number($scope.data.declareGoodsValue).toFixed(2);
                     }
                 }
                 return orders;
@@ -994,7 +994,7 @@ var app = angular
                     }
                     $scope.countFee.totalCount = ($scope.countFee.insuranceFee || 0) + ($scope.countFee.shippingFee || 0) + ($scope.countFee.tip || 0) + ($scope.countFee.usePoint || 0) + ($scope.countFee.valueAddFee || 0) +  ($scope.countFee.tariffMoney || 0);
                     if (ctrlType !== 'checkbox') {
-                        if (!angular.isNumber($scope.data.declareGoodsValue) || $scope.data.declareGoodsValue <= 0) $scope.data.declareGoodsValue = 0;
+                        // if (!angular.isNumber($scope.data.declareGoodsValue) || $scope.data.declareGoodsValue <= 0) $scope.data.declareGoodsValue = 0;
                         if (!angular.isNumber($scope.data.tip) || $scope.data.tip <= 0) $scope.data.tip = 0;
                     }
 
