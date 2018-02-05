@@ -299,6 +299,15 @@ var app = angular
                     dateTo: rangeItem.end
                 }));
             }
+            
+            // yyyy-mm-dd
+            var _getDate = function (dateStr) {
+                var year = dateStr.substr(0, 4);
+                var month = dateStr.substr(5, 2) - 1;
+                var day = dateStr.substr(8, 2);
+                return new Date(year, month, day);
+            };
+
             var _options = function () {
                 var dateFrom = !!$scope.queryPara.startDate ? _getDate($scope.queryPara.startDate).toISOString() : "";
                 var dateTo = !!$scope.queryPara.endDate ? _getDate($scope.queryPara.endDate).toISOString() : "";
