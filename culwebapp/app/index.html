@@ -199,20 +199,20 @@
                                         <li ng-class="{active: $state.includes('customer.products')}" ng-if="currentUser.isVip">
                                             <a ui-sref="customer.products"><i class="fa fa-cubes"></i> 商品列表</a>
                                         </li>
-                                        <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
-                                            <a ui-sref="/"><i class="fa fa-arrow-circle-right"></i> 寄送库存</a>
+                                        <li ng-class="{active: $state.includes('customer.sendiedit')}" ng-if="currentUser.isVip">
+                                            <a ui-sref="customer.sendiedit"><i class="fa fa-arrow-circle-right"></i> 寄送库存</a>
                                         </li>
-                                        <li ng-class="{active: $state.includes('')}" ng-if="currentUser.isVip">
-                                            <a ui-sref="customer.products"><i class="fa fa-list"></i> 库存寄件列表</a>
+                                        <li ng-class="{active: $state.includes('customer.sendinventory')}" ng-if="currentUser.isVip">
+                                            <a ui-sref="customer.sendinventory"><i class="fa fa-list"></i> 库存寄件列表</a>
                                         </li>
-                                        <li ng-class="{active: $state.includes('customer.neworder')}" ng-if="currentUser.isVip">
-                                            <a ui-sref="customer.neworder"><i class="fa fa-plus-square"></i> 创建订单</a>
+                                        <li ng-class="{active: $state.includes('customer.orderofflineimport')}" ng-if="currentUser.isVip">
+                                            <a ui-sref="customer.orderofflineimport"><i class="fa fa-plus-square"></i> 创建订单</a>
                                         </li>
                                         <li ng-class="{active: $state.includes('customer.orderlist')}" ng-if="currentUser.isVip">
                                             <a ui-sref="customer.orderlist"><i class="fa fa-list-ol"></i> 订单查询</a>
                                         </li>
-                                        <li ng-class="{active: $state.includes('customer.printorders')}" ng-if="currentUser.isVip">
-                                            <a ui-sref="customer.printorders"><i class="fa fa-print"></i> 订单打印</a>
+                                        <li ng-class="{active: $state.includes('customer.orderprint')}" ng-if="currentUser.isVip">
+                                            <a ui-sref="customer.orderprint"><i class="fa fa-print"></i> 订单打印</a>
                                         </li>
                                         <li ng-class="{active: $state.includes('customer.myquestions')}">
                                             <a ui-sref="customer.myquestions"><i class="fa fa-question-circle"></i> 我的问题</a>

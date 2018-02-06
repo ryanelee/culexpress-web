@@ -210,6 +210,7 @@ var app = angular
 
             var queryPara = $scope.queryPara = {
                 searchKeyName: 'orderNumber',
+                keywords: '',
                 dateRange: 'last6Months',
                 orderStatus: 'Unpaid',
 
@@ -298,8 +299,34 @@ var app = angular
                     dateTo: rangeItem.end
                 }));
             }
+            
+            // yyyy-mm-dd
+            var _getDate = function (dateStr) {
+                var year = dateStr.substr(0, 4);
+                var month = dateStr.substr(5, 2) - 1;
+                var day = dateStr.substr(8, 2);
+                return new Date(year, month, day);
+            };
+
+            var _options = function () {
+                var dateFrom = !!$scope.queryPara.startDate ? _getDate($scope.queryPara.startDate).toISOString() : "";
+                var dateTo = !!$scope.queryPara.endDate ? _getDate($scope.queryPara.endDate).toISOString() : "";
+                var _options = {
+                    "dateFrom": dateFrom,
+                    "dateTo": dateTo
+                }
+                if (!!$scope.queryPara.orderStatus) {
+                    _options["orderStatus"] = $scope.queryPara.orderStatus;
+                }
+                if (!!$scope.queryPara.keywords) {
+                    _options[$scope.queryPara.searchKeyName] = $scope.queryPara.keywords;
+                }
+                return angular.copy(_options);
+            }
+
             $scope.searchOrder = function () {
-                $scope.queryOrder(1, $scope.queryPara);
+                var options = _options();
+                $scope.queryOrder(1, options);
             }
 
 
@@ -413,7 +440,6 @@ var app = angular
                             var orderItem = packageItem.orderItems[j];
                             orderItem.packageNumber = packageNumber;
                             $scope.data.declareGoodsValue += orderItem.quantity * orderItem.unitprice;
-                            $scope.data.declareGoodsValue = Number($scope.data.declareGoodsValue).toFixed(2);
                             if (angular.isObject(orderItem.goodsCategory)) {
                                 orderItem.goodsCategory = orderItem.goodsCategory.goodsCategory;
                             }
@@ -425,6 +451,7 @@ var app = angular
 
                             orders.push(orderItem);
                         }
+                        $scope.data.declareGoodsValue = Number($scope.data.declareGoodsValue).toFixed(2);
                     }
                 }
                 return orders;
@@ -994,7 +1021,7 @@ var app = angular
                     }
                     $scope.countFee.totalCount = ($scope.countFee.insuranceFee || 0) + ($scope.countFee.shippingFee || 0) + ($scope.countFee.tip || 0) + ($scope.countFee.usePoint || 0) + ($scope.countFee.valueAddFee || 0) +  ($scope.countFee.tariffMoney || 0);
                     if (ctrlType !== 'checkbox') {
-                        if (!angular.isNumber($scope.data.declareGoodsValue) || $scope.data.declareGoodsValue <= 0) $scope.data.declareGoodsValue = 0;
+                        // if (!angular.isNumber($scope.data.declareGoodsValue) || $scope.data.declareGoodsValue <= 0) $scope.data.declareGoodsValue = 0;
                         if (!angular.isNumber($scope.data.tip) || $scope.data.tip <= 0) $scope.data.tip = 0;
                     }
 
