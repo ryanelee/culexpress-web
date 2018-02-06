@@ -25,9 +25,41 @@ angular.module('culAdminApp')
 
             $scope.getCompatibleInboundTrackingNumber = function (trackingNumber) {
                 //USPS: 420+5 zip code + 21/22 #s
-                if (typeof trackingNumber == "string" && /^420\d{5}\d{21,22}$/.test(trackingNumber)) {
-                    trackingNumber = trackingNumber.substr(8);
+                // if (typeof trackingNumber == "string" && /^420\d{5}\d{21,22}$/.test(trackingNumber)) {
+                //     trackingNumber = trackingNumber.substr(8);
+                // }
+
+
+                if (typeof trackingNumber == "string" && /^9622001900009612705000/.test(trackingNumber) && trackingNumber.length === 34) {
+                    trackingNumber = trackingNumber.replace(/^9622001900009612705000/, '');
                 }
+                else
+                    if (typeof trackingNumber == "string" && /^9612019/.test(trackingNumber) && trackingNumber.length === 22) {
+                        trackingNumber = trackingNumber.replace(/^9612019/, '');
+                    }
+                    else
+                        if (typeof trackingNumber == "string" && /^4201972092/.test(trackingNumber) && trackingNumber.length === 30) {
+                            console.log('234', 2345)
+                            trackingNumber = trackingNumber.replace(/^4201972092/, '');
+                        }
+                        else
+                            if (typeof trackingNumber == "string" && /^9622085030000054164400/.test(trackingNumber) && trackingNumber.length === 34) {
+                                trackingNumber = trackingNumber.replace(/^9622085030000054164400/, '');
+                            }
+                            else
+                                if (typeof trackingNumber == "string" && /^42019720/.test(trackingNumber) && trackingNumber.length === 30) {
+                                    trackingNumber = trackingNumber.replace(/^42019720/, '');
+                                }
+                                else
+                                if (typeof trackingNumber == "string" && /^42019720/.test(trackingNumber) && trackingNumber.length === 34) {
+                                    trackingNumber = trackingNumber.replace(/^42019720/, '');
+                                }
+                                else {
+                                    if (typeof trackingNumber == "string" && /^420\d{5}\d{21,22}$/.test(trackingNumber)) {
+                                        trackingNumber = trackingNumber.substr(8);
+                                    }
+                                }
+                return trackingNumber;
 
                 return trackingNumber;
             };
