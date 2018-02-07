@@ -42,7 +42,7 @@ angular.module('culAdminApp')
             $scope.tempSearchBar = angular.copy(storage.getSearchObject());
             if ($scope.tempSearchBar) {
                 $scope.searchBar = $scope.tempSearchBar ? $scope.tempSearchBar : $scope.searchBar;
-            }
+            } 
 
             //   storage.session.setObject("searchBar", $scope.searchBar);
 
