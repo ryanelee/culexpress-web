@@ -375,6 +375,7 @@ angular
             }
 
             $scope.deleteAddress = function(addressItem) {
+                debugger
                 alertify.confirm('确认', '请确认是否删除?',
                         function() {
                             addressSvr
