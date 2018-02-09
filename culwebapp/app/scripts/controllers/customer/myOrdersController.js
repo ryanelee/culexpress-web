@@ -597,6 +597,12 @@ var app = angular
             }
 
             $scope.submitOrder = function () {
+                if ($scope.data.pack_checkCount == '1') {
+                    if ($scope.data.userEmail == undefined || $scope.data.userEmail == null || $scope.data.userEmail == '') {
+                        alertify.alert('提示', "请输入邮箱，方便我们将清点拍照信息发送给您。");
+                        return;
+                    }
+                }
                 if (!$scope.data.submit_agreeterms || $scope.data.submit_agreeterms != true) {
                     alertify.alert('提示', '提交订单之前,请勾选我已阅读并同意CULEXPRESS免责赔偿条款!');
                     return;
@@ -626,6 +632,7 @@ var app = angular
                 $scope.data.tariffMoney = $scope.countFee.tariffMoney
                 $scope.data.valueAddFee = $scope.countFee.valueAddFee
 
+                console.log($scope.data);
                 preSubmitToService($scope.data);
             }
 

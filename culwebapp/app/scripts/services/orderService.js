@@ -215,7 +215,9 @@ angular.module('culwebApp')
                     packageWeight: orderData.packageWeight,
                     tariffMoney: orderData.tariffMoney,
                     // 增值服务
-                    valueAddFee: orderData.valueAddFee
+                    valueAddFee: orderData.valueAddFee,
+                    // 客户邮箱
+                    userEmail: orderData.userEmail
                 });
             },
             getOrderStepList: function (trackingNumber) {
