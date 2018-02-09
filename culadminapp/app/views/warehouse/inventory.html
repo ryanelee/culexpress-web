@@ -36,6 +36,17 @@
                         <input class="form-control search-control" style="width:100px;" ng-model="searchBar.inventoryConditionValue" ng-show="searchBar.inventoryCondition != ''"
                         />
                     </div>
+                    <!-- <div class="search-col">
+                        <label class="search-label">库存天数：</label>
+                        <select class="form-control search-control" ng-model="searchBar.days">
+                            <option value="">所有</option>
+                            <option value=">">大于</option>
+                            <option value="=">等于</option>
+                            <option value="<">小于</option>
+                        </select>
+                        <input class="form-control search-control" style="width:100px;" ng-model="searchBar.daysValue" ng-show="searchBar.inventoryCondition != ''"
+                        />
+                    </div> -->
                     <div class="search-col">
                         <label class="search-label">商品主类别：</label>
                         <select class="form-control search-control" ng-model="searchBar.categoryId" ng-change="changeCategory()" ng-options="item.cateid as item.name for item in searchBar.categoryList"></select>
