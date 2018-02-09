@@ -18,6 +18,18 @@
                         <label class="search-label">发货仓库：</label>
                         <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
                     </div>
+
+                      <div class="search-col">
+                        <label class="search-label">仓储时间：</label>
+                        <select class="form-control search-control" ng-model="searchBar.dayCondition">
+                            <option value="">所有</option>
+                            <option value=">">大于</option>
+                            <option value="=">等于</option>
+                            <option value="<">小于</option>
+                        </select>
+                        <input class="form-control search-control" style="width:100px;" ng-model="searchBar.dayConditionValue" ng-show="searchBar.dayCondition != ''"
+                        />
+                    </div>
                 
              
                

@@ -30,8 +30,9 @@ angular.module('culAdminApp')
             $scope.searchBar = {
                 keywordType: "receiptNumber",
                 warehouseNumber: "",
-                inventoryCondition: "",
-                inventoryConditionValue: "0",
+                dayCondition: "",
+                dayConditionValue: "0",
+                
                 categoryId: "",
                 categorySubId: "",
                 sendType: "",
@@ -103,15 +104,15 @@ angular.module('culAdminApp')
                     _options["itemSubCategory"] = $scope.searchBar.categorySubId;
                 }
 
-                switch ($scope.searchBar.inventoryCondition) {
+                switch ($scope.searchBar.dayCondition) {
                     case ">":
-                        _options["inventoryFrom"] = $scope.searchBar.inventoryConditionValue;
+                        _options["dayFrom"] = $scope.searchBar.dayConditionValue;
                         break;
                     case "<":
-                        _options["inventoryTo"] = $scope.searchBar.inventoryConditionValue;
+                        _options["dayTo"] = $scope.searchBar.dayConditionValue;
                         break;
                     case "=":
-                        _options["inventory"] = $scope.searchBar.inventoryConditionValue;
+                        _options["day"] = $scope.searchBar.dayConditionValue;
                         break;
                 }
 
@@ -211,7 +212,7 @@ angular.module('culAdminApp')
                     return plugMessenger.error("需要支付的金额必须大于0元")
                 }
                 plugMessenger.confirm("确认扣除客户管理费" + item.payMoney + "元?", function (isOk) {
-                    if (isOk) {
+                    if (isOk) { 
                         inventoryService.payInventory(pay, function (result) {
                             if (result.success == true) {
                                 plugMessenger.success("扣款成功")
