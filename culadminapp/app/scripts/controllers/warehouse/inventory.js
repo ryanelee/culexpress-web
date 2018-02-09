@@ -41,7 +41,9 @@ angular.module('culAdminApp')
                 opened: {
                     startDate: false,
                     endDate: false
-                }
+                },
+                days: "",
+                daysValue: ""
             }
             $scope.tempSearchBar = angular.copy(storage.getSearchObject());
             if ($scope.tempSearchBar) {

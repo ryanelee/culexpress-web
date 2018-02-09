@@ -371,6 +371,20 @@
                                         <label for="pack_checkCount"> 清点拍照 </label></a>
                                 </div>
                             </div>
+
+                            <div class="form-group row" style="margin:0 15px" ng-show="data.pack_checkCount">
+                                <div class="col-sm-2">
+                                    <label class="label">邮箱：</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-envelope-square"></i>
+                                        </span>
+                                        <input type="email" class="form-control" ng-model="data.userEmail" placeholder="用于发送清点拍照信息">
+                                    </div>
+                                </div>
+                            </div>
                             <img src="../../assets/img/dashbard/icon-kdx.png" class="icon-kdx" />
                             <div class="form-group" style="margin-top: 30px;">
                               <table style="width: 100%;">
@@ -382,7 +396,7 @@
                                   <th class="td-m">增值服务</th>
                                   <th class="td-m">积分抵扣</th>
                                   <th class="td-m">清关费用</th>
-                                  <th class="td-m" style="width: 16%;">总计费用</th>
+                                  <th class="td-m" style="min-width: 100px;">总计费用</th>
                                 </thead>
                                 <tbody>
                                   <tr style="background-color: #f7f9fb;">
