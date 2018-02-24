@@ -66,13 +66,18 @@
                         <td class="title">客户编号</td>
                         <td>{{data.customer.customerNumber}}</td>
                         <td rowspan="2" colspan="2">
-                          
                             <div class="barcode" orderNumber="{{data.orderNumber}}"></div>
                         </td>
                     </tr>
                     <tr>
                         <td class="title">订单编号</td>
-                        <td>{{data.orderNumber}}</td>
+                        <td>
+                            {{data.orderNumber}} 
+                            <span ng-if="data.isFastOrder == 1" title="极速原箱">
+                                <i class="fa fa-bolt" aria-hidden="true" ng-if="data.isFastOrder == 1"
+                                style="color:#ff6a00;font-size:30px;"></i>
+                            </span>
+                        </td>
                     </tr>
                     <tr>
                         <td class="title">客户账号</td>

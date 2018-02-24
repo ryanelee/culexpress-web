@@ -105,6 +105,18 @@ angular.module('culAdminApp')
                         plugMessenger.error(result.msg)
                     }
                     $scope.dataList = result.data;
+
+                    $scope.totalOrderCount = 0;
+                    $scope.totalOrderAmount = 0.00;
+                    $scope.totalPaidAmount = 0.00;
+                    if($scope.dataList && $scope.dataList.length > 0){
+                        $scope.dataList.forEach(function (row) {
+                            $scope.totalOrderCount += row.Count;
+                            $scope.totalOrderAmount += row.tShippingFee;
+                            $scope.totalPaidAmount += row.tTotalCount;
+                        })
+                    };
+
                     // console.log('///////////////////////')
                     // $scope.allTotal = result.allTotal;
                     // console.log(JSON.stringify(result))
