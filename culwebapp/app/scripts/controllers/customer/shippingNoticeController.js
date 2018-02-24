@@ -46,6 +46,9 @@ var app = angular
                 if (!$scope.shippingNotice.packageDescription) { alertify.alert('提醒', '请输入运单内容!'); return false; }
                 if (!!$scope.shippingNotice.isFastOrder) {
                     if (!$scope.shippingNotice.packageWeight) { alertify.alert('提醒', '极速原箱订单必须输入包裹重量!'); return false; }
+                } else {
+                    // 非极速重量置为空。
+                    $scope.shippingNotice.packageWeight = '';
                 }
 
                 orderSvr
