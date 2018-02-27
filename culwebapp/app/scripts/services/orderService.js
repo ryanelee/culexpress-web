@@ -341,7 +341,6 @@ angular.module('culwebApp')
                 $http.post(cul.apiPath + "/order/offlineOrderCreateExcel", {
                     fileId: fileId
                 }).success(function (result) {
-                    debugger;
                     warehouseService.getWarehouse(function (warehouseList) {
                         $.each(result, function (i, order) {
                             var _warehouse = $.grep(warehouseList, function (n) { return n.warehouseNumber == order.warehouseNumber });
