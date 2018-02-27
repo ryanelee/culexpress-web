@@ -161,7 +161,7 @@ angular.module('culwebApp')
             submitOrder: function (orderData) {
                 return $http.post(cul.apiPath + '/order', {
                     //客户编号
-                    customerNumber: orderData.customerNumber,
+                    customerNumber: JSON.parse(window.sessionStorage.getItem('user_info')).customerNumber,
                     //订单编号，填写客户编号+客户收件标识，如KX142QPTN
                     orderNumber: orderData.orderNumber,
                     //发货渠道(暂时注释)

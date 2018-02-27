@@ -7,7 +7,7 @@
  * # FinanceDetailPayCtrl
  * Controller of the culAdminApp
  */
-angular.module('culAdminApp')
+angular.module('culAdminApp') 
     .controller('FinanceDetailPayCtrl', ["$scope", "$location", "$filter", "$window", "customerService", "warehouseService", "plugMessenger", "orderService",
         function ($scope, $location, $filter, $window, customerService, warehouseService, plugMessenger, orderService) {
             this.awesomeThings = [
