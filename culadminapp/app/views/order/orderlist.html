@@ -1,7 +1,7 @@
 ﻿<div class="widget widget-table">
     <div class="widget-header">
         <h3><i class="fa fa-table"></i> 订单列表</h3>
-    </div>
+    </div> 
     <div class="widget-content">
         <div class="row">
             <div class="col-sm-12 search-bar">
@@ -193,6 +193,7 @@
                     <th>订单状态</th>
                     <!--<th>通过状态</th>-->
                     <th>打印状态</th>
+                    <th>VIP支付状态</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -223,7 +224,7 @@
                             {{ads}}
                         </p>
                     </td>
-                    <td>
+                    <td> 
                         <span ng-if="item.currencyCode == 'USD'" title="USD">
                             <i class="fa fa-dollar" aria-hidden="true"></i>
                         </span>
@@ -234,6 +235,7 @@
                     <td>{{item._orderStatus}}</td>
                     <!--<td>{{item.processStatus}}</td>-->
                     <td>{{item._printStatus}}</td>
+                    <td>{{item.vipPayStatus | _payStatus}}</td>
                     <td>  
                         <!-- 删除已支付和未支付订单 -->
                          <a href="javascript:void(0);" class="role" data-role="83" ng-click="btnDeleteApproval(item)" ng-if="item._orderStatus == '未支付' || item._orderStatus == '已支付'">删除</a> 

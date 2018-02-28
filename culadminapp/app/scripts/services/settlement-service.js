@@ -12,6 +12,7 @@ angular.module('culAdminApp')
       var self = this;
 
       self.getList = function (options, callback) {
+          debugger;
           $http.post(cul.apiPath + "/settlement/list", options).success(function (result) {
               callback(result);
           });

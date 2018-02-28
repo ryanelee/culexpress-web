@@ -8,18 +8,16 @@
                 <div class="col-sm-12 search-bar">
                     <div class="search-col">
                         <label class="search-label">交易类型：</label>
-                        <select class="form-control search-control" ng-model="searchBar.type">
-                            <option value="">全部</option>
-                            <option value="1">运费</option>
+                        <select class="form-control search-control" ng-model="searchBar.type"
+                                ng-options="item.value as item.title for item in tpl_status.payType">
                         </select>
                     </div>
                     <div class="search-col">
                         <label class="search-label">支付状态：</label>
-                        <select class="form-control search-control" ng-model="searchBar.paidstatus">
+                        <select class="form-control search-control" ng-model="searchBar.settlementDetailIsPaid">
                             <option value="">全部</option>
-                            <option value="Unpaid">未支付</option>
-                            <option value="Paid">已支付</option>
-                            <option value="Arrears">运费不足</option>
+                            <option value="0">未支付</option>
+                            <option value="1">已支付</option>
                         </select>
                     </div>
                     <div class="search-col">
@@ -64,9 +62,10 @@
                         <label class="search-label">搜索条目：</label>
                         <select class="form-control search-control" ng-model="searchBar.keywordType">
                             <option value="orderNumber">订单编号</option>
-                            <option value="outBoundTrackingNumber">CUL包裹单号</option>
+                            <option value="packageNumber">CUL包裹单号</option>
                         </select>
-                        <input type="text" name="search" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
+                        <input type="text" name="search" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" 
+                        placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()"/>
                         <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
                     </div>
                 </div>
@@ -78,38 +77,27 @@
             <tr>
                 <th>交易时间</th>
                 <th>交易类型</th>
-                <th>VIP支付状态</th>
+                <th>支付状态</th>
                 <th>订单编号</th>
-                <!--<th>商品编号</th>
-                <th>商品描述</th>
-                <th>CUL包裹单号</th>-->
+                <th>CUL包裹单号</th>
                 <th>受理仓库</th>
                 <th>重量（磅）</th>
-                <!--<th>金额（￥）</th>-->
-                <th>积分抵扣</th>
-                <th>运费总计</th>
-                <th>订单已支付运费</th>
+                <th>金额（$）</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="item in dataList">
-                <td>{{item.orderDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
-                <td>运费</td>
-                <td>{{item.vipPayStatus | _payStatus}}</td>
+                <td>{{item.settlementDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+                <td>{{tpl_status.payType[item.type].title}}</td>
+                <td>{{item.settlementDetailIsPaid == 1 ? '已支付' : '未支付'}}</td>
                 <td><a href="javascript:void(0);" ng-click="btnOpenDetail(item,'orderdetail')">{{item.orderNumber}}</a></td>
-                <!--<td><span class="red">字段不明确</span></td>
-                <td><span class="red">字段不明确</span></td>
-                <td><span class="red">字段不明确</span></td>-->
+                <td>{{item.packageNumber}}</td>
                 <td>{{item.warehouseName}}</td>
-                <td>{{item.actualWeight|number : 2}}磅</td>
-                <!--<td>￥{{item.packageTotalFee}}</td>
-                <td>￥{{item.shippingFeeAdjust}}</td>-->
-                <td style="color: red">{{(item.usedPoint||0) * -1 | currency:'￥'}}</td>
-                <td>{{item.totalCount|currency:'¥'}}</td>
-                <td>{{item.paied|currency:'¥'}}</td>
+                <td>{{item.packageWeight}}</td>
+                <td>{{item.fee}}</td>
                 <td>
-                    <a href="javascript:void(0)" ng-click="btnPay(item)" ng-show="item.orderStatus == 'Arrears'">余额支付</a>
+                    <a href="javascript:void(0)" ng-click="btnPay(item)" ng-show="item.settlementDetailIsPaid == 0">手动支付</a>
                 </td>
             </tr>
         </tbody>
@@ -137,3 +125,13 @@
         </div>
     </div>
 </div>
+<script>
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>

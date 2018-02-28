@@ -63,6 +63,17 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     return function (input) {
         return _warehourseStatus[input] || input;
     };
+
+}).filter('_payStatus', function () {
+    var payStatus = {
+        0: "未支付",
+        1: "已支付"
+    };
+    return function (input) {
+        return payStatus[input] || input;
+    };
+
+    
 }).filter('_orderStatus', function () {
     var orderStatus = {
         "Canceled": "取消",

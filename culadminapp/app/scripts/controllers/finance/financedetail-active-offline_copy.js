@@ -2,19 +2,29 @@
 
 /**
  * @ngdoc function
- * @name culAdminApp.controller:FinanceDetailActiveOnlineCtrl
+ * @name culAdminApp.controller:FinanceDetailActiveOfflineCtrl
  * @description
- * # FinanceDetailActiveOnlineCtrl
+ * # FinanceDetailActiveOfflineCtrl
  * Controller of the culAdminApp
- */
+ */ 
 angular.module('culAdminApp')
-  .controller('FinanceDetailActiveOfflineCtrl', ["$scope", "$location", "$filter", "customerService", "orderService", "warehouseService", "plugMessenger",
-      function ($scope, $location, $filter, customerService, orderService, warehouseService, plugMessenger) {
+  .controller('FinanceDetailActiveOfflineCtrl', ["$scope", "$location", "$filter", "customerService", "settlementService", "warehouseService", "plugMessenger",
+      function ($scope, $location, $filter, customerService, settlementService, warehouseService, plugMessenger) {
           this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
             'Karma'
           ];
+
+          $scope.tpl_status = {
+              "payType": [
+                  { "title": "全部", "value": "" },
+                  { "title": "运费", "value": "1" },
+                  { "title": "入库费用", "value": "2" },
+                  { "title": "出库费用", "value": "3" },
+                  { "title": "仓储费用", "value": "4" }
+              ]
+          }
 
           $scope.dataList = [];
 
@@ -28,7 +38,7 @@ angular.module('culAdminApp')
               selectedAll: false,
               keywordType: "orderNumber",
               type: "",
-              paidstatus: "",
+              settlementDetailIsPaid: "",
               dateRange: "",
               startDate: "",
               endDate: "",
@@ -94,8 +104,7 @@ angular.module('culAdminApp')
           $scope.getData = function () {
               var _options = _filterOptions();
               _options.orderType = '0';
-              debugger;
-              orderService.activitiesList(angular.copy(_options), function (result) {
+              settlementService.getList(angular.copy(_options), function (result) {
                   $scope.dataList = result.data;
                   $scope.pagination.totalCount = result.pageInfo.totalCount;
               });
@@ -125,7 +134,7 @@ angular.module('culAdminApp')
 
           $scope.btnPay = function (item) {
               if (!!item) {
-                  $location.search({ customerNumber: $location.search().customerNumber, orderNumber: item.orderNumber, orderType: "online", paid: (item.shippingFeeAdjust * -1) });
+                  $location.search({ customerNumber: $location.search().customerNumber, orderNumber: item.orderNumber, packageNumber: item.packageNumber, orderType: "offline", paid: item.fee });
                   $location.path("/finance/financedetail/pay");
               }
           }

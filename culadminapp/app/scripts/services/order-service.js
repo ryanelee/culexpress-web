@@ -338,10 +338,11 @@ angular.module('culAdminApp')
                 callback(result);
             });
         }
-
+ 
 
 
         self.activitiesList = function (options, callback) {
+            debugger;
             $http.post(cul.apiPath + "/order/activities", options).success(function (result) {
                 $.each(result.data, function (index, item) {
                     item._orderStatus = _getOrderStatus(item.orderStatus);

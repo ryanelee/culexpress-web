@@ -1,7 +1,7 @@
 ﻿<div class="widget">
     <div class="widget-header">
         <h3><i class="fa fa-edit"></i> 财务明细 </h3>
-    </div>
+    </div> 
     <div class="widget-content">
         <form class="form-horizontal" role="form">
             <div ng-include="'views/finance/financedetail-fieldset-customer.html'"></div>
@@ -25,7 +25,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <label class="control-label">线下订单：${{data.unpaid.offLineCount}}</label>
+                                            <label class="control-label">线下订单：$ {{data.unpaid.offLineCount || 0}}</label>
                                             <button id="tip_offline_order" type="button" class="btn btn-link btn-help pull-right"><i class="fa fa-warning"></i></button>
                                         </td>
                                         <td>
@@ -54,7 +54,7 @@
                         <li><a href="javascript:void(0)" role="tab" data-target="#payment-history" data-toggle="tab">支付历史</a></li>
                         <li><a href="javascript:void(0)" role="tab" data-target="#settlement-help" data-toggle="tab">结算说明</a></li>
                     </ul>
-                    <div class="tab-content">
+                    <div class="tab-content">  
                         <div class="tab-pane fade in active" id="recent-activity">
                             <div ng-include="'views/finance/financedetail-active-summary.html'"></div>
                         </div>
