@@ -192,16 +192,32 @@ angular.module('culAdminApp')
         }
 
         self.offlineOrderCheckExcel = function (fileId, callback) {
+            var customer_ids;
+
+            var roles = JSON.parse($window.sessionStorage.getItem("role"));
+            roles.forEach(function (role) {
+                customer_ids = $.grep([customer_ids, role.customer_ids], Boolean).join(",");
+            });
+
             $http.post(cul.apiPath + "/order/offlineOrderCheckExcel", {
-                fileId: fileId
+                fileId: fileId,
+                customerIds: customer_ids
             }).success(function (result) {
                 callback(result);
             });
         }
 
         self.offlineOrderCreateExcel = function (fileId, callback) {
+            var customer_ids;
+
+            var roles = JSON.parse($window.sessionStorage.getItem("role"));
+            roles.forEach(function (role) {
+                customer_ids = $.grep([customer_ids, role.customer_ids], Boolean).join(",");
+            });
+
             $http.post(cul.apiPath + "/order/offlineOrderCreateExcel", {
-                fileId: fileId
+                fileId: fileId,
+                customerIds: customer_ids
             }).success(function (result) {
                 warehouseService.getWarehouse(function (warehouseList) {
                     $.each(result, function (i, order) {
