@@ -28,6 +28,7 @@ angular.module('culAdminApp')
             $("#form_export_send").attr("action", cul.apiPath + "/outboundpackage/list/export?Token=" + _token);
             $("#form_export_order_offline").attr("action", cul.apiPath + "/outboundorderlist/list/export?Token=" + _token);
             $("#form_export_send_offline").attr("action", cul.apiPath + "/outboundpackage/list/export?Token=" + _token);
+            $("#form_exportHT").attr("action", cul.apiPath + "/order/list/export/ht?Token=" + _token);
 
             $scope.pagination = {
                 pageSize: "20",
