@@ -41,10 +41,11 @@
               </label>
             </div>
             <div class="form-group inline-block" ng-show="!!shippingNotice.isFastOrder">
-                <label class="label required">包裹重量</label>
+                <label class="label required">包裹重量（磅）</label>
                 <label class="input">
                    <i class="icon-prepend fa fa-question-circle"></i>
                    <input type="text" name="required" class="txt-item-l" id="packageWeight" ng-model="shippingNotice.packageWeight">
+                   <label style="position:absolute;left:210px;top:5px;">磅</label>
                    <b class="tooltip tooltip-bottom-left">请输入包裹重量，如:10</b>
                 </label>
             </div>
