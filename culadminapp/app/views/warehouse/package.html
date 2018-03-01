@@ -159,7 +159,7 @@
                     </tbody>
                 </table> 
                 <div class="row">
-                    <div class="col-sm-6 text-left pull-left">
+                    <div class="col-sm- text-left pull-left">
                         <form style="float:left;" id="form_export_order" method="post" action="/" target="_blank">
                            <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
                             <input id="exportStatus" name="exportStatus" type="hidden" value="{{exportOptions.exportStatus}}" />
@@ -198,6 +198,7 @@
                             <input id="onlineOrder" name="orderType" type="hidden" value="1" />
                             <button type="submit" class="btn btn-primary role" data-role="75">导出发货清单(线上订单)</button>
                         </form> 
+
                         <div class="clearfix"></div>
                         <!-- <button style="float:left" type="button" class="btn btn-primary" ng-click="btnBatchOutBound()">批量出库</button> -->
                         <!-- <button style="float:left" id="tip_batchOutbound" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button> -->
@@ -240,7 +241,31 @@
                             
                             <button type="submit" class="btn btn-primary role" data-role="75">导出发货清单(线下订单)</button>
                         </form> 
-                        <button style="float:left" type="button" class="btn btn-primary" ng-click="btnBatchOutBound()">批量出库</button>
+
+                        <div class="clearfix"></div>
+
+                        <form id="form_exportHT" method="post" action="/" target="_blank" style="float:left; margin:10px 4px 0px 0px;">
+                            <input id="USPS_dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.dateFrom}}" />
+                            <input id="USPS_dateTo" name="dateTo" type="hidden" value="{{exportOptions.dateTo}}" />
+                            <input id="USPS_orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
+                            <input id="USPS_printStatus" name="printStatus" type="hidden" value="{{exportOptions.printStatus}}" />
+                            <input id="USPS_warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
+                            <input id="USPS_shipServiceId" name="shipServiceId" type="hidden" value="{{exportOptions.shipServiceId}}" />
+                            <input id="USPS_customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
+                            <input id="USPS_userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
+                            <input id="USPS_orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
+                            <input id="USPS_outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}"
+                            />
+                            <input id="USPS_receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
+                            <input id="USPS_referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}"
+                            />
+                            <input id="USPS_cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
+                            <input id="USPS_token" name="token" type="hidden" value="{{exportOptions.token}}" />
+                            <button type="submit" class="btn btn-primary" data-role="34">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"></i> 将结果导出为HT订单</button>
+                        </form>
+                        
+                        <button style="float:left; margin:10px 4px 0px 0px;" type="button" class="btn btn-primary" ng-click="btnBatchOutBound()">批量出库</button>
                         <!-- <button style="float:left" id="tip_batchOutbound" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button> -->
                     </div>
                     <div class="col-sm-6 text-right pull-right">

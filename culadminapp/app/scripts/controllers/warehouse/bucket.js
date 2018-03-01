@@ -22,6 +22,7 @@ angular.module('culAdminApp')
             var _token = sessionStorage.getItem("token");
             _token = !!_token ? encodeURIComponent(_token) : null
             $("#form_export_order").attr("action", cul.apiPath + "/outboundorderlist/list/export?Token=" + _token);
+            $("#form_exportHT").attr("action", cul.apiPath + "/order/list/export/ht?Token=" + _token);
 
             /*search bar*/
             $scope.searchBar = {
@@ -82,7 +83,6 @@ angular.module('culAdminApp')
                 storage.session.setObject("searchBar", $scope.searchBar);         
                 bucketService.getList(_filterOptions(), function (result) {
                     $scope.dataList = result.data;
-                    // console.log(result)
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
                     var _trackingNumbers = [];
                     $.each($scope.dataList, function (i, item) {
