@@ -118,7 +118,10 @@ angular.module('culAdminApp')
                             }
                         })
                     });
-                    if (_trackingNumbers.length > 0) _options.trackingNumber = _trackingNumbers.join(",");
+                    if (_trackingNumbers.length > 0) {
+                        _options.trackingNumber = _trackingNumbers.join(",");
+                        _options.outBoundTrackingNumber = _trackingNumbers.join("\r\n");
+                    }
                     //新导出逻辑
                     $scope.exportOptions = $.extend({ token: _token }, _options);
                 });
