@@ -196,7 +196,7 @@
                                         <li ng-class="{active: $state.includes('customer.myorders')}">
                                             <a ui-sref="customer.myorders"><i class="fa fa-shopping-cart"></i> 我的订单</a>
                                         </li>
-                                        <li ng-class="{active: $state.includes('customer.products')}" ng-if="currentUser.isVip">
+                                        <!-- <li ng-class="{active: $state.includes('customer.products')}" ng-if="currentUser.isVip">
                                             <a ui-sref="customer.products"><i class="fa fa-cubes"></i> 商品列表</a>
                                         </li>
                                         <li ng-class="{active: $state.includes('customer.sendiedit')}" ng-if="currentUser.isVip">
@@ -204,7 +204,7 @@
                                         </li>
                                         <li ng-class="{active: $state.includes('customer.sendinventory')}" ng-if="currentUser.isVip">
                                             <a ui-sref="customer.sendinventory"><i class="fa fa-list"></i> 库存寄件列表</a>
-                                        </li>
+                                        </li> -->
                                         <li ng-class="{active: $state.includes('customer.orderofflineimport')}" ng-if="currentUser.isVip">
                                             <a ui-sref="customer.orderofflineimport"><i class="fa fa-plus-square"></i> 创建订单</a>
                                         </li>
@@ -277,7 +277,7 @@
                                 <img src="assets/img/logo.png" alt="Logo" />
                             </a>                          
 
-                            <img src="assets/weixin-QR-8cm.jpg" alt="QR" data-toggle="modal" data-target=".weixin-qr" />
+                            <img src="assets/img/weixin-QR-8cm.jpg" alt="QR" data-toggle="modal" data-target=".weixin-qr" />
 
                             <div class="modal fade weixin-qr">
                                 <div class="modal-dialog modal-sm">
@@ -287,7 +287,7 @@
                                             <h4 id="myLargeModalLabel3" class="modal-title">微信"扫一扫"立即关注</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <img src="assets/weixin-QR-15cm.jpg" alt="QR" />
+                                            <img src="assets/img/weixin-QR-15cm.jpg" alt="QR" />
                                             <p>
                                                 微信号:gh_76c74e174f28
                                             </p>
@@ -569,20 +569,26 @@
                 </div>
             </footer>
             <div class="float-window" style="z-index:13;">
+                <!-- <div class="weixinTip">
+                关注微信公众平台连续签到7天送10积分
+                </div> -->
+                <div class="weixinQR">                    
+                    <img src="assets/img/weixin-QR-8cm.jpg" style="width:64px;height:64px" alt="QR" data-toggle="modal" data-target=".weixin-qr">
+                </div>
                 <div>
                     <a href="http://wpa.qq.com/msgrd?v=3&uin=189525376&site=qq&menu=yes" target="_blank" class="show-icon">
-                        <i class="fa fa-comments"></i>
+                        <i class="fa fa-qq"></i>
                     </a>
                     <p>
-                        <a href="http://wpa.qq.com/msgrd?v=3&uin=189525376&site=qq&menu=yes" target="_blank">QQ咨询1</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&uin=189525376&site=qq&menu=yes" target="_blank"><i class="qqLive fa fa-circle"></i> QQ咨询1</a>
                     </p>                
                 </div>
                 <div>
                     <a href="http://wpa.qq.com/msgrd?v=3&uin=189525378&site=qq&menu=yes" target="_blank" class="show-icon">
-                        <i class="fa fa-comments"></i>
+                        <i class="fa fa-qq"></i>
                     </a>                  
                     <p>
-                        <a href="http://wpa.qq.com/msgrd?v=3&uin=189525378&site=qq&menu=yes" target="_blank">QQ咨询2</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&uin=189525378&site=qq&menu=yes" target="_blank"><i class="qqLive fa fa-circle"></i> QQ咨询2</a>
                     </p>
                 </div>
                 <div>
@@ -590,7 +596,7 @@
                         <i class="fa fa-envelope"></i>
                     </a>
                     <p>
-                        <a ui-sref="about">发送邮件</a>
+                        <a ui-sref="about">联系我们</a>
                     </p>
                 </div>
                 <div>

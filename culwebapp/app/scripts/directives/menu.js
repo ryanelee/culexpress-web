@@ -104,33 +104,35 @@ angular.module('culwebApp')
                         icon: 'fa fa-shopping-cart',
                         route: 'customer.myorders'
                     }]
-                }, {
-                    key: 'productManage',
-                    name: '商品管理',
-                    icon: 'fa fa-reorder',
-                    toggle: true,
-                    visible: isVip,
-                    childs: [{
-                        leaf: true, //叶子节点（有父节点）
-                        key: 'products',
-                        name: '商品列表',
-                        icon: 'fa fa-cubes',
-                        route: 'customer.products'
-                    }, {
-                        leaf: true, //叶子节点（有父节点）
-                        key: 'sendStock',
-                        name: '寄送库存',
-                        icon: 'fa fa-arrow-circle-right',
-                        route: 'customer.sendiedit'
-                    }, {
-                        leaf: true, //叶子节点（有父节点）
-                        key: 'inventories',
-                        name: '库存寄件列表',
-                        icon: 'fa fa-list',
-                        route: 'customer.sendinventory'
-                    }]
+                }, 
+                // {
+                //     key: 'productManage',
+                //     name: '商品管理',
+                //     icon: 'fa fa-reorder',
+                //     toggle: true,
+                //     visible: isVip,
+                //     childs: [{
+                //         leaf: true, //叶子节点（有父节点）
+                //         key: 'products',
+                //         name: '商品列表',
+                //         icon: 'fa fa-cubes',
+                //         route: 'customer.products'
+                //     }, {
+                //         leaf: true, //叶子节点（有父节点）
+                //         key: 'sendStock',
+                //         name: '寄送库存',
+                //         icon: 'fa fa-arrow-circle-right',
+                //         route: 'customer.sendiedit'
+                //     }, {
+                //         leaf: true, //叶子节点（有父节点）
+                //         key: 'inventories',
+                //         name: '库存寄件列表',
+                //         icon: 'fa fa-list',
+                //         route: 'customer.sendinventory'
+                //     }]
 
-                }, {
+                // }, 
+                {
                     key: 'orderManage',
                     name: '订单管理',
                     icon: 'fa fa-shopping-cart',
