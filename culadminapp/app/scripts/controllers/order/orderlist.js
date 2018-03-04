@@ -124,8 +124,8 @@ angular.module('culAdminApp')
                         if ($scope.searchBar.keywords.indexOf('\n') >= 0) {
                             _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split('\n')
                         }
-
                     }
+                    _options["cOrderNumber"] = _options["orderNumber"].toString();
                     // if ($scope.searchBar.keywordType == 'outBoundTrackingNumber') {
                     //     if ($scope.searchBar.keywords.indexOf('\n') >= 0) {
                     //         _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split('\n')
