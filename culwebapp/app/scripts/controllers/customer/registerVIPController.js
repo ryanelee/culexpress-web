@@ -5,7 +5,6 @@ angular
     .module('culwebApp')
     .controller('RegisterVIPController', ['$rootScope', '$scope','$location', '$state', '$stateParams','AuthService',
     function ($rootScope, $scope, $location, $state, $stateParams, AuthService) {
-
         $scope.userType = AuthService.userTypes.culwebapp_user;
         $scope.registerError = '';
         $scope.showRegisterError = false;
@@ -84,7 +83,7 @@ angular
           }
         }
 
-        $scope.register = function () {
+        $scope.registervip = function () {
           console.log($scope.customerNumber);
           $scope.ck('reference');
           $scope.ck('userName');
@@ -125,8 +124,8 @@ angular
                 data: CryptoJS.AES.encrypt(JSON.stringify(registerData), key.toString()).toString(),
                 key: key.toString()
             };
-
-            AuthService.register(registerData,function(user){
+console.log(registerData);
+            AuthService.registerVIP(registerData,function(user){
               if (!!user) {
                   $scope.model.registed = true;
                   $scope.model.email = registerData.emailAddress;

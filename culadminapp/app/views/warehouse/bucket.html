@@ -96,7 +96,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4 text-left pull-left">
+            <div class="col-sm-5 text-left pull-left">
                 <form style="float:left;" id="form_export_order" method="post" action="/" target="_blank">
                     <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
                     <input id="exportStatus" name="exportStatus" type="hidden" value="{{exportOptions.exportStatus}}" />
@@ -112,27 +112,29 @@
                     <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
                     <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
                     <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
-                    <button type="submit" class="btn btn-primary role" data-role="74">导出订单列表</button>
+                    <button type="submit" class="btn btn-primary role" data-role="74">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> 导出订单列表
+                    </button>
                 </form>
                 <form id="form_exportHT" method="post" action="/" target="_blank">
-                    <input id="USPS_dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.dateFrom}}" />
-                    <input id="USPS_dateTo" name="dateTo" type="hidden" value="{{exportOptions.dateTo}}" />
-                    <input id="USPS_orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
-                    <input id="USPS_printStatus" name="printStatus" type="hidden" value="{{exportOptions.printStatus}}" />
-                    <input id="USPS_warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
-                    <input id="USPS_shipServiceId" name="shipServiceId" type="hidden" value="{{exportOptions.shipServiceId}}" />
-                    <input id="USPS_customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
-                    <input id="USPS_userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
-                    <input id="USPS_orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
-                    <input id="USPS_outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}"
+                    <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
+                    <input id="exportStatus" name="exportStatus" type="hidden" value="{{exportOptions.exportStatus}}" />
+                    <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
+                    <input id="dateFrom" name="dateFrom" type="hidden" value="{{exportOptions.outDateFrom}}" />
+                    <input id="dateTo" name="dateTo" type="hidden" value="{{exportOptions.outDateTo}}" />
+                    <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
+                    <input id="userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
+                    <input id="orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
+                    <input id="trackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.outBoundTrackingNumber}}" />
+                    <input id="receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
+                    <input id="referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}"
                     />
-                    <input id="USPS_receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
-                    <input id="USPS_referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}"
-                    />
-                    <input id="USPS_cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
-                    <input id="USPS_token" name="token" type="hidden" value="{{exportOptions.token}}" />
+                    <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
+                    <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
+                    <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
                     <button type="submit" class="btn btn-primary" data-role="34" style="margin-left:15px;">
-                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> 将结果导出为HT订单</button>
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> 将结果导出为HT订单
+                    </button>
                 </form>
             </div>
             <div class="col-sm-4 text-left pull-left">

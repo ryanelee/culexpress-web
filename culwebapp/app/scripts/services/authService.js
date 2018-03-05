@@ -30,6 +30,7 @@ angular.module('culwebApp')
 
 
         self.register = function(user, success, error) {
+            console.log(user);
             var key = CryptoJS.lib.WordArray.random(128 / 8);
 
             var bodyData = {
@@ -38,6 +39,27 @@ angular.module('culwebApp')
             };
 
             $http.post(cul.apiPath + '/customer/register', bodyData).then(function(result) {
+                self.clearStorage();
+                var str_userInfo = JSON.stringify(result);
+                sessionStorage.setItem(self.userInfoKey, str_userInfo);
+                $rootScope.currentUser = result;
+                self.setUser(result);
+                success(result)
+            }, function(err) {
+                error(err)
+            });
+        };
+
+        self.registerVIP = function(user, success, error) {
+            console.log(user);
+            var key = CryptoJS.lib.WordArray.random(128 / 8);
+
+            var bodyData = {
+                data: CryptoJS.AES.encrypt(JSON.stringify(user), key.toString()).toString(),
+                key: key.toString()
+            };
+
+            $http.post(cul.apiPath + '/customer/registerVIP', bodyData).then(function(result) {
                 self.clearStorage();
                 var str_userInfo = JSON.stringify(result);
                 sessionStorage.setItem(self.userInfoKey, str_userInfo);
