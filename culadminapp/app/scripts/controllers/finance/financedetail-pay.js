@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 /**
- * @ngdoc function
+ * @ngdoc function 
  * @name culAdminApp.controller:FinanceDetailPayCtrl
  * @description
  * # FinanceDetailPayCtrl
@@ -46,7 +46,7 @@ angular.module('culAdminApp')
                         $scope.maxTotal = $scope.tmpData.paied;
                     }
                 })
-            }
+            } 
 
 
             $scope.tpl_status = {
@@ -54,7 +54,7 @@ angular.module('culAdminApp')
                 orderNumber: $location.search().orderNumber,
                 packageNumber: $location.search().packageNumber,
                 orderType: $location.search().orderType,
-                fee: Number($location.search().paid),
+                fee: Number($location.search().paid || 0),
                 date: Date.now()
             }
 

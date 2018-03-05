@@ -30,6 +30,7 @@ angular.module('culAdminApp')
             }, function (result) {
                 $scope.flag = 1;
                 $scope.data.unpaid = result;
+                console.log("$scope.data.unpaid",$scope.data.unpaid);
             });
 
 
