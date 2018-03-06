@@ -450,9 +450,11 @@ var app = angular
                             orderItem.packageWeight = $scope.packageWeight
 
                             orders.push(orderItem);
-                        }
-                        $scope.data.declareGoodsValue = Number($scope.data.declareGoodsValue).toFixed(2);
+                        } 
                     }
+                }
+                if (typeof $scope.data.declareGoodsValue == 'number') {
+                    $scope.data.declareGoodsValue = parseFloat($scope.data.declareGoodsValue).toFixed(2);
                 }
                 return orders;
             }
