@@ -83,6 +83,7 @@ angular.module('culAdminApp')
                     _options["exportStatus"] = $scope.searchBar.exportStatus;
                 }
                 if (!!$scope.searchBar.keywords) {
+                    _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                     if ($scope.searchBar.keywordType == "customerNumber"
                         && $scope.customer_ids != undefined
                         && parseInt($scope.customer_ids) !== 0
@@ -91,12 +92,19 @@ angular.module('culAdminApp')
                     }
                     if ($scope.searchBar.keywordType == 'trackingNumber') {
                         if ($scope.searchBar.keywords.indexOf('\n') >= 0) {
+                            _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split('\n');
+                            _options[outBoundTrackingNumber] = $scope.searchBar.keywords
+                        }
+                    }
+                    if ($scope.searchBar.keywordType == 'orderNumber') {
+                        console.log($scope.searchBar.keywords);
+                        if ($scope.searchBar.keywords.indexOf('\n') >= 0) {
                             _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split('\n')
                         }
- 
-                    } 
-
-                    _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
+                    }
+                    if (_options["orderNumber"]) {
+                        _options["cOrderNumber"] = _options["orderNumber"].toString();
+                    }
                 }
                 return angular.copy(_options);
             }
