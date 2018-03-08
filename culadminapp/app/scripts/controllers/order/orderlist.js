@@ -259,7 +259,7 @@ angular.module('culAdminApp')
                         orderService.delete($scope.searchOrder, function (result) {
                             if (result.success == true) {
                                 plugMessenger.info("删除成功");
-                                // $("#confirm-modal").modal("hide");
+                                $("#confirm-modal").modal("hide");
                                 // $(event.currentTarget).parents("#confirm-modal").modal("hide");
                                 item.deleteMessage = "";
                                 $scope.deleteMessage = "";
