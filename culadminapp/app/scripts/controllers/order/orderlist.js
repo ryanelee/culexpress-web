@@ -161,12 +161,10 @@ angular.module('culAdminApp')
                 if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
                 //新导出逻辑
                 _options = orderService.getCurrentOption(_options);
-                $scope.exportOptions = $.extend({ token: _token }, _options);
-                
+                $scope.exportOptions = $.extend({ token: _token }, _options);  
             }
 
             $scope.btnSearch = function () {
-
                 $scope.selectedListCache = [];
                 $scope.dataList = [];
                 $scope.pagination.pageIndex = 1;
@@ -202,7 +200,8 @@ angular.module('culAdminApp')
                 });
                 _options.orderNumber = _orderNumbers;
                 if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
-                //新导出逻辑
+                // 新导出逻辑
+                _options = orderService.getCurrentOption(_options);
                 $scope.exportOptions = $.extend({ token: _token }, _options);
             }
 
@@ -280,6 +279,7 @@ angular.module('culAdminApp')
                 });
                 var _options = _filterOptions();
                 //新导出逻辑
+                _options = orderService.getCurrentOption(_options);
                 $scope.exportOptions = $.extend({ token: _token }, _options);
             }
 
