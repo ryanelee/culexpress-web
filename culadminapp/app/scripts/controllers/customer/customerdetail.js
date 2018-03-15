@@ -13,17 +13,31 @@ angular.module('culAdminApp')
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
-                'Karma' 
+                'Karma'
             ];
             $scope.emailFlag = false;
             $scope.tpl_status = {
                 editPoint: false
             }
+            $scope.changeEmailFlag = false;
 
-            
+            $scope.changeEmail = function () {
+                $scope.changeEmailFlag = true;
+            }
+            $scope.saveEmail = function (data) {
+                console.log('data', data);
+                // debugger;
+                $scope.changeEmailFlag = false;
+                // return;
+                userService.updateUser({ userID: data.userID, emailAddress: data.emailAddress }, function (result) {
+                    console.log('result', result);
+                    plugMessenger.info('修改成功');
+                    $scope.changeEmailFlag = false;
+                })
+            }
 
 
-        
+
             $scope.customerNumber = $location.search().customerNumber;
             customerService.getDetail($scope.customerNumber, function (result) {
                 $scope.data = result;

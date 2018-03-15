@@ -117,7 +117,7 @@ angular.module('culAdminApp')
                 
                 if ($scope.searchBar.isFastOrder == true) {
                     _options["isFastOrder"] = 1;
-                }
+                } 
                 if (!!$scope.searchBar.keywords) {
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                     if ($scope.searchBar.keywordType == 'orderNumber') {
