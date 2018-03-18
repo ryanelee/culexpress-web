@@ -126,9 +126,11 @@ angular.module('culAdminApp')
                             _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split('\n')
                         }
                     }
+
                     if( _options["orderNumber"]){
-                        _options["cOrderNumber"] = _options["orderNumber"].toString();
+                        _options["orderNumber"] = _options["orderNumber"].toString();
                     }
+
                     // if ($scope.searchBar.keywordType == 'outBoundTrackingNumber') {
                     //     if ($scope.searchBar.keywords.indexOf('\n') >= 0) {
                     //         _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split('\n')
@@ -142,7 +144,6 @@ angular.module('culAdminApp')
             $scope.getData = function () {
                 storage.session.setObject("searchBar", $scope.searchBar);
                 var _options = _filterOptions();
-                console.log("_options",_options)
                 orderService.getList(angular.copy(_options), function (result) {
                     $scope.dataList = result.data;
                     // console.log($scope.dataList)
@@ -159,6 +160,7 @@ angular.module('culAdminApp')
                     _orderNumbers.push(item.orderNumber);
                 });
                 if (_orderNumbers.length > 0) _options.orderNumber = _orderNumbers.join(",");
+                console.log(_options);
                 //新导出逻辑
                 _options = orderService.getCurrentOption(_options);
                 $scope.exportOptions = $.extend({ token: _token }, _options);  
@@ -260,7 +262,6 @@ angular.module('culAdminApp')
                                 $("#confirm-modal").modal("hide");
                                 $(event.currentTarget).parents("#confirm-modal").modal("hide");
                                 item.deleteMessage = "";
-                                $scope.deleteMessage = "";
                                 $scope.getData();
                                 $scope.selectedListCache = $.grep($scope.selectedListCache, function (n) { return n.orderNumber != item.orderNumber });
                             } else {
@@ -268,6 +269,7 @@ angular.module('culAdminApp')
                             }
                         });
                     }
+                    $scope.deleteMessage = "";
                 });
             }
 
@@ -288,7 +290,7 @@ angular.module('culAdminApp')
             }, 500);
 
             $scope.btnCancel = function (event) {
-                // $("#confirm-modal").modal("hide");
+                $("#confirm-modal").modal("hide");
                 $(event.currentTarget).parents("#confirm-modal").modal("hide");
             }
 
