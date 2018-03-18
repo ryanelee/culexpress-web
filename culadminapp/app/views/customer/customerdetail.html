@@ -94,7 +94,7 @@
                     <label class="col-sm-2 control-label text-right">公司地址：</label>
                     <div class="col-sm-4">
                         <label class="control-label">{{data.companyAddress}}</label>
-                    </div>
+                    </div> 
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right">公司网址：</label>
@@ -110,11 +110,12 @@
                     <label class="col-sm-2 control-label text-right">邮箱地址：</label>
                     <div class="col-sm-2">
                         <!-- <label class="control-label">{{data.emailAddress}}</label> -->
-                        <input type="text" class="form-control" ng-model="data.emailAddress" ng >
+                        <input type="text" ng-disabled="!changeEmailFlag" class="form-control" ng-model="data.emailAddress" >
 
                     </div>
                     <div class="col-sm-1">
-                   <button type="button" class="btn btn-default" ng-click="btnPrev()">修改邮箱</button>
+                   <button type="button" ng-show="!changeEmailFlag" class="btn btn-default" ng-click="changeEmail()">修改邮箱</button>
+                   <button type="button" ng-show="changeEmailFlag" class="btn btn-default" ng-click="saveEmail(data)">确认</button>
                     </div>
                 </div>
                 <div class="form-group">

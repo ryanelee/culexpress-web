@@ -456,7 +456,7 @@
                         <label class="control-label" ng-if="data.currencyCode === 'USD'" style="font-weight:bold">{{((data.shippingFee + data.tariffMoney + data.tip + data.valueAddFee + data.insuranceFee) - data.usedPoint) | currency:'$'}}</label>
                         <label class="control-label" ng-if="data.currencyCode !== 'USD'" style="font-weight:bold">{{((data.shippingFee + data.tariffMoney + data.tip + data.valueAddFee + data.insuranceFee) - data.usedPoint) | currency:'￥'}}</label>
                     </div>
-                </div>
+                </div>  
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-right" style="font-weight:bold">实际支付：</label>
                     <div class="col-sm-4">

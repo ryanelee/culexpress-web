@@ -102,7 +102,7 @@ angular.module('culwebApp')
                         orderMessageNumber: $scope.data.orderMessageNumber,
                         messageContent: $scope.data.orderMessage,
                         images: $scope.images
-                    }
+                    } 
                     orderSvr
                         .saveMessage($scope.data.orderMessageInfo)
                         .then(function (result) {
