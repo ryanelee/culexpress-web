@@ -32,7 +32,7 @@ angular.module('culAdminApp')
                 $scope.data.unpaid = result;
                 console.log("$scope.data.unpaid",$scope.data.unpaid);
             });
-
+ 
 
             $scope.btnPay = function (action) {
 

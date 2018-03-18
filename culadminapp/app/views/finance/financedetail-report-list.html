@@ -2,7 +2,31 @@
     <div class="widget-header">
         <h3>结算账单下载</h3>
     </div>
-    <div class="widget-content">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>客户编号</th>
+                <th>是否结算</th>
+                <th>月份</th>
+                <th>金额</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in data">
+                <td>{{item.customerNumber}}</td>
+                <td>{{(item.vipPayStatus | _vipPayStatus) || '旧数据'}}</td>
+                <td>{{item.month}}</td>
+                <td>{{item.paid}}</td>
+                <td>
+                    <a  href="{{path}}/exportVipReport?customerNumber={{customerNumber}}&month={{item.month}}&vipPayStatus={{item.vipPayStatus}}">下载</a> &nbsp;
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <!-- <div class="widget-content"> 
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-group" id="accordion_report">
@@ -30,5 +54,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>

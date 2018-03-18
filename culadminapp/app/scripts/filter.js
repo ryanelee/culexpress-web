@@ -22,6 +22,15 @@ angular.module('warehourseFilters', []).filter('adviceStatus', function () {
     return function (input) {
         return sendType[input] || input;
     };
+}).filter('_vipPayStatus', function () {
+    var sendType = {
+        "0": "否",
+        "1": "是",
+        "": "旧数据"
+    };
+    return function (input) {
+        return sendType[input] || input;
+    };
 }).filter('webType', function () {
     var _webType = {
         1: "登入广告",

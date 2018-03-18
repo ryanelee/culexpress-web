@@ -114,20 +114,23 @@ angular.module('culAdminApp')
                     item._orderStatus = _getOrderStatus(item.orderStatus);
                     item._printStatus = _getPrintStatus(item.printStatus);
                     item._shipToAddresses = [];
-                    $.each(item.shipToAddresses, function (i, address) {
-                        var _str = address.receivePersonName;
-                        if (!!address.cellphoneNumber) _str += "(" + address.cellphoneNumber + ")";
-                        if (item.shipServiceId != 9 && address.item != 10) {
-                            _str += address.address1;
-                        } else {
-                            _str = _str + address.addressPinyin + address.address1_before;
-                        }
-                        if (!!address.receiveCompanyName) _str += address.receiveCompanyName;
-                        if (!!address.zipcode) _str += "(" + address.zipcode + ")";
-                        if ($.grep(item._shipToAddresses, function (n) { return n == _str }).length == 0) {
-                            item._shipToAddresses.push(_str);
-                        }
-                    });
+                    if(item.shipToAddresses){
+                        $.each(item.shipToAddresses, function (i, address) {
+                            var _str = address.receivePersonName;
+                            if (!!address.cellphoneNumber) _str += "(" + address.cellphoneNumber + ")";
+                            if (item.shipServiceId != 9 && address.item != 10) {
+                                _str += address.address1;
+                            } else {
+                                _str = _str + address.addressPinyin + address.address1_before;
+                            }
+                            if (!!address.receiveCompanyName) _str += address.receiveCompanyName;
+                            if (!!address.zipcode) _str += "(" + address.zipcode + ")";
+                            if ($.grep(item._shipToAddresses, function (n) { return n == _str }).length == 0) {
+                                item._shipToAddresses.push(_str);
+                            }
+                        });
+                    }
+                   
                     // CUL包裹单号list
                     item._outboundTrackingNumbers = [];
                     if (item.outboundPackages){
