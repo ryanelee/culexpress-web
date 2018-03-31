@@ -3,16 +3,13 @@
         #print_Package_Template th {
             text-align: center;
         }
-
         #print_Package_Template th, td {
             padding: 2px;
         }
-
         #print_Package_Template td.title {
             width: 100px;
             text-align: center;
         }
-
         #print_Package_Template .barcode {
             margin: 0 auto;
         }
@@ -24,7 +21,8 @@
         }
     </style>
     <div id="print_Package_Template" ng-repeat="data in dataList" >
-        <div class="">
+        <div class="heigth-100">
+
             <div ng-if="data.orderItems.length <= 2">
                 <img class="image" src="assets/img/kingadmin-logo.png" />
             </div>
@@ -32,7 +30,7 @@
                 <img class="image" src="assets/img/kingadmin-logo.png" />
             </div>
 
-            <table  cellpadding="2" cellspacing="0" border="1" width="100%" height="{{data.orderItems.length > 2 ? '95%' : '40%'}}">
+            <table  cellpadding="2" cellspacing="0" border="1" width="100%" height="{{data.orderItems.length > 2 ? '95%' : '45%'}}">
                 <tr>
                     <th colspan="6">客户信息</th>
                 </tr>
@@ -110,6 +108,7 @@
                     <td>{{data.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                 </tr>
             </table>
+
             <hr style="margin:2.5% auto; width:100%; color: #666;" ng-if="data.orderItems.length <=2"/>
         </div>
     </div>
