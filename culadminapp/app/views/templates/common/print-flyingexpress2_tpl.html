@@ -16,8 +16,12 @@
         #print_FLYINGExpress_Template .barcode {
             margin: 0 auto;
         }
+         
+        .heigth-100 {
+            height: 100%;
+        }
     </style>
-    <div id="print_FLYINGExpress_Template" ng-repeat="data in dataList">
+    <div id="print_FLYINGExpress_Template" ng-repeat="data in dataList" class="heigth-100">
         <div style="width: 30%"><img src="assets/img/kingadmin-logo.png" /></div>
         <table cellpadding="2" cellspacing="0" border="1" width="100%" height="45%">
             <tr>

@@ -1,4 +1,4 @@
-﻿<div style="display:none;">
+<div style="display:none;">
     <style>
         #print_FLYINGExpress_Template th {
             text-align: center;
@@ -22,60 +22,182 @@
             width: 17%;
         }
     </style>
-    <div id="print_FLYINGExpress_Template" ng-repeat="data in dataList">
-        <div><img class="image" src="assets/img/kingadmin-logo.png" /></div>
-        <table cellpadding="2" cellspacing="0" border="1" width="100%" height="{{data.orderItems.length > 2 ? '95%':'45%'}}">
-            <tr>
-                <th colspan="6">客户信息</th>
-            </tr>
-            <tr>
-                <td class="title">客户编号</td>
-                <td colspan="4">{{data.customerNumber}}</td>
-                <td>
-                    <div class="barcode" trackingNumber="{{data.referenceOrderNumber}}"></div>
-                </td>
-            </tr>
-            <tr>
-                <td class="title">发货渠道</td>
-                <td  colspan="5">
-                    <span>{{data.shipServiceName}}</span>
-                    </span>
-                </td>
-            </tr>
+    <div id="print_FLYINGExpress_Template" ng-repeat="data in dataList" style="height:100%;">
+        <div>
+            <img class="image" src="assets/img/kingadmin-logo.png" />
+        </div>
 
+        <table border="1" cellpadding="2" cellspacing="0" width="100%">
             <tr>
-                <td class="title">收货地址</td>
-                <td colspan="5" ng-if="data.shipServiceId != 9 && data.shipServiceId != 10 ">
-                    {{data.address.receivePersonName}}<span ng-show="!!data.address.cellphoneNumber">({{data.address.cellphoneNumber}})</span>{{data.address.address1}}{{data.address.receiveCompanyName}}
-                    <span ng-show="!!data.address.zipcode">({{data.address.zipcode}})</span>
+                <td colspan="7">
+                    <div>
+                        <p>寄件方：{{data.warehouseName}}</p>
+                        <p>仓库地址：</p>
+                    </div>
                 </td>
-                 <td colspan="5" ng-if="data.shipServiceId == 9 || data.shipServiceId == 10 ">
-                    {{data.address.receivePersonName}}<span ng-show="!!data.address.cellphoneNumber">({{data.address.cellphoneNumber}})</span>{{data.address.addressPinyin}}{{data.address.address1_before}}{{data.address.receiveCompanyName}}
-                    <span ng-show="!!data.address.zipcode">({{data.address.zipcode}})</span>
+                <td colspan="3">
+                    <div>
+                        原寄地：
+                    </div>
                 </td>
             </tr>
             <tr>
-                <th colspan="6">订单内容</th>
+                <td colspan="7" ng-if="data.shipServiceId != 9 && data.shipServiceId != 10 ">
+                    <div>
+                        <p>收件方：{{data.address.receiveCompanyName}}
+                            <span>电话：{{data.address.cellphoneNumber}}</span>
+                        </p>
+                        <p>收件地址：{{data.address.address1}}</p>
+                    </div>
+                </td>
+                <td colspan="7" ng-if="data.shipServiceId == 9 || data.shipServiceId == 10 ">
+                    <div>
+                        <p>收件方：{{data.address.receiveCompanyName}}
+                            <span>电话：{{data.address.cellphoneNumber}}</span>
+                        </p>
+                        <p>收件地址：{{data.address.addressPinyin}}</p>
+                    </div>
+                </td>
+                <td colspan="3">
+                    <div>
+                        目的地：
+                    </div>
+                </td>
             </tr>
             <tr>
-                <td class="title">申报品名</td>
-                <td colspan="5">
+                <td colspan="7">
+                    <div style="text-align:center; float:left;padding-right:20px;">
+                        <div>
+                            <label style="font-size:12px; font-weight: 100;">Tel:0532-83867106</label>
+                        </div>
+                        <div>
+                            <label style="font-size:12px; font-weight: 100;">Tel:0532-83867156</label>
+                        </div>
+                    </div>
+                    <div style="height: 25%; border-left: 0px none;">
+                        <label>
+                            <div class="barcode" trackingNumber="{{data.xtTrackingNumber}}"></div>
+                        </label>
+                        <br />
+                    </div>
+                </td>
+                <td colspan="3"> 
                     <table cellpadding="5" cellspacing="0" border="1" width="100%">
+                        <tr><td>集货转运</td></tr>
                         <tr>
-                            <th>序号</th>
-                            <th>品牌</th>
-                            <th>商品描述</th>
-                            <th>数量</th>
-                            <th>价值($)</th>
+                            <td>收件员：001</td>
+                        </tr>
+                        <tr>
+                            <td>寄件日期：001</td>
+                        </tr>
+                        <tr>
+                            <td>派件员：001</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="10">
+                    <table cellpadding="10" cellspacing="0" border="1" width="100%">
+                        <tr>
+                            <td>包裹</td>
+                            <td>实际重量</td>
+                            <td>计费重量</td>
+                            <td>运费</td>
+                            <td>费用合集</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="barcode" trackingNumber="{{data.trackingNumber}}"></div>
+                            </td>
+                            <td>{{data.actualWeight}}</td>
+                            <td>{{data.billingWeight}}</td>
+                            <td>{{data.shippingFee}}</td>
+                            <td>{{data.shippingFee}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="10">
+                    <table cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td colspan="3">付款方式：转第三方付</td>
+                            <td colspan="3">月结账号：</td>
+                            <td colspan="4">第三方地区：</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">保费：</td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">代收货款金额：</td>
+                            <td colspan="3">卡号：</td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                            <td colspan="5">收方签署：</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                            <td colspan="5"><span style="padding-right:40px;">日期：</span><span style="padding-right:40px;">月</span><span>日</span></td>
+                        </tr>
+                    </table>
+                </td>
+                
+            </tr>
+            <tr>
+                <td colspan="6" rowspan="2">
+                    <div class="barcode" trackingNumber="{{data.xtTrackingNumber}}"></div>
+                </td>
+                <td colspan="2" rowspan="1">客户编号：</td>
+                <td colspan="2" rowspan="1">{{data.customerNumber}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" rowspan="1">发货渠道：</td>
+                <td colspan="2" rowspan="1">{{data.shipServiceName}}</td>
+            </tr>
+            <tr>
+                <td colspan="6" ng-if="data.shipServiceId != 9 && data.shipServiceId != 10">
+                    <div>
+                        <p>收件地址：{{data.address.receiveCompanyName}}
+                            <span>电话：{{data.address.cellphoneNumber}}</span>
+                        </p>
+                        <p>{{data.address.address1}}</p>
+                    </div>
+                </td>
+                <td colspan="6" ng-if="data.shipServiceId == 9 || data.shipServiceId == 10 ">
+                    <div>
+                        <p>收件地址：{{data.address.xtShipInfo}}
+                            <span>电话：{{data.address.cellphoneNumber}}</span>
+                        </p>
+                        <p>{{data.address.addressPinyin}}</p>
+                    </div>
+                </td>
+                <td colspan="4"> 
+                    <p>订单号：</p>
+                    <p>{{data.orderNumber}}</p>
+                </td>
+            </tr>
+            
+            <tr>
+                <td colspan="10">
+                    <table cellpadding="10" cellspacing="2" border="1" width="100%">
+                        <tr>
+                            <td>商品品牌</td>
+                            <td>商品描述</td>
+                            <td>数量</td>
+                            <td>备注</td>
                         </tr>
                         <tr ng-repeat="item in data.orderItems">
-                            <td align="center">{{$index + 1}}</td>
                             <td align="center">{{item.itemBrand}}</td>
                             <td align="center" style="max-width: 300px;">
                                 <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:44px;">
                                     {{item.description}} {{ !!item.property1 ? " " + item.property1 : "" }} {{ !!item.property2 ? " " + item.property2 : "" }}
-                                    {{ !!item.property3 ? " " + item.property3 : "" }} {{ !!item.property4 ? " " + item.property4
-                                    : "" }} {{ !!item.property5 ? " " + item.property5 : "" }}
+                                    {{ !!item.property3 ? " " + item.property3 : "" }} {{ !!item.property4 ? " " + item.property4 : "" }} {{
+                                    !!item.property5 ? " " + item.property5 : "" }}
                                 </div>
                             </td>
                             <td align="center">{{item.quantity}}</td>
@@ -84,82 +206,12 @@
                     </table>
                 </td>
             </tr>
-            <tr>
-                <td class="title">包裹信息</td>
-                <td colspan="5">
-                    <table cellpadding="5" cellspacing="0" border="1" width="100%">
-                        <tr>
-                            <th>跟踪号</th>
-                            <th>实际重量(磅)</th>
-                            <th>发货地</th>
-                        </tr>
-                        <tr>
-                            <td align="center">
-                                <div class="barcode" trackingNumber="{{data.trackingNumber}}"></div>
-                            </td>
-                            <td align="center">{{data.actualWeight || 0}}</td>
-                            <td align="center" style="text-align:center;">{{data.warehouseName}}</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td class="title">打包人员</td>
-                <td colspan="3">{{data.inuserName}}</td>
-                <td class="title">生成日期</td>
-                <td>{{data.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
+            <tr colspan="10">
+                <td colspan="2">打包人员</td>
+                <td colspan="2">{{data.inuserName}}</td>
+                <td colspan="2">生成日期</td>
+                <td colspan="4">{{data.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
             </tr>
         </table>
-        <hr style="margin:2.5% auto; width:100%; color: #666;" ng-if="data.orderItems.length <= 2" />
-        <table cellpadding="2" cellspacing="0" border="1" width="100%" height="45%" style="margin-top:2%;">
-            <tr>
-                <th style="height: 25%; border-right: 0px none;">
-                    <div style="text-align:center; float:left;">
-                        <!-- <div><img src="assets/img/FlyingExpress.jpg" /></div> -->
-                        <div><label style="font-size:12px; font-weight: 100;">Tel:0532-83867106</label></div>
-                        <div><label style="font-size:12px; font-weight: 100;">Tel:0532-83867156</label></div>
-                    </div>
-                </th>
-                <th style="height: 25%; border-left: 0px none;">
-                    <label><div class="barcode" trackingNumber="{{data.xtTrackingNumber}}"></div></label><br />
-                </th>
-            </tr>
-            <tr>
-                <td height="30%" style="">
-                    <label style="width:100%;height:60%;">Shipper:&nbsp;{{data.xtShipInfo.shipfrom}}</label>
-                    <label style="width:45%;height:20%;">Tel:</label>
-                    <label style="width:50%;height:20%; text-align:right;">PP</label>
-                </td>
-                <td height="30%">
-                    <label style="width:100%;height:60%;">Consignee:&nbsp;{{data.xtShipInfo.shipto}}</label>
-                    <label style="width:45%;height:20%;">Tel:</label>
-                    <label style="width:50%;height:20%; text-align:right;">CC</label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" height="30%" style="font-size:12px; font-weight: 100;">
-                    <label style=" width: 49%; height: 24%; padding-top: 1%; padding-bottom: 1%;">Description:</label>
-                    <label style=" width: 48%; height: 24%; padding-top: 1%; padding-bottom: 1%;">
-                        <span style="margin-right:5px;" ng-repeat="xtProductType in data._xtProductTypeTotal">*{{xtProductType.type}}*{{xtProductType.total}}</span>
-                    </label>
-                    <label style="width: 100%; height: 54%; padding-top: 1%;">PCS:</label>
-                    <label style="width: 24%; height: 18%;">Shipper:</label>
-                    <label style="width: 24%; height: 18%;">Pick up:</label>
-                    <label style="width: 24%; height: 18%;">Deliver:</label>
-                    <label style="width: 24%; height: 18%;">Consignee:</label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="font-size:12px; font-weight: 100; width: 100%;">
-                    <label style="float:left;">Remarks:</label>
-                    <div style="clear:both;"></div>
-                    <div class="barcode" style="float:left;" trackingNumber="{{data.referenceOrderNumber}}"></div>
-                    <div style="float:right;">
-                        <div class="barcode" trackingNumber="{{data.trackingNumber}}"></div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div style="height:55%" ng-if="data.orderItems.length > 2"></div>
     </div>
 </div>
