@@ -32,8 +32,8 @@
                 <td colspan="7">
                     <div>
                         <p>寄件方：{{data.warehouseName}}</p>
-                        <p ng-if="data.warehouseName == 1">仓库地址：835 S Lawson St, City of Industry, CA 91748</p>
-                        <p ng-if="data.warehouseName == 2">仓库地址：150 quigley Blvd，NEW CASTLE，DE 19720</p>
+                        <p ng-if="data.warehouseNumber == 1">仓库地址：835 S Lawson St, City of Industry, CA 91748</p>
+                        <p ng-if="data.warehouseNumber == 2">仓库地址：150 quigley Blvd，NEW CASTLE，DE 19720</p>
                     </div>
                 </td>
                 <td colspan="3">
@@ -67,7 +67,7 @@
             </tr>
             <tr>
                 <td colspan="10">
-                    <div style="text-align:center; float:left;padding-right:20px;">
+                    <div style="text-align:center; float:left;padding:10px 50px;">
                         <div>
                             <label style="font-size:12px; font-weight: 100;">Tel:0532-83867106</label>
                         </div>
@@ -75,7 +75,7 @@
                             <label style="font-size:12px; font-weight: 100;">Tel:0532-83867156</label>
                         </div>
                     </div>
-                    <div style="height: 25%; border-left: 0px none;">
+                    <div style="height: 25%; border-left: 0px none;float:right;padding:10px 50px;">
                         <label>
                             <div class="barcode" trackingNumber="{{data.xtTrackingNumber}}"></div>
                         </label>
@@ -98,21 +98,33 @@
                 </td> -->
             </tr>
             <tr>
+                <td colspan="5">
+                    <div style="padding-bottom: 100px;">Shipper: &nbsp;{{data.shipperCompanyName}}</div>
+                    <div><label>Tel:</label><label style="float: right;">PP</label></div>
+                </td>
+                <td colspan="5">
+                    <div style="padding-bottom: 100px;">Consignee:&nbsp;{{data.address.receiveCompanyName}}</div>
+                    <div>
+                        <label>Tel:</label>
+                        <label style="float: right;">PP</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="10">
                     <table cellpadding="10" cellspacing="0" border="1" width="100%">
                         <tr>
-                            <td>包裹数量</td>
                             <td>实际重量</td>
                             <td>计费重量</td>
                             <td>运费</td>
-                            <td>费用合计</td>
+                            <td>运费合计</td>
                         </tr>
                         <tr>
-                            <td></td>
                             <td>{{data.actualWeight}}</td>
                             <td>{{data.billingWeight}}</td>
                             <td>{{data.shippingFee}}</td>
-                            <td>{{data.shippingFee}}</td>
+                            <td ng-if="data.currencyCode === 'USD'">{{data.shippingFee | currency:'$'}}</td>
+                            <td ng-if="data.currencyCode !== 'USD'">{{data.shippingFee | currency:'￥'}}</td>
                         </tr>
                     </table>
                 </td>
@@ -188,7 +200,7 @@
                             <td>商品品牌</td>
                             <td>商品描述</td>
                             <td>数量</td>
-                            <td>价值(¥)</td>
+                            <td>价值($)</td>
                         </tr>
                         <tr ng-repeat="item in data.orderItems">
                             <td align="center">{{item.itemBrand}}</td>
