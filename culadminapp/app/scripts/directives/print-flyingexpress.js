@@ -34,7 +34,6 @@ angular.module('culAdminApp')
                       "orderNumber": $scope.orderNumbers
                   }, function (result) {
                       var _orderItems = {};
-                      console.log(result);
                       $.each(result.data, function (index, row) {
                           if (!_orderItems[row.orderNumber]) {
                               _orderItems[row.orderNumber] = row.items;
@@ -81,9 +80,7 @@ angular.module('culAdminApp')
                                   });
                               }
                           }
-
                       });
-                    
                       $scope.dataList = result.data;
                       _render();
                   });
