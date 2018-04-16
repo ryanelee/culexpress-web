@@ -80,9 +80,7 @@ angular.module('culAdminApp')
                                   });
                               }
                           }
-
                       });
-                    
                       $scope.dataList = result.data;
                       _render();
                   });

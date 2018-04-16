@@ -121,7 +121,6 @@ angular.module('culAdminApp')
                 if (!!$scope.searchBar.keywords) {
                     _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords;
                     if ($scope.searchBar.keywordType == 'orderNumber') {
-                        console.log($scope.searchBar.keywordType);
                         if ($scope.searchBar.keywords.indexOf('\n') >= 0) {
                             _options[$scope.searchBar.keywordType] = $scope.searchBar.keywords.split('\n')
                         }
@@ -145,11 +144,15 @@ angular.module('culAdminApp')
                 console.log("_options",_options)
                 orderService.getList(angular.copy(_options), function (result) {
                     $scope.dataList = result.data;
-                    // console.log($scope.dataList)
                     $scope.pagination.totalCount = result.pageInfo.totalCount;
                     $rootScope.$emit('changeMenu');
 
                     $.each($scope.dataList, function (i, item) {
+                        // if (item.actualWeight <= 0) {   // 未打包，实际支付费用
+                        //     item.totalPaied = item.paied;
+                        // } else {                        // 已打包，总费用
+                        //     item.totalPaied = (item.shippingFee + item.tariffMoney + item.tip + item.valueAddFee + item.insuranceFee) - item.usedPoint;
+                        // }
                         item._selected = $.grep($scope.selectedListCache, function (n) { return n.orderNumber == item.orderNumber }).length > 0;
                     });
                     $scope.searchBar.selectedAll = $.grep($scope.dataList, function (n) { return n._selected == true }).length == $scope.dataList.length;

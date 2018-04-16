@@ -49,7 +49,7 @@ angular.module('culAdminApp')
                             });
                             _data._shippingFeeTotal = _data._shippingFeeTotal.toFixed(2);
                         });
-console.log(result);
+                        console.log(result);
                         var shelf = { flag: "shelf", data: [] }
                         var j = 0;
                         for (var i = 0; i < $scope.dataList.length; i++) {

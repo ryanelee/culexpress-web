@@ -230,7 +230,9 @@
                         </span>
                         <span ng-if="item.currencyCode != 'USD'" title="RMB">
                             <i class="fa fa-rmb" aria-hidden="true"></i>
-                        </span> {{item.paied ||  item.totalCount}}
+                        </span> 
+                        {{item.actualWeight <= 0 ? item.paied : item.totalCount}}
+                        <!-- {{item.totalPaied}} -->
                     </td>
                     <td>{{item._orderStatus}}</td>
                     <!--<td>{{item.processStatus}}</td>-->

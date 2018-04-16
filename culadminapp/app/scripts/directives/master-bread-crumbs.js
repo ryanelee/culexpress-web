@@ -29,6 +29,7 @@ angular.module('culAdminApp')
                       }];
                       $scope.routePath = menuInfoService.getMenuInfo($location.path()).routePath;
                       $scope.routePath = _menus.concat($scope.routePath);
+                      console.log($scope.routePath);
                   }
                   $scope.$on("$routeChangeSuccess", function () {
                       _refresh();
