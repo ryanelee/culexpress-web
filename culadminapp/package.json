@@ -35,5 +35,8 @@
   "scripts": {
     "test": "grunt test",
     "start": "grunt serve"
+  },
+  "dependencies": {
+    "socket.io": "^2.1.0"
   }
 }

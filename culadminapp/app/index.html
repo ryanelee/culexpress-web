@@ -20,12 +20,13 @@
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
     <link rel="stylesheet" href="bower_components/viewer/dist/crocodoc.viewer.css" />
     <!-- endbower -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"
+    />
+
     <!-- Include Editor style. -->
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.5.1/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.5.1/css/froala_style.min.css" rel="stylesheet" type="text/css" /> -->
-    
+
     <!-- endbuild -->
     <link href="assets/css/main.css" rel="stylesheet" />
     <!-- build:css(.tmp) styles/main.css -->
@@ -137,9 +138,9 @@
     <script src="bower_components/angular-ui-select/dist/select.js"></script>
     <script src="bower_components/viewer/dist/crocodoc.viewer.js"></script>
     <!-- endbower -->
- 
+
     <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.5.1//js/froala_editor.pkgd.min.js"></script> -->
-    
+
     <script src="bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
     <script src="bower_components/blueimp-file-upload/js/jquery.fileupload.js"></script>
     <!-- endbuild -->
@@ -156,7 +157,7 @@
     <script src="assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
     <script src="assets/js/plugins/datatable/jquery.dataTables.min.js"></script>
     <script src="assets/js/plugins/datatable/dataTables.bootstrap.js"></script>
-    
+
     <script src="assets/js/plugins/jquery-mapael/jquery.mapael.js"></script>
     <script src="assets/js/plugins/raphael/maps/usa_states.js"></script>
     <script src="assets/js/king-elements.js"></script>
@@ -196,6 +197,7 @@
     <script src="scripts/directives/chart-secondary-stat.js"></script>
     <script src="scripts/directives/ticket-table.js"></script>
     <script src="scripts/directives/bucket-item.js"></script>
+    <script src="scripts/directives/socket.io.js"></script>
     <script src="scripts/controllers/index.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/profile.js"></script>
@@ -267,7 +269,7 @@
     <script src="scripts/controllers/warehouse/registerpackageoffline.js"></script>
     <script src="scripts/controllers/warehouse/bucket.js"></script>
     <script src="scripts/controllers/warehouse/deleteReceiptLog.js"></script>
-    
+
     <script src="scripts/controllers/warehouse/bucketedit.js"></script>
     <script src="scripts/controllers/warehouse/filter.js"></script>
 
@@ -366,9 +368,9 @@
 </html>
 <!-- Google Analytics admin.umiex.com -->
 <script>
-    (function(i, s, o, g, r, a, m) {
+    (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
+        i[r] = i[r] || function () {
             (i[r].q = i[r].q || []).push(arguments)
         }, i[r].l = 1 * new Date();
         a = s.createElement(o),
@@ -381,6 +383,12 @@
     ga('create', 'UA-65730039-5', 'auto');
     ga("send", "pageview", {
         page: "/"
+    });
+
+    var socket = io('http://localhost:8000');
+    socket.on('news', function (data) {
+        console.log("socket", data);
+        $("#packageWeight").val(data.weight);
     });
 </script>
 <!-- End Google Analytics admin.umiex.com-->

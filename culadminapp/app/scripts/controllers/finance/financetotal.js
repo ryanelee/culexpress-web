@@ -5,7 +5,7 @@
  * @name culAdminApp.controller:CustomerListCtrl
  * @description
  * # CustomerListCtrl
- * Controller of the culAdminApp
+ * Controller of the culAdminApp 
  */
 angular.module('culAdminApp')
     .controller('FinanceTotalCtrl', ['$rootScope', '$scope', '$location', "$filter", '$window', 'warehouseService', 'shelfService', 'receiptService', 'plugMessenger','orderService',
