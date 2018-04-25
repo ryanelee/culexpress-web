@@ -37,6 +37,9 @@ angular.module('culAdminApp')
                     case "flyingexpress":
                         $scope.$broadcast("print-flying-express.action", item.orderNumber);
                         break;
+                    case "flyingexpress_new":
+                        $scope.$broadcast("print-flying-express-new.action", item.orderNumber);
+                        break;
                     case "trackingNumber":
                         $("<div></div>").barcode(item.trackingNumber, "code128", {
                             addQuietZone: "1",

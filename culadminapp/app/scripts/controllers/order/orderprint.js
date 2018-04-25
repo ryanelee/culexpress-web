@@ -206,6 +206,9 @@ angular.module('culAdminApp')
                         case "flyingexpress":
                             $scope.$broadcast("print-flying-express.action", item.orderNumber);
                             break;
+                        case "flyingexpress_blank":
+                            $scope.$broadcast("print-flying-express-blank.action", item.orderNumber);
+                            break;
                         case "flyingexpress2":
                             $scope.$broadcast("print-flying-express2.action", item.orderNumber);
                             break;
@@ -271,6 +274,9 @@ angular.module('culAdminApp')
                                 break;
                             case "flyingexpress":
                                 $scope.$broadcast("print-flying-express.action", orderNumbers);
+                                break;
+                            case "flyingexpress_lank":
+                                $scope.$broadcast("print-flying-express-blank.action", orderNumbers);
                                 break;
                             case "flyingexpress2":
                                 $scope.$broadcast("print-flying-express2.action", orderNumbers);
