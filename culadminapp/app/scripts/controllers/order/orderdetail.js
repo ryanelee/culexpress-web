@@ -113,7 +113,7 @@ angular.module('culAdminApp')
                 console.log("123", result)
                 // if (result._printStatus == "未打印") {
                 //     $scope.isShow = true;
-                // };
+                // }; 
                 if (result.printStatus != "Printed" && result.orderStatus != "WaybillUpdated" && result.orderStatus != "Shipped") {
                     $scope.isShow = true;
                 };
