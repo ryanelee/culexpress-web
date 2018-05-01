@@ -206,6 +206,9 @@ angular.module('culAdminApp')
                         case "flyingexpress":
                             $scope.$broadcast("print-flying-express.action", item.orderNumber);
                             break;
+                        case "flyingexpress_new":
+                            $scope.$broadcast("print-flying-express-new.action", item.orderNumber);
+                            break;
                         case "flyingexpress_blank":
                             $scope.$broadcast("print-flying-express-blank.action", item.orderNumber);
                             break;
@@ -225,6 +228,8 @@ angular.module('culAdminApp')
                         case "order":
                         case "flyingexpress":
                         case "flyingexpress2":
+                        case "flyingexpress_new":
+                        case "flyingexpress_blank":
                         console.log("item",item);
                             if(item.orderType == 1 && (!item.payDate || item.orderStatus.toUpperCase() === "UNPAID" || item.orderStatus.toUpperCase() === "VOID" )){
                                 plugMessenger.info("未支付或者已删除的线上订单不能打印.")
@@ -275,7 +280,10 @@ angular.module('culAdminApp')
                             case "flyingexpress":
                                 $scope.$broadcast("print-flying-express.action", orderNumbers);
                                 break;
-                            case "flyingexpress_lank":
+                            case "flyingexpress_new":
+                                $scope.$broadcast("print-flying-express-new.action", orderNumbers);
+                                break;
+                            case "flyingexpress_blank":
                                 $scope.$broadcast("print-flying-express-blank.action", orderNumbers);
                                 break;
                             case "flyingexpress2":
