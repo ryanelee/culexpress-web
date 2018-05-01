@@ -40,19 +40,19 @@ angular.module('culAdminApp')
                           } else {
                               $.each(row.items, function (i, item) {
                                   if ($.grep(_orderItems[row.orderNumber], function (n) {
-                                  return n.XTProductType == item.XTProductType &&
-                                         n.category == item.category &&
-                                         n.description == item.description &&
-                                         n.itemBrand == item.itemBrand &&
-                                         n.orderNumber == item.orderNumber &&
-                                         n.property1 == item.property1 &&
-                                         n.property2 == item.property2 &&
-                                         n.property3 == item.property3 &&
-                                         n.property4 == item.property4 &&
-                                         n.property5 == item.property5 &&
-                                         n.quantity == item.quantity &&
-                                         n.unitprice == item.unitprice
-                                  }).length == 0) {
+                                  return n.XTProductType === item.XTProductType &&
+                                         n.category === item.category &&
+                                         n.description === item.description &&
+                                         n.itemBrand === item.itemBrand &&
+                                         n.orderNumber === item.orderNumber &&
+                                         n.property1 === item.property1 &&
+                                         n.property2 === item.property2 &&
+                                         n.property3 === item.property3 &&
+                                         n.property4 === item.property4 &&
+                                         n.property5 === item.property5 &&
+                                         n.quantity === item.quantity &&
+                                         n.unitprice === item.unitprice
+                                  }).length === 0) {
                                       _orderItems[row.orderNumber].push(item);
                                   }
                               });
