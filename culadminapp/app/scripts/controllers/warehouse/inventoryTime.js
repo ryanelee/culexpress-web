@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-/**
+/** 
  * @ngdoc function
  * @name culAdminApp.controller:WarehouseInventoryCtrl
  * @description
  * # WarehouseInventoryCtrl
- * Controller of the culAdminApp
+ * Controller of the culAdminApp 
  */
 angular.module('culAdminApp')
     .controller('InventoryTimeCtrl', ['$timeout', '$rootScope', '$scope', '$location', '$window', 'warehouseService', 'inventoryService', "storage", "plugMessenger",

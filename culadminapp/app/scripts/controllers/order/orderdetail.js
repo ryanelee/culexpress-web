@@ -231,7 +231,7 @@ angular.module('culAdminApp')
                             if (key != "$$hashKey") {
                                 $scope.data.orderItems[index][key] = _repeatData[key];
                             }
-                        }
+                        } 
                         break;
                     case "cancel":
                         $scope._editOrderItems = false;
