@@ -82,7 +82,6 @@ angular.module('culAdminApp')
                       $timeout(function () {
                           $scope.tpl_status.step3 = 2;
                           orderService.offlineOrderCreateExcel($scope.fileId, function (result) {
-                            debugger;
                             $.each(result, function (index, item) {
                                   item.actualTotalWeight = 0;
                                   $.each(item.outboundPackages, function (i, pkg) {
