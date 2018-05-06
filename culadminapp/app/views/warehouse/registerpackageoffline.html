@@ -87,6 +87,7 @@
                                 <td ng-if="item.status != 'Shipped' && item.status != 'Arrived'">
 
                                     <a href="javascript:void(0);" ng-click="btnPrint('flyingexpress',data)" style="white-space:nowrap;">打印特快渠道面单</a>
+                                    <a href="javascript:void(0);" ng-click="btnPrint('flyingexpress_new',data)" style="white-space:nowrap;">打印QD渠道面单</a>                                
                                     <a href="javascript:void(0);" ng-click="btnPrint('trackingNumber',item)" style="white-space:nowrap;">打印包裹号</a>
                                     <a href="javascript:void(0);" ng-click="btnSplitPackage(item)" style="white-space:nowrap;" ng-show="!!item.checked">分箱</a>
                                     <a href="javascript:void(0);" ng-click="btnDelPackage(item)" style="white-space:nowrap;" >删除</a>
@@ -113,6 +114,7 @@
     </div>
 </div>
 <print-flying-express></print-flying-express>
+<print-flying-express-new></print-flying-express-new>
 
 <script>
      $(function() {
