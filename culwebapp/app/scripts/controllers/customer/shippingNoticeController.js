@@ -17,9 +17,6 @@ var app = angular
                     //$scope.warehouses = $filter('filter')(result.data, function (item) { return item.stateOrProvince !== 'OR'; });
                      
                     $scope.warehouses = result.data;
-                    debugger;
-                    console.log('$scope.warehouse',$scope.warehouses);
-                    console.log('$scope.warehouse',JSON.stringify($scope.warehouses));
                     if ($scope.warehouses) {
                         //  仓库默认为空
                         // $scope.retrieveWarehouseNumber = $scope.warehouses[0].warehouseNumber;
