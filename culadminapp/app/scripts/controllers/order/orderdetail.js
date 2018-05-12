@@ -18,6 +18,7 @@ angular.module('culAdminApp')
             $scope.search = {};
             $scope.search.parentid = 0;
             $scope.provinces = [];
+            $scope.tempOrderItems;
             $scope.citys = [];
             $scope.areas = [];
             $scope.getProvince = function (province, city, area, address) {
@@ -84,10 +85,11 @@ angular.module('culAdminApp')
 
 
             $scope.isPrintDetail = !!$location.search().print;
- 
+
             $scope.isShow = false;
             orderService.getDetail($location.search().orderNumber, function (result) {
-                // console.log(result)
+                // console.log(result)；
+                $scope.tempOrderItems = angular.copy(result.orderItems);
                 $scope.data = result;
                 $scope.result = result;
                 if ($scope.data.shipToAddresses && $scope.data.shipToAddresses[0]) {
@@ -113,7 +115,7 @@ angular.module('culAdminApp')
                 console.log("123", result)
                 // if (result._printStatus == "未打印") {
                 //     $scope.isShow = true;
-                // };
+                // }; 
                 if (result.printStatus != "Printed" && result.orderStatus != "WaybillUpdated" && result.orderStatus != "Shipped") {
                     $scope.isShow = true;
                 };
@@ -229,10 +231,11 @@ angular.module('culAdminApp')
                             if (key != "$$hashKey") {
                                 $scope.data.orderItems[index][key] = _repeatData[key];
                             }
-                        }
+                        } 
                         break;
                     case "cancel":
                         $scope._editOrderItems = false;
+                        // $scope.data.orderItems = $scope.tempOrderItems;
                         $scope.data.orderItems = $scope._editOrderItemsData;
                         break;
                 }
