@@ -236,7 +236,9 @@ angular
             }
 
             $scope.myfinanceListData = [];
-            $scope.pagedDebitOptions = $scope.pagedOptions = {
+            $scope.myDebitListData = [];
+            $scope.myRefundListData = [];
+            $scope.pagedRefundOptions = $scope.pagedDebitOptions = $scope.pagedOptions = {
                 total: 0,
                 size: 10
             }
@@ -247,7 +249,6 @@ angular
                     });
             }
 
-
             $scope.onPaged = function (pageIndex) {
                 loadFinanceLog(pageIndex, function () {
                     $scope.myfinanceListData = result.data.data;
@@ -255,14 +256,17 @@ angular
                 });
             }
 
-
-            $scope.myDebitListData = []
-
-
             $scope.onDebitPaged = function (pageIndex) {
                 loadFinanceLog(pageIndex, function (result) {
                     $scope.myDebitListData = result.data.data;
                     $scope.pagedDebitOptions.total = result.data.pageInfo.totalCount;
+                });
+            }
+
+            $scope.onRefundPaged = function (pageIndex) {
+                loadFinanceLog(pageIndex, function (result) {
+                    $scope.myRefundListData = result.data.data;
+                    $scope.pagedRefundOptions.total = result.data.pageInfo.totalCount;
                 });
             }
             if ($location.path() === '/customer/myfinancedetail/recharge' || $location.path() === '/customer/myfinancedetail/debit') {
@@ -273,6 +277,9 @@ angular
                     } else if (operationType === 2) {
                         $scope.myDebitListData = result.data.data;
                         $scope.pagedDebitOptions.total = result.data.pageInfo.totalCount;
+                    } else if (operationType === 4) {
+                        $scope.myRefundListData = result.data.data;
+                        $scope.pagedRefundOptions.total = result.data.pageInfo.totalCount;
                     }
                 });
             }
