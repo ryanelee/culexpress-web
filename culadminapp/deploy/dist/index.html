@@ -1,0 +1,27 @@
+<!doctype html> <html> <head> <meta charset="utf-8"> <title>中美速递-后台管理系统</title> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.a4badd2f.css"> <link href="assets/css/main.css" rel="stylesheet"> <link rel="stylesheet" href="styles/main.2790a5b5.css"> <!-- Fav and touch icons --> <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/culadmin-favicon114x114.d67bde19.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/culadmin-favicon114x114.d67bde19.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/kingadmin-favicon72x72.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/ico/culadmin-favicon57x57.d1613bb6.png">--> <link rel="shortcut icon" href="assets/ico/favicon.ico"> </head> <body class="dashboard" ng-app="culAdminApp" ng-controller="IndexCtrl"> <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]--> <div class="wrapper full-page-wrapper page-auth page-login text-center" ng-if="!$root.userInfo" ng-include="'views/login.html'"></div> <!-- WRAPPER --> <div class="wrapper" ng-if="!!$root.userInfo"> <!-- TOP BAR --> <master-top-toolbar></master-top-toolbar> <!-- /top --> <!-- BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT --> <div class="bottom"> <div class="container"> <div class="row"> <!-- left sidebar --> <master-left-sidebar></master-left-sidebar> <!-- end left sidebar --> <!-- top general alert --> <!--<master-alert></master-alert>--> <!-- end top general alert --> <!-- content-wrapper --> <div class="col-md-10 content-wrapper"> <div ng-include="'views/templates/master/right-content-navs_tpl.html'"></div> <!-- main --> <div class="content"> <div ng-view=""></div> <!-- /main-content --> </div> <!-- /main --> </div> <!-- /content-wrapper --> </div> <!-- /row --> </div> <!-- /container --> </div> <!-- END BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT --> </div> <!-- /wrapper --> <!-- STYLE SWITCHER --> <!--<style-swicher></style-swicher>--> <!-- END STYLE SWITCHER --> <div id="global-loading" class="uil-default-css-background" style="display:none"> <div class="uil-default-css" style="-webkit-transform:scale(0.6)"> <div class="item" style="-webkit-transform:rotate(0deg) translate(0,-60px);transform:rotate(0deg) translate(0,-60px)"> </div> <div class="item" style="-webkit-transform:rotate(30deg) translate(0,-60px);transform:rotate(30deg) translate(0,-60px)"> </div> <div class="item" style="-webkit-transform:rotate(60deg) translate(0,-60px);transform:rotate(60deg) translate(0,-60px)"> </div> <div class="item" style="-webkit-transform:rotate(90deg) translate(0,-60px);transform:rotate(90deg) translate(0,-60px)"> </div> <div class="item" style="-webkit-transform:rotate(120deg) translate(0,-60px);transform:rotate(120deg) translate(0,-60px)"> </div> <div class="item" style="-webkit-transform:rotate(150deg) translate(0,-60px);transform:rotate(150deg) translate(0,-60px)"> </div> <div class="item" style="-webkit-transform:rotate(180deg) translate(0,-60px);transform:rotate(180deg) translate(0,-60px)"> </div> <div class="item" style="-webkit-transform:rotate(210deg) translate(0,-60px);transform:rotate(210deg) translate(0,-60px)"> </div> <div class="item" style="-webkit-transform:rotate(240deg) translate(0,-60px);transform:rotate(240deg) translate(0,-60px)"> </div> <div class="item" style="-webkit-transform:rotate(270deg) translate(0,-60px);transform:rotate(270deg) translate(0,-60px)"> </div> <div class="item" style="-webkit-transform:rotate(300deg) translate(0,-60px);transform:rotate(300deg) translate(0,-60px)"> </div> <div class="item" style="-webkit-transform:rotate(330deg) translate(0,-60px);transform:rotate(330deg) translate(0,-60px)"> </div> </div> </div> <script src="scripts/vendor.4e0bff82.js"></script> <script src="scripts/scripts.bf8cd682.js"></script> <script src="scripts/config.b2f3a11a.js"></script> </body> <!-- FOOTER --> <footer class="footer"> &copy; 2011- <script type="text/javascript">document.write((new Date()).getFullYear());</script> CUL Express Dev Team </footer> <!-- END FOOTER --> </html> <!-- Google Analytics admin.umiex.com --> <script>(function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-65730039-5', 'auto');
+    ga("send", "pageview", {
+        page: "/"
+    });
+
+    // var socket = io('http://192.168.1.113:8000');
+    // socket.on('news', function (data) {
+    //     console.log("socket", data);
+    //     $("#packageWeight").val(data.weight);
+    // });</script> <!-- End Google Analytics admin.umiex.com-->

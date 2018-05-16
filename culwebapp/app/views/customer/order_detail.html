@@ -170,7 +170,7 @@
                                     <a class="btn-u bg-color-ffb" style="padding: 1px 5px; color: #fff; margin-top: 5px;" ui-sref="ordertracking({trackingNumber:'{{packageItem.trackingNumber}}'})" target="_blank">
                                         <i class="fa fa-truck"></i> 查看包裹轨迹</a>
                                 </th>
-                                <td colspan="8" style="padding: 0;">
+                                <td colspan="8" style="padding: 0;"> 
                                     <table class="table" style="margin-bottom: 0;">
                                         <tr ng-repeat="orderItem in packageItem.items">
                                             <td style="width: 12%;">{{orderItem.itemBrand}}</td>
@@ -179,7 +179,7 @@
                                             <td style="width: 10%;">{{orderItem.quantity}}</td>
                                             <td style="width: 10%;">{{packageItem.actualWeight}}磅</td>                           
                                             <td style="width: 14%;">{{orderItem.unitprice|currency}}</td>
-                                            <td style="width: 12%;">{{(orderItem.quantity*orderItem.unitprice)|currency}}</td>
+                                            <td style="width: 12%;" ><span ng-if="packageItem.status != 'Init'">{{(orderItem.quantity*orderItem.unitprice)|currency}}</span></td>
                                             <td style="width: 6%;">{{packageItem.status|_outPackageStatus}}</td>
                                         </tr>
                                         <tr style="border-bottom: 0;">
