@@ -63,6 +63,7 @@
                                     <th>扣款项</th>
                                     <th>扣款日期</th>
                                     <th>金额</th>
+                                    <th>备注</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,6 +81,7 @@
                                     <td>
                                         {{debitItem.payment|currency:'¥'}}
                                     </td>
+                                    <td>{{debitItem.memo}}</td>
                                 </tr>
                             </tbody>
                         </table>

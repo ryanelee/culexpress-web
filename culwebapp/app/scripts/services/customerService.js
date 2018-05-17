@@ -150,16 +150,6 @@ angular.module('culwebApp')
                     customerNumber: customerNumber
                 });
             },
-            //返还运费列表
-            getRefundList: function (obj) {
-                return $http.post(cul.apiPath + "/getRefundList", {
-                    pageInfo: {
-                        pageSize: size | 10,
-                        pageIndex: index || 1
-                    },
-                    customerNumber: customerNumber
-                });
-            },
 
             ProvinceList: provinceList
         };

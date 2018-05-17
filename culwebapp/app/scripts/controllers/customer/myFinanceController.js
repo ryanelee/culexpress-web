@@ -54,6 +54,9 @@ angular
             if ($scope.currentTabId === 'debit') {
                 operationType = 2;
             }
+            if ($scope.currentTabId === 'refund') {
+                operationType = 4;
+            }
 
             $scope.userPay = function () {
                 var currentCustomer = AuthService.getUser();
@@ -269,8 +272,11 @@ angular
                     $scope.pagedRefundOptions.total = result.data.pageInfo.totalCount;
                 });
             }
-            if ($location.path() === '/customer/myfinancedetail/recharge' || $location.path() === '/customer/myfinancedetail/debit') {
+            if ($location.path() === '/customer/myfinancedetail/recharge' || 
+                $location.path() === '/customer/myfinancedetail/debit' ||
+                $location.path() === '/customer/myfinancedetail/refund') {
                 loadFinanceLog(1, function (result) {
+                    console.log(result)
                     if (operationType === 1) {
                         $scope.myfinanceListData = result.data.data;
                         $scope.pagedOptions.total = result.data.pageInfo.totalCount;
