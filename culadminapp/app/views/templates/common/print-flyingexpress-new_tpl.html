@@ -49,18 +49,18 @@
                 <tr>
                     <td colspan="8" ng-if="data.shipServiceId != 9 && data.shipServiceId != 10 ">
                         <div>
-                            <span>收件方：{{data.lastName}}{{data.firstName}}
-                                 电话：{{data.address.cellphoneNumber}}
+                            <span>收件方：{{data.xtShipInfo.shipto}}
+                                 <!-- 电话：{{data.address.cellphoneNumber}} -->
                             </span><br>
-                            <span>收件地址：{{data.address.address1}}</span>
+                            <!-- <span>收件地址：{{data.address.address1}}</span> -->
                         </div>
                     </td>
                     <td colspan="8" ng-if="data.shipServiceId == 9 || data.shipServiceId == 10 ">
                         <div>
-                            <span>收件方：{{data.lastName}}{{data.firstName}}
-                                电话：{{data.address.cellphoneNumber}}
+                            <span>收件方：{{data.xtShipInfo.shipto}}
+                                <!-- 电话：{{data.address.cellphoneNumber}} -->
                             </span><br>
-                            <span>收件地址：{{data.address.addressPinyin}}</span>
+                            <!-- <span>收件地址：{{data.address.addressPinyin}}</span> -->
                         </div>
                     </td>
                     <td colspan="2">
@@ -79,15 +79,15 @@
                                 <label style="font-size:12px; font-weight: 100;">Tel:0532-83867156</label>
                             </div>
                         </div>
-                        <div style="height: 25%; border-left: 0px none;padding:3px 15px;">
+                        <!-- <div style="height: 25%; border-left: 0px none;padding:3px 15px;">
                             <label>
                                 <div class="barcode" trackingNumber="{{data.xtTrackingNumber}}"></div>
                             </label>
                             <br />
-                        </div>
+                        </div> -->
                     </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td colspan="5">
                         <div style="padding-bottom: 10px;">Shipper: &nbsp;{{data.xtShipInfo.shipfrom}}</div>
                         <div><label>Tel:</label><label style="float: right;">PP</label></div>
@@ -118,7 +118,7 @@
                             </tr>
                         </table>
                     </td>
-                </tr>
+                </tr> -->
                 <tr>
                     <td colspan="10">
                         <table cellspacing="0" border="0" width="100%">
@@ -151,7 +151,7 @@
                 <tr>
                     <td colspan="10" >
                         <span>寄件方：CULEXPRESS({{data.warehouseName}}) </span> <br>
-                        <span>（909）859-1999</span>
+                        <!-- <span>（909）859-1999</span> -->
                     </td>
                 </tr>
 
@@ -159,17 +159,17 @@
                     <td colspan="6" ng-if="data.shipServiceId != 9 && data.shipServiceId != 10">
                         <div>
                             <span>收件方：{{data.address.receiveCompanyName}}
-                                电话：{{data.address.cellphoneNumber}}
+                                <!-- 电话：{{data.address.cellphoneNumber}} -->
                             </span><br>
-                            <span>{{data.address.address1}}</span>
+                            <!-- <span>{{data.address.address1}}</span> -->
                         </div>
                     </td>
                     <td colspan="6" ng-if="data.shipServiceId == 9 || data.shipServiceId == 10 ">
                         <div>
                             <span>收件方：{{data.xtShipInfo.shipto}}
-                               电话：{{data.address.cellphoneNumber}}
+                               <!-- 电话：{{data.address.cellphoneNumber}} -->
                             </span>
-                            <span>{{data.address.addressPinyin}}</span>
+                            <!-- <span>{{data.address.addressPinyin}}</span> -->
                         </div>
                     </td>
                     <td colspan="4"> 
@@ -182,13 +182,13 @@
                     <td colspan="10">
                         <table cellpadding="10" cellspacing="2" border="1" width="100%">
                             <tr>
-                                <td>商品品牌</td>
+                                <!-- <td>商品品牌</td> -->
                                 <td>商品描述</td>
                                 <td>数量</td>
-                                <td>价值($)</td>
+                                <!-- <td>价值($)</td> -->
                             </tr>
                             <tr ng-repeat="item in data.orderItems">
-                                <td align="center">{{item.itemBrand}}</td>
+                                  <!-- <td align="center">{{item.itemBrand}}</td> -->
                                 <td align="center" style="max-width: 300px;">
                                     <div style="display:block; overflow:hidden; text-overflow:ellipsis; max-height:44px;">
                                         {{item.description}} {{ !!item.property1 ? " " + item.property1 : "" }} {{ !!item.property2 ? " " + item.property2 : "" }}
@@ -197,7 +197,7 @@
                                     </div>
                                 </td>
                                 <td align="center">{{item.quantity}}</td>
-                                <td align="center">{{item.unitprice | number:2}}</td>
+                                <!-- <td align="center">{{item.unitprice | number:2}}</td> -->
                             </tr>
                         </table>
                     </td>
@@ -212,8 +212,10 @@
                     <td colspan="10" style="font-size:12px; font-weight: 100; width: 100%;">
                         <label style="float:left;">Remarks:</label>
                         <div style="clear:both;"></div>
-                        <div class="barcode" style="float:left;" trackingNumber="{{data.referenceOrderNumber}}"></div>
-                        <div style="float:right;">
+                        <div style="width:100%;text-align: center;">
+                            <div class="barcode" trackingNumber="{{data.referenceOrderNumber}}"></div>                            
+                        </div>
+                        <div style="margin-top:20px;text-align: center;">
                             <div class="barcode" trackingNumber="{{data.trackingNumber}}"></div>
                         </div>
                     </td>
