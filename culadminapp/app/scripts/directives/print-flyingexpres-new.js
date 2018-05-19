@@ -16,8 +16,8 @@ angular.module('culAdminApp')
           link: function postLink($scope, $element, attrs) {
               var barCodeSettings = {
                   addQuietZone: "1",
-                  barHeight: "25",
-                  barWidth: "1",
+                  barHeight: "40",
+                  barWidth: "2",
                   bgColor: "#FFFFFF",
                   color: "#000000",
                   moduleSize: "5",
