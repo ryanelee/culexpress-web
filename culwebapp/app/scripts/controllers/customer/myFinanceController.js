@@ -57,6 +57,9 @@ angular
             if ($scope.currentTabId === 'refund') {
                 operationType = 4;
             }
+            if ($scope.currentTabId === 'other') {
+                operationType = 5;
+            }
 
             $scope.userPay = function () {
                 var currentCustomer = AuthService.getUser();
@@ -241,7 +244,8 @@ angular
             $scope.myfinanceListData = [];
             $scope.myDebitListData = [];
             $scope.myRefundListData = [];
-            $scope.pagedRefundOptions = $scope.pagedDebitOptions = $scope.pagedOptions = {
+            $scope.othersData = [];
+            $scope.pagedOthersOptions = $scope.pagedRefundOptions = $scope.pagedDebitOptions = $scope.pagedOptions = {
                 total: 0,
                 size: 10
             }
@@ -274,7 +278,8 @@ angular
             }
             if ($location.path() === '/customer/myfinancedetail/recharge' || 
                 $location.path() === '/customer/myfinancedetail/debit' ||
-                $location.path() === '/customer/myfinancedetail/refund') {
+                $location.path() === '/customer/myfinancedetail/refund' ||
+                $location.path() === '/customer/myfinancedetail/other') {
                 loadFinanceLog(1, function (result) {
                     console.log(result)
                     if (operationType === 1) {
@@ -286,6 +291,9 @@ angular
                     } else if (operationType === 4) {
                         $scope.myRefundListData = result.data.data;
                         $scope.pagedRefundOptions.total = result.data.pageInfo.totalCount;
+                    } else if (operationType !== 1 && operationType !== 2 && operationType !== 3 && operationType !== 4) {
+                        $scope.othersData = result.data.data;
+                        $scope.pagedOthersOptions.total = result.data.pageInfo.totalCount;
                     }
                 });
             }
