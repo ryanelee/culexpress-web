@@ -311,6 +311,11 @@ angular
                 templateUrl: 'views/finance/financelist.html',
                 controller: 'FinanceListCtrl'
             })
+            .when('/finance/warehousePay', {
+                templateUrl: 'views/finance/finance-warehouse-pay.html',
+                controller: 'FinanceListCtrl'
+            })
+
             .when('/finance/financedetail', {
                 templateUrl: 'views/finance/financedetail.html',
                 controller: 'FinanceDetailCtrl'
