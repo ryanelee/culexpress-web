@@ -50,17 +50,13 @@
                     <td colspan="8" ng-if="data.shipServiceId != 9 && data.shipServiceId != 10 ">
                         <div>
                             <span>收件方：{{data.xtShipInfo.shipto}}
-                                 <!-- 电话：{{data.address.cellphoneNumber}} -->
                             </span><br>
-                            <!-- <span>收件地址：{{data.address.address1}}</span> -->
                         </div>
                     </td>
                     <td colspan="8" ng-if="data.shipServiceId == 9 || data.shipServiceId == 10 ">
                         <div>
                             <span>收件方：{{data.xtShipInfo.shipto}}
-                                <!-- 电话：{{data.address.cellphoneNumber}} -->
                             </span><br>
-                            <!-- <span>收件地址：{{data.address.addressPinyin}}</span> -->
                         </div>
                     </td>
                     <td colspan="2">
@@ -79,12 +75,6 @@
                                 <label style="font-size:12px; font-weight: 100;">Tel:0532-83867156</label>
                             </div>
                         </div>
-                        <!-- <div style="height: 25%; border-left: 0px none;padding:3px 15px;">
-                            <label>
-                                <div class="barcode" trackingNumber="{{data.xtTrackingNumber}}"></div>
-                            </label>
-                            <br />
-                        </div> -->
                     </td>
                 </tr>
                 <!-- <tr>
@@ -158,18 +148,14 @@
                 <tr>
                     <td colspan="6" ng-if="data.shipServiceId != 9 && data.shipServiceId != 10">
                         <div>
-                            <span>收件方：{{data.address.receiveCompanyName}}
-                                <!-- 电话：{{data.address.cellphoneNumber}} -->
+                            <span>收件方：{{data.xtShipInfo.shipto}}
                             </span><br>
-                            <!-- <span>{{data.address.address1}}</span> -->
                         </div>
                     </td>
                     <td colspan="6" ng-if="data.shipServiceId == 9 || data.shipServiceId == 10 ">
                         <div>
                             <span>收件方：{{data.xtShipInfo.shipto}}
-                               <!-- 电话：{{data.address.cellphoneNumber}} -->
                             </span>
-                            <!-- <span>{{data.address.addressPinyin}}</span> -->
                         </div>
                     </td>
                     <td colspan="4"> 
