@@ -15,8 +15,8 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
+            $scope.api = cul.apiPath;
             $location.search({ trackingNumber: null });
-
             $scope.dataList = [];
             $scope.customer_ids = JSON.parse($window.sessionStorage.getItem("role")).customer_ids;
 
@@ -39,7 +39,7 @@ angular.module('culAdminApp')
                 warehouseNumber: "",
                 exportStatus: ""
             }
-            $scope.searchBar.startDate = new Date();
+            $scope.searchBar.startDate = new Date('2017-01-01');
             $scope.searchBar.endDate = new Date();
 
             warehouseService.getWarehouse(function(result) {
@@ -55,8 +55,10 @@ angular.module('culAdminApp')
                 // $scope.searchBar.orderStatus = "Paid"
                 var _options = {
                     "pageInfo": $scope.pagination,
-                    "outDateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
-                    "outDateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : ""
+                    "orderStatus":["Shipped"],
+                    "orderType":'1',
+                    "dateFrom": !!$scope.searchBar.startDate ? new Date($scope.searchBar.startDate) : "",
+                    "dateTo": !!$scope.searchBar.endDate ? new Date($scope.searchBar.endDate) : ""
                 }
                 if (!!$scope.searchBar.orderStatus) {
                     _options["orderStatus"] = $scope.searchBar.orderStatus;
@@ -84,9 +86,10 @@ angular.module('culAdminApp')
 
             $scope.getData = function() {
                 var _options = _filterOptions();
-                warehouseService.getOutboundPackageList($.extend(angular.copy(_options), { hasWeight: true }), function(result) {
+                orderService.getList($.extend(angular.copy(_options), { hasWeight: true }), function(result) {
                     $scope.allTotal = result.allTotal;
                     var _data = result.data;
+                    console.log('_data',_data);
                     if ($scope.customer_ids != undefined && parseInt($scope.customer_ids) !== 0) {
                         _data = _data.filter(function(x) {
                             return $scope.customer_ids.split(",").includes(x.customerNumber);

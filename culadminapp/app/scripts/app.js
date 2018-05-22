@@ -313,7 +313,7 @@ angular
             })
             .when('/finance/warehousePay', {
                 templateUrl: 'views/finance/finance-warehouse-pay.html',
-                controller: 'FinanceListCtrl'
+                controller: 'FinanceWarehousePayCtrl'
             })
 
             .when('/finance/financedetail', {
