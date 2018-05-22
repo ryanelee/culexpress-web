@@ -7,6 +7,9 @@
                 <li ng-class="{active: $stateParams.tabId.includes('refund')}">
                     <a ui-sref="customer.myfinancedetail({tabId:'refund'})"> 退还运费</a>
                 </li>
+                <li ng-class="{active: $stateParams.tabId.includes('other')}">
+                    <a ui-sref="customer.myfinancedetail({tabId:'other'})">其它</a>
+                </li>
                 
             </ul>
 
@@ -96,9 +99,9 @@
                             <thead>
                                 <tr>
                                     <th style="min-width: 20px;">#</th>
-                                    <th>扣款类型</th>
-                                    <th>扣款项</th>
-                                    <th>扣款日期</th>
+                                    <th>返款类型</th>
+                                    <th>返款订单</th>
+                                    <th>返款日期</th>
                                     <th>金额</th>
                                 </tr>
                             </thead>
@@ -122,6 +125,41 @@
                         </table>
                         <div class="text-right">
                             <pagination options="pagedRefundOptions" on-page="onRefundPaged"></pagination>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-edit tab-pane fade" ng-class="{active: currentTabId==='other',in:currentTabId==='other'}">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 20px;">#</th>
+                                    <th>类型</th>
+                                    <th>返款/扣款原因</th>
+                                    <th>日期</th>
+                                    <th>金额</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="refundItem in othersData">
+                                    <td style="width:20px;">{{refundItem.rownumber}}</td>
+                                    <td>
+                                        {{refundItem.rechargeChannel}}
+                                    </td>
+                                    <td style="text-align:left;padding-left:5px">
+                                        {{refundItem.memo + ':' + refundItem.orderNumber}}
+                                    </td>
+                                    <td>
+                                        {{refundItem.indate|date:'yyyy年MM月dd日 HH:mm:ss'}}
+                                    </td>
+                                    <td>
+                                        {{refundItem.payment|currency:'¥'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+                            <pagination options="pagedOthersOptions" on-page="onRefundPaged"></pagination>
                         </div>
                     </div>
                 </div>
