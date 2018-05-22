@@ -1,7 +1,7 @@
 <div class="widget widget-table">
     <div class="widget-header">
         <h3>
-            <i class="fa fa-table"></i> 出库统计</h3>
+            <i class="fa fa-table"></i> 仓库消费情况表</h3>
     </div>
     <div class="widget-content">
         <form>
@@ -75,7 +75,6 @@
                         <input type="text" name="search" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字"
                             ng-model="searchBar.keywords" ng-enter="btnSearch()" />
                         <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
-                        {{api}}/downIdImage
                     <!-- <a class="btn btn-primary" style="margin-left:5px;" href="{{api}}/downIdImage?{{searchBar.keywordType}}={{searchBar.keywords}}">批量下载图片</a> -->
                         
                         <a   class="btn btn-primary" style="margin-left:5px;" href="{{api}}/exportWareHousePay?{{searchBar.keywordType}}={{searchBar.keywords}}&warehouseNumber={{searchBar.warehouseNumber}}&startDate={{searchBar.startDate}}&endDate={{searchBar.endDate}}">导出</a>
