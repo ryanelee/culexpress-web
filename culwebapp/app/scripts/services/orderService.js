@@ -179,7 +179,7 @@ angular.module('culwebApp')
                     //内件加固 0,1
                     pack_steadyInner: orderData.pack_steadyInner,
                     //更换外箱 0,1
-                    pack_replaceCarton: orderData.pack_replaceCarton,
+                    // pack_replaceCarton: orderData.pack_replaceCarton,
                     //去除内件 0,1
                     pack_removeInner: orderData.pack_removeInner,
                     //加套外箱 0,1
