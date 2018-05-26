@@ -94,7 +94,6 @@ angular.module('culwebApp')
                         });
                         item.actualTotalWeight = item.actualTotalWeight.toFixed(2);
                     });
-                    debugger;
                     $scope.dataList = result;
                     console.log("#scope.datalist",$scope.dataList);
                     $scope.pagination.totalCount = $scope.dataList.totalCount;
