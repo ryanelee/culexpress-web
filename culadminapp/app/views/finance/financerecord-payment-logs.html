@@ -68,7 +68,7 @@
                 <th>客户ID</th>
                 <th>支付方式</th>
                 <th>订单编号</th>
-                <th>支付宝交易号</th>
+                <!-- <th>支付宝交易号</th> -->
                 <th>支付金额</th>
                 <th>支付状态</th>
                 <th>支付日期</th>
@@ -82,7 +82,7 @@
                 <td>{{item.inuserName}}</td>
                 <td>{{item.operationType}}</td>
                 <td>{{item.orderNumber}}</td>
-                <td>{{item.rechargeNumber || ''}}</td>
+                <!-- <td>{{item.rechargeNumber || ''}}</td> -->
                 <td>{{item.payment}}</td>
                 <td>{{item.status == 1 ? "支付成功" : "支付失败"}}</td>
                 <td>{{item.indate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
