@@ -2,7 +2,7 @@
     <div class="widget-header">
         <h3><i class="fa fa-table"></i> 财务列表</h3>
     </div>
-    
+      
 
     <div class="widget-content">
         <form>
@@ -14,7 +14,7 @@
                                 ng-model="searchBar.warehouseNumber"
                                 ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
                     </div>-->
-                    <div class="clearfix"></div>
+                    <div class="clearfix"></div> 
                     <div class="search-col">
                         <label class="search-label">搜索条目：</label>
                         <select class="form-control search-control" ng-model="searchBar.keywordType">
@@ -22,6 +22,7 @@
                         </select>
                         <input type="text" name="search" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字" ng-model="searchBar.keywords" ng-enter="btnSearch()" />
                         <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                        <a type="button"  class="btn btn-primary" style="margin-left:5px;" href="{{api}}/exportUserAccount?{{searchBar.keywordType}}={{searchBar.keywords}}">导出</a>
                     </div>
                 </div>
             </div>

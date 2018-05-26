@@ -5,7 +5,7 @@
  * @name culAdminApp.controller:FinanceDetailCtrl
  * @description
  * # FinanceDetailCtrl
- * Controller of the culAdminApp
+ * Controller of the culAdminApp 
  */
 angular.module('culAdminApp')
   .controller('FinanceRecordCtrl', ["$scope", "$location", "$filter", "$window", "customerService", "warehouseService", "plugMessenger",

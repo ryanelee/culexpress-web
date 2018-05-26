@@ -6,7 +6,7 @@
  * @description
  * # FinanceDetailRechargeLogsCtrl
  * Controller of the culAdminApp
- */
+ */ 
 angular.module('culAdminApp')
     .controller('FinanceRecordRechargeLogsCtrl', ["$scope", "$location", "$filter", "customerService", "settlementService", "plugMessenger",
         function ($scope, $location, $filter, customerService, settlementService, plugMessenger) {
@@ -15,7 +15,7 @@ angular.module('culAdminApp')
                 'AngularJS',
                 'Karma'
             ];
-
+            $scope.api = cul.apiPath;
             $scope.tpl_status = {
                 "rechargeType": [
                     { "title": "全部", "value": "1,3,4,5,6,7" },
