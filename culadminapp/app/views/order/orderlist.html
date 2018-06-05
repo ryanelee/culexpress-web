@@ -230,8 +230,8 @@
                         </span>
                         <span ng-if="item.currencyCode != 'USD'" title="RMB">
                             <i class="fa fa-rmb" aria-hidden="true"></i>
-                        </span> 
-                        {{item.actualWeight == 0 ? item.paied : item.totalCount}}
+                        </span>   
+                        {{item.actualWeight == 0 ? item.paied-item.usedPoint : item.totalCount-item.usedPoint}}
                         <!-- {{item.totalPaied}} -->
                     </td>
                     <td>{{item._orderStatus}}</td>
@@ -256,6 +256,7 @@
                     <input id="dateTo" name="dateTo" type="hidden" value="{{exportOptions.dateTo}}" />
                     <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
                     <input id="printStatus" name="printStatus" type="hidden" value="{{exportOptions.printStatus}}" />
+                    <input id="orderType" name="orderType" type="hidden" value="{{exportOptions.orderType}}" />
                     <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
                     <input id="shipServiceId" name="shipServiceId" type="hidden" value="{{exportOptions.shipServiceId}}" />
                     <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />

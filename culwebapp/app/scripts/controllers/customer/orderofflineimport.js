@@ -85,7 +85,7 @@ angular.module('culwebApp')
 
             $scope.offlineOrderCreateExcel = function () {
                 // $timeout(function () {
-
+ 
                 orderService.offlineOrderCreateExcel({ fileId: $scope.fileId, customerNumber: AuthService.getUser().customerNumber }, function (result) {
                     $.each(result, function (index, item) {
                         item.actualTotalWeight = 0;
@@ -95,6 +95,7 @@ angular.module('culwebApp')
                         item.actualTotalWeight = item.actualTotalWeight.toFixed(2);
                     });
                     $scope.dataList = result;
+                    console.log("#scope.datalist",$scope.dataList);
                     $scope.pagination.totalCount = $scope.dataList.totalCount;
                 });
             }

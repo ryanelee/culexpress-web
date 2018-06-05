@@ -13,7 +13,7 @@ angular.module('culAdminApp')
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
-                'Karma'
+                'Karma' 
             ];
             $location.search({ trackingNumber: null });
 

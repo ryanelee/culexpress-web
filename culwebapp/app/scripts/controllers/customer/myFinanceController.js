@@ -54,6 +54,12 @@ angular
             if ($scope.currentTabId === 'debit') {
                 operationType = 2;
             }
+            if ($scope.currentTabId === 'refund') {
+                operationType = 4;
+            }
+            if ($scope.currentTabId === 'other') {
+                operationType = 5;
+            }
 
             $scope.userPay = function () {
                 var currentCustomer = AuthService.getUser();
@@ -236,7 +242,10 @@ angular
             }
 
             $scope.myfinanceListData = [];
-            $scope.pagedDebitOptions = $scope.pagedOptions = {
+            $scope.myDebitListData = [];
+            $scope.myRefundListData = [];
+            $scope.othersData = [];
+            $scope.pagedOthersOptions = $scope.pagedRefundOptions = $scope.pagedDebitOptions = $scope.pagedOptions = {
                 total: 0,
                 size: 10
             }
@@ -247,7 +256,6 @@ angular
                     });
             }
 
-
             $scope.onPaged = function (pageIndex) {
                 loadFinanceLog(pageIndex, function () {
                     $scope.myfinanceListData = result.data.data;
@@ -255,24 +263,37 @@ angular
                 });
             }
 
-
-            $scope.myDebitListData = []
-
-
             $scope.onDebitPaged = function (pageIndex) {
                 loadFinanceLog(pageIndex, function (result) {
                     $scope.myDebitListData = result.data.data;
                     $scope.pagedDebitOptions.total = result.data.pageInfo.totalCount;
                 });
             }
-            if ($location.path() === '/customer/myfinancedetail/recharge' || $location.path() === '/customer/myfinancedetail/debit') {
+
+            $scope.onRefundPaged = function (pageIndex) {
+                loadFinanceLog(pageIndex, function (result) {
+                    $scope.myRefundListData = result.data.data;
+                    $scope.pagedRefundOptions.total = result.data.pageInfo.totalCount;
+                });
+            }
+            if ($location.path() === '/customer/myfinancedetail/recharge' || 
+                $location.path() === '/customer/myfinancedetail/debit' ||
+                $location.path() === '/customer/myfinancedetail/refund' ||
+                $location.path() === '/customer/myfinancedetail/other') {
                 loadFinanceLog(1, function (result) {
+                    console.log(result)
                     if (operationType === 1) {
                         $scope.myfinanceListData = result.data.data;
                         $scope.pagedOptions.total = result.data.pageInfo.totalCount;
                     } else if (operationType === 2) {
                         $scope.myDebitListData = result.data.data;
                         $scope.pagedDebitOptions.total = result.data.pageInfo.totalCount;
+                    } else if (operationType === 4) {
+                        $scope.myRefundListData = result.data.data;
+                        $scope.pagedRefundOptions.total = result.data.pageInfo.totalCount;
+                    } else if (operationType !== 1 && operationType !== 2 && operationType !== 3 && operationType !== 4) {
+                        $scope.othersData = result.data.data;
+                        $scope.pagedOthersOptions.total = result.data.pageInfo.totalCount;
                     }
                 });
             }

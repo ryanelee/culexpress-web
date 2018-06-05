@@ -1,0 +1,193 @@
+<div class="widget widget-table">
+    <div class="widget-header"> 
+        <h3>
+            <i class="fa fa-table"></i> 仓库消费情况表</h3>
+    </div>
+    <div class="widget-content">
+        <form> 
+            <div class="row">
+                <!--<div class="col-sm-12" style="padding:0 20px 15px 12px;">
+                    <button type="button" class="btn btn-primary role" data-role="71" style="margin-left:5px;" ng-click="addPackage('online');">打包登记(线上订单)</button>
+                    <button type="button" class="btn btn-primary role" data-role="72" style="margin-left:5px;" ng-click="addPackage('offline');">打包登记(线下订单)</button>
+                </div>-->
+                <div class="col-sm-12 search-bar">
+                    <!--<div class="search-col">
+                        <label class="search-label">订单状态：</label>
+                        <select class="form-control search-control" ng-model="searchBar.orderStatus">
+                            <option value="">全部(不包括已删除)</option>
+                            <option value="Unpaid">待支付</option>
+                            <option value="Paid">已支付</option>
+                            <option value="Processing">处理中</option>
+                            <option value="Arrears">运费不足</option>
+                            <option value="Shipped">已出库</option>
+                            <option value="Void">已删除</option>
+                        </select>
+                    </div>-->
+                    <!--<div class="search-col">
+                        <label class="search-label">导出状态：</label>
+                        <select class="form-control search-control" ng-model="searchBar.exportStatus">
+                            <option value="">全部(不包括已删除)</option>
+                            <option value="UnExported">未导出</option>
+                            <option value="Exported">已导出</option>
+                        </select>
+                    </div>-->
+                    <div class="search-col">
+                        <label class="search-label">发货仓库：</label>
+                        <select class="form-control search-control" ng-model="searchBar.warehouseNumber" ng-options="item.warehouseNumber as item.warehouseName for item in searchBar.warehouseList"></select>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">开始日期：</label>
+                        <p class="input-group">
+                            <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.startDate"
+                                is-open="searchBar.opened.startDate" show-button-bar="false" ng-click="searchBar.opened.startDate = true"
+                            />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="searchBar.opened.startDate = true">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="search-col">
+                        <label class="search-label">结束日期：</label>
+                        <p class="input-group">
+                            <input type="text" class="form-control search-control" style="width:110px;" uib-datepicker-popup ng-model="searchBar.endDate"
+                                is-open="searchBar.opened.endDate" show-button-bar="false" ng-click="searchBar.opened.endDate = true"
+                            />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="searchBar.opened.endDate = true">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="search-col">
+                        <label class="search-label">搜索条目：</label>
+                        <select class="form-control search-control" ng-model="searchBar.keywordType">
+                            <option value="customerNumber">客户编号</option>
+                            <option value="orderNumber">订单编号</option>
+                            <!-- <option value="trackingNumber">包裹单号</option> -->
+                            <!--<option value="receiveidentity">客户标示</option>
+                            <option value="referenceOrderNumber">客户关联号</option>
+                            <option value="cnTrackingNumber">国内物流号</option>-->
+                        </select>
+                        <input type="text" name="search" id="search" class="form-control search-control" style="margin-left:5px; width:480px;" placeholder="请输入查询关键字"
+                            ng-model="searchBar.keywords" ng-enter="btnSearch()" />
+                        <button type="button" id="submit" class="btn btn-primary" style="margin-left:5px;" ng-click="btnSearch()">搜索</button>
+                    <!-- <a class="btn btn-primary" style="margin-left:5px;" href="{{api}}/downIdImage?{{searchBar.keywordType}}={{searchBar.keywords}}">批量下载图片</a> -->
+                        
+                        <a   class="btn btn-primary" style="margin-left:5px;" href="{{api}}/exportWareHousePay?{{searchBar.keywordType}}={{searchBar.keywords}}&warehouseNumber={{searchBar.warehouseNumber}}&startDate={{searchBar.startDate}}&endDate={{searchBar.endDate}}">导出</a>
+                    </div>
+                </div>
+                <div class="col-sm-12 search-bar" ng-show="selectedListCache.length > 0">
+                    <div class="search-col" style="margin-bottom: 0px;">
+                        <label class="search-label">已选择：{{selectedListCache.length}}个订单</label>
+                        <button type="button" class="btn btn-link" ng-click="btnClearSelectedListCache();">清除已选项</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <th>序号</th>
+                        <th>仓库位置</th>
+                        <th>订单编号</th>
+                        <th>cul单号</th>
+                        <th>客户编号</th>
+                        <th>支付金额</th>
+                        <th>支付日期</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in dataList">
+                            <td>{{item.rownumber}}</td>
+                            <td>{{item.warehouseName}}</td>
+                            <td>{{item.orderNumber}}</td>
+                            <td>
+                                <p ng-repeat="cul in item._outboundTrackingNumbers">{{cul}}</p>
+                            </td>
+                            <td>{{item.customerNumber}}</td>
+                            <td>{{item.paied}}</td>
+                            <td>{{item.payDate | date:"yyyy-MM-dd"}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <div class="widget-content">
+                    <div class="search-bar">
+                        <div class="search-col" style="margin-bottom: 0px;">
+                            <label class="search-label">总计重量：</label>
+                            <input class="form-control" type="text" disabled value="{{allTotal.allActualWeight}}" />
+                        </div>
+                        <div class="search-col" style="margin-bottom: 0px;">
+                            <label class="search-label">总计：</label>
+                            <input class="form-control" type="text" disabled value="{{pagination.totalCount}}" />
+                        </div>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <!--<div class="col-sm-6 text-left pull-left">
+                        <form style="float:left;" id="form_export_order" method="post" action="/" target="_blank">
+                            <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
+                            <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
+
+                            <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
+                            <input id="userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
+                            <input id="orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
+                            <input id="outBoundTrackingNumber" name="outBoundTrackingNumber" type="hidden" value="{{exportOptions.trackingNumber}}" />
+                            <input id="receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
+                            <input id="referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}" />
+                            <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
+                            <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
+                            <button type="submit" class="btn btn-primary role" data-role="74">导出订单列表</button>
+                        </form>
+
+                        <form style="float:left; margin:0 4px;" id="form_export_send" method="post" action="/" target="_blank">
+                            <input id="orderStatus" name="orderStatus" type="hidden" value="{{exportOptions.orderStatus}}" />
+                            <input id="warehouseNumber" name="warehouseNumber" type="hidden" value="{{exportOptions.warehouseNumber}}" />
+
+                            <input id="customerNumber" name="customerNumber" type="hidden" value="{{exportOptions.customerNumber}}" />
+                            <input id="userName" name="userName" type="hidden" value="{{exportOptions.userName}}" />
+                            <input id="orderNumber" name="orderNumber" type="hidden" value="{{exportOptions.orderNumber}}" />
+                            <input id="trackingNumber" name="trackingNumber" type="hidden" value="{{exportOptions.trackingNumber}}" />
+                            <input id="receiveidentity" name="receiveidentity" type="hidden" value="{{exportOptions.receiveidentity}}" />
+                            <input id="referenceOrderNumber" name="referenceOrderNumber" type="hidden" value="{{exportOptions.referenceOrderNumber}}" />
+                            <input id="cnTrackingNumber" name="cnTrackingNumber" type="hidden" value="{{exportOptions.cnTrackingNumber}}" />
+                            <input id="hasWeight" name="hasWeight" type="hidden" value="true" />
+                            <input id="token" name="token" type="hidden" value="{{exportOptions.token}}" />
+                            <button type="submit" class="btn btn-primary role" data-role="75">导出发货清单</button>
+                        </form>
+                        <button style="float:left" type="button" class="btn btn-primary" ng-click="btnBatchOutBound()">批量出库</button>
+                        <button style="float:left" id="tip_batchOutbound" type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                    </div>-->
+                    <div class="col-sm-6 text-right pull-right">
+                        <uib-pagination class="pagination pagination-rewrite pull-right" boundary-links="true" max-size="5" total-items="pagination.totalCount"
+                            items-per-page="pagination.pageSize" ng-model="pagination.pageIndex" ng-change="getData()" previous-text="上一页"
+                            next-text="下一页" first-text="首页" last-text="尾页">
+                        </uib-pagination>
+                        <select class="form-control pull-right" style="width:70px;" ng-model="pagination.pageSize" ng-change="getData()">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<print-flying-express></print-flying-express>
+
+<script>
+    var search = document.getElementById('search');
+    search.focus();
+    search.addEventListener('keypress', function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            document.getElementById('submit').click();
+        }
+    });
+</script>

@@ -91,11 +91,11 @@
                 <h4>增值服务: </h4>
                 <div>
                     <span class="margin-left-20" ng-show="data.pack_takeoutInvoice == null && data.pack_urgentProcess == null 
-            && data.pack_steadyInner == null && data.pack_replaceCarton == null && data.pack_removeInner == null"><i class="fa fa-times-circle"></i> 没有选择任何增值服务</span>
+            && data.pack_steadyInner == null && data.pack_removeInner == null"><i class="fa fa-times-circle"></i> 没有选择任何增值服务</span>
                     <span class="margin-left-20" ng-show="data.pack_takeoutInvoice == 1"><i class="fa fa-check-circle"></i> 取出发票</span>
                     <span class="margin-left-20" ng-show="data.pack_urgentProcess == 1"><i class="fa fa-check-circle"></i> 加急处理</span>
                     <span class="margin-left-20" ng-show="data.pack_steadyInner == 1"><i class="fa fa-check-circle"></i> 内件加固</span>
-                    <span class="margin-left-20" ng-show="data.pack_replaceCarton == 1"><i class="fa fa-check-circle"></i >更换外箱</span>
+                    <!-- <span class="margin-left-20" ng-show="data.pack_replaceCarton == 1"><i class="fa fa-check-circle"></i >更换外箱</span> -->
                     <span class="margin-left-20" ng-show="data.pack_removeInner == 1"><i class="fa fa-check-circle"></i> 去鞋盒/包装</span>
                     <span class="margin-left-20" ng-show="data.pack_addCarton == 1"><i class="fa fa-check-circle"></i >加套外箱</span>
                     <!-- <span class="margin-left-20" ng-show="data.pack_checkCount == 1"><i class="fa fa-check-circle"></i> 清点拍照</span> -->
@@ -170,7 +170,7 @@
                                     <a class="btn-u bg-color-ffb" style="padding: 1px 5px; color: #fff; margin-top: 5px;" ui-sref="ordertracking({trackingNumber:'{{packageItem.trackingNumber}}'})" target="_blank">
                                         <i class="fa fa-truck"></i> 查看包裹轨迹</a>
                                 </th>
-                                <td colspan="8" style="padding: 0;">
+                                <td colspan="8" style="padding: 0;"> 
                                     <table class="table" style="margin-bottom: 0;">
                                         <tr ng-repeat="orderItem in packageItem.items">
                                             <td style="width: 12%;">{{orderItem.itemBrand}}</td>
@@ -179,7 +179,7 @@
                                             <td style="width: 10%;">{{orderItem.quantity}}</td>
                                             <td style="width: 10%;">{{packageItem.actualWeight}}磅</td>                           
                                             <td style="width: 14%;">{{orderItem.unitprice|currency}}</td>
-                                            <td style="width: 12%;">{{(orderItem.quantity*orderItem.unitprice)|currency}}</td>
+                                            <td style="width: 12%;" ><span ng-if="packageItem.status != 'Init'">{{(orderItem.quantity*orderItem.unitprice)|currency}}</span></td>
                                             <td style="width: 6%;">{{packageItem.status|_outPackageStatus}}</td>
                                         </tr>
                                         <tr style="border-bottom: 0;">

@@ -6,7 +6,7 @@ angular.module('culwebApp')
             this.awesomeThings = [
                 'HTML5 Boilerplate',
                 'AngularJS',
-                'Karma'
+                'Karma' 
             ];
             console.log("hello")
             $scope.imageArr = []; 
@@ -63,7 +63,7 @@ angular.module('culwebApp')
                     $scope.currentUser.accountBalance = result.data.accountBalance;
                     AuthService.setUser($scope.currentUser);
                 });
-
+ 
             $scope.data = {};
             $scope.data.orderMessageInfo = {};
             if (orderId) {
@@ -71,6 +71,7 @@ angular.module('culwebApp')
                     .getOrderInfo(orderId)
                     .then(function (result) {
                         $scope.data = result.data;
+                         console.log('result.data',result.data);
                         if ($scope.data.actualWeight == 0
                             && $scope.data.inboundPackages && $scope.data.inboundPackages.length > 0) {
                             $scope.data.inboundPackages.forEach(function (i) {

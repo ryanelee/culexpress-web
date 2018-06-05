@@ -171,7 +171,7 @@ angular.module('culwebApp')
             }).success(function (result) {
                 callback(result);
             });
-        }
+        } 
 
         self.offlineOrderCreateExcel = function (obj, callback) {
             $http.post(cul.apiPath + '/order/offlineOrderCreateExcelWeb', obj).success(function (result) {
