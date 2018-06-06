@@ -141,6 +141,7 @@
               <!-- <p>请填写真实的身份证号码，身份证号码是15或18位数字。</p>
               <p class="text-danger">在需要身份证清关的渠道使用，请确保身份证号码持有人与收件人姓名对应。</p> -->
           </div>
+          <div style="display: inline-block;width:100%;">
           <div class="form-group left-row">
             <label class="label">身份证正面照</label>
             <div class="shen">
@@ -174,10 +175,12 @@
                 在需要身份证清关的渠道使用,和收件人姓名对应.<a href="/images/ecard2.jpg" target="_blank">点击参考反面样例</a>
             </p>
           </div>
+            </div>
           <div class="form-group" ng-show="adsFlag == '1'" style="display:inline-block;width:100%;">
               <label class="label">身份证地址<span style="color:red;">*</span></label>
               <input type="text" class="form-control" ng-model="data.idCardAddress">
           </div>
+          <br>
           <div class="form-group">
               <label class="label">收货地址</label><span style="color:red;">*</span>
               <div class="row">
