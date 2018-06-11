@@ -22,9 +22,9 @@
             width: 17%;
         }
     </style>
-    <div id="print_FLYINGExpress_Template" ng-repeat="data in dataList">
+    <div id="print_FLYINGExpress_Template" ng-repeat="data in dataList" style="height:100%;">
         <div><img class="iamge" src="assets/img/kingadmin-logo.png" /></div>
-        <table cellpadding="2" cellspacing="0" border="1" width="100%" height="{{data.orderItems.length > 2 ? '95%':'45%'}}">
+        <table cellpadding="2" cellspacing="0" border="1" width="100%" 
             <tr>
                 <th colspan="6">客户信息</th>
             </tr>
@@ -111,9 +111,9 @@
             </tr>
         </table>
         <hr style="margin:2.5% auto; width:100%; color: #666;" ng-if="data.orderItems.length <= 2" />
-        <div style="text-align: center;">
+        <div style="text-align: center;padding:10px;">
             <div class="barcode" trackingNumber="{{data.trackingNumber}}"></div>
         </div>
-        <div style="height:55%" ng-if="data.orderItems.length > 2"></div>
+        <!-- <div style="height:55%" ng-if="data.orderItems.length > 2"></div> -->
     </div>
 </div>
